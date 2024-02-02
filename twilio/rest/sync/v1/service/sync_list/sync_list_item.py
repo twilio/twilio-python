@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class SyncListItemInstance(InstanceResource):
+
     class QueryFromBoundType(object):
         INCLUSIVE = "inclusive"
         EXCLUSIVE = "exclusive"
@@ -204,6 +205,7 @@ class SyncListItemInstance(InstanceResource):
 
 
 class SyncListItemContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, list_sid: str, index: int):
         """
         Initialize the SyncListItemContext
@@ -402,6 +404,7 @@ class SyncListItemContext(InstanceContext):
 
 
 class SyncListItemPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SyncListItemInstance:
         """
         Build an instance of SyncListItemInstance
@@ -425,6 +428,7 @@ class SyncListItemPage(Page):
 
 
 class SyncListItemList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, list_sid: str):
         """
         Initialize the SyncListItemList
@@ -462,6 +466,7 @@ class SyncListItemList(ListResource):
 
         :returns: The created SyncListItemInstance
         """
+
         data = values.of(
             {
                 "Data": serialize.object(data),
@@ -501,6 +506,7 @@ class SyncListItemList(ListResource):
 
         :returns: The created SyncListItemInstance
         """
+
         data = values.of(
             {
                 "Data": serialize.object(data),

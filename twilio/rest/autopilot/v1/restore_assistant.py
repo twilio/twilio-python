@@ -70,6 +70,7 @@ class RestoreAssistantInstance(InstanceResource):
 
 
 class RestoreAssistantList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the RestoreAssistantList

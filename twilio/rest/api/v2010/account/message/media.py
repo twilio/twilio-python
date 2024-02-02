@@ -126,6 +126,7 @@ class MediaInstance(InstanceResource):
 
 
 class MediaContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, message_sid: str, sid: str):
         """
         Initialize the MediaContext
@@ -226,6 +227,7 @@ class MediaContext(InstanceContext):
 
 
 class MediaPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MediaInstance:
         """
         Build an instance of MediaInstance
@@ -249,6 +251,7 @@ class MediaPage(Page):
 
 
 class MediaList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, message_sid: str):
         """
         Initialize the MediaList

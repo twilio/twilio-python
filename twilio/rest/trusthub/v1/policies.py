@@ -88,6 +88,7 @@ class PoliciesInstance(InstanceResource):
 
 
 class PoliciesContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the PoliciesContext
@@ -152,6 +153,7 @@ class PoliciesContext(InstanceContext):
 
 
 class PoliciesPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> PoliciesInstance:
         """
         Build an instance of PoliciesInstance
@@ -170,6 +172,7 @@ class PoliciesPage(Page):
 
 
 class PoliciesList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the PoliciesList

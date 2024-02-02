@@ -211,6 +211,7 @@ class TaskInstance(InstanceResource):
 
 
 class TaskContext(InstanceContext):
+
     def __init__(self, version: Version, assistant_sid: str, sid: str):
         """
         Initialize the TaskContext
@@ -438,6 +439,7 @@ class TaskContext(InstanceContext):
 
 
 class TaskPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TaskInstance:
         """
         Build an instance of TaskInstance
@@ -458,6 +460,7 @@ class TaskPage(Page):
 
 
 class TaskList(ListResource):
+
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the TaskList
@@ -491,6 +494,7 @@ class TaskList(ListResource):
 
         :returns: The created TaskInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -527,6 +531,7 @@ class TaskList(ListResource):
 
         :returns: The created TaskInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

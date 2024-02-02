@@ -84,6 +84,7 @@ class UserInfoInstance(InstanceResource):
 
 
 class UserInfoContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the UserInfoContext
@@ -141,6 +142,7 @@ class UserInfoContext(InstanceContext):
 
 
 class UserInfoList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the UserInfoList

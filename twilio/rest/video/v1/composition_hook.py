@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class CompositionHookInstance(InstanceResource):
+
     class Format(object):
         MP4 = "mp4"
         WEBM = "webm"
@@ -225,6 +226,7 @@ class CompositionHookInstance(InstanceResource):
 
 
 class CompositionHookContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the CompositionHookContext
@@ -334,13 +336,13 @@ class CompositionHookContext(InstanceContext):
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "VideoLayout": serialize.object(video_layout),
                 "AudioSources": serialize.map(audio_sources, lambda e: e),
                 "AudioSourcesExcluded": serialize.map(
                     audio_sources_excluded, lambda e: e
                 ),
-                "Trim": trim,
+                "Trim": serialize.boolean_to_string(trim),
                 "Format": format,
                 "Resolution": resolution,
                 "StatusCallback": status_callback,
@@ -390,13 +392,13 @@ class CompositionHookContext(InstanceContext):
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "VideoLayout": serialize.object(video_layout),
                 "AudioSources": serialize.map(audio_sources, lambda e: e),
                 "AudioSourcesExcluded": serialize.map(
                     audio_sources_excluded, lambda e: e
                 ),
-                "Trim": trim,
+                "Trim": serialize.boolean_to_string(trim),
                 "Format": format,
                 "Resolution": resolution,
                 "StatusCallback": status_callback,
@@ -425,6 +427,7 @@ class CompositionHookContext(InstanceContext):
 
 
 class CompositionHookPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CompositionHookInstance:
         """
         Build an instance of CompositionHookInstance
@@ -443,6 +446,7 @@ class CompositionHookPage(Page):
 
 
 class CompositionHookList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CompositionHookList
@@ -483,10 +487,11 @@ class CompositionHookList(ListResource):
 
         :returns: The created CompositionHookInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "VideoLayout": serialize.object(video_layout),
                 "AudioSources": serialize.map(audio_sources, lambda e: e),
                 "AudioSourcesExcluded": serialize.map(
@@ -496,7 +501,7 @@ class CompositionHookList(ListResource):
                 "Format": format,
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
-                "Trim": trim,
+                "Trim": serialize.boolean_to_string(trim),
             }
         )
 
@@ -537,10 +542,11 @@ class CompositionHookList(ListResource):
 
         :returns: The created CompositionHookInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "VideoLayout": serialize.object(video_layout),
                 "AudioSources": serialize.map(audio_sources, lambda e: e),
                 "AudioSourcesExcluded": serialize.map(
@@ -550,7 +556,7 @@ class CompositionHookList(ListResource):
                 "Format": format,
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
-                "Trim": trim,
+                "Trim": serialize.boolean_to_string(trim),
             }
         )
 
@@ -743,7 +749,7 @@ class CompositionHookList(ListResource):
         """
         data = values.of(
             {
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
                 "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
                 "FriendlyName": friendly_name,
@@ -782,7 +788,7 @@ class CompositionHookList(ListResource):
         """
         data = values.of(
             {
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
                 "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
                 "FriendlyName": friendly_name,

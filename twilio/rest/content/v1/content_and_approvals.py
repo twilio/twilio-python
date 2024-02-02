@@ -65,6 +65,7 @@ class ContentAndApprovalsInstance(InstanceResource):
 
 
 class ContentAndApprovalsPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ContentAndApprovalsInstance:
         """
         Build an instance of ContentAndApprovalsInstance
@@ -83,6 +84,7 @@ class ContentAndApprovalsPage(Page):
 
 
 class ContentAndApprovalsList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ContentAndApprovalsList

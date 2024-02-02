@@ -113,6 +113,7 @@ class DefaultsInstance(InstanceResource):
 
 
 class DefaultsContext(InstanceContext):
+
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the DefaultsContext
@@ -229,6 +230,7 @@ class DefaultsContext(InstanceContext):
 
 
 class DefaultsList(ListResource):
+
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the DefaultsList

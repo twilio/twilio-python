@@ -22,6 +22,7 @@ from twilio.base.version import Version
 
 
 class FeedbackInstance(InstanceResource):
+
     class Outcome(object):
         CONFIRMED = "confirmed"
         UNCONFIRMED = "unconfirmed"
@@ -71,6 +72,7 @@ class FeedbackInstance(InstanceResource):
 
 
 class FeedbackList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, message_sid: str):
         """
         Initialize the FeedbackList
@@ -103,6 +105,7 @@ class FeedbackList(ListResource):
 
         :returns: The created FeedbackInstance
         """
+
         data = values.of(
             {
                 "Outcome": outcome,
@@ -132,6 +135,7 @@ class FeedbackList(ListResource):
 
         :returns: The created FeedbackInstance
         """
+
         data = values.of(
             {
                 "Outcome": outcome,

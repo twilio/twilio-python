@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class MemberInstance(InstanceResource):
+
     class WebhookEnabledType(object):
         TRUE = "true"
         FALSE = "false"
@@ -230,6 +231,7 @@ class MemberInstance(InstanceResource):
 
 
 class MemberContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
         """
         Initialize the MemberContext
@@ -460,6 +462,7 @@ class MemberContext(InstanceContext):
 
 
 class MemberPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MemberInstance:
         """
         Build an instance of MemberInstance
@@ -483,6 +486,7 @@ class MemberPage(Page):
 
 
 class MemberList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
         Initialize the MemberList
@@ -530,6 +534,7 @@ class MemberList(ListResource):
 
         :returns: The created MemberInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,
@@ -548,6 +553,7 @@ class MemberList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -586,6 +592,7 @@ class MemberList(ListResource):
 
         :returns: The created MemberInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,
@@ -604,6 +611,7 @@ class MemberList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

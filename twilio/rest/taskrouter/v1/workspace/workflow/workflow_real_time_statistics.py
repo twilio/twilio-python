@@ -125,6 +125,7 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
 
 
 class WorkflowRealTimeStatisticsContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
         """
         Initialize the WorkflowRealTimeStatisticsContext
@@ -211,6 +212,7 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
 
 
 class WorkflowRealTimeStatisticsList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
         """
         Initialize the WorkflowRealTimeStatisticsList

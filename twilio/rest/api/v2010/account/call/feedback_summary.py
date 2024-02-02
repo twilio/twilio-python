@@ -22,6 +22,7 @@ from twilio.base.version import Version
 
 
 class FeedbackSummaryInstance(InstanceResource):
+
     class Status(object):
         QUEUED = "queued"
         IN_PROGRESS = "in-progress"
@@ -69,7 +70,7 @@ class FeedbackSummaryInstance(InstanceResource):
             payload.get("end_date")
         )
         self.include_subaccounts: Optional[bool] = payload.get("include_subaccounts")
-        self.issues: Optional[List[object]] = payload.get("issues")
+        self.issues: Optional[List[Dict[str, object]]] = payload.get("issues")
         self.quality_score_average: Optional[float] = deserialize.decimal(
             payload.get("quality_score_average")
         )
@@ -154,6 +155,7 @@ class FeedbackSummaryInstance(InstanceResource):
 
 
 class FeedbackSummaryContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the FeedbackSummaryContext
@@ -248,6 +250,7 @@ class FeedbackSummaryContext(InstanceContext):
 
 
 class FeedbackSummaryList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the FeedbackSummaryList
@@ -285,11 +288,12 @@ class FeedbackSummaryList(ListResource):
 
         :returns: The created FeedbackSummaryInstance
         """
+
         data = values.of(
             {
                 "StartDate": serialize.iso8601_date(start_date),
                 "EndDate": serialize.iso8601_date(end_date),
-                "IncludeSubaccounts": include_subaccounts,
+                "IncludeSubaccounts": serialize.boolean_to_string(include_subaccounts),
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
             }
@@ -324,11 +328,12 @@ class FeedbackSummaryList(ListResource):
 
         :returns: The created FeedbackSummaryInstance
         """
+
         data = values.of(
             {
                 "StartDate": serialize.iso8601_date(start_date),
                 "EndDate": serialize.iso8601_date(end_date),
-                "IncludeSubaccounts": include_subaccounts,
+                "IncludeSubaccounts": serialize.boolean_to_string(include_subaccounts),
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
             }

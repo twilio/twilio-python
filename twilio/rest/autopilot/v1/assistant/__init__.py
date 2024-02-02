@@ -269,6 +269,7 @@ class AssistantInstance(InstanceResource):
 
 
 class AssistantContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the AssistantContext
@@ -383,7 +384,7 @@ class AssistantContext(InstanceContext):
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "LogQueries": log_queries,
+                "LogQueries": serialize.boolean_to_string(log_queries),
                 "UniqueName": unique_name,
                 "CallbackUrl": callback_url,
                 "CallbackEvents": callback_events,
@@ -429,7 +430,7 @@ class AssistantContext(InstanceContext):
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "LogQueries": log_queries,
+                "LogQueries": serialize.boolean_to_string(log_queries),
                 "UniqueName": unique_name,
                 "CallbackUrl": callback_url,
                 "CallbackEvents": callback_events,
@@ -554,6 +555,7 @@ class AssistantContext(InstanceContext):
 
 
 class AssistantPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AssistantInstance:
         """
         Build an instance of AssistantInstance
@@ -572,6 +574,7 @@ class AssistantPage(Page):
 
 
 class AssistantList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AssistantList
@@ -606,10 +609,11 @@ class AssistantList(ListResource):
 
         :returns: The created AssistantInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "LogQueries": log_queries,
+                "LogQueries": serialize.boolean_to_string(log_queries),
                 "UniqueName": unique_name,
                 "CallbackUrl": callback_url,
                 "CallbackEvents": callback_events,
@@ -649,10 +653,11 @@ class AssistantList(ListResource):
 
         :returns: The created AssistantInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "LogQueries": log_queries,
+                "LogQueries": serialize.boolean_to_string(log_queries),
                 "UniqueName": unique_name,
                 "CallbackUrl": callback_url,
                 "CallbackEvents": callback_events,

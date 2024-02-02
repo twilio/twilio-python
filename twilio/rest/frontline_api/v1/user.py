@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, Optional, Union
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,6 +21,7 @@ from twilio.base.version import Version
 
 
 class UserInstance(InstanceResource):
+
     class StateType(object):
         ACTIVE = "active"
         DEACTIVATED = "deactivated"
@@ -145,6 +146,7 @@ class UserInstance(InstanceResource):
 
 
 class UserContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the UserContext
@@ -220,7 +222,7 @@ class UserContext(InstanceContext):
                 "FriendlyName": friendly_name,
                 "Avatar": avatar,
                 "State": state,
-                "IsAvailable": is_available,
+                "IsAvailable": serialize.boolean_to_string(is_available),
             }
         )
 
@@ -254,7 +256,7 @@ class UserContext(InstanceContext):
                 "FriendlyName": friendly_name,
                 "Avatar": avatar,
                 "State": state,
-                "IsAvailable": is_available,
+                "IsAvailable": serialize.boolean_to_string(is_available),
             }
         )
 
@@ -277,6 +279,7 @@ class UserContext(InstanceContext):
 
 
 class UserList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the UserList

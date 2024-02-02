@@ -93,6 +93,7 @@ class InsightsSessionInstance(InstanceResource):
 
 
 class InsightsSessionContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the InsightsSessionContext
@@ -156,6 +157,7 @@ class InsightsSessionContext(InstanceContext):
 
 
 class InsightsSessionList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the InsightsSessionList

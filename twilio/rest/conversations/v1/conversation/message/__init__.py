@@ -26,6 +26,7 @@ from twilio.rest.conversations.v1.conversation.message.delivery_receipt import (
 
 
 class MessageInstance(InstanceResource):
+
     class OrderType(object):
         ASC = "asc"
         DESC = "desc"
@@ -67,7 +68,7 @@ class MessageInstance(InstanceResource):
         self.index: Optional[int] = deserialize.integer(payload.get("index"))
         self.author: Optional[str] = payload.get("author")
         self.body: Optional[str] = payload.get("body")
-        self.media: Optional[List[object]] = payload.get("media")
+        self.media: Optional[List[Dict[str, object]]] = payload.get("media")
         self.attributes: Optional[str] = payload.get("attributes")
         self.participant_sid: Optional[str] = payload.get("participant_sid")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
@@ -243,6 +244,7 @@ class MessageInstance(InstanceResource):
 
 
 class MessageContext(InstanceContext):
+
     def __init__(self, version: Version, conversation_sid: str, sid: str):
         """
         Initialize the MessageContext
@@ -476,6 +478,7 @@ class MessageContext(InstanceContext):
 
 
 class MessagePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MessageInstance:
         """
         Build an instance of MessageInstance
@@ -496,6 +499,7 @@ class MessagePage(Page):
 
 
 class MessageList(ListResource):
+
     def __init__(self, version: Version, conversation_sid: str):
         """
         Initialize the MessageList
@@ -545,6 +549,7 @@ class MessageList(ListResource):
 
         :returns: The created MessageInstance
         """
+
         data = values.of(
             {
                 "Author": author,
@@ -563,6 +568,7 @@ class MessageList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -602,6 +608,7 @@ class MessageList(ListResource):
 
         :returns: The created MessageInstance
         """
+
         data = values.of(
             {
                 "Author": author,
@@ -620,6 +627,7 @@ class MessageList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

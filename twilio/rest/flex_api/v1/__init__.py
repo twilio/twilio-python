@@ -44,6 +44,7 @@ from twilio.rest.flex_api.v1.web_channel import WebChannelList
 
 
 class V1(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of FlexApi

@@ -136,6 +136,7 @@ class MemberInstance(InstanceResource):
 
 
 class MemberContext(InstanceContext):
+
     def __init__(
         self, version: Version, account_sid: str, queue_sid: str, call_sid: str
     ):
@@ -278,6 +279,7 @@ class MemberContext(InstanceContext):
 
 
 class MemberPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MemberInstance:
         """
         Build an instance of MemberInstance
@@ -301,6 +303,7 @@ class MemberPage(Page):
 
 
 class MemberList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, queue_sid: str):
         """
         Initialize the MemberList

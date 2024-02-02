@@ -159,6 +159,7 @@ class FunctionInstance(InstanceResource):
 
 
 class FunctionContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the FunctionContext
@@ -320,6 +321,7 @@ class FunctionContext(InstanceContext):
 
 
 class FunctionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> FunctionInstance:
         """
         Build an instance of FunctionInstance
@@ -340,6 +342,7 @@ class FunctionPage(Page):
 
 
 class FunctionList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the FunctionList
@@ -364,6 +367,7 @@ class FunctionList(ListResource):
 
         :returns: The created FunctionInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -388,6 +392,7 @@ class FunctionList(ListResource):
 
         :returns: The created FunctionInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

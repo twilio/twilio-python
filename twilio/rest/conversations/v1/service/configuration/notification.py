@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, Optional, Union
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -199,6 +199,7 @@ class NotificationInstance(InstanceResource):
 
 
 class NotificationContext(InstanceContext):
+
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the NotificationContext
@@ -291,18 +292,26 @@ class NotificationContext(InstanceContext):
         """
         data = values.of(
             {
-                "LogEnabled": log_enabled,
-                "NewMessage.Enabled": new_message_enabled,
+                "LogEnabled": serialize.boolean_to_string(log_enabled),
+                "NewMessage.Enabled": serialize.boolean_to_string(new_message_enabled),
                 "NewMessage.Template": new_message_template,
                 "NewMessage.Sound": new_message_sound,
-                "NewMessage.BadgeCountEnabled": new_message_badge_count_enabled,
-                "AddedToConversation.Enabled": added_to_conversation_enabled,
+                "NewMessage.BadgeCountEnabled": serialize.boolean_to_string(
+                    new_message_badge_count_enabled
+                ),
+                "AddedToConversation.Enabled": serialize.boolean_to_string(
+                    added_to_conversation_enabled
+                ),
                 "AddedToConversation.Template": added_to_conversation_template,
                 "AddedToConversation.Sound": added_to_conversation_sound,
-                "RemovedFromConversation.Enabled": removed_from_conversation_enabled,
+                "RemovedFromConversation.Enabled": serialize.boolean_to_string(
+                    removed_from_conversation_enabled
+                ),
                 "RemovedFromConversation.Template": removed_from_conversation_template,
                 "RemovedFromConversation.Sound": removed_from_conversation_sound,
-                "NewMessage.WithMedia.Enabled": new_message_with_media_enabled,
+                "NewMessage.WithMedia.Enabled": serialize.boolean_to_string(
+                    new_message_with_media_enabled
+                ),
                 "NewMessage.WithMedia.Template": new_message_with_media_template,
             }
         )
@@ -354,18 +363,26 @@ class NotificationContext(InstanceContext):
         """
         data = values.of(
             {
-                "LogEnabled": log_enabled,
-                "NewMessage.Enabled": new_message_enabled,
+                "LogEnabled": serialize.boolean_to_string(log_enabled),
+                "NewMessage.Enabled": serialize.boolean_to_string(new_message_enabled),
                 "NewMessage.Template": new_message_template,
                 "NewMessage.Sound": new_message_sound,
-                "NewMessage.BadgeCountEnabled": new_message_badge_count_enabled,
-                "AddedToConversation.Enabled": added_to_conversation_enabled,
+                "NewMessage.BadgeCountEnabled": serialize.boolean_to_string(
+                    new_message_badge_count_enabled
+                ),
+                "AddedToConversation.Enabled": serialize.boolean_to_string(
+                    added_to_conversation_enabled
+                ),
                 "AddedToConversation.Template": added_to_conversation_template,
                 "AddedToConversation.Sound": added_to_conversation_sound,
-                "RemovedFromConversation.Enabled": removed_from_conversation_enabled,
+                "RemovedFromConversation.Enabled": serialize.boolean_to_string(
+                    removed_from_conversation_enabled
+                ),
                 "RemovedFromConversation.Template": removed_from_conversation_template,
                 "RemovedFromConversation.Sound": removed_from_conversation_sound,
-                "NewMessage.WithMedia.Enabled": new_message_with_media_enabled,
+                "NewMessage.WithMedia.Enabled": serialize.boolean_to_string(
+                    new_message_with_media_enabled
+                ),
                 "NewMessage.WithMedia.Template": new_message_with_media_template,
             }
         )
@@ -391,6 +408,7 @@ class NotificationContext(InstanceContext):
 
 
 class NotificationList(ListResource):
+
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the NotificationList

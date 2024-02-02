@@ -126,6 +126,7 @@ class CredentialListMappingInstance(InstanceResource):
 
 
 class CredentialListMappingContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, domain_sid: str, sid: str):
         """
         Initialize the CredentialListMappingContext
@@ -224,6 +225,7 @@ class CredentialListMappingContext(InstanceContext):
 
 
 class CredentialListMappingPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CredentialListMappingInstance:
         """
         Build an instance of CredentialListMappingInstance
@@ -247,6 +249,7 @@ class CredentialListMappingPage(Page):
 
 
 class CredentialListMappingList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
         Initialize the CredentialListMappingList
@@ -275,6 +278,7 @@ class CredentialListMappingList(ListResource):
 
         :returns: The created CredentialListMappingInstance
         """
+
         data = values.of(
             {
                 "CredentialListSid": credential_list_sid,
@@ -304,6 +308,7 @@ class CredentialListMappingList(ListResource):
 
         :returns: The created CredentialListMappingInstance
         """
+
         data = values.of(
             {
                 "CredentialListSid": credential_list_sid,

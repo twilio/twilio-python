@@ -133,6 +133,7 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
 
 
 class InsightsQuestionnairesCategoryContext(InstanceContext):
+
     def __init__(self, version: Version, category_sid: str):
         """
         Initialize the InsightsQuestionnairesCategoryContext
@@ -259,6 +260,7 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
 
 
 class InsightsQuestionnairesCategoryPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> InsightsQuestionnairesCategoryInstance:
@@ -279,6 +281,7 @@ class InsightsQuestionnairesCategoryPage(Page):
 
 
 class InsightsQuestionnairesCategoryList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the InsightsQuestionnairesCategoryList
@@ -301,6 +304,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         :returns: The created InsightsQuestionnairesCategoryInstance
         """
+
         data = values.of(
             {
                 "Name": name,
@@ -311,6 +315,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
                 "Authorization": authorization,
             }
         )
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -328,6 +333,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         :returns: The created InsightsQuestionnairesCategoryInstance
         """
+
         data = values.of(
             {
                 "Name": name,
@@ -338,6 +344,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
                 "Authorization": authorization,
             }
         )
+
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

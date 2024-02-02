@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class RecordingInstance(InstanceResource):
+
     class Source(object):
         DIALVERB = "DialVerb"
         CONFERENCE = "Conference"
@@ -203,6 +204,7 @@ class RecordingInstance(InstanceResource):
 
 
 class RecordingContext(InstanceContext):
+
     def __init__(
         self, version: Version, account_sid: str, conference_sid: str, sid: str
     ):
@@ -371,6 +373,7 @@ class RecordingContext(InstanceContext):
 
 
 class RecordingPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> RecordingInstance:
         """
         Build an instance of RecordingInstance
@@ -394,6 +397,7 @@ class RecordingPage(Page):
 
 
 class RecordingList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, conference_sid: str):
         """
         Initialize the RecordingList

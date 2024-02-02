@@ -50,6 +50,7 @@ class TemplateInstance(InstanceResource):
 
 
 class TemplatePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TemplateInstance:
         """
         Build an instance of TemplateInstance
@@ -68,6 +69,7 @@ class TemplatePage(Page):
 
 
 class TemplateList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the TemplateList

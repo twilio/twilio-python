@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -114,6 +114,7 @@ class CountryInstance(InstanceResource):
 
 
 class CountryContext(InstanceContext):
+
     def __init__(self, version: Version, iso_code: str):
         """
         Initialize the CountryContext
@@ -192,6 +193,7 @@ class CountryContext(InstanceContext):
 
 
 class CountryPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CountryInstance:
         """
         Build an instance of CountryInstance
@@ -210,6 +212,7 @@ class CountryPage(Page):
 
 
 class CountryList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CountryList
@@ -433,9 +436,15 @@ class CountryList(ListResource):
                 "IsoCode": iso_code,
                 "Continent": continent,
                 "CountryCode": country_code,
-                "LowRiskNumbersEnabled": low_risk_numbers_enabled,
-                "HighRiskSpecialNumbersEnabled": high_risk_special_numbers_enabled,
-                "HighRiskTollfraudNumbersEnabled": high_risk_tollfraud_numbers_enabled,
+                "LowRiskNumbersEnabled": serialize.boolean_to_string(
+                    low_risk_numbers_enabled
+                ),
+                "HighRiskSpecialNumbersEnabled": serialize.boolean_to_string(
+                    high_risk_special_numbers_enabled
+                ),
+                "HighRiskTollfraudNumbersEnabled": serialize.boolean_to_string(
+                    high_risk_tollfraud_numbers_enabled
+                ),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -478,9 +487,15 @@ class CountryList(ListResource):
                 "IsoCode": iso_code,
                 "Continent": continent,
                 "CountryCode": country_code,
-                "LowRiskNumbersEnabled": low_risk_numbers_enabled,
-                "HighRiskSpecialNumbersEnabled": high_risk_special_numbers_enabled,
-                "HighRiskTollfraudNumbersEnabled": high_risk_tollfraud_numbers_enabled,
+                "LowRiskNumbersEnabled": serialize.boolean_to_string(
+                    low_risk_numbers_enabled
+                ),
+                "HighRiskSpecialNumbersEnabled": serialize.boolean_to_string(
+                    high_risk_special_numbers_enabled
+                ),
+                "HighRiskTollfraudNumbersEnabled": serialize.boolean_to_string(
+                    high_risk_tollfraud_numbers_enabled
+                ),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

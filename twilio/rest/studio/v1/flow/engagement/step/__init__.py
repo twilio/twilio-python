@@ -126,6 +126,7 @@ class StepInstance(InstanceResource):
 
 
 class StepContext(InstanceContext):
+
     def __init__(self, version: Version, flow_sid: str, engagement_sid: str, sid: str):
         """
         Initialize the StepContext
@@ -216,6 +217,7 @@ class StepContext(InstanceContext):
 
 
 class StepPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> StepInstance:
         """
         Build an instance of StepInstance
@@ -239,6 +241,7 @@ class StepPage(Page):
 
 
 class StepList(ListResource):
+
     def __init__(self, version: Version, flow_sid: str, engagement_sid: str):
         """
         Initialize the StepList

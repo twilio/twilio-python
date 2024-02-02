@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, Optional, Union
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -133,6 +133,7 @@ class SettingInstance(InstanceResource):
 
 
 class SettingContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the SettingContext
@@ -210,8 +211,8 @@ class SettingContext(InstanceContext):
         """
         data = values.of(
             {
-                "AdvancedFeatures": advanced_features,
-                "VoiceTrace": voice_trace,
+                "AdvancedFeatures": serialize.boolean_to_string(advanced_features),
+                "VoiceTrace": serialize.boolean_to_string(voice_trace),
                 "SubaccountSid": subaccount_sid,
             }
         )
@@ -241,8 +242,8 @@ class SettingContext(InstanceContext):
         """
         data = values.of(
             {
-                "AdvancedFeatures": advanced_features,
-                "VoiceTrace": voice_trace,
+                "AdvancedFeatures": serialize.boolean_to_string(advanced_features),
+                "VoiceTrace": serialize.boolean_to_string(voice_trace),
                 "SubaccountSid": subaccount_sid,
             }
         )
@@ -266,6 +267,7 @@ class SettingContext(InstanceContext):
 
 
 class SettingList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SettingList

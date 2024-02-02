@@ -101,6 +101,7 @@ class SchemaVersionInstance(InstanceResource):
 
 
 class SchemaVersionContext(InstanceContext):
+
     def __init__(self, version: Version, id: str, schema_version: int):
         """
         Initialize the SchemaVersionContext
@@ -169,6 +170,7 @@ class SchemaVersionContext(InstanceContext):
 
 
 class SchemaVersionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SchemaVersionInstance:
         """
         Build an instance of SchemaVersionInstance
@@ -187,6 +189,7 @@ class SchemaVersionPage(Page):
 
 
 class SchemaVersionList(ListResource):
+
     def __init__(self, version: Version, id: str):
         """
         Initialize the SchemaVersionList

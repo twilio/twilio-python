@@ -109,6 +109,7 @@ class ChannelSenderInstance(InstanceResource):
 
 
 class ChannelSenderContext(InstanceContext):
+
     def __init__(self, version: Version, messaging_service_sid: str, sid: str):
         """
         Initialize the ChannelSenderContext
@@ -179,6 +180,7 @@ class ChannelSenderContext(InstanceContext):
 
 
 class ChannelSenderPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ChannelSenderInstance:
         """
         Build an instance of ChannelSenderInstance
@@ -201,6 +203,7 @@ class ChannelSenderPage(Page):
 
 
 class ChannelSenderList(ListResource):
+
     def __init__(self, version: Version, messaging_service_sid: str):
         """
         Initialize the ChannelSenderList

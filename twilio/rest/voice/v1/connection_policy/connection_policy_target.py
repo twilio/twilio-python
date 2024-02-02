@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -185,6 +185,7 @@ class ConnectionPolicyTargetInstance(InstanceResource):
 
 
 class ConnectionPolicyTargetContext(InstanceContext):
+
     def __init__(self, version: Version, connection_policy_sid: str, sid: str):
         """
         Initialize the ConnectionPolicyTargetContext
@@ -293,7 +294,7 @@ class ConnectionPolicyTargetContext(InstanceContext):
                 "Target": target,
                 "Priority": priority,
                 "Weight": weight,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
             }
         )
 
@@ -335,7 +336,7 @@ class ConnectionPolicyTargetContext(InstanceContext):
                 "Target": target,
                 "Priority": priority,
                 "Weight": weight,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
             }
         )
 
@@ -363,6 +364,7 @@ class ConnectionPolicyTargetContext(InstanceContext):
 
 
 class ConnectionPolicyTargetPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ConnectionPolicyTargetInstance:
         """
         Build an instance of ConnectionPolicyTargetInstance
@@ -385,6 +387,7 @@ class ConnectionPolicyTargetPage(Page):
 
 
 class ConnectionPolicyTargetList(ListResource):
+
     def __init__(self, version: Version, connection_policy_sid: str):
         """
         Initialize the ConnectionPolicyTargetList
@@ -422,13 +425,14 @@ class ConnectionPolicyTargetList(ListResource):
 
         :returns: The created ConnectionPolicyTargetInstance
         """
+
         data = values.of(
             {
                 "Target": target,
                 "FriendlyName": friendly_name,
                 "Priority": priority,
                 "Weight": weight,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
             }
         )
 
@@ -463,13 +467,14 @@ class ConnectionPolicyTargetList(ListResource):
 
         :returns: The created ConnectionPolicyTargetInstance
         """
+
         data = values.of(
             {
                 "Target": target,
                 "FriendlyName": friendly_name,
                 "Priority": priority,
                 "Weight": weight,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
             }
         )
 

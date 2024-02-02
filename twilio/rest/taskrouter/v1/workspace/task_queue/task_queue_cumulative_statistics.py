@@ -204,6 +204,7 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
 
 
 class TaskQueueCumulativeStatisticsContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, task_queue_sid: str):
         """
         Initialize the TaskQueueCumulativeStatisticsContext
@@ -316,6 +317,7 @@ class TaskQueueCumulativeStatisticsContext(InstanceContext):
 
 
 class TaskQueueCumulativeStatisticsList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str, task_queue_sid: str):
         """
         Initialize the TaskQueueCumulativeStatisticsList

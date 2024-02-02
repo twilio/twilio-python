@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class ModelBuildInstance(InstanceResource):
+
     class Status(object):
         ENQUEUED = "enqueued"
         BUILDING = "building"
@@ -166,6 +167,7 @@ class ModelBuildInstance(InstanceResource):
 
 
 class ModelBuildContext(InstanceContext):
+
     def __init__(self, version: Version, assistant_sid: str, sid: str):
         """
         Initialize the ModelBuildContext
@@ -318,6 +320,7 @@ class ModelBuildContext(InstanceContext):
 
 
 class ModelBuildPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ModelBuildInstance:
         """
         Build an instance of ModelBuildInstance
@@ -338,6 +341,7 @@ class ModelBuildPage(Page):
 
 
 class ModelBuildList(ListResource):
+
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the ModelBuildList
@@ -367,6 +371,7 @@ class ModelBuildList(ListResource):
 
         :returns: The created ModelBuildInstance
         """
+
         data = values.of(
             {
                 "StatusCallback": status_callback,
@@ -397,6 +402,7 @@ class ModelBuildList(ListResource):
 
         :returns: The created ModelBuildInstance
         """
+
         data = values.of(
             {
                 "StatusCallback": status_callback,

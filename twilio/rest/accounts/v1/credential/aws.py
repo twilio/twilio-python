@@ -141,6 +141,7 @@ class AwsInstance(InstanceResource):
 
 
 class AwsContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the AwsContext
@@ -275,6 +276,7 @@ class AwsContext(InstanceContext):
 
 
 class AwsPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AwsInstance:
         """
         Build an instance of AwsInstance
@@ -293,6 +295,7 @@ class AwsPage(Page):
 
 
 class AwsList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AwsList
@@ -319,6 +322,7 @@ class AwsList(ListResource):
 
         :returns: The created AwsInstance
         """
+
         data = values.of(
             {
                 "Credentials": credentials,
@@ -350,6 +354,7 @@ class AwsList(ListResource):
 
         :returns: The created AwsInstance
         """
+
         data = values.of(
             {
                 "Credentials": credentials,

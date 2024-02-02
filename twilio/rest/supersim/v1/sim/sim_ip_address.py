@@ -22,6 +22,7 @@ from twilio.base.page import Page
 
 
 class SimIpAddressInstance(InstanceResource):
+
     class IpAddressVersion(object):
         IPV4 = "IPv4"
         IPV6 = "IPv6"
@@ -54,6 +55,7 @@ class SimIpAddressInstance(InstanceResource):
 
 
 class SimIpAddressPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SimIpAddressInstance:
         """
         Build an instance of SimIpAddressInstance
@@ -74,6 +76,7 @@ class SimIpAddressPage(Page):
 
 
 class SimIpAddressList(ListResource):
+
     def __init__(self, version: Version, sim_sid: str):
         """
         Initialize the SimIpAddressList

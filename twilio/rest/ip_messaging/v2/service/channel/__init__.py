@@ -27,6 +27,7 @@ from twilio.rest.ip_messaging.v2.service.channel.webhook import WebhookList
 
 
 class ChannelInstance(InstanceResource):
+
     class ChannelType(object):
         PUBLIC = "public"
         PRIVATE = "private"
@@ -267,6 +268,7 @@ class ChannelInstance(InstanceResource):
 
 
 class ChannelContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the ChannelContext
@@ -540,6 +542,7 @@ class ChannelContext(InstanceContext):
 
 
 class ChannelPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ChannelInstance:
         """
         Build an instance of ChannelInstance
@@ -560,6 +563,7 @@ class ChannelPage(Page):
 
 
 class ChannelList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the ChannelList
@@ -603,6 +607,7 @@ class ChannelList(ListResource):
 
         :returns: The created ChannelInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -619,6 +624,7 @@ class ChannelList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -654,6 +660,7 @@ class ChannelList(ListResource):
 
         :returns: The created ChannelInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -670,6 +677,7 @@ class ChannelList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

@@ -38,7 +38,7 @@ class EndUserTypeInstance(InstanceResource):
         self.sid: Optional[str] = payload.get("sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.machine_name: Optional[str] = payload.get("machine_name")
-        self.fields: Optional[List[object]] = payload.get("fields")
+        self.fields: Optional[List[Dict[str, object]]] = payload.get("fields")
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {
@@ -90,6 +90,7 @@ class EndUserTypeInstance(InstanceResource):
 
 
 class EndUserTypeContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the EndUserTypeContext
@@ -154,6 +155,7 @@ class EndUserTypeContext(InstanceContext):
 
 
 class EndUserTypePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EndUserTypeInstance:
         """
         Build an instance of EndUserTypeInstance
@@ -172,6 +174,7 @@ class EndUserTypePage(Page):
 
 
 class EndUserTypeList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the EndUserTypeList

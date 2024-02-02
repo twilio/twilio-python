@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -329,6 +329,7 @@ class ServiceInstance(InstanceResource):
 
 
 class ServiceContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ServiceContext
@@ -461,14 +462,18 @@ class ServiceContext(InstanceContext):
             {
                 "FriendlyName": friendly_name,
                 "CodeLength": code_length,
-                "LookupEnabled": lookup_enabled,
-                "SkipSmsToLandlines": skip_sms_to_landlines,
-                "DtmfInputRequired": dtmf_input_required,
+                "LookupEnabled": serialize.boolean_to_string(lookup_enabled),
+                "SkipSmsToLandlines": serialize.boolean_to_string(
+                    skip_sms_to_landlines
+                ),
+                "DtmfInputRequired": serialize.boolean_to_string(dtmf_input_required),
                 "TtsName": tts_name,
-                "Psd2Enabled": psd2_enabled,
-                "DoNotShareWarningEnabled": do_not_share_warning_enabled,
-                "CustomCodeEnabled": custom_code_enabled,
-                "Push.IncludeDate": push_include_date,
+                "Psd2Enabled": serialize.boolean_to_string(psd2_enabled),
+                "DoNotShareWarningEnabled": serialize.boolean_to_string(
+                    do_not_share_warning_enabled
+                ),
+                "CustomCodeEnabled": serialize.boolean_to_string(custom_code_enabled),
+                "Push.IncludeDate": serialize.boolean_to_string(push_include_date),
                 "Push.ApnCredentialSid": push_apn_credential_sid,
                 "Push.FcmCredentialSid": push_fcm_credential_sid,
                 "Totp.Issuer": totp_issuer,
@@ -534,14 +539,18 @@ class ServiceContext(InstanceContext):
             {
                 "FriendlyName": friendly_name,
                 "CodeLength": code_length,
-                "LookupEnabled": lookup_enabled,
-                "SkipSmsToLandlines": skip_sms_to_landlines,
-                "DtmfInputRequired": dtmf_input_required,
+                "LookupEnabled": serialize.boolean_to_string(lookup_enabled),
+                "SkipSmsToLandlines": serialize.boolean_to_string(
+                    skip_sms_to_landlines
+                ),
+                "DtmfInputRequired": serialize.boolean_to_string(dtmf_input_required),
                 "TtsName": tts_name,
-                "Psd2Enabled": psd2_enabled,
-                "DoNotShareWarningEnabled": do_not_share_warning_enabled,
-                "CustomCodeEnabled": custom_code_enabled,
-                "Push.IncludeDate": push_include_date,
+                "Psd2Enabled": serialize.boolean_to_string(psd2_enabled),
+                "DoNotShareWarningEnabled": serialize.boolean_to_string(
+                    do_not_share_warning_enabled
+                ),
+                "CustomCodeEnabled": serialize.boolean_to_string(custom_code_enabled),
+                "Push.IncludeDate": serialize.boolean_to_string(push_include_date),
                 "Push.ApnCredentialSid": push_apn_credential_sid,
                 "Push.FcmCredentialSid": push_fcm_credential_sid,
                 "Totp.Issuer": totp_issuer,
@@ -655,6 +664,7 @@ class ServiceContext(InstanceContext):
 
 
 class ServicePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
@@ -673,6 +683,7 @@ class ServicePage(Page):
 
 
 class ServiceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
@@ -727,18 +738,23 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "CodeLength": code_length,
-                "LookupEnabled": lookup_enabled,
-                "SkipSmsToLandlines": skip_sms_to_landlines,
-                "DtmfInputRequired": dtmf_input_required,
+                "LookupEnabled": serialize.boolean_to_string(lookup_enabled),
+                "SkipSmsToLandlines": serialize.boolean_to_string(
+                    skip_sms_to_landlines
+                ),
+                "DtmfInputRequired": serialize.boolean_to_string(dtmf_input_required),
                 "TtsName": tts_name,
-                "Psd2Enabled": psd2_enabled,
-                "DoNotShareWarningEnabled": do_not_share_warning_enabled,
-                "CustomCodeEnabled": custom_code_enabled,
-                "Push.IncludeDate": push_include_date,
+                "Psd2Enabled": serialize.boolean_to_string(psd2_enabled),
+                "DoNotShareWarningEnabled": serialize.boolean_to_string(
+                    do_not_share_warning_enabled
+                ),
+                "CustomCodeEnabled": serialize.boolean_to_string(custom_code_enabled),
+                "Push.IncludeDate": serialize.boolean_to_string(push_include_date),
                 "Push.ApnCredentialSid": push_apn_credential_sid,
                 "Push.FcmCredentialSid": push_fcm_credential_sid,
                 "Totp.Issuer": totp_issuer,
@@ -800,18 +816,23 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "CodeLength": code_length,
-                "LookupEnabled": lookup_enabled,
-                "SkipSmsToLandlines": skip_sms_to_landlines,
-                "DtmfInputRequired": dtmf_input_required,
+                "LookupEnabled": serialize.boolean_to_string(lookup_enabled),
+                "SkipSmsToLandlines": serialize.boolean_to_string(
+                    skip_sms_to_landlines
+                ),
+                "DtmfInputRequired": serialize.boolean_to_string(dtmf_input_required),
                 "TtsName": tts_name,
-                "Psd2Enabled": psd2_enabled,
-                "DoNotShareWarningEnabled": do_not_share_warning_enabled,
-                "CustomCodeEnabled": custom_code_enabled,
-                "Push.IncludeDate": push_include_date,
+                "Psd2Enabled": serialize.boolean_to_string(psd2_enabled),
+                "DoNotShareWarningEnabled": serialize.boolean_to_string(
+                    do_not_share_warning_enabled
+                ),
+                "CustomCodeEnabled": serialize.boolean_to_string(custom_code_enabled),
+                "Push.IncludeDate": serialize.boolean_to_string(push_include_date),
                 "Push.ApnCredentialSid": push_apn_credential_sid,
                 "Push.FcmCredentialSid": push_fcm_credential_sid,
                 "Totp.Issuer": totp_issuer,

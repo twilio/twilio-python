@@ -64,6 +64,7 @@ class InsightsAssessmentsCommentInstance(InstanceResource):
 
 
 class InsightsAssessmentsCommentPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> InsightsAssessmentsCommentInstance:
@@ -84,6 +85,7 @@ class InsightsAssessmentsCommentPage(Page):
 
 
 class InsightsAssessmentsCommentList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the InsightsAssessmentsCommentList
@@ -118,6 +120,7 @@ class InsightsAssessmentsCommentList(ListResource):
 
         :returns: The created InsightsAssessmentsCommentInstance
         """
+
         data = values.of(
             {
                 "CategoryId": category_id,
@@ -133,6 +136,7 @@ class InsightsAssessmentsCommentList(ListResource):
                 "Authorization": authorization,
             }
         )
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -162,6 +166,7 @@ class InsightsAssessmentsCommentList(ListResource):
 
         :returns: The created InsightsAssessmentsCommentInstance
         """
+
         data = values.of(
             {
                 "CategoryId": category_id,
@@ -177,6 +182,7 @@ class InsightsAssessmentsCommentList(ListResource):
                 "Authorization": authorization,
             }
         )
+
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

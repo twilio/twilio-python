@@ -37,7 +37,7 @@ class InsightsConversationsInstance(InstanceResource):
         self.segment_count: Optional[int] = deserialize.integer(
             payload.get("segment_count")
         )
-        self.segments: Optional[List[object]] = payload.get("segments")
+        self.segments: Optional[List[Dict[str, object]]] = payload.get("segments")
 
     def __repr__(self) -> str:
         """
@@ -50,6 +50,7 @@ class InsightsConversationsInstance(InstanceResource):
 
 
 class InsightsConversationsPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> InsightsConversationsInstance:
         """
         Build an instance of InsightsConversationsInstance
@@ -68,6 +69,7 @@ class InsightsConversationsPage(Page):
 
 
 class InsightsConversationsList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the InsightsConversationsList

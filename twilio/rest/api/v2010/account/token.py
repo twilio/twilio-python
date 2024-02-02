@@ -62,6 +62,7 @@ class TokenInstance(InstanceResource):
 
 
 class TokenList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the TokenList
@@ -86,6 +87,7 @@ class TokenList(ListResource):
 
         :returns: The created TokenInstance
         """
+
         data = values.of(
             {
                 "Ttl": ttl,
@@ -112,6 +114,7 @@ class TokenList(ListResource):
 
         :returns: The created TokenInstance
         """
+
         data = values.of(
             {
                 "Ttl": ttl,

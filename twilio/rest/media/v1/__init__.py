@@ -21,6 +21,7 @@ from twilio.rest.media.v1.player_streamer import PlayerStreamerList
 
 
 class V1(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Media

@@ -26,6 +26,7 @@ from twilio.rest.conversations.v1.service.user.user_conversation import (
 
 
 class UserInstance(InstanceResource):
+
     class WebhookEnabledType(object):
         TRUE = "true"
         FALSE = "false"
@@ -217,6 +218,7 @@ class UserInstance(InstanceResource):
 
 
 class UserContext(InstanceContext):
+
     def __init__(self, version: Version, chat_service_sid: str, sid: str):
         """
         Initialize the UserContext
@@ -430,6 +432,7 @@ class UserContext(InstanceContext):
 
 
 class UserPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> UserInstance:
         """
         Build an instance of UserInstance
@@ -450,6 +453,7 @@ class UserPage(Page):
 
 
 class UserList(ListResource):
+
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the UserList
@@ -487,6 +491,7 @@ class UserList(ListResource):
 
         :returns: The created UserInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,
@@ -500,6 +505,7 @@ class UserList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -529,6 +535,7 @@ class UserList(ListResource):
 
         :returns: The created UserInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,
@@ -542,6 +549,7 @@ class UserList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

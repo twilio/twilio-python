@@ -20,6 +20,7 @@ from twilio.rest.bulkexports.v1.export_configuration import ExportConfigurationL
 
 
 class V1(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Bulkexports

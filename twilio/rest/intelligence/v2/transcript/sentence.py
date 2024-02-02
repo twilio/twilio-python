@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -66,6 +66,7 @@ class SentenceInstance(InstanceResource):
 
 
 class SentencePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SentenceInstance:
         """
         Build an instance of SentenceInstance
@@ -86,6 +87,7 @@ class SentencePage(Page):
 
 
 class SentenceList(ListResource):
+
     def __init__(self, version: Version, transcript_sid: str):
         """
         Initialize the SentenceList
@@ -235,7 +237,7 @@ class SentenceList(ListResource):
         """
         data = values.of(
             {
-                "Redacted": redacted,
+                "Redacted": serialize.boolean_to_string(redacted),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -265,7 +267,7 @@ class SentenceList(ListResource):
         """
         data = values.of(
             {
-                "Redacted": redacted,
+                "Redacted": serialize.boolean_to_string(redacted),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

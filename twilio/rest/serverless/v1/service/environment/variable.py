@@ -166,6 +166,7 @@ class VariableInstance(InstanceResource):
 
 
 class VariableContext(InstanceContext):
+
     def __init__(
         self, version: Version, service_sid: str, environment_sid: str, sid: str
     ):
@@ -334,6 +335,7 @@ class VariableContext(InstanceContext):
 
 
 class VariablePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> VariableInstance:
         """
         Build an instance of VariableInstance
@@ -357,6 +359,7 @@ class VariablePage(Page):
 
 
 class VariableList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, environment_sid: str):
         """
         Initialize the VariableList
@@ -388,6 +391,7 @@ class VariableList(ListResource):
 
         :returns: The created VariableInstance
         """
+
         data = values.of(
             {
                 "Key": key,
@@ -417,6 +421,7 @@ class VariableList(ListResource):
 
         :returns: The created VariableInstance
         """
+
         data = values.of(
             {
                 "Key": key,

@@ -141,6 +141,7 @@ class PayloadInstance(InstanceResource):
 
 
 class PayloadContext(InstanceContext):
+
     def __init__(
         self,
         version: Version,
@@ -250,6 +251,7 @@ class PayloadContext(InstanceContext):
 
 
 class PayloadPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> PayloadInstance:
         """
         Build an instance of PayloadInstance
@@ -274,6 +276,7 @@ class PayloadPage(Page):
 
 
 class PayloadList(ListResource):
+
     def __init__(
         self,
         version: Version,

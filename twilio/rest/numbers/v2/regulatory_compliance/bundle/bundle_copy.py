@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class BundleCopyInstance(InstanceResource):
+
     class Status(object):
         DRAFT = "draft"
         PENDING_REVIEW = "pending-review"
@@ -79,6 +80,7 @@ class BundleCopyInstance(InstanceResource):
 
 
 class BundleCopyPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> BundleCopyInstance:
         """
         Build an instance of BundleCopyInstance
@@ -99,6 +101,7 @@ class BundleCopyPage(Page):
 
 
 class BundleCopyList(ListResource):
+
     def __init__(self, version: Version, bundle_sid: str):
         """
         Initialize the BundleCopyList
@@ -127,6 +130,7 @@ class BundleCopyList(ListResource):
 
         :returns: The created BundleCopyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -153,6 +157,7 @@ class BundleCopyList(ListResource):
 
         :returns: The created BundleCopyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

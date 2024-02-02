@@ -50,6 +50,7 @@ class BrandRegistrationOtpInstance(InstanceResource):
 
 
 class BrandRegistrationOtpList(ListResource):
+
     def __init__(self, version: Version, brand_registration_sid: str):
         """
         Initialize the BrandRegistrationOtpList

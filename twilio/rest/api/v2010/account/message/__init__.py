@@ -25,6 +25,7 @@ from twilio.rest.api.v2010.account.message.media import MediaList
 
 
 class MessageInstance(InstanceResource):
+
     class AddressRetention(object):
         RETAIN = "retain"
         OBFUSCATE = "obfuscate"
@@ -244,6 +245,7 @@ class MessageInstance(InstanceResource):
 
 
 class MessageContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the MessageContext
@@ -433,6 +435,7 @@ class MessageContext(InstanceContext):
 
 
 class MessagePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MessageInstance:
         """
         Build an instance of MessageInstance
@@ -453,6 +456,7 @@ class MessagePage(Page):
 
 
 class MessageList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the MessageList
@@ -528,24 +532,25 @@ class MessageList(ListResource):
 
         :returns: The created MessageInstance
         """
+
         data = values.of(
             {
                 "To": to,
                 "StatusCallback": status_callback,
                 "ApplicationSid": application_sid,
                 "MaxPrice": max_price,
-                "ProvideFeedback": provide_feedback,
+                "ProvideFeedback": serialize.boolean_to_string(provide_feedback),
                 "Attempt": attempt,
                 "ValidityPeriod": validity_period,
-                "ForceDelivery": force_delivery,
+                "ForceDelivery": serialize.boolean_to_string(force_delivery),
                 "ContentRetention": content_retention,
                 "AddressRetention": address_retention,
-                "SmartEncoded": smart_encoded,
+                "SmartEncoded": serialize.boolean_to_string(smart_encoded),
                 "PersistentAction": serialize.map(persistent_action, lambda e: e),
-                "ShortenUrls": shorten_urls,
+                "ShortenUrls": serialize.boolean_to_string(shorten_urls),
                 "ScheduleType": schedule_type,
                 "SendAt": serialize.iso8601_datetime(send_at),
-                "SendAsMms": send_as_mms,
+                "SendAsMms": serialize.boolean_to_string(send_as_mms),
                 "ContentVariables": content_variables,
                 "RiskCheck": risk_check,
                 "From": from_,
@@ -625,24 +630,25 @@ class MessageList(ListResource):
 
         :returns: The created MessageInstance
         """
+
         data = values.of(
             {
                 "To": to,
                 "StatusCallback": status_callback,
                 "ApplicationSid": application_sid,
                 "MaxPrice": max_price,
-                "ProvideFeedback": provide_feedback,
+                "ProvideFeedback": serialize.boolean_to_string(provide_feedback),
                 "Attempt": attempt,
                 "ValidityPeriod": validity_period,
-                "ForceDelivery": force_delivery,
+                "ForceDelivery": serialize.boolean_to_string(force_delivery),
                 "ContentRetention": content_retention,
                 "AddressRetention": address_retention,
-                "SmartEncoded": smart_encoded,
+                "SmartEncoded": serialize.boolean_to_string(smart_encoded),
                 "PersistentAction": serialize.map(persistent_action, lambda e: e),
-                "ShortenUrls": shorten_urls,
+                "ShortenUrls": serialize.boolean_to_string(shorten_urls),
                 "ScheduleType": schedule_type,
                 "SendAt": serialize.iso8601_datetime(send_at),
-                "SendAsMms": send_as_mms,
+                "SendAsMms": serialize.boolean_to_string(send_as_mms),
                 "ContentVariables": content_variables,
                 "RiskCheck": risk_check,
                 "From": from_,

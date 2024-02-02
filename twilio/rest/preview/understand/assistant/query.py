@@ -171,6 +171,7 @@ class QueryInstance(InstanceResource):
 
 
 class QueryContext(InstanceContext):
+
     def __init__(self, version: Version, assistant_sid: str, sid: str):
         """
         Initialize the QueryContext
@@ -329,6 +330,7 @@ class QueryContext(InstanceContext):
 
 
 class QueryPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> QueryInstance:
         """
         Build an instance of QueryInstance
@@ -349,6 +351,7 @@ class QueryPage(Page):
 
 
 class QueryList(ListResource):
+
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the QueryList
@@ -384,6 +387,7 @@ class QueryList(ListResource):
 
         :returns: The created QueryInstance
         """
+
         data = values.of(
             {
                 "Language": language,
@@ -423,6 +427,7 @@ class QueryList(ListResource):
 
         :returns: The created QueryInstance
         """
+
         data = values.of(
             {
                 "Language": language,

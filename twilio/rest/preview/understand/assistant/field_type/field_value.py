@@ -132,6 +132,7 @@ class FieldValueInstance(InstanceResource):
 
 
 class FieldValueContext(InstanceContext):
+
     def __init__(
         self, version: Version, assistant_sid: str, field_type_sid: str, sid: str
     ):
@@ -232,6 +233,7 @@ class FieldValueContext(InstanceContext):
 
 
 class FieldValuePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> FieldValueInstance:
         """
         Build an instance of FieldValueInstance
@@ -255,6 +257,7 @@ class FieldValuePage(Page):
 
 
 class FieldValueList(ListResource):
+
     def __init__(self, version: Version, assistant_sid: str, field_type_sid: str):
         """
         Initialize the FieldValueList
@@ -287,6 +290,7 @@ class FieldValueList(ListResource):
 
         :returns: The created FieldValueInstance
         """
+
         data = values.of(
             {
                 "Language": language,
@@ -320,6 +324,7 @@ class FieldValueList(ListResource):
 
         :returns: The created FieldValueInstance
         """
+
         data = values.of(
             {
                 "Language": language,

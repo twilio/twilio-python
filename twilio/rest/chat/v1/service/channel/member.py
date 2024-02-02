@@ -174,6 +174,7 @@ class MemberInstance(InstanceResource):
 
 
 class MemberContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
         """
         Initialize the MemberContext
@@ -342,6 +343,7 @@ class MemberContext(InstanceContext):
 
 
 class MemberPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MemberInstance:
         """
         Build an instance of MemberInstance
@@ -365,6 +367,7 @@ class MemberPage(Page):
 
 
 class MemberList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
         Initialize the MemberList
@@ -396,6 +399,7 @@ class MemberList(ListResource):
 
         :returns: The created MemberInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,
@@ -427,6 +431,7 @@ class MemberList(ListResource):
 
         :returns: The created MemberInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,

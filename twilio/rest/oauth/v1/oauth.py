@@ -76,6 +76,7 @@ class OauthInstance(InstanceResource):
 
 
 class OauthContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the OauthContext
@@ -133,6 +134,7 @@ class OauthContext(InstanceContext):
 
 
 class OauthList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the OauthList

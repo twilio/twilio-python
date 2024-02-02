@@ -51,6 +51,7 @@ from twilio.rest.api.v2010.account.validation_request import ValidationRequestLi
 
 
 class AccountInstance(InstanceResource):
+
     class Status(object):
         ACTIVE = "active"
         SUSPENDED = "suspended"
@@ -348,6 +349,7 @@ class AccountInstance(InstanceResource):
 
 
 class AccountContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the AccountContext
@@ -781,6 +783,7 @@ class AccountContext(InstanceContext):
 
 
 class AccountPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AccountInstance:
         """
         Build an instance of AccountInstance
@@ -799,6 +802,7 @@ class AccountPage(Page):
 
 
 class AccountList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AccountList
@@ -820,6 +824,7 @@ class AccountList(ListResource):
 
         :returns: The created AccountInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -844,6 +849,7 @@ class AccountList(ListResource):
 
         :returns: The created AccountInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

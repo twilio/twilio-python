@@ -99,6 +99,7 @@ class ExecutionStepContextInstance(InstanceResource):
 
 
 class ExecutionStepContextContext(InstanceContext):
+
     def __init__(
         self, version: Version, flow_sid: str, execution_sid: str, step_sid: str
     ):
@@ -175,6 +176,7 @@ class ExecutionStepContextContext(InstanceContext):
 
 
 class ExecutionStepContextList(ListResource):
+
     def __init__(
         self, version: Version, flow_sid: str, execution_sid: str, step_sid: str
     ):

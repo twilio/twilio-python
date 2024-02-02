@@ -123,6 +123,7 @@ class TaskActionsInstance(InstanceResource):
 
 
 class TaskActionsContext(InstanceContext):
+
     def __init__(self, version: Version, assistant_sid: str, task_sid: str):
         """
         Initialize the TaskActionsContext
@@ -251,6 +252,7 @@ class TaskActionsContext(InstanceContext):
 
 
 class TaskActionsList(ListResource):
+
     def __init__(self, version: Version, assistant_sid: str, task_sid: str):
         """
         Initialize the TaskActionsList

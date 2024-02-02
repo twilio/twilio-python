@@ -123,6 +123,7 @@ class EventInstance(InstanceResource):
 
 
 class EventContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the EventContext
@@ -191,6 +192,7 @@ class EventContext(InstanceContext):
 
 
 class EventPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EventInstance:
         """
         Build an instance of EventInstance
@@ -211,6 +213,7 @@ class EventPage(Page):
 
 
 class EventList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the EventList

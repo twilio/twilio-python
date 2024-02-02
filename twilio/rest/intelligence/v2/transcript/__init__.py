@@ -26,6 +26,7 @@ from twilio.rest.intelligence.v2.transcript.sentence import SentenceList
 
 
 class TranscriptInstance(InstanceResource):
+
     class Status(object):
         QUEUED = "queued"
         IN_PROGRESS = "in-progress"
@@ -166,6 +167,7 @@ class TranscriptInstance(InstanceResource):
 
 
 class TranscriptContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the TranscriptContext
@@ -294,6 +296,7 @@ class TranscriptContext(InstanceContext):
 
 
 class TranscriptPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TranscriptInstance:
         """
         Build an instance of TranscriptInstance
@@ -312,6 +315,7 @@ class TranscriptPage(Page):
 
 
 class TranscriptList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the TranscriptList
@@ -340,6 +344,7 @@ class TranscriptList(ListResource):
 
         :returns: The created TranscriptInstance
         """
+
         data = values.of(
             {
                 "ServiceSid": service_sid,
@@ -374,6 +379,7 @@ class TranscriptList(ListResource):
 
         :returns: The created TranscriptInstance
         """
+
         data = values.of(
             {
                 "ServiceSid": service_sid,

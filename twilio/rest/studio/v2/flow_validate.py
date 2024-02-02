@@ -21,6 +21,7 @@ from twilio.base.version import Version
 
 
 class FlowValidateInstance(InstanceResource):
+
     class Status(object):
         DRAFT = "draft"
         PUBLISHED = "published"
@@ -45,6 +46,7 @@ class FlowValidateInstance(InstanceResource):
 
 
 class FlowValidateList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the FlowValidateList

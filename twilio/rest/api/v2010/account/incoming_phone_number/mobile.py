@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class MobileInstance(InstanceResource):
+
     class AddressRequirement(object):
         NONE = "none"
         ANY = "any"
@@ -151,6 +152,7 @@ class MobileInstance(InstanceResource):
 
 
 class MobilePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MobileInstance:
         """
         Build an instance of MobileInstance
@@ -171,6 +173,7 @@ class MobilePage(Page):
 
 
 class MobileList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the MobileList
@@ -248,6 +251,7 @@ class MobileList(ListResource):
 
         :returns: The created MobileInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
@@ -261,7 +265,9 @@ class MobileList(ListResource):
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
                 "VoiceApplicationSid": voice_application_sid,
-                "VoiceCallerIdLookup": voice_caller_id_lookup,
+                "VoiceCallerIdLookup": serialize.boolean_to_string(
+                    voice_caller_id_lookup
+                ),
                 "VoiceFallbackMethod": voice_fallback_method,
                 "VoiceFallbackUrl": voice_fallback_url,
                 "VoiceMethod": voice_method,
@@ -345,6 +351,7 @@ class MobileList(ListResource):
 
         :returns: The created MobileInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
@@ -358,7 +365,9 @@ class MobileList(ListResource):
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
                 "VoiceApplicationSid": voice_application_sid,
-                "VoiceCallerIdLookup": voice_caller_id_lookup,
+                "VoiceCallerIdLookup": serialize.boolean_to_string(
+                    voice_caller_id_lookup
+                ),
                 "VoiceFallbackMethod": voice_fallback_method,
                 "VoiceFallbackUrl": voice_fallback_url,
                 "VoiceMethod": voice_method,
@@ -564,7 +573,7 @@ class MobileList(ListResource):
         """
         data = values.of(
             {
-                "Beta": beta,
+                "Beta": serialize.boolean_to_string(beta),
                 "FriendlyName": friendly_name,
                 "PhoneNumber": phone_number,
                 "Origin": origin,
@@ -603,7 +612,7 @@ class MobileList(ListResource):
         """
         data = values.of(
             {
-                "Beta": beta,
+                "Beta": serialize.boolean_to_string(beta),
                 "FriendlyName": friendly_name,
                 "PhoneNumber": phone_number,
                 "Origin": origin,

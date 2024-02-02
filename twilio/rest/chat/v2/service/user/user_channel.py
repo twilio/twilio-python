@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class UserChannelInstance(InstanceResource):
+
     class ChannelStatus(object):
         JOINED = "joined"
         INVITED = "invited"
@@ -213,6 +214,7 @@ class UserChannelInstance(InstanceResource):
 
 
 class UserChannelContext(InstanceContext):
+
     def __init__(
         self, version: Version, service_sid: str, user_sid: str, channel_sid: str
     ):
@@ -417,6 +419,7 @@ class UserChannelContext(InstanceContext):
 
 
 class UserChannelPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> UserChannelInstance:
         """
         Build an instance of UserChannelInstance
@@ -440,6 +443,7 @@ class UserChannelPage(Page):
 
 
 class UserChannelList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, user_sid: str):
         """
         Initialize the UserChannelList

@@ -101,6 +101,7 @@ class TaskStatisticsInstance(InstanceResource):
 
 
 class TaskStatisticsContext(InstanceContext):
+
     def __init__(self, version: Version, assistant_sid: str, task_sid: str):
         """
         Initialize the TaskStatisticsContext
@@ -171,6 +172,7 @@ class TaskStatisticsContext(InstanceContext):
 
 
 class TaskStatisticsList(ListResource):
+
     def __init__(self, version: Version, assistant_sid: str, task_sid: str):
         """
         Initialize the TaskStatisticsList

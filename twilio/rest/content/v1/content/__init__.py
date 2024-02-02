@@ -131,6 +131,7 @@ class ContentInstance(InstanceResource):
 
 
 class ContentContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ContentContext
@@ -233,6 +234,7 @@ class ContentContext(InstanceContext):
 
 
 class ContentPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ContentInstance:
         """
         Build an instance of ContentInstance
@@ -251,6 +253,7 @@ class ContentPage(Page):
 
 
 class ContentList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ContentList

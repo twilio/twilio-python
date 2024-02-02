@@ -24,6 +24,7 @@ from twilio.rest.insights.v1.room.participant import ParticipantList
 
 
 class RoomInstance(InstanceResource):
+
     class Codec(object):
         VP8 = "VP8"
         H264 = "H264"
@@ -222,6 +223,7 @@ class RoomInstance(InstanceResource):
 
 
 class RoomContext(InstanceContext):
+
     def __init__(self, version: Version, room_sid: str):
         """
         Initialize the RoomContext
@@ -300,6 +302,7 @@ class RoomContext(InstanceContext):
 
 
 class RoomPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> RoomInstance:
         """
         Build an instance of RoomInstance
@@ -318,6 +321,7 @@ class RoomPage(Page):
 
 
 class RoomList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the RoomList

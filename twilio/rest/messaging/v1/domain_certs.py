@@ -149,6 +149,7 @@ class DomainCertsInstance(InstanceResource):
 
 
 class DomainCertsContext(InstanceContext):
+
     def __init__(self, version: Version, domain_sid: str):
         """
         Initialize the DomainCertsContext
@@ -287,6 +288,7 @@ class DomainCertsContext(InstanceContext):
 
 
 class DomainCertsList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the DomainCertsList

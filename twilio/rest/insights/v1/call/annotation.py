@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, List, Optional, Union
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,6 +21,7 @@ from twilio.base.version import Version
 
 
 class AnnotationInstance(InstanceResource):
+
     class AnsweredBy(object):
         UNKNOWN_ANSWERED_BY = "unknown_answered_by"
         HUMAN = "human"
@@ -184,6 +185,7 @@ class AnnotationInstance(InstanceResource):
 
 
 class AnnotationContext(InstanceContext):
+
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the AnnotationContext
@@ -267,7 +269,7 @@ class AnnotationContext(InstanceContext):
                 "AnsweredBy": answered_by,
                 "ConnectivityIssue": connectivity_issue,
                 "QualityIssues": quality_issues,
-                "Spam": spam,
+                "Spam": serialize.boolean_to_string(spam),
                 "CallScore": call_score,
                 "Comment": comment,
                 "Incident": incident,
@@ -314,7 +316,7 @@ class AnnotationContext(InstanceContext):
                 "AnsweredBy": answered_by,
                 "ConnectivityIssue": connectivity_issue,
                 "QualityIssues": quality_issues,
-                "Spam": spam,
+                "Spam": serialize.boolean_to_string(spam),
                 "CallScore": call_score,
                 "Comment": comment,
                 "Incident": incident,
@@ -342,6 +344,7 @@ class AnnotationContext(InstanceContext):
 
 
 class AnnotationList(ListResource):
+
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the AnnotationList

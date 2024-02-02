@@ -127,6 +127,7 @@ class AppInstance(InstanceResource):
 
 
 class AppContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the AppContext
@@ -229,6 +230,7 @@ class AppContext(InstanceContext):
 
 
 class AppPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AppInstance:
         """
         Build an instance of AppInstance
@@ -247,6 +249,7 @@ class AppPage(Page):
 
 
 class AppList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AppList

@@ -108,6 +108,7 @@ class OpenidDiscoveryInstance(InstanceResource):
 
 
 class OpenidDiscoveryContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the OpenidDiscoveryContext
@@ -165,6 +166,7 @@ class OpenidDiscoveryContext(InstanceContext):
 
 
 class OpenidDiscoveryList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the OpenidDiscoveryList

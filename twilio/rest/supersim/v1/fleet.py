@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class FleetInstance(InstanceResource):
+
     class DataMetering(object):
         PAYG = "payg"
 
@@ -188,6 +189,7 @@ class FleetInstance(InstanceResource):
 
 
 class FleetContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FleetContext
@@ -338,6 +340,7 @@ class FleetContext(InstanceContext):
 
 
 class FleetPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> FleetInstance:
         """
         Build an instance of FleetInstance
@@ -356,6 +359,7 @@ class FleetPage(Page):
 
 
 class FleetList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the FleetList
@@ -394,15 +398,16 @@ class FleetList(ListResource):
 
         :returns: The created FleetInstance
         """
+
         data = values.of(
             {
                 "NetworkAccessProfile": network_access_profile,
                 "UniqueName": unique_name,
-                "DataEnabled": data_enabled,
+                "DataEnabled": serialize.boolean_to_string(data_enabled),
                 "DataLimit": data_limit,
                 "IpCommandsUrl": ip_commands_url,
                 "IpCommandsMethod": ip_commands_method,
-                "SmsCommandsEnabled": sms_commands_enabled,
+                "SmsCommandsEnabled": serialize.boolean_to_string(sms_commands_enabled),
                 "SmsCommandsUrl": sms_commands_url,
                 "SmsCommandsMethod": sms_commands_method,
             }
@@ -443,15 +448,16 @@ class FleetList(ListResource):
 
         :returns: The created FleetInstance
         """
+
         data = values.of(
             {
                 "NetworkAccessProfile": network_access_profile,
                 "UniqueName": unique_name,
-                "DataEnabled": data_enabled,
+                "DataEnabled": serialize.boolean_to_string(data_enabled),
                 "DataLimit": data_limit,
                 "IpCommandsUrl": ip_commands_url,
                 "IpCommandsMethod": ip_commands_method,
-                "SmsCommandsEnabled": sms_commands_enabled,
+                "SmsCommandsEnabled": serialize.boolean_to_string(sms_commands_enabled),
                 "SmsCommandsUrl": sms_commands_url,
                 "SmsCommandsMethod": sms_commands_method,
             }

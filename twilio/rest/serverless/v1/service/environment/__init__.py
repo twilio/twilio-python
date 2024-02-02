@@ -155,6 +155,7 @@ class EnvironmentInstance(InstanceResource):
 
 
 class EnvironmentContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the EnvironmentContext
@@ -292,6 +293,7 @@ class EnvironmentContext(InstanceContext):
 
 
 class EnvironmentPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EnvironmentInstance:
         """
         Build an instance of EnvironmentInstance
@@ -312,6 +314,7 @@ class EnvironmentPage(Page):
 
 
 class EnvironmentList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the EnvironmentList
@@ -339,6 +342,7 @@ class EnvironmentList(ListResource):
 
         :returns: The created EnvironmentInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -367,6 +371,7 @@ class EnvironmentList(ListResource):
 
         :returns: The created EnvironmentInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

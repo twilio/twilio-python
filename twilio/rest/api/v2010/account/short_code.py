@@ -175,6 +175,7 @@ class ShortCodeInstance(InstanceResource):
 
 
 class ShortCodeContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the ShortCodeContext
@@ -335,6 +336,7 @@ class ShortCodeContext(InstanceContext):
 
 
 class ShortCodePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ShortCodeInstance:
         """
         Build an instance of ShortCodeInstance
@@ -355,6 +357,7 @@ class ShortCodePage(Page):
 
 
 class ShortCodeList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ShortCodeList

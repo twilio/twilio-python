@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class HostedNumberOrderInstance(InstanceResource):
+
     class Status(object):
         RECEIVED = "received"
         PENDING_VERIFICATION = "pending-verification"
@@ -266,6 +267,7 @@ class HostedNumberOrderInstance(InstanceResource):
 
 
 class HostedNumberOrderContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the HostedNumberOrderContext
@@ -468,6 +470,7 @@ class HostedNumberOrderContext(InstanceContext):
 
 
 class HostedNumberOrderPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> HostedNumberOrderInstance:
         """
         Build an instance of HostedNumberOrderInstance
@@ -486,6 +489,7 @@ class HostedNumberOrderPage(Page):
 
 
 class HostedNumberOrderList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the HostedNumberOrderList
@@ -542,10 +546,11 @@ class HostedNumberOrderList(ListResource):
 
         :returns: The created HostedNumberOrderInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
-                "SmsCapability": sms_capability,
+                "SmsCapability": serialize.boolean_to_string(sms_capability),
                 "AccountSid": account_sid,
                 "FriendlyName": friendly_name,
                 "UniqueName": unique_name,
@@ -617,10 +622,11 @@ class HostedNumberOrderList(ListResource):
 
         :returns: The created HostedNumberOrderInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
-                "SmsCapability": sms_capability,
+                "SmsCapability": serialize.boolean_to_string(sms_capability),
                 "AccountSid": account_sid,
                 "FriendlyName": friendly_name,
                 "UniqueName": unique_name,

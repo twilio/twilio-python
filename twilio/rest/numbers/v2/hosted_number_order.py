@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class HostedNumberOrderInstance(InstanceResource):
+
     class Status(object):
         RECEIVED = "received"
         VERIFIED = "verified"
@@ -156,6 +157,7 @@ class HostedNumberOrderInstance(InstanceResource):
 
 
 class HostedNumberOrderContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the HostedNumberOrderContext
@@ -244,6 +246,7 @@ class HostedNumberOrderContext(InstanceContext):
 
 
 class HostedNumberOrderPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> HostedNumberOrderInstance:
         """
         Build an instance of HostedNumberOrderInstance
@@ -262,6 +265,7 @@ class HostedNumberOrderPage(Page):
 
 
 class HostedNumberOrderList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the HostedNumberOrderList
@@ -314,6 +318,7 @@ class HostedNumberOrderList(ListResource):
 
         :returns: The created HostedNumberOrderInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
@@ -326,7 +331,7 @@ class HostedNumberOrderList(ListResource):
                 "SmsUrl": sms_url,
                 "SmsMethod": sms_method,
                 "SmsFallbackUrl": sms_fallback_url,
-                "SmsCapability": sms_capability,
+                "SmsCapability": serialize.boolean_to_string(sms_capability),
                 "SmsFallbackMethod": sms_fallback_method,
                 "StatusCallbackUrl": status_callback_url,
                 "StatusCallbackMethod": status_callback_method,
@@ -384,6 +389,7 @@ class HostedNumberOrderList(ListResource):
 
         :returns: The created HostedNumberOrderInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
@@ -396,7 +402,7 @@ class HostedNumberOrderList(ListResource):
                 "SmsUrl": sms_url,
                 "SmsMethod": sms_method,
                 "SmsFallbackUrl": sms_fallback_url,
-                "SmsCapability": sms_capability,
+                "SmsCapability": serialize.boolean_to_string(sms_capability),
                 "SmsFallbackMethod": sms_fallback_method,
                 "StatusCallbackUrl": status_callback_url,
                 "StatusCallbackMethod": status_callback_method,
@@ -609,7 +615,7 @@ class HostedNumberOrderList(ListResource):
         data = values.of(
             {
                 "Status": status,
-                "SmsCapability": sms_capability,
+                "SmsCapability": serialize.boolean_to_string(sms_capability),
                 "PhoneNumber": phone_number,
                 "IncomingPhoneNumberSid": incoming_phone_number_sid,
                 "FriendlyName": friendly_name,
@@ -651,7 +657,7 @@ class HostedNumberOrderList(ListResource):
         data = values.of(
             {
                 "Status": status,
-                "SmsCapability": sms_capability,
+                "SmsCapability": serialize.boolean_to_string(sms_capability),
                 "PhoneNumber": phone_number,
                 "IncomingPhoneNumberSid": incoming_phone_number_sid,
                 "FriendlyName": friendly_name,

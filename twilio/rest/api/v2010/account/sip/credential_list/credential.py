@@ -154,6 +154,7 @@ class CredentialInstance(InstanceResource):
 
 
 class CredentialContext(InstanceContext):
+
     def __init__(
         self, version: Version, account_sid: str, credential_list_sid: str, sid: str
     ):
@@ -312,6 +313,7 @@ class CredentialContext(InstanceContext):
 
 
 class CredentialPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CredentialInstance:
         """
         Build an instance of CredentialInstance
@@ -335,6 +337,7 @@ class CredentialPage(Page):
 
 
 class CredentialList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, credential_list_sid: str):
         """
         Initialize the CredentialList
@@ -364,6 +367,7 @@ class CredentialList(ListResource):
 
         :returns: The created CredentialInstance
         """
+
         data = values.of(
             {
                 "Username": username,
@@ -393,6 +397,7 @@ class CredentialList(ListResource):
 
         :returns: The created CredentialInstance
         """
+
         data = values.of(
             {
                 "Username": username,

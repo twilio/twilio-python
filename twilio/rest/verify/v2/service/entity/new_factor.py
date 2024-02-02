@@ -22,6 +22,7 @@ from twilio.base.version import Version
 
 
 class NewFactorInstance(InstanceResource):
+
     class FactorStatuses(object):
         UNVERIFIED = "unverified"
         VERIFIED = "verified"
@@ -101,6 +102,7 @@ class NewFactorInstance(InstanceResource):
 
 
 class NewFactorList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, identity: str):
         """
         Initialize the NewFactorList
@@ -160,6 +162,7 @@ class NewFactorList(ListResource):
 
         :returns: The created NewFactorInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -231,6 +234,7 @@ class NewFactorList(ListResource):
 
         :returns: The created NewFactorInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

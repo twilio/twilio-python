@@ -43,6 +43,7 @@ class WebChannelsInstance(InstanceResource):
 
 
 class WebChannelsList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the WebChannelsList
@@ -71,6 +72,7 @@ class WebChannelsList(ListResource):
 
         :returns: The created WebChannelsInstance
         """
+
         data = values.of(
             {
                 "AddressSid": address_sid,
@@ -105,6 +107,7 @@ class WebChannelsList(ListResource):
 
         :returns: The created WebChannelsInstance
         """
+
         data = values.of(
             {
                 "AddressSid": address_sid,

@@ -157,6 +157,7 @@ class AssetInstance(InstanceResource):
 
 
 class AssetContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the AssetContext
@@ -318,6 +319,7 @@ class AssetContext(InstanceContext):
 
 
 class AssetPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AssetInstance:
         """
         Build an instance of AssetInstance
@@ -338,6 +340,7 @@ class AssetPage(Page):
 
 
 class AssetList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the AssetList
@@ -362,6 +365,7 @@ class AssetList(ListResource):
 
         :returns: The created AssetInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -386,6 +390,7 @@ class AssetList(ListResource):
 
         :returns: The created AssetInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

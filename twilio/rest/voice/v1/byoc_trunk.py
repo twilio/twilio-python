@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -219,6 +219,7 @@ class ByocTrunkInstance(InstanceResource):
 
 
 class ByocTrunkContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ByocTrunkContext
@@ -334,7 +335,7 @@ class ByocTrunkContext(InstanceContext):
                 "VoiceFallbackMethod": voice_fallback_method,
                 "StatusCallbackUrl": status_callback_url,
                 "StatusCallbackMethod": status_callback_method,
-                "CnamLookupEnabled": cnam_lookup_enabled,
+                "CnamLookupEnabled": serialize.boolean_to_string(cnam_lookup_enabled),
                 "ConnectionPolicySid": connection_policy_sid,
                 "FromDomainSid": from_domain_sid,
             }
@@ -386,7 +387,7 @@ class ByocTrunkContext(InstanceContext):
                 "VoiceFallbackMethod": voice_fallback_method,
                 "StatusCallbackUrl": status_callback_url,
                 "StatusCallbackMethod": status_callback_method,
-                "CnamLookupEnabled": cnam_lookup_enabled,
+                "CnamLookupEnabled": serialize.boolean_to_string(cnam_lookup_enabled),
                 "ConnectionPolicySid": connection_policy_sid,
                 "FromDomainSid": from_domain_sid,
             }
@@ -411,6 +412,7 @@ class ByocTrunkContext(InstanceContext):
 
 
 class ByocTrunkPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ByocTrunkInstance:
         """
         Build an instance of ByocTrunkInstance
@@ -429,6 +431,7 @@ class ByocTrunkPage(Page):
 
 
 class ByocTrunkList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ByocTrunkList
@@ -469,6 +472,7 @@ class ByocTrunkList(ListResource):
 
         :returns: The created ByocTrunkInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -478,7 +482,7 @@ class ByocTrunkList(ListResource):
                 "VoiceFallbackMethod": voice_fallback_method,
                 "StatusCallbackUrl": status_callback_url,
                 "StatusCallbackMethod": status_callback_method,
-                "CnamLookupEnabled": cnam_lookup_enabled,
+                "CnamLookupEnabled": serialize.boolean_to_string(cnam_lookup_enabled),
                 "ConnectionPolicySid": connection_policy_sid,
                 "FromDomainSid": from_domain_sid,
             }
@@ -521,6 +525,7 @@ class ByocTrunkList(ListResource):
 
         :returns: The created ByocTrunkInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -530,7 +535,7 @@ class ByocTrunkList(ListResource):
                 "VoiceFallbackMethod": voice_fallback_method,
                 "StatusCallbackUrl": status_callback_url,
                 "StatusCallbackMethod": status_callback_method,
-                "CnamLookupEnabled": cnam_lookup_enabled,
+                "CnamLookupEnabled": serialize.boolean_to_string(cnam_lookup_enabled),
                 "ConnectionPolicySid": connection_policy_sid,
                 "FromDomainSid": from_domain_sid,
             }

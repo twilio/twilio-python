@@ -166,6 +166,7 @@ class BucketInstance(InstanceResource):
 
 
 class BucketContext(InstanceContext):
+
     def __init__(
         self, version: Version, service_sid: str, rate_limit_sid: str, sid: str
     ):
@@ -336,6 +337,7 @@ class BucketContext(InstanceContext):
 
 
 class BucketPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> BucketInstance:
         """
         Build an instance of BucketInstance
@@ -359,6 +361,7 @@ class BucketPage(Page):
 
 
 class BucketList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, rate_limit_sid: str):
         """
         Initialize the BucketList
@@ -390,6 +393,7 @@ class BucketList(ListResource):
 
         :returns: The created BucketInstance
         """
+
         data = values.of(
             {
                 "Max": max,
@@ -419,6 +423,7 @@ class BucketList(ListResource):
 
         :returns: The created BucketInstance
         """
+
         data = values.of(
             {
                 "Max": max,

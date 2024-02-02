@@ -26,6 +26,7 @@ from twilio.rest.trusthub.v1.trust_products import TrustProductsList
 
 
 class V1(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Trusthub

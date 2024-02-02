@@ -143,6 +143,7 @@ class PublicKeyInstance(InstanceResource):
 
 
 class PublicKeyContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the PublicKeyContext
@@ -279,6 +280,7 @@ class PublicKeyContext(InstanceContext):
 
 
 class PublicKeyPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> PublicKeyInstance:
         """
         Build an instance of PublicKeyInstance
@@ -297,6 +299,7 @@ class PublicKeyPage(Page):
 
 
 class PublicKeyList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the PublicKeyList
@@ -323,6 +326,7 @@ class PublicKeyList(ListResource):
 
         :returns: The created PublicKeyInstance
         """
+
         data = values.of(
             {
                 "PublicKey": public_key,
@@ -354,6 +358,7 @@ class PublicKeyList(ListResource):
 
         :returns: The created PublicKeyInstance
         """
+
         data = values.of(
             {
                 "PublicKey": public_key,

@@ -19,6 +19,7 @@ from twilio.rest.preview.understand.assistant import AssistantList
 
 
 class Understand(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the Understand version of Preview

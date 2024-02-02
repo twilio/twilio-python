@@ -126,6 +126,7 @@ class AuthCallsIpAccessControlListMappingInstance(InstanceResource):
 
 
 class AuthCallsIpAccessControlListMappingContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, domain_sid: str, sid: str):
         """
         Initialize the AuthCallsIpAccessControlListMappingContext
@@ -228,6 +229,7 @@ class AuthCallsIpAccessControlListMappingContext(InstanceContext):
 
 
 class AuthCallsIpAccessControlListMappingPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> AuthCallsIpAccessControlListMappingInstance:
@@ -253,6 +255,7 @@ class AuthCallsIpAccessControlListMappingPage(Page):
 
 
 class AuthCallsIpAccessControlListMappingList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
         Initialize the AuthCallsIpAccessControlListMappingList
@@ -283,6 +286,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
 
         :returns: The created AuthCallsIpAccessControlListMappingInstance
         """
+
         data = values.of(
             {
                 "IpAccessControlListSid": ip_access_control_list_sid,
@@ -312,6 +316,7 @@ class AuthCallsIpAccessControlListMappingList(ListResource):
 
         :returns: The created AuthCallsIpAccessControlListMappingInstance
         """
+
         data = values.of(
             {
                 "IpAccessControlListSid": ip_access_control_list_sid,

@@ -54,6 +54,7 @@ class TokenInstance(InstanceResource):
 
 
 class TokenList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the TokenList
@@ -90,6 +91,7 @@ class TokenList(ListResource):
 
         :returns: The created TokenInstance
         """
+
         data = values.of(
             {
                 "GrantType": grant_type,
@@ -136,6 +138,7 @@ class TokenList(ListResource):
 
         :returns: The created TokenInstance
         """
+
         data = values.of(
             {
                 "GrantType": grant_type,

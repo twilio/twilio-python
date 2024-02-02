@@ -22,6 +22,7 @@ from twilio.base.version import Version
 
 
 class VerificationInstance(InstanceResource):
+
     class Channel(object):
         SMS = "sms"
         CALL = "call"
@@ -74,7 +75,7 @@ class VerificationInstance(InstanceResource):
         self.lookup: Optional[Dict[str, object]] = payload.get("lookup")
         self.amount: Optional[str] = payload.get("amount")
         self.payee: Optional[str] = payload.get("payee")
-        self.send_code_attempts: Optional[List[object]] = payload.get(
+        self.send_code_attempts: Optional[List[Dict[str, object]]] = payload.get(
             "send_code_attempts"
         )
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
@@ -163,6 +164,7 @@ class VerificationInstance(InstanceResource):
 
 
 class VerificationContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the VerificationContext
@@ -289,6 +291,7 @@ class VerificationContext(InstanceContext):
 
 
 class VerificationList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the VerificationList
@@ -346,6 +349,7 @@ class VerificationList(ListResource):
 
         :returns: The created VerificationInstance
         """
+
         data = values.of(
             {
                 "To": to,
@@ -418,6 +422,7 @@ class VerificationList(ListResource):
 
         :returns: The created VerificationInstance
         """
+
         data = values.of(
             {
                 "To": to,

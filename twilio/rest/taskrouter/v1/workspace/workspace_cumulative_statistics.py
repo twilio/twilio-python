@@ -194,6 +194,7 @@ class WorkspaceCumulativeStatisticsInstance(InstanceResource):
 
 
 class WorkspaceCumulativeStatisticsContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkspaceCumulativeStatisticsContext
@@ -302,6 +303,7 @@ class WorkspaceCumulativeStatisticsContext(InstanceContext):
 
 
 class WorkspaceCumulativeStatisticsList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkspaceCumulativeStatisticsList

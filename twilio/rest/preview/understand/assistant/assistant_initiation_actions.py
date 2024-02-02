@@ -117,6 +117,7 @@ class AssistantInitiationActionsInstance(InstanceResource):
 
 
 class AssistantInitiationActionsContext(InstanceContext):
+
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the AssistantInitiationActionsContext
@@ -239,6 +240,7 @@ class AssistantInitiationActionsContext(InstanceContext):
 
 
 class AssistantInitiationActionsList(ListResource):
+
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the AssistantInitiationActionsList

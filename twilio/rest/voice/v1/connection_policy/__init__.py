@@ -155,6 +155,7 @@ class ConnectionPolicyInstance(InstanceResource):
 
 
 class ConnectionPolicyContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ConnectionPolicyContext
@@ -309,6 +310,7 @@ class ConnectionPolicyContext(InstanceContext):
 
 
 class ConnectionPolicyPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ConnectionPolicyInstance:
         """
         Build an instance of ConnectionPolicyInstance
@@ -327,6 +329,7 @@ class ConnectionPolicyPage(Page):
 
 
 class ConnectionPolicyList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ConnectionPolicyList
@@ -348,6 +351,7 @@ class ConnectionPolicyList(ListResource):
 
         :returns: The created ConnectionPolicyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -372,6 +376,7 @@ class ConnectionPolicyList(ListResource):
 
         :returns: The created ConnectionPolicyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

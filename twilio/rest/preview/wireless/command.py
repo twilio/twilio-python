@@ -107,6 +107,7 @@ class CommandInstance(InstanceResource):
 
 
 class CommandContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the CommandContext
@@ -171,6 +172,7 @@ class CommandContext(InstanceContext):
 
 
 class CommandPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CommandInstance:
         """
         Build an instance of CommandInstance
@@ -189,6 +191,7 @@ class CommandPage(Page):
 
 
 class CommandList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CommandList
@@ -223,6 +226,7 @@ class CommandList(ListResource):
 
         :returns: The created CommandInstance
         """
+
         data = values.of(
             {
                 "Command": command,
@@ -266,6 +270,7 @@ class CommandList(ListResource):
 
         :returns: The created CommandInstance
         """
+
         data = values.of(
             {
                 "Command": command,

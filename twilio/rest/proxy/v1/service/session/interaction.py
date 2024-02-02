@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class InteractionInstance(InstanceResource):
+
     class ResourceStatus(object):
         ACCEPTED = "accepted"
         ANSWERED = "answered"
@@ -188,6 +189,7 @@ class InteractionInstance(InstanceResource):
 
 
 class InteractionContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, session_sid: str, sid: str):
         """
         Initialize the InteractionContext
@@ -288,6 +290,7 @@ class InteractionContext(InstanceContext):
 
 
 class InteractionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> InteractionInstance:
         """
         Build an instance of InteractionInstance
@@ -311,6 +314,7 @@ class InteractionPage(Page):
 
 
 class InteractionList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, session_sid: str):
         """
         Initialize the InteractionList

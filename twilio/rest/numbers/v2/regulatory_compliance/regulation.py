@@ -22,6 +22,7 @@ from twilio.base.page import Page
 
 
 class RegulationInstance(InstanceResource):
+
     class EndUserType(object):
         INDIVIDUAL = "individual"
         BUSINESS = "business"
@@ -100,6 +101,7 @@ class RegulationInstance(InstanceResource):
 
 
 class RegulationContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the RegulationContext
@@ -164,6 +166,7 @@ class RegulationContext(InstanceContext):
 
 
 class RegulationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> RegulationInstance:
         """
         Build an instance of RegulationInstance
@@ -182,6 +185,7 @@ class RegulationPage(Page):
 
 
 class RegulationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the RegulationList

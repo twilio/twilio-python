@@ -173,6 +173,7 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
 
 
 class InsightsQuestionnairesQuestionContext(InstanceContext):
+
     def __init__(self, version: Version, question_sid: str):
         """
         Initialize the InsightsQuestionnairesQuestionContext
@@ -249,7 +250,7 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
         """
         data = values.of(
             {
-                "AllowNa": allow_na,
+                "AllowNa": serialize.boolean_to_string(allow_na),
                 "CategorySid": category_sid,
                 "Question": question,
                 "Description": description,
@@ -293,7 +294,7 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
         """
         data = values.of(
             {
-                "AllowNa": allow_na,
+                "AllowNa": serialize.boolean_to_string(allow_na),
                 "CategorySid": category_sid,
                 "Question": question,
                 "Description": description,
@@ -327,6 +328,7 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
 
 
 class InsightsQuestionnairesQuestionPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> InsightsQuestionnairesQuestionInstance:
@@ -347,6 +349,7 @@ class InsightsQuestionnairesQuestionPage(Page):
 
 
 class InsightsQuestionnairesQuestionList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the InsightsQuestionnairesQuestionList
@@ -379,12 +382,13 @@ class InsightsQuestionnairesQuestionList(ListResource):
 
         :returns: The created InsightsQuestionnairesQuestionInstance
         """
+
         data = values.of(
             {
                 "CategorySid": category_sid,
                 "Question": question,
                 "AnswerSetId": answer_set_id,
-                "AllowNa": allow_na,
+                "AllowNa": serialize.boolean_to_string(allow_na),
                 "Description": description,
             }
         )
@@ -393,6 +397,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
                 "Authorization": authorization,
             }
         )
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -420,12 +425,13 @@ class InsightsQuestionnairesQuestionList(ListResource):
 
         :returns: The created InsightsQuestionnairesQuestionInstance
         """
+
         data = values.of(
             {
                 "CategorySid": category_sid,
                 "Question": question,
                 "AnswerSetId": answer_set_id,
-                "AllowNa": allow_na,
+                "AllowNa": serialize.boolean_to_string(allow_na),
                 "Description": description,
             }
         )
@@ -434,6 +440,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
                 "Authorization": authorization,
             }
         )
+
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

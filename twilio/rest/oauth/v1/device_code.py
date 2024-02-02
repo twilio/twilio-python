@@ -53,6 +53,7 @@ class DeviceCodeInstance(InstanceResource):
 
 
 class DeviceCodeList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the DeviceCodeList
@@ -79,6 +80,7 @@ class DeviceCodeList(ListResource):
 
         :returns: The created DeviceCodeInstance
         """
+
         data = values.of(
             {
                 "ClientSid": client_sid,
@@ -110,6 +112,7 @@ class DeviceCodeList(ListResource):
 
         :returns: The created DeviceCodeInstance
         """
+
         data = values.of(
             {
                 "ClientSid": client_sid,

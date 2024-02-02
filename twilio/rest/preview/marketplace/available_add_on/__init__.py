@@ -106,6 +106,7 @@ class AvailableAddOnInstance(InstanceResource):
 
 
 class AvailableAddOnContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the AvailableAddOnContext
@@ -184,6 +185,7 @@ class AvailableAddOnContext(InstanceContext):
 
 
 class AvailableAddOnPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AvailableAddOnInstance:
         """
         Build an instance of AvailableAddOnInstance
@@ -202,6 +204,7 @@ class AvailableAddOnPage(Page):
 
 
 class AvailableAddOnList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AvailableAddOnList

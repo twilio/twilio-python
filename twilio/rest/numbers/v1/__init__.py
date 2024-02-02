@@ -21,6 +21,7 @@ from twilio.rest.numbers.v1.porting_portability import PortingPortabilityList
 
 
 class V1(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Numbers

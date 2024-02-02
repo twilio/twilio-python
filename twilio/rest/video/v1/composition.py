@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class CompositionInstance(InstanceResource):
+
     class Format(object):
         MP4 = "mp4"
         WEBM = "webm"
@@ -164,6 +165,7 @@ class CompositionInstance(InstanceResource):
 
 
 class CompositionContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the CompositionContext
@@ -252,6 +254,7 @@ class CompositionContext(InstanceContext):
 
 
 class CompositionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CompositionInstance:
         """
         Build an instance of CompositionInstance
@@ -270,6 +273,7 @@ class CompositionPage(Page):
 
 
 class CompositionList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CompositionList
@@ -308,6 +312,7 @@ class CompositionList(ListResource):
 
         :returns: The created CompositionInstance
         """
+
         data = values.of(
             {
                 "RoomSid": room_sid,
@@ -320,7 +325,7 @@ class CompositionList(ListResource):
                 "Format": format,
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
-                "Trim": trim,
+                "Trim": serialize.boolean_to_string(trim),
             }
         )
 
@@ -359,6 +364,7 @@ class CompositionList(ListResource):
 
         :returns: The created CompositionInstance
         """
+
         data = values.of(
             {
                 "RoomSid": room_sid,
@@ -371,7 +377,7 @@ class CompositionList(ListResource):
                 "Format": format,
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
-                "Trim": trim,
+                "Trim": serialize.boolean_to_string(trim),
             }
         )
 

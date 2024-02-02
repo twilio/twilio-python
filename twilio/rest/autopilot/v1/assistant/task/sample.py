@@ -174,6 +174,7 @@ class SampleInstance(InstanceResource):
 
 
 class SampleContext(InstanceContext):
+
     def __init__(self, version: Version, assistant_sid: str, task_sid: str, sid: str):
         """
         Initialize the SampleContext
@@ -346,6 +347,7 @@ class SampleContext(InstanceContext):
 
 
 class SamplePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SampleInstance:
         """
         Build an instance of SampleInstance
@@ -369,6 +371,7 @@ class SamplePage(Page):
 
 
 class SampleList(ListResource):
+
     def __init__(self, version: Version, assistant_sid: str, task_sid: str):
         """
         Initialize the SampleList
@@ -404,6 +407,7 @@ class SampleList(ListResource):
 
         :returns: The created SampleInstance
         """
+
         data = values.of(
             {
                 "Language": language,
@@ -440,6 +444,7 @@ class SampleList(ListResource):
 
         :returns: The created SampleInstance
         """
+
         data = values.of(
             {
                 "Language": language,

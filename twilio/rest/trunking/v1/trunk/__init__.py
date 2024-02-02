@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -28,6 +28,7 @@ from twilio.rest.trunking.v1.trunk.recording import RecordingList
 
 
 class TrunkInstance(InstanceResource):
+
     class TransferCallerId(object):
         FROM_TRANSFEREE = "from-transferee"
         FROM_TRANSFEROR = "from-transferor"
@@ -268,6 +269,7 @@ class TrunkInstance(InstanceResource):
 
 
 class TrunkContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the TrunkContext
@@ -385,8 +387,8 @@ class TrunkContext(InstanceContext):
                 "DisasterRecoveryUrl": disaster_recovery_url,
                 "DisasterRecoveryMethod": disaster_recovery_method,
                 "TransferMode": transfer_mode,
-                "Secure": secure,
-                "CnamLookupEnabled": cnam_lookup_enabled,
+                "Secure": serialize.boolean_to_string(secure),
+                "CnamLookupEnabled": serialize.boolean_to_string(cnam_lookup_enabled),
                 "TransferCallerId": transfer_caller_id,
             }
         )
@@ -433,8 +435,8 @@ class TrunkContext(InstanceContext):
                 "DisasterRecoveryUrl": disaster_recovery_url,
                 "DisasterRecoveryMethod": disaster_recovery_method,
                 "TransferMode": transfer_mode,
-                "Secure": secure,
-                "CnamLookupEnabled": cnam_lookup_enabled,
+                "Secure": serialize.boolean_to_string(secure),
+                "CnamLookupEnabled": serialize.boolean_to_string(cnam_lookup_enabled),
                 "TransferCallerId": transfer_caller_id,
             }
         )
@@ -518,6 +520,7 @@ class TrunkContext(InstanceContext):
 
 
 class TrunkPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TrunkInstance:
         """
         Build an instance of TrunkInstance
@@ -536,6 +539,7 @@ class TrunkPage(Page):
 
 
 class TrunkList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the TrunkList
@@ -574,6 +578,7 @@ class TrunkList(ListResource):
 
         :returns: The created TrunkInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -581,8 +586,8 @@ class TrunkList(ListResource):
                 "DisasterRecoveryUrl": disaster_recovery_url,
                 "DisasterRecoveryMethod": disaster_recovery_method,
                 "TransferMode": transfer_mode,
-                "Secure": secure,
-                "CnamLookupEnabled": cnam_lookup_enabled,
+                "Secure": serialize.boolean_to_string(secure),
+                "CnamLookupEnabled": serialize.boolean_to_string(cnam_lookup_enabled),
                 "TransferCallerId": transfer_caller_id,
             }
         )
@@ -622,6 +627,7 @@ class TrunkList(ListResource):
 
         :returns: The created TrunkInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -629,8 +635,8 @@ class TrunkList(ListResource):
                 "DisasterRecoveryUrl": disaster_recovery_url,
                 "DisasterRecoveryMethod": disaster_recovery_method,
                 "TransferMode": transfer_mode,
-                "Secure": secure,
-                "CnamLookupEnabled": cnam_lookup_enabled,
+                "Secure": serialize.boolean_to_string(secure),
+                "CnamLookupEnabled": serialize.boolean_to_string(cnam_lookup_enabled),
                 "TransferCallerId": transfer_caller_id,
             }
         )

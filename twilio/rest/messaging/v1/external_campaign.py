@@ -52,6 +52,7 @@ class ExternalCampaignInstance(InstanceResource):
 
 
 class ExternalCampaignList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ExternalCampaignList
@@ -74,6 +75,7 @@ class ExternalCampaignList(ListResource):
 
         :returns: The created ExternalCampaignInstance
         """
+
         data = values.of(
             {
                 "CampaignId": campaign_id,
@@ -100,6 +102,7 @@ class ExternalCampaignList(ListResource):
 
         :returns: The created ExternalCampaignInstance
         """
+
         data = values.of(
             {
                 "CampaignId": campaign_id,

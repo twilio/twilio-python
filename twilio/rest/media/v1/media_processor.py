@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class MediaProcessorInstance(InstanceResource):
+
     class Order(object):
         ASC = "asc"
         DESC = "desc"
@@ -153,6 +154,7 @@ class MediaProcessorInstance(InstanceResource):
 
 
 class MediaProcessorContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the MediaProcessorContext
@@ -265,6 +267,7 @@ class MediaProcessorContext(InstanceContext):
 
 
 class MediaProcessorPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MediaProcessorInstance:
         """
         Build an instance of MediaProcessorInstance
@@ -283,6 +286,7 @@ class MediaProcessorPage(Page):
 
 
 class MediaProcessorList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the MediaProcessorList
@@ -315,6 +319,7 @@ class MediaProcessorList(ListResource):
 
         :returns: The created MediaProcessorInstance
         """
+
         data = values.of(
             {
                 "Extension": extension,
@@ -355,6 +360,7 @@ class MediaProcessorList(ListResource):
 
         :returns: The created MediaProcessorInstance
         """
+
         data = values.of(
             {
                 "Extension": extension,

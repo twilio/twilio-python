@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class MonthlyInstance(InstanceResource):
+
     class Category(object):
         A2P_REGISTRATION_FEES = "a2p-registration-fees"
         AGENT_CONFERENCE = "agent-conference"
@@ -404,6 +405,7 @@ class MonthlyInstance(InstanceResource):
 
 
 class MonthlyPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MonthlyInstance:
         """
         Build an instance of MonthlyInstance
@@ -424,6 +426,7 @@ class MonthlyPage(Page):
 
 
 class MonthlyList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the MonthlyList
@@ -626,7 +629,7 @@ class MonthlyList(ListResource):
                 "Category": category,
                 "StartDate": serialize.iso8601_date(start_date),
                 "EndDate": serialize.iso8601_date(end_date),
-                "IncludeSubaccounts": include_subaccounts,
+                "IncludeSubaccounts": serialize.boolean_to_string(include_subaccounts),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -665,7 +668,7 @@ class MonthlyList(ListResource):
                 "Category": category,
                 "StartDate": serialize.iso8601_date(start_date),
                 "EndDate": serialize.iso8601_date(end_date),
-                "IncludeSubaccounts": include_subaccounts,
+                "IncludeSubaccounts": serialize.boolean_to_string(include_subaccounts),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

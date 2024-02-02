@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class DeliveryReceiptInstance(InstanceResource):
+
     class DeliveryStatus(object):
         READ = "read"
         FAILED = "failed"
@@ -130,6 +131,7 @@ class DeliveryReceiptInstance(InstanceResource):
 
 
 class DeliveryReceiptContext(InstanceContext):
+
     def __init__(
         self,
         version: Version,
@@ -215,6 +217,7 @@ class DeliveryReceiptContext(InstanceContext):
 
 
 class DeliveryReceiptPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DeliveryReceiptInstance:
         """
         Build an instance of DeliveryReceiptInstance
@@ -239,6 +242,7 @@ class DeliveryReceiptPage(Page):
 
 
 class DeliveryReceiptList(ListResource):
+
     def __init__(
         self,
         version: Version,

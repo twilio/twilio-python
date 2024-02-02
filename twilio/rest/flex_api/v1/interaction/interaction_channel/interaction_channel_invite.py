@@ -61,6 +61,7 @@ class InteractionChannelInviteInstance(InstanceResource):
 
 
 class InteractionChannelInvitePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> InteractionChannelInviteInstance:
         """
         Build an instance of InteractionChannelInviteInstance
@@ -84,6 +85,7 @@ class InteractionChannelInvitePage(Page):
 
 
 class InteractionChannelInviteList(ListResource):
+
     def __init__(self, version: Version, interaction_sid: str, channel_sid: str):
         """
         Initialize the InteractionChannelInviteList
@@ -114,6 +116,7 @@ class InteractionChannelInviteList(ListResource):
 
         :returns: The created InteractionChannelInviteInstance
         """
+
         data = values.of(
             {
                 "Routing": serialize.object(routing),
@@ -141,6 +144,7 @@ class InteractionChannelInviteList(ListResource):
 
         :returns: The created InteractionChannelInviteInstance
         """
+
         data = values.of(
             {
                 "Routing": serialize.object(routing),

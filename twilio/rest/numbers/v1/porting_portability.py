@@ -21,6 +21,7 @@ from twilio.base.version import Version
 
 
 class PortingPortabilityInstance(InstanceResource):
+
     class NumberType(object):
         LOCAL = "LOCAL"
         UNKNOWN = "UNKNOWN"
@@ -126,6 +127,7 @@ class PortingPortabilityInstance(InstanceResource):
 
 
 class PortingPortabilityContext(InstanceContext):
+
     def __init__(self, version: Version, phone_number: str):
         """
         Initialize the PortingPortabilityContext
@@ -206,6 +208,7 @@ class PortingPortabilityContext(InstanceContext):
 
 
 class PortingPortabilityList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the PortingPortabilityList

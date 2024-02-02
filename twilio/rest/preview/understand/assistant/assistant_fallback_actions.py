@@ -115,6 +115,7 @@ class AssistantFallbackActionsInstance(InstanceResource):
 
 
 class AssistantFallbackActionsContext(InstanceContext):
+
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the AssistantFallbackActionsContext
@@ -235,6 +236,7 @@ class AssistantFallbackActionsContext(InstanceContext):
 
 
 class AssistantFallbackActionsList(ListResource):
+
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the AssistantFallbackActionsList

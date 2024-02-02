@@ -113,6 +113,7 @@ class StyleSheetInstance(InstanceResource):
 
 
 class StyleSheetContext(InstanceContext):
+
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the StyleSheetContext
@@ -229,6 +230,7 @@ class StyleSheetContext(InstanceContext):
 
 
 class StyleSheetList(ListResource):
+
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the StyleSheetList

@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class AuthorizedConnectAppInstance(InstanceResource):
+
     class Permission(object):
         GET_ALL = "get-all"
         POST_ALL = "post-all"
@@ -125,6 +126,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
 
 
 class AuthorizedConnectAppContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, connect_app_sid: str):
         """
         Initialize the AuthorizedConnectAppContext
@@ -195,6 +197,7 @@ class AuthorizedConnectAppContext(InstanceContext):
 
 
 class AuthorizedConnectAppPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AuthorizedConnectAppInstance:
         """
         Build an instance of AuthorizedConnectAppInstance
@@ -215,6 +218,7 @@ class AuthorizedConnectAppPage(Page):
 
 
 class AuthorizedConnectAppList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the AuthorizedConnectAppList

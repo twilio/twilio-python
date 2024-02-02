@@ -99,6 +99,7 @@ class EventTypeInstance(InstanceResource):
 
 
 class EventTypeContext(InstanceContext):
+
     def __init__(self, version: Version, type: str):
         """
         Initialize the EventTypeContext
@@ -163,6 +164,7 @@ class EventTypeContext(InstanceContext):
 
 
 class EventTypePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EventTypeInstance:
         """
         Build an instance of EventTypeInstance
@@ -181,6 +183,7 @@ class EventTypePage(Page):
 
 
 class EventTypeList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the EventTypeList

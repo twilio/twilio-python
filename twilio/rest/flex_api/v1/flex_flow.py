@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class FlexFlowInstance(InstanceResource):
+
     class ChannelType(object):
         WEB = "web"
         SMS = "sms"
@@ -278,6 +279,7 @@ class FlexFlowInstance(InstanceResource):
 
 
 class FlexFlowContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FlexFlowContext
@@ -406,7 +408,7 @@ class FlexFlowContext(InstanceContext):
                 "ChatServiceSid": chat_service_sid,
                 "ChannelType": channel_type,
                 "ContactIdentity": contact_identity,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "IntegrationType": integration_type,
                 "Integration.FlowSid": integration_flow_sid,
                 "Integration.Url": integration_url,
@@ -415,9 +417,11 @@ class FlexFlowContext(InstanceContext):
                 "Integration.Channel": integration_channel,
                 "Integration.Timeout": integration_timeout,
                 "Integration.Priority": integration_priority,
-                "Integration.CreationOnMessage": integration_creation_on_message,
-                "LongLived": long_lived,
-                "JanitorEnabled": janitor_enabled,
+                "Integration.CreationOnMessage": serialize.boolean_to_string(
+                    integration_creation_on_message
+                ),
+                "LongLived": serialize.boolean_to_string(long_lived),
+                "JanitorEnabled": serialize.boolean_to_string(janitor_enabled),
                 "Integration.RetryCount": integration_retry_count,
             }
         )
@@ -481,7 +485,7 @@ class FlexFlowContext(InstanceContext):
                 "ChatServiceSid": chat_service_sid,
                 "ChannelType": channel_type,
                 "ContactIdentity": contact_identity,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "IntegrationType": integration_type,
                 "Integration.FlowSid": integration_flow_sid,
                 "Integration.Url": integration_url,
@@ -490,9 +494,11 @@ class FlexFlowContext(InstanceContext):
                 "Integration.Channel": integration_channel,
                 "Integration.Timeout": integration_timeout,
                 "Integration.Priority": integration_priority,
-                "Integration.CreationOnMessage": integration_creation_on_message,
-                "LongLived": long_lived,
-                "JanitorEnabled": janitor_enabled,
+                "Integration.CreationOnMessage": serialize.boolean_to_string(
+                    integration_creation_on_message
+                ),
+                "LongLived": serialize.boolean_to_string(long_lived),
+                "JanitorEnabled": serialize.boolean_to_string(janitor_enabled),
                 "Integration.RetryCount": integration_retry_count,
             }
         )
@@ -516,6 +522,7 @@ class FlexFlowContext(InstanceContext):
 
 
 class FlexFlowPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> FlexFlowInstance:
         """
         Build an instance of FlexFlowInstance
@@ -534,6 +541,7 @@ class FlexFlowPage(Page):
 
 
 class FlexFlowList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the FlexFlowList
@@ -590,13 +598,14 @@ class FlexFlowList(ListResource):
 
         :returns: The created FlexFlowInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "ChatServiceSid": chat_service_sid,
                 "ChannelType": channel_type,
                 "ContactIdentity": contact_identity,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "IntegrationType": integration_type,
                 "Integration.FlowSid": integration_flow_sid,
                 "Integration.Url": integration_url,
@@ -605,9 +614,11 @@ class FlexFlowList(ListResource):
                 "Integration.Channel": integration_channel,
                 "Integration.Timeout": integration_timeout,
                 "Integration.Priority": integration_priority,
-                "Integration.CreationOnMessage": integration_creation_on_message,
-                "LongLived": long_lived,
-                "JanitorEnabled": janitor_enabled,
+                "Integration.CreationOnMessage": serialize.boolean_to_string(
+                    integration_creation_on_message
+                ),
+                "LongLived": serialize.boolean_to_string(long_lived),
+                "JanitorEnabled": serialize.boolean_to_string(janitor_enabled),
                 "Integration.RetryCount": integration_retry_count,
             }
         )
@@ -665,13 +676,14 @@ class FlexFlowList(ListResource):
 
         :returns: The created FlexFlowInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "ChatServiceSid": chat_service_sid,
                 "ChannelType": channel_type,
                 "ContactIdentity": contact_identity,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "IntegrationType": integration_type,
                 "Integration.FlowSid": integration_flow_sid,
                 "Integration.Url": integration_url,
@@ -680,9 +692,11 @@ class FlexFlowList(ListResource):
                 "Integration.Channel": integration_channel,
                 "Integration.Timeout": integration_timeout,
                 "Integration.Priority": integration_priority,
-                "Integration.CreationOnMessage": integration_creation_on_message,
-                "LongLived": long_lived,
-                "JanitorEnabled": janitor_enabled,
+                "Integration.CreationOnMessage": serialize.boolean_to_string(
+                    integration_creation_on_message
+                ),
+                "LongLived": serialize.boolean_to_string(long_lived),
+                "JanitorEnabled": serialize.boolean_to_string(janitor_enabled),
                 "Integration.RetryCount": integration_retry_count,
             }
         )

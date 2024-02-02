@@ -134,6 +134,7 @@ class WorkflowStatisticsInstance(InstanceResource):
 
 
 class WorkflowStatisticsContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
         """
         Initialize the WorkflowStatisticsContext
@@ -246,6 +247,7 @@ class WorkflowStatisticsContext(InstanceContext):
 
 
 class WorkflowStatisticsList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
         """
         Initialize the WorkflowStatisticsList

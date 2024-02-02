@@ -67,6 +67,7 @@ class LegacyContentInstance(InstanceResource):
 
 
 class LegacyContentPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> LegacyContentInstance:
         """
         Build an instance of LegacyContentInstance
@@ -85,6 +86,7 @@ class LegacyContentPage(Page):
 
 
 class LegacyContentList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the LegacyContentList

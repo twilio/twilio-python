@@ -166,6 +166,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
 
 
 class AvailablePhoneNumberCountryContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
         Initialize the AvailablePhoneNumberCountryContext
@@ -339,6 +340,7 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
 
 
 class AvailablePhoneNumberCountryPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> AvailablePhoneNumberCountryInstance:
@@ -361,6 +363,7 @@ class AvailablePhoneNumberCountryPage(Page):
 
 
 class AvailablePhoneNumberCountryList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the AvailablePhoneNumberCountryList

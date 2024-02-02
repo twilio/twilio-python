@@ -126,6 +126,7 @@ class PlaybackGrantInstance(InstanceResource):
 
 
 class PlaybackGrantContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the PlaybackGrantContext
@@ -240,6 +241,7 @@ class PlaybackGrantContext(InstanceContext):
 
 
 class PlaybackGrantList(ListResource):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the PlaybackGrantList

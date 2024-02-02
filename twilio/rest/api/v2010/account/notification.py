@@ -127,6 +127,7 @@ class NotificationInstance(InstanceResource):
 
 
 class NotificationContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the NotificationContext
@@ -197,6 +198,7 @@ class NotificationContext(InstanceContext):
 
 
 class NotificationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> NotificationInstance:
         """
         Build an instance of NotificationInstance
@@ -217,6 +219,7 @@ class NotificationPage(Page):
 
 
 class NotificationList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the NotificationList

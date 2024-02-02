@@ -22,6 +22,7 @@ from twilio.base.page import Page
 
 
 class EventInstance(InstanceResource):
+
     class Level(object):
         UNKNOWN = "UNKNOWN"
         DEBUG = "DEBUG"
@@ -80,6 +81,7 @@ class EventInstance(InstanceResource):
 
 
 class EventPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EventInstance:
         """
         Build an instance of EventInstance
@@ -100,6 +102,7 @@ class EventPage(Page):
 
 
 class EventList(ListResource):
+
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the EventList

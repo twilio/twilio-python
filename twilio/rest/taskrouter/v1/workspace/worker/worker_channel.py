@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -164,6 +164,7 @@ class WorkerChannelInstance(InstanceResource):
 
 
 class WorkerChannelContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, worker_sid: str, sid: str):
         """
         Initialize the WorkerChannelContext
@@ -245,7 +246,7 @@ class WorkerChannelContext(InstanceContext):
         data = values.of(
             {
                 "Capacity": capacity,
-                "Available": available,
+                "Available": serialize.boolean_to_string(available),
             }
         )
 
@@ -279,7 +280,7 @@ class WorkerChannelContext(InstanceContext):
         data = values.of(
             {
                 "Capacity": capacity,
-                "Available": available,
+                "Available": serialize.boolean_to_string(available),
             }
         )
 
@@ -308,6 +309,7 @@ class WorkerChannelContext(InstanceContext):
 
 
 class WorkerChannelPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> WorkerChannelInstance:
         """
         Build an instance of WorkerChannelInstance
@@ -331,6 +333,7 @@ class WorkerChannelPage(Page):
 
 
 class WorkerChannelList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str, worker_sid: str):
         """
         Initialize the WorkerChannelList

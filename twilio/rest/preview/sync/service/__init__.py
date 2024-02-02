@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -197,6 +197,7 @@ class ServiceInstance(InstanceResource):
 
 
 class ServiceContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ServiceContext
@@ -299,8 +300,10 @@ class ServiceContext(InstanceContext):
             {
                 "WebhookUrl": webhook_url,
                 "FriendlyName": friendly_name,
-                "ReachabilityWebhooksEnabled": reachability_webhooks_enabled,
-                "AclEnabled": acl_enabled,
+                "ReachabilityWebhooksEnabled": serialize.boolean_to_string(
+                    reachability_webhooks_enabled
+                ),
+                "AclEnabled": serialize.boolean_to_string(acl_enabled),
             }
         )
 
@@ -333,8 +336,10 @@ class ServiceContext(InstanceContext):
             {
                 "WebhookUrl": webhook_url,
                 "FriendlyName": friendly_name,
-                "ReachabilityWebhooksEnabled": reachability_webhooks_enabled,
-                "AclEnabled": acl_enabled,
+                "ReachabilityWebhooksEnabled": serialize.boolean_to_string(
+                    reachability_webhooks_enabled
+                ),
+                "AclEnabled": serialize.boolean_to_string(acl_enabled),
             }
         )
 
@@ -393,6 +398,7 @@ class ServiceContext(InstanceContext):
 
 
 class ServicePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
@@ -411,6 +417,7 @@ class ServicePage(Page):
 
 
 class ServiceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
@@ -439,12 +446,15 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "WebhookUrl": webhook_url,
-                "ReachabilityWebhooksEnabled": reachability_webhooks_enabled,
-                "AclEnabled": acl_enabled,
+                "ReachabilityWebhooksEnabled": serialize.boolean_to_string(
+                    reachability_webhooks_enabled
+                ),
+                "AclEnabled": serialize.boolean_to_string(acl_enabled),
             }
         )
 
@@ -473,12 +483,15 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "WebhookUrl": webhook_url,
-                "ReachabilityWebhooksEnabled": reachability_webhooks_enabled,
-                "AclEnabled": acl_enabled,
+                "ReachabilityWebhooksEnabled": serialize.boolean_to_string(
+                    reachability_webhooks_enabled
+                ),
+                "AclEnabled": serialize.boolean_to_string(acl_enabled),
             }
         )
 

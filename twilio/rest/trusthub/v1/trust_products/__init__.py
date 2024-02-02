@@ -32,6 +32,7 @@ from twilio.rest.trusthub.v1.trust_products.trust_products_evaluations import (
 
 
 class TrustProductsInstance(InstanceResource):
+
     class Status(object):
         DRAFT = "draft"
         PENDING_REVIEW = "pending-review"
@@ -216,6 +217,7 @@ class TrustProductsInstance(InstanceResource):
 
 
 class TrustProductsContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the TrustProductsContext
@@ -422,6 +424,7 @@ class TrustProductsContext(InstanceContext):
 
 
 class TrustProductsPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TrustProductsInstance:
         """
         Build an instance of TrustProductsInstance
@@ -440,6 +443,7 @@ class TrustProductsPage(Page):
 
 
 class TrustProductsList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the TrustProductsList
@@ -468,6 +472,7 @@ class TrustProductsList(ListResource):
 
         :returns: The created TrustProductsInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -502,6 +507,7 @@ class TrustProductsList(ListResource):
 
         :returns: The created TrustProductsInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

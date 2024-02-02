@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -167,6 +167,7 @@ class TaskChannelInstance(InstanceResource):
 
 
 class TaskChannelContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the TaskChannelContext
@@ -266,7 +267,9 @@ class TaskChannelContext(InstanceContext):
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "ChannelOptimizedRouting": channel_optimized_routing,
+                "ChannelOptimizedRouting": serialize.boolean_to_string(
+                    channel_optimized_routing
+                ),
             }
         )
 
@@ -299,7 +302,9 @@ class TaskChannelContext(InstanceContext):
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "ChannelOptimizedRouting": channel_optimized_routing,
+                "ChannelOptimizedRouting": serialize.boolean_to_string(
+                    channel_optimized_routing
+                ),
             }
         )
 
@@ -327,6 +332,7 @@ class TaskChannelContext(InstanceContext):
 
 
 class TaskChannelPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TaskChannelInstance:
         """
         Build an instance of TaskChannelInstance
@@ -347,6 +353,7 @@ class TaskChannelPage(Page):
 
 
 class TaskChannelList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskChannelList
@@ -378,11 +385,14 @@ class TaskChannelList(ListResource):
 
         :returns: The created TaskChannelInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "UniqueName": unique_name,
-                "ChannelOptimizedRouting": channel_optimized_routing,
+                "ChannelOptimizedRouting": serialize.boolean_to_string(
+                    channel_optimized_routing
+                ),
             }
         )
 
@@ -411,11 +421,14 @@ class TaskChannelList(ListResource):
 
         :returns: The created TaskChannelInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "UniqueName": unique_name,
-                "ChannelOptimizedRouting": channel_optimized_routing,
+                "ChannelOptimizedRouting": serialize.boolean_to_string(
+                    channel_optimized_routing
+                ),
             }
         )
 

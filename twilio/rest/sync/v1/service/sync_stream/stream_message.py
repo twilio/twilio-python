@@ -54,6 +54,7 @@ class StreamMessageInstance(InstanceResource):
 
 
 class StreamMessageList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, stream_sid: str):
         """
         Initialize the StreamMessageList
@@ -82,6 +83,7 @@ class StreamMessageList(ListResource):
 
         :returns: The created StreamMessageInstance
         """
+
         data = values.of(
             {
                 "Data": serialize.object(data),
@@ -109,6 +111,7 @@ class StreamMessageList(ListResource):
 
         :returns: The created StreamMessageInstance
         """
+
         data = values.of(
             {
                 "Data": serialize.object(data),

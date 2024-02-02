@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -185,6 +185,7 @@ class OriginationUrlInstance(InstanceResource):
 
 
 class OriginationUrlContext(InstanceContext):
+
     def __init__(self, version: Version, trunk_sid: str, sid: str):
         """
         Initialize the OriginationUrlContext
@@ -289,7 +290,7 @@ class OriginationUrlContext(InstanceContext):
             {
                 "Weight": weight,
                 "Priority": priority,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "FriendlyName": friendly_name,
                 "SipUrl": sip_url,
             }
@@ -331,7 +332,7 @@ class OriginationUrlContext(InstanceContext):
             {
                 "Weight": weight,
                 "Priority": priority,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "FriendlyName": friendly_name,
                 "SipUrl": sip_url,
             }
@@ -361,6 +362,7 @@ class OriginationUrlContext(InstanceContext):
 
 
 class OriginationUrlPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> OriginationUrlInstance:
         """
         Build an instance of OriginationUrlInstance
@@ -381,6 +383,7 @@ class OriginationUrlPage(Page):
 
 
 class OriginationUrlList(ListResource):
+
     def __init__(self, version: Version, trunk_sid: str):
         """
         Initialize the OriginationUrlList
@@ -416,11 +419,12 @@ class OriginationUrlList(ListResource):
 
         :returns: The created OriginationUrlInstance
         """
+
         data = values.of(
             {
                 "Weight": weight,
                 "Priority": priority,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "FriendlyName": friendly_name,
                 "SipUrl": sip_url,
             }
@@ -455,11 +459,12 @@ class OriginationUrlList(ListResource):
 
         :returns: The created OriginationUrlInstance
         """
+
         data = values.of(
             {
                 "Weight": weight,
                 "Priority": priority,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "FriendlyName": friendly_name,
                 "SipUrl": sip_url,
             }

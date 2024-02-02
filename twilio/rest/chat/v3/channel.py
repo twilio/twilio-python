@@ -22,6 +22,7 @@ from twilio.base.version import Version
 
 
 class ChannelInstance(InstanceResource):
+
     class ChannelType(object):
         PUBLIC = "public"
         PRIVATE = "private"
@@ -158,6 +159,7 @@ class ChannelInstance(InstanceResource):
 
 
 class ChannelContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the ChannelContext
@@ -266,6 +268,7 @@ class ChannelContext(InstanceContext):
 
 
 class ChannelList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ChannelList

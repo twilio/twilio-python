@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -31,6 +31,7 @@ from twilio.rest.messaging.v1.service.us_app_to_person_usecase import (
 
 
 class ServiceInstance(InstanceResource):
+
     class ScanMessageContent(object):
         INHERIT = "inherit"
         ENABLE = "enable"
@@ -340,6 +341,7 @@ class ServiceInstance(InstanceResource):
 
 
 class ServiceContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ServiceContext
@@ -475,16 +477,22 @@ class ServiceContext(InstanceContext):
                 "FallbackUrl": fallback_url,
                 "FallbackMethod": fallback_method,
                 "StatusCallback": status_callback,
-                "StickySender": sticky_sender,
-                "MmsConverter": mms_converter,
-                "SmartEncoding": smart_encoding,
+                "StickySender": serialize.boolean_to_string(sticky_sender),
+                "MmsConverter": serialize.boolean_to_string(mms_converter),
+                "SmartEncoding": serialize.boolean_to_string(smart_encoding),
                 "ScanMessageContent": scan_message_content,
-                "FallbackToLongCode": fallback_to_long_code,
-                "AreaCodeGeomatch": area_code_geomatch,
+                "FallbackToLongCode": serialize.boolean_to_string(
+                    fallback_to_long_code
+                ),
+                "AreaCodeGeomatch": serialize.boolean_to_string(area_code_geomatch),
                 "ValidityPeriod": validity_period,
-                "SynchronousValidation": synchronous_validation,
+                "SynchronousValidation": serialize.boolean_to_string(
+                    synchronous_validation
+                ),
                 "Usecase": usecase,
-                "UseInboundWebhookOnNumber": use_inbound_webhook_on_number,
+                "UseInboundWebhookOnNumber": serialize.boolean_to_string(
+                    use_inbound_webhook_on_number
+                ),
             }
         )
 
@@ -547,16 +555,22 @@ class ServiceContext(InstanceContext):
                 "FallbackUrl": fallback_url,
                 "FallbackMethod": fallback_method,
                 "StatusCallback": status_callback,
-                "StickySender": sticky_sender,
-                "MmsConverter": mms_converter,
-                "SmartEncoding": smart_encoding,
+                "StickySender": serialize.boolean_to_string(sticky_sender),
+                "MmsConverter": serialize.boolean_to_string(mms_converter),
+                "SmartEncoding": serialize.boolean_to_string(smart_encoding),
                 "ScanMessageContent": scan_message_content,
-                "FallbackToLongCode": fallback_to_long_code,
-                "AreaCodeGeomatch": area_code_geomatch,
+                "FallbackToLongCode": serialize.boolean_to_string(
+                    fallback_to_long_code
+                ),
+                "AreaCodeGeomatch": serialize.boolean_to_string(area_code_geomatch),
                 "ValidityPeriod": validity_period,
-                "SynchronousValidation": synchronous_validation,
+                "SynchronousValidation": serialize.boolean_to_string(
+                    synchronous_validation
+                ),
                 "Usecase": usecase,
-                "UseInboundWebhookOnNumber": use_inbound_webhook_on_number,
+                "UseInboundWebhookOnNumber": serialize.boolean_to_string(
+                    use_inbound_webhook_on_number
+                ),
             }
         )
 
@@ -651,6 +665,7 @@ class ServiceContext(InstanceContext):
 
 
 class ServicePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
@@ -669,6 +684,7 @@ class ServicePage(Page):
 
 
 class ServiceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
@@ -723,6 +739,7 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -731,16 +748,22 @@ class ServiceList(ListResource):
                 "FallbackUrl": fallback_url,
                 "FallbackMethod": fallback_method,
                 "StatusCallback": status_callback,
-                "StickySender": sticky_sender,
-                "MmsConverter": mms_converter,
-                "SmartEncoding": smart_encoding,
+                "StickySender": serialize.boolean_to_string(sticky_sender),
+                "MmsConverter": serialize.boolean_to_string(mms_converter),
+                "SmartEncoding": serialize.boolean_to_string(smart_encoding),
                 "ScanMessageContent": scan_message_content,
-                "FallbackToLongCode": fallback_to_long_code,
-                "AreaCodeGeomatch": area_code_geomatch,
+                "FallbackToLongCode": serialize.boolean_to_string(
+                    fallback_to_long_code
+                ),
+                "AreaCodeGeomatch": serialize.boolean_to_string(area_code_geomatch),
                 "ValidityPeriod": validity_period,
-                "SynchronousValidation": synchronous_validation,
+                "SynchronousValidation": serialize.boolean_to_string(
+                    synchronous_validation
+                ),
                 "Usecase": usecase,
-                "UseInboundWebhookOnNumber": use_inbound_webhook_on_number,
+                "UseInboundWebhookOnNumber": serialize.boolean_to_string(
+                    use_inbound_webhook_on_number
+                ),
             }
         )
 
@@ -795,6 +818,7 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -803,16 +827,22 @@ class ServiceList(ListResource):
                 "FallbackUrl": fallback_url,
                 "FallbackMethod": fallback_method,
                 "StatusCallback": status_callback,
-                "StickySender": sticky_sender,
-                "MmsConverter": mms_converter,
-                "SmartEncoding": smart_encoding,
+                "StickySender": serialize.boolean_to_string(sticky_sender),
+                "MmsConverter": serialize.boolean_to_string(mms_converter),
+                "SmartEncoding": serialize.boolean_to_string(smart_encoding),
                 "ScanMessageContent": scan_message_content,
-                "FallbackToLongCode": fallback_to_long_code,
-                "AreaCodeGeomatch": area_code_geomatch,
+                "FallbackToLongCode": serialize.boolean_to_string(
+                    fallback_to_long_code
+                ),
+                "AreaCodeGeomatch": serialize.boolean_to_string(area_code_geomatch),
                 "ValidityPeriod": validity_period,
-                "SynchronousValidation": synchronous_validation,
+                "SynchronousValidation": serialize.boolean_to_string(
+                    synchronous_validation
+                ),
                 "Usecase": usecase,
-                "UseInboundWebhookOnNumber": use_inbound_webhook_on_number,
+                "UseInboundWebhookOnNumber": serialize.boolean_to_string(
+                    use_inbound_webhook_on_number
+                ),
             }
         )
 

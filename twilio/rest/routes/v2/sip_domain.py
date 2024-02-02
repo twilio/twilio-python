@@ -139,6 +139,7 @@ class SipDomainInstance(InstanceResource):
 
 
 class SipDomainContext(InstanceContext):
+
     def __init__(self, version: Version, sip_domain: str):
         """
         Initialize the SipDomainContext
@@ -263,6 +264,7 @@ class SipDomainContext(InstanceContext):
 
 
 class SipDomainList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SipDomainList

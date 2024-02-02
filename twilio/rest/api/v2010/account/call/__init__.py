@@ -37,6 +37,7 @@ from twilio.rest.api.v2010.account.call.user_defined_message_subscription import
 
 
 class CallInstance(InstanceResource):
+
     class Status(object):
         QUEUED = "queued"
         RINGING = "ringing"
@@ -336,6 +337,7 @@ class CallInstance(InstanceResource):
 
 
 class CallContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the CallContext
@@ -667,6 +669,7 @@ class CallContext(InstanceContext):
 
 
 class CallPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CallInstance:
         """
         Build an instance of CallInstance
@@ -687,6 +690,7 @@ class CallPage(Page):
 
 
 class CallList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the CallList
@@ -784,6 +788,7 @@ class CallList(ListResource):
 
         :returns: The created CallInstance
         """
+
         data = values.of(
             {
                 "To": to,
@@ -798,7 +803,7 @@ class CallList(ListResource):
                 "StatusCallbackMethod": status_callback_method,
                 "SendDigits": send_digits,
                 "Timeout": timeout,
-                "Record": record,
+                "Record": serialize.boolean_to_string(record),
                 "RecordingChannels": recording_channels,
                 "RecordingStatusCallback": recording_status_callback,
                 "RecordingStatusCallbackMethod": recording_status_callback_method,
@@ -917,6 +922,7 @@ class CallList(ListResource):
 
         :returns: The created CallInstance
         """
+
         data = values.of(
             {
                 "To": to,
@@ -931,7 +937,7 @@ class CallList(ListResource):
                 "StatusCallbackMethod": status_callback_method,
                 "SendDigits": send_digits,
                 "Timeout": timeout,
-                "Record": record,
+                "Record": serialize.boolean_to_string(record),
                 "RecordingChannels": recording_channels,
                 "RecordingStatusCallback": recording_status_callback,
                 "RecordingStatusCallbackMethod": recording_status_callback_method,

@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -229,6 +229,7 @@ class AddressInstance(InstanceResource):
 
 
 class AddressContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the AddressContext
@@ -349,8 +350,8 @@ class AddressContext(InstanceContext):
                 "City": city,
                 "Region": region,
                 "PostalCode": postal_code,
-                "EmergencyEnabled": emergency_enabled,
-                "AutoCorrectAddress": auto_correct_address,
+                "EmergencyEnabled": serialize.boolean_to_string(emergency_enabled),
+                "AutoCorrectAddress": serialize.boolean_to_string(auto_correct_address),
                 "StreetSecondary": street_secondary,
             }
         )
@@ -403,8 +404,8 @@ class AddressContext(InstanceContext):
                 "City": city,
                 "Region": region,
                 "PostalCode": postal_code,
-                "EmergencyEnabled": emergency_enabled,
-                "AutoCorrectAddress": auto_correct_address,
+                "EmergencyEnabled": serialize.boolean_to_string(emergency_enabled),
+                "AutoCorrectAddress": serialize.boolean_to_string(auto_correct_address),
                 "StreetSecondary": street_secondary,
             }
         )
@@ -446,6 +447,7 @@ class AddressContext(InstanceContext):
 
 
 class AddressPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AddressInstance:
         """
         Build an instance of AddressInstance
@@ -466,6 +468,7 @@ class AddressPage(Page):
 
 
 class AddressList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the AddressList
@@ -511,6 +514,7 @@ class AddressList(ListResource):
 
         :returns: The created AddressInstance
         """
+
         data = values.of(
             {
                 "CustomerName": customer_name,
@@ -520,8 +524,8 @@ class AddressList(ListResource):
                 "PostalCode": postal_code,
                 "IsoCountry": iso_country,
                 "FriendlyName": friendly_name,
-                "EmergencyEnabled": emergency_enabled,
-                "AutoCorrectAddress": auto_correct_address,
+                "EmergencyEnabled": serialize.boolean_to_string(emergency_enabled),
+                "AutoCorrectAddress": serialize.boolean_to_string(auto_correct_address),
                 "StreetSecondary": street_secondary,
             }
         )
@@ -565,6 +569,7 @@ class AddressList(ListResource):
 
         :returns: The created AddressInstance
         """
+
         data = values.of(
             {
                 "CustomerName": customer_name,
@@ -574,8 +579,8 @@ class AddressList(ListResource):
                 "PostalCode": postal_code,
                 "IsoCountry": iso_country,
                 "FriendlyName": friendly_name,
-                "EmergencyEnabled": emergency_enabled,
-                "AutoCorrectAddress": auto_correct_address,
+                "EmergencyEnabled": serialize.boolean_to_string(emergency_enabled),
+                "AutoCorrectAddress": serialize.boolean_to_string(auto_correct_address),
                 "StreetSecondary": street_secondary,
             }
         )

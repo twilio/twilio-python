@@ -88,6 +88,7 @@ class AuthTokenPromotionInstance(InstanceResource):
 
 
 class AuthTokenPromotionContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the AuthTokenPromotionContext
@@ -143,6 +144,7 @@ class AuthTokenPromotionContext(InstanceContext):
 
 
 class AuthTokenPromotionList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AuthTokenPromotionList

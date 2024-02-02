@@ -124,6 +124,7 @@ class AuthRegistrationsCredentialListMappingInstance(InstanceResource):
 
 
 class AuthRegistrationsCredentialListMappingContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, domain_sid: str, sid: str):
         """
         Initialize the AuthRegistrationsCredentialListMappingContext
@@ -224,6 +225,7 @@ class AuthRegistrationsCredentialListMappingContext(InstanceContext):
 
 
 class AuthRegistrationsCredentialListMappingPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> AuthRegistrationsCredentialListMappingInstance:
@@ -249,6 +251,7 @@ class AuthRegistrationsCredentialListMappingPage(Page):
 
 
 class AuthRegistrationsCredentialListMappingList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
         Initialize the AuthRegistrationsCredentialListMappingList
@@ -279,6 +282,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
 
         :returns: The created AuthRegistrationsCredentialListMappingInstance
         """
+
         data = values.of(
             {
                 "CredentialListSid": credential_list_sid,
@@ -308,6 +312,7 @@ class AuthRegistrationsCredentialListMappingList(ListResource):
 
         :returns: The created AuthRegistrationsCredentialListMappingInstance
         """
+
         data = values.of(
             {
                 "CredentialListSid": credential_list_sid,

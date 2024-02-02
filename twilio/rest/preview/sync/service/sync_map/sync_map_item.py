@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class SyncMapItemInstance(InstanceResource):
+
     class QueryFromBoundType(object):
         INCLUSIVE = "inclusive"
         EXCLUSIVE = "exclusive"
@@ -178,6 +179,7 @@ class SyncMapItemInstance(InstanceResource):
 
 
 class SyncMapItemContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, map_sid: str, key: str):
         """
         Initialize the SyncMapItemContext
@@ -354,6 +356,7 @@ class SyncMapItemContext(InstanceContext):
 
 
 class SyncMapItemPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SyncMapItemInstance:
         """
         Build an instance of SyncMapItemInstance
@@ -377,6 +380,7 @@ class SyncMapItemPage(Page):
 
 
 class SyncMapItemList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, map_sid: str):
         """
         Initialize the SyncMapItemList
@@ -406,6 +410,7 @@ class SyncMapItemList(ListResource):
 
         :returns: The created SyncMapItemInstance
         """
+
         data = values.of(
             {
                 "Key": key,
@@ -435,6 +440,7 @@ class SyncMapItemList(ListResource):
 
         :returns: The created SyncMapItemInstance
         """
+
         data = values.of(
             {
                 "Key": key,

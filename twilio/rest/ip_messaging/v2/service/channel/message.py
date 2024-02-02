@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class MessageInstance(InstanceResource):
+
     class OrderType(object):
         ASC = "asc"
         DESC = "desc"
@@ -238,6 +239,7 @@ class MessageInstance(InstanceResource):
 
 
 class MessageContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
         """
         Initialize the MessageContext
@@ -464,6 +466,7 @@ class MessageContext(InstanceContext):
 
 
 class MessagePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MessageInstance:
         """
         Build an instance of MessageInstance
@@ -487,6 +490,7 @@ class MessagePage(Page):
 
 
 class MessageList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
         Initialize the MessageList
@@ -534,6 +538,7 @@ class MessageList(ListResource):
 
         :returns: The created MessageInstance
         """
+
         data = values.of(
             {
                 "From": from_,
@@ -550,6 +555,7 @@ class MessageList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -588,6 +594,7 @@ class MessageList(ListResource):
 
         :returns: The created MessageInstance
         """
+
         data = values.of(
             {
                 "From": from_,
@@ -604,6 +611,7 @@ class MessageList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

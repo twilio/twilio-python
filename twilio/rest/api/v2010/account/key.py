@@ -143,6 +143,7 @@ class KeyInstance(InstanceResource):
 
 
 class KeyContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the KeyContext
@@ -291,6 +292,7 @@ class KeyContext(InstanceContext):
 
 
 class KeyPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> KeyInstance:
         """
         Build an instance of KeyInstance
@@ -311,6 +313,7 @@ class KeyPage(Page):
 
 
 class KeyList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the KeyList

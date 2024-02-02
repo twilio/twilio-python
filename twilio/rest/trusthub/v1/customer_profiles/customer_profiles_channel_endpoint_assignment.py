@@ -123,6 +123,7 @@ class CustomerProfilesChannelEndpointAssignmentInstance(InstanceResource):
 
 
 class CustomerProfilesChannelEndpointAssignmentContext(InstanceContext):
+
     def __init__(self, version: Version, customer_profile_sid: str, sid: str):
         """
         Initialize the CustomerProfilesChannelEndpointAssignmentContext
@@ -219,6 +220,7 @@ class CustomerProfilesChannelEndpointAssignmentContext(InstanceContext):
 
 
 class CustomerProfilesChannelEndpointAssignmentPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> CustomerProfilesChannelEndpointAssignmentInstance:
@@ -243,6 +245,7 @@ class CustomerProfilesChannelEndpointAssignmentPage(Page):
 
 
 class CustomerProfilesChannelEndpointAssignmentList(ListResource):
+
     def __init__(self, version: Version, customer_profile_sid: str):
         """
         Initialize the CustomerProfilesChannelEndpointAssignmentList
@@ -272,6 +275,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
 
         :returns: The created CustomerProfilesChannelEndpointAssignmentInstance
         """
+
         data = values.of(
             {
                 "ChannelEndpointType": channel_endpoint_type,
@@ -302,6 +306,7 @@ class CustomerProfilesChannelEndpointAssignmentList(ListResource):
 
         :returns: The created CustomerProfilesChannelEndpointAssignmentInstance
         """
+
         data = values.of(
             {
                 "ChannelEndpointType": channel_endpoint_type,

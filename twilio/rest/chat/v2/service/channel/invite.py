@@ -132,6 +132,7 @@ class InviteInstance(InstanceResource):
 
 
 class InviteContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
         """
         Initialize the InviteContext
@@ -232,6 +233,7 @@ class InviteContext(InstanceContext):
 
 
 class InvitePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> InviteInstance:
         """
         Build an instance of InviteInstance
@@ -255,6 +257,7 @@ class InvitePage(Page):
 
 
 class InviteList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
         Initialize the InviteList
@@ -286,6 +289,7 @@ class InviteList(ListResource):
 
         :returns: The created InviteInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,
@@ -317,6 +321,7 @@ class InviteList(ListResource):
 
         :returns: The created InviteInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,

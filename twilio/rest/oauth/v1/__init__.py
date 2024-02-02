@@ -23,6 +23,7 @@ from twilio.rest.oauth.v1.user_info import UserInfoList
 
 
 class V1(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Oauth

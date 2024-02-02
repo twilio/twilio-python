@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -155,6 +155,7 @@ class ActivityInstance(InstanceResource):
 
 
 class ActivityContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the ActivityContext
@@ -307,6 +308,7 @@ class ActivityContext(InstanceContext):
 
 
 class ActivityPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ActivityInstance:
         """
         Build an instance of ActivityInstance
@@ -327,6 +329,7 @@ class ActivityPage(Page):
 
 
 class ActivityList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the ActivityList
@@ -354,10 +357,11 @@ class ActivityList(ListResource):
 
         :returns: The created ActivityInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "Available": available,
+                "Available": serialize.boolean_to_string(available),
             }
         )
 
@@ -382,10 +386,11 @@ class ActivityList(ListResource):
 
         :returns: The created ActivityInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "Available": available,
+                "Available": serialize.boolean_to_string(available),
             }
         )
 

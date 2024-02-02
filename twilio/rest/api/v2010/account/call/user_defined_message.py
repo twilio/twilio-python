@@ -57,6 +57,7 @@ class UserDefinedMessageInstance(InstanceResource):
 
 
 class UserDefinedMessageList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the UserDefinedMessageList
@@ -90,6 +91,7 @@ class UserDefinedMessageList(ListResource):
 
         :returns: The created UserDefinedMessageInstance
         """
+
         data = values.of(
             {
                 "Content": content,
@@ -121,6 +123,7 @@ class UserDefinedMessageList(ListResource):
 
         :returns: The created UserDefinedMessageInstance
         """
+
         data = values.of(
             {
                 "Content": content,

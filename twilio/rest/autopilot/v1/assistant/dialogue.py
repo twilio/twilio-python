@@ -94,6 +94,7 @@ class DialogueInstance(InstanceResource):
 
 
 class DialogueContext(InstanceContext):
+
     def __init__(self, version: Version, assistant_sid: str, sid: str):
         """
         Initialize the DialogueContext
@@ -164,6 +165,7 @@ class DialogueContext(InstanceContext):
 
 
 class DialogueList(ListResource):
+
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the DialogueList

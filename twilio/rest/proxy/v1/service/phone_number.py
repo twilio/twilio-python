@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -161,6 +161,7 @@ class PhoneNumberInstance(InstanceResource):
 
 
 class PhoneNumberContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the PhoneNumberContext
@@ -256,7 +257,7 @@ class PhoneNumberContext(InstanceContext):
         """
         data = values.of(
             {
-                "IsReserved": is_reserved,
+                "IsReserved": serialize.boolean_to_string(is_reserved),
             }
         )
 
@@ -285,7 +286,7 @@ class PhoneNumberContext(InstanceContext):
         """
         data = values.of(
             {
-                "IsReserved": is_reserved,
+                "IsReserved": serialize.boolean_to_string(is_reserved),
             }
         )
 
@@ -313,6 +314,7 @@ class PhoneNumberContext(InstanceContext):
 
 
 class PhoneNumberPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> PhoneNumberInstance:
         """
         Build an instance of PhoneNumberInstance
@@ -333,6 +335,7 @@ class PhoneNumberPage(Page):
 
 
 class PhoneNumberList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the PhoneNumberList
@@ -364,11 +367,12 @@ class PhoneNumberList(ListResource):
 
         :returns: The created PhoneNumberInstance
         """
+
         data = values.of(
             {
                 "Sid": sid,
                 "PhoneNumber": phone_number,
-                "IsReserved": is_reserved,
+                "IsReserved": serialize.boolean_to_string(is_reserved),
             }
         )
 
@@ -397,11 +401,12 @@ class PhoneNumberList(ListResource):
 
         :returns: The created PhoneNumberInstance
         """
+
         data = values.of(
             {
                 "Sid": sid,
                 "PhoneNumber": phone_number,
-                "IsReserved": is_reserved,
+                "IsReserved": serialize.boolean_to_string(is_reserved),
             }
         )
 

@@ -117,6 +117,7 @@ class CallInstance(InstanceResource):
 
 
 class CallContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the CallContext
@@ -234,6 +235,7 @@ class CallContext(InstanceContext):
 
 
 class CallList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CallList

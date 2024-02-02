@@ -23,6 +23,7 @@ from twilio.rest.accounts.v1.credential.public_key import PublicKeyList
 
 
 class CredentialList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CredentialList

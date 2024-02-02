@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class FactorInstance(InstanceResource):
+
     class FactorStatuses(object):
         UNVERIFIED = "unverified"
         VERIFIED = "verified"
@@ -231,6 +232,7 @@ class FactorInstance(InstanceResource):
 
 
 class FactorContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, identity: str, sid: str):
         """
         Initialize the FactorContext
@@ -439,6 +441,7 @@ class FactorContext(InstanceContext):
 
 
 class FactorPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> FactorInstance:
         """
         Build an instance of FactorInstance
@@ -462,6 +465,7 @@ class FactorPage(Page):
 
 
 class FactorList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, identity: str):
         """
         Initialize the FactorList

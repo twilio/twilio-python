@@ -98,6 +98,7 @@ class ComplianceInquiriesInstance(InstanceResource):
 
 
 class ComplianceInquiriesContext(InstanceContext):
+
     def __init__(self, version: Version, customer_id: str):
         """
         Initialize the ComplianceInquiriesContext
@@ -176,6 +177,7 @@ class ComplianceInquiriesContext(InstanceContext):
 
 
 class ComplianceInquiriesList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ComplianceInquiriesList
@@ -195,6 +197,7 @@ class ComplianceInquiriesList(ListResource):
 
         :returns: The created ComplianceInquiriesInstance
         """
+
         data = values.of(
             {
                 "PrimaryProfileSid": primary_profile_sid,
@@ -219,6 +222,7 @@ class ComplianceInquiriesList(ListResource):
 
         :returns: The created ComplianceInquiriesInstance
         """
+
         data = values.of(
             {
                 "PrimaryProfileSid": primary_profile_sid,

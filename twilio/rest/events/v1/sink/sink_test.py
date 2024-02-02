@@ -44,6 +44,7 @@ class SinkTestInstance(InstanceResource):
 
 
 class SinkTestList(ListResource):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SinkTestList

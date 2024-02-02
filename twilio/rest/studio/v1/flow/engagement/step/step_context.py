@@ -99,6 +99,7 @@ class StepContextInstance(InstanceResource):
 
 
 class StepContextContext(InstanceContext):
+
     def __init__(
         self, version: Version, flow_sid: str, engagement_sid: str, step_sid: str
     ):
@@ -175,6 +176,7 @@ class StepContextContext(InstanceContext):
 
 
 class StepContextList(ListResource):
+
     def __init__(
         self, version: Version, flow_sid: str, engagement_sid: str, step_sid: str
     ):

@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -126,6 +126,7 @@ class InstalledAddOnExtensionInstance(InstanceResource):
 
 
 class InstalledAddOnExtensionContext(InstanceContext):
+
     def __init__(self, version: Version, installed_add_on_sid: str, sid: str):
         """
         Initialize the InstalledAddOnExtensionContext
@@ -195,7 +196,7 @@ class InstalledAddOnExtensionContext(InstanceContext):
         """
         data = values.of(
             {
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
             }
         )
 
@@ -222,7 +223,7 @@ class InstalledAddOnExtensionContext(InstanceContext):
         """
         data = values.of(
             {
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
             }
         )
 
@@ -252,6 +253,7 @@ class InstalledAddOnExtensionContext(InstanceContext):
 
 
 class InstalledAddOnExtensionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> InstalledAddOnExtensionInstance:
         """
         Build an instance of InstalledAddOnExtensionInstance
@@ -274,6 +276,7 @@ class InstalledAddOnExtensionPage(Page):
 
 
 class InstalledAddOnExtensionList(ListResource):
+
     def __init__(self, version: Version, installed_add_on_sid: str):
         """
         Initialize the InstalledAddOnExtensionList

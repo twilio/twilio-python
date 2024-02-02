@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class CustomerProfilesEvaluationsInstance(InstanceResource):
+
     class Status(object):
         COMPLIANT = "compliant"
         NONCOMPLIANT = "noncompliant"
@@ -54,7 +55,7 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
         self.status: Optional["CustomerProfilesEvaluationsInstance.Status"] = (
             payload.get("status")
         )
-        self.results: Optional[List[object]] = payload.get("results")
+        self.results: Optional[List[Dict[str, object]]] = payload.get("results")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
@@ -113,6 +114,7 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
 
 
 class CustomerProfilesEvaluationsContext(InstanceContext):
+
     def __init__(self, version: Version, customer_profile_sid: str, sid: str):
         """
         Initialize the CustomerProfilesEvaluationsContext
@@ -185,6 +187,7 @@ class CustomerProfilesEvaluationsContext(InstanceContext):
 
 
 class CustomerProfilesEvaluationsPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> CustomerProfilesEvaluationsInstance:
@@ -209,6 +212,7 @@ class CustomerProfilesEvaluationsPage(Page):
 
 
 class CustomerProfilesEvaluationsList(ListResource):
+
     def __init__(self, version: Version, customer_profile_sid: str):
         """
         Initialize the CustomerProfilesEvaluationsList
@@ -235,6 +239,7 @@ class CustomerProfilesEvaluationsList(ListResource):
 
         :returns: The created CustomerProfilesEvaluationsInstance
         """
+
         data = values.of(
             {
                 "PolicySid": policy_sid,
@@ -263,6 +268,7 @@ class CustomerProfilesEvaluationsList(ListResource):
 
         :returns: The created CustomerProfilesEvaluationsInstance
         """
+
         data = values.of(
             {
                 "PolicySid": policy_sid,

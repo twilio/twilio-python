@@ -20,6 +20,7 @@ from twilio.rest.studio.v2.flow_validate import FlowValidateList
 
 
 class V2(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of Studio

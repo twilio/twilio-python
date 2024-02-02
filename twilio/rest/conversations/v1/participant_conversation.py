@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class ParticipantConversationInstance(InstanceResource):
+
     class State(object):
         INACTIVE = "inactive"
         ACTIVE = "active"
@@ -96,6 +97,7 @@ class ParticipantConversationInstance(InstanceResource):
 
 
 class ParticipantConversationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ParticipantConversationInstance:
         """
         Build an instance of ParticipantConversationInstance
@@ -114,6 +116,7 @@ class ParticipantConversationPage(Page):
 
 
 class ParticipantConversationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ParticipantConversationList

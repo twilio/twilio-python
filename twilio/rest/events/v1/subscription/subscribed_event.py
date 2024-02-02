@@ -144,6 +144,7 @@ class SubscribedEventInstance(InstanceResource):
 
 
 class SubscribedEventContext(InstanceContext):
+
     def __init__(self, version: Version, subscription_sid: str, type: str):
         """
         Initialize the SubscribedEventContext
@@ -296,6 +297,7 @@ class SubscribedEventContext(InstanceContext):
 
 
 class SubscribedEventPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SubscribedEventInstance:
         """
         Build an instance of SubscribedEventInstance
@@ -316,6 +318,7 @@ class SubscribedEventPage(Page):
 
 
 class SubscribedEventList(ListResource):
+
     def __init__(self, version: Version, subscription_sid: str):
         """
         Initialize the SubscribedEventList
@@ -345,6 +348,7 @@ class SubscribedEventList(ListResource):
 
         :returns: The created SubscribedEventInstance
         """
+
         data = values.of(
             {
                 "Type": type,
@@ -373,6 +377,7 @@ class SubscribedEventList(ListResource):
 
         :returns: The created SubscribedEventInstance
         """
+
         data = values.of(
             {
                 "Type": type,

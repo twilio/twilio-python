@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -183,6 +183,7 @@ class DeviceInstance(InstanceResource):
 
 
 class DeviceContext(InstanceContext):
+
     def __init__(self, version: Version, fleet_sid: str, sid: str):
         """
         Initialize the DeviceContext
@@ -286,7 +287,7 @@ class DeviceContext(InstanceContext):
                 "FriendlyName": friendly_name,
                 "Identity": identity,
                 "DeploymentSid": deployment_sid,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
             }
         )
 
@@ -325,7 +326,7 @@ class DeviceContext(InstanceContext):
                 "FriendlyName": friendly_name,
                 "Identity": identity,
                 "DeploymentSid": deployment_sid,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
             }
         )
 
@@ -353,6 +354,7 @@ class DeviceContext(InstanceContext):
 
 
 class DevicePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DeviceInstance:
         """
         Build an instance of DeviceInstance
@@ -373,6 +375,7 @@ class DevicePage(Page):
 
 
 class DeviceList(ListResource):
+
     def __init__(self, version: Version, fleet_sid: str):
         """
         Initialize the DeviceList
@@ -408,13 +411,14 @@ class DeviceList(ListResource):
 
         :returns: The created DeviceInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
                 "FriendlyName": friendly_name,
                 "Identity": identity,
                 "DeploymentSid": deployment_sid,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
             }
         )
 
@@ -447,13 +451,14 @@ class DeviceList(ListResource):
 
         :returns: The created DeviceInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
                 "FriendlyName": friendly_name,
                 "Identity": identity,
                 "DeploymentSid": deployment_sid,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
             }
         )
 

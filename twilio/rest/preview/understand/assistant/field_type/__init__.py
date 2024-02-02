@@ -173,6 +173,7 @@ class FieldTypeInstance(InstanceResource):
 
 
 class FieldTypeContext(InstanceContext):
+
     def __init__(self, version: Version, assistant_sid: str, sid: str):
         """
         Initialize the FieldTypeContext
@@ -348,6 +349,7 @@ class FieldTypeContext(InstanceContext):
 
 
 class FieldTypePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> FieldTypeInstance:
         """
         Build an instance of FieldTypeInstance
@@ -368,6 +370,7 @@ class FieldTypePage(Page):
 
 
 class FieldTypeList(ListResource):
+
     def __init__(self, version: Version, assistant_sid: str):
         """
         Initialize the FieldTypeList
@@ -395,6 +398,7 @@ class FieldTypeList(ListResource):
 
         :returns: The created FieldTypeInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -423,6 +427,7 @@ class FieldTypeList(ListResource):
 
         :returns: The created FieldTypeInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

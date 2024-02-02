@@ -73,6 +73,7 @@ class NotificationInstance(InstanceResource):
 
 
 class NotificationList(ListResource):
+
     def __init__(
         self, version: Version, service_sid: str, identity: str, challenge_sid: str
     ):
@@ -105,6 +106,7 @@ class NotificationList(ListResource):
 
         :returns: The created NotificationInstance
         """
+
         data = values.of(
             {
                 "Ttl": ttl,
@@ -135,6 +137,7 @@ class NotificationList(ListResource):
 
         :returns: The created NotificationInstance
         """
+
         data = values.of(
             {
                 "Ttl": ttl,

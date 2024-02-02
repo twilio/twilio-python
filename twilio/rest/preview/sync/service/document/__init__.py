@@ -173,6 +173,7 @@ class DocumentInstance(InstanceResource):
 
 
 class DocumentContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the DocumentContext
@@ -346,6 +347,7 @@ class DocumentContext(InstanceContext):
 
 
 class DocumentPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DocumentInstance:
         """
         Build an instance of DocumentInstance
@@ -366,6 +368,7 @@ class DocumentPage(Page):
 
 
 class DocumentList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the DocumentList
@@ -395,6 +398,7 @@ class DocumentList(ListResource):
 
         :returns: The created DocumentInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -425,6 +429,7 @@ class DocumentList(ListResource):
 
         :returns: The created DocumentInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

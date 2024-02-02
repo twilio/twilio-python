@@ -26,6 +26,7 @@ from twilio.rest.conversations.v1.conversation.webhook import WebhookList
 
 
 class ConversationInstance(InstanceResource):
+
     class State(object):
         INACTIVE = "inactive"
         ACTIVE = "active"
@@ -280,6 +281,7 @@ class ConversationInstance(InstanceResource):
 
 
 class ConversationContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ConversationContext
@@ -552,6 +554,7 @@ class ConversationContext(InstanceContext):
 
 
 class ConversationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ConversationInstance:
         """
         Build an instance of ConversationInstance
@@ -570,6 +573,7 @@ class ConversationPage(Page):
 
 
 class ConversationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ConversationList
@@ -616,6 +620,7 @@ class ConversationList(ListResource):
 
         :returns: The created ConversationInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -636,6 +641,7 @@ class ConversationList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -677,6 +683,7 @@ class ConversationList(ListResource):
 
         :returns: The created ConversationInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -697,6 +704,7 @@ class ConversationList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

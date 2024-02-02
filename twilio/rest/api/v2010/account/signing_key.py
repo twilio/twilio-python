@@ -145,6 +145,7 @@ class SigningKeyInstance(InstanceResource):
 
 
 class SigningKeyContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the SigningKeyContext
@@ -297,6 +298,7 @@ class SigningKeyContext(InstanceContext):
 
 
 class SigningKeyPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SigningKeyInstance:
         """
         Build an instance of SigningKeyInstance
@@ -317,6 +319,7 @@ class SigningKeyPage(Page):
 
 
 class SigningKeyList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the SigningKeyList

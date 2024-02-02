@@ -121,6 +121,7 @@ class TrustProductsEntityAssignmentsInstance(InstanceResource):
 
 
 class TrustProductsEntityAssignmentsContext(InstanceContext):
+
     def __init__(self, version: Version, trust_product_sid: str, sid: str):
         """
         Initialize the TrustProductsEntityAssignmentsContext
@@ -217,6 +218,7 @@ class TrustProductsEntityAssignmentsContext(InstanceContext):
 
 
 class TrustProductsEntityAssignmentsPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> TrustProductsEntityAssignmentsInstance:
@@ -241,6 +243,7 @@ class TrustProductsEntityAssignmentsPage(Page):
 
 
 class TrustProductsEntityAssignmentsList(ListResource):
+
     def __init__(self, version: Version, trust_product_sid: str):
         """
         Initialize the TrustProductsEntityAssignmentsList
@@ -267,6 +270,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
         :returns: The created TrustProductsEntityAssignmentsInstance
         """
+
         data = values.of(
             {
                 "ObjectSid": object_sid,
@@ -295,6 +299,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
         :returns: The created TrustProductsEntityAssignmentsInstance
         """
+
         data = values.of(
             {
                 "ObjectSid": object_sid,

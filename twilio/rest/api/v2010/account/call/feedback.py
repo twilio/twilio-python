@@ -22,6 +22,7 @@ from twilio.base.version import Version
 
 
 class FeedbackInstance(InstanceResource):
+
     class Issues(object):
         AUDIO_LATENCY = "audio-latency"
         DIGITS_NOT_CAPTURED = "digits-not-captured"
@@ -146,6 +147,7 @@ class FeedbackInstance(InstanceResource):
 
 
 class FeedbackContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the FeedbackContext
@@ -282,6 +284,7 @@ class FeedbackContext(InstanceContext):
 
 
 class FeedbackList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the FeedbackList

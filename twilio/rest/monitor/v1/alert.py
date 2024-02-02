@@ -125,6 +125,7 @@ class AlertInstance(InstanceResource):
 
 
 class AlertContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the AlertContext
@@ -189,6 +190,7 @@ class AlertContext(InstanceContext):
 
 
 class AlertPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AlertInstance:
         """
         Build an instance of AlertInstance
@@ -207,6 +209,7 @@ class AlertPage(Page):
 
 
 class AlertList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AlertList

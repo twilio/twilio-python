@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class ParticipantInstance(InstanceResource):
+
     class Codec(object):
         VP8 = "VP8"
         H264 = "H264"
@@ -161,6 +162,7 @@ class ParticipantInstance(InstanceResource):
 
 
 class ParticipantContext(InstanceContext):
+
     def __init__(self, version: Version, room_sid: str, participant_sid: str):
         """
         Initialize the ParticipantContext
@@ -231,6 +233,7 @@ class ParticipantContext(InstanceContext):
 
 
 class ParticipantPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ParticipantInstance:
         """
         Build an instance of ParticipantInstance
@@ -251,6 +254,7 @@ class ParticipantPage(Page):
 
 
 class ParticipantList(ListResource):
+
     def __init__(self, version: Version, room_sid: str):
         """
         Initialize the ParticipantList

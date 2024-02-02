@@ -22,6 +22,7 @@ from twilio.base.version import Version
 
 
 class AnonymizeInstance(InstanceResource):
+
     class Status(object):
         CONNECTED = "connected"
         DISCONNECTED = "disconnected"
@@ -116,6 +117,7 @@ class AnonymizeInstance(InstanceResource):
 
 
 class AnonymizeContext(InstanceContext):
+
     def __init__(self, version: Version, room_sid: str, sid: str):
         """
         Initialize the AnonymizeContext
@@ -190,6 +192,7 @@ class AnonymizeContext(InstanceContext):
 
 
 class AnonymizeList(ListResource):
+
     def __init__(self, version: Version, room_sid: str, sid: str):
         """
         Initialize the AnonymizeList

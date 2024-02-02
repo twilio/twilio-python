@@ -122,6 +122,7 @@ class JobInstance(InstanceResource):
 
 
 class JobContext(InstanceContext):
+
     def __init__(self, version: Version, job_sid: str):
         """
         Initialize the JobContext
@@ -210,6 +211,7 @@ class JobContext(InstanceContext):
 
 
 class JobList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the JobList

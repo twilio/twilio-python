@@ -149,6 +149,7 @@ class EntityInstance(InstanceResource):
 
 
 class EntityContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, identity: str):
         """
         Initialize the EntityContext
@@ -286,6 +287,7 @@ class EntityContext(InstanceContext):
 
 
 class EntityPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EntityInstance:
         """
         Build an instance of EntityInstance
@@ -306,6 +308,7 @@ class EntityPage(Page):
 
 
 class EntityList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the EntityList
@@ -330,6 +333,7 @@ class EntityList(ListResource):
 
         :returns: The created EntityInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,
@@ -354,6 +358,7 @@ class EntityList(ListResource):
 
         :returns: The created EntityInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,

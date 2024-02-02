@@ -27,6 +27,7 @@ from twilio.rest.studio.v1.flow.engagement.step import StepList
 
 
 class EngagementInstance(InstanceResource):
+
     class Status(object):
         ACTIVE = "active"
         ENDED = "ended"
@@ -155,6 +156,7 @@ class EngagementInstance(InstanceResource):
 
 
 class EngagementContext(InstanceContext):
+
     def __init__(self, version: Version, flow_sid: str, sid: str):
         """
         Initialize the EngagementContext
@@ -276,6 +278,7 @@ class EngagementContext(InstanceContext):
 
 
 class EngagementPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EngagementInstance:
         """
         Build an instance of EngagementInstance
@@ -296,6 +299,7 @@ class EngagementPage(Page):
 
 
 class EngagementList(ListResource):
+
     def __init__(self, version: Version, flow_sid: str):
         """
         Initialize the EngagementList
@@ -324,6 +328,7 @@ class EngagementList(ListResource):
 
         :returns: The created EngagementInstance
         """
+
         data = values.of(
             {
                 "To": to,
@@ -354,6 +359,7 @@ class EngagementList(ListResource):
 
         :returns: The created EngagementInstance
         """
+
         data = values.of(
             {
                 "To": to,

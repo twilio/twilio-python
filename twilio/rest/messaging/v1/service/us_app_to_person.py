@@ -94,7 +94,7 @@ class UsAppToPersonInstance(InstanceResource):
         )
         self.url: Optional[str] = payload.get("url")
         self.mock: Optional[bool] = payload.get("mock")
-        self.errors: Optional[List[object]] = payload.get("errors")
+        self.errors: Optional[List[Dict[str, object]]] = payload.get("errors")
 
         self._solution = {
             "messaging_service_sid": messaging_service_sid,
@@ -165,6 +165,7 @@ class UsAppToPersonInstance(InstanceResource):
 
 
 class UsAppToPersonContext(InstanceContext):
+
     def __init__(self, version: Version, messaging_service_sid: str, sid: str):
         """
         Initialize the UsAppToPersonContext
@@ -259,6 +260,7 @@ class UsAppToPersonContext(InstanceContext):
 
 
 class UsAppToPersonPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> UsAppToPersonInstance:
         """
         Build an instance of UsAppToPersonInstance
@@ -281,6 +283,7 @@ class UsAppToPersonPage(Page):
 
 
 class UsAppToPersonList(ListResource):
+
     def __init__(self, version: Version, messaging_service_sid: str):
         """
         Initialize the UsAppToPersonList
@@ -334,6 +337,7 @@ class UsAppToPersonList(ListResource):
 
         :returns: The created UsAppToPersonInstance
         """
+
         data = values.of(
             {
                 "BrandRegistrationSid": brand_registration_sid,
@@ -341,8 +345,8 @@ class UsAppToPersonList(ListResource):
                 "MessageFlow": message_flow,
                 "MessageSamples": serialize.map(message_samples, lambda e: e),
                 "UsAppToPersonUsecase": us_app_to_person_usecase,
-                "HasEmbeddedLinks": has_embedded_links,
-                "HasEmbeddedPhone": has_embedded_phone,
+                "HasEmbeddedLinks": serialize.boolean_to_string(has_embedded_links),
+                "HasEmbeddedPhone": serialize.boolean_to_string(has_embedded_phone),
                 "OptInMessage": opt_in_message,
                 "OptOutMessage": opt_out_message,
                 "HelpMessage": help_message,
@@ -399,6 +403,7 @@ class UsAppToPersonList(ListResource):
 
         :returns: The created UsAppToPersonInstance
         """
+
         data = values.of(
             {
                 "BrandRegistrationSid": brand_registration_sid,
@@ -406,8 +411,8 @@ class UsAppToPersonList(ListResource):
                 "MessageFlow": message_flow,
                 "MessageSamples": serialize.map(message_samples, lambda e: e),
                 "UsAppToPersonUsecase": us_app_to_person_usecase,
-                "HasEmbeddedLinks": has_embedded_links,
-                "HasEmbeddedPhone": has_embedded_phone,
+                "HasEmbeddedLinks": serialize.boolean_to_string(has_embedded_links),
+                "HasEmbeddedPhone": serialize.boolean_to_string(has_embedded_phone),
                 "OptInMessage": opt_in_message,
                 "OptOutMessage": opt_out_message,
                 "HelpMessage": help_message,

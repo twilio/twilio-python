@@ -175,6 +175,7 @@ class QueueInstance(InstanceResource):
 
 
 class QueueContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the QueueContext
@@ -348,6 +349,7 @@ class QueueContext(InstanceContext):
 
 
 class QueuePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> QueueInstance:
         """
         Build an instance of QueueInstance
@@ -368,6 +370,7 @@ class QueuePage(Page):
 
 
 class QueueList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the QueueList
@@ -395,6 +398,7 @@ class QueueList(ListResource):
 
         :returns: The created QueueInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -423,6 +427,7 @@ class QueueList(ListResource):
 
         :returns: The created QueueInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
