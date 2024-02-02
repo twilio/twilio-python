@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -56,9 +55,9 @@ class OperatorResultInstance(InstanceResource):
     ):
         super().__init__(version)
 
-        self.operator_type: Optional[
-            "OperatorResultInstance.OperatorType"
-        ] = payload.get("operator_type")
+        self.operator_type: Optional["OperatorResultInstance.OperatorType"] = (
+            payload.get("operator_type")
+        )
         self.name: Optional[str] = payload.get("name")
         self.operator_sid: Optional[str] = payload.get("operator_sid")
         self.extract_match: Optional[bool] = payload.get("extract_match")

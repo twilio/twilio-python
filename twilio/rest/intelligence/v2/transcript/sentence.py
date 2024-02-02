@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
 
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class SentenceInstance(InstanceResource):
-
     """
     :ivar media_channel: The channel number.
     :ivar sentence_index: The index of the sentence in the transcript.

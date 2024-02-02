@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class SchemaVersionInstance(InstanceResource):
-
     """
     :ivar id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
     :ivar schema_version: The version of this schema.

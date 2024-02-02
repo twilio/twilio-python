@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -30,7 +29,6 @@ from twilio.rest.preview.understand.assistant.task.task_statistics import (
 
 
 class TaskInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique ID of the Account that created this Task.
     :ivar date_created: The date that this resource was created

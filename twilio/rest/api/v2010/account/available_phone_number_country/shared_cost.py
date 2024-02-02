@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
 
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class SharedCostInstance(InstanceResource):
-
     """
     :ivar friendly_name: A formatted version of the phone number.
     :ivar phone_number: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.

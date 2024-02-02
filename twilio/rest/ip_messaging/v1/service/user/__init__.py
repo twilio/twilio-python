@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -25,7 +24,6 @@ from twilio.rest.ip_messaging.v1.service.user.user_channel import UserChannelLis
 
 
 class UserInstance(InstanceResource):
-
     """
     :ivar sid:
     :ivar account_sid:

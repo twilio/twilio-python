@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -56,9 +55,9 @@ class AnnotationInstance(InstanceResource):
         self.answered_by: Optional["AnnotationInstance.AnsweredBy"] = payload.get(
             "answered_by"
         )
-        self.connectivity_issue: Optional[
-            "AnnotationInstance.ConnectivityIssue"
-        ] = payload.get("connectivity_issue")
+        self.connectivity_issue: Optional["AnnotationInstance.ConnectivityIssue"] = (
+            payload.get("connectivity_issue")
+        )
         self.quality_issues: Optional[List[str]] = payload.get("quality_issues")
         self.spam: Optional[bool] = payload.get("spam")
         self.call_score: Optional[int] = deserialize.integer(payload.get("call_score"))

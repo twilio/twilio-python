@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class EventInstance(InstanceResource):
-
     """
     :ivar request: Contains a dictionary representing the request of the call.
     :ivar response: Contains a dictionary representing the call response, including a list of the call events.

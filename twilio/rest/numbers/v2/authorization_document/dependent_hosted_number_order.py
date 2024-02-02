@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -73,9 +72,9 @@ class DependentHostedNumberOrderInstance(InstanceResource):
         self.phone_number: Optional[str] = payload.get("phone_number")
         self.capabilities: Optional[str] = payload.get("capabilities")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
-        self.status: Optional[
-            "DependentHostedNumberOrderInstance.Status"
-        ] = payload.get("status")
+        self.status: Optional["DependentHostedNumberOrderInstance.Status"] = (
+            payload.get("status")
+        )
         self.failure_reason: Optional[str] = payload.get("failure_reason")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
