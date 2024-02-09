@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -83,9 +82,9 @@ class WorkspaceInstance(InstanceResource):
         self.sid: Optional[str] = payload.get("sid")
         self.timeout_activity_name: Optional[str] = payload.get("timeout_activity_name")
         self.timeout_activity_sid: Optional[str] = payload.get("timeout_activity_sid")
-        self.prioritize_queue_order: Optional[
-            "WorkspaceInstance.QueueOrder"
-        ] = payload.get("prioritize_queue_order")
+        self.prioritize_queue_order: Optional["WorkspaceInstance.QueueOrder"] = (
+            payload.get("prioritize_queue_order")
+        )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 

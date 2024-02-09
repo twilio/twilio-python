@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class KeyInstance(InstanceResource):
-
     """
     :ivar sid: Contains a 34 character string that uniquely identifies this Key credential resource.
     :ivar url: Contains an absolute URL for this Key credential resource.

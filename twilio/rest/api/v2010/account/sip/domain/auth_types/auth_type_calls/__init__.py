@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Optional
 
 
@@ -50,9 +49,9 @@ class AuthTypeCallsList(ListResource):
             )
         )
 
-        self._credential_list_mappings: Optional[
-            AuthCallsCredentialListMappingList
-        ] = None
+        self._credential_list_mappings: Optional[AuthCallsCredentialListMappingList] = (
+            None
+        )
         self._ip_access_control_list_mappings: Optional[
             AuthCallsIpAccessControlListMappingList
         ] = None

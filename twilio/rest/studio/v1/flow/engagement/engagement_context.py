@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -21,7 +20,6 @@ from twilio.base.version import Version
 
 
 class EngagementContextInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the Account.
     :ivar context: As your flow executes, we save the state in what's called the Flow Context. Any data in the flow context can be accessed by your widgets as variables, either in configuration fields or in text areas as variable substitution.

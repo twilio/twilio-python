@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class PayloadInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that that we created to identify the Recording AddOnResult Payload resource.
     :ivar add_on_result_sid: The SID of the AddOnResult to which the payload belongs.

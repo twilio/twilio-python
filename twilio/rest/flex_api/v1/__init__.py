@@ -55,9 +55,9 @@ class V1(Version):
         self._channel: Optional[ChannelList] = None
         self._configuration: Optional[ConfigurationList] = None
         self._flex_flow: Optional[FlexFlowList] = None
-        self._insights_assessments_comment: Optional[
-            InsightsAssessmentsCommentList
-        ] = None
+        self._insights_assessments_comment: Optional[InsightsAssessmentsCommentList] = (
+            None
+        )
         self._insights_conversations: Optional[InsightsConversationsList] = None
         self._insights_questionnaires: Optional[InsightsQuestionnairesList] = None
         self._insights_questionnaires_category: Optional[
