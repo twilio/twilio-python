@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class SubscribeRulesInstance(InstanceResource):
-
     """
     :ivar participant_sid: The SID of the Participant resource for the Subscribe Rules.
     :ivar room_sid: The SID of the Room resource for the Subscribe Rules
@@ -93,10 +91,8 @@ class SubscribeRulesList(ListResource):
         """
         Asynchronously fetch the SubscribeRulesInstance
 
-
         :returns: The fetched SubscribeRulesInstance
         """
-
         payload = self._version.fetch(method="GET", uri=self._uri)
 
         return SubscribeRulesInstance(
@@ -110,10 +106,8 @@ class SubscribeRulesList(ListResource):
         """
         Asynchronously fetch the SubscribeRulesInstance
 
-
         :returns: The fetched SubscribeRulesInstance
         """
-
         payload = await self._version.fetch_async(method="GET", uri=self._uri)
 
         return SubscribeRulesInstance(

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -25,7 +24,6 @@ from twilio.rest.verify.v2.service.rate_limit.bucket import BucketList
 
 
 class RateLimitInstance(InstanceResource):
-
     """
     :ivar sid: A 34 character string that uniquely identifies this Rate Limit.
     :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.

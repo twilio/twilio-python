@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -103,9 +102,9 @@ class BrandRegistrationInstance(InstanceResource):
         self.brand_feedback: Optional[
             List["BrandRegistrationInstance.BrandFeedback"]
         ] = payload.get("brand_feedback")
-        self.identity_status: Optional[
-            "BrandRegistrationInstance.IdentityStatus"
-        ] = payload.get("identity_status")
+        self.identity_status: Optional["BrandRegistrationInstance.IdentityStatus"] = (
+            payload.get("identity_status")
+        )
         self.russell_3000: Optional[bool] = payload.get("russell_3000")
         self.government_entity: Optional[bool] = payload.get("government_entity")
         self.tax_exempt_status: Optional[str] = payload.get("tax_exempt_status")

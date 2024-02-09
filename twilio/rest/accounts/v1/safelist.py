@@ -12,8 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, Optional
 from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class SafelistInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the SafeList resource.
     :ivar phone_number: The phone number in SafeList.
@@ -102,77 +100,23 @@ class SafelistList(ListResource):
 
         return SafelistInstance(self._version, payload)
 
-    def delete(self, phone_number: Union[str, object] = values.unset) -> bool:
-        """
-        Asynchronously delete the SafelistInstance
-
-        :param phone_number: The phone number to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-        :returns: True if delete succeeds, False otherwise
-        """
-
-        params = values.of(
-            {
-                "PhoneNumber": phone_number,
-            }
-        )
-        return self._version.delete(method="DELETE", uri=self._uri, params=params)
-
-    async def delete_async(
-        self, phone_number: Union[str, object] = values.unset
-    ) -> bool:
-        """
-        Asynchronously delete the SafelistInstance
-
-        :param phone_number: The phone number to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-        :returns: True if delete succeeds, False otherwise
-        """
-
-        params = values.of(
-            {
-                "PhoneNumber": phone_number,
-            }
-        )
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, params=params
-        )
-
-    def fetch(
-        self, phone_number: Union[str, object] = values.unset
-    ) -> SafelistInstance:
+    def fetch(self) -> SafelistInstance:
         """
         Asynchronously fetch the SafelistInstance
 
-        :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         :returns: The fetched SafelistInstance
         """
-
-        params = values.of(
-            {
-                "PhoneNumber": phone_number,
-            }
-        )
-        payload = self._version.fetch(method="GET", uri=self._uri, params=params)
+        payload = self._version.fetch(method="GET", uri=self._uri)
 
         return SafelistInstance(self._version, payload)
 
-    async def fetch_async(
-        self, phone_number: Union[str, object] = values.unset
-    ) -> SafelistInstance:
+    async def fetch_async(self) -> SafelistInstance:
         """
         Asynchronously fetch the SafelistInstance
 
-        :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         :returns: The fetched SafelistInstance
         """
-
-        params = values.of(
-            {
-                "PhoneNumber": phone_number,
-            }
-        )
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params
-        )
+        payload = await self._version.fetch_async(method="GET", uri=self._uri)
 
         return SafelistInstance(self._version, payload)
 

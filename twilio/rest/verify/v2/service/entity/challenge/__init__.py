@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -96,9 +95,9 @@ class ChallengeInstance(InstanceResource):
         self.status: Optional["ChallengeInstance.ChallengeStatuses"] = payload.get(
             "status"
         )
-        self.responded_reason: Optional[
-            "ChallengeInstance.ChallengeReasons"
-        ] = payload.get("responded_reason")
+        self.responded_reason: Optional["ChallengeInstance.ChallengeReasons"] = (
+            payload.get("responded_reason")
+        )
         self.details: Optional[Dict[str, object]] = payload.get("details")
         self.hidden_details: Optional[Dict[str, object]] = payload.get("hidden_details")
         self.metadata: Optional[Dict[str, object]] = payload.get("metadata")

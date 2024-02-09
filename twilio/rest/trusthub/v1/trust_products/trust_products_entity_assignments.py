@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class TrustProductsEntityAssignmentsInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Item Assignment resource.
     :ivar trust_product_sid: The unique string that we created to identify the TrustProduct resource.

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -31,7 +30,6 @@ from twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping imp
 
 
 class DomainInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource.
     :ivar api_version: The API version used to process the call.

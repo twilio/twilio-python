@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional
 
 from twilio.base.instance_resource import InstanceResource
@@ -21,7 +20,6 @@ from twilio.base.version import Version
 
 
 class UsecaseInstance(InstanceResource):
-
     """
     :ivar usecases: Human readable use case details (usecase, description and purpose) of Messaging Service Use Cases.
     """
@@ -57,10 +55,8 @@ class UsecaseList(ListResource):
         """
         Asynchronously fetch the UsecaseInstance
 
-
         :returns: The fetched UsecaseInstance
         """
-
         payload = self._version.fetch(method="GET", uri=self._uri)
 
         return UsecaseInstance(self._version, payload)
@@ -69,10 +65,8 @@ class UsecaseList(ListResource):
         """
         Asynchronously fetch the UsecaseInstance
 
-
         :returns: The fetched UsecaseInstance
         """
-
         payload = await self._version.fetch_async(method="GET", uri=self._uri)
 
         return UsecaseInstance(self._version, payload)

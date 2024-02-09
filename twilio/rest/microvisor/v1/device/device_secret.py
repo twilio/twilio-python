@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class DeviceSecretInstance(InstanceResource):
-
     """
     :ivar device_sid: A 34-character string that uniquely identifies the parent Device.
     :ivar key: The secret key; up to 100 characters.

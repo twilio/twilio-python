@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -75,9 +74,9 @@ class TrunkInstance(InstanceResource):
         self.transfer_mode: Optional["TrunkInstance.TransferSetting"] = payload.get(
             "transfer_mode"
         )
-        self.transfer_caller_id: Optional[
-            "TrunkInstance.TransferCallerId"
-        ] = payload.get("transfer_caller_id")
+        self.transfer_caller_id: Optional["TrunkInstance.TransferCallerId"] = (
+            payload.get("transfer_caller_id")
+        )
         self.cnam_lookup_enabled: Optional[bool] = payload.get("cnam_lookup_enabled")
         self.auth_type: Optional[str] = payload.get("auth_type")
         self.auth_type_set: Optional[List[str]] = payload.get("auth_type_set")

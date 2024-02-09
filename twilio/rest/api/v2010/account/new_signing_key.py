@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class NewSigningKeyInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that that we created to identify the NewSigningKey resource.
     :ivar friendly_name: The string that you assigned to describe the resource.

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -38,7 +37,6 @@ from twilio.rest.taskrouter.v1.workspace.worker.workers_statistics import (
 
 
 class WorkerInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
     :ivar activity_name: The `friendly_name` of the Worker's current Activity.

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import date
 from twilio.base.instance_context import InstanceContext
 

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -74,9 +73,9 @@ class FlexFlowInstance(InstanceResource):
         )
         self.contact_identity: Optional[str] = payload.get("contact_identity")
         self.enabled: Optional[bool] = payload.get("enabled")
-        self.integration_type: Optional[
-            "FlexFlowInstance.IntegrationType"
-        ] = payload.get("integration_type")
+        self.integration_type: Optional["FlexFlowInstance.IntegrationType"] = (
+            payload.get("integration_type")
+        )
         self.integration: Optional[Dict[str, object]] = payload.get("integration")
         self.long_lived: Optional[bool] = payload.get("long_lived")
         self.janitor_enabled: Optional[bool] = payload.get("janitor_enabled")

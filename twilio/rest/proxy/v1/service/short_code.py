@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class ShortCodeInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the ShortCode resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource.
@@ -349,7 +347,7 @@ class ShortCodeList(ListResource):
         """
         Create the ShortCodeInstance
 
-        :param sid: The SID of a Twilio [ShortCode](https://www.twilio.com/en-us/messaging/channels/sms/short-codes) resource that represents the short code you would like to assign to your Proxy Service.
+        :param sid: The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
 
         :returns: The created ShortCodeInstance
         """
@@ -374,7 +372,7 @@ class ShortCodeList(ListResource):
         """
         Asynchronously create the ShortCodeInstance
 
-        :param sid: The SID of a Twilio [ShortCode](https://www.twilio.com/en-us/messaging/channels/sms/short-codes) resource that represents the short code you would like to assign to your Proxy Service.
+        :param sid: The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
 
         :returns: The created ShortCodeInstance
         """

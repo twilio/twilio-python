@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -26,7 +25,6 @@ from twilio.rest.flex_api.v1.interaction.interaction_channel import (
 
 
 class InteractionInstance(InstanceResource):
-
     """
     :ivar sid: The unique string created by Twilio to identify an Interaction resource, prefixed with KD.
     :ivar channel: A JSON object that defines the Interaction’s communication channel and includes details about the channel. See the [Outbound SMS](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#agent-initiated-outbound-interactions) and [inbound (API-initiated)](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#api-initiated-contact) Channel object examples.

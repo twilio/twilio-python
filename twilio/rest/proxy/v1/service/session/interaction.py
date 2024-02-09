@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -60,7 +59,7 @@ class InteractionInstance(InstanceResource):
     :ivar data: A JSON string that includes the message body of message interactions (e.g. `{\"body\": \"hello\"}`) or the call duration (when available) of a call (e.g. `{\"duration\": \"5\"}`).
     :ivar type: 
     :ivar inbound_participant_sid: The SID of the inbound [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.
-    :ivar inbound_resource_sid: The SID of the inbound resource; either the [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource).
+    :ivar inbound_resource_sid: The SID of the inbound resource; either the [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message.
     :ivar inbound_resource_status: 
     :ivar inbound_resource_type: The inbound resource type. Can be [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource).
     :ivar inbound_resource_url: The URL of the Twilio inbound resource
@@ -94,9 +93,9 @@ class InteractionInstance(InstanceResource):
             "inbound_participant_sid"
         )
         self.inbound_resource_sid: Optional[str] = payload.get("inbound_resource_sid")
-        self.inbound_resource_status: Optional[
-            "InteractionInstance.ResourceStatus"
-        ] = payload.get("inbound_resource_status")
+        self.inbound_resource_status: Optional["InteractionInstance.ResourceStatus"] = (
+            payload.get("inbound_resource_status")
+        )
         self.inbound_resource_type: Optional[str] = payload.get("inbound_resource_type")
         self.inbound_resource_url: Optional[str] = payload.get("inbound_resource_url")
         self.outbound_participant_sid: Optional[str] = payload.get(

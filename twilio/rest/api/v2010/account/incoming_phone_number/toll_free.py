@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -88,9 +87,9 @@ class TollFreeInstance(InstanceResource):
 
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.address_sid: Optional[str] = payload.get("address_sid")
-        self.address_requirements: Optional[
-            "TollFreeInstance.AddressRequirement"
-        ] = payload.get("address_requirements")
+        self.address_requirements: Optional["TollFreeInstance.AddressRequirement"] = (
+            payload.get("address_requirements")
+        )
         self.api_version: Optional[str] = payload.get("api_version")
         self.beta: Optional[bool] = payload.get("beta")
         self.capabilities: Optional[str] = payload.get("capabilities")
@@ -116,9 +115,9 @@ class TollFreeInstance(InstanceResource):
         )
         self.trunk_sid: Optional[str] = payload.get("trunk_sid")
         self.uri: Optional[str] = payload.get("uri")
-        self.voice_receive_mode: Optional[
-            "TollFreeInstance.VoiceReceiveMode"
-        ] = payload.get("voice_receive_mode")
+        self.voice_receive_mode: Optional["TollFreeInstance.VoiceReceiveMode"] = (
+            payload.get("voice_receive_mode")
+        )
         self.voice_application_sid: Optional[str] = payload.get("voice_application_sid")
         self.voice_caller_id_lookup: Optional[bool] = payload.get(
             "voice_caller_id_lookup"
@@ -127,9 +126,9 @@ class TollFreeInstance(InstanceResource):
         self.voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
         self.voice_method: Optional[str] = payload.get("voice_method")
         self.voice_url: Optional[str] = payload.get("voice_url")
-        self.emergency_status: Optional[
-            "TollFreeInstance.EmergencyStatus"
-        ] = payload.get("emergency_status")
+        self.emergency_status: Optional["TollFreeInstance.EmergencyStatus"] = (
+            payload.get("emergency_status")
+        )
         self.emergency_address_sid: Optional[str] = payload.get("emergency_address_sid")
         self.emergency_address_status: Optional[
             "TollFreeInstance.EmergencyAddressStatus"

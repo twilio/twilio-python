@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
@@ -76,7 +75,6 @@ class ConfigurationInstance(InstanceResource):
     :ivar flex_ui_status_report: Configurable parameters for Flex UI Status report.
     :ivar agent_conv_end_methods: Agent conversation end methods.
     :ivar citrix_voice_vdi: Citrix voice vdi configuration and settings.
-    :ivar offline_config: Presence and presence ttl configuration
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any]):
@@ -189,7 +187,6 @@ class ConfigurationInstance(InstanceResource):
         self.citrix_voice_vdi: Optional[Dict[str, object]] = payload.get(
             "citrix_voice_vdi"
         )
-        self.offline_config: Optional[Dict[str, object]] = payload.get("offline_config")
 
         self._context: Optional[ConfigurationContext] = None
 

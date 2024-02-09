@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
@@ -92,9 +91,9 @@ class CallSummaryInstance(InstanceResource):
         self.answered_by: Optional["CallSummaryInstance.AnsweredBy"] = payload.get(
             "answered_by"
         )
-        self.processing_state: Optional[
-            "CallSummaryInstance.ProcessingState"
-        ] = payload.get("processing_state")
+        self.processing_state: Optional["CallSummaryInstance.ProcessingState"] = (
+            payload.get("processing_state")
+        )
         self.created_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("created_time")
         )

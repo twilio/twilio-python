@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -45,7 +44,7 @@ class AnnotationInstance(InstanceResource):
     :ivar call_score: Specifies the Call Score, if available. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
     :ivar comment: Specifies any comments pertaining to the call. Twilio does not treat this field as PII, so no PII should be included in comments.
     :ivar incident: Incident or support ticket associated with this call. The `incident` property is of type string with a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in `incident`.
-    :ivar url: 
+    :ivar url: The URL of this resource.
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any], call_sid: str):
@@ -56,9 +55,9 @@ class AnnotationInstance(InstanceResource):
         self.answered_by: Optional["AnnotationInstance.AnsweredBy"] = payload.get(
             "answered_by"
         )
-        self.connectivity_issue: Optional[
-            "AnnotationInstance.ConnectivityIssue"
-        ] = payload.get("connectivity_issue")
+        self.connectivity_issue: Optional["AnnotationInstance.ConnectivityIssue"] = (
+            payload.get("connectivity_issue")
+        )
         self.quality_issues: Optional[List[str]] = payload.get("quality_issues")
         self.spam: Optional[bool] = payload.get("spam")
         self.call_score: Optional[int] = deserialize.integer(payload.get("call_score"))

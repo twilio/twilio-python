@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class DomainConfigInstance(InstanceResource):
-
     """
     :ivar domain_sid: The unique string that we created to identify the Domain resource.
     :ivar config_sid: The unique string that we created to identify the Domain config (prefix ZK).

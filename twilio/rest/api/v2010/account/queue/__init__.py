@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -25,7 +24,6 @@ from twilio.rest.api.v2010.account.queue.member import MemberList
 
 
 class QueueInstance(InstanceResource):
-
     """
     :ivar date_updated: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar current_size: The number of calls currently in the queue.

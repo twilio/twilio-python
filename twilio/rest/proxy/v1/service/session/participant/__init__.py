@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -27,7 +26,6 @@ from twilio.rest.proxy.v1.service.session.participant.message_interaction import
 
 
 class ParticipantInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Participant resource.
     :ivar session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.

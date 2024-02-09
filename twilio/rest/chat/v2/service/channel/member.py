@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -68,9 +67,9 @@ class MemberInstance(InstanceResource):
         self.last_consumed_message_index: Optional[int] = deserialize.integer(
             payload.get("last_consumed_message_index")
         )
-        self.last_consumption_timestamp: Optional[
-            datetime
-        ] = deserialize.iso8601_datetime(payload.get("last_consumption_timestamp"))
+        self.last_consumption_timestamp: Optional[datetime] = (
+            deserialize.iso8601_datetime(payload.get("last_consumption_timestamp"))
+        )
         self.url: Optional[str] = payload.get("url")
         self.attributes: Optional[str] = payload.get("attributes")
 
@@ -550,7 +549,6 @@ class MemberList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
-
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -608,7 +606,6 @@ class MemberList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
-
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

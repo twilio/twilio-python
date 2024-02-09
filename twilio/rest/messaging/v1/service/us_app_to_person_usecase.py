@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from typing import Any, Dict, List, Optional, Union
-from twilio.base import values
+from typing import Any, Dict, List, Optional
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -22,7 +20,6 @@ from twilio.base.version import Version
 
 
 class UsAppToPersonUsecaseInstance(InstanceResource):
-
     """
     :ivar us_app_to_person_usecases: Human readable name, code, description and post_approval_required (indicates whether or not post approval is required for this Use Case) of A2P Campaign Use Cases.
     """
@@ -71,22 +68,13 @@ class UsAppToPersonUsecaseList(ListResource):
             )
         )
 
-    def fetch(
-        self, brand_registration_sid: Union[str, object] = values.unset
-    ) -> UsAppToPersonUsecaseInstance:
+    def fetch(self) -> UsAppToPersonUsecaseInstance:
         """
         Asynchronously fetch the UsAppToPersonUsecaseInstance
 
-        :param brand_registration_sid: The unique string to identify the A2P brand.
         :returns: The fetched UsAppToPersonUsecaseInstance
         """
-
-        params = values.of(
-            {
-                "BrandRegistrationSid": brand_registration_sid,
-            }
-        )
-        payload = self._version.fetch(method="GET", uri=self._uri, params=params)
+        payload = self._version.fetch(method="GET", uri=self._uri)
 
         return UsAppToPersonUsecaseInstance(
             self._version,
@@ -94,24 +82,13 @@ class UsAppToPersonUsecaseList(ListResource):
             messaging_service_sid=self._solution["messaging_service_sid"],
         )
 
-    async def fetch_async(
-        self, brand_registration_sid: Union[str, object] = values.unset
-    ) -> UsAppToPersonUsecaseInstance:
+    async def fetch_async(self) -> UsAppToPersonUsecaseInstance:
         """
         Asynchronously fetch the UsAppToPersonUsecaseInstance
 
-        :param brand_registration_sid: The unique string to identify the A2P brand.
         :returns: The fetched UsAppToPersonUsecaseInstance
         """
-
-        params = values.of(
-            {
-                "BrandRegistrationSid": brand_registration_sid,
-            }
-        )
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params
-        )
+        payload = await self._version.fetch_async(method="GET", uri=self._uri)
 
         return UsAppToPersonUsecaseInstance(
             self._version,

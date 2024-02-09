@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -27,7 +26,6 @@ from twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address import 
 
 
 class IpAccessControlListInstance(InstanceResource):
-
     """
     :ivar sid: A 34 character string that uniquely identifies this resource.
     :ivar account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) that owns this resource.

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class QueryInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique ID of the Account that created this Query.
     :ivar date_created: The date that this resource was created

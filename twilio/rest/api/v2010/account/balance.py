@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 
 from twilio.base.instance_resource import InstanceResource
@@ -21,7 +20,6 @@ from twilio.base.version import Version
 
 
 class BalanceInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique SID identifier of the Account.
     :ivar balance: The balance of the Account, in units specified by the unit parameter. Balance changes may not be reflected immediately. Child accounts do not contain balance information
@@ -70,10 +68,8 @@ class BalanceList(ListResource):
         """
         Asynchronously fetch the BalanceInstance
 
-
         :returns: The fetched BalanceInstance
         """
-
         payload = self._version.fetch(method="GET", uri=self._uri)
 
         return BalanceInstance(
@@ -84,10 +80,8 @@ class BalanceList(ListResource):
         """
         Asynchronously fetch the BalanceInstance
 
-
         :returns: The fetched BalanceInstance
         """
-
         payload = await self._version.fetch_async(method="GET", uri=self._uri)
 
         return BalanceInstance(

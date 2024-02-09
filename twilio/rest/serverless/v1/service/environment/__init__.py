@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -27,7 +26,6 @@ from twilio.rest.serverless.v1.service.environment.variable import VariableList
 
 
 class EnvironmentInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Environment resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Environment resource.
