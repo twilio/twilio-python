@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class PhoneNumberInstance(InstanceResource):
-
     """
     :ivar caller_name: The name of the phone number's owner. If `null`, that information was not available.
     :ivar country_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) for the phone number.

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class TaskQueuesStatisticsInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
     :ivar cumulative: An object that contains the cumulative statistics for the TaskQueues.

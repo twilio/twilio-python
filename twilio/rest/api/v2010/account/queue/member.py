@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class MemberInstance(InstanceResource):
-
     """
     :ivar call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Member resource is associated with.
     :ivar date_enqueued: The date that the member was enqueued, given in RFC 2822 format.

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -25,7 +24,6 @@ from twilio.rest.events.v1.subscription.subscribed_event import SubscribedEventL
 
 
 class SubscriptionInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique SID identifier of the Account.
     :ivar sid: A 34 character string that uniquely identifies this Subscription.

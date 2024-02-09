@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class DayInstance(InstanceResource):
-
     """
     :ivar redirect_to:
     :ivar day: The ISO 8601 format date of the resources in the file, for a UTC day

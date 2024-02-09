@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -21,7 +20,6 @@ from twilio.base.version import Version
 
 
 class UserInfoInstance(InstanceResource):
-
     """
     :ivar user_sid: The URL of the party that will create the token and sign it with its private key.
     :ivar first_name: The first name of the end-user.

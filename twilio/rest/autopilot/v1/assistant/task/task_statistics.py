@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 from twilio.base import deserialize
 from twilio.base.instance_context import InstanceContext
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class TaskStatisticsInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskStatistics resource.
     :ivar assistant_sid: The SID of the [Assistant](https://www.twilio.com/docs/autopilot/api/assistant) that is the parent of the Task associated with the resource.

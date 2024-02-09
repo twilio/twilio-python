@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -61,9 +60,9 @@ class BrandVettingInstance(InstanceResource):
         self.vetting_id: Optional[str] = payload.get("vetting_id")
         self.vetting_class: Optional[str] = payload.get("vetting_class")
         self.vetting_status: Optional[str] = payload.get("vetting_status")
-        self.vetting_provider: Optional[
-            "BrandVettingInstance.VettingProvider"
-        ] = payload.get("vetting_provider")
+        self.vetting_provider: Optional["BrandVettingInstance.VettingProvider"] = (
+            payload.get("vetting_provider")
+        )
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {

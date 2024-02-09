@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import date
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class DeactivationsInstance(InstanceResource):
-
     """
     :ivar redirect_to: Returns an authenticated url that redirects to a file containing the deactivated numbers for the requested day. This url is valid for up to two minutes.
     """

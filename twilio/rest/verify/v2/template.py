@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class TemplateInstance(InstanceResource):
-
     """
     :ivar sid: A 34 character string that uniquely identifies a Verification Template.
     :ivar account_sid: The unique SID identifier of the Account.
