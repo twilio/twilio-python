@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -24,7 +23,6 @@ from twilio.rest.conversations.v1.configuration.webhook import WebhookList
 
 
 class ConfigurationInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration.
     :ivar default_chat_service_sid: The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) used when creating a conversation.

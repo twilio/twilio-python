@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class RestoreAssistantInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Assistant resource.
     :ivar sid: The unique string that we created to identify the Assistant resource.

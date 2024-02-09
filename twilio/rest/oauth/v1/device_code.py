@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class DeviceCodeInstance(InstanceResource):
-
     """
     :ivar device_code: The device verification code.
     :ivar user_code: The verification code which end user uses to verify authorization request.

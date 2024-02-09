@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -73,9 +72,9 @@ class UserChannelInstance(InstanceResource):
         )
         self.links: Optional[Dict[str, object]] = payload.get("links")
         self.url: Optional[str] = payload.get("url")
-        self.notification_level: Optional[
-            "UserChannelInstance.NotificationLevel"
-        ] = payload.get("notification_level")
+        self.notification_level: Optional["UserChannelInstance.NotificationLevel"] = (
+            payload.get("notification_level")
+        )
 
         self._solution = {
             "service_sid": service_sid,

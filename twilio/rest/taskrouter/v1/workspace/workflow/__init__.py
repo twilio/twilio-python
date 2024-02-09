@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -33,7 +32,6 @@ from twilio.rest.taskrouter.v1.workspace.workflow.workflow_statistics import (
 
 
 class WorkflowInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workflow resource.
     :ivar assignment_callback_url: The URL that we call when a task managed by the Workflow is assigned to a Worker. See Assignment Callback URL for more information.

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,7 +25,6 @@ from twilio.rest.insights.v1.call.metric import MetricList
 
 
 class CallInstance(InstanceResource):
-
     """
     :ivar sid:
     :ivar url:

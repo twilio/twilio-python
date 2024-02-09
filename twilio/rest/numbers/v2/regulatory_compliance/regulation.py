@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext

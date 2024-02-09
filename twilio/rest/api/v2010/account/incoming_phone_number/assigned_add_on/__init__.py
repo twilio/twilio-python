@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -27,7 +26,6 @@ from twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigne
 
 
 class AssignedAddOnInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that that we created to identify the resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource.

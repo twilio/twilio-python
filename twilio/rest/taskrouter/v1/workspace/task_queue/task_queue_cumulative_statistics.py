@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class TaskQueueCumulativeStatisticsInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
     :ivar avg_task_acceptance_time: The average time in seconds between Task creation and acceptance.
@@ -96,9 +94,9 @@ class TaskQueueCumulativeStatisticsInstance(InstanceResource):
         self.wait_duration_until_canceled: Optional[Dict[str, object]] = payload.get(
             "wait_duration_until_canceled"
         )
-        self.wait_duration_in_queue_until_accepted: Optional[
-            Dict[str, object]
-        ] = payload.get("wait_duration_in_queue_until_accepted")
+        self.wait_duration_in_queue_until_accepted: Optional[Dict[str, object]] = (
+            payload.get("wait_duration_in_queue_until_accepted")
+        )
         self.tasks_canceled: Optional[int] = deserialize.integer(
             payload.get("tasks_canceled")
         )

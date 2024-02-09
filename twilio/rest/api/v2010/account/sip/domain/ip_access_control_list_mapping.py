@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class IpAccessControlListMappingInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique id of the Account that is responsible for this resource.
     :ivar date_created: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.

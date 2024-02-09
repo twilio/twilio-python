@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class AssignedAddOnExtensionInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that that we created to identify the resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource.
