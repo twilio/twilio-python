@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -36,7 +35,6 @@ from twilio.rest.preview.understand.assistant.task import TaskList
 
 
 class AssistantInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique ID of the Account that created this Assistant.
     :ivar date_created: The date that this resource was created
@@ -287,9 +285,9 @@ class AssistantContext(InstanceContext):
         self._uri = "/Assistants/{sid}".format(**self._solution)
 
         self._assistant_fallback_actions: Optional[AssistantFallbackActionsList] = None
-        self._assistant_initiation_actions: Optional[
-            AssistantInitiationActionsList
-        ] = None
+        self._assistant_initiation_actions: Optional[AssistantInitiationActionsList] = (
+            None
+        )
         self._dialogues: Optional[DialogueList] = None
         self._field_types: Optional[FieldTypeList] = None
         self._model_builds: Optional[ModelBuildList] = None

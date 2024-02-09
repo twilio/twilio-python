@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class TokenInstance(InstanceResource):
-
     """
     :ivar access_token: Token which carries the necessary information to access a Twilio resource directly.
     :ivar refresh_token: Token which carries the information necessary to get a new access token.
@@ -38,9 +36,9 @@ class TokenInstance(InstanceResource):
         self.access_token: Optional[str] = payload.get("access_token")
         self.refresh_token: Optional[str] = payload.get("refresh_token")
         self.id_token: Optional[str] = payload.get("id_token")
-        self.refresh_token_expires_at: Optional[
-            datetime
-        ] = deserialize.iso8601_datetime(payload.get("refresh_token_expires_at"))
+        self.refresh_token_expires_at: Optional[datetime] = (
+            deserialize.iso8601_datetime(payload.get("refresh_token_expires_at"))
+        )
         self.access_token_expires_at: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("access_token_expires_at")
         )

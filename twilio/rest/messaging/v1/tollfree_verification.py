@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -126,9 +125,9 @@ class TollfreeVerificationInstance(InstanceResource):
             "production_message_sample"
         )
         self.opt_in_image_urls: Optional[List[str]] = payload.get("opt_in_image_urls")
-        self.opt_in_type: Optional[
-            "TollfreeVerificationInstance.OptInType"
-        ] = payload.get("opt_in_type")
+        self.opt_in_type: Optional["TollfreeVerificationInstance.OptInType"] = (
+            payload.get("opt_in_type")
+        )
         self.message_volume: Optional[str] = payload.get("message_volume")
         self.additional_information: Optional[str] = payload.get(
             "additional_information"

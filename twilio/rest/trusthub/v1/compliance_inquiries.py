@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class ComplianceInquiriesInstance(InstanceResource):
-
     """
     :ivar inquiry_id: The unique ID used to start an embedded compliance registration session.
     :ivar inquiry_session_token: The session token used to start an embedded compliance registration session.

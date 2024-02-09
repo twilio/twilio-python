@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
 
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class InsightsConversationsInstance(InstanceResource):
-
     """
     :ivar account_id: The id of the account.
     :ivar conversation_id: The unique id of the conversation

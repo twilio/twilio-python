@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -94,9 +93,9 @@ class InteractionInstance(InstanceResource):
             "inbound_participant_sid"
         )
         self.inbound_resource_sid: Optional[str] = payload.get("inbound_resource_sid")
-        self.inbound_resource_status: Optional[
-            "InteractionInstance.ResourceStatus"
-        ] = payload.get("inbound_resource_status")
+        self.inbound_resource_status: Optional["InteractionInstance.ResourceStatus"] = (
+            payload.get("inbound_resource_status")
+        )
         self.inbound_resource_type: Optional[str] = payload.get("inbound_resource_type")
         self.inbound_resource_url: Optional[str] = payload.get("inbound_resource_url")
         self.outbound_participant_sid: Optional[str] = payload.get(

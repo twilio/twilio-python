@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -21,7 +20,6 @@ from twilio.base.version import Version
 
 
 class OauthInstance(InstanceResource):
-
     """
     :ivar keys: A collection of certificates where are signed Twilio-issued tokens.
     :ivar url:

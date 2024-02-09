@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -70,9 +69,9 @@ class AuthorizedConnectAppInstance(InstanceResource):
         self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
-        self.permissions: Optional[
-            List["AuthorizedConnectAppInstance.Permission"]
-        ] = payload.get("permissions")
+        self.permissions: Optional[List["AuthorizedConnectAppInstance.Permission"]] = (
+            payload.get("permissions")
+        )
         self.uri: Optional[str] = payload.get("uri")
 
         self._solution = {

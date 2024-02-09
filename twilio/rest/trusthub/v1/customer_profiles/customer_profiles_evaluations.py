@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -52,9 +51,9 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.policy_sid: Optional[str] = payload.get("policy_sid")
         self.customer_profile_sid: Optional[str] = payload.get("customer_profile_sid")
-        self.status: Optional[
-            "CustomerProfilesEvaluationsInstance.Status"
-        ] = payload.get("status")
+        self.status: Optional["CustomerProfilesEvaluationsInstance.Status"] = (
+            payload.get("status")
+        )
         self.results: Optional[List[object]] = payload.get("results")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")

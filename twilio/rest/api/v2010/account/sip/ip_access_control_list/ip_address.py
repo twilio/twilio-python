@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class IpAddressInstance(InstanceResource):
-
     """
     :ivar sid: A 34 character string that uniquely identifies this resource.
     :ivar account_sid: The unique id of the Account that is responsible for this resource.

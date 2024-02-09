@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class InsightsUserRolesInstance(InstanceResource):
-
     """
     :ivar roles: Flex Insights roles for the user
     :ivar url:

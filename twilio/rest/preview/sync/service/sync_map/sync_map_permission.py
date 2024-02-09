@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class SyncMapPermissionInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique SID identifier of the Twilio Account.
     :ivar service_sid: The unique SID identifier of the Sync Service Instance.

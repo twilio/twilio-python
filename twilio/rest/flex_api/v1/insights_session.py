@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class InsightsSessionInstance(InstanceResource):
-
     """
     :ivar workspace_id: Unique ID to identify the user's workspace
     :ivar session_expiry: The session expiry date and time, given in ISO 8601 format.

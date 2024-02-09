@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class EventTypeInstance(InstanceResource):
-
     """
     :ivar type: A string that uniquely identifies this Event Type.
     :ivar schema_id: A string that uniquely identifies the Schema this Event Type adheres to.

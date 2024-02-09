@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class FlowTestUserInstance(InstanceResource):
-
     """
     :ivar sid: Unique identifier of the flow.
     :ivar test_users: List of test user identities that can test draft versions of the flow.
