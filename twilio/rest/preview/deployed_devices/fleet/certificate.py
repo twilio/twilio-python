@@ -163,6 +163,7 @@ class CertificateInstance(InstanceResource):
 
 
 class CertificateContext(InstanceContext):
+
     def __init__(self, version: Version, fleet_sid: str, sid: str):
         """
         Initialize the CertificateContext
@@ -321,6 +322,7 @@ class CertificateContext(InstanceContext):
 
 
 class CertificatePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CertificateInstance:
         """
         Build an instance of CertificateInstance
@@ -341,6 +343,7 @@ class CertificatePage(Page):
 
 
 class CertificateList(ListResource):
+
     def __init__(self, version: Version, fleet_sid: str):
         """
         Initialize the CertificateList
@@ -372,6 +375,7 @@ class CertificateList(ListResource):
 
         :returns: The created CertificateInstance
         """
+
         data = values.of(
             {
                 "CertificateData": certificate_data,
@@ -405,6 +409,7 @@ class CertificateList(ListResource):
 
         :returns: The created CertificateInstance
         """
+
         data = values.of(
             {
                 "CertificateData": certificate_data,

@@ -169,6 +169,7 @@ class InstalledAddOnInstance(InstanceResource):
 
 
 class InstalledAddOnContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the InstalledAddOnContext
@@ -327,6 +328,7 @@ class InstalledAddOnContext(InstanceContext):
 
 
 class InstalledAddOnPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> InstalledAddOnInstance:
         """
         Build an instance of InstalledAddOnInstance
@@ -345,6 +347,7 @@ class InstalledAddOnPage(Page):
 
 
 class InstalledAddOnList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the InstalledAddOnList
@@ -373,6 +376,7 @@ class InstalledAddOnList(ListResource):
 
         :returns: The created InstalledAddOnInstance
         """
+
         data = values.of(
             {
                 "AvailableAddOnSid": available_add_on_sid,
@@ -407,6 +411,7 @@ class InstalledAddOnList(ListResource):
 
         :returns: The created InstalledAddOnInstance
         """
+
         data = values.of(
             {
                 "AvailableAddOnSid": available_add_on_sid,

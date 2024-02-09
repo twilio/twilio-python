@@ -103,6 +103,7 @@ class UserDefinedMessageSubscriptionInstance(InstanceResource):
 
 
 class UserDefinedMessageSubscriptionContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
         """
         Initialize the UserDefinedMessageSubscriptionContext
@@ -161,6 +162,7 @@ class UserDefinedMessageSubscriptionContext(InstanceContext):
 
 
 class UserDefinedMessageSubscriptionList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the UserDefinedMessageSubscriptionList
@@ -196,6 +198,7 @@ class UserDefinedMessageSubscriptionList(ListResource):
 
         :returns: The created UserDefinedMessageSubscriptionInstance
         """
+
         data = values.of(
             {
                 "Callback": callback,
@@ -232,6 +235,7 @@ class UserDefinedMessageSubscriptionList(ListResource):
 
         :returns: The created UserDefinedMessageSubscriptionInstance
         """
+
         data = values.of(
             {
                 "Callback": callback,

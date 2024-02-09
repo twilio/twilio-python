@@ -152,6 +152,7 @@ class ConfigurationInstance(InstanceResource):
 
 
 class ConfigurationContext(InstanceContext):
+
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the ConfigurationContext
@@ -290,6 +291,7 @@ class ConfigurationContext(InstanceContext):
 
 
 class ConfigurationList(ListResource):
+
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the ConfigurationList

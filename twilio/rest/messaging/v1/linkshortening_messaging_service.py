@@ -112,6 +112,7 @@ class LinkshorteningMessagingServiceInstance(InstanceResource):
 
 
 class LinkshorteningMessagingServiceContext(InstanceContext):
+
     def __init__(self, version: Version, domain_sid: str, messaging_service_sid: str):
         """
         Initialize the LinkshorteningMessagingServiceContext
@@ -206,6 +207,7 @@ class LinkshorteningMessagingServiceContext(InstanceContext):
 
 
 class LinkshorteningMessagingServiceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the LinkshorteningMessagingServiceList

@@ -143,6 +143,7 @@ class ConfigurationInstance(InstanceResource):
 
 
 class ConfigurationContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the ConfigurationContext
@@ -268,6 +269,7 @@ class ConfigurationContext(InstanceContext):
 
 
 class ConfigurationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ConfigurationList

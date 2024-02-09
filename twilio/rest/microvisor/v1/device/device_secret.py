@@ -139,6 +139,7 @@ class DeviceSecretInstance(InstanceResource):
 
 
 class DeviceSecretContext(InstanceContext):
+
     def __init__(self, version: Version, device_sid: str, key: str):
         """
         Initialize the DeviceSecretContext
@@ -285,6 +286,7 @@ class DeviceSecretContext(InstanceContext):
 
 
 class DeviceSecretPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DeviceSecretInstance:
         """
         Build an instance of DeviceSecretInstance
@@ -305,6 +307,7 @@ class DeviceSecretPage(Page):
 
 
 class DeviceSecretList(ListResource):
+
     def __init__(self, version: Version, device_sid: str):
         """
         Initialize the DeviceSecretList
@@ -330,6 +333,7 @@ class DeviceSecretList(ListResource):
 
         :returns: The created DeviceSecretInstance
         """
+
         data = values.of(
             {
                 "Key": key,
@@ -356,6 +360,7 @@ class DeviceSecretList(ListResource):
 
         :returns: The created DeviceSecretInstance
         """
+
         data = values.of(
             {
                 "Key": key,

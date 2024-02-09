@@ -157,6 +157,7 @@ class ShortCodeInstance(InstanceResource):
 
 
 class ShortCodeContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the ShortCodeContext
@@ -307,6 +308,7 @@ class ShortCodeContext(InstanceContext):
 
 
 class ShortCodePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ShortCodeInstance:
         """
         Build an instance of ShortCodeInstance
@@ -327,6 +329,7 @@ class ShortCodePage(Page):
 
 
 class ShortCodeList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the ShortCodeList
@@ -347,10 +350,11 @@ class ShortCodeList(ListResource):
         """
         Create the ShortCodeInstance
 
-        :param sid: The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
+        :param sid: The SID of a Twilio [ShortCode](https://www.twilio.com/en-us/messaging/channels/sms/short-codes) resource that represents the short code you would like to assign to your Proxy Service.
 
         :returns: The created ShortCodeInstance
         """
+
         data = values.of(
             {
                 "Sid": sid,
@@ -371,10 +375,11 @@ class ShortCodeList(ListResource):
         """
         Asynchronously create the ShortCodeInstance
 
-        :param sid: The SID of a Twilio [ShortCode](https://www.twilio.com/docs/sms/api/short-code) resource that represents the short code you would like to assign to your Proxy Service.
+        :param sid: The SID of a Twilio [ShortCode](https://www.twilio.com/en-us/messaging/channels/sms/short-codes) resource that represents the short code you would like to assign to your Proxy Service.
 
         :returns: The created ShortCodeInstance
         """
+
         data = values.of(
             {
                 "Sid": sid,

@@ -22,6 +22,7 @@ from twilio.rest.microvisor.v1.device import DeviceList
 
 
 class V1(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Microvisor

@@ -159,6 +159,7 @@ class IpAccessControlListInstance(InstanceResource):
 
 
 class IpAccessControlListContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the IpAccessControlListContext
@@ -324,6 +325,7 @@ class IpAccessControlListContext(InstanceContext):
 
 
 class IpAccessControlListPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> IpAccessControlListInstance:
         """
         Build an instance of IpAccessControlListInstance
@@ -344,6 +346,7 @@ class IpAccessControlListPage(Page):
 
 
 class IpAccessControlListList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the IpAccessControlListList
@@ -370,6 +373,7 @@ class IpAccessControlListList(ListResource):
 
         :returns: The created IpAccessControlListInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -394,6 +398,7 @@ class IpAccessControlListList(ListResource):
 
         :returns: The created IpAccessControlListInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

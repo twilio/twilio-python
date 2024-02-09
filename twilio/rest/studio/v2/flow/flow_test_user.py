@@ -107,6 +107,7 @@ class FlowTestUserInstance(InstanceResource):
 
 
 class FlowTestUserContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FlowTestUserContext
@@ -215,6 +216,7 @@ class FlowTestUserContext(InstanceContext):
 
 
 class FlowTestUserList(ListResource):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FlowTestUserList

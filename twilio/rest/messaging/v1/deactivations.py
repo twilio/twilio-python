@@ -86,6 +86,7 @@ class DeactivationsInstance(InstanceResource):
 
 
 class DeactivationsContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the DeactivationsContext
@@ -155,6 +156,7 @@ class DeactivationsContext(InstanceContext):
 
 
 class DeactivationsList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the DeactivationsList

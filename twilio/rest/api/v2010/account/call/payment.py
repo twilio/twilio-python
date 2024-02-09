@@ -22,6 +22,7 @@ from twilio.base.version import Version
 
 
 class PaymentInstance(InstanceResource):
+
     class BankAccountType(object):
         CONSUMER_CHECKING = "consumer-checking"
         CONSUMER_SAVINGS = "consumer-savings"
@@ -160,6 +161,7 @@ class PaymentInstance(InstanceResource):
 
 
 class PaymentContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
         """
         Initialize the PaymentContext
@@ -274,6 +276,7 @@ class PaymentContext(InstanceContext):
 
 
 class PaymentList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the PaymentList
@@ -337,6 +340,7 @@ class PaymentList(ListResource):
 
         :returns: The created PaymentInstance
         """
+
         data = values.of(
             {
                 "IdempotencyKey": idempotency_key,
@@ -414,6 +418,7 @@ class PaymentList(ListResource):
 
         :returns: The created PaymentInstance
         """
+
         data = values.of(
             {
                 "IdempotencyKey": idempotency_key,

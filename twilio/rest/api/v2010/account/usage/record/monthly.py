@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class MonthlyInstance(InstanceResource):
+
     class Category(object):
         A2P_REGISTRATION_FEES = "a2p-registration-fees"
         AGENT_CONFERENCE = "agent-conference"
@@ -404,6 +405,7 @@ class MonthlyInstance(InstanceResource):
 
 
 class MonthlyPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MonthlyInstance:
         """
         Build an instance of MonthlyInstance
@@ -424,6 +426,7 @@ class MonthlyPage(Page):
 
 
 class MonthlyList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the MonthlyList

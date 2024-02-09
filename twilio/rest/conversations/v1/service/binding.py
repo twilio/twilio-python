@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class BindingInstance(InstanceResource):
+
     class BindingType(object):
         APN = "apn"
         GCM = "gcm"
@@ -138,6 +139,7 @@ class BindingInstance(InstanceResource):
 
 
 class BindingContext(InstanceContext):
+
     def __init__(self, version: Version, chat_service_sid: str, sid: str):
         """
         Initialize the BindingContext
@@ -232,6 +234,7 @@ class BindingContext(InstanceContext):
 
 
 class BindingPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> BindingInstance:
         """
         Build an instance of BindingInstance
@@ -252,6 +255,7 @@ class BindingPage(Page):
 
 
 class BindingList(ListResource):
+
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the BindingList

@@ -159,6 +159,7 @@ class SyncListPermissionInstance(InstanceResource):
 
 
 class SyncListPermissionContext(InstanceContext):
+
     def __init__(
         self, version: Version, service_sid: str, list_sid: str, identity: str
     ):
@@ -329,6 +330,7 @@ class SyncListPermissionContext(InstanceContext):
 
 
 class SyncListPermissionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SyncListPermissionInstance:
         """
         Build an instance of SyncListPermissionInstance
@@ -352,6 +354,7 @@ class SyncListPermissionPage(Page):
 
 
 class SyncListPermissionList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, list_sid: str):
         """
         Initialize the SyncListPermissionList

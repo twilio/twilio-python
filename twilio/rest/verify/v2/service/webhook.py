@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class WebhookInstance(InstanceResource):
+
     class Methods(object):
         GET = "GET"
         POST = "POST"
@@ -201,6 +202,7 @@ class WebhookInstance(InstanceResource):
 
 
 class WebhookContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the WebhookContext
@@ -377,6 +379,7 @@ class WebhookContext(InstanceContext):
 
 
 class WebhookPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> WebhookInstance:
         """
         Build an instance of WebhookInstance
@@ -397,6 +400,7 @@ class WebhookPage(Page):
 
 
 class WebhookList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the WebhookList
@@ -432,6 +436,7 @@ class WebhookList(ListResource):
 
         :returns: The created WebhookInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -471,6 +476,7 @@ class WebhookList(ListResource):
 
         :returns: The created WebhookInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

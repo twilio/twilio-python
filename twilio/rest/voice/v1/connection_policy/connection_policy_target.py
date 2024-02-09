@@ -185,6 +185,7 @@ class ConnectionPolicyTargetInstance(InstanceResource):
 
 
 class ConnectionPolicyTargetContext(InstanceContext):
+
     def __init__(self, version: Version, connection_policy_sid: str, sid: str):
         """
         Initialize the ConnectionPolicyTargetContext
@@ -363,6 +364,7 @@ class ConnectionPolicyTargetContext(InstanceContext):
 
 
 class ConnectionPolicyTargetPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ConnectionPolicyTargetInstance:
         """
         Build an instance of ConnectionPolicyTargetInstance
@@ -385,6 +387,7 @@ class ConnectionPolicyTargetPage(Page):
 
 
 class ConnectionPolicyTargetList(ListResource):
+
     def __init__(self, version: Version, connection_policy_sid: str):
         """
         Initialize the ConnectionPolicyTargetList
@@ -422,6 +425,7 @@ class ConnectionPolicyTargetList(ListResource):
 
         :returns: The created ConnectionPolicyTargetInstance
         """
+
         data = values.of(
             {
                 "Target": target,
@@ -463,6 +467,7 @@ class ConnectionPolicyTargetList(ListResource):
 
         :returns: The created ConnectionPolicyTargetInstance
         """
+
         data = values.of(
             {
                 "Target": target,

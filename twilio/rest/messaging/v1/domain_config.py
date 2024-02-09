@@ -153,6 +153,7 @@ class DomainConfigInstance(InstanceResource):
 
 
 class DomainConfigContext(InstanceContext):
+
     def __init__(self, version: Version, domain_sid: str):
         """
         Initialize the DomainConfigContext
@@ -291,6 +292,7 @@ class DomainConfigContext(InstanceContext):
 
 
 class DomainConfigList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the DomainConfigList

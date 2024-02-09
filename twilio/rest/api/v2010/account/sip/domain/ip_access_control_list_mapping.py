@@ -128,6 +128,7 @@ class IpAccessControlListMappingInstance(InstanceResource):
 
 
 class IpAccessControlListMappingContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, domain_sid: str, sid: str):
         """
         Initialize the IpAccessControlListMappingContext
@@ -226,6 +227,7 @@ class IpAccessControlListMappingContext(InstanceContext):
 
 
 class IpAccessControlListMappingPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> IpAccessControlListMappingInstance:
@@ -251,6 +253,7 @@ class IpAccessControlListMappingPage(Page):
 
 
 class IpAccessControlListMappingList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
         Initialize the IpAccessControlListMappingList
@@ -281,6 +284,7 @@ class IpAccessControlListMappingList(ListResource):
 
         :returns: The created IpAccessControlListMappingInstance
         """
+
         data = values.of(
             {
                 "IpAccessControlListSid": ip_access_control_list_sid,
@@ -310,6 +314,7 @@ class IpAccessControlListMappingList(ListResource):
 
         :returns: The created IpAccessControlListMappingInstance
         """
+
         data = values.of(
             {
                 "IpAccessControlListSid": ip_access_control_list_sid,

@@ -199,6 +199,7 @@ class ServiceInstance(InstanceResource):
 
 
 class ServiceContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ServiceContext
@@ -402,6 +403,7 @@ class ServiceContext(InstanceContext):
 
 
 class ServicePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
@@ -420,6 +422,7 @@ class ServicePage(Page):
 
 
 class ServiceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
@@ -448,6 +451,7 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -482,6 +486,7 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

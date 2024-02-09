@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class UserConversationInstance(InstanceResource):
+
     class NotificationLevel(object):
         DEFAULT = "default"
         MUTED = "muted"
@@ -211,6 +212,7 @@ class UserConversationInstance(InstanceResource):
 
 
 class UserConversationContext(InstanceContext):
+
     def __init__(
         self,
         version: Version,
@@ -393,6 +395,7 @@ class UserConversationContext(InstanceContext):
 
 
 class UserConversationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> UserConversationInstance:
         """
         Build an instance of UserConversationInstance
@@ -416,6 +419,7 @@ class UserConversationPage(Page):
 
 
 class UserConversationList(ListResource):
+
     def __init__(self, version: Version, chat_service_sid: str, user_sid: str):
         """
         Initialize the UserConversationList

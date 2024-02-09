@@ -106,6 +106,7 @@ class SafelistInstance(InstanceResource):
 
 
 class SafelistContext(InstanceContext):
+
     def __init__(self, version: Version, phone_number: str):
         """
         Initialize the SafelistContext
@@ -194,6 +195,7 @@ class SafelistContext(InstanceContext):
 
 
 class SafelistList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SafelistList
@@ -213,6 +215,7 @@ class SafelistList(ListResource):
 
         :returns: The created SafelistInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
@@ -235,6 +238,7 @@ class SafelistList(ListResource):
 
         :returns: The created SafelistInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,

@@ -185,6 +185,7 @@ class OriginationUrlInstance(InstanceResource):
 
 
 class OriginationUrlContext(InstanceContext):
+
     def __init__(self, version: Version, trunk_sid: str, sid: str):
         """
         Initialize the OriginationUrlContext
@@ -361,6 +362,7 @@ class OriginationUrlContext(InstanceContext):
 
 
 class OriginationUrlPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> OriginationUrlInstance:
         """
         Build an instance of OriginationUrlInstance
@@ -381,6 +383,7 @@ class OriginationUrlPage(Page):
 
 
 class OriginationUrlList(ListResource):
+
     def __init__(self, version: Version, trunk_sid: str):
         """
         Initialize the OriginationUrlList
@@ -416,6 +419,7 @@ class OriginationUrlList(ListResource):
 
         :returns: The created OriginationUrlInstance
         """
+
         data = values.of(
             {
                 "Weight": weight,
@@ -455,6 +459,7 @@ class OriginationUrlList(ListResource):
 
         :returns: The created OriginationUrlInstance
         """
+
         data = values.of(
             {
                 "Weight": weight,

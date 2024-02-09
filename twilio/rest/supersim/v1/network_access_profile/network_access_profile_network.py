@@ -46,7 +46,7 @@ class NetworkAccessProfileNetworkInstance(InstanceResource):
         )
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.iso_country: Optional[str] = payload.get("iso_country")
-        self.identifiers: Optional[List[object]] = payload.get("identifiers")
+        self.identifiers: Optional[List[Dict[str, object]]] = payload.get("identifiers")
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {
@@ -120,6 +120,7 @@ class NetworkAccessProfileNetworkInstance(InstanceResource):
 
 
 class NetworkAccessProfileNetworkContext(InstanceContext):
+
     def __init__(self, version: Version, network_access_profile_sid: str, sid: str):
         """
         Initialize the NetworkAccessProfileNetworkContext
@@ -218,6 +219,7 @@ class NetworkAccessProfileNetworkContext(InstanceContext):
 
 
 class NetworkAccessProfileNetworkPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> NetworkAccessProfileNetworkInstance:
@@ -242,6 +244,7 @@ class NetworkAccessProfileNetworkPage(Page):
 
 
 class NetworkAccessProfileNetworkList(ListResource):
+
     def __init__(self, version: Version, network_access_profile_sid: str):
         """
         Initialize the NetworkAccessProfileNetworkList
@@ -270,6 +273,7 @@ class NetworkAccessProfileNetworkList(ListResource):
 
         :returns: The created NetworkAccessProfileNetworkInstance
         """
+
         data = values.of(
             {
                 "Network": network,
@@ -296,6 +300,7 @@ class NetworkAccessProfileNetworkList(ListResource):
 
         :returns: The created NetworkAccessProfileNetworkInstance
         """
+
         data = values.of(
             {
                 "Network": network,

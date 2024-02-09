@@ -20,6 +20,7 @@ from twilio.base.version import Version
 
 
 class FormInstance(InstanceResource):
+
     class FormTypes(object):
         FORM_PUSH = "form-push"
 
@@ -92,6 +93,7 @@ class FormInstance(InstanceResource):
 
 
 class FormContext(InstanceContext):
+
     def __init__(self, version: Version, form_type: "FormInstance.FormTypes"):
         """
         Initialize the FormContext
@@ -156,6 +158,7 @@ class FormContext(InstanceContext):
 
 
 class FormList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the FormList

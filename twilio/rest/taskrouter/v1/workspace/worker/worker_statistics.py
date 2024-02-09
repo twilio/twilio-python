@@ -126,6 +126,7 @@ class WorkerStatisticsInstance(InstanceResource):
 
 
 class WorkerStatisticsContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, worker_sid: str):
         """
         Initialize the WorkerStatisticsContext
@@ -232,6 +233,7 @@ class WorkerStatisticsContext(InstanceContext):
 
 
 class WorkerStatisticsList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str, worker_sid: str):
         """
         Initialize the WorkerStatisticsList

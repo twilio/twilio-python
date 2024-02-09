@@ -87,6 +87,7 @@ class DataSessionInstance(InstanceResource):
 
 
 class DataSessionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DataSessionInstance:
         """
         Build an instance of DataSessionInstance
@@ -107,6 +108,7 @@ class DataSessionPage(Page):
 
 
 class DataSessionList(ListResource):
+
     def __init__(self, version: Version, sim_sid: str):
         """
         Initialize the DataSessionList

@@ -163,6 +163,7 @@ class SubscriptionInstance(InstanceResource):
 
 
 class SubscriptionContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SubscriptionContext
@@ -321,6 +322,7 @@ class SubscriptionContext(InstanceContext):
 
 
 class SubscriptionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SubscriptionInstance:
         """
         Build an instance of SubscriptionInstance
@@ -339,6 +341,7 @@ class SubscriptionPage(Page):
 
 
 class SubscriptionList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SubscriptionList
@@ -362,6 +365,7 @@ class SubscriptionList(ListResource):
 
         :returns: The created SubscriptionInstance
         """
+
         data = values.of(
             {
                 "Description": description,
@@ -390,6 +394,7 @@ class SubscriptionList(ListResource):
 
         :returns: The created SubscriptionInstance
         """
+
         data = values.of(
             {
                 "Description": description,

@@ -110,6 +110,7 @@ class NumberInstance(InstanceResource):
 
 
 class NumberContext(InstanceContext):
+
     def __init__(self, version: Version, destination_number: str):
         """
         Initialize the NumberContext
@@ -188,6 +189,7 @@ class NumberContext(InstanceContext):
 
 
 class NumberList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the NumberList

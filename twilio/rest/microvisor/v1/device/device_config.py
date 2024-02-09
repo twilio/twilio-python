@@ -141,6 +141,7 @@ class DeviceConfigInstance(InstanceResource):
 
 
 class DeviceConfigContext(InstanceContext):
+
     def __init__(self, version: Version, device_sid: str, key: str):
         """
         Initialize the DeviceConfigContext
@@ -287,6 +288,7 @@ class DeviceConfigContext(InstanceContext):
 
 
 class DeviceConfigPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DeviceConfigInstance:
         """
         Build an instance of DeviceConfigInstance
@@ -307,6 +309,7 @@ class DeviceConfigPage(Page):
 
 
 class DeviceConfigList(ListResource):
+
     def __init__(self, version: Version, device_sid: str):
         """
         Initialize the DeviceConfigList
@@ -332,6 +335,7 @@ class DeviceConfigList(ListResource):
 
         :returns: The created DeviceConfigInstance
         """
+
         data = values.of(
             {
                 "Key": key,
@@ -358,6 +362,7 @@ class DeviceConfigList(ListResource):
 
         :returns: The created DeviceConfigInstance
         """
+
         data = values.of(
             {
                 "Key": key,

@@ -77,6 +77,7 @@ class VoipInstance(InstanceResource):
 
 
 class VoipPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> VoipInstance:
         """
         Build an instance of VoipInstance
@@ -100,6 +101,7 @@ class VoipPage(Page):
 
 
 class VoipList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
         Initialize the VoipList

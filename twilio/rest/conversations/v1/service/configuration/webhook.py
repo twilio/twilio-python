@@ -21,6 +21,7 @@ from twilio.base.version import Version
 
 
 class WebhookInstance(InstanceResource):
+
     class Method(object):
         GET = "GET"
         POST = "POST"
@@ -145,6 +146,7 @@ class WebhookInstance(InstanceResource):
 
 
 class WebhookContext(InstanceContext):
+
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the WebhookContext
@@ -283,6 +285,7 @@ class WebhookContext(InstanceContext):
 
 
 class WebhookList(ListResource):
+
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the WebhookList

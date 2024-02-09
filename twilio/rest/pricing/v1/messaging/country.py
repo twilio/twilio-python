@@ -97,6 +97,7 @@ class CountryInstance(InstanceResource):
 
 
 class CountryContext(InstanceContext):
+
     def __init__(self, version: Version, iso_country: str):
         """
         Initialize the CountryContext
@@ -161,6 +162,7 @@ class CountryContext(InstanceContext):
 
 
 class CountryPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CountryInstance:
         """
         Build an instance of CountryInstance
@@ -179,6 +181,7 @@ class CountryPage(Page):
 
 
 class CountryList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CountryList

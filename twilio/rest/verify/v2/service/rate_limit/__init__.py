@@ -163,6 +163,7 @@ class RateLimitInstance(InstanceResource):
 
 
 class RateLimitContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the RateLimitContext
@@ -328,6 +329,7 @@ class RateLimitContext(InstanceContext):
 
 
 class RateLimitPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> RateLimitInstance:
         """
         Build an instance of RateLimitInstance
@@ -348,6 +350,7 @@ class RateLimitPage(Page):
 
 
 class RateLimitList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the RateLimitList
@@ -375,6 +378,7 @@ class RateLimitList(ListResource):
 
         :returns: The created RateLimitInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -403,6 +407,7 @@ class RateLimitList(ListResource):
 
         :returns: The created RateLimitInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

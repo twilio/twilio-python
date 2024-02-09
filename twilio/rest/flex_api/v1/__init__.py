@@ -22,6 +22,12 @@ from twilio.rest.flex_api.v1.flex_flow import FlexFlowList
 from twilio.rest.flex_api.v1.insights_assessments_comment import (
     InsightsAssessmentsCommentList,
 )
+from twilio.rest.flex_api.v1.insights_conversational_ai import (
+    InsightsConversationalAiList,
+)
+from twilio.rest.flex_api.v1.insights_conversational_ai_report_insights import (
+    InsightsConversationalAiReportInsightsList,
+)
 from twilio.rest.flex_api.v1.insights_conversations import InsightsConversationsList
 from twilio.rest.flex_api.v1.insights_questionnaires import InsightsQuestionnairesList
 from twilio.rest.flex_api.v1.insights_questionnaires_category import (
@@ -40,10 +46,12 @@ from twilio.rest.flex_api.v1.insights_settings_comment import (
 )
 from twilio.rest.flex_api.v1.insights_user_roles import InsightsUserRolesList
 from twilio.rest.flex_api.v1.interaction import InteractionList
+from twilio.rest.flex_api.v1.provisioning_status import ProvisioningStatusList
 from twilio.rest.flex_api.v1.web_channel import WebChannelList
 
 
 class V1(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of FlexApi
@@ -58,6 +66,10 @@ class V1(Version):
         self._insights_assessments_comment: Optional[InsightsAssessmentsCommentList] = (
             None
         )
+        self._insights_conversational_ai: Optional[InsightsConversationalAiList] = None
+        self._insights_conversational_ai_report_insights: Optional[
+            InsightsConversationalAiReportInsightsList
+        ] = None
         self._insights_conversations: Optional[InsightsConversationsList] = None
         self._insights_questionnaires: Optional[InsightsQuestionnairesList] = None
         self._insights_questionnaires_category: Optional[
@@ -74,6 +86,7 @@ class V1(Version):
         self._insights_settings_comment: Optional[InsightsSettingsCommentList] = None
         self._insights_user_roles: Optional[InsightsUserRolesList] = None
         self._interaction: Optional[InteractionList] = None
+        self._provisioning_status: Optional[ProvisioningStatusList] = None
         self._web_channel: Optional[WebChannelList] = None
 
     @property
@@ -105,6 +118,22 @@ class V1(Version):
         if self._insights_assessments_comment is None:
             self._insights_assessments_comment = InsightsAssessmentsCommentList(self)
         return self._insights_assessments_comment
+
+    @property
+    def insights_conversational_ai(self) -> InsightsConversationalAiList:
+        if self._insights_conversational_ai is None:
+            self._insights_conversational_ai = InsightsConversationalAiList(self)
+        return self._insights_conversational_ai
+
+    @property
+    def insights_conversational_ai_report_insights(
+        self,
+    ) -> InsightsConversationalAiReportInsightsList:
+        if self._insights_conversational_ai_report_insights is None:
+            self._insights_conversational_ai_report_insights = (
+                InsightsConversationalAiReportInsightsList(self)
+            )
+        return self._insights_conversational_ai_report_insights
 
     @property
     def insights_conversations(self) -> InsightsConversationsList:
@@ -169,6 +198,12 @@ class V1(Version):
         if self._interaction is None:
             self._interaction = InteractionList(self)
         return self._interaction
+
+    @property
+    def provisioning_status(self) -> ProvisioningStatusList:
+        if self._provisioning_status is None:
+            self._provisioning_status = ProvisioningStatusList(self)
+        return self._provisioning_status
 
     @property
     def web_channel(self) -> WebChannelList:

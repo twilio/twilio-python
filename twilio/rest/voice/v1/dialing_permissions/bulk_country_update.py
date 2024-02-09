@@ -45,6 +45,7 @@ class BulkCountryUpdateInstance(InstanceResource):
 
 
 class BulkCountryUpdateList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the BulkCountryUpdateList
@@ -64,6 +65,7 @@ class BulkCountryUpdateList(ListResource):
 
         :returns: The created BulkCountryUpdateInstance
         """
+
         data = values.of(
             {
                 "UpdateRequest": update_request,
@@ -86,6 +88,7 @@ class BulkCountryUpdateList(ListResource):
 
         :returns: The created BulkCountryUpdateInstance
         """
+
         data = values.of(
             {
                 "UpdateRequest": update_request,

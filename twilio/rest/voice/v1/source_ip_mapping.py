@@ -139,6 +139,7 @@ class SourceIpMappingInstance(InstanceResource):
 
 
 class SourceIpMappingContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SourceIpMappingContext
@@ -275,6 +276,7 @@ class SourceIpMappingContext(InstanceContext):
 
 
 class SourceIpMappingPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SourceIpMappingInstance:
         """
         Build an instance of SourceIpMappingInstance
@@ -293,6 +295,7 @@ class SourceIpMappingPage(Page):
 
 
 class SourceIpMappingList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SourceIpMappingList
@@ -315,6 +318,7 @@ class SourceIpMappingList(ListResource):
 
         :returns: The created SourceIpMappingInstance
         """
+
         data = values.of(
             {
                 "IpRecordSid": ip_record_sid,
@@ -341,6 +345,7 @@ class SourceIpMappingList(ListResource):
 
         :returns: The created SourceIpMappingInstance
         """
+
         data = values.of(
             {
                 "IpRecordSid": ip_record_sid,

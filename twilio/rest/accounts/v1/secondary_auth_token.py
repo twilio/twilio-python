@@ -106,6 +106,7 @@ class SecondaryAuthTokenInstance(InstanceResource):
 
 
 class SecondaryAuthTokenContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the SecondaryAuthTokenContext
@@ -179,6 +180,7 @@ class SecondaryAuthTokenContext(InstanceContext):
 
 
 class SecondaryAuthTokenList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SecondaryAuthTokenList

@@ -24,6 +24,7 @@ from twilio.rest.verify.v2.service.entity.challenge.notification import Notifica
 
 
 class ChallengeInstance(InstanceResource):
+
     class ChallengeReasons(object):
         NONE = "none"
         NOT_NEEDED = "not_needed"
@@ -203,6 +204,7 @@ class ChallengeInstance(InstanceResource):
 
 
 class ChallengeContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, identity: str, sid: str):
         """
         Initialize the ChallengeContext
@@ -363,6 +365,7 @@ class ChallengeContext(InstanceContext):
 
 
 class ChallengePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ChallengeInstance:
         """
         Build an instance of ChallengeInstance
@@ -386,6 +389,7 @@ class ChallengePage(Page):
 
 
 class ChallengeList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, identity: str):
         """
         Initialize the ChallengeList
@@ -427,6 +431,7 @@ class ChallengeList(ListResource):
 
         :returns: The created ChallengeInstance
         """
+
         data = values.of(
             {
                 "FactorSid": factor_sid,
@@ -474,6 +479,7 @@ class ChallengeList(ListResource):
 
         :returns: The created ChallengeInstance
         """
+
         data = values.of(
             {
                 "FactorSid": factor_sid,

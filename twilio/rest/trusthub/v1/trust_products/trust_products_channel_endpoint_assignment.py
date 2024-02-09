@@ -123,6 +123,7 @@ class TrustProductsChannelEndpointAssignmentInstance(InstanceResource):
 
 
 class TrustProductsChannelEndpointAssignmentContext(InstanceContext):
+
     def __init__(self, version: Version, trust_product_sid: str, sid: str):
         """
         Initialize the TrustProductsChannelEndpointAssignmentContext
@@ -219,6 +220,7 @@ class TrustProductsChannelEndpointAssignmentContext(InstanceContext):
 
 
 class TrustProductsChannelEndpointAssignmentPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> TrustProductsChannelEndpointAssignmentInstance:
@@ -243,6 +245,7 @@ class TrustProductsChannelEndpointAssignmentPage(Page):
 
 
 class TrustProductsChannelEndpointAssignmentList(ListResource):
+
     def __init__(self, version: Version, trust_product_sid: str):
         """
         Initialize the TrustProductsChannelEndpointAssignmentList
@@ -274,6 +277,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
 
         :returns: The created TrustProductsChannelEndpointAssignmentInstance
         """
+
         data = values.of(
             {
                 "ChannelEndpointType": channel_endpoint_type,
@@ -304,6 +308,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
 
         :returns: The created TrustProductsChannelEndpointAssignmentInstance
         """
+
         data = values.of(
             {
                 "ChannelEndpointType": channel_endpoint_type,

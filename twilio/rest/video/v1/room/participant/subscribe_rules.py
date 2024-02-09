@@ -65,6 +65,7 @@ class SubscribeRulesInstance(InstanceResource):
 
 
 class SubscribeRulesList(ListResource):
+
     def __init__(self, version: Version, room_sid: str, participant_sid: str):
         """
         Initialize the SubscribeRulesList
@@ -91,8 +92,10 @@ class SubscribeRulesList(ListResource):
         """
         Asynchronously fetch the SubscribeRulesInstance
 
+
         :returns: The fetched SubscribeRulesInstance
         """
+
         payload = self._version.fetch(method="GET", uri=self._uri)
 
         return SubscribeRulesInstance(
@@ -106,8 +109,10 @@ class SubscribeRulesList(ListResource):
         """
         Asynchronously fetch the SubscribeRulesInstance
 
+
         :returns: The fetched SubscribeRulesInstance
         """
+
         payload = await self._version.fetch_async(method="GET", uri=self._uri)
 
         return SubscribeRulesInstance(

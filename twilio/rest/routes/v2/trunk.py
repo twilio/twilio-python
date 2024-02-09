@@ -139,6 +139,7 @@ class TrunkInstance(InstanceResource):
 
 
 class TrunkContext(InstanceContext):
+
     def __init__(self, version: Version, sip_trunk_domain: str):
         """
         Initialize the TrunkContext
@@ -263,6 +264,7 @@ class TrunkContext(InstanceContext):
 
 
 class TrunkList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the TrunkList

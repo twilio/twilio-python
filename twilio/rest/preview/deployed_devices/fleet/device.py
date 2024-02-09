@@ -183,6 +183,7 @@ class DeviceInstance(InstanceResource):
 
 
 class DeviceContext(InstanceContext):
+
     def __init__(self, version: Version, fleet_sid: str, sid: str):
         """
         Initialize the DeviceContext
@@ -353,6 +354,7 @@ class DeviceContext(InstanceContext):
 
 
 class DevicePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DeviceInstance:
         """
         Build an instance of DeviceInstance
@@ -373,6 +375,7 @@ class DevicePage(Page):
 
 
 class DeviceList(ListResource):
+
     def __init__(self, version: Version, fleet_sid: str):
         """
         Initialize the DeviceList
@@ -408,6 +411,7 @@ class DeviceList(ListResource):
 
         :returns: The created DeviceInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -447,6 +451,7 @@ class DeviceList(ListResource):
 
         :returns: The created DeviceInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

@@ -159,6 +159,7 @@ class SyncMapPermissionInstance(InstanceResource):
 
 
 class SyncMapPermissionContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, map_sid: str, identity: str):
         """
         Initialize the SyncMapPermissionContext
@@ -327,6 +328,7 @@ class SyncMapPermissionContext(InstanceContext):
 
 
 class SyncMapPermissionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SyncMapPermissionInstance:
         """
         Build an instance of SyncMapPermissionInstance
@@ -350,6 +352,7 @@ class SyncMapPermissionPage(Page):
 
 
 class SyncMapPermissionList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, map_sid: str):
         """
         Initialize the SyncMapPermissionList

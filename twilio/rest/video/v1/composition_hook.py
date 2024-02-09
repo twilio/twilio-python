@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class CompositionHookInstance(InstanceResource):
+
     class Format(object):
         MP4 = "mp4"
         WEBM = "webm"
@@ -225,6 +226,7 @@ class CompositionHookInstance(InstanceResource):
 
 
 class CompositionHookContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the CompositionHookContext
@@ -425,6 +427,7 @@ class CompositionHookContext(InstanceContext):
 
 
 class CompositionHookPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CompositionHookInstance:
         """
         Build an instance of CompositionHookInstance
@@ -443,6 +446,7 @@ class CompositionHookPage(Page):
 
 
 class CompositionHookList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CompositionHookList
@@ -483,6 +487,7 @@ class CompositionHookList(ListResource):
 
         :returns: The created CompositionHookInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -537,6 +542,7 @@ class CompositionHookList(ListResource):
 
         :returns: The created CompositionHookInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

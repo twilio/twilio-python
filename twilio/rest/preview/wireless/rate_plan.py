@@ -171,6 +171,7 @@ class RatePlanInstance(InstanceResource):
 
 
 class RatePlanContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the RatePlanContext
@@ -315,6 +316,7 @@ class RatePlanContext(InstanceContext):
 
 
 class RatePlanPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> RatePlanInstance:
         """
         Build an instance of RatePlanInstance
@@ -333,6 +335,7 @@ class RatePlanPage(Page):
 
 
 class RatePlanList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the RatePlanList
@@ -373,6 +376,7 @@ class RatePlanList(ListResource):
 
         :returns: The created RatePlanInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -427,6 +431,7 @@ class RatePlanList(ListResource):
 
         :returns: The created RatePlanInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

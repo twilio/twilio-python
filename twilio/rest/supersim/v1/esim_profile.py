@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class EsimProfileInstance(InstanceResource):
+
     class Status(object):
         NEW = "new"
         RESERVING = "reserving"
@@ -35,7 +36,7 @@ class EsimProfileInstance(InstanceResource):
     :ivar sid: The unique string that we created to identify the eSIM Profile resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the eSIM Profile resource belongs.
     :ivar iccid: The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID) associated with the Sim resource.
-    :ivar sim_sid: The SID of the [Sim](https://www.twilio.com/docs/iot/wireless/api/sim-resource) resource that this eSIM Profile controls.
+    :ivar sim_sid: The SID of the [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource that this eSIM Profile controls.
     :ivar status: 
     :ivar eid: Identifier of the eUICC that can claim the eSIM Profile.
     :ivar smdp_plus_address: Address of the SM-DP+ server from which the Profile will be downloaded. The URL will appear once the eSIM Profile reaches the status `available`.
@@ -121,6 +122,7 @@ class EsimProfileInstance(InstanceResource):
 
 
 class EsimProfileContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the EsimProfileContext
@@ -185,6 +187,7 @@ class EsimProfileContext(InstanceContext):
 
 
 class EsimProfilePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EsimProfileInstance:
         """
         Build an instance of EsimProfileInstance
@@ -203,6 +206,7 @@ class EsimProfilePage(Page):
 
 
 class EsimProfileList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the EsimProfileList
@@ -231,6 +235,7 @@ class EsimProfileList(ListResource):
 
         :returns: The created EsimProfileInstance
         """
+
         data = values.of(
             {
                 "CallbackUrl": callback_url,
@@ -265,6 +270,7 @@ class EsimProfileList(ListResource):
 
         :returns: The created EsimProfileInstance
         """
+
         data = values.of(
             {
                 "CallbackUrl": callback_url,
@@ -297,7 +303,7 @@ class EsimProfileList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str eid: List the eSIM Profiles that have been associated with an EId.
-        :param str sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
+        :param str sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
         :param &quot;EsimProfileInstance.Status&quot; status: List the eSIM Profiles that are in a given status.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -330,7 +336,7 @@ class EsimProfileList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param str eid: List the eSIM Profiles that have been associated with an EId.
-        :param str sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
+        :param str sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
         :param &quot;EsimProfileInstance.Status&quot; status: List the eSIM Profiles that are in a given status.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -362,7 +368,7 @@ class EsimProfileList(ListResource):
         memory before returning.
 
         :param str eid: List the eSIM Profiles that have been associated with an EId.
-        :param str sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
+        :param str sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
         :param &quot;EsimProfileInstance.Status&quot; status: List the eSIM Profiles that are in a given status.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -397,7 +403,7 @@ class EsimProfileList(ListResource):
         memory before returning.
 
         :param str eid: List the eSIM Profiles that have been associated with an EId.
-        :param str sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
+        :param str sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
         :param &quot;EsimProfileInstance.Status&quot; status: List the eSIM Profiles that are in a given status.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -433,7 +439,7 @@ class EsimProfileList(ListResource):
         Request is executed immediately
 
         :param eid: List the eSIM Profiles that have been associated with an EId.
-        :param sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
+        :param sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
         :param status: List the eSIM Profiles that are in a given status.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -469,7 +475,7 @@ class EsimProfileList(ListResource):
         Request is executed immediately
 
         :param eid: List the eSIM Profiles that have been associated with an EId.
-        :param sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/wireless/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
+        :param sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
         :param status: List the eSIM Profiles that are in a given status.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state

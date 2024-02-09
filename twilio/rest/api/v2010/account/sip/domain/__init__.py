@@ -289,6 +289,7 @@ class DomainInstance(InstanceResource):
 
 
 class DomainContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the DomainContext
@@ -560,6 +561,7 @@ class DomainContext(InstanceContext):
 
 
 class DomainPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DomainInstance:
         """
         Build an instance of DomainInstance
@@ -580,6 +582,7 @@ class DomainPage(Page):
 
 
 class DomainList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the DomainList
@@ -631,6 +634,7 @@ class DomainList(ListResource):
 
         :returns: The created DomainInstance
         """
+
         data = values.of(
             {
                 "DomainName": domain_name,
@@ -694,6 +698,7 @@ class DomainList(ListResource):
 
         :returns: The created DomainInstance
         """
+
         data = values.of(
             {
                 "DomainName": domain_name,

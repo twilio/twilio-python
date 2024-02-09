@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class WebChannelInstance(InstanceResource):
+
     class ChatStatus(object):
         INACTIVE = "inactive"
 
@@ -154,6 +155,7 @@ class WebChannelInstance(InstanceResource):
 
 
 class WebChannelContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the WebChannelContext
@@ -298,6 +300,7 @@ class WebChannelContext(InstanceContext):
 
 
 class WebChannelPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> WebChannelInstance:
         """
         Build an instance of WebChannelInstance
@@ -316,6 +319,7 @@ class WebChannelPage(Page):
 
 
 class WebChannelList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the WebChannelList
@@ -348,6 +352,7 @@ class WebChannelList(ListResource):
 
         :returns: The created WebChannelInstance
         """
+
         data = values.of(
             {
                 "FlexFlowSid": flex_flow_sid,
@@ -388,6 +393,7 @@ class WebChannelList(ListResource):
 
         :returns: The created WebChannelInstance
         """
+
         data = values.of(
             {
                 "FlexFlowSid": flex_flow_sid,

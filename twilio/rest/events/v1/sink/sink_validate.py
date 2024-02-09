@@ -45,6 +45,7 @@ class SinkValidateInstance(InstanceResource):
 
 
 class SinkValidateList(ListResource):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SinkValidateList
@@ -69,6 +70,7 @@ class SinkValidateList(ListResource):
 
         :returns: The created SinkValidateInstance
         """
+
         data = values.of(
             {
                 "TestId": test_id,
@@ -91,6 +93,7 @@ class SinkValidateList(ListResource):
 
         :returns: The created SinkValidateInstance
         """
+
         data = values.of(
             {
                 "TestId": test_id,

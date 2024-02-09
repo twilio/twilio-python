@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class UsageRecordInstance(InstanceResource):
+
     class Granularity(object):
         HOUR = "hour"
         DAY = "day"
@@ -76,6 +77,7 @@ class UsageRecordInstance(InstanceResource):
 
 
 class UsageRecordPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> UsageRecordInstance:
         """
         Build an instance of UsageRecordInstance
@@ -94,6 +96,7 @@ class UsageRecordPage(Page):
 
 
 class UsageRecordList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the UsageRecordList

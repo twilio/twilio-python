@@ -128,6 +128,7 @@ class ExecutionStepInstance(InstanceResource):
 
 
 class ExecutionStepContext(InstanceContext):
+
     def __init__(self, version: Version, flow_sid: str, execution_sid: str, sid: str):
         """
         Initialize the ExecutionStepContext
@@ -218,6 +219,7 @@ class ExecutionStepContext(InstanceContext):
 
 
 class ExecutionStepPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ExecutionStepInstance:
         """
         Build an instance of ExecutionStepInstance
@@ -241,6 +243,7 @@ class ExecutionStepPage(Page):
 
 
 class ExecutionStepList(ListResource):
+
     def __init__(self, version: Version, flow_sid: str, execution_sid: str):
         """
         Initialize the ExecutionStepList

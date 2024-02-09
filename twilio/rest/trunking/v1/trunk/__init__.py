@@ -28,6 +28,7 @@ from twilio.rest.trunking.v1.trunk.recording import RecordingList
 
 
 class TrunkInstance(InstanceResource):
+
     class TransferCallerId(object):
         FROM_TRANSFEREE = "from-transferee"
         FROM_TRANSFEROR = "from-transferor"
@@ -268,6 +269,7 @@ class TrunkInstance(InstanceResource):
 
 
 class TrunkContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the TrunkContext
@@ -518,6 +520,7 @@ class TrunkContext(InstanceContext):
 
 
 class TrunkPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TrunkInstance:
         """
         Build an instance of TrunkInstance
@@ -536,6 +539,7 @@ class TrunkPage(Page):
 
 
 class TrunkList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the TrunkList
@@ -574,6 +578,7 @@ class TrunkList(ListResource):
 
         :returns: The created TrunkInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -622,6 +627,7 @@ class TrunkList(ListResource):
 
         :returns: The created TrunkInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

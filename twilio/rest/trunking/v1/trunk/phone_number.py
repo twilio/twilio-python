@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class PhoneNumberInstance(InstanceResource):
+
     class AddressRequirement(object):
         NONE = "none"
         ANY = "any"
@@ -173,6 +174,7 @@ class PhoneNumberInstance(InstanceResource):
 
 
 class PhoneNumberContext(InstanceContext):
+
     def __init__(self, version: Version, trunk_sid: str, sid: str):
         """
         Initialize the PhoneNumberContext
@@ -265,6 +267,7 @@ class PhoneNumberContext(InstanceContext):
 
 
 class PhoneNumberPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> PhoneNumberInstance:
         """
         Build an instance of PhoneNumberInstance
@@ -285,6 +288,7 @@ class PhoneNumberPage(Page):
 
 
 class PhoneNumberList(ListResource):
+
     def __init__(self, version: Version, trunk_sid: str):
         """
         Initialize the PhoneNumberList
@@ -309,6 +313,7 @@ class PhoneNumberList(ListResource):
 
         :returns: The created PhoneNumberInstance
         """
+
         data = values.of(
             {
                 "PhoneNumberSid": phone_number_sid,
@@ -333,6 +338,7 @@ class PhoneNumberList(ListResource):
 
         :returns: The created PhoneNumberInstance
         """
+
         data = values.of(
             {
                 "PhoneNumberSid": phone_number_sid,

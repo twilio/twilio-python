@@ -25,7 +25,7 @@ class RecordingSettingsInstance(InstanceResource):
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RecordingSettings resource.
     :ivar friendly_name: The string that you assigned to describe the resource and show the user in the console
     :ivar aws_credentials_sid: The SID of the stored Credential resource.
-    :ivar aws_s3_url: The URL of the AWS S3 bucket where the recordings are stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
+    :ivar aws_s3_url: The URL of the AWS S3 bucket where the recordings are stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the [RFC 3986](https://tools.ietf.org/html/rfc3986#section-2).
     :ivar aws_storage_enabled: Whether all recordings are written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud.
     :ivar encryption_key_sid: The SID of the Public Key resource used for encryption.
     :ivar encryption_enabled: Whether all recordings are stored in an encrypted form. The default is `false`.
@@ -75,7 +75,7 @@ class RecordingSettingsInstance(InstanceResource):
         :param friendly_name: A descriptive string that you create to describe the resource and be shown to users in the console
         :param aws_credentials_sid: The SID of the stored Credential resource.
         :param encryption_key_sid: The SID of the Public Key resource to use for encryption.
-        :param aws_s3_url: The URL of the AWS S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
+        :param aws_s3_url: The URL of the AWS S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the [RFC 3986](https://tools.ietf.org/html/rfc3986#section-2).
         :param aws_storage_enabled: Whether all recordings should be written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud.
         :param encryption_enabled: Whether all recordings should be stored in an encrypted form. The default is `false`.
 
@@ -105,7 +105,7 @@ class RecordingSettingsInstance(InstanceResource):
         :param friendly_name: A descriptive string that you create to describe the resource and be shown to users in the console
         :param aws_credentials_sid: The SID of the stored Credential resource.
         :param encryption_key_sid: The SID of the Public Key resource to use for encryption.
-        :param aws_s3_url: The URL of the AWS S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
+        :param aws_s3_url: The URL of the AWS S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the [RFC 3986](https://tools.ietf.org/html/rfc3986#section-2).
         :param aws_storage_enabled: Whether all recordings should be written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud.
         :param encryption_enabled: Whether all recordings should be stored in an encrypted form. The default is `false`.
 
@@ -149,6 +149,7 @@ class RecordingSettingsInstance(InstanceResource):
 
 
 class RecordingSettingsContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the RecordingSettingsContext
@@ -174,7 +175,7 @@ class RecordingSettingsContext(InstanceContext):
         :param friendly_name: A descriptive string that you create to describe the resource and be shown to users in the console
         :param aws_credentials_sid: The SID of the stored Credential resource.
         :param encryption_key_sid: The SID of the Public Key resource to use for encryption.
-        :param aws_s3_url: The URL of the AWS S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
+        :param aws_s3_url: The URL of the AWS S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the [RFC 3986](https://tools.ietf.org/html/rfc3986#section-2).
         :param aws_storage_enabled: Whether all recordings should be written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud.
         :param encryption_enabled: Whether all recordings should be stored in an encrypted form. The default is `false`.
 
@@ -210,7 +211,7 @@ class RecordingSettingsContext(InstanceContext):
         :param friendly_name: A descriptive string that you create to describe the resource and be shown to users in the console
         :param aws_credentials_sid: The SID of the stored Credential resource.
         :param encryption_key_sid: The SID of the Public Key resource to use for encryption.
-        :param aws_s3_url: The URL of the AWS S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the <a href='https://tools.ietf.org/html/rfc3986#section-2'>RFC 3986</a>.
+        :param aws_s3_url: The URL of the AWS S3 bucket where the recordings should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/recordings`, where `recordings` is the path in which you want the recordings to be stored. This URL accepts only URI-valid characters, as described in the [RFC 3986](https://tools.ietf.org/html/rfc3986#section-2).
         :param aws_storage_enabled: Whether all recordings should be written to the `aws_s3_url`. When `false`, all recordings are stored in our cloud.
         :param encryption_enabled: Whether all recordings should be stored in an encrypted form. The default is `false`.
 
@@ -280,6 +281,7 @@ class RecordingSettingsContext(InstanceContext):
 
 
 class RecordingSettingsList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the RecordingSettingsList

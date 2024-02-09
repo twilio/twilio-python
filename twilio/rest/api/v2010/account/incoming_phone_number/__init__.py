@@ -29,6 +29,7 @@ from twilio.rest.api.v2010.account.incoming_phone_number.toll_free import TollFr
 
 
 class IncomingPhoneNumberInstance(InstanceResource):
+
     class AddressRequirement(object):
         NONE = "none"
         ANY = "any"
@@ -394,6 +395,7 @@ class IncomingPhoneNumberInstance(InstanceResource):
 
 
 class IncomingPhoneNumberContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the IncomingPhoneNumberContext
@@ -703,6 +705,7 @@ class IncomingPhoneNumberContext(InstanceContext):
 
 
 class IncomingPhoneNumberPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> IncomingPhoneNumberInstance:
         """
         Build an instance of IncomingPhoneNumberInstance
@@ -723,6 +726,7 @@ class IncomingPhoneNumberPage(Page):
 
 
 class IncomingPhoneNumberList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the IncomingPhoneNumberList
@@ -806,6 +810,7 @@ class IncomingPhoneNumberList(ListResource):
 
         :returns: The created IncomingPhoneNumberInstance
         """
+
         data = values.of(
             {
                 "ApiVersion": api_version,
@@ -906,6 +911,7 @@ class IncomingPhoneNumberList(ListResource):
 
         :returns: The created IncomingPhoneNumberInstance
         """
+
         data = values.of(
             {
                 "ApiVersion": api_version,

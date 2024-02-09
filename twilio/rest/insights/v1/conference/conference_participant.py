@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class ConferenceParticipantInstance(InstanceResource):
+
     class CallDirection(object):
         INBOUND = "inbound"
         OUTBOUND = "outbound"
@@ -224,6 +225,7 @@ class ConferenceParticipantInstance(InstanceResource):
 
 
 class ConferenceParticipantContext(InstanceContext):
+
     def __init__(self, version: Version, conference_sid: str, participant_sid: str):
         """
         Initialize the ConferenceParticipantContext
@@ -318,6 +320,7 @@ class ConferenceParticipantContext(InstanceContext):
 
 
 class ConferenceParticipantPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ConferenceParticipantInstance:
         """
         Build an instance of ConferenceParticipantInstance
@@ -338,6 +341,7 @@ class ConferenceParticipantPage(Page):
 
 
 class ConferenceParticipantList(ListResource):
+
     def __init__(self, version: Version, conference_sid: str):
         """
         Initialize the ConferenceParticipantList

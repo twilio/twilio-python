@@ -107,6 +107,7 @@ class SettingsInstance(InstanceResource):
 
 
 class SettingsContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the SettingsContext
@@ -212,6 +213,7 @@ class SettingsContext(InstanceContext):
 
 
 class SettingsList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SettingsList

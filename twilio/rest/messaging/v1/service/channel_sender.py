@@ -32,7 +32,7 @@ class ChannelSenderInstance(InstanceResource):
     :ivar country_code: The 2-character [ISO Country Code](https://www.iso.org/iso-3166-country-codes.html) of the number.
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-    :ivar url:
+    :ivar url: The absolute URL of the ChannelSender resource.
     """
 
     def __init__(
@@ -109,6 +109,7 @@ class ChannelSenderInstance(InstanceResource):
 
 
 class ChannelSenderContext(InstanceContext):
+
     def __init__(self, version: Version, messaging_service_sid: str, sid: str):
         """
         Initialize the ChannelSenderContext
@@ -179,6 +180,7 @@ class ChannelSenderContext(InstanceContext):
 
 
 class ChannelSenderPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ChannelSenderInstance:
         """
         Build an instance of ChannelSenderInstance
@@ -201,6 +203,7 @@ class ChannelSenderPage(Page):
 
 
 class ChannelSenderList(ListResource):
+
     def __init__(self, version: Version, messaging_service_sid: str):
         """
         Initialize the ChannelSenderList

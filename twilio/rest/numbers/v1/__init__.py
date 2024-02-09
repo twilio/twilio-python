@@ -17,10 +17,12 @@ from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.numbers.v1.bulk_eligibility import BulkEligibilityList
 from twilio.rest.numbers.v1.porting_bulk_portability import PortingBulkPortabilityList
+from twilio.rest.numbers.v1.porting_port_in_fetch import PortingPortInFetchList
 from twilio.rest.numbers.v1.porting_portability import PortingPortabilityList
 
 
 class V1(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Numbers
@@ -30,6 +32,7 @@ class V1(Version):
         super().__init__(domain, "v1")
         self._bulk_eligibilities: Optional[BulkEligibilityList] = None
         self._porting_bulk_portabilities: Optional[PortingBulkPortabilityList] = None
+        self._porting_port_ins: Optional[PortingPortInFetchList] = None
         self._porting_portabilities: Optional[PortingPortabilityList] = None
 
     @property
@@ -43,6 +46,12 @@ class V1(Version):
         if self._porting_bulk_portabilities is None:
             self._porting_bulk_portabilities = PortingBulkPortabilityList(self)
         return self._porting_bulk_portabilities
+
+    @property
+    def porting_port_ins(self) -> PortingPortInFetchList:
+        if self._porting_port_ins is None:
+            self._porting_port_ins = PortingPortInFetchList(self)
+        return self._porting_port_ins
 
     @property
     def porting_portabilities(self) -> PortingPortabilityList:

@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class TollFreeInstance(InstanceResource):
+
     class AddressRequirement(object):
         NONE = "none"
         ANY = "any"
@@ -151,6 +152,7 @@ class TollFreeInstance(InstanceResource):
 
 
 class TollFreePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TollFreeInstance:
         """
         Build an instance of TollFreeInstance
@@ -171,6 +173,7 @@ class TollFreePage(Page):
 
 
 class TollFreeList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the TollFreeList
@@ -248,6 +251,7 @@ class TollFreeList(ListResource):
 
         :returns: The created TollFreeInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
@@ -345,6 +349,7 @@ class TollFreeList(ListResource):
 
         :returns: The created TollFreeInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,

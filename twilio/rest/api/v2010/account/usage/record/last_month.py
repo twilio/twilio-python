@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class LastMonthInstance(InstanceResource):
+
     class Category(object):
         A2P_REGISTRATION_FEES = "a2p-registration-fees"
         AGENT_CONFERENCE = "agent-conference"
@@ -404,6 +405,7 @@ class LastMonthInstance(InstanceResource):
 
 
 class LastMonthPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> LastMonthInstance:
         """
         Build an instance of LastMonthInstance
@@ -424,6 +426,7 @@ class LastMonthPage(Page):
 
 
 class LastMonthList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the LastMonthList

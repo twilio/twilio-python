@@ -108,6 +108,7 @@ class DomainConfigMessagingServiceInstance(InstanceResource):
 
 
 class DomainConfigMessagingServiceContext(InstanceContext):
+
     def __init__(self, version: Version, messaging_service_sid: str):
         """
         Initialize the DomainConfigMessagingServiceContext
@@ -176,6 +177,7 @@ class DomainConfigMessagingServiceContext(InstanceContext):
 
 
 class DomainConfigMessagingServiceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the DomainConfigMessagingServiceList

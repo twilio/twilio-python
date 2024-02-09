@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class CallSummariesInstance(InstanceResource):
+
     class AnsweredBy(object):
         UNKNOWN = "unknown"
         MACHINE_START = "machine_start"
@@ -142,6 +143,7 @@ class CallSummariesInstance(InstanceResource):
 
 
 class CallSummariesPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CallSummariesInstance:
         """
         Build an instance of CallSummariesInstance
@@ -160,6 +162,7 @@ class CallSummariesPage(Page):
 
 
 class CallSummariesList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CallSummariesList

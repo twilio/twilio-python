@@ -16,6 +16,12 @@ from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.trusthub.v1.compliance_inquiries import ComplianceInquiriesList
+from twilio.rest.trusthub.v1.compliance_registration_inquiries import (
+    ComplianceRegistrationInquiriesList,
+)
+from twilio.rest.trusthub.v1.compliance_tollfree_inquiries import (
+    ComplianceTollfreeInquiriesList,
+)
 from twilio.rest.trusthub.v1.customer_profiles import CustomerProfilesList
 from twilio.rest.trusthub.v1.end_user import EndUserList
 from twilio.rest.trusthub.v1.end_user_type import EndUserTypeList
@@ -26,6 +32,7 @@ from twilio.rest.trusthub.v1.trust_products import TrustProductsList
 
 
 class V1(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Trusthub
@@ -34,6 +41,12 @@ class V1(Version):
         """
         super().__init__(domain, "v1")
         self._compliance_inquiries: Optional[ComplianceInquiriesList] = None
+        self._compliance_registration_inquiries: Optional[
+            ComplianceRegistrationInquiriesList
+        ] = None
+        self._compliance_tollfree_inquiries: Optional[
+            ComplianceTollfreeInquiriesList
+        ] = None
         self._customer_profiles: Optional[CustomerProfilesList] = None
         self._end_users: Optional[EndUserList] = None
         self._end_user_types: Optional[EndUserTypeList] = None
@@ -47,6 +60,20 @@ class V1(Version):
         if self._compliance_inquiries is None:
             self._compliance_inquiries = ComplianceInquiriesList(self)
         return self._compliance_inquiries
+
+    @property
+    def compliance_registration_inquiries(self) -> ComplianceRegistrationInquiriesList:
+        if self._compliance_registration_inquiries is None:
+            self._compliance_registration_inquiries = (
+                ComplianceRegistrationInquiriesList(self)
+            )
+        return self._compliance_registration_inquiries
+
+    @property
+    def compliance_tollfree_inquiries(self) -> ComplianceTollfreeInquiriesList:
+        if self._compliance_tollfree_inquiries is None:
+            self._compliance_tollfree_inquiries = ComplianceTollfreeInquiriesList(self)
+        return self._compliance_tollfree_inquiries
 
     @property
     def customer_profiles(self) -> CustomerProfilesList:

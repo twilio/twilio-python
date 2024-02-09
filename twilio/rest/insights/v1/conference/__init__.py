@@ -26,6 +26,7 @@ from twilio.rest.insights.v1.conference.conference_participant import (
 
 
 class ConferenceInstance(InstanceResource):
+
     class ConferenceEndReason(object):
         LAST_PARTICIPANT_LEFT = "last_participant_left"
         CONFERENCE_ENDED_VIA_API = "conference_ended_via_api"
@@ -212,6 +213,7 @@ class ConferenceInstance(InstanceResource):
 
 
 class ConferenceContext(InstanceContext):
+
     def __init__(self, version: Version, conference_sid: str):
         """
         Initialize the ConferenceContext
@@ -290,6 +292,7 @@ class ConferenceContext(InstanceContext):
 
 
 class ConferencePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ConferenceInstance:
         """
         Build an instance of ConferenceInstance
@@ -308,6 +311,7 @@ class ConferencePage(Page):
 
 
 class ConferenceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ConferenceList

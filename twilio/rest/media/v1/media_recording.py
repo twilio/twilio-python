@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class MediaRecordingInstance(InstanceResource):
+
     class Format(object):
         MP4 = "mp4"
         WEBM = "webm"
@@ -149,6 +150,7 @@ class MediaRecordingInstance(InstanceResource):
 
 
 class MediaRecordingContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the MediaRecordingContext
@@ -237,6 +239,7 @@ class MediaRecordingContext(InstanceContext):
 
 
 class MediaRecordingPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MediaRecordingInstance:
         """
         Build an instance of MediaRecordingInstance
@@ -255,6 +258,7 @@ class MediaRecordingPage(Page):
 
 
 class MediaRecordingList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the MediaRecordingList

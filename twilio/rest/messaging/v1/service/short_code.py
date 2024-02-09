@@ -127,6 +127,7 @@ class ShortCodeInstance(InstanceResource):
 
 
 class ShortCodeContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the ShortCodeContext
@@ -219,6 +220,7 @@ class ShortCodeContext(InstanceContext):
 
 
 class ShortCodePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ShortCodeInstance:
         """
         Build an instance of ShortCodeInstance
@@ -239,6 +241,7 @@ class ShortCodePage(Page):
 
 
 class ShortCodeList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the ShortCodeList
@@ -263,6 +266,7 @@ class ShortCodeList(ListResource):
 
         :returns: The created ShortCodeInstance
         """
+
         data = values.of(
             {
                 "ShortCodeSid": short_code_sid,
@@ -287,6 +291,7 @@ class ShortCodeList(ListResource):
 
         :returns: The created ShortCodeInstance
         """
+
         data = values.of(
             {
                 "ShortCodeSid": short_code_sid,

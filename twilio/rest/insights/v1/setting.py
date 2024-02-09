@@ -133,6 +133,7 @@ class SettingInstance(InstanceResource):
 
 
 class SettingContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the SettingContext
@@ -266,6 +267,7 @@ class SettingContext(InstanceContext):
 
 
 class SettingList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SettingList

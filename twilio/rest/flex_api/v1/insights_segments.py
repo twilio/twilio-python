@@ -94,6 +94,7 @@ class InsightsSegmentsInstance(InstanceResource):
 
 
 class InsightsSegmentsPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> InsightsSegmentsInstance:
         """
         Build an instance of InsightsSegmentsInstance
@@ -112,6 +113,7 @@ class InsightsSegmentsPage(Page):
 
 
 class InsightsSegmentsList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the InsightsSegmentsList

@@ -139,6 +139,7 @@ class PhoneNumberInstance(InstanceResource):
 
 
 class PhoneNumberContext(InstanceContext):
+
     def __init__(self, version: Version, phone_number: str):
         """
         Initialize the PhoneNumberContext
@@ -263,6 +264,7 @@ class PhoneNumberContext(InstanceContext):
 
 
 class PhoneNumberList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the PhoneNumberList

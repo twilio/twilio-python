@@ -22,6 +22,7 @@ from twilio.base.version import Version
 
 
 class StreamInstance(InstanceResource):
+
     class Status(object):
         IN_PROGRESS = "in-progress"
         STOPPED = "stopped"
@@ -125,6 +126,7 @@ class StreamInstance(InstanceResource):
 
 
 class StreamContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
         """
         Initialize the StreamContext
@@ -217,6 +219,7 @@ class StreamContext(InstanceContext):
 
 
 class StreamList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the StreamList
@@ -652,6 +655,7 @@ class StreamList(ListResource):
 
         :returns: The created StreamInstance
         """
+
         data = values.of(
             {
                 "Url": url,
@@ -1288,6 +1292,7 @@ class StreamList(ListResource):
 
         :returns: The created StreamInstance
         """
+
         data = values.of(
             {
                 "Url": url,

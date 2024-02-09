@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class EvaluationInstance(InstanceResource):
+
     class Status(object):
         COMPLIANT = "compliant"
         NONCOMPLIANT = "noncompliant"
@@ -52,7 +53,7 @@ class EvaluationInstance(InstanceResource):
         self.regulation_sid: Optional[str] = payload.get("regulation_sid")
         self.bundle_sid: Optional[str] = payload.get("bundle_sid")
         self.status: Optional["EvaluationInstance.Status"] = payload.get("status")
-        self.results: Optional[List[object]] = payload.get("results")
+        self.results: Optional[List[Dict[str, object]]] = payload.get("results")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
@@ -109,6 +110,7 @@ class EvaluationInstance(InstanceResource):
 
 
 class EvaluationContext(InstanceContext):
+
     def __init__(self, version: Version, bundle_sid: str, sid: str):
         """
         Initialize the EvaluationContext
@@ -181,6 +183,7 @@ class EvaluationContext(InstanceContext):
 
 
 class EvaluationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EvaluationInstance:
         """
         Build an instance of EvaluationInstance
@@ -201,6 +204,7 @@ class EvaluationPage(Page):
 
 
 class EvaluationList(ListResource):
+
     def __init__(self, version: Version, bundle_sid: str):
         """
         Initialize the EvaluationList

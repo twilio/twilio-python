@@ -28,6 +28,7 @@ from twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel
 
 
 class InteractionChannelInstance(InstanceResource):
+
     class ChannelStatus(object):
         SETUP = "setup"
         ACTIVE = "active"
@@ -181,6 +182,7 @@ class InteractionChannelInstance(InstanceResource):
 
 
 class InteractionChannelContext(InstanceContext):
+
     def __init__(self, version: Version, interaction_sid: str, sid: str):
         """
         Initialize the InteractionChannelContext
@@ -346,6 +348,7 @@ class InteractionChannelContext(InstanceContext):
 
 
 class InteractionChannelPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> InteractionChannelInstance:
         """
         Build an instance of InteractionChannelInstance
@@ -366,6 +369,7 @@ class InteractionChannelPage(Page):
 
 
 class InteractionChannelList(ListResource):
+
     def __init__(self, version: Version, interaction_sid: str):
         """
         Initialize the InteractionChannelList

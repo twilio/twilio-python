@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class FleetInstance(InstanceResource):
+
     class DataMetering(object):
         PAYG = "payg"
 
@@ -188,6 +189,7 @@ class FleetInstance(InstanceResource):
 
 
 class FleetContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FleetContext
@@ -338,6 +340,7 @@ class FleetContext(InstanceContext):
 
 
 class FleetPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> FleetInstance:
         """
         Build an instance of FleetInstance
@@ -356,6 +359,7 @@ class FleetPage(Page):
 
 
 class FleetList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the FleetList
@@ -394,6 +398,7 @@ class FleetList(ListResource):
 
         :returns: The created FleetInstance
         """
+
         data = values.of(
             {
                 "NetworkAccessProfile": network_access_profile,
@@ -443,6 +448,7 @@ class FleetList(ListResource):
 
         :returns: The created FleetInstance
         """
+
         data = values.of(
             {
                 "NetworkAccessProfile": network_access_profile,

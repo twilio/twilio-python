@@ -199,6 +199,7 @@ class NotificationInstance(InstanceResource):
 
 
 class NotificationContext(InstanceContext):
+
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the NotificationContext
@@ -391,6 +392,7 @@ class NotificationContext(InstanceContext):
 
 
 class NotificationList(ListResource):
+
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the NotificationList

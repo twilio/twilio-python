@@ -77,6 +77,7 @@ class TollFreeInstance(InstanceResource):
 
 
 class TollFreePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TollFreeInstance:
         """
         Build an instance of TollFreeInstance
@@ -100,6 +101,7 @@ class TollFreePage(Page):
 
 
 class TollFreeList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
         Initialize the TollFreeList

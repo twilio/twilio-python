@@ -22,6 +22,7 @@ from twilio.base.page import Page
 
 
 class MetricInstance(InstanceResource):
+
     class StreamDirection(object):
         UNKNOWN = "unknown"
         INBOUND = "inbound"
@@ -77,6 +78,7 @@ class MetricInstance(InstanceResource):
 
 
 class MetricPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MetricInstance:
         """
         Build an instance of MetricInstance
@@ -97,6 +99,7 @@ class MetricPage(Page):
 
 
 class MetricList(ListResource):
+
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the MetricList

@@ -34,7 +34,7 @@ class ServiceInstance(InstanceResource):
     :ivar apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
     :ivar gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
     :ivar fcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for FCM Bindings.
-    :ivar messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. In order to send SMS notifications this parameter has to be set.
+    :ivar messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/quickstart#messaging-services) to use for SMS Bindings. In order to send SMS notifications this parameter has to be set.
     :ivar facebook_messenger_page_id: Deprecated.
     :ivar default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
     :ivar default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
@@ -169,7 +169,7 @@ class ServiceInstance(InstanceResource):
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
         :param gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/quickstart#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
         :param facebook_messenger_page_id: Deprecated.
         :param default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
         :param default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
@@ -223,7 +223,7 @@ class ServiceInstance(InstanceResource):
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
         :param gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/quickstart#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
         :param facebook_messenger_page_id: Deprecated.
         :param default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
         :param default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
@@ -279,6 +279,7 @@ class ServiceInstance(InstanceResource):
 
 
 class ServiceContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ServiceContext
@@ -382,7 +383,7 @@ class ServiceContext(InstanceContext):
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
         :param gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/quickstart#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
         :param facebook_messenger_page_id: Deprecated.
         :param default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
         :param default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
@@ -446,7 +447,7 @@ class ServiceContext(InstanceContext):
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
         :param gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/quickstart#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
         :param facebook_messenger_page_id: Deprecated.
         :param default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
         :param default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
@@ -522,6 +523,7 @@ class ServiceContext(InstanceContext):
 
 
 class ServicePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
@@ -540,6 +542,7 @@ class ServicePage(Page):
 
 
 class ServiceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
@@ -574,7 +577,7 @@ class ServiceList(ListResource):
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
         :param gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/quickstart#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
         :param facebook_messenger_page_id: Deprecated.
         :param default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
         :param default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
@@ -588,6 +591,7 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -638,7 +642,7 @@ class ServiceList(ListResource):
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
         :param gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/quickstart#messaging-services) to use for SMS Bindings. This parameter must be set in order to send SMS notifications.
         :param facebook_messenger_page_id: Deprecated.
         :param default_apn_notification_protocol_version: The protocol version to use for sending APNS notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
         :param default_gcm_notification_protocol_version: The protocol version to use for sending GCM notifications. Can be overridden on a Binding by Binding basis when creating a [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource.
@@ -652,6 +656,7 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

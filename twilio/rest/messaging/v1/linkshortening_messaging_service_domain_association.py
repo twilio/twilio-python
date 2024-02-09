@@ -94,6 +94,7 @@ class LinkshorteningMessagingServiceDomainAssociationInstance(InstanceResource):
 
 
 class LinkshorteningMessagingServiceDomainAssociationContext(InstanceContext):
+
     def __init__(self, version: Version, messaging_service_sid: str):
         """
         Initialize the LinkshorteningMessagingServiceDomainAssociationContext
@@ -166,6 +167,7 @@ class LinkshorteningMessagingServiceDomainAssociationContext(InstanceContext):
 
 
 class LinkshorteningMessagingServiceDomainAssociationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the LinkshorteningMessagingServiceDomainAssociationList

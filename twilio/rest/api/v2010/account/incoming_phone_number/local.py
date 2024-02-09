@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class LocalInstance(InstanceResource):
+
     class AddressRequirement(object):
         NONE = "none"
         ANY = "any"
@@ -151,6 +152,7 @@ class LocalInstance(InstanceResource):
 
 
 class LocalPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> LocalInstance:
         """
         Build an instance of LocalInstance
@@ -171,6 +173,7 @@ class LocalPage(Page):
 
 
 class LocalList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the LocalList
@@ -246,6 +249,7 @@ class LocalList(ListResource):
 
         :returns: The created LocalInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
@@ -341,6 +345,7 @@ class LocalList(ListResource):
 
         :returns: The created LocalInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,

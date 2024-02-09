@@ -55,6 +55,7 @@ class TaskQueuesStatisticsInstance(InstanceResource):
 
 
 class TaskQueuesStatisticsPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TaskQueuesStatisticsInstance:
         """
         Build an instance of TaskQueuesStatisticsInstance
@@ -75,6 +76,7 @@ class TaskQueuesStatisticsPage(Page):
 
 
 class TaskQueuesStatisticsList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskQueuesStatisticsList

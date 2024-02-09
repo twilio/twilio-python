@@ -47,7 +47,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
         self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("end_time")
         )
-        self.activity_durations: Optional[List[object]] = payload.get(
+        self.activity_durations: Optional[List[Dict[str, object]]] = payload.get(
             "activity_durations"
         )
         self.reservations_created: Optional[int] = deserialize.integer(
@@ -152,6 +152,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
 
 
 class WorkersCumulativeStatisticsContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkersCumulativeStatisticsContext
@@ -254,6 +255,7 @@ class WorkersCumulativeStatisticsContext(InstanceContext):
 
 
 class WorkersCumulativeStatisticsList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkersCumulativeStatisticsList

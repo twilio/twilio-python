@@ -133,6 +133,7 @@ class AccountConfigInstance(InstanceResource):
 
 
 class AccountConfigContext(InstanceContext):
+
     def __init__(self, version: Version, key: str):
         """
         Initialize the AccountConfigContext
@@ -265,6 +266,7 @@ class AccountConfigContext(InstanceContext):
 
 
 class AccountConfigPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AccountConfigInstance:
         """
         Build an instance of AccountConfigInstance
@@ -283,6 +285,7 @@ class AccountConfigPage(Page):
 
 
 class AccountConfigList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AccountConfigList
@@ -303,6 +306,7 @@ class AccountConfigList(ListResource):
 
         :returns: The created AccountConfigInstance
         """
+
         data = values.of(
             {
                 "Key": key,
@@ -327,6 +331,7 @@ class AccountConfigList(ListResource):
 
         :returns: The created AccountConfigInstance
         """
+
         data = values.of(
             {
                 "Key": key,

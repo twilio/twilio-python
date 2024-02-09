@@ -35,6 +35,7 @@ from twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items import (
 
 
 class BundleInstance(InstanceResource):
+
     class EndUserType(object):
         INDIVIDUAL = "individual"
         BUSINESS = "business"
@@ -237,6 +238,7 @@ class BundleInstance(InstanceResource):
 
 
 class BundleContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the BundleContext
@@ -446,6 +448,7 @@ class BundleContext(InstanceContext):
 
 
 class BundlePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> BundleInstance:
         """
         Build an instance of BundleInstance
@@ -464,6 +467,7 @@ class BundlePage(Page):
 
 
 class BundleList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the BundleList
@@ -498,6 +502,7 @@ class BundleList(ListResource):
 
         :returns: The created BundleInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -541,6 +546,7 @@ class BundleList(ListResource):
 
         :returns: The created BundleInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

@@ -51,6 +51,7 @@ class EventInstance(InstanceResource):
 
 
 class EventPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EventInstance:
         """
         Build an instance of EventInstance
@@ -74,6 +75,7 @@ class EventPage(Page):
 
 
 class EventList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the EventList

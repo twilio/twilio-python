@@ -110,6 +110,7 @@ class DeploymentInstance(InstanceResource):
 
 
 class DeploymentContext(InstanceContext):
+
     def __init__(
         self, version: Version, service_sid: str, environment_sid: str, sid: str
     ):
@@ -186,6 +187,7 @@ class DeploymentContext(InstanceContext):
 
 
 class DeploymentPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DeploymentInstance:
         """
         Build an instance of DeploymentInstance
@@ -209,6 +211,7 @@ class DeploymentPage(Page):
 
 
 class DeploymentList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, environment_sid: str):
         """
         Initialize the DeploymentList
@@ -241,6 +244,7 @@ class DeploymentList(ListResource):
 
         :returns: The created DeploymentInstance
         """
+
         data = values.of(
             {
                 "BuildSid": build_sid,
@@ -270,6 +274,7 @@ class DeploymentList(ListResource):
 
         :returns: The created DeploymentInstance
         """
+
         data = values.of(
             {
                 "BuildSid": build_sid,

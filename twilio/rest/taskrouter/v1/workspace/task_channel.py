@@ -167,6 +167,7 @@ class TaskChannelInstance(InstanceResource):
 
 
 class TaskChannelContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the TaskChannelContext
@@ -327,6 +328,7 @@ class TaskChannelContext(InstanceContext):
 
 
 class TaskChannelPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TaskChannelInstance:
         """
         Build an instance of TaskChannelInstance
@@ -347,6 +349,7 @@ class TaskChannelPage(Page):
 
 
 class TaskChannelList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskChannelList
@@ -378,6 +381,7 @@ class TaskChannelList(ListResource):
 
         :returns: The created TaskChannelInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -411,6 +415,7 @@ class TaskChannelList(ListResource):
 
         :returns: The created TaskChannelInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

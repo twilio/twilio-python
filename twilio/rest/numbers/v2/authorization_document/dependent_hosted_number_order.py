@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class DependentHostedNumberOrderInstance(InstanceResource):
+
     class Status(object):
         RECEIVED = "received"
         VERIFIED = "verified"
@@ -104,6 +105,7 @@ class DependentHostedNumberOrderInstance(InstanceResource):
 
 
 class DependentHostedNumberOrderPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> DependentHostedNumberOrderInstance:
@@ -128,6 +130,7 @@ class DependentHostedNumberOrderPage(Page):
 
 
 class DependentHostedNumberOrderList(ListResource):
+
     def __init__(self, version: Version, signing_document_sid: str):
         """
         Initialize the DependentHostedNumberOrderList

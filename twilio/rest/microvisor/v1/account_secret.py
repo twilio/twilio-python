@@ -131,6 +131,7 @@ class AccountSecretInstance(InstanceResource):
 
 
 class AccountSecretContext(InstanceContext):
+
     def __init__(self, version: Version, key: str):
         """
         Initialize the AccountSecretContext
@@ -263,6 +264,7 @@ class AccountSecretContext(InstanceContext):
 
 
 class AccountSecretPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AccountSecretInstance:
         """
         Build an instance of AccountSecretInstance
@@ -281,6 +283,7 @@ class AccountSecretPage(Page):
 
 
 class AccountSecretList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AccountSecretList
@@ -301,6 +304,7 @@ class AccountSecretList(ListResource):
 
         :returns: The created AccountSecretInstance
         """
+
         data = values.of(
             {
                 "Key": key,
@@ -325,6 +329,7 @@ class AccountSecretList(ListResource):
 
         :returns: The created AccountSecretInstance
         """
+
         data = values.of(
             {
                 "Key": key,

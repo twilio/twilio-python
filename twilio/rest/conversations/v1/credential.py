@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class CredentialInstance(InstanceResource):
+
     class PushType(object):
         APN = "apn"
         GCM = "gcm"
@@ -190,6 +191,7 @@ class CredentialInstance(InstanceResource):
 
 
 class CredentialContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the CredentialContext
@@ -364,6 +366,7 @@ class CredentialContext(InstanceContext):
 
 
 class CredentialPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CredentialInstance:
         """
         Build an instance of CredentialInstance
@@ -382,6 +385,7 @@ class CredentialPage(Page):
 
 
 class CredentialList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CredentialList
@@ -416,6 +420,7 @@ class CredentialList(ListResource):
 
         :returns: The created CredentialInstance
         """
+
         data = values.of(
             {
                 "Type": type,
@@ -459,6 +464,7 @@ class CredentialList(ListResource):
 
         :returns: The created CredentialInstance
         """
+
         data = values.of(
             {
                 "Type": type,

@@ -66,6 +66,7 @@ class SentenceInstance(InstanceResource):
 
 
 class SentencePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SentenceInstance:
         """
         Build an instance of SentenceInstance
@@ -86,6 +87,7 @@ class SentencePage(Page):
 
 
 class SentenceList(ListResource):
+
     def __init__(self, version: Version, transcript_sid: str):
         """
         Initialize the SentenceList

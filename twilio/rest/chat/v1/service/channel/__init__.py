@@ -26,6 +26,7 @@ from twilio.rest.chat.v1.service.channel.message import MessageList
 
 
 class ChannelInstance(InstanceResource):
+
     class ChannelType(object):
         PUBLIC = "public"
         PRIVATE = "private"
@@ -211,6 +212,7 @@ class ChannelInstance(InstanceResource):
 
 
 class ChannelContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the ChannelContext
@@ -418,6 +420,7 @@ class ChannelContext(InstanceContext):
 
 
 class ChannelPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ChannelInstance:
         """
         Build an instance of ChannelInstance
@@ -438,6 +441,7 @@ class ChannelPage(Page):
 
 
 class ChannelList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the ChannelList
@@ -471,6 +475,7 @@ class ChannelList(ListResource):
 
         :returns: The created ChannelInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -507,6 +512,7 @@ class ChannelList(ListResource):
 
         :returns: The created ChannelInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

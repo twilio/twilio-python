@@ -137,6 +137,7 @@ class NetworkAccessProfileInstance(InstanceResource):
 
 
 class NetworkAccessProfileContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the NetworkAccessProfileContext
@@ -267,6 +268,7 @@ class NetworkAccessProfileContext(InstanceContext):
 
 
 class NetworkAccessProfilePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> NetworkAccessProfileInstance:
         """
         Build an instance of NetworkAccessProfileInstance
@@ -285,6 +287,7 @@ class NetworkAccessProfilePage(Page):
 
 
 class NetworkAccessProfileList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the NetworkAccessProfileList
@@ -309,6 +312,7 @@ class NetworkAccessProfileList(ListResource):
 
         :returns: The created NetworkAccessProfileInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -337,6 +341,7 @@ class NetworkAccessProfileList(ListResource):
 
         :returns: The created NetworkAccessProfileInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

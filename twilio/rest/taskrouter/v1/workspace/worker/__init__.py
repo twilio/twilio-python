@@ -232,6 +232,7 @@ class WorkerInstance(InstanceResource):
 
 
 class WorkerContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the WorkerContext
@@ -465,6 +466,7 @@ class WorkerContext(InstanceContext):
 
 
 class WorkerPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> WorkerInstance:
         """
         Build an instance of WorkerInstance
@@ -485,6 +487,7 @@ class WorkerPage(Page):
 
 
 class WorkerList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkerList
@@ -520,6 +523,7 @@ class WorkerList(ListResource):
 
         :returns: The created WorkerInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -553,6 +557,7 @@ class WorkerList(ListResource):
 
         :returns: The created WorkerInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

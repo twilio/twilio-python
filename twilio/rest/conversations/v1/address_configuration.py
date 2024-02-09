@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class AddressConfigurationInstance(InstanceResource):
+
     class AutoCreationType(object):
         WEBHOOK = "webhook"
         STUDIO = "studio"
@@ -227,6 +228,7 @@ class AddressConfigurationInstance(InstanceResource):
 
 
 class AddressConfigurationContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the AddressConfigurationContext
@@ -431,6 +433,7 @@ class AddressConfigurationContext(InstanceContext):
 
 
 class AddressConfigurationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AddressConfigurationInstance:
         """
         Build an instance of AddressConfigurationInstance
@@ -449,6 +452,7 @@ class AddressConfigurationPage(Page):
 
 
 class AddressConfigurationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AddressConfigurationList
@@ -497,6 +501,7 @@ class AddressConfigurationList(ListResource):
 
         :returns: The created AddressConfigurationInstance
         """
+
         data = values.of(
             {
                 "Type": type,
@@ -561,6 +566,7 @@ class AddressConfigurationList(ListResource):
 
         :returns: The created AddressConfigurationInstance
         """
+
         data = values.of(
             {
                 "Type": type,

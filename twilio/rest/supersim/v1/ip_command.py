@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class IpCommandInstance(InstanceResource):
+
     class Direction(object):
         TO_SIM = "to_sim"
         FROM_SIM = "from_sim"
@@ -131,6 +132,7 @@ class IpCommandInstance(InstanceResource):
 
 
 class IpCommandContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the IpCommandContext
@@ -195,6 +197,7 @@ class IpCommandContext(InstanceContext):
 
 
 class IpCommandPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> IpCommandInstance:
         """
         Build an instance of IpCommandInstance
@@ -213,6 +216,7 @@ class IpCommandPage(Page):
 
 
 class IpCommandList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the IpCommandList
@@ -245,6 +249,7 @@ class IpCommandList(ListResource):
 
         :returns: The created IpCommandInstance
         """
+
         data = values.of(
             {
                 "Sim": sim,
@@ -285,6 +290,7 @@ class IpCommandList(ListResource):
 
         :returns: The created IpCommandInstance
         """
+
         data = values.of(
             {
                 "Sim": sim,

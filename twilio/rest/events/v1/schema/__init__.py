@@ -103,6 +103,7 @@ class SchemaInstance(InstanceResource):
 
 
 class SchemaContext(InstanceContext):
+
     def __init__(self, version: Version, id: str):
         """
         Initialize the SchemaContext
@@ -181,6 +182,7 @@ class SchemaContext(InstanceContext):
 
 
 class SchemaList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SchemaList

@@ -22,6 +22,7 @@ from twilio.base.version import Version
 
 
 class CallSummaryInstance(InstanceResource):
+
     class AnsweredBy(object):
         UNKNOWN = "unknown"
         MACHINE_START = "machine_start"
@@ -185,6 +186,7 @@ class CallSummaryInstance(InstanceResource):
 
 
 class CallSummaryContext(InstanceContext):
+
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the CallSummaryContext
@@ -269,6 +271,7 @@ class CallSummaryContext(InstanceContext):
 
 
 class CallSummaryList(ListResource):
+
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the CallSummaryList

@@ -22,6 +22,7 @@ from twilio.base.version import Version
 
 
 class BulkHostedNumberOrderInstance(InstanceResource):
+
     class RequestStatus(object):
         QUEUED = "QUEUED"
         IN_PROGRESS = "IN_PROGRESS"
@@ -63,7 +64,7 @@ class BulkHostedNumberOrderInstance(InstanceResource):
         self.total_count: Optional[int] = deserialize.integer(
             payload.get("total_count")
         )
-        self.results: Optional[List[object]] = payload.get("results")
+        self.results: Optional[List[Dict[str, object]]] = payload.get("results")
 
         self._solution = {
             "bulk_hosting_sid": bulk_hosting_sid or self.bulk_hosting_sid,
@@ -124,6 +125,7 @@ class BulkHostedNumberOrderInstance(InstanceResource):
 
 
 class BulkHostedNumberOrderContext(InstanceContext):
+
     def __init__(self, version: Version, bulk_hosting_sid: str):
         """
         Initialize the BulkHostedNumberOrderContext
@@ -204,6 +206,7 @@ class BulkHostedNumberOrderContext(InstanceContext):
 
 
 class BulkHostedNumberOrderList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the BulkHostedNumberOrderList

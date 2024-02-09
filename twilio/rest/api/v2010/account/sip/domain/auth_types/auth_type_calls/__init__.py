@@ -27,6 +27,7 @@ from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls.auth_ca
 
 
 class AuthTypeCallsList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
         Initialize the AuthTypeCallsList

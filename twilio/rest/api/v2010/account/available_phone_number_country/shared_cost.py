@@ -77,6 +77,7 @@ class SharedCostInstance(InstanceResource):
 
 
 class SharedCostPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SharedCostInstance:
         """
         Build an instance of SharedCostInstance
@@ -100,6 +101,7 @@ class SharedCostPage(Page):
 
 
 class SharedCostList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
         Initialize the SharedCostList

@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class BrandVettingInstance(InstanceResource):
+
     class VettingProvider(object):
         CAMPAIGN_VERIFY = "campaign-verify"
 
@@ -116,6 +117,7 @@ class BrandVettingInstance(InstanceResource):
 
 
 class BrandVettingContext(InstanceContext):
+
     def __init__(self, version: Version, brand_sid: str, brand_vetting_sid: str):
         """
         Initialize the BrandVettingContext
@@ -188,6 +190,7 @@ class BrandVettingContext(InstanceContext):
 
 
 class BrandVettingPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> BrandVettingInstance:
         """
         Build an instance of BrandVettingInstance
@@ -208,6 +211,7 @@ class BrandVettingPage(Page):
 
 
 class BrandVettingList(ListResource):
+
     def __init__(self, version: Version, brand_sid: str):
         """
         Initialize the BrandVettingList
@@ -239,6 +243,7 @@ class BrandVettingList(ListResource):
 
         :returns: The created BrandVettingInstance
         """
+
         data = values.of(
             {
                 "VettingProvider": vetting_provider,
@@ -269,6 +274,7 @@ class BrandVettingList(ListResource):
 
         :returns: The created BrandVettingInstance
         """
+
         data = values.of(
             {
                 "VettingProvider": vetting_provider,

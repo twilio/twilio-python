@@ -161,6 +161,7 @@ class PhoneNumberInstance(InstanceResource):
 
 
 class PhoneNumberContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the PhoneNumberContext
@@ -313,6 +314,7 @@ class PhoneNumberContext(InstanceContext):
 
 
 class PhoneNumberPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> PhoneNumberInstance:
         """
         Build an instance of PhoneNumberInstance
@@ -333,6 +335,7 @@ class PhoneNumberPage(Page):
 
 
 class PhoneNumberList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the PhoneNumberList
@@ -364,6 +367,7 @@ class PhoneNumberList(ListResource):
 
         :returns: The created PhoneNumberInstance
         """
+
         data = values.of(
             {
                 "Sid": sid,
@@ -397,6 +401,7 @@ class PhoneNumberList(ListResource):
 
         :returns: The created PhoneNumberInstance
         """
+
         data = values.of(
             {
                 "Sid": sid,

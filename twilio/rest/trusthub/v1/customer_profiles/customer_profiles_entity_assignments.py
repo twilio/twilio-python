@@ -123,6 +123,7 @@ class CustomerProfilesEntityAssignmentsInstance(InstanceResource):
 
 
 class CustomerProfilesEntityAssignmentsContext(InstanceContext):
+
     def __init__(self, version: Version, customer_profile_sid: str, sid: str):
         """
         Initialize the CustomerProfilesEntityAssignmentsContext
@@ -223,6 +224,7 @@ class CustomerProfilesEntityAssignmentsContext(InstanceContext):
 
 
 class CustomerProfilesEntityAssignmentsPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> CustomerProfilesEntityAssignmentsInstance:
@@ -247,6 +249,7 @@ class CustomerProfilesEntityAssignmentsPage(Page):
 
 
 class CustomerProfilesEntityAssignmentsList(ListResource):
+
     def __init__(self, version: Version, customer_profile_sid: str):
         """
         Initialize the CustomerProfilesEntityAssignmentsList
@@ -273,6 +276,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
 
         :returns: The created CustomerProfilesEntityAssignmentsInstance
         """
+
         data = values.of(
             {
                 "ObjectSid": object_sid,
@@ -301,6 +305,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
 
         :returns: The created CustomerProfilesEntityAssignmentsInstance
         """
+
         data = values.of(
             {
                 "ObjectSid": object_sid,

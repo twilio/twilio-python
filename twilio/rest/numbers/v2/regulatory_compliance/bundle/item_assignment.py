@@ -119,6 +119,7 @@ class ItemAssignmentInstance(InstanceResource):
 
 
 class ItemAssignmentContext(InstanceContext):
+
     def __init__(self, version: Version, bundle_sid: str, sid: str):
         """
         Initialize the ItemAssignmentContext
@@ -215,6 +216,7 @@ class ItemAssignmentContext(InstanceContext):
 
 
 class ItemAssignmentPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ItemAssignmentInstance:
         """
         Build an instance of ItemAssignmentInstance
@@ -235,6 +237,7 @@ class ItemAssignmentPage(Page):
 
 
 class ItemAssignmentList(ListResource):
+
     def __init__(self, version: Version, bundle_sid: str):
         """
         Initialize the ItemAssignmentList
@@ -261,6 +264,7 @@ class ItemAssignmentList(ListResource):
 
         :returns: The created ItemAssignmentInstance
         """
+
         data = values.of(
             {
                 "ObjectSid": object_sid,
@@ -285,6 +289,7 @@ class ItemAssignmentList(ListResource):
 
         :returns: The created ItemAssignmentInstance
         """
+
         data = values.of(
             {
                 "ObjectSid": object_sid,

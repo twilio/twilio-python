@@ -124,6 +124,7 @@ class AuthCallsCredentialListMappingInstance(InstanceResource):
 
 
 class AuthCallsCredentialListMappingContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, domain_sid: str, sid: str):
         """
         Initialize the AuthCallsCredentialListMappingContext
@@ -224,6 +225,7 @@ class AuthCallsCredentialListMappingContext(InstanceContext):
 
 
 class AuthCallsCredentialListMappingPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> AuthCallsCredentialListMappingInstance:
@@ -249,6 +251,7 @@ class AuthCallsCredentialListMappingPage(Page):
 
 
 class AuthCallsCredentialListMappingList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
         Initialize the AuthCallsCredentialListMappingList
@@ -279,6 +282,7 @@ class AuthCallsCredentialListMappingList(ListResource):
 
         :returns: The created AuthCallsCredentialListMappingInstance
         """
+
         data = values.of(
             {
                 "CredentialListSid": credential_list_sid,
@@ -308,6 +312,7 @@ class AuthCallsCredentialListMappingList(ListResource):
 
         :returns: The created AuthCallsCredentialListMappingInstance
         """
+
         data = values.of(
             {
                 "CredentialListSid": credential_list_sid,

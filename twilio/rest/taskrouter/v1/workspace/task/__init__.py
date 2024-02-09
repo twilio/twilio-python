@@ -24,6 +24,7 @@ from twilio.rest.taskrouter.v1.workspace.task.reservation import ReservationList
 
 
 class TaskInstance(InstanceResource):
+
     class Status(object):
         PENDING = "pending"
         RESERVED = "reserved"
@@ -37,7 +38,7 @@ class TaskInstance(InstanceResource):
     :ivar age: The number of seconds since the Task was created.
     :ivar assignment_status: 
     :ivar attributes: The JSON string with custom attributes of the work. **Note** If this property has been assigned a value, it will only be displayed in FETCH action that returns a single resource. Otherwise, it will be null.
-    :ivar addons: An object that contains the [addon](https://www.twilio.com/docs/taskrouter/marketplace) data for all installed addons.
+    :ivar addons: An object that contains the [Add-on](https://www.twilio.com/docs/add-ons) data for all installed Add-ons.
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar task_queue_entered_date: The date and time in GMT when the Task entered the TaskQueue, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -253,6 +254,7 @@ class TaskInstance(InstanceResource):
 
 
 class TaskContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the TaskContext
@@ -470,6 +472,7 @@ class TaskContext(InstanceContext):
 
 
 class TaskPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TaskInstance:
         """
         Build an instance of TaskInstance
@@ -490,6 +493,7 @@ class TaskPage(Page):
 
 
 class TaskList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskList
@@ -527,6 +531,7 @@ class TaskList(ListResource):
 
         :returns: The created TaskInstance
         """
+
         data = values.of(
             {
                 "Timeout": timeout,
@@ -569,6 +574,7 @@ class TaskList(ListResource):
 
         :returns: The created TaskInstance
         """
+
         data = values.of(
             {
                 "Timeout": timeout,
@@ -618,7 +624,7 @@ class TaskList(ListResource):
         :param str task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
         :param str ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
-        :param bool has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
+        :param bool has_addons: Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -672,7 +678,7 @@ class TaskList(ListResource):
         :param str task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
         :param str ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
-        :param bool has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
+        :param bool has_addons: Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -725,7 +731,7 @@ class TaskList(ListResource):
         :param str task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
         :param str ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
-        :param bool has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
+        :param bool has_addons: Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -778,7 +784,7 @@ class TaskList(ListResource):
         :param str task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
         :param str ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
-        :param bool has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
+        :param bool has_addons: Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -832,7 +838,7 @@ class TaskList(ListResource):
         :param task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
         :param ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
-        :param has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
+        :param has_addons: Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -886,7 +892,7 @@ class TaskList(ListResource):
         :param task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
         :param ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
-        :param has_addons: Whether to read Tasks with addons. If `true`, returns only Tasks with addons. If `false`, returns only Tasks without addons.
+        :param has_addons: Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50

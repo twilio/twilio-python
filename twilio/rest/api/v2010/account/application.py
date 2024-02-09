@@ -279,6 +279,7 @@ class ApplicationInstance(InstanceResource):
 
 
 class ApplicationContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the ApplicationContext
@@ -523,6 +524,7 @@ class ApplicationContext(InstanceContext):
 
 
 class ApplicationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ApplicationInstance:
         """
         Build an instance of ApplicationInstance
@@ -543,6 +545,7 @@ class ApplicationPage(Page):
 
 
 class ApplicationList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ApplicationList
@@ -600,6 +603,7 @@ class ApplicationList(ListResource):
 
         :returns: The created ApplicationInstance
         """
+
         data = values.of(
             {
                 "ApiVersion": api_version,
@@ -672,6 +676,7 @@ class ApplicationList(ListResource):
 
         :returns: The created ApplicationInstance
         """
+
         data = values.of(
             {
                 "ApiVersion": api_version,

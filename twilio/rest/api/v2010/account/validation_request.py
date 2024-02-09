@@ -53,6 +53,7 @@ class ValidationRequestInstance(InstanceResource):
 
 
 class ValidationRequestList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ValidationRequestList
@@ -92,6 +93,7 @@ class ValidationRequestList(ListResource):
 
         :returns: The created ValidationRequestInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
@@ -134,6 +136,7 @@ class ValidationRequestList(ListResource):
 
         :returns: The created ValidationRequestInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,

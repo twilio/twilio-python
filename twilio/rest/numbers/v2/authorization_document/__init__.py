@@ -26,6 +26,7 @@ from twilio.rest.numbers.v2.authorization_document.dependent_hosted_number_order
 
 
 class AuthorizationDocumentInstance(InstanceResource):
+
     class Status(object):
         OPENED = "opened"
         SIGNING = "signing"
@@ -140,6 +141,7 @@ class AuthorizationDocumentInstance(InstanceResource):
 
 
 class AuthorizationDocumentContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the AuthorizationDocumentContext
@@ -246,6 +248,7 @@ class AuthorizationDocumentContext(InstanceContext):
 
 
 class AuthorizationDocumentPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AuthorizationDocumentInstance:
         """
         Build an instance of AuthorizationDocumentInstance
@@ -264,6 +267,7 @@ class AuthorizationDocumentPage(Page):
 
 
 class AuthorizationDocumentList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AuthorizationDocumentList
@@ -296,6 +300,7 @@ class AuthorizationDocumentList(ListResource):
 
         :returns: The created AuthorizationDocumentInstance
         """
+
         data = values.of(
             {
                 "AddressSid": address_sid,
@@ -338,6 +343,7 @@ class AuthorizationDocumentList(ListResource):
 
         :returns: The created AuthorizationDocumentInstance
         """
+
         data = values.of(
             {
                 "AddressSid": address_sid,

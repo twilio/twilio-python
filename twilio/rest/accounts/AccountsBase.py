@@ -17,6 +17,7 @@ from twilio.rest.accounts.v1 import V1
 
 
 class AccountsBase(Domain):
+
     def __init__(self, twilio: Client):
         """
         Initialize the Accounts Domain

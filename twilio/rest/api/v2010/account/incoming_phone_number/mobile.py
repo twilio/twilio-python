@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class MobileInstance(InstanceResource):
+
     class AddressRequirement(object):
         NONE = "none"
         ANY = "any"
@@ -151,6 +152,7 @@ class MobileInstance(InstanceResource):
 
 
 class MobilePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MobileInstance:
         """
         Build an instance of MobileInstance
@@ -171,6 +173,7 @@ class MobilePage(Page):
 
 
 class MobileList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the MobileList
@@ -248,6 +251,7 @@ class MobileList(ListResource):
 
         :returns: The created MobileInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
@@ -345,6 +349,7 @@ class MobileList(ListResource):
 
         :returns: The created MobileInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,

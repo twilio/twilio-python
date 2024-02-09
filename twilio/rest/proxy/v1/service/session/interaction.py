@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class InteractionInstance(InstanceResource):
+
     class ResourceStatus(object):
         ACCEPTED = "accepted"
         ANSWERED = "answered"
@@ -59,7 +60,7 @@ class InteractionInstance(InstanceResource):
     :ivar data: A JSON string that includes the message body of message interactions (e.g. `{\"body\": \"hello\"}`) or the call duration (when available) of a call (e.g. `{\"duration\": \"5\"}`).
     :ivar type: 
     :ivar inbound_participant_sid: The SID of the inbound [Participant](https://www.twilio.com/docs/proxy/api/participant) resource.
-    :ivar inbound_resource_sid: The SID of the inbound resource; either the [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message.
+    :ivar inbound_resource_sid: The SID of the inbound resource; either the [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource).
     :ivar inbound_resource_status: 
     :ivar inbound_resource_type: The inbound resource type. Can be [Call](https://www.twilio.com/docs/voice/api/call-resource) or [Message](https://www.twilio.com/docs/sms/api/message-resource).
     :ivar inbound_resource_url: The URL of the Twilio inbound resource
@@ -188,6 +189,7 @@ class InteractionInstance(InstanceResource):
 
 
 class InteractionContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, session_sid: str, sid: str):
         """
         Initialize the InteractionContext
@@ -288,6 +290,7 @@ class InteractionContext(InstanceContext):
 
 
 class InteractionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> InteractionInstance:
         """
         Build an instance of InteractionInstance
@@ -311,6 +314,7 @@ class InteractionPage(Page):
 
 
 class InteractionList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, session_sid: str):
         """
         Initialize the InteractionList

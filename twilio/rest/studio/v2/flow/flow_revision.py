@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class FlowRevisionInstance(InstanceResource):
+
     class Status(object):
         DRAFT = "draft"
         PUBLISHED = "published"
@@ -59,7 +60,7 @@ class FlowRevisionInstance(InstanceResource):
         self.revision: Optional[int] = deserialize.integer(payload.get("revision"))
         self.commit_message: Optional[str] = payload.get("commit_message")
         self.valid: Optional[bool] = payload.get("valid")
-        self.errors: Optional[List[object]] = payload.get("errors")
+        self.errors: Optional[List[Dict[str, object]]] = payload.get("errors")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
@@ -119,6 +120,7 @@ class FlowRevisionInstance(InstanceResource):
 
 
 class FlowRevisionContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str, revision: str):
         """
         Initialize the FlowRevisionContext
@@ -187,6 +189,7 @@ class FlowRevisionContext(InstanceContext):
 
 
 class FlowRevisionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> FlowRevisionInstance:
         """
         Build an instance of FlowRevisionInstance
@@ -205,6 +208,7 @@ class FlowRevisionPage(Page):
 
 
 class FlowRevisionList(ListResource):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FlowRevisionList

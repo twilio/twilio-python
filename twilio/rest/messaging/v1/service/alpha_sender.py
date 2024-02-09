@@ -125,6 +125,7 @@ class AlphaSenderInstance(InstanceResource):
 
 
 class AlphaSenderContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the AlphaSenderContext
@@ -219,6 +220,7 @@ class AlphaSenderContext(InstanceContext):
 
 
 class AlphaSenderPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AlphaSenderInstance:
         """
         Build an instance of AlphaSenderInstance
@@ -239,6 +241,7 @@ class AlphaSenderPage(Page):
 
 
 class AlphaSenderList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the AlphaSenderList
@@ -263,6 +266,7 @@ class AlphaSenderList(ListResource):
 
         :returns: The created AlphaSenderInstance
         """
+
         data = values.of(
             {
                 "AlphaSender": alpha_sender,
@@ -287,6 +291,7 @@ class AlphaSenderList(ListResource):
 
         :returns: The created AlphaSenderInstance
         """
+
         data = values.of(
             {
                 "AlphaSender": alpha_sender,

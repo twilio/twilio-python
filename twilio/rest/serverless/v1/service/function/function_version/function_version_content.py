@@ -101,6 +101,7 @@ class FunctionVersionContentInstance(InstanceResource):
 
 
 class FunctionVersionContentContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, function_sid: str, sid: str):
         """
         Initialize the FunctionVersionContentContext
@@ -175,6 +176,7 @@ class FunctionVersionContentContext(InstanceContext):
 
 
 class FunctionVersionContentList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, function_sid: str, sid: str):
         """
         Initialize the FunctionVersionContentList

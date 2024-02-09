@@ -231,6 +231,7 @@ class WorkflowInstance(InstanceResource):
 
 
 class WorkflowContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the WorkflowContext
@@ -458,6 +459,7 @@ class WorkflowContext(InstanceContext):
 
 
 class WorkflowPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> WorkflowInstance:
         """
         Build an instance of WorkflowInstance
@@ -478,6 +480,7 @@ class WorkflowPage(Page):
 
 
 class WorkflowList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkflowList
@@ -513,6 +516,7 @@ class WorkflowList(ListResource):
 
         :returns: The created WorkflowInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -552,6 +556,7 @@ class WorkflowList(ListResource):
 
         :returns: The created WorkflowInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

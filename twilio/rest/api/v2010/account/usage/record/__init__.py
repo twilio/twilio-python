@@ -31,6 +31,7 @@ from twilio.rest.api.v2010.account.usage.record.yesterday import YesterdayList
 
 
 class RecordInstance(InstanceResource):
+
     class Category(object):
         A2P_REGISTRATION_FEES = "a2p-registration-fees"
         AGENT_CONFERENCE = "agent-conference"
@@ -412,6 +413,7 @@ class RecordInstance(InstanceResource):
 
 
 class RecordPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> RecordInstance:
         """
         Build an instance of RecordInstance
@@ -432,6 +434,7 @@ class RecordPage(Page):
 
 
 class RecordList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the RecordList

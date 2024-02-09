@@ -151,6 +151,7 @@ class OutgoingCallerIdInstance(InstanceResource):
 
 
 class OutgoingCallerIdContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the OutgoingCallerIdContext
@@ -303,6 +304,7 @@ class OutgoingCallerIdContext(InstanceContext):
 
 
 class OutgoingCallerIdPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> OutgoingCallerIdInstance:
         """
         Build an instance of OutgoingCallerIdInstance
@@ -323,6 +325,7 @@ class OutgoingCallerIdPage(Page):
 
 
 class OutgoingCallerIdList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the OutgoingCallerIdList

@@ -26,6 +26,7 @@ from twilio.rest.serverless.v1.service.function.function_version.function_versio
 
 
 class FunctionVersionInstance(InstanceResource):
+
     class Visibility(object):
         PUBLIC = "public"
         PRIVATE = "private"
@@ -127,6 +128,7 @@ class FunctionVersionInstance(InstanceResource):
 
 
 class FunctionVersionContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, function_sid: str, sid: str):
         """
         Initialize the FunctionVersionContext
@@ -219,6 +221,7 @@ class FunctionVersionContext(InstanceContext):
 
 
 class FunctionVersionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> FunctionVersionInstance:
         """
         Build an instance of FunctionVersionInstance
@@ -242,6 +245,7 @@ class FunctionVersionPage(Page):
 
 
 class FunctionVersionList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, function_sid: str):
         """
         Initialize the FunctionVersionList

@@ -176,6 +176,7 @@ class IpAddressInstance(InstanceResource):
 
 
 class IpAddressContext(InstanceContext):
+
     def __init__(
         self,
         version: Version,
@@ -354,6 +355,7 @@ class IpAddressContext(InstanceContext):
 
 
 class IpAddressPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> IpAddressInstance:
         """
         Build an instance of IpAddressInstance
@@ -377,6 +379,7 @@ class IpAddressPage(Page):
 
 
 class IpAddressList(ListResource):
+
     def __init__(
         self, version: Version, account_sid: str, ip_access_control_list_sid: str
     ):
@@ -414,6 +417,7 @@ class IpAddressList(ListResource):
 
         :returns: The created IpAddressInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -450,6 +454,7 @@ class IpAddressList(ListResource):
 
         :returns: The created IpAddressInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

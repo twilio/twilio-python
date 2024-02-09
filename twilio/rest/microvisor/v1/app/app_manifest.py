@@ -84,6 +84,7 @@ class AppManifestInstance(InstanceResource):
 
 
 class AppManifestContext(InstanceContext):
+
     def __init__(self, version: Version, app_sid: str):
         """
         Initialize the AppManifestContext
@@ -148,6 +149,7 @@ class AppManifestContext(InstanceContext):
 
 
 class AppManifestList(ListResource):
+
     def __init__(self, version: Version, app_sid: str):
         """
         Initialize the AppManifestList

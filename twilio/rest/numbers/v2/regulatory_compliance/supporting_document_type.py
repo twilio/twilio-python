@@ -38,7 +38,7 @@ class SupportingDocumentTypeInstance(InstanceResource):
         self.sid: Optional[str] = payload.get("sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.machine_name: Optional[str] = payload.get("machine_name")
-        self.fields: Optional[List[object]] = payload.get("fields")
+        self.fields: Optional[List[Dict[str, object]]] = payload.get("fields")
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {
@@ -90,6 +90,7 @@ class SupportingDocumentTypeInstance(InstanceResource):
 
 
 class SupportingDocumentTypeContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SupportingDocumentTypeContext
@@ -156,6 +157,7 @@ class SupportingDocumentTypeContext(InstanceContext):
 
 
 class SupportingDocumentTypePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SupportingDocumentTypeInstance:
         """
         Build an instance of SupportingDocumentTypeInstance
@@ -174,6 +176,7 @@ class SupportingDocumentTypePage(Page):
 
 
 class SupportingDocumentTypeList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SupportingDocumentTypeList

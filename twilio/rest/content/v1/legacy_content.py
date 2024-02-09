@@ -31,7 +31,7 @@ class LegacyContentInstance(InstanceResource):
     :ivar friendly_name: A string name used to describe the Content resource. Not visible to the end recipient.
     :ivar language: Two-letter (ISO 639-1) language code (e.g., en) identifying the language the Content resource is in.
     :ivar variables: Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
-    :ivar types: The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
+    :ivar types: The [Content types](https://www.twilio.com/docs/content/content-types-overview) (e.g. twilio/text) for this Content resource.
     :ivar legacy_template_name: The string name of the legacy content template associated with this Content resource, unique across all template names for its account.  Only lowercase letters, numbers and underscores are allowed
     :ivar legacy_body: The string body field of the legacy content template associated with this Content resource
     :ivar url: The URL of the resource, relative to `https://content.twilio.com`.
@@ -67,6 +67,7 @@ class LegacyContentInstance(InstanceResource):
 
 
 class LegacyContentPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> LegacyContentInstance:
         """
         Build an instance of LegacyContentInstance
@@ -85,6 +86,7 @@ class LegacyContentPage(Page):
 
 
 class LegacyContentList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the LegacyContentList

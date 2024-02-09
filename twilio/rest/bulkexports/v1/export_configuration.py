@@ -134,6 +134,7 @@ class ExportConfigurationInstance(InstanceResource):
 
 
 class ExportConfigurationContext(InstanceContext):
+
     def __init__(self, version: Version, resource_type: str):
         """
         Initialize the ExportConfigurationContext
@@ -264,6 +265,7 @@ class ExportConfigurationContext(InstanceContext):
 
 
 class ExportConfigurationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ExportConfigurationList

@@ -155,6 +155,7 @@ class EndUserInstance(InstanceResource):
 
 
 class EndUserContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the EndUserContext
@@ -299,6 +300,7 @@ class EndUserContext(InstanceContext):
 
 
 class EndUserPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EndUserInstance:
         """
         Build an instance of EndUserInstance
@@ -317,6 +319,7 @@ class EndUserPage(Page):
 
 
 class EndUserList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the EndUserList
@@ -343,6 +346,7 @@ class EndUserList(ListResource):
 
         :returns: The created EndUserInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -374,6 +378,7 @@ class EndUserList(ListResource):
 
         :returns: The created EndUserInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

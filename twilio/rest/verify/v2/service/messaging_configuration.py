@@ -149,6 +149,7 @@ class MessagingConfigurationInstance(InstanceResource):
 
 
 class MessagingConfigurationContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, country: str):
         """
         Initialize the MessagingConfigurationContext
@@ -299,6 +300,7 @@ class MessagingConfigurationContext(InstanceContext):
 
 
 class MessagingConfigurationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MessagingConfigurationInstance:
         """
         Build an instance of MessagingConfigurationInstance
@@ -319,6 +321,7 @@ class MessagingConfigurationPage(Page):
 
 
 class MessagingConfigurationList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the MessagingConfigurationList
@@ -348,6 +351,7 @@ class MessagingConfigurationList(ListResource):
 
         :returns: The created MessagingConfigurationInstance
         """
+
         data = values.of(
             {
                 "Country": country,
@@ -376,6 +380,7 @@ class MessagingConfigurationList(ListResource):
 
         :returns: The created MessagingConfigurationInstance
         """
+
         data = values.of(
             {
                 "Country": country,

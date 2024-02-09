@@ -31,6 +31,7 @@ from twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type impor
 
 
 class RegulatoryComplianceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the RegulatoryComplianceList

@@ -167,6 +167,7 @@ class DeviceInstance(InstanceResource):
 
 
 class DeviceContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the DeviceContext
@@ -326,6 +327,7 @@ class DeviceContext(InstanceContext):
 
 
 class DevicePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DeviceInstance:
         """
         Build an instance of DeviceInstance
@@ -344,6 +346,7 @@ class DevicePage(Page):
 
 
 class DeviceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the DeviceList

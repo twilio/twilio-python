@@ -23,6 +23,7 @@ from twilio.base.page import Page
 
 
 class TrustProductsEvaluationsInstance(InstanceResource):
+
     class Status(object):
         COMPLIANT = "compliant"
         NONCOMPLIANT = "noncompliant"
@@ -54,7 +55,7 @@ class TrustProductsEvaluationsInstance(InstanceResource):
         self.status: Optional["TrustProductsEvaluationsInstance.Status"] = payload.get(
             "status"
         )
-        self.results: Optional[List[object]] = payload.get("results")
+        self.results: Optional[List[Dict[str, object]]] = payload.get("results")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
@@ -113,6 +114,7 @@ class TrustProductsEvaluationsInstance(InstanceResource):
 
 
 class TrustProductsEvaluationsContext(InstanceContext):
+
     def __init__(self, version: Version, trust_product_sid: str, sid: str):
         """
         Initialize the TrustProductsEvaluationsContext
@@ -183,6 +185,7 @@ class TrustProductsEvaluationsContext(InstanceContext):
 
 
 class TrustProductsEvaluationsPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TrustProductsEvaluationsInstance:
         """
         Build an instance of TrustProductsEvaluationsInstance
@@ -205,6 +208,7 @@ class TrustProductsEvaluationsPage(Page):
 
 
 class TrustProductsEvaluationsList(ListResource):
+
     def __init__(self, version: Version, trust_product_sid: str):
         """
         Initialize the TrustProductsEvaluationsList
@@ -231,6 +235,7 @@ class TrustProductsEvaluationsList(ListResource):
 
         :returns: The created TrustProductsEvaluationsInstance
         """
+
         data = values.of(
             {
                 "PolicySid": policy_sid,
@@ -257,6 +262,7 @@ class TrustProductsEvaluationsList(ListResource):
 
         :returns: The created TrustProductsEvaluationsInstance
         """
+
         data = values.of(
             {
                 "PolicySid": policy_sid,

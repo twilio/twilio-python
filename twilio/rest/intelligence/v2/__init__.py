@@ -20,6 +20,7 @@ from twilio.rest.intelligence.v2.transcript import TranscriptList
 
 
 class V2(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of Intelligence

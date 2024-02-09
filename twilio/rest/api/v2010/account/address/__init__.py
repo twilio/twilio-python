@@ -229,6 +229,7 @@ class AddressInstance(InstanceResource):
 
 
 class AddressContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the AddressContext
@@ -446,6 +447,7 @@ class AddressContext(InstanceContext):
 
 
 class AddressPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AddressInstance:
         """
         Build an instance of AddressInstance
@@ -466,6 +468,7 @@ class AddressPage(Page):
 
 
 class AddressList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the AddressList
@@ -511,6 +514,7 @@ class AddressList(ListResource):
 
         :returns: The created AddressInstance
         """
+
         data = values.of(
             {
                 "CustomerName": customer_name,
@@ -565,6 +569,7 @@ class AddressList(ListResource):
 
         :returns: The created AddressInstance
         """
+
         data = values.of(
             {
                 "CustomerName": customer_name,

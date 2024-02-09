@@ -204,6 +204,7 @@ class WorkflowCumulativeStatisticsInstance(InstanceResource):
 
 
 class WorkflowCumulativeStatisticsContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
         """
         Initialize the WorkflowCumulativeStatisticsContext
@@ -316,6 +317,7 @@ class WorkflowCumulativeStatisticsContext(InstanceContext):
 
 
 class WorkflowCumulativeStatisticsList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
         """
         Initialize the WorkflowCumulativeStatisticsList

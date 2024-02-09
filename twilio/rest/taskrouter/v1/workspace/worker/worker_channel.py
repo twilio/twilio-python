@@ -164,6 +164,7 @@ class WorkerChannelInstance(InstanceResource):
 
 
 class WorkerChannelContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, worker_sid: str, sid: str):
         """
         Initialize the WorkerChannelContext
@@ -308,6 +309,7 @@ class WorkerChannelContext(InstanceContext):
 
 
 class WorkerChannelPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> WorkerChannelInstance:
         """
         Build an instance of WorkerChannelInstance
@@ -331,6 +333,7 @@ class WorkerChannelPage(Page):
 
 
 class WorkerChannelList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str, worker_sid: str):
         """
         Initialize the WorkerChannelList

@@ -25,6 +25,7 @@ from twilio.rest.api.v2010.account.conference.recording import RecordingList
 
 
 class ConferenceInstance(InstanceResource):
+
     class ReasonConferenceEnded(object):
         CONFERENCE_ENDED_VIA_API = "conference-ended-via-api"
         PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT = (
@@ -198,6 +199,7 @@ class ConferenceInstance(InstanceResource):
 
 
 class ConferenceContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the ConferenceContext
@@ -369,6 +371,7 @@ class ConferenceContext(InstanceContext):
 
 
 class ConferencePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ConferenceInstance:
         """
         Build an instance of ConferenceInstance
@@ -389,6 +392,7 @@ class ConferencePage(Page):
 
 
 class ConferenceList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ConferenceList

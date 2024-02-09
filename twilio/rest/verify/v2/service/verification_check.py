@@ -22,6 +22,7 @@ from twilio.base.version import Version
 
 
 class VerificationCheckInstance(InstanceResource):
+
     class Channel(object):
         SMS = "sms"
         CALL = "call"
@@ -64,7 +65,7 @@ class VerificationCheckInstance(InstanceResource):
         self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
-        self.sna_attempts_error_codes: Optional[List[object]] = payload.get(
+        self.sna_attempts_error_codes: Optional[List[Dict[str, object]]] = payload.get(
             "sna_attempts_error_codes"
         )
 
@@ -83,6 +84,7 @@ class VerificationCheckInstance(InstanceResource):
 
 
 class VerificationCheckList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the VerificationCheckList
@@ -118,6 +120,7 @@ class VerificationCheckList(ListResource):
 
         :returns: The created VerificationCheckInstance
         """
+
         data = values.of(
             {
                 "Code": code,
@@ -157,6 +160,7 @@ class VerificationCheckList(ListResource):
 
         :returns: The created VerificationCheckInstance
         """
+
         data = values.of(
             {
                 "Code": code,

@@ -39,6 +39,7 @@ from twilio.rest.taskrouter.v1.workspace.workspace_statistics import (
 
 
 class WorkspaceInstance(InstanceResource):
+
     class QueueOrder(object):
         FIFO = "FIFO"
         LIFO = "LIFO"
@@ -295,6 +296,7 @@ class WorkspaceInstance(InstanceResource):
 
 
 class WorkspaceContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the WorkspaceContext
@@ -604,6 +606,7 @@ class WorkspaceContext(InstanceContext):
 
 
 class WorkspacePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> WorkspaceInstance:
         """
         Build an instance of WorkspaceInstance
@@ -622,6 +625,7 @@ class WorkspacePage(Page):
 
 
 class WorkspaceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the WorkspaceList
@@ -656,6 +660,7 @@ class WorkspaceList(ListResource):
 
         :returns: The created WorkspaceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -698,6 +703,7 @@ class WorkspaceList(ListResource):
 
         :returns: The created WorkspaceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

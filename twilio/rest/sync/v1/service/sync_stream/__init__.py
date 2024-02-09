@@ -165,6 +165,7 @@ class SyncStreamInstance(InstanceResource):
 
 
 class SyncStreamContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the SyncStreamContext
@@ -328,6 +329,7 @@ class SyncStreamContext(InstanceContext):
 
 
 class SyncStreamPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SyncStreamInstance:
         """
         Build an instance of SyncStreamInstance
@@ -348,6 +350,7 @@ class SyncStreamPage(Page):
 
 
 class SyncStreamList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the SyncStreamList
@@ -377,6 +380,7 @@ class SyncStreamList(ListResource):
 
         :returns: The created SyncStreamInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -407,6 +411,7 @@ class SyncStreamList(ListResource):
 
         :returns: The created SyncStreamInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

@@ -119,6 +119,7 @@ class ChannelInstance(InstanceResource):
 
 
 class ChannelContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ChannelContext
@@ -207,6 +208,7 @@ class ChannelContext(InstanceContext):
 
 
 class ChannelPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ChannelInstance:
         """
         Build an instance of ChannelInstance
@@ -225,6 +227,7 @@ class ChannelPage(Page):
 
 
 class ChannelList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ChannelList
@@ -265,6 +268,7 @@ class ChannelList(ListResource):
 
         :returns: The created ChannelInstance
         """
+
         data = values.of(
             {
                 "FlexFlowSid": flex_flow_sid,
@@ -317,6 +321,7 @@ class ChannelList(ListResource):
 
         :returns: The created ChannelInstance
         """
+
         data = values.of(
             {
                 "FlexFlowSid": flex_flow_sid,

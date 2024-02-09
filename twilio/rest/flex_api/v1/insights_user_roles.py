@@ -87,6 +87,7 @@ class InsightsUserRolesInstance(InstanceResource):
 
 
 class InsightsUserRolesContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the InsightsUserRolesContext
@@ -158,6 +159,7 @@ class InsightsUserRolesContext(InstanceContext):
 
 
 class InsightsUserRolesList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the InsightsUserRolesList

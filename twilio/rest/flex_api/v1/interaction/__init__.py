@@ -104,6 +104,7 @@ class InteractionInstance(InstanceResource):
 
 
 class InteractionContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the InteractionContext
@@ -182,6 +183,7 @@ class InteractionContext(InstanceContext):
 
 
 class InteractionList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the InteractionList
@@ -208,6 +210,7 @@ class InteractionList(ListResource):
 
         :returns: The created InteractionInstance
         """
+
         data = values.of(
             {
                 "Channel": serialize.object(channel),
@@ -239,6 +242,7 @@ class InteractionList(ListResource):
 
         :returns: The created InteractionInstance
         """
+
         data = values.of(
             {
                 "Channel": serialize.object(channel),

@@ -95,6 +95,7 @@ class MediaInstance(InstanceResource):
 
 
 class MediaContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the MediaContext
@@ -171,6 +172,7 @@ class MediaContext(InstanceContext):
 
 
 class MediaList(ListResource):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the MediaList

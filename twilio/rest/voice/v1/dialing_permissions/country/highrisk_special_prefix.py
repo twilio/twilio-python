@@ -46,6 +46,7 @@ class HighriskSpecialPrefixInstance(InstanceResource):
 
 
 class HighriskSpecialPrefixPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> HighriskSpecialPrefixInstance:
         """
         Build an instance of HighriskSpecialPrefixInstance
@@ -66,6 +67,7 @@ class HighriskSpecialPrefixPage(Page):
 
 
 class HighriskSpecialPrefixList(ListResource):
+
     def __init__(self, version: Version, iso_code: str):
         """
         Initialize the HighriskSpecialPrefixList

@@ -155,6 +155,7 @@ class ActivityInstance(InstanceResource):
 
 
 class ActivityContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the ActivityContext
@@ -307,6 +308,7 @@ class ActivityContext(InstanceContext):
 
 
 class ActivityPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ActivityInstance:
         """
         Build an instance of ActivityInstance
@@ -327,6 +329,7 @@ class ActivityPage(Page):
 
 
 class ActivityList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the ActivityList
@@ -354,6 +357,7 @@ class ActivityList(ListResource):
 
         :returns: The created ActivityInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -382,6 +386,7 @@ class ActivityList(ListResource):
 
         :returns: The created ActivityInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

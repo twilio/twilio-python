@@ -21,6 +21,7 @@ from twilio.base.version import Version
 
 
 class AnnotationInstance(InstanceResource):
+
     class AnsweredBy(object):
         UNKNOWN_ANSWERED_BY = "unknown_answered_by"
         HUMAN = "human"
@@ -44,7 +45,7 @@ class AnnotationInstance(InstanceResource):
     :ivar call_score: Specifies the Call Score, if available. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
     :ivar comment: Specifies any comments pertaining to the call. Twilio does not treat this field as PII, so no PII should be included in comments.
     :ivar incident: Incident or support ticket associated with this call. The `incident` property is of type string with a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in `incident`.
-    :ivar url: The URL of this resource.
+    :ivar url: 
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any], call_sid: str):
@@ -184,6 +185,7 @@ class AnnotationInstance(InstanceResource):
 
 
 class AnnotationContext(InstanceContext):
+
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the AnnotationContext
@@ -342,6 +344,7 @@ class AnnotationContext(InstanceContext):
 
 
 class AnnotationList(ListResource):
+
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the AnnotationList

@@ -58,6 +58,7 @@ class NewKeyInstance(InstanceResource):
 
 
 class NewKeyList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the NewKeyList
@@ -84,6 +85,7 @@ class NewKeyList(ListResource):
 
         :returns: The created NewKeyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -110,6 +112,7 @@ class NewKeyList(ListResource):
 
         :returns: The created NewKeyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

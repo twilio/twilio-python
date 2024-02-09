@@ -27,6 +27,7 @@ from twilio.rest.messaging.v1.brand_registration.brand_vetting import BrandVetti
 
 
 class BrandRegistrationInstance(InstanceResource):
+
     class BrandFeedback(object):
         TAX_ID = "TAX_ID"
         STOCK_SYMBOL = "STOCK_SYMBOL"
@@ -195,6 +196,7 @@ class BrandRegistrationInstance(InstanceResource):
 
 
 class BrandRegistrationContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the BrandRegistrationContext
@@ -324,6 +326,7 @@ class BrandRegistrationContext(InstanceContext):
 
 
 class BrandRegistrationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> BrandRegistrationInstance:
         """
         Build an instance of BrandRegistrationInstance
@@ -342,6 +345,7 @@ class BrandRegistrationPage(Page):
 
 
 class BrandRegistrationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the BrandRegistrationList
@@ -372,6 +376,7 @@ class BrandRegistrationList(ListResource):
 
         :returns: The created BrandRegistrationInstance
         """
+
         data = values.of(
             {
                 "CustomerProfileBundleSid": customer_profile_bundle_sid,
@@ -409,6 +414,7 @@ class BrandRegistrationList(ListResource):
 
         :returns: The created BrandRegistrationInstance
         """
+
         data = values.of(
             {
                 "CustomerProfileBundleSid": customer_profile_bundle_sid,

@@ -68,6 +68,7 @@ class ExportCustomJobInstance(InstanceResource):
 
 
 class ExportCustomJobPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ExportCustomJobInstance:
         """
         Build an instance of ExportCustomJobInstance
@@ -88,6 +89,7 @@ class ExportCustomJobPage(Page):
 
 
 class ExportCustomJobList(ListResource):
+
     def __init__(self, version: Version, resource_type: str):
         """
         Initialize the ExportCustomJobList
@@ -125,6 +127,7 @@ class ExportCustomJobList(ListResource):
 
         :returns: The created ExportCustomJobInstance
         """
+
         data = values.of(
             {
                 "StartDay": start_day,
@@ -167,6 +170,7 @@ class ExportCustomJobList(ListResource):
 
         :returns: The created ExportCustomJobInstance
         """
+
         data = values.of(
             {
                 "StartDay": start_day,

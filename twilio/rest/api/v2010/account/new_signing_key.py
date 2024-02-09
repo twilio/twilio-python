@@ -58,6 +58,7 @@ class NewSigningKeyInstance(InstanceResource):
 
 
 class NewSigningKeyList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the NewSigningKeyList
@@ -84,6 +85,7 @@ class NewSigningKeyList(ListResource):
 
         :returns: The created NewSigningKeyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -110,6 +112,7 @@ class NewSigningKeyList(ListResource):
 
         :returns: The created NewSigningKeyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

@@ -110,6 +110,7 @@ class AssignedAddOnExtensionInstance(InstanceResource):
 
 
 class AssignedAddOnExtensionContext(InstanceContext):
+
     def __init__(
         self,
         version: Version,
@@ -195,6 +196,7 @@ class AssignedAddOnExtensionContext(InstanceContext):
 
 
 class AssignedAddOnExtensionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AssignedAddOnExtensionInstance:
         """
         Build an instance of AssignedAddOnExtensionInstance
@@ -219,6 +221,7 @@ class AssignedAddOnExtensionPage(Page):
 
 
 class AssignedAddOnExtensionList(ListResource):
+
     def __init__(
         self,
         version: Version,

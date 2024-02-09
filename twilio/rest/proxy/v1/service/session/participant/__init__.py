@@ -150,6 +150,7 @@ class ParticipantInstance(InstanceResource):
 
 
 class ParticipantContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, session_sid: str, sid: str):
         """
         Initialize the ParticipantContext
@@ -266,6 +267,7 @@ class ParticipantContext(InstanceContext):
 
 
 class ParticipantPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ParticipantInstance:
         """
         Build an instance of ParticipantInstance
@@ -289,6 +291,7 @@ class ParticipantPage(Page):
 
 
 class ParticipantList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, session_sid: str):
         """
         Initialize the ParticipantList
@@ -328,6 +331,7 @@ class ParticipantList(ListResource):
 
         :returns: The created ParticipantInstance
         """
+
         data = values.of(
             {
                 "Identifier": identifier,
@@ -367,6 +371,7 @@ class ParticipantList(ListResource):
 
         :returns: The created ParticipantInstance
         """
+
         data = values.of(
             {
                 "Identifier": identifier,

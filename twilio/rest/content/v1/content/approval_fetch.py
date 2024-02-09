@@ -84,6 +84,7 @@ class ApprovalFetchInstance(InstanceResource):
 
 
 class ApprovalFetchContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ApprovalFetchContext
@@ -148,6 +149,7 @@ class ApprovalFetchContext(InstanceContext):
 
 
 class ApprovalFetchList(ListResource):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ApprovalFetchList

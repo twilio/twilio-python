@@ -149,6 +149,7 @@ class IpRecordInstance(InstanceResource):
 
 
 class IpRecordContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the IpRecordContext
@@ -285,6 +286,7 @@ class IpRecordContext(InstanceContext):
 
 
 class IpRecordPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> IpRecordInstance:
         """
         Build an instance of IpRecordInstance
@@ -303,6 +305,7 @@ class IpRecordPage(Page):
 
 
 class IpRecordList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the IpRecordList
@@ -329,6 +332,7 @@ class IpRecordList(ListResource):
 
         :returns: The created IpRecordInstance
         """
+
         data = values.of(
             {
                 "IpAddress": ip_address,
@@ -360,6 +364,7 @@ class IpRecordList(ListResource):
 
         :returns: The created IpRecordInstance
         """
+
         data = values.of(
             {
                 "IpAddress": ip_address,

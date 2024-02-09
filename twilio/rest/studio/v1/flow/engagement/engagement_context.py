@@ -94,6 +94,7 @@ class EngagementContextInstance(InstanceResource):
 
 
 class EngagementContextContext(InstanceContext):
+
     def __init__(self, version: Version, flow_sid: str, engagement_sid: str):
         """
         Initialize the EngagementContextContext
@@ -164,6 +165,7 @@ class EngagementContextContext(InstanceContext):
 
 
 class EngagementContextList(ListResource):
+
     def __init__(self, version: Version, flow_sid: str, engagement_sid: str):
         """
         Initialize the EngagementContextList

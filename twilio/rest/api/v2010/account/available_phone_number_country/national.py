@@ -77,6 +77,7 @@ class NationalInstance(InstanceResource):
 
 
 class NationalPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> NationalInstance:
         """
         Build an instance of NationalInstance
@@ -100,6 +101,7 @@ class NationalPage(Page):
 
 
 class NationalList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
         Initialize the NationalList

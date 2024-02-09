@@ -134,6 +134,7 @@ class TaskQueueStatisticsInstance(InstanceResource):
 
 
 class TaskQueueStatisticsContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, task_queue_sid: str):
         """
         Initialize the TaskQueueStatisticsContext
@@ -246,6 +247,7 @@ class TaskQueueStatisticsContext(InstanceContext):
 
 
 class TaskQueueStatisticsList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str, task_queue_sid: str):
         """
         Initialize the TaskQueueStatisticsList

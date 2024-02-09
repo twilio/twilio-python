@@ -187,6 +187,7 @@ class SyncMapInstance(InstanceResource):
 
 
 class SyncMapContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the SyncMapContext
@@ -374,6 +375,7 @@ class SyncMapContext(InstanceContext):
 
 
 class SyncMapPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SyncMapInstance:
         """
         Build an instance of SyncMapInstance
@@ -394,6 +396,7 @@ class SyncMapPage(Page):
 
 
 class SyncMapList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the SyncMapList
@@ -425,6 +428,7 @@ class SyncMapList(ListResource):
 
         :returns: The created SyncMapInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -458,6 +462,7 @@ class SyncMapList(ListResource):
 
         :returns: The created SyncMapInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

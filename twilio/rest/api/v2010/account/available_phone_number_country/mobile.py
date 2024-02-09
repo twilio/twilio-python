@@ -77,6 +77,7 @@ class MobileInstance(InstanceResource):
 
 
 class MobilePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MobileInstance:
         """
         Build an instance of MobileInstance
@@ -100,6 +101,7 @@ class MobilePage(Page):
 
 
 class MobileList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
         Initialize the MobileList
