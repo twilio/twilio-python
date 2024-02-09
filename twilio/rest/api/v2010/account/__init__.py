@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -52,6 +51,7 @@ from twilio.rest.api.v2010.account.validation_request import ValidationRequestLi
 
 
 class AccountInstance(InstanceResource):
+
     class Status(object):
         ACTIVE = "active"
         SUSPENDED = "suspended"
@@ -349,6 +349,7 @@ class AccountInstance(InstanceResource):
 
 
 class AccountContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the AccountContext
@@ -782,6 +783,7 @@ class AccountContext(InstanceContext):
 
 
 class AccountPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AccountInstance:
         """
         Build an instance of AccountInstance
@@ -800,6 +802,7 @@ class AccountPage(Page):
 
 
 class AccountList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AccountList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -25,7 +24,6 @@ from twilio.rest.ip_messaging.v1.service.user.user_channel import UserChannelLis
 
 
 class UserInstance(InstanceResource):
-
     """
     :ivar sid:
     :ivar account_sid:
@@ -191,6 +189,7 @@ class UserInstance(InstanceResource):
 
 
 class UserContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the UserContext
@@ -370,6 +369,7 @@ class UserContext(InstanceContext):
 
 
 class UserPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> UserInstance:
         """
         Build an instance of UserInstance
@@ -390,6 +390,7 @@ class UserPage(Page):
 
 
 class UserList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the UserList

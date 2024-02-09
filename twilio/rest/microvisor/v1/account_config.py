@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class AccountConfigInstance(InstanceResource):
-
     """
     :ivar key: The config key; up to 100 characters.
     :ivar date_updated:
@@ -135,6 +133,7 @@ class AccountConfigInstance(InstanceResource):
 
 
 class AccountConfigContext(InstanceContext):
+
     def __init__(self, version: Version, key: str):
         """
         Initialize the AccountConfigContext
@@ -267,6 +266,7 @@ class AccountConfigContext(InstanceContext):
 
 
 class AccountConfigPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AccountConfigInstance:
         """
         Build an instance of AccountConfigInstance
@@ -285,6 +285,7 @@ class AccountConfigPage(Page):
 
 
 class AccountConfigList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AccountConfigList

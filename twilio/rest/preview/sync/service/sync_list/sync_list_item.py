@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class SyncListItemInstance(InstanceResource):
+
     class QueryFromBoundType(object):
         INCLUSIVE = "inclusive"
         EXCLUSIVE = "exclusive"
@@ -179,6 +179,7 @@ class SyncListItemInstance(InstanceResource):
 
 
 class SyncListItemContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, list_sid: str, index: int):
         """
         Initialize the SyncListItemContext
@@ -355,6 +356,7 @@ class SyncListItemContext(InstanceContext):
 
 
 class SyncListItemPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SyncListItemInstance:
         """
         Build an instance of SyncListItemInstance
@@ -378,6 +380,7 @@ class SyncListItemPage(Page):
 
 
 class SyncListItemList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, list_sid: str):
         """
         Initialize the SyncListItemList

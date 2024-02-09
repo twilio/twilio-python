@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class AccountSecretInstance(InstanceResource):
-
     """
     :ivar key: The secret key; up to 100 characters.
     :ivar date_rotated:
@@ -133,6 +131,7 @@ class AccountSecretInstance(InstanceResource):
 
 
 class AccountSecretContext(InstanceContext):
+
     def __init__(self, version: Version, key: str):
         """
         Initialize the AccountSecretContext
@@ -265,6 +264,7 @@ class AccountSecretContext(InstanceContext):
 
 
 class AccountSecretPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AccountSecretInstance:
         """
         Build an instance of AccountSecretInstance
@@ -283,6 +283,7 @@ class AccountSecretPage(Page):
 
 
 class AccountSecretList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AccountSecretList

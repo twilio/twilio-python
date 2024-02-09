@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -23,6 +22,7 @@ from twilio.base.page import Page
 
 
 class InteractionChannelParticipantInstance(InstanceResource):
+
     class Status(object):
         CLOSED = "closed"
         WRAPUP = "wrapup"
@@ -125,6 +125,7 @@ class InteractionChannelParticipantInstance(InstanceResource):
 
 
 class InteractionChannelParticipantContext(InstanceContext):
+
     def __init__(
         self, version: Version, interaction_sid: str, channel_sid: str, sid: str
     ):
@@ -221,6 +222,7 @@ class InteractionChannelParticipantContext(InstanceContext):
 
 
 class InteractionChannelParticipantPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> InteractionChannelParticipantInstance:
@@ -246,6 +248,7 @@ class InteractionChannelParticipantPage(Page):
 
 
 class InteractionChannelParticipantList(ListResource):
+
     def __init__(self, version: Version, interaction_sid: str, channel_sid: str):
         """
         Initialize the InteractionChannelParticipantList

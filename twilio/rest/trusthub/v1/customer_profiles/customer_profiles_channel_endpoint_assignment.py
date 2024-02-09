@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class CustomerProfilesChannelEndpointAssignmentInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Item Assignment resource.
     :ivar customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.
@@ -125,6 +123,7 @@ class CustomerProfilesChannelEndpointAssignmentInstance(InstanceResource):
 
 
 class CustomerProfilesChannelEndpointAssignmentContext(InstanceContext):
+
     def __init__(self, version: Version, customer_profile_sid: str, sid: str):
         """
         Initialize the CustomerProfilesChannelEndpointAssignmentContext
@@ -221,6 +220,7 @@ class CustomerProfilesChannelEndpointAssignmentContext(InstanceContext):
 
 
 class CustomerProfilesChannelEndpointAssignmentPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> CustomerProfilesChannelEndpointAssignmentInstance:
@@ -245,6 +245,7 @@ class CustomerProfilesChannelEndpointAssignmentPage(Page):
 
 
 class CustomerProfilesChannelEndpointAssignmentList(ListResource):
+
     def __init__(self, version: Version, customer_profile_sid: str):
         """
         Initialize the CustomerProfilesChannelEndpointAssignmentList

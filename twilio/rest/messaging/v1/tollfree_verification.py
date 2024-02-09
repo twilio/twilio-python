@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class TollfreeVerificationInstance(InstanceResource):
+
     class OptInType(object):
         VERBAL = "VERBAL"
         WEB_FORM = "WEB_FORM"
@@ -127,9 +127,9 @@ class TollfreeVerificationInstance(InstanceResource):
             "production_message_sample"
         )
         self.opt_in_image_urls: Optional[List[str]] = payload.get("opt_in_image_urls")
-        self.opt_in_type: Optional[
-            "TollfreeVerificationInstance.OptInType"
-        ] = payload.get("opt_in_type")
+        self.opt_in_type: Optional["TollfreeVerificationInstance.OptInType"] = (
+            payload.get("opt_in_type")
+        )
         self.message_volume: Optional[str] = payload.get("message_volume")
         self.additional_information: Optional[str] = payload.get(
             "additional_information"
@@ -371,6 +371,7 @@ class TollfreeVerificationInstance(InstanceResource):
 
 
 class TollfreeVerificationContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the TollfreeVerificationContext
@@ -637,6 +638,7 @@ class TollfreeVerificationContext(InstanceContext):
 
 
 class TollfreeVerificationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TollfreeVerificationInstance:
         """
         Build an instance of TollfreeVerificationInstance
@@ -655,6 +657,7 @@ class TollfreeVerificationPage(Page):
 
 
 class TollfreeVerificationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the TollfreeVerificationList

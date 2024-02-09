@@ -20,6 +20,7 @@ from twilio.rest.api.v2010.account import AccountContext
 
 
 class V2010(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V2010 version of Api

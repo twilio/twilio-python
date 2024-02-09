@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class IpAddressInstance(InstanceResource):
-
     """
     :ivar sid: A 34 character string that uniquely identifies this resource.
     :ivar account_sid: The unique id of the Account that is responsible for this resource.
@@ -178,6 +176,7 @@ class IpAddressInstance(InstanceResource):
 
 
 class IpAddressContext(InstanceContext):
+
     def __init__(
         self,
         version: Version,
@@ -356,6 +355,7 @@ class IpAddressContext(InstanceContext):
 
 
 class IpAddressPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> IpAddressInstance:
         """
         Build an instance of IpAddressInstance
@@ -379,6 +379,7 @@ class IpAddressPage(Page):
 
 
 class IpAddressList(ListResource):
+
     def __init__(
         self, version: Version, account_sid: str, ip_access_control_list_sid: str
     ):

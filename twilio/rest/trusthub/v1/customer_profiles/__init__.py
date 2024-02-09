@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -33,6 +32,7 @@ from twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations imp
 
 
 class CustomerProfilesInstance(InstanceResource):
+
     class Status(object):
         DRAFT = "draft"
         PENDING_REVIEW = "pending-review"
@@ -219,6 +219,7 @@ class CustomerProfilesInstance(InstanceResource):
 
 
 class CustomerProfilesContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the CustomerProfilesContext
@@ -433,6 +434,7 @@ class CustomerProfilesContext(InstanceContext):
 
 
 class CustomerProfilesPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CustomerProfilesInstance:
         """
         Build an instance of CustomerProfilesInstance
@@ -451,6 +453,7 @@ class CustomerProfilesPage(Page):
 
 
 class CustomerProfilesList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CustomerProfilesList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -25,6 +24,7 @@ from twilio.rest.conversations.v1.user.user_conversation import UserConversation
 
 
 class UserInstance(InstanceResource):
+
     class WebhookEnabledType(object):
         TRUE = "true"
         FALSE = "false"
@@ -210,6 +210,7 @@ class UserInstance(InstanceResource):
 
 
 class UserContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the UserContext
@@ -408,6 +409,7 @@ class UserContext(InstanceContext):
 
 
 class UserPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> UserInstance:
         """
         Build an instance of UserInstance
@@ -426,6 +428,7 @@ class UserPage(Page):
 
 
 class UserList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the UserList

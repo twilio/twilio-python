@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -26,6 +25,7 @@ from twilio.rest.api.v2010.account.message.media import MediaList
 
 
 class MessageInstance(InstanceResource):
+
     class AddressRetention(object):
         RETAIN = "retain"
         OBFUSCATE = "obfuscate"
@@ -245,6 +245,7 @@ class MessageInstance(InstanceResource):
 
 
 class MessageContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the MessageContext
@@ -434,6 +435,7 @@ class MessageContext(InstanceContext):
 
 
 class MessagePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MessageInstance:
         """
         Build an instance of MessageInstance
@@ -454,6 +456,7 @@ class MessagePage(Page):
 
 
 class MessageList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the MessageList

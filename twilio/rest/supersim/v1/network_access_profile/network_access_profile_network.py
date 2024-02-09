@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class NetworkAccessProfileNetworkInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that identifies the Network resource.
     :ivar network_access_profile_sid: The unique string that identifies the Network resource's Network Access Profile resource.
@@ -122,6 +120,7 @@ class NetworkAccessProfileNetworkInstance(InstanceResource):
 
 
 class NetworkAccessProfileNetworkContext(InstanceContext):
+
     def __init__(self, version: Version, network_access_profile_sid: str, sid: str):
         """
         Initialize the NetworkAccessProfileNetworkContext
@@ -220,6 +219,7 @@ class NetworkAccessProfileNetworkContext(InstanceContext):
 
 
 class NetworkAccessProfileNetworkPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> NetworkAccessProfileNetworkInstance:
@@ -244,6 +244,7 @@ class NetworkAccessProfileNetworkPage(Page):
 
 
 class NetworkAccessProfileNetworkList(ListResource):
+
     def __init__(self, version: Version, network_access_profile_sid: str):
         """
         Initialize the NetworkAccessProfileNetworkList

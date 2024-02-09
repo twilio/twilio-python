@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -25,6 +24,7 @@ from twilio.rest.api.v2010.account.recording.add_on_result.payload import Payloa
 
 
 class AddOnResultInstance(InstanceResource):
+
     class Status(object):
         CANCELED = "canceled"
         COMPLETED = "completed"
@@ -157,6 +157,7 @@ class AddOnResultInstance(InstanceResource):
 
 
 class AddOnResultContext(InstanceContext):
+
     def __init__(
         self, version: Version, account_sid: str, reference_sid: str, sid: str
     ):
@@ -273,6 +274,7 @@ class AddOnResultContext(InstanceContext):
 
 
 class AddOnResultPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AddOnResultInstance:
         """
         Build an instance of AddOnResultInstance
@@ -296,6 +298,7 @@ class AddOnResultPage(Page):
 
 
 class AddOnResultList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, reference_sid: str):
         """
         Initialize the AddOnResultList

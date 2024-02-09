@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 from twilio.base import serialize, values
 
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class StreamMessageInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Stream Message resource.
     :ivar data: An arbitrary, schema-less object that contains the Stream Message body. Can be up to 4 KiB in length.
@@ -56,6 +54,7 @@ class StreamMessageInstance(InstanceResource):
 
 
 class StreamMessageList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, stream_sid: str):
         """
         Initialize the StreamMessageList

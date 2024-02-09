@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class BroadcastInstance(InstanceResource):
-
     """
     :ivar broadcast_sid: Numeric ID indentifying individual Broadcast requests
     :ivar created_date: Timestamp of when the Broadcast was created
@@ -58,6 +56,7 @@ class BroadcastInstance(InstanceResource):
 
 
 class BroadcastList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the BroadcastList

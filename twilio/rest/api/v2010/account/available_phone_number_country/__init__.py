@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -40,7 +39,6 @@ from twilio.rest.api.v2010.account.available_phone_number_country.voip import Vo
 
 
 class AvailablePhoneNumberCountryInstance(InstanceResource):
-
     """
     :ivar country_code: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country.
     :ivar country: The name of the country.
@@ -168,6 +166,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
 
 
 class AvailablePhoneNumberCountryContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
         Initialize the AvailablePhoneNumberCountryContext
@@ -341,6 +340,7 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
 
 
 class AvailablePhoneNumberCountryPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> AvailablePhoneNumberCountryInstance:
@@ -363,6 +363,7 @@ class AvailablePhoneNumberCountryPage(Page):
 
 
 class AvailablePhoneNumberCountryList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the AvailablePhoneNumberCountryList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class CommandInstance(InstanceResource):
-
     """
     :ivar sid:
     :ivar account_sid:
@@ -109,6 +107,7 @@ class CommandInstance(InstanceResource):
 
 
 class CommandContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the CommandContext
@@ -173,6 +172,7 @@ class CommandContext(InstanceContext):
 
 
 class CommandPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CommandInstance:
         """
         Build an instance of CommandInstance
@@ -191,6 +191,7 @@ class CommandPage(Page):
 
 
 class CommandList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CommandList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class EvaluationInstance(InstanceResource):
+
     class Status(object):
         COMPLIANT = "compliant"
         NONCOMPLIANT = "noncompliant"
@@ -110,6 +110,7 @@ class EvaluationInstance(InstanceResource):
 
 
 class EvaluationContext(InstanceContext):
+
     def __init__(self, version: Version, bundle_sid: str, sid: str):
         """
         Initialize the EvaluationContext
@@ -182,6 +183,7 @@ class EvaluationContext(InstanceContext):
 
 
 class EvaluationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EvaluationInstance:
         """
         Build an instance of EvaluationInstance
@@ -202,6 +204,7 @@ class EvaluationPage(Page):
 
 
 class EvaluationList(ListResource):
+
     def __init__(self, version: Version, bundle_sid: str):
         """
         Initialize the EvaluationList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -23,6 +22,7 @@ from twilio.base.page import Page
 
 
 class ConnectAppInstance(InstanceResource):
+
     class Permission(object):
         GET_ALL = "get-all"
         POST_ALL = "post-all"
@@ -215,6 +215,7 @@ class ConnectAppInstance(InstanceResource):
 
 
 class ConnectAppContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the ConnectAppContext
@@ -415,6 +416,7 @@ class ConnectAppContext(InstanceContext):
 
 
 class ConnectAppPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ConnectAppInstance:
         """
         Build an instance of ConnectAppInstance
@@ -435,6 +437,7 @@ class ConnectAppPage(Page):
 
 
 class ConnectAppList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ConnectAppList

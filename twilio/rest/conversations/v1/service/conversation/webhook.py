@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class WebhookInstance(InstanceResource):
+
     class Method(object):
         GET = "GET"
         POST = "POST"
@@ -194,6 +194,7 @@ class WebhookInstance(InstanceResource):
 
 
 class WebhookContext(InstanceContext):
+
     def __init__(
         self, version: Version, chat_service_sid: str, conversation_sid: str, sid: str
     ):
@@ -388,6 +389,7 @@ class WebhookContext(InstanceContext):
 
 
 class WebhookPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> WebhookInstance:
         """
         Build an instance of WebhookInstance
@@ -411,6 +413,7 @@ class WebhookPage(Page):
 
 
 class WebhookList(ListResource):
+
     def __init__(self, version: Version, chat_service_sid: str, conversation_sid: str):
         """
         Initialize the WebhookList

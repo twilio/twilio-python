@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class NotificationInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration.
     :ivar chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
@@ -201,6 +199,7 @@ class NotificationInstance(InstanceResource):
 
 
 class NotificationContext(InstanceContext):
+
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the NotificationContext
@@ -393,6 +392,7 @@ class NotificationContext(InstanceContext):
 
 
 class NotificationList(ListResource):
+
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the NotificationList

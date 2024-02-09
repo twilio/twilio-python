@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class MediaProcessorInstance(InstanceResource):
+
     class Order(object):
         ASC = "asc"
         DESC = "desc"
@@ -154,6 +154,7 @@ class MediaProcessorInstance(InstanceResource):
 
 
 class MediaProcessorContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the MediaProcessorContext
@@ -266,6 +267,7 @@ class MediaProcessorContext(InstanceContext):
 
 
 class MediaProcessorPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MediaProcessorInstance:
         """
         Build an instance of MediaProcessorInstance
@@ -284,6 +286,7 @@ class MediaProcessorPage(Page):
 
 
 class MediaProcessorList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the MediaProcessorList

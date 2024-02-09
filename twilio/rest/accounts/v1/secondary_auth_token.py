@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class SecondaryAuthTokenInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the secondary Auth Token was created for.
     :ivar date_created: The date and time in UTC when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -108,6 +106,7 @@ class SecondaryAuthTokenInstance(InstanceResource):
 
 
 class SecondaryAuthTokenContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the SecondaryAuthTokenContext
@@ -181,6 +180,7 @@ class SecondaryAuthTokenContext(InstanceContext):
 
 
 class SecondaryAuthTokenList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SecondaryAuthTokenList

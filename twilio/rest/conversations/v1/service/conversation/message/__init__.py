@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -27,6 +26,7 @@ from twilio.rest.conversations.v1.service.conversation.message.delivery_receipt 
 
 
 class MessageInstance(InstanceResource):
+
     class OrderType(object):
         ASC = "asc"
         DESC = "desc"
@@ -51,7 +51,7 @@ class MessageInstance(InstanceResource):
     :ivar delivery: An object that contains the summary of delivery statuses for the message to non-chat participants.
     :ivar url: An absolute API resource URL for this message.
     :ivar links: Contains an absolute API resource URL to access the delivery & read receipts of this message.
-    :ivar content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template.
+    :ivar content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template.
     """
 
     def __init__(
@@ -249,6 +249,7 @@ class MessageInstance(InstanceResource):
 
 
 class MessageContext(InstanceContext):
+
     def __init__(
         self, version: Version, chat_service_sid: str, conversation_sid: str, sid: str
     ):
@@ -491,6 +492,7 @@ class MessageContext(InstanceContext):
 
 
 class MessagePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MessageInstance:
         """
         Build an instance of MessageInstance
@@ -514,6 +516,7 @@ class MessagePage(Page):
 
 
 class MessageList(ListResource):
+
     def __init__(self, version: Version, chat_service_sid: str, conversation_sid: str):
         """
         Initialize the MessageList
@@ -559,7 +562,7 @@ class MessageList(ListResource):
         :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param media_sid: The Media SID to be attached to the new Message.
-        :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
+        :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
         :param content_variables: A structurally valid JSON string that contains values to resolve Rich Content template variables.
         :param subject: The subject of the message, can be up to 256 characters long.
 
@@ -621,7 +624,7 @@ class MessageList(ListResource):
         :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param media_sid: The Media SID to be attached to the new Message.
-        :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
+        :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
         :param content_variables: A structurally valid JSON string that contains values to resolve Rich Content template variables.
         :param subject: The subject of the message, can be up to 256 characters long.
 

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class CallSummariesInstance(InstanceResource):
+
     class AnsweredBy(object):
         UNKNOWN = "unknown"
         MACHINE_START = "machine_start"
@@ -103,9 +103,9 @@ class CallSummariesInstance(InstanceResource):
         self.call_state: Optional["CallSummariesInstance.CallState"] = payload.get(
             "call_state"
         )
-        self.processing_state: Optional[
-            "CallSummariesInstance.ProcessingState"
-        ] = payload.get("processing_state")
+        self.processing_state: Optional["CallSummariesInstance.ProcessingState"] = (
+            payload.get("processing_state")
+        )
         self.created_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("created_time")
         )
@@ -143,6 +143,7 @@ class CallSummariesInstance(InstanceResource):
 
 
 class CallSummariesPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CallSummariesInstance:
         """
         Build an instance of CallSummariesInstance
@@ -161,6 +162,7 @@ class CallSummariesPage(Page):
 
 
 class CallSummariesList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CallSummariesList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -25,6 +24,7 @@ from twilio.rest.taskrouter.v1.workspace.task.reservation import ReservationList
 
 
 class TaskInstance(InstanceResource):
+
     class Status(object):
         PENDING = "pending"
         RESERVED = "reserved"
@@ -254,6 +254,7 @@ class TaskInstance(InstanceResource):
 
 
 class TaskContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the TaskContext
@@ -471,6 +472,7 @@ class TaskContext(InstanceContext):
 
 
 class TaskPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TaskInstance:
         """
         Build an instance of TaskInstance
@@ -491,6 +493,7 @@ class TaskPage(Page):
 
 
 class TaskList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskList

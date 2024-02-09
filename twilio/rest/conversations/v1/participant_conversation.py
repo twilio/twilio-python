@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class ParticipantConversationInstance(InstanceResource):
+
     class State(object):
         INACTIVE = "inactive"
         ACTIVE = "active"
@@ -69,18 +69,18 @@ class ParticipantConversationInstance(InstanceResource):
         self.conversation_attributes: Optional[str] = payload.get(
             "conversation_attributes"
         )
-        self.conversation_date_created: Optional[
-            datetime
-        ] = deserialize.iso8601_datetime(payload.get("conversation_date_created"))
-        self.conversation_date_updated: Optional[
-            datetime
-        ] = deserialize.iso8601_datetime(payload.get("conversation_date_updated"))
+        self.conversation_date_created: Optional[datetime] = (
+            deserialize.iso8601_datetime(payload.get("conversation_date_created"))
+        )
+        self.conversation_date_updated: Optional[datetime] = (
+            deserialize.iso8601_datetime(payload.get("conversation_date_updated"))
+        )
         self.conversation_created_by: Optional[str] = payload.get(
             "conversation_created_by"
         )
-        self.conversation_state: Optional[
-            "ParticipantConversationInstance.State"
-        ] = payload.get("conversation_state")
+        self.conversation_state: Optional["ParticipantConversationInstance.State"] = (
+            payload.get("conversation_state")
+        )
         self.conversation_timers: Optional[Dict[str, object]] = payload.get(
             "conversation_timers"
         )
@@ -97,6 +97,7 @@ class ParticipantConversationInstance(InstanceResource):
 
 
 class ParticipantConversationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ParticipantConversationInstance:
         """
         Build an instance of ParticipantConversationInstance
@@ -115,6 +116,7 @@ class ParticipantConversationPage(Page):
 
 
 class ParticipantConversationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ParticipantConversationList

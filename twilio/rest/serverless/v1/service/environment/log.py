@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class LogInstance(InstanceResource):
+
     class Level(object):
         INFO = "info"
         WARN = "warn"
@@ -122,6 +122,7 @@ class LogInstance(InstanceResource):
 
 
 class LogContext(InstanceContext):
+
     def __init__(
         self, version: Version, service_sid: str, environment_sid: str, sid: str
     ):
@@ -200,6 +201,7 @@ class LogContext(InstanceContext):
 
 
 class LogPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> LogInstance:
         """
         Build an instance of LogInstance
@@ -223,6 +225,7 @@ class LogPage(Page):
 
 
 class LogList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, environment_sid: str):
         """
         Initialize the LogList

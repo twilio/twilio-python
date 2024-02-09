@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
 
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class InsightsSettingsAnswerSetsInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
     :ivar answer_sets: The lis of answer sets
@@ -53,6 +51,7 @@ class InsightsSettingsAnswerSetsInstance(InstanceResource):
 
 
 class InsightsSettingsAnswerSetsList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the InsightsSettingsAnswerSetsList

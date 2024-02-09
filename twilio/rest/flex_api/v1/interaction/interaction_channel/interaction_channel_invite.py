@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
 
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class InteractionChannelInviteInstance(InstanceResource):
-
     """
     :ivar sid: The unique string created by Twilio to identify an Interaction Channel Invite resource.
     :ivar interaction_sid: The Interaction SID for this Channel.
@@ -63,6 +61,7 @@ class InteractionChannelInviteInstance(InstanceResource):
 
 
 class InteractionChannelInvitePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> InteractionChannelInviteInstance:
         """
         Build an instance of InteractionChannelInviteInstance
@@ -86,6 +85,7 @@ class InteractionChannelInvitePage(Page):
 
 
 class InteractionChannelInviteList(ListResource):
+
     def __init__(self, version: Version, interaction_sid: str, channel_sid: str):
         """
         Initialize the InteractionChannelInviteList

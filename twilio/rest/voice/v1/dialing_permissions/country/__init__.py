@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -26,7 +25,6 @@ from twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix im
 
 
 class CountryInstance(InstanceResource):
-
     """
     :ivar iso_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
     :ivar name: The name of the country.
@@ -116,6 +114,7 @@ class CountryInstance(InstanceResource):
 
 
 class CountryContext(InstanceContext):
+
     def __init__(self, version: Version, iso_code: str):
         """
         Initialize the CountryContext
@@ -194,6 +193,7 @@ class CountryContext(InstanceContext):
 
 
 class CountryPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CountryInstance:
         """
         Build an instance of CountryInstance
@@ -212,6 +212,7 @@ class CountryPage(Page):
 
 
 class CountryList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CountryList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -28,6 +27,7 @@ from twilio.rest.messaging.v1.brand_registration.brand_vetting import BrandVetti
 
 
 class BrandRegistrationInstance(InstanceResource):
+
     class BrandFeedback(object):
         TAX_ID = "TAX_ID"
         STOCK_SYMBOL = "STOCK_SYMBOL"
@@ -103,9 +103,9 @@ class BrandRegistrationInstance(InstanceResource):
         self.brand_feedback: Optional[
             List["BrandRegistrationInstance.BrandFeedback"]
         ] = payload.get("brand_feedback")
-        self.identity_status: Optional[
-            "BrandRegistrationInstance.IdentityStatus"
-        ] = payload.get("identity_status")
+        self.identity_status: Optional["BrandRegistrationInstance.IdentityStatus"] = (
+            payload.get("identity_status")
+        )
         self.russell_3000: Optional[bool] = payload.get("russell_3000")
         self.government_entity: Optional[bool] = payload.get("government_entity")
         self.tax_exempt_status: Optional[str] = payload.get("tax_exempt_status")
@@ -196,6 +196,7 @@ class BrandRegistrationInstance(InstanceResource):
 
 
 class BrandRegistrationContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the BrandRegistrationContext
@@ -325,6 +326,7 @@ class BrandRegistrationContext(InstanceContext):
 
 
 class BrandRegistrationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> BrandRegistrationInstance:
         """
         Build an instance of BrandRegistrationInstance
@@ -343,6 +345,7 @@ class BrandRegistrationPage(Page):
 
 
 class BrandRegistrationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the BrandRegistrationList

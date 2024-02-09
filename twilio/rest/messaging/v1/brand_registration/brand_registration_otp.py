@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 
 from twilio.base.instance_resource import InstanceResource
@@ -21,7 +20,6 @@ from twilio.base.version import Version
 
 
 class BrandRegistrationOtpInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Brand Registration resource.
     :ivar brand_registration_sid: The unique string to identify Brand Registration of Sole Proprietor Brand
@@ -52,6 +50,7 @@ class BrandRegistrationOtpInstance(InstanceResource):
 
 
 class BrandRegistrationOtpList(ListResource):
+
     def __init__(self, version: Version, brand_registration_sid: str):
         """
         Initialize the BrandRegistrationOtpList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class DeploymentInstance(InstanceResource):
-
     """
     :ivar sid: Contains a 34 character string that uniquely identifies this Deployment resource.
     :ivar url: Contains an absolute URL for this Deployment resource.
@@ -163,6 +161,7 @@ class DeploymentInstance(InstanceResource):
 
 
 class DeploymentContext(InstanceContext):
+
     def __init__(self, version: Version, fleet_sid: str, sid: str):
         """
         Initialize the DeploymentContext
@@ -321,6 +320,7 @@ class DeploymentContext(InstanceContext):
 
 
 class DeploymentPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DeploymentInstance:
         """
         Build an instance of DeploymentInstance
@@ -341,6 +341,7 @@ class DeploymentPage(Page):
 
 
 class DeploymentList(ListResource):
+
     def __init__(self, version: Version, fleet_sid: str):
         """
         Initialize the DeploymentList

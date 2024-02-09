@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class EventInstance(InstanceResource):
-
     """
     :ivar request: Contains a dictionary representing the request of the call.
     :ivar response: Contains a dictionary representing the call response, including a list of the call events.
@@ -53,6 +51,7 @@ class EventInstance(InstanceResource):
 
 
 class EventPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EventInstance:
         """
         Build an instance of EventInstance
@@ -76,6 +75,7 @@ class EventPage(Page):
 
 
 class EventList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the EventList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -32,6 +31,7 @@ from twilio.rest.messaging.v1.service.us_app_to_person_usecase import (
 
 
 class ServiceInstance(InstanceResource):
+
     class ScanMessageContent(object):
         INHERIT = "inherit"
         ENABLE = "enable"
@@ -85,9 +85,9 @@ class ServiceInstance(InstanceResource):
         self.sticky_sender: Optional[bool] = payload.get("sticky_sender")
         self.mms_converter: Optional[bool] = payload.get("mms_converter")
         self.smart_encoding: Optional[bool] = payload.get("smart_encoding")
-        self.scan_message_content: Optional[
-            "ServiceInstance.ScanMessageContent"
-        ] = payload.get("scan_message_content")
+        self.scan_message_content: Optional["ServiceInstance.ScanMessageContent"] = (
+            payload.get("scan_message_content")
+        )
         self.fallback_to_long_code: Optional[bool] = payload.get(
             "fallback_to_long_code"
         )
@@ -341,6 +341,7 @@ class ServiceInstance(InstanceResource):
 
 
 class ServiceContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ServiceContext
@@ -652,6 +653,7 @@ class ServiceContext(InstanceContext):
 
 
 class ServicePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
@@ -670,6 +672,7 @@ class ServicePage(Page):
 
 
 class ServiceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ServiceList

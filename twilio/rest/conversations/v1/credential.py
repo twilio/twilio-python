@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class CredentialInstance(InstanceResource):
+
     class PushType(object):
         APN = "apn"
         GCM = "gcm"
@@ -191,6 +191,7 @@ class CredentialInstance(InstanceResource):
 
 
 class CredentialContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the CredentialContext
@@ -365,6 +366,7 @@ class CredentialContext(InstanceContext):
 
 
 class CredentialPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CredentialInstance:
         """
         Build an instance of CredentialInstance
@@ -383,6 +385,7 @@ class CredentialPage(Page):
 
 
 class CredentialList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CredentialList

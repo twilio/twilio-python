@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class InsightsQuestionnairesInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
     :ivar questionnaire_sid: The sid of this questionnaire
@@ -189,6 +187,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
 
 
 class InsightsQuestionnairesContext(InstanceContext):
+
     def __init__(self, version: Version, questionnaire_sid: str):
         """
         Initialize the InsightsQuestionnairesContext
@@ -393,6 +392,7 @@ class InsightsQuestionnairesContext(InstanceContext):
 
 
 class InsightsQuestionnairesPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> InsightsQuestionnairesInstance:
         """
         Build an instance of InsightsQuestionnairesInstance
@@ -411,6 +411,7 @@ class InsightsQuestionnairesPage(Page):
 
 
 class InsightsQuestionnairesList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the InsightsQuestionnairesList

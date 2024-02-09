@@ -19,6 +19,7 @@ from twilio.rest.lookups.v2.phone_number import PhoneNumberList
 
 
 class V2(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of Lookups

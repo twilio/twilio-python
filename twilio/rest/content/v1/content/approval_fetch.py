@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -21,7 +20,6 @@ from twilio.base.version import Version
 
 
 class ApprovalFetchInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that that we created to identify the Content resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/usage/api/account) that created Content resource.
@@ -86,6 +84,7 @@ class ApprovalFetchInstance(InstanceResource):
 
 
 class ApprovalFetchContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ApprovalFetchContext
@@ -150,6 +149,7 @@ class ApprovalFetchContext(InstanceContext):
 
 
 class ApprovalFetchList(ListResource):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ApprovalFetchList

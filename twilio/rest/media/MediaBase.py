@@ -17,6 +17,7 @@ from twilio.rest.media.v1 import V1
 
 
 class MediaBase(Domain):
+
     def __init__(self, twilio: Client):
         """
         Initialize the Media Domain

@@ -3,6 +3,34 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-02-09] Version 9.0.0-rc.2
+-------------------------------
+**Library - Chore**
+- [PR #765](https://github.com/twilio/twilio-python/pull/765): disables cluster test. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Flex**
+- Adding `flex_instance_sid` to Flex Configuration
+
+**Insights**
+- add flag to restrict access to unapid customers
+
+**Lookups**
+- Remove `carrier` field from `sms_pumping_risk` and leave `carrier_risk_category` **(breaking change)**
+- Remove carrier information from call forwarding package **(breaking change)**
+
+**Messaging**
+- Add update instance endpoints to us_app_to_person api
+
+**Push**
+- Migrated to new Push API V4 with Resilient Notification Delivery.
+
+**Trusthub**
+- Add optional field NotificationEmail to the POST /v1/ComplianceInquiries/Customers/Initialize API
+
+**Verify**
+- `Tags` property added again to Public Docs **(breaking change)**
+
+
 [2024-01-08] Version 9.0.0-rc.1
 -------------------------------
 **Library - Chore**

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -28,6 +27,7 @@ from twilio.rest.chat.v2.service.channel.webhook import WebhookList
 
 
 class ChannelInstance(InstanceResource):
+
     class ChannelType(object):
         PUBLIC = "public"
         PRIVATE = "private"
@@ -268,6 +268,7 @@ class ChannelInstance(InstanceResource):
 
 
 class ChannelContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the ChannelContext
@@ -541,6 +542,7 @@ class ChannelContext(InstanceContext):
 
 
 class ChannelPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ChannelInstance:
         """
         Build an instance of ChannelInstance
@@ -561,6 +563,7 @@ class ChannelPage(Page):
 
 
 class ChannelList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the ChannelList

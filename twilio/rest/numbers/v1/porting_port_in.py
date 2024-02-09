@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 
 from twilio.base.instance_resource import InstanceResource
@@ -21,9 +20,8 @@ from twilio.base.version import Version
 
 
 class PortingPortInInstance(InstanceResource):
-
     """
-    :ivar port_in_request_sid: The SID of the Port In request, It is the request identifier
+    :ivar port_in_request_sid: The SID of the Port In request. This is a unique identifier of the port in request.
     :ivar url:
     """
 
@@ -44,6 +42,7 @@ class PortingPortInInstance(InstanceResource):
 
 
 class PortingPortInList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the PortingPortInList

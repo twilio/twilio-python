@@ -12,8 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class ComplianceInquiriesInstance(InstanceResource):
-
     """
     :ivar inquiry_id: The unique ID used to start an embedded compliance registration session.
     :ivar inquiry_session_token: The session token used to start an embedded compliance registration session.
@@ -100,6 +98,7 @@ class ComplianceInquiriesInstance(InstanceResource):
 
 
 class ComplianceInquiriesContext(InstanceContext):
+
     def __init__(self, version: Version, customer_id: str):
         """
         Initialize the ComplianceInquiriesContext
@@ -178,6 +177,7 @@ class ComplianceInquiriesContext(InstanceContext):
 
 
 class ComplianceInquiriesList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ComplianceInquiriesList
@@ -189,11 +189,16 @@ class ComplianceInquiriesList(ListResource):
 
         self._uri = "/ComplianceInquiries/Customers/Initialize"
 
-    def create(self, primary_profile_sid: str) -> ComplianceInquiriesInstance:
+    def create(
+        self,
+        primary_profile_sid: str,
+        notification_email: Union[str, object] = values.unset,
+    ) -> ComplianceInquiriesInstance:
         """
         Create the ComplianceInquiriesInstance
 
         :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+        :param notification_email: The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used.
 
         :returns: The created ComplianceInquiriesInstance
         """
@@ -201,6 +206,7 @@ class ComplianceInquiriesList(ListResource):
         data = values.of(
             {
                 "PrimaryProfileSid": primary_profile_sid,
+                "NotificationEmail": notification_email,
             }
         )
 
@@ -213,12 +219,15 @@ class ComplianceInquiriesList(ListResource):
         return ComplianceInquiriesInstance(self._version, payload)
 
     async def create_async(
-        self, primary_profile_sid: str
+        self,
+        primary_profile_sid: str,
+        notification_email: Union[str, object] = values.unset,
     ) -> ComplianceInquiriesInstance:
         """
         Asynchronously create the ComplianceInquiriesInstance
 
         :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+        :param notification_email: The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used.
 
         :returns: The created ComplianceInquiriesInstance
         """
@@ -226,6 +235,7 @@ class ComplianceInquiriesList(ListResource):
         data = values.of(
             {
                 "PrimaryProfileSid": primary_profile_sid,
+                "NotificationEmail": notification_email,
             }
         )
 

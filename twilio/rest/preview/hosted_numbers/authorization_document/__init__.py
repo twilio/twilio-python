@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -27,6 +26,7 @@ from twilio.rest.preview.hosted_numbers.authorization_document.dependent_hosted_
 
 
 class AuthorizationDocumentInstance(InstanceResource):
+
     class Status(object):
         OPENED = "opened"
         SIGNING = "signing"
@@ -191,6 +191,7 @@ class AuthorizationDocumentInstance(InstanceResource):
 
 
 class AuthorizationDocumentContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the AuthorizationDocumentContext
@@ -367,6 +368,7 @@ class AuthorizationDocumentContext(InstanceContext):
 
 
 class AuthorizationDocumentPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AuthorizationDocumentInstance:
         """
         Build an instance of AuthorizationDocumentInstance
@@ -385,6 +387,7 @@ class AuthorizationDocumentPage(Page):
 
 
 class AuthorizationDocumentList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AuthorizationDocumentList

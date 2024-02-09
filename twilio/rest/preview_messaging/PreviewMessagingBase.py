@@ -17,6 +17,7 @@ from twilio.rest.preview_messaging.v1 import V1
 
 
 class PreviewMessagingBase(Domain):
+
     def __init__(self, twilio: Client):
         """
         Initialize the PreviewMessaging Domain

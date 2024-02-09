@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import date
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class ThisMonthInstance(InstanceResource):
+
     class Category(object):
         A2P_REGISTRATION_FEES = "a2p-registration-fees"
         AGENT_CONFERENCE = "agent-conference"
@@ -405,6 +405,7 @@ class ThisMonthInstance(InstanceResource):
 
 
 class ThisMonthPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ThisMonthInstance:
         """
         Build an instance of ThisMonthInstance
@@ -425,6 +426,7 @@ class ThisMonthPage(Page):
 
 
 class ThisMonthList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ThisMonthList

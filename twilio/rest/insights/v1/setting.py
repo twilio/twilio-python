@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class SettingInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique SID identifier of the Account.
     :ivar advanced_features: A boolean flag indicating whether Advanced Features for Voice Insights are enabled.
@@ -135,6 +133,7 @@ class SettingInstance(InstanceResource):
 
 
 class SettingContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the SettingContext
@@ -268,6 +267,7 @@ class SettingContext(InstanceContext):
 
 
 class SettingList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SettingList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -21,6 +20,7 @@ from twilio.base.version import Version
 
 
 class ProvisioningStatusInstance(InstanceResource):
+
     class Status(object):
         ACTIVE = "active"
         IN_PROGRESS = "in-progress"
@@ -85,6 +85,7 @@ class ProvisioningStatusInstance(InstanceResource):
 
 
 class ProvisioningStatusContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the ProvisioningStatusContext
@@ -142,6 +143,7 @@ class ProvisioningStatusContext(InstanceContext):
 
 
 class ProvisioningStatusList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ProvisioningStatusList

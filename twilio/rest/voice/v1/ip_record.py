@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class IpRecordInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IP Record resource.
     :ivar sid: The unique string that we created to identify the IP Record resource.
@@ -151,6 +149,7 @@ class IpRecordInstance(InstanceResource):
 
 
 class IpRecordContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the IpRecordContext
@@ -287,6 +286,7 @@ class IpRecordContext(InstanceContext):
 
 
 class IpRecordPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> IpRecordInstance:
         """
         Build an instance of IpRecordInstance
@@ -305,6 +305,7 @@ class IpRecordPage(Page):
 
 
 class IpRecordList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the IpRecordList

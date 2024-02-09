@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class BrandVettingInstance(InstanceResource):
+
     class VettingProvider(object):
         CAMPAIGN_VERIFY = "campaign-verify"
 
@@ -61,9 +61,9 @@ class BrandVettingInstance(InstanceResource):
         self.vetting_id: Optional[str] = payload.get("vetting_id")
         self.vetting_class: Optional[str] = payload.get("vetting_class")
         self.vetting_status: Optional[str] = payload.get("vetting_status")
-        self.vetting_provider: Optional[
-            "BrandVettingInstance.VettingProvider"
-        ] = payload.get("vetting_provider")
+        self.vetting_provider: Optional["BrandVettingInstance.VettingProvider"] = (
+            payload.get("vetting_provider")
+        )
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {
@@ -117,6 +117,7 @@ class BrandVettingInstance(InstanceResource):
 
 
 class BrandVettingContext(InstanceContext):
+
     def __init__(self, version: Version, brand_sid: str, brand_vetting_sid: str):
         """
         Initialize the BrandVettingContext
@@ -189,6 +190,7 @@ class BrandVettingContext(InstanceContext):
 
 
 class BrandVettingPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> BrandVettingInstance:
         """
         Build an instance of BrandVettingInstance
@@ -209,6 +211,7 @@ class BrandVettingPage(Page):
 
 
 class BrandVettingList(ListResource):
+
     def __init__(self, version: Version, brand_sid: str):
         """
         Initialize the BrandVettingList

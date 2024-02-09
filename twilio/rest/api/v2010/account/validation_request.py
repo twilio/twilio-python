@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
 
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class ValidationRequestInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for the Caller ID.
     :ivar call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Caller ID is associated with.
@@ -55,6 +53,7 @@ class ValidationRequestInstance(InstanceResource):
 
 
 class ValidationRequestList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ValidationRequestList

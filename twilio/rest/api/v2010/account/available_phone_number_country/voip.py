@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
 
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class VoipInstance(InstanceResource):
-
     """
     :ivar friendly_name: A formatted version of the phone number.
     :ivar phone_number: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
@@ -79,6 +77,7 @@ class VoipInstance(InstanceResource):
 
 
 class VoipPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> VoipInstance:
         """
         Build an instance of VoipInstance
@@ -102,6 +101,7 @@ class VoipPage(Page):
 
 
 class VoipList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
         Initialize the VoipList

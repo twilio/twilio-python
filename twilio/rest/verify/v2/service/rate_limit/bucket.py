@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class BucketInstance(InstanceResource):
-
     """
     :ivar sid: A 34 character string that uniquely identifies this Bucket.
     :ivar rate_limit_sid: The Twilio-provided string that uniquely identifies the Rate Limit resource.
@@ -168,6 +166,7 @@ class BucketInstance(InstanceResource):
 
 
 class BucketContext(InstanceContext):
+
     def __init__(
         self, version: Version, service_sid: str, rate_limit_sid: str, sid: str
     ):
@@ -338,6 +337,7 @@ class BucketContext(InstanceContext):
 
 
 class BucketPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> BucketInstance:
         """
         Build an instance of BucketInstance
@@ -361,6 +361,7 @@ class BucketPage(Page):
 
 
 class BucketList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, rate_limit_sid: str):
         """
         Initialize the BucketList

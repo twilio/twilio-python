@@ -18,6 +18,7 @@ from twilio.rest.studio.v2 import V2
 
 
 class StudioBase(Domain):
+
     def __init__(self, twilio: Client):
         """
         Initialize the Studio Domain

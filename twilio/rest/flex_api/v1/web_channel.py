@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class WebChannelInstance(InstanceResource):
+
     class ChatStatus(object):
         INACTIVE = "inactive"
 
@@ -155,6 +155,7 @@ class WebChannelInstance(InstanceResource):
 
 
 class WebChannelContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the WebChannelContext
@@ -299,6 +300,7 @@ class WebChannelContext(InstanceContext):
 
 
 class WebChannelPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> WebChannelInstance:
         """
         Build an instance of WebChannelInstance
@@ -317,6 +319,7 @@ class WebChannelPage(Page):
 
 
 class WebChannelList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the WebChannelList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional
 from twilio.base import deserialize
 
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class MessageInstance(InstanceResource):
-
     """
     :ivar total_message_count: The number of Messages processed in the request, equal to the sum of success_count and error_count.
     :ivar success_count: The number of Messages successfully created.
@@ -59,6 +57,7 @@ class MessageInstance(InstanceResource):
 
 
 class MessageList(ListResource):
+
     class CreateMessagesRequest(object):
         """
         :ivar messages:
@@ -81,6 +80,7 @@ class MessageList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
+
             self.messages: Optional[List[MessageList.MessagingV1Message]] = payload.get(
                 "messages"
             )
@@ -132,6 +132,7 @@ class MessageList(ListResource):
         """
 
         def __init__(self, payload: Dict[str, Any]):
+
             self.to: Optional[str] = payload.get("to")
             self.body: Optional[str] = payload.get("body")
             self.content_variables: Optional[dict[str, str]] = payload.get(

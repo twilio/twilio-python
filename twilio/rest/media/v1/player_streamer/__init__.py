@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -25,6 +24,7 @@ from twilio.rest.media.v1.player_streamer.playback_grant import PlaybackGrantLis
 
 
 class PlayerStreamerInstance(InstanceResource):
+
     class EndedReason(object):
         ENDED_VIA_API = "ended-via-api"
         MAX_DURATION_EXCEEDED = "max-duration-exceeded"
@@ -171,6 +171,7 @@ class PlayerStreamerInstance(InstanceResource):
 
 
 class PlayerStreamerContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the PlayerStreamerContext
@@ -297,6 +298,7 @@ class PlayerStreamerContext(InstanceContext):
 
 
 class PlayerStreamerPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> PlayerStreamerInstance:
         """
         Build an instance of PlayerStreamerInstance
@@ -315,6 +317,7 @@ class PlayerStreamerPage(Page):
 
 
 class PlayerStreamerList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the PlayerStreamerList

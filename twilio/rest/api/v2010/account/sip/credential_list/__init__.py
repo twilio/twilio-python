@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -25,7 +24,6 @@ from twilio.rest.api.v2010.account.sip.credential_list.credential import Credent
 
 
 class CredentialListInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) that owns this resource.
     :ivar date_created: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
@@ -159,6 +157,7 @@ class CredentialListInstance(InstanceResource):
 
 
 class CredentialListContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the CredentialListContext
@@ -322,6 +321,7 @@ class CredentialListContext(InstanceContext):
 
 
 class CredentialListPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CredentialListInstance:
         """
         Build an instance of CredentialListInstance
@@ -342,6 +342,7 @@ class CredentialListPage(Page):
 
 
 class CredentialListList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the CredentialListList

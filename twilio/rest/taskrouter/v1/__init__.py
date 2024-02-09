@@ -19,6 +19,7 @@ from twilio.rest.taskrouter.v1.workspace import WorkspaceList
 
 
 class V1(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Taskrouter

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
 
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class LocalInstance(InstanceResource):
-
     """
     :ivar friendly_name: A formatted version of the phone number.
     :ivar phone_number: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
@@ -79,6 +77,7 @@ class LocalInstance(InstanceResource):
 
 
 class LocalPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> LocalInstance:
         """
         Build an instance of LocalInstance
@@ -102,6 +101,7 @@ class LocalPage(Page):
 
 
 class LocalList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
         Initialize the LocalList

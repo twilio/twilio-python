@@ -24,6 +24,7 @@ from twilio.rest.voice.v1.source_ip_mapping import SourceIpMappingList
 
 
 class V1(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Voice

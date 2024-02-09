@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class WorkersCumulativeStatisticsInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
     :ivar start_time: The beginning of the interval during which these statistics were calculated, in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -154,6 +152,7 @@ class WorkersCumulativeStatisticsInstance(InstanceResource):
 
 
 class WorkersCumulativeStatisticsContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkersCumulativeStatisticsContext
@@ -256,6 +255,7 @@ class WorkersCumulativeStatisticsContext(InstanceContext):
 
 
 class WorkersCumulativeStatisticsList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkersCumulativeStatisticsList

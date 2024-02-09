@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class UsAppToPersonUsecaseInstance(InstanceResource):
-
     """
     :ivar us_app_to_person_usecases: Human readable name, code, description and post_approval_required (indicates whether or not post approval is required for this Use Case) of A2P Campaign Use Cases.
     """
@@ -51,6 +49,7 @@ class UsAppToPersonUsecaseInstance(InstanceResource):
 
 
 class UsAppToPersonUsecaseList(ListResource):
+
     def __init__(self, version: Version, messaging_service_sid: str):
         """
         Initialize the UsAppToPersonUsecaseList

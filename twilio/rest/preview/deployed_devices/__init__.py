@@ -19,6 +19,7 @@ from twilio.rest.preview.deployed_devices.fleet import FleetList
 
 
 class DeployedDevices(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the DeployedDevices version of Preview

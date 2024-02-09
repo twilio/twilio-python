@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class RatePlanInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the RatePlan resource.
     :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
@@ -181,6 +179,7 @@ class RatePlanInstance(InstanceResource):
 
 
 class RatePlanContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the RatePlanContext
@@ -325,6 +324,7 @@ class RatePlanContext(InstanceContext):
 
 
 class RatePlanPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> RatePlanInstance:
         """
         Build an instance of RatePlanInstance
@@ -343,6 +343,7 @@ class RatePlanPage(Page):
 
 
 class RatePlanList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the RatePlanList

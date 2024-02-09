@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -39,6 +38,7 @@ from twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics impor
 
 
 class TaskQueueInstance(InstanceResource):
+
     class TaskOrder(object):
         FIFO = "FIFO"
         LIFO = "LIFO"
@@ -252,6 +252,7 @@ class TaskQueueInstance(InstanceResource):
 
 
 class TaskQueueContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the TaskQueueContext
@@ -479,6 +480,7 @@ class TaskQueueContext(InstanceContext):
 
 
 class TaskQueuePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TaskQueueInstance:
         """
         Build an instance of TaskQueueInstance
@@ -499,6 +501,7 @@ class TaskQueuePage(Page):
 
 
 class TaskQueueList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskQueueList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import date, datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,6 +22,7 @@ from twilio.base.version import Version
 
 
 class FeedbackSummaryInstance(InstanceResource):
+
     class Status(object):
         QUEUED = "queued"
         IN_PROGRESS = "in-progress"
@@ -155,6 +155,7 @@ class FeedbackSummaryInstance(InstanceResource):
 
 
 class FeedbackSummaryContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the FeedbackSummaryContext
@@ -249,6 +250,7 @@ class FeedbackSummaryContext(InstanceContext):
 
 
 class FeedbackSummaryList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the FeedbackSummaryList

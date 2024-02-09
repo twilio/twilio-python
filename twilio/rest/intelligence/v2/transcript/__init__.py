@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -27,6 +26,7 @@ from twilio.rest.intelligence.v2.transcript.sentence import SentenceList
 
 
 class TranscriptInstance(InstanceResource):
+
     class Status(object):
         QUEUED = "queued"
         IN_PROGRESS = "in-progress"
@@ -42,7 +42,7 @@ class TranscriptInstance(InstanceResource):
     :ivar date_updated: The date that this Transcript was updated, given in ISO 8601 format.
     :ivar status: 
     :ivar channel: Media Channel describing Transcript Source and Participant Mapping
-    :ivar data_logging: Data logging allows Twilio to improve the quality of the speech recognition through using customer data to refine its speech recognition models.
+    :ivar data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
     :ivar language_code: The default language code of the audio.
     :ivar customer_key: 
     :ivar media_start_time: The date that this Transcript's media was started, given in ISO 8601 format.
@@ -167,6 +167,7 @@ class TranscriptInstance(InstanceResource):
 
 
 class TranscriptContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the TranscriptContext
@@ -295,6 +296,7 @@ class TranscriptContext(InstanceContext):
 
 
 class TranscriptPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TranscriptInstance:
         """
         Build an instance of TranscriptInstance
@@ -313,6 +315,7 @@ class TranscriptPage(Page):
 
 
 class TranscriptList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the TranscriptList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class RecordingRulesInstance(InstanceResource):
-
     """
     :ivar room_sid: The SID of the Room resource for the Recording Rules
     :ivar rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
@@ -58,6 +56,7 @@ class RecordingRulesInstance(InstanceResource):
 
 
 class RecordingRulesList(ListResource):
+
     def __init__(self, version: Version, room_sid: str):
         """
         Initialize the RecordingRulesList

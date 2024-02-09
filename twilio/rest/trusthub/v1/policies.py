@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class PoliciesInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that identifies the Policy resource.
     :ivar friendly_name: A human-readable description that is assigned to describe the Policy resource. Examples can include Primary Customer profile policy
@@ -90,6 +88,7 @@ class PoliciesInstance(InstanceResource):
 
 
 class PoliciesContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the PoliciesContext
@@ -154,6 +153,7 @@ class PoliciesContext(InstanceContext):
 
 
 class PoliciesPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> PoliciesInstance:
         """
         Build an instance of PoliciesInstance
@@ -172,6 +172,7 @@ class PoliciesPage(Page):
 
 
 class PoliciesList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the PoliciesList

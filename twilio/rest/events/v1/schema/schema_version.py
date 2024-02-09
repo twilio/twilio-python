@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class SchemaVersionInstance(InstanceResource):
-
     """
     :ivar id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
     :ivar schema_version: The version of this schema.
@@ -103,6 +101,7 @@ class SchemaVersionInstance(InstanceResource):
 
 
 class SchemaVersionContext(InstanceContext):
+
     def __init__(self, version: Version, id: str, schema_version: int):
         """
         Initialize the SchemaVersionContext
@@ -171,6 +170,7 @@ class SchemaVersionContext(InstanceContext):
 
 
 class SchemaVersionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SchemaVersionInstance:
         """
         Build an instance of SchemaVersionInstance
@@ -189,6 +189,7 @@ class SchemaVersionPage(Page):
 
 
 class SchemaVersionList(ListResource):
+
     def __init__(self, version: Version, id: str):
         """
         Initialize the SchemaVersionList

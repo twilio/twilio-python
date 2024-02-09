@@ -19,6 +19,7 @@ from twilio.rest.chat.v3.channel import ChannelList
 
 
 class V3(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V3 version of Chat

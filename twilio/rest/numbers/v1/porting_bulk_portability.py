@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
@@ -23,6 +22,7 @@ from twilio.base.version import Version
 
 
 class PortingBulkPortabilityInstance(InstanceResource):
+
     class Status(object):
         IN_PROGRESS = "in-progress"
         COMPLETED = "completed"
@@ -102,6 +102,7 @@ class PortingBulkPortabilityInstance(InstanceResource):
 
 
 class PortingBulkPortabilityContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the PortingBulkPortabilityContext
@@ -166,6 +167,7 @@ class PortingBulkPortabilityContext(InstanceContext):
 
 
 class PortingBulkPortabilityList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the PortingBulkPortabilityList

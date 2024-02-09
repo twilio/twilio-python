@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class ApplicationInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resource.
     :ivar api_version: The API version used to start a new TwiML session.
@@ -281,6 +279,7 @@ class ApplicationInstance(InstanceResource):
 
 
 class ApplicationContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the ApplicationContext
@@ -525,6 +524,7 @@ class ApplicationContext(InstanceContext):
 
 
 class ApplicationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ApplicationInstance:
         """
         Build an instance of ApplicationInstance
@@ -545,6 +545,7 @@ class ApplicationPage(Page):
 
 
 class ApplicationList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ApplicationList

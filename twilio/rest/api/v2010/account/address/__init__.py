@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -27,7 +26,6 @@ from twilio.rest.api.v2010.account.address.dependent_phone_number import (
 
 
 class AddressInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource.
     :ivar city: The city in which the address is located.
@@ -231,6 +229,7 @@ class AddressInstance(InstanceResource):
 
 
 class AddressContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the AddressContext
@@ -448,6 +447,7 @@ class AddressContext(InstanceContext):
 
 
 class AddressPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AddressInstance:
         """
         Build an instance of AddressInstance
@@ -468,6 +468,7 @@ class AddressPage(Page):
 
 
 class AddressList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the AddressList

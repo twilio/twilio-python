@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class SyncMapPermissionInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique SID identifier of the Twilio Account.
     :ivar service_sid: The unique SID identifier of the Sync Service Instance.
@@ -161,6 +159,7 @@ class SyncMapPermissionInstance(InstanceResource):
 
 
 class SyncMapPermissionContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, map_sid: str, identity: str):
         """
         Initialize the SyncMapPermissionContext
@@ -329,6 +328,7 @@ class SyncMapPermissionContext(InstanceContext):
 
 
 class SyncMapPermissionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SyncMapPermissionInstance:
         """
         Build an instance of SyncMapPermissionInstance
@@ -352,6 +352,7 @@ class SyncMapPermissionPage(Page):
 
 
 class SyncMapPermissionList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, map_sid: str):
         """
         Initialize the SyncMapPermissionList

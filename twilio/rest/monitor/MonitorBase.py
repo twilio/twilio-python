@@ -17,6 +17,7 @@ from twilio.rest.monitor.v1 import V1
 
 
 class MonitorBase(Domain):
+
     def __init__(self, twilio: Client):
         """
         Initialize the Monitor Domain
