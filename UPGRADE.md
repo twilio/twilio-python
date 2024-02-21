@@ -3,14 +3,13 @@
 _`MAJOR` version bumps will have upgrade notes
 posted here._
 
-## [2023-12-06] 8.x.x to 9.x.x-rc.x
-
----
+## [2024-02-20] 8.x.x to 9.x.x
 ### Overview
 
-#### Twilio Python Helper Library’s major version 9.0.0-rc.x is now available. We ensured that you can upgrade to Python helper Library 9.0.0-rc.x version without any breaking changes
+##### Twilio Python Helper Library’s major version 9.0.0 is now available. We ensured that you can upgrade to Python helper Library 9.0.0 version without any breaking changes of existing apis
 
-Support for JSON payloads has been added in the request body
+Behind the scenes Python Helper is now auto-generated via OpenAPI with this release. This enables us to rapidly add new features and enhance consistency across versions and languages.
+We're pleased to inform you that version 9.0.0 adds support for the application/json content type in the request body.
 
 
 ## [2023-04-05] 7.x.x to 8.x.x
