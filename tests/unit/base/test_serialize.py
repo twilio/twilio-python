@@ -90,6 +90,28 @@ class PrefixedCollapsibleMapTestCase(unittest.TestCase):
         self.assertEqual({}, actual)
 
 
+class BooleanTestCase(unittest.TestCase):
+    def test_none(self):
+        value = None
+        actual = serialize.boolean_to_string(value)
+        self.assertIsNone(actual)
+
+    def test_string(self):
+        value = "True"
+        actual = serialize.boolean_to_string(value)
+        self.assertEqual("true", actual)
+
+    def test_bool_true(self):
+        value = True
+        actual = serialize.boolean_to_string(value)
+        self.assertEqual("true", actual)
+
+    def test_bool_false(self):
+        value = False
+        actual = serialize.boolean_to_string(value)
+        self.assertEqual("false", actual)
+
+
 class ObjectTestCase(unittest.TestCase):
     def test_object(self):
         actual = serialize.object({"twilio": "rocks"})
