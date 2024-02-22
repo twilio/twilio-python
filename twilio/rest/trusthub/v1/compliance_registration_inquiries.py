@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, Optional, Union
-from twilio.base import values
+from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -157,7 +157,9 @@ class ComplianceRegistrationInquiriesList(ListResource):
                 "BusinessRegistrationAuthority": business_registration_authority,
                 "BusinessLegalName": business_legal_name,
                 "NotificationEmail": notification_email,
-                "AcceptedNotificationReceipt": accepted_notification_receipt,
+                "AcceptedNotificationReceipt": serialize.boolean_to_string(
+                    accepted_notification_receipt
+                ),
                 "BusinessRegistrationNumber": business_registration_number,
                 "BusinessWebsiteUrl": business_website_url,
                 "FriendlyName": friendly_name,
@@ -178,7 +180,9 @@ class ComplianceRegistrationInquiriesList(ListResource):
                 "EmergencyAddressSubdivision": emergency_address_subdivision,
                 "EmergencyAddressPostalCode": emergency_address_postal_code,
                 "EmergencyAddressCountryCode": emergency_address_country_code,
-                "UseAddressAsEmergencyAddress": use_address_as_emergency_address,
+                "UseAddressAsEmergencyAddress": serialize.boolean_to_string(
+                    use_address_as_emergency_address
+                ),
                 "FileName": file_name,
                 "File": file,
             }
@@ -272,7 +276,9 @@ class ComplianceRegistrationInquiriesList(ListResource):
                 "BusinessRegistrationAuthority": business_registration_authority,
                 "BusinessLegalName": business_legal_name,
                 "NotificationEmail": notification_email,
-                "AcceptedNotificationReceipt": accepted_notification_receipt,
+                "AcceptedNotificationReceipt": serialize.boolean_to_string(
+                    accepted_notification_receipt
+                ),
                 "BusinessRegistrationNumber": business_registration_number,
                 "BusinessWebsiteUrl": business_website_url,
                 "FriendlyName": friendly_name,
@@ -293,7 +299,9 @@ class ComplianceRegistrationInquiriesList(ListResource):
                 "EmergencyAddressSubdivision": emergency_address_subdivision,
                 "EmergencyAddressPostalCode": emergency_address_postal_code,
                 "EmergencyAddressCountryCode": emergency_address_country_code,
-                "UseAddressAsEmergencyAddress": use_address_as_emergency_address,
+                "UseAddressAsEmergencyAddress": serialize.boolean_to_string(
+                    use_address_as_emergency_address
+                ),
                 "FileName": file_name,
                 "File": file,
             }

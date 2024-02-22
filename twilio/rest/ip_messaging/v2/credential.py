@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -289,7 +289,7 @@ class CredentialContext(InstanceContext):
                 "FriendlyName": friendly_name,
                 "Certificate": certificate,
                 "PrivateKey": private_key,
-                "Sandbox": sandbox,
+                "Sandbox": serialize.boolean_to_string(sandbox),
                 "ApiKey": api_key,
                 "Secret": secret,
             }
@@ -329,7 +329,7 @@ class CredentialContext(InstanceContext):
                 "FriendlyName": friendly_name,
                 "Certificate": certificate,
                 "PrivateKey": private_key,
-                "Sandbox": sandbox,
+                "Sandbox": serialize.boolean_to_string(sandbox),
                 "ApiKey": api_key,
                 "Secret": secret,
             }
@@ -415,7 +415,7 @@ class CredentialList(ListResource):
                 "FriendlyName": friendly_name,
                 "Certificate": certificate,
                 "PrivateKey": private_key,
-                "Sandbox": sandbox,
+                "Sandbox": serialize.boolean_to_string(sandbox),
                 "ApiKey": api_key,
                 "Secret": secret,
             }
@@ -459,7 +459,7 @@ class CredentialList(ListResource):
                 "FriendlyName": friendly_name,
                 "Certificate": certificate,
                 "PrivateKey": private_key,
-                "Sandbox": sandbox,
+                "Sandbox": serialize.boolean_to_string(sandbox),
                 "ApiKey": api_key,
                 "Secret": secret,
             }

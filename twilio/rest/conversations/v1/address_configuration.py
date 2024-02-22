@@ -340,7 +340,9 @@ class AddressConfigurationContext(InstanceContext):
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "AutoCreation.Enabled": auto_creation_enabled,
+                "AutoCreation.Enabled": serialize.boolean_to_string(
+                    auto_creation_enabled
+                ),
                 "AutoCreation.Type": auto_creation_type,
                 "AutoCreation.ConversationServiceSid": auto_creation_conversation_service_sid,
                 "AutoCreation.WebhookUrl": auto_creation_webhook_url,
@@ -397,7 +399,9 @@ class AddressConfigurationContext(InstanceContext):
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "AutoCreation.Enabled": auto_creation_enabled,
+                "AutoCreation.Enabled": serialize.boolean_to_string(
+                    auto_creation_enabled
+                ),
                 "AutoCreation.Type": auto_creation_type,
                 "AutoCreation.ConversationServiceSid": auto_creation_conversation_service_sid,
                 "AutoCreation.WebhookUrl": auto_creation_webhook_url,
@@ -507,7 +511,9 @@ class AddressConfigurationList(ListResource):
                 "Type": type,
                 "Address": address,
                 "FriendlyName": friendly_name,
-                "AutoCreation.Enabled": auto_creation_enabled,
+                "AutoCreation.Enabled": serialize.boolean_to_string(
+                    auto_creation_enabled
+                ),
                 "AutoCreation.Type": auto_creation_type,
                 "AutoCreation.ConversationServiceSid": auto_creation_conversation_service_sid,
                 "AutoCreation.WebhookUrl": auto_creation_webhook_url,
@@ -572,7 +578,9 @@ class AddressConfigurationList(ListResource):
                 "Type": type,
                 "Address": address,
                 "FriendlyName": friendly_name,
-                "AutoCreation.Enabled": auto_creation_enabled,
+                "AutoCreation.Enabled": serialize.boolean_to_string(
+                    auto_creation_enabled
+                ),
                 "AutoCreation.Type": auto_creation_type,
                 "AutoCreation.ConversationServiceSid": auto_creation_conversation_service_sid,
                 "AutoCreation.WebhookUrl": auto_creation_webhook_url,

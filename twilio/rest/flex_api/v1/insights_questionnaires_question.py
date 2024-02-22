@@ -250,7 +250,7 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
         """
         data = values.of(
             {
-                "AllowNa": allow_na,
+                "AllowNa": serialize.boolean_to_string(allow_na),
                 "CategorySid": category_sid,
                 "Question": question,
                 "Description": description,
@@ -294,7 +294,7 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
         """
         data = values.of(
             {
-                "AllowNa": allow_na,
+                "AllowNa": serialize.boolean_to_string(allow_na),
                 "CategorySid": category_sid,
                 "Question": question,
                 "Description": description,
@@ -388,7 +388,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
                 "CategorySid": category_sid,
                 "Question": question,
                 "AnswerSetId": answer_set_id,
-                "AllowNa": allow_na,
+                "AllowNa": serialize.boolean_to_string(allow_na),
                 "Description": description,
             }
         )
@@ -431,7 +431,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
                 "CategorySid": category_sid,
                 "Question": question,
                 "AnswerSetId": answer_set_id,
-                "AllowNa": allow_na,
+                "AllowNa": serialize.boolean_to_string(allow_na),
                 "Description": description,
             }
         )

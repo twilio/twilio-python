@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -267,7 +267,9 @@ class TaskChannelContext(InstanceContext):
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "ChannelOptimizedRouting": channel_optimized_routing,
+                "ChannelOptimizedRouting": serialize.boolean_to_string(
+                    channel_optimized_routing
+                ),
             }
         )
 
@@ -300,7 +302,9 @@ class TaskChannelContext(InstanceContext):
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "ChannelOptimizedRouting": channel_optimized_routing,
+                "ChannelOptimizedRouting": serialize.boolean_to_string(
+                    channel_optimized_routing
+                ),
             }
         )
 
@@ -386,7 +390,9 @@ class TaskChannelList(ListResource):
             {
                 "FriendlyName": friendly_name,
                 "UniqueName": unique_name,
-                "ChannelOptimizedRouting": channel_optimized_routing,
+                "ChannelOptimizedRouting": serialize.boolean_to_string(
+                    channel_optimized_routing
+                ),
             }
         )
 
@@ -420,7 +426,9 @@ class TaskChannelList(ListResource):
             {
                 "FriendlyName": friendly_name,
                 "UniqueName": unique_name,
-                "ChannelOptimizedRouting": channel_optimized_routing,
+                "ChannelOptimizedRouting": serialize.boolean_to_string(
+                    channel_optimized_routing
+                ),
             }
         )
 

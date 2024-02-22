@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, Optional, Union
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -122,7 +122,7 @@ class MediaContext(InstanceContext):
 
         data = values.of(
             {
-                "Redacted": redacted,
+                "Redacted": serialize.boolean_to_string(redacted),
             }
         )
 
@@ -147,7 +147,7 @@ class MediaContext(InstanceContext):
 
         data = values.of(
             {
-                "Redacted": redacted,
+                "Redacted": serialize.boolean_to_string(redacted),
             }
         )
 

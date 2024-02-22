@@ -374,17 +374,19 @@ class ParticipantContext(InstanceContext):
         """
         data = values.of(
             {
-                "Muted": muted,
-                "Hold": hold,
+                "Muted": serialize.boolean_to_string(muted),
+                "Hold": serialize.boolean_to_string(hold),
                 "HoldUrl": hold_url,
                 "HoldMethod": hold_method,
                 "AnnounceUrl": announce_url,
                 "AnnounceMethod": announce_method,
                 "WaitUrl": wait_url,
                 "WaitMethod": wait_method,
-                "BeepOnExit": beep_on_exit,
-                "EndConferenceOnExit": end_conference_on_exit,
-                "Coaching": coaching,
+                "BeepOnExit": serialize.boolean_to_string(beep_on_exit),
+                "EndConferenceOnExit": serialize.boolean_to_string(
+                    end_conference_on_exit
+                ),
+                "Coaching": serialize.boolean_to_string(coaching),
                 "CallSidToCoach": call_sid_to_coach,
             }
         )
@@ -438,17 +440,19 @@ class ParticipantContext(InstanceContext):
         """
         data = values.of(
             {
-                "Muted": muted,
-                "Hold": hold,
+                "Muted": serialize.boolean_to_string(muted),
+                "Hold": serialize.boolean_to_string(hold),
                 "HoldUrl": hold_url,
                 "HoldMethod": hold_method,
                 "AnnounceUrl": announce_url,
                 "AnnounceMethod": announce_method,
                 "WaitUrl": wait_url,
                 "WaitMethod": wait_method,
-                "BeepOnExit": beep_on_exit,
-                "EndConferenceOnExit": end_conference_on_exit,
-                "Coaching": coaching,
+                "BeepOnExit": serialize.boolean_to_string(beep_on_exit),
+                "EndConferenceOnExit": serialize.boolean_to_string(
+                    end_conference_on_exit
+                ),
+                "Coaching": serialize.boolean_to_string(coaching),
                 "CallSidToCoach": call_sid_to_coach,
             }
         )
@@ -642,14 +646,18 @@ class ParticipantList(ListResource):
                 ),
                 "Label": label,
                 "Timeout": timeout,
-                "Record": record,
-                "Muted": muted,
+                "Record": serialize.boolean_to_string(record),
+                "Muted": serialize.boolean_to_string(muted),
                 "Beep": beep,
-                "StartConferenceOnEnter": start_conference_on_enter,
-                "EndConferenceOnExit": end_conference_on_exit,
+                "StartConferenceOnEnter": serialize.boolean_to_string(
+                    start_conference_on_enter
+                ),
+                "EndConferenceOnExit": serialize.boolean_to_string(
+                    end_conference_on_exit
+                ),
                 "WaitUrl": wait_url,
                 "WaitMethod": wait_method,
-                "EarlyMedia": early_media,
+                "EarlyMedia": serialize.boolean_to_string(early_media),
                 "MaxParticipants": max_participants,
                 "ConferenceRecord": conference_record,
                 "ConferenceTrim": conference_trim,
@@ -672,7 +680,7 @@ class ParticipantList(ListResource):
                 "ConferenceRecordingStatusCallbackEvent": serialize.map(
                     conference_recording_status_callback_event, lambda e: e
                 ),
-                "Coaching": coaching,
+                "Coaching": serialize.boolean_to_string(coaching),
                 "CallSidToCoach": call_sid_to_coach,
                 "JitterBufferSize": jitter_buffer_size,
                 "Byoc": byoc,
@@ -824,14 +832,18 @@ class ParticipantList(ListResource):
                 ),
                 "Label": label,
                 "Timeout": timeout,
-                "Record": record,
-                "Muted": muted,
+                "Record": serialize.boolean_to_string(record),
+                "Muted": serialize.boolean_to_string(muted),
                 "Beep": beep,
-                "StartConferenceOnEnter": start_conference_on_enter,
-                "EndConferenceOnExit": end_conference_on_exit,
+                "StartConferenceOnEnter": serialize.boolean_to_string(
+                    start_conference_on_enter
+                ),
+                "EndConferenceOnExit": serialize.boolean_to_string(
+                    end_conference_on_exit
+                ),
                 "WaitUrl": wait_url,
                 "WaitMethod": wait_method,
-                "EarlyMedia": early_media,
+                "EarlyMedia": serialize.boolean_to_string(early_media),
                 "MaxParticipants": max_participants,
                 "ConferenceRecord": conference_record,
                 "ConferenceTrim": conference_trim,
@@ -854,7 +866,7 @@ class ParticipantList(ListResource):
                 "ConferenceRecordingStatusCallbackEvent": serialize.map(
                     conference_recording_status_callback_event, lambda e: e
                 ),
-                "Coaching": coaching,
+                "Coaching": serialize.boolean_to_string(coaching),
                 "CallSidToCoach": call_sid_to_coach,
                 "JitterBufferSize": jitter_buffer_size,
                 "Byoc": byoc,
@@ -1048,9 +1060,9 @@ class ParticipantList(ListResource):
         """
         data = values.of(
             {
-                "Muted": muted,
-                "Hold": hold,
-                "Coaching": coaching,
+                "Muted": serialize.boolean_to_string(muted),
+                "Hold": serialize.boolean_to_string(hold),
+                "Coaching": serialize.boolean_to_string(coaching),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -1084,9 +1096,9 @@ class ParticipantList(ListResource):
         """
         data = values.of(
             {
-                "Muted": muted,
-                "Hold": hold,
-                "Coaching": coaching,
+                "Muted": serialize.boolean_to_string(muted),
+                "Hold": serialize.boolean_to_string(hold),
+                "Coaching": serialize.boolean_to_string(coaching),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

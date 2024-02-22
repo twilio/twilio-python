@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -403,11 +403,11 @@ class FleetList(ListResource):
             {
                 "NetworkAccessProfile": network_access_profile,
                 "UniqueName": unique_name,
-                "DataEnabled": data_enabled,
+                "DataEnabled": serialize.boolean_to_string(data_enabled),
                 "DataLimit": data_limit,
                 "IpCommandsUrl": ip_commands_url,
                 "IpCommandsMethod": ip_commands_method,
-                "SmsCommandsEnabled": sms_commands_enabled,
+                "SmsCommandsEnabled": serialize.boolean_to_string(sms_commands_enabled),
                 "SmsCommandsUrl": sms_commands_url,
                 "SmsCommandsMethod": sms_commands_method,
             }
@@ -453,11 +453,11 @@ class FleetList(ListResource):
             {
                 "NetworkAccessProfile": network_access_profile,
                 "UniqueName": unique_name,
-                "DataEnabled": data_enabled,
+                "DataEnabled": serialize.boolean_to_string(data_enabled),
                 "DataLimit": data_limit,
                 "IpCommandsUrl": ip_commands_url,
                 "IpCommandsMethod": ip_commands_method,
-                "SmsCommandsEnabled": sms_commands_enabled,
+                "SmsCommandsEnabled": serialize.boolean_to_string(sms_commands_enabled),
                 "SmsCommandsUrl": sms_commands_url,
                 "SmsCommandsMethod": sms_commands_method,
             }

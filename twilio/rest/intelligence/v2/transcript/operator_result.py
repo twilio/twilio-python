@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -183,7 +183,7 @@ class OperatorResultContext(InstanceContext):
 
         data = values.of(
             {
-                "Redacted": redacted,
+                "Redacted": serialize.boolean_to_string(redacted),
             }
         )
 
@@ -209,7 +209,7 @@ class OperatorResultContext(InstanceContext):
 
         data = values.of(
             {
-                "Redacted": redacted,
+                "Redacted": serialize.boolean_to_string(redacted),
             }
         )
 
@@ -408,7 +408,7 @@ class OperatorResultList(ListResource):
         """
         data = values.of(
             {
-                "Redacted": redacted,
+                "Redacted": serialize.boolean_to_string(redacted),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -438,7 +438,7 @@ class OperatorResultList(ListResource):
         """
         data = values.of(
             {
-                "Redacted": redacted,
+                "Redacted": serialize.boolean_to_string(redacted),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

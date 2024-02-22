@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -501,13 +501,19 @@ class LocalList(ListResource):
             {
                 "AreaCode": area_code,
                 "Contains": contains,
-                "SmsEnabled": sms_enabled,
-                "MmsEnabled": mms_enabled,
-                "VoiceEnabled": voice_enabled,
-                "ExcludeAllAddressRequired": exclude_all_address_required,
-                "ExcludeLocalAddressRequired": exclude_local_address_required,
-                "ExcludeForeignAddressRequired": exclude_foreign_address_required,
-                "Beta": beta,
+                "SmsEnabled": serialize.boolean_to_string(sms_enabled),
+                "MmsEnabled": serialize.boolean_to_string(mms_enabled),
+                "VoiceEnabled": serialize.boolean_to_string(voice_enabled),
+                "ExcludeAllAddressRequired": serialize.boolean_to_string(
+                    exclude_all_address_required
+                ),
+                "ExcludeLocalAddressRequired": serialize.boolean_to_string(
+                    exclude_local_address_required
+                ),
+                "ExcludeForeignAddressRequired": serialize.boolean_to_string(
+                    exclude_foreign_address_required
+                ),
+                "Beta": serialize.boolean_to_string(beta),
                 "NearNumber": near_number,
                 "NearLatLong": near_lat_long,
                 "Distance": distance,
@@ -516,7 +522,7 @@ class LocalList(ListResource):
                 "InRateCenter": in_rate_center,
                 "InLata": in_lata,
                 "InLocality": in_locality,
-                "FaxEnabled": fax_enabled,
+                "FaxEnabled": serialize.boolean_to_string(fax_enabled),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -582,13 +588,19 @@ class LocalList(ListResource):
             {
                 "AreaCode": area_code,
                 "Contains": contains,
-                "SmsEnabled": sms_enabled,
-                "MmsEnabled": mms_enabled,
-                "VoiceEnabled": voice_enabled,
-                "ExcludeAllAddressRequired": exclude_all_address_required,
-                "ExcludeLocalAddressRequired": exclude_local_address_required,
-                "ExcludeForeignAddressRequired": exclude_foreign_address_required,
-                "Beta": beta,
+                "SmsEnabled": serialize.boolean_to_string(sms_enabled),
+                "MmsEnabled": serialize.boolean_to_string(mms_enabled),
+                "VoiceEnabled": serialize.boolean_to_string(voice_enabled),
+                "ExcludeAllAddressRequired": serialize.boolean_to_string(
+                    exclude_all_address_required
+                ),
+                "ExcludeLocalAddressRequired": serialize.boolean_to_string(
+                    exclude_local_address_required
+                ),
+                "ExcludeForeignAddressRequired": serialize.boolean_to_string(
+                    exclude_foreign_address_required
+                ),
+                "Beta": serialize.boolean_to_string(beta),
                 "NearNumber": near_number,
                 "NearLatLong": near_lat_long,
                 "Distance": distance,
@@ -597,7 +609,7 @@ class LocalList(ListResource):
                 "InRateCenter": in_rate_center,
                 "InLata": in_lata,
                 "InLocality": in_locality,
-                "FaxEnabled": fax_enabled,
+                "FaxEnabled": serialize.boolean_to_string(fax_enabled),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

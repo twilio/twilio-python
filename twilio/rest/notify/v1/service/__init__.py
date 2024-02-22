@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -408,11 +408,13 @@ class ServiceContext(InstanceContext):
                 "DefaultGcmNotificationProtocolVersion": default_gcm_notification_protocol_version,
                 "FcmCredentialSid": fcm_credential_sid,
                 "DefaultFcmNotificationProtocolVersion": default_fcm_notification_protocol_version,
-                "LogEnabled": log_enabled,
+                "LogEnabled": serialize.boolean_to_string(log_enabled),
                 "AlexaSkillId": alexa_skill_id,
                 "DefaultAlexaNotificationProtocolVersion": default_alexa_notification_protocol_version,
                 "DeliveryCallbackUrl": delivery_callback_url,
-                "DeliveryCallbackEnabled": delivery_callback_enabled,
+                "DeliveryCallbackEnabled": serialize.boolean_to_string(
+                    delivery_callback_enabled
+                ),
             }
         )
 
@@ -472,11 +474,13 @@ class ServiceContext(InstanceContext):
                 "DefaultGcmNotificationProtocolVersion": default_gcm_notification_protocol_version,
                 "FcmCredentialSid": fcm_credential_sid,
                 "DefaultFcmNotificationProtocolVersion": default_fcm_notification_protocol_version,
-                "LogEnabled": log_enabled,
+                "LogEnabled": serialize.boolean_to_string(log_enabled),
                 "AlexaSkillId": alexa_skill_id,
                 "DefaultAlexaNotificationProtocolVersion": default_alexa_notification_protocol_version,
                 "DeliveryCallbackUrl": delivery_callback_url,
-                "DeliveryCallbackEnabled": delivery_callback_enabled,
+                "DeliveryCallbackEnabled": serialize.boolean_to_string(
+                    delivery_callback_enabled
+                ),
             }
         )
 
@@ -603,11 +607,13 @@ class ServiceList(ListResource):
                 "DefaultGcmNotificationProtocolVersion": default_gcm_notification_protocol_version,
                 "FcmCredentialSid": fcm_credential_sid,
                 "DefaultFcmNotificationProtocolVersion": default_fcm_notification_protocol_version,
-                "LogEnabled": log_enabled,
+                "LogEnabled": serialize.boolean_to_string(log_enabled),
                 "AlexaSkillId": alexa_skill_id,
                 "DefaultAlexaNotificationProtocolVersion": default_alexa_notification_protocol_version,
                 "DeliveryCallbackUrl": delivery_callback_url,
-                "DeliveryCallbackEnabled": delivery_callback_enabled,
+                "DeliveryCallbackEnabled": serialize.boolean_to_string(
+                    delivery_callback_enabled
+                ),
             }
         )
 
@@ -668,11 +674,13 @@ class ServiceList(ListResource):
                 "DefaultGcmNotificationProtocolVersion": default_gcm_notification_protocol_version,
                 "FcmCredentialSid": fcm_credential_sid,
                 "DefaultFcmNotificationProtocolVersion": default_fcm_notification_protocol_version,
-                "LogEnabled": log_enabled,
+                "LogEnabled": serialize.boolean_to_string(log_enabled),
                 "AlexaSkillId": alexa_skill_id,
                 "DefaultAlexaNotificationProtocolVersion": default_alexa_notification_protocol_version,
                 "DeliveryCallbackUrl": delivery_callback_url,
-                "DeliveryCallbackEnabled": delivery_callback_enabled,
+                "DeliveryCallbackEnabled": serialize.boolean_to_string(
+                    delivery_callback_enabled
+                ),
             }
         )
 

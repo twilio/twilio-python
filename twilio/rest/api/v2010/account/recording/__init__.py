@@ -258,7 +258,7 @@ class RecordingContext(InstanceContext):
 
         data = values.of(
             {
-                "IncludeSoftDeleted": include_soft_deleted,
+                "IncludeSoftDeleted": serialize.boolean_to_string(include_soft_deleted),
             }
         )
 
@@ -284,7 +284,7 @@ class RecordingContext(InstanceContext):
 
         data = values.of(
             {
-                "IncludeSoftDeleted": include_soft_deleted,
+                "IncludeSoftDeleted": serialize.boolean_to_string(include_soft_deleted),
             }
         )
 
@@ -588,7 +588,7 @@ class RecordingList(ListResource):
                 "DateCreated>": serialize.iso8601_datetime(date_created_after),
                 "CallSid": call_sid,
                 "ConferenceSid": conference_sid,
-                "IncludeSoftDeleted": include_soft_deleted,
+                "IncludeSoftDeleted": serialize.boolean_to_string(include_soft_deleted),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -633,7 +633,7 @@ class RecordingList(ListResource):
                 "DateCreated>": serialize.iso8601_datetime(date_created_after),
                 "CallSid": call_sid,
                 "ConferenceSid": conference_sid,
-                "IncludeSoftDeleted": include_soft_deleted,
+                "IncludeSoftDeleted": serialize.boolean_to_string(include_soft_deleted),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

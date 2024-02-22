@@ -325,7 +325,7 @@ class CompositionList(ListResource):
                 "Format": format,
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
-                "Trim": trim,
+                "Trim": serialize.boolean_to_string(trim),
             }
         )
 
@@ -377,7 +377,7 @@ class CompositionList(ListResource):
                 "Format": format,
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
-                "Trim": trim,
+                "Trim": serialize.boolean_to_string(trim),
             }
         )
 

@@ -577,7 +577,7 @@ class SinkList(ListResource):
         """
         data = values.of(
             {
-                "InUse": in_use,
+                "InUse": serialize.boolean_to_string(in_use),
                 "Status": status,
                 "PageToken": page_token,
                 "Page": page_number,
@@ -610,7 +610,7 @@ class SinkList(ListResource):
         """
         data = values.of(
             {
-                "InUse": in_use,
+                "InUse": serialize.boolean_to_string(in_use),
                 "Status": status,
                 "PageToken": page_token,
                 "Page": page_number,

@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -414,14 +414,18 @@ class ApplicationContext(InstanceContext):
                 "VoiceFallbackMethod": voice_fallback_method,
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
-                "VoiceCallerIdLookup": voice_caller_id_lookup,
+                "VoiceCallerIdLookup": serialize.boolean_to_string(
+                    voice_caller_id_lookup
+                ),
                 "SmsUrl": sms_url,
                 "SmsMethod": sms_method,
                 "SmsFallbackUrl": sms_fallback_url,
                 "SmsFallbackMethod": sms_fallback_method,
                 "SmsStatusCallback": sms_status_callback,
                 "MessageStatusCallback": message_status_callback,
-                "PublicApplicationConnectEnabled": public_application_connect_enabled,
+                "PublicApplicationConnectEnabled": serialize.boolean_to_string(
+                    public_application_connect_enabled
+                ),
             }
         )
 
@@ -489,14 +493,18 @@ class ApplicationContext(InstanceContext):
                 "VoiceFallbackMethod": voice_fallback_method,
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
-                "VoiceCallerIdLookup": voice_caller_id_lookup,
+                "VoiceCallerIdLookup": serialize.boolean_to_string(
+                    voice_caller_id_lookup
+                ),
                 "SmsUrl": sms_url,
                 "SmsMethod": sms_method,
                 "SmsFallbackUrl": sms_fallback_url,
                 "SmsFallbackMethod": sms_fallback_method,
                 "SmsStatusCallback": sms_status_callback,
                 "MessageStatusCallback": message_status_callback,
-                "PublicApplicationConnectEnabled": public_application_connect_enabled,
+                "PublicApplicationConnectEnabled": serialize.boolean_to_string(
+                    public_application_connect_enabled
+                ),
             }
         )
 
@@ -613,7 +621,9 @@ class ApplicationList(ListResource):
                 "VoiceFallbackMethod": voice_fallback_method,
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
-                "VoiceCallerIdLookup": voice_caller_id_lookup,
+                "VoiceCallerIdLookup": serialize.boolean_to_string(
+                    voice_caller_id_lookup
+                ),
                 "SmsUrl": sms_url,
                 "SmsMethod": sms_method,
                 "SmsFallbackUrl": sms_fallback_url,
@@ -621,7 +631,9 @@ class ApplicationList(ListResource):
                 "SmsStatusCallback": sms_status_callback,
                 "MessageStatusCallback": message_status_callback,
                 "FriendlyName": friendly_name,
-                "PublicApplicationConnectEnabled": public_application_connect_enabled,
+                "PublicApplicationConnectEnabled": serialize.boolean_to_string(
+                    public_application_connect_enabled
+                ),
             }
         )
 
@@ -686,7 +698,9 @@ class ApplicationList(ListResource):
                 "VoiceFallbackMethod": voice_fallback_method,
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
-                "VoiceCallerIdLookup": voice_caller_id_lookup,
+                "VoiceCallerIdLookup": serialize.boolean_to_string(
+                    voice_caller_id_lookup
+                ),
                 "SmsUrl": sms_url,
                 "SmsMethod": sms_method,
                 "SmsFallbackUrl": sms_fallback_url,
@@ -694,7 +708,9 @@ class ApplicationList(ListResource):
                 "SmsStatusCallback": sms_status_callback,
                 "MessageStatusCallback": message_status_callback,
                 "FriendlyName": friendly_name,
-                "PublicApplicationConnectEnabled": public_application_connect_enabled,
+                "PublicApplicationConnectEnabled": serialize.boolean_to_string(
+                    public_application_connect_enabled
+                ),
             }
         )
 

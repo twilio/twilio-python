@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -280,7 +280,7 @@ class ChannelList(ListResource):
                 "PreEngagementData": pre_engagement_data,
                 "TaskSid": task_sid,
                 "TaskAttributes": task_attributes,
-                "LongLived": long_lived,
+                "LongLived": serialize.boolean_to_string(long_lived),
             }
         )
 
@@ -333,7 +333,7 @@ class ChannelList(ListResource):
                 "PreEngagementData": pre_engagement_data,
                 "TaskSid": task_sid,
                 "TaskAttributes": task_attributes,
-                "LongLived": long_lived,
+                "LongLived": serialize.boolean_to_string(long_lived),
             }
         )
 

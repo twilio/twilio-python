@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -290,7 +290,7 @@ class OriginationUrlContext(InstanceContext):
             {
                 "Weight": weight,
                 "Priority": priority,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "FriendlyName": friendly_name,
                 "SipUrl": sip_url,
             }
@@ -332,7 +332,7 @@ class OriginationUrlContext(InstanceContext):
             {
                 "Weight": weight,
                 "Priority": priority,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "FriendlyName": friendly_name,
                 "SipUrl": sip_url,
             }
@@ -424,7 +424,7 @@ class OriginationUrlList(ListResource):
             {
                 "Weight": weight,
                 "Priority": priority,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "FriendlyName": friendly_name,
                 "SipUrl": sip_url,
             }
@@ -464,7 +464,7 @@ class OriginationUrlList(ListResource):
             {
                 "Weight": weight,
                 "Priority": priority,
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "FriendlyName": friendly_name,
                 "SipUrl": sip_url,
             }

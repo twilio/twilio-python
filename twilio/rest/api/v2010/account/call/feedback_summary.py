@@ -293,7 +293,7 @@ class FeedbackSummaryList(ListResource):
             {
                 "StartDate": serialize.iso8601_date(start_date),
                 "EndDate": serialize.iso8601_date(end_date),
-                "IncludeSubaccounts": include_subaccounts,
+                "IncludeSubaccounts": serialize.boolean_to_string(include_subaccounts),
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
             }
@@ -333,7 +333,7 @@ class FeedbackSummaryList(ListResource):
             {
                 "StartDate": serialize.iso8601_date(start_date),
                 "EndDate": serialize.iso8601_date(end_date),
-                "IncludeSubaccounts": include_subaccounts,
+                "IncludeSubaccounts": serialize.boolean_to_string(include_subaccounts),
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
             }

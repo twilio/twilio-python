@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, Optional, Union
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -230,7 +230,9 @@ class ConfigurationContext(InstanceContext):
                 "DefaultConversationCreatorRoleSid": default_conversation_creator_role_sid,
                 "DefaultConversationRoleSid": default_conversation_role_sid,
                 "DefaultChatServiceRoleSid": default_chat_service_role_sid,
-                "ReachabilityEnabled": reachability_enabled,
+                "ReachabilityEnabled": serialize.boolean_to_string(
+                    reachability_enabled
+                ),
             }
         )
 
@@ -266,7 +268,9 @@ class ConfigurationContext(InstanceContext):
                 "DefaultConversationCreatorRoleSid": default_conversation_creator_role_sid,
                 "DefaultConversationRoleSid": default_conversation_role_sid,
                 "DefaultChatServiceRoleSid": default_chat_service_role_sid,
-                "ReachabilityEnabled": reachability_enabled,
+                "ReachabilityEnabled": serialize.boolean_to_string(
+                    reachability_enabled
+                ),
             }
         )
 

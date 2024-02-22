@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -265,9 +265,9 @@ class SyncListPermissionContext(InstanceContext):
         """
         data = values.of(
             {
-                "Read": read,
-                "Write": write,
-                "Manage": manage,
+                "Read": serialize.boolean_to_string(read),
+                "Write": serialize.boolean_to_string(write),
+                "Manage": serialize.boolean_to_string(manage),
             }
         )
 
@@ -299,9 +299,9 @@ class SyncListPermissionContext(InstanceContext):
         """
         data = values.of(
             {
-                "Read": read,
-                "Write": write,
-                "Manage": manage,
+                "Read": serialize.boolean_to_string(read),
+                "Write": serialize.boolean_to_string(write),
+                "Manage": serialize.boolean_to_string(manage),
             }
         )
 

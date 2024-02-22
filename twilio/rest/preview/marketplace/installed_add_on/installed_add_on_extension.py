@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -196,7 +196,7 @@ class InstalledAddOnExtensionContext(InstanceContext):
         """
         data = values.of(
             {
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
             }
         )
 
@@ -223,7 +223,7 @@ class InstalledAddOnExtensionContext(InstanceContext):
         """
         data = values.of(
             {
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
             }
         )
 

@@ -381,13 +381,15 @@ class RatePlanList(ListResource):
             {
                 "UniqueName": unique_name,
                 "FriendlyName": friendly_name,
-                "DataEnabled": data_enabled,
+                "DataEnabled": serialize.boolean_to_string(data_enabled),
                 "DataLimit": data_limit,
                 "DataMetering": data_metering,
-                "MessagingEnabled": messaging_enabled,
-                "VoiceEnabled": voice_enabled,
-                "CommandsEnabled": commands_enabled,
-                "NationalRoamingEnabled": national_roaming_enabled,
+                "MessagingEnabled": serialize.boolean_to_string(messaging_enabled),
+                "VoiceEnabled": serialize.boolean_to_string(voice_enabled),
+                "CommandsEnabled": serialize.boolean_to_string(commands_enabled),
+                "NationalRoamingEnabled": serialize.boolean_to_string(
+                    national_roaming_enabled
+                ),
                 "InternationalRoaming": serialize.map(
                     international_roaming, lambda e: e
                 ),
@@ -436,13 +438,15 @@ class RatePlanList(ListResource):
             {
                 "UniqueName": unique_name,
                 "FriendlyName": friendly_name,
-                "DataEnabled": data_enabled,
+                "DataEnabled": serialize.boolean_to_string(data_enabled),
                 "DataLimit": data_limit,
                 "DataMetering": data_metering,
-                "MessagingEnabled": messaging_enabled,
-                "VoiceEnabled": voice_enabled,
-                "CommandsEnabled": commands_enabled,
-                "NationalRoamingEnabled": national_roaming_enabled,
+                "MessagingEnabled": serialize.boolean_to_string(messaging_enabled),
+                "VoiceEnabled": serialize.boolean_to_string(voice_enabled),
+                "CommandsEnabled": serialize.boolean_to_string(commands_enabled),
+                "NationalRoamingEnabled": serialize.boolean_to_string(
+                    national_roaming_enabled
+                ),
                 "InternationalRoaming": serialize.map(
                     international_roaming, lambda e: e
                 ),
