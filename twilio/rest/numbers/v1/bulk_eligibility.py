@@ -178,6 +178,38 @@ class BulkEligibilityList(ListResource):
         """
         super().__init__(version)
 
+        self._uri = "/HostedNumber/Eligibility/Bulk"
+
+    def create(self) -> BulkEligibilityInstance:
+        """
+        Create the BulkEligibilityInstance
+
+
+        :returns: The created BulkEligibilityInstance
+        """
+
+        payload = self._version.create(
+            method="POST",
+            uri=self._uri,
+        )
+
+        return BulkEligibilityInstance(self._version, payload)
+
+    async def create_async(self) -> BulkEligibilityInstance:
+        """
+        Asynchronously create the BulkEligibilityInstance
+
+
+        :returns: The created BulkEligibilityInstance
+        """
+
+        payload = await self._version.create_async(
+            method="POST",
+            uri=self._uri,
+        )
+
+        return BulkEligibilityInstance(self._version, payload)
+
     def get(self, request_id: str) -> BulkEligibilityContext:
         """
         Constructs a BulkEligibilityContext

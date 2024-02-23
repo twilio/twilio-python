@@ -20,6 +20,9 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+from twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_bulk_real_time_statistics import (
+    TaskQueueBulkRealTimeStatisticsList,
+)
 from twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics import (
     TaskQueueCumulativeStatisticsList,
 )
@@ -515,6 +518,9 @@ class TaskQueueList(ListResource):
         }
         self._uri = "/Workspaces/{workspace_sid}/TaskQueues".format(**self._solution)
 
+        self._bulk_real_time_statistics: Optional[
+            TaskQueueBulkRealTimeStatisticsList
+        ] = None
         self._statistics: Optional[TaskQueuesStatisticsList] = None
 
     def create(
@@ -861,6 +867,17 @@ class TaskQueueList(ListResource):
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return TaskQueuePage(self._version, response, self._solution)
+
+    @property
+    def bulk_real_time_statistics(self) -> TaskQueueBulkRealTimeStatisticsList:
+        """
+        Access the bulk_real_time_statistics
+        """
+        if self._bulk_real_time_statistics is None:
+            self._bulk_real_time_statistics = TaskQueueBulkRealTimeStatisticsList(
+                self._version, workspace_sid=self._solution["workspace_sid"]
+            )
+        return self._bulk_real_time_statistics
 
     @property
     def statistics(self) -> TaskQueuesStatisticsList:

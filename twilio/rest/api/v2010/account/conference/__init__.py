@@ -412,11 +412,7 @@ class ConferenceList(ListResource):
     def stream(
         self,
         date_created: Union[date, object] = values.unset,
-        date_created_before: Union[date, object] = values.unset,
-        date_created_after: Union[date, object] = values.unset,
         date_updated: Union[date, object] = values.unset,
-        date_updated_before: Union[date, object] = values.unset,
-        date_updated_after: Union[date, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union["ConferenceInstance.Status", object] = values.unset,
         limit: Optional[int] = None,
@@ -429,11 +425,7 @@ class ConferenceList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
         :param date date_updated: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param date date_updated_before: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param date date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
         :param str friendly_name: The string that identifies the Conference resources to read.
         :param &quot;ConferenceInstance.Status&quot; status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
         :param limit: Upper limit for the number of records to return. stream()
@@ -448,11 +440,7 @@ class ConferenceList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
             date_created=date_created,
-            date_created_before=date_created_before,
-            date_created_after=date_created_after,
             date_updated=date_updated,
-            date_updated_before=date_updated_before,
-            date_updated_after=date_updated_after,
             friendly_name=friendly_name,
             status=status,
             page_size=limits["page_size"],
@@ -463,11 +451,7 @@ class ConferenceList(ListResource):
     async def stream_async(
         self,
         date_created: Union[date, object] = values.unset,
-        date_created_before: Union[date, object] = values.unset,
-        date_created_after: Union[date, object] = values.unset,
         date_updated: Union[date, object] = values.unset,
-        date_updated_before: Union[date, object] = values.unset,
-        date_updated_after: Union[date, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union["ConferenceInstance.Status", object] = values.unset,
         limit: Optional[int] = None,
@@ -480,11 +464,7 @@ class ConferenceList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
         :param date date_updated: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param date date_updated_before: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param date date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
         :param str friendly_name: The string that identifies the Conference resources to read.
         :param &quot;ConferenceInstance.Status&quot; status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
         :param limit: Upper limit for the number of records to return. stream()
@@ -499,11 +479,7 @@ class ConferenceList(ListResource):
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
             date_created=date_created,
-            date_created_before=date_created_before,
-            date_created_after=date_created_after,
             date_updated=date_updated,
-            date_updated_before=date_updated_before,
-            date_updated_after=date_updated_after,
             friendly_name=friendly_name,
             status=status,
             page_size=limits["page_size"],
@@ -514,11 +490,7 @@ class ConferenceList(ListResource):
     def list(
         self,
         date_created: Union[date, object] = values.unset,
-        date_created_before: Union[date, object] = values.unset,
-        date_created_after: Union[date, object] = values.unset,
         date_updated: Union[date, object] = values.unset,
-        date_updated_before: Union[date, object] = values.unset,
-        date_updated_after: Union[date, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union["ConferenceInstance.Status", object] = values.unset,
         limit: Optional[int] = None,
@@ -530,11 +502,7 @@ class ConferenceList(ListResource):
         memory before returning.
 
         :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
         :param date date_updated: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param date date_updated_before: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param date date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
         :param str friendly_name: The string that identifies the Conference resources to read.
         :param &quot;ConferenceInstance.Status&quot; status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -549,11 +517,7 @@ class ConferenceList(ListResource):
         return list(
             self.stream(
                 date_created=date_created,
-                date_created_before=date_created_before,
-                date_created_after=date_created_after,
                 date_updated=date_updated,
-                date_updated_before=date_updated_before,
-                date_updated_after=date_updated_after,
                 friendly_name=friendly_name,
                 status=status,
                 limit=limit,
@@ -564,11 +528,7 @@ class ConferenceList(ListResource):
     async def list_async(
         self,
         date_created: Union[date, object] = values.unset,
-        date_created_before: Union[date, object] = values.unset,
-        date_created_after: Union[date, object] = values.unset,
         date_updated: Union[date, object] = values.unset,
-        date_updated_before: Union[date, object] = values.unset,
-        date_updated_after: Union[date, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union["ConferenceInstance.Status", object] = values.unset,
         limit: Optional[int] = None,
@@ -580,11 +540,7 @@ class ConferenceList(ListResource):
         memory before returning.
 
         :param date date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
         :param date date_updated: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param date date_updated_before: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param date date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
         :param str friendly_name: The string that identifies the Conference resources to read.
         :param &quot;ConferenceInstance.Status&quot; status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -600,11 +556,7 @@ class ConferenceList(ListResource):
             record
             async for record in await self.stream_async(
                 date_created=date_created,
-                date_created_before=date_created_before,
-                date_created_after=date_created_after,
                 date_updated=date_updated,
-                date_updated_before=date_updated_before,
-                date_updated_after=date_updated_after,
                 friendly_name=friendly_name,
                 status=status,
                 limit=limit,
@@ -615,11 +567,7 @@ class ConferenceList(ListResource):
     def page(
         self,
         date_created: Union[date, object] = values.unset,
-        date_created_before: Union[date, object] = values.unset,
-        date_created_after: Union[date, object] = values.unset,
         date_updated: Union[date, object] = values.unset,
-        date_updated_before: Union[date, object] = values.unset,
-        date_updated_after: Union[date, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union["ConferenceInstance.Status", object] = values.unset,
         page_token: Union[str, object] = values.unset,
@@ -631,11 +579,7 @@ class ConferenceList(ListResource):
         Request is executed immediately
 
         :param date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
         :param date_updated: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param date_updated_before: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
         :param friendly_name: The string that identifies the Conference resources to read.
         :param status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
         :param page_token: PageToken provided by the API
@@ -647,11 +591,7 @@ class ConferenceList(ListResource):
         data = values.of(
             {
                 "DateCreated": serialize.iso8601_date(date_created),
-                "DateCreated<": serialize.iso8601_date(date_created_before),
-                "DateCreated>": serialize.iso8601_date(date_created_after),
                 "DateUpdated": serialize.iso8601_date(date_updated),
-                "DateUpdated<": serialize.iso8601_date(date_updated_before),
-                "DateUpdated>": serialize.iso8601_date(date_updated_after),
                 "FriendlyName": friendly_name,
                 "Status": status,
                 "PageToken": page_token,
@@ -666,11 +606,7 @@ class ConferenceList(ListResource):
     async def page_async(
         self,
         date_created: Union[date, object] = values.unset,
-        date_created_before: Union[date, object] = values.unset,
-        date_created_after: Union[date, object] = values.unset,
         date_updated: Union[date, object] = values.unset,
-        date_updated_before: Union[date, object] = values.unset,
-        date_updated_after: Union[date, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union["ConferenceInstance.Status", object] = values.unset,
         page_token: Union[str, object] = values.unset,
@@ -682,11 +618,7 @@ class ConferenceList(ListResource):
         Request is executed immediately
 
         :param date_created: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date_created_before: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
-        :param date_created_after: The `date_created` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that started on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify  conferences that started on or after midnight on a date, use `>=YYYY-MM-DD`.
         :param date_updated: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param date_updated_before: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
-        :param date_updated_after: The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to read. To read conferences that were last updated on or before midnight on a date, use `<=YYYY-MM-DD`, and to specify conferences that were last updated on or after midnight on a given date, use  `>=YYYY-MM-DD`.
         :param friendly_name: The string that identifies the Conference resources to read.
         :param status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
         :param page_token: PageToken provided by the API
@@ -698,11 +630,7 @@ class ConferenceList(ListResource):
         data = values.of(
             {
                 "DateCreated": serialize.iso8601_date(date_created),
-                "DateCreated<": serialize.iso8601_date(date_created_before),
-                "DateCreated>": serialize.iso8601_date(date_created_after),
                 "DateUpdated": serialize.iso8601_date(date_updated),
-                "DateUpdated<": serialize.iso8601_date(date_updated_before),
-                "DateUpdated>": serialize.iso8601_date(date_updated_after),
                 "FriendlyName": friendly_name,
                 "Status": status,
                 "PageToken": page_token,

@@ -28,6 +28,7 @@ if TYPE_CHECKING:
     from twilio.rest.ip_messaging import IpMessaging
     from twilio.rest.lookups import Lookups
     from twilio.rest.media import Media
+    from twilio.rest.preview_messaging import PreviewMessaging
     from twilio.rest.messaging import Messaging
     from twilio.rest.microvisor import Microvisor
     from twilio.rest.monitor import Monitor
@@ -135,6 +136,7 @@ class Client(ClientBase):
         self._ip_messaging: Optional["IpMessaging"] = None
         self._lookups: Optional["Lookups"] = None
         self._media: Optional["Media"] = None
+        self._preview_messaging: Optional["PreviewMessaging"] = None
         self._messaging: Optional["Messaging"] = None
         self._microvisor: Optional["Microvisor"] = None
         self._monitor: Optional["Monitor"] = None
@@ -337,6 +339,19 @@ class Client(ClientBase):
 
             self._media = Media(self)
         return self._media
+
+    @property
+    def preview_messaging(self) -> "PreviewMessaging":
+        """
+        Access the PreviewMessaging Twilio Domain
+
+        :returns: PreviewMessaging Twilio Domain
+        """
+        if self._preview_messaging is None:
+            from twilio.rest.preview_messaging import PreviewMessaging
+
+            self._preview_messaging = PreviewMessaging(self)
+        return self._preview_messaging
 
     @property
     def messaging(self) -> "Messaging":

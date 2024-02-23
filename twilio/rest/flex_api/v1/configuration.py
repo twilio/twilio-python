@@ -237,6 +237,24 @@ class ConfigurationInstance(InstanceResource):
             ui_version=ui_version,
         )
 
+    def update(self) -> "ConfigurationInstance":
+        """
+        Update the ConfigurationInstance
+
+
+        :returns: The updated ConfigurationInstance
+        """
+        return self._proxy.update()
+
+    async def update_async(self) -> "ConfigurationInstance":
+        """
+        Asynchronous coroutine to update the ConfigurationInstance
+
+
+        :returns: The updated ConfigurationInstance
+        """
+        return await self._proxy.update_async()
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -308,6 +326,40 @@ class ConfigurationContext(InstanceContext):
             self._version,
             payload,
         )
+
+    def update(self) -> ConfigurationInstance:
+        """
+        Update the ConfigurationInstance
+
+
+        :returns: The updated ConfigurationInstance
+        """
+        data = values.of({})
+
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ConfigurationInstance(self._version, payload)
+
+    async def update_async(self) -> ConfigurationInstance:
+        """
+        Asynchronous coroutine to update the ConfigurationInstance
+
+
+        :returns: The updated ConfigurationInstance
+        """
+        data = values.of({})
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ConfigurationInstance(self._version, payload)
 
     def __repr__(self) -> str:
         """

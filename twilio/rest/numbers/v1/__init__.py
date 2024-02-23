@@ -16,7 +16,9 @@ from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.numbers.v1.bulk_eligibility import BulkEligibilityList
+from twilio.rest.numbers.v1.eligibility import EligibilityList
 from twilio.rest.numbers.v1.porting_bulk_portability import PortingBulkPortabilityList
+from twilio.rest.numbers.v1.porting_port_in import PortingPortInList
 from twilio.rest.numbers.v1.porting_port_in_fetch import PortingPortInFetchList
 from twilio.rest.numbers.v1.porting_portability import PortingPortabilityList
 
@@ -31,7 +33,9 @@ class V1(Version):
         """
         super().__init__(domain, "v1")
         self._bulk_eligibilities: Optional[BulkEligibilityList] = None
+        self._eligibilities: Optional[EligibilityList] = None
         self._porting_bulk_portabilities: Optional[PortingBulkPortabilityList] = None
+        self._porting_port_ins: Optional[PortingPortInList] = None
         self._porting_port_ins: Optional[PortingPortInFetchList] = None
         self._porting_portabilities: Optional[PortingPortabilityList] = None
 
@@ -42,10 +46,22 @@ class V1(Version):
         return self._bulk_eligibilities
 
     @property
+    def eligibilities(self) -> EligibilityList:
+        if self._eligibilities is None:
+            self._eligibilities = EligibilityList(self)
+        return self._eligibilities
+
+    @property
     def porting_bulk_portabilities(self) -> PortingBulkPortabilityList:
         if self._porting_bulk_portabilities is None:
             self._porting_bulk_portabilities = PortingBulkPortabilityList(self)
         return self._porting_bulk_portabilities
+
+    @property
+    def porting_port_ins(self) -> PortingPortInList:
+        if self._porting_port_ins is None:
+            self._porting_port_ins = PortingPortInList(self)
+        return self._porting_port_ins
 
     @property
     def porting_port_ins(self) -> PortingPortInFetchList:

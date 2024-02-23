@@ -145,6 +145,32 @@ class TestHttpClientRequest(unittest.TestCase):
                 "testing-unicode: Ω≈ç√, 💩", self.client._test_only_last_response.text
             )
 
+    def test_request_with_json(self):
+        self.request_mock.url = "https://api.twilio.com/"
+        self.request_mock.headers = {"Host": "other.twilio.com"}
+
+        self.client.request(
+            "doesnt-matter-method",
+            "doesnt-matter-url",
+            {"params-value": "params-key"},
+            {"json-key": "json-value"},
+            {"Content-Type": "application/json"},
+        )
+
+        self.assertIsNotNone(self.client._test_only_last_request)
+        self.assertEqual(
+            {"Content-Type": "application/json"},
+            self.client._test_only_last_request.headers,
+        )
+
+        self.assertIsNotNone(self.client._test_only_last_response)
+
+        if self.client._test_only_last_response is not None:
+            self.assertEqual(200, self.client._test_only_last_response.status_code)
+            self.assertEqual(
+                "testing-unicode: Ω≈ç√, 💩", self.client._test_only_last_response.text
+            )
+
     def test_last_response_empty_on_error(self):
         self.session_mock.send.side_effect = Exception("voltron")
 

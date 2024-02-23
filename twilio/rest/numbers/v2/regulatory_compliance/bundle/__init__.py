@@ -578,8 +578,6 @@ class BundleList(ListResource):
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
         valid_until_date: Union[datetime, object] = values.unset,
-        valid_until_date_before: Union[datetime, object] = values.unset,
-        valid_until_date_after: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[BundleInstance]:
@@ -598,8 +596,6 @@ class BundleList(ListResource):
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
         :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -620,8 +616,6 @@ class BundleList(ListResource):
             sort_by=sort_by,
             sort_direction=sort_direction,
             valid_until_date=valid_until_date,
-            valid_until_date_before=valid_until_date_before,
-            valid_until_date_after=valid_until_date_after,
             page_size=limits["page_size"],
         )
 
@@ -638,8 +632,6 @@ class BundleList(ListResource):
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
         valid_until_date: Union[datetime, object] = values.unset,
-        valid_until_date_before: Union[datetime, object] = values.unset,
-        valid_until_date_after: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[BundleInstance]:
@@ -658,8 +650,6 @@ class BundleList(ListResource):
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
         :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -680,8 +670,6 @@ class BundleList(ListResource):
             sort_by=sort_by,
             sort_direction=sort_direction,
             valid_until_date=valid_until_date,
-            valid_until_date_before=valid_until_date_before,
-            valid_until_date_after=valid_until_date_after,
             page_size=limits["page_size"],
         )
 
@@ -698,8 +686,6 @@ class BundleList(ListResource):
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
         valid_until_date: Union[datetime, object] = values.unset,
-        valid_until_date_before: Union[datetime, object] = values.unset,
-        valid_until_date_after: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[BundleInstance]:
@@ -717,8 +703,6 @@ class BundleList(ListResource):
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
         :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -739,8 +723,6 @@ class BundleList(ListResource):
                 sort_by=sort_by,
                 sort_direction=sort_direction,
                 valid_until_date=valid_until_date,
-                valid_until_date_before=valid_until_date_before,
-                valid_until_date_after=valid_until_date_after,
                 limit=limit,
                 page_size=page_size,
             )
@@ -757,8 +739,6 @@ class BundleList(ListResource):
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
         valid_until_date: Union[datetime, object] = values.unset,
-        valid_until_date_before: Union[datetime, object] = values.unset,
-        valid_until_date_after: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[BundleInstance]:
@@ -776,8 +756,6 @@ class BundleList(ListResource):
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
         :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -799,8 +777,6 @@ class BundleList(ListResource):
                 sort_by=sort_by,
                 sort_direction=sort_direction,
                 valid_until_date=valid_until_date,
-                valid_until_date_before=valid_until_date_before,
-                valid_until_date_after=valid_until_date_after,
                 limit=limit,
                 page_size=page_size,
             )
@@ -817,8 +793,6 @@ class BundleList(ListResource):
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
         valid_until_date: Union[datetime, object] = values.unset,
-        valid_until_date_before: Union[datetime, object] = values.unset,
-        valid_until_date_after: Union[datetime, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -836,8 +810,6 @@ class BundleList(ListResource):
         :param sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
         :param valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -855,8 +827,6 @@ class BundleList(ListResource):
                 "SortBy": sort_by,
                 "SortDirection": sort_direction,
                 "ValidUntilDate": serialize.iso8601_datetime(valid_until_date),
-                "ValidUntilDate<": serialize.iso8601_datetime(valid_until_date_before),
-                "ValidUntilDate>": serialize.iso8601_datetime(valid_until_date_after),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -877,8 +847,6 @@ class BundleList(ListResource):
         sort_by: Union["BundleInstance.SortBy", object] = values.unset,
         sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
         valid_until_date: Union[datetime, object] = values.unset,
-        valid_until_date_before: Union[datetime, object] = values.unset,
-        valid_until_date_after: Union[datetime, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -896,8 +864,6 @@ class BundleList(ListResource):
         :param sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
         :param valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
-        :param valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -915,8 +881,6 @@ class BundleList(ListResource):
                 "SortBy": sort_by,
                 "SortDirection": sort_direction,
                 "ValidUntilDate": serialize.iso8601_datetime(valid_until_date),
-                "ValidUntilDate<": serialize.iso8601_datetime(valid_until_date_before),
-                "ValidUntilDate>": serialize.iso8601_datetime(valid_until_date_after),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

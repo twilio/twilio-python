@@ -984,11 +984,7 @@ class CallList(ListResource):
         parent_call_sid: Union[str, object] = values.unset,
         status: Union["CallInstance.Status", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
-        start_time_before: Union[datetime, object] = values.unset,
-        start_time_after: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
-        end_time_before: Union[datetime, object] = values.unset,
-        end_time_after: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[CallInstance]:
@@ -1003,11 +999,7 @@ class CallList(ListResource):
         :param str parent_call_sid: Only include calls spawned by calls with this SID.
         :param &quot;CallInstance.Status&quot; status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
         :param datetime start_time: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param datetime start_time_before: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param datetime start_time_after: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param datetime end_time: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param datetime end_time_before: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param datetime end_time_after: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1024,11 +1016,7 @@ class CallList(ListResource):
             parent_call_sid=parent_call_sid,
             status=status,
             start_time=start_time,
-            start_time_before=start_time_before,
-            start_time_after=start_time_after,
             end_time=end_time,
-            end_time_before=end_time_before,
-            end_time_after=end_time_after,
             page_size=limits["page_size"],
         )
 
@@ -1041,11 +1029,7 @@ class CallList(ListResource):
         parent_call_sid: Union[str, object] = values.unset,
         status: Union["CallInstance.Status", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
-        start_time_before: Union[datetime, object] = values.unset,
-        start_time_after: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
-        end_time_before: Union[datetime, object] = values.unset,
-        end_time_after: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[CallInstance]:
@@ -1060,11 +1044,7 @@ class CallList(ListResource):
         :param str parent_call_sid: Only include calls spawned by calls with this SID.
         :param &quot;CallInstance.Status&quot; status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
         :param datetime start_time: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param datetime start_time_before: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param datetime start_time_after: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param datetime end_time: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param datetime end_time_before: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param datetime end_time_after: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1081,11 +1061,7 @@ class CallList(ListResource):
             parent_call_sid=parent_call_sid,
             status=status,
             start_time=start_time,
-            start_time_before=start_time_before,
-            start_time_after=start_time_after,
             end_time=end_time,
-            end_time_before=end_time_before,
-            end_time_after=end_time_after,
             page_size=limits["page_size"],
         )
 
@@ -1098,11 +1074,7 @@ class CallList(ListResource):
         parent_call_sid: Union[str, object] = values.unset,
         status: Union["CallInstance.Status", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
-        start_time_before: Union[datetime, object] = values.unset,
-        start_time_after: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
-        end_time_before: Union[datetime, object] = values.unset,
-        end_time_after: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CallInstance]:
@@ -1116,11 +1088,7 @@ class CallList(ListResource):
         :param str parent_call_sid: Only include calls spawned by calls with this SID.
         :param &quot;CallInstance.Status&quot; status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
         :param datetime start_time: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param datetime start_time_before: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param datetime start_time_after: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param datetime end_time: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param datetime end_time_before: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param datetime end_time_after: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1137,11 +1105,7 @@ class CallList(ListResource):
                 parent_call_sid=parent_call_sid,
                 status=status,
                 start_time=start_time,
-                start_time_before=start_time_before,
-                start_time_after=start_time_after,
                 end_time=end_time,
-                end_time_before=end_time_before,
-                end_time_after=end_time_after,
                 limit=limit,
                 page_size=page_size,
             )
@@ -1154,11 +1118,7 @@ class CallList(ListResource):
         parent_call_sid: Union[str, object] = values.unset,
         status: Union["CallInstance.Status", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
-        start_time_before: Union[datetime, object] = values.unset,
-        start_time_after: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
-        end_time_before: Union[datetime, object] = values.unset,
-        end_time_after: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CallInstance]:
@@ -1172,11 +1132,7 @@ class CallList(ListResource):
         :param str parent_call_sid: Only include calls spawned by calls with this SID.
         :param &quot;CallInstance.Status&quot; status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
         :param datetime start_time: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param datetime start_time_before: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param datetime start_time_after: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param datetime end_time: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param datetime end_time_before: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param datetime end_time_after: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -1194,11 +1150,7 @@ class CallList(ListResource):
                 parent_call_sid=parent_call_sid,
                 status=status,
                 start_time=start_time,
-                start_time_before=start_time_before,
-                start_time_after=start_time_after,
                 end_time=end_time,
-                end_time_before=end_time_before,
-                end_time_after=end_time_after,
                 limit=limit,
                 page_size=page_size,
             )
@@ -1211,11 +1163,7 @@ class CallList(ListResource):
         parent_call_sid: Union[str, object] = values.unset,
         status: Union["CallInstance.Status", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
-        start_time_before: Union[datetime, object] = values.unset,
-        start_time_after: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
-        end_time_before: Union[datetime, object] = values.unset,
-        end_time_after: Union[datetime, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1229,11 +1177,7 @@ class CallList(ListResource):
         :param parent_call_sid: Only include calls spawned by calls with this SID.
         :param status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
         :param start_time: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param start_time_before: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param start_time_after: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param end_time: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param end_time_before: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param end_time_after: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -1247,11 +1191,7 @@ class CallList(ListResource):
                 "ParentCallSid": parent_call_sid,
                 "Status": status,
                 "StartTime": serialize.iso8601_datetime(start_time),
-                "StartTime<": serialize.iso8601_datetime(start_time_before),
-                "StartTime>": serialize.iso8601_datetime(start_time_after),
                 "EndTime": serialize.iso8601_datetime(end_time),
-                "EndTime<": serialize.iso8601_datetime(end_time_before),
-                "EndTime>": serialize.iso8601_datetime(end_time_after),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -1268,11 +1208,7 @@ class CallList(ListResource):
         parent_call_sid: Union[str, object] = values.unset,
         status: Union["CallInstance.Status", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
-        start_time_before: Union[datetime, object] = values.unset,
-        start_time_after: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
-        end_time_before: Union[datetime, object] = values.unset,
-        end_time_after: Union[datetime, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1286,11 +1222,7 @@ class CallList(ListResource):
         :param parent_call_sid: Only include calls spawned by calls with this SID.
         :param status: The status of the calls to include. Can be: `queued`, `ringing`, `in-progress`, `canceled`, `completed`, `failed`, `busy`, or `no-answer`.
         :param start_time: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param start_time_before: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
-        :param start_time_after: Only include calls that started on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that started on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read calls that started on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read calls that started on or after midnight of this date.
         :param end_time: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param end_time_before: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
-        :param end_time_after: Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read only calls that ended on this date. You can also specify an inequality, such as `EndTime<=YYYY-MM-DD`, to read calls that ended on or before midnight of this date, and `EndTime>=YYYY-MM-DD` to read calls that ended on or after midnight of this date.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -1304,11 +1236,7 @@ class CallList(ListResource):
                 "ParentCallSid": parent_call_sid,
                 "Status": status,
                 "StartTime": serialize.iso8601_datetime(start_time),
-                "StartTime<": serialize.iso8601_datetime(start_time_before),
-                "StartTime>": serialize.iso8601_datetime(start_time_after),
                 "EndTime": serialize.iso8601_datetime(end_time),
-                "EndTime<": serialize.iso8601_datetime(end_time_before),
-                "EndTime>": serialize.iso8601_datetime(end_time_after),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
