@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -423,10 +423,12 @@ class DomainContext(InstanceContext):
                 "VoiceStatusCallbackMethod": voice_status_callback_method,
                 "VoiceStatusCallbackUrl": voice_status_callback_url,
                 "VoiceUrl": voice_url,
-                "SipRegistration": sip_registration,
+                "SipRegistration": serialize.boolean_to_string(sip_registration),
                 "DomainName": domain_name,
-                "EmergencyCallingEnabled": emergency_calling_enabled,
-                "Secure": secure,
+                "EmergencyCallingEnabled": serialize.boolean_to_string(
+                    emergency_calling_enabled
+                ),
+                "Secure": serialize.boolean_to_string(secure),
                 "ByocTrunkSid": byoc_trunk_sid,
                 "EmergencyCallerSid": emergency_caller_sid,
             }
@@ -489,10 +491,12 @@ class DomainContext(InstanceContext):
                 "VoiceStatusCallbackMethod": voice_status_callback_method,
                 "VoiceStatusCallbackUrl": voice_status_callback_url,
                 "VoiceUrl": voice_url,
-                "SipRegistration": sip_registration,
+                "SipRegistration": serialize.boolean_to_string(sip_registration),
                 "DomainName": domain_name,
-                "EmergencyCallingEnabled": emergency_calling_enabled,
-                "Secure": secure,
+                "EmergencyCallingEnabled": serialize.boolean_to_string(
+                    emergency_calling_enabled
+                ),
+                "Secure": serialize.boolean_to_string(secure),
                 "ByocTrunkSid": byoc_trunk_sid,
                 "EmergencyCallerSid": emergency_caller_sid,
             }
@@ -645,9 +649,11 @@ class DomainList(ListResource):
                 "VoiceFallbackMethod": voice_fallback_method,
                 "VoiceStatusCallbackUrl": voice_status_callback_url,
                 "VoiceStatusCallbackMethod": voice_status_callback_method,
-                "SipRegistration": sip_registration,
-                "EmergencyCallingEnabled": emergency_calling_enabled,
-                "Secure": secure,
+                "SipRegistration": serialize.boolean_to_string(sip_registration),
+                "EmergencyCallingEnabled": serialize.boolean_to_string(
+                    emergency_calling_enabled
+                ),
+                "Secure": serialize.boolean_to_string(secure),
                 "ByocTrunkSid": byoc_trunk_sid,
                 "EmergencyCallerSid": emergency_caller_sid,
             }
@@ -709,9 +715,11 @@ class DomainList(ListResource):
                 "VoiceFallbackMethod": voice_fallback_method,
                 "VoiceStatusCallbackUrl": voice_status_callback_url,
                 "VoiceStatusCallbackMethod": voice_status_callback_method,
-                "SipRegistration": sip_registration,
-                "EmergencyCallingEnabled": emergency_calling_enabled,
-                "Secure": secure,
+                "SipRegistration": serialize.boolean_to_string(sip_registration),
+                "EmergencyCallingEnabled": serialize.boolean_to_string(
+                    emergency_calling_enabled
+                ),
+                "Secure": serialize.boolean_to_string(secure),
                 "ByocTrunkSid": byoc_trunk_sid,
                 "EmergencyCallerSid": emergency_caller_sid,
             }

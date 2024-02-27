@@ -550,7 +550,7 @@ class HostedNumberOrderList(ListResource):
         data = values.of(
             {
                 "PhoneNumber": phone_number,
-                "SmsCapability": sms_capability,
+                "SmsCapability": serialize.boolean_to_string(sms_capability),
                 "AccountSid": account_sid,
                 "FriendlyName": friendly_name,
                 "UniqueName": unique_name,
@@ -626,7 +626,7 @@ class HostedNumberOrderList(ListResource):
         data = values.of(
             {
                 "PhoneNumber": phone_number,
-                "SmsCapability": sms_capability,
+                "SmsCapability": serialize.boolean_to_string(sms_capability),
                 "AccountSid": account_sid,
                 "FriendlyName": friendly_name,
                 "UniqueName": unique_name,

@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -347,11 +347,17 @@ class ServiceContext(InstanceContext):
             {
                 "WebhookUrl": webhook_url,
                 "FriendlyName": friendly_name,
-                "ReachabilityWebhooksEnabled": reachability_webhooks_enabled,
-                "AclEnabled": acl_enabled,
-                "ReachabilityDebouncingEnabled": reachability_debouncing_enabled,
+                "ReachabilityWebhooksEnabled": serialize.boolean_to_string(
+                    reachability_webhooks_enabled
+                ),
+                "AclEnabled": serialize.boolean_to_string(acl_enabled),
+                "ReachabilityDebouncingEnabled": serialize.boolean_to_string(
+                    reachability_debouncing_enabled
+                ),
                 "ReachabilityDebouncingWindow": reachability_debouncing_window,
-                "WebhooksFromRestEnabled": webhooks_from_rest_enabled,
+                "WebhooksFromRestEnabled": serialize.boolean_to_string(
+                    webhooks_from_rest_enabled
+                ),
             }
         )
 
@@ -390,11 +396,17 @@ class ServiceContext(InstanceContext):
             {
                 "WebhookUrl": webhook_url,
                 "FriendlyName": friendly_name,
-                "ReachabilityWebhooksEnabled": reachability_webhooks_enabled,
-                "AclEnabled": acl_enabled,
-                "ReachabilityDebouncingEnabled": reachability_debouncing_enabled,
+                "ReachabilityWebhooksEnabled": serialize.boolean_to_string(
+                    reachability_webhooks_enabled
+                ),
+                "AclEnabled": serialize.boolean_to_string(acl_enabled),
+                "ReachabilityDebouncingEnabled": serialize.boolean_to_string(
+                    reachability_debouncing_enabled
+                ),
                 "ReachabilityDebouncingWindow": reachability_debouncing_window,
-                "WebhooksFromRestEnabled": webhooks_from_rest_enabled,
+                "WebhooksFromRestEnabled": serialize.boolean_to_string(
+                    webhooks_from_rest_enabled
+                ),
             }
         )
 
@@ -524,11 +536,17 @@ class ServiceList(ListResource):
             {
                 "FriendlyName": friendly_name,
                 "WebhookUrl": webhook_url,
-                "ReachabilityWebhooksEnabled": reachability_webhooks_enabled,
-                "AclEnabled": acl_enabled,
-                "ReachabilityDebouncingEnabled": reachability_debouncing_enabled,
+                "ReachabilityWebhooksEnabled": serialize.boolean_to_string(
+                    reachability_webhooks_enabled
+                ),
+                "AclEnabled": serialize.boolean_to_string(acl_enabled),
+                "ReachabilityDebouncingEnabled": serialize.boolean_to_string(
+                    reachability_debouncing_enabled
+                ),
                 "ReachabilityDebouncingWindow": reachability_debouncing_window,
-                "WebhooksFromRestEnabled": webhooks_from_rest_enabled,
+                "WebhooksFromRestEnabled": serialize.boolean_to_string(
+                    webhooks_from_rest_enabled
+                ),
             }
         )
 
@@ -568,11 +586,17 @@ class ServiceList(ListResource):
             {
                 "FriendlyName": friendly_name,
                 "WebhookUrl": webhook_url,
-                "ReachabilityWebhooksEnabled": reachability_webhooks_enabled,
-                "AclEnabled": acl_enabled,
-                "ReachabilityDebouncingEnabled": reachability_debouncing_enabled,
+                "ReachabilityWebhooksEnabled": serialize.boolean_to_string(
+                    reachability_webhooks_enabled
+                ),
+                "AclEnabled": serialize.boolean_to_string(acl_enabled),
+                "ReachabilityDebouncingEnabled": serialize.boolean_to_string(
+                    reachability_debouncing_enabled
+                ),
                 "ReachabilityDebouncingWindow": reachability_debouncing_window,
-                "WebhooksFromRestEnabled": webhooks_from_rest_enabled,
+                "WebhooksFromRestEnabled": serialize.boolean_to_string(
+                    webhooks_from_rest_enabled
+                ),
             }
         )
 

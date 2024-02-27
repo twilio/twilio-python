@@ -12,8 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, List, Optional
-from twilio.base import deserialize
+from typing import Any, Dict, List, Optional, Union
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -80,34 +80,43 @@ class TaskQueueBulkRealTimeStatisticsList(ListResource):
             **self._solution
         )
 
-    def create(self) -> TaskQueueBulkRealTimeStatisticsInstance:
+    def create(
+        self, body: Union[object, object] = values.unset
+    ) -> TaskQueueBulkRealTimeStatisticsInstance:
         """
         Create the TaskQueueBulkRealTimeStatisticsInstance
 
+        :param body:
 
         :returns: The created TaskQueueBulkRealTimeStatisticsInstance
         """
+        data = body.to_dict()
 
+        headers = {"Content-Type": "application/json"}
         payload = self._version.create(
-            method="POST",
-            uri=self._uri,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return TaskQueueBulkRealTimeStatisticsInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
         )
 
-    async def create_async(self) -> TaskQueueBulkRealTimeStatisticsInstance:
+    async def create_async(
+        self, body: Union[object, object] = values.unset
+    ) -> TaskQueueBulkRealTimeStatisticsInstance:
         """
         Asynchronously create the TaskQueueBulkRealTimeStatisticsInstance
 
+        :param body:
 
         :returns: The created TaskQueueBulkRealTimeStatisticsInstance
         """
 
+        data = body.to_dict()
+        headers = {"Content-Type": "application/json"}
+
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return TaskQueueBulkRealTimeStatisticsInstance(

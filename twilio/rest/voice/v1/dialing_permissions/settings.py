@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, Optional, Union
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -166,7 +166,9 @@ class SettingsContext(InstanceContext):
         """
         data = values.of(
             {
-                "DialingPermissionsInheritance": dialing_permissions_inheritance,
+                "DialingPermissionsInheritance": serialize.boolean_to_string(
+                    dialing_permissions_inheritance
+                ),
             }
         )
 
@@ -190,7 +192,9 @@ class SettingsContext(InstanceContext):
         """
         data = values.of(
             {
-                "DialingPermissionsInheritance": dialing_permissions_inheritance,
+                "DialingPermissionsInheritance": serialize.boolean_to_string(
+                    dialing_permissions_inheritance
+                ),
             }
         )
 

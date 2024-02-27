@@ -346,13 +346,13 @@ class UsAppToPersonContext(InstanceContext):
         """
         data = values.of(
             {
-                "HasEmbeddedLinks": has_embedded_links,
-                "HasEmbeddedPhone": has_embedded_phone,
+                "HasEmbeddedLinks": serialize.boolean_to_string(has_embedded_links),
+                "HasEmbeddedPhone": serialize.boolean_to_string(has_embedded_phone),
                 "MessageSamples": serialize.map(message_samples, lambda e: e),
                 "MessageFlow": message_flow,
                 "Description": description,
-                "AgeGated": age_gated,
-                "DirectLending": direct_lending,
+                "AgeGated": serialize.boolean_to_string(age_gated),
+                "DirectLending": serialize.boolean_to_string(direct_lending),
             }
         )
 
@@ -394,13 +394,13 @@ class UsAppToPersonContext(InstanceContext):
         """
         data = values.of(
             {
-                "HasEmbeddedLinks": has_embedded_links,
-                "HasEmbeddedPhone": has_embedded_phone,
+                "HasEmbeddedLinks": serialize.boolean_to_string(has_embedded_links),
+                "HasEmbeddedPhone": serialize.boolean_to_string(has_embedded_phone),
                 "MessageSamples": serialize.map(message_samples, lambda e: e),
                 "MessageFlow": message_flow,
                 "Description": description,
-                "AgeGated": age_gated,
-                "DirectLending": direct_lending,
+                "AgeGated": serialize.boolean_to_string(age_gated),
+                "DirectLending": serialize.boolean_to_string(direct_lending),
             }
         )
 
@@ -519,17 +519,17 @@ class UsAppToPersonList(ListResource):
                 "MessageFlow": message_flow,
                 "MessageSamples": serialize.map(message_samples, lambda e: e),
                 "UsAppToPersonUsecase": us_app_to_person_usecase,
-                "HasEmbeddedLinks": has_embedded_links,
-                "HasEmbeddedPhone": has_embedded_phone,
+                "HasEmbeddedLinks": serialize.boolean_to_string(has_embedded_links),
+                "HasEmbeddedPhone": serialize.boolean_to_string(has_embedded_phone),
                 "OptInMessage": opt_in_message,
                 "OptOutMessage": opt_out_message,
                 "HelpMessage": help_message,
                 "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
                 "OptOutKeywords": serialize.map(opt_out_keywords, lambda e: e),
                 "HelpKeywords": serialize.map(help_keywords, lambda e: e),
-                "SubscriberOptIn": subscriber_opt_in,
-                "AgeGated": age_gated,
-                "DirectLending": direct_lending,
+                "SubscriberOptIn": serialize.boolean_to_string(subscriber_opt_in),
+                "AgeGated": serialize.boolean_to_string(age_gated),
+                "DirectLending": serialize.boolean_to_string(direct_lending),
             }
         )
 
@@ -594,17 +594,17 @@ class UsAppToPersonList(ListResource):
                 "MessageFlow": message_flow,
                 "MessageSamples": serialize.map(message_samples, lambda e: e),
                 "UsAppToPersonUsecase": us_app_to_person_usecase,
-                "HasEmbeddedLinks": has_embedded_links,
-                "HasEmbeddedPhone": has_embedded_phone,
+                "HasEmbeddedLinks": serialize.boolean_to_string(has_embedded_links),
+                "HasEmbeddedPhone": serialize.boolean_to_string(has_embedded_phone),
                 "OptInMessage": opt_in_message,
                 "OptOutMessage": opt_out_message,
                 "HelpMessage": help_message,
                 "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
                 "OptOutKeywords": serialize.map(opt_out_keywords, lambda e: e),
                 "HelpKeywords": serialize.map(help_keywords, lambda e: e),
-                "SubscriberOptIn": subscriber_opt_in,
-                "AgeGated": age_gated,
-                "DirectLending": direct_lending,
+                "SubscriberOptIn": serialize.boolean_to_string(subscriber_opt_in),
+                "AgeGated": serialize.boolean_to_string(age_gated),
+                "DirectLending": serialize.boolean_to_string(direct_lending),
             }
         )
 

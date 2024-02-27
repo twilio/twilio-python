@@ -40,7 +40,7 @@ class PhoneNumberInstance(InstanceResource):
     :ivar caller_name: An object that contains caller name information based on [CNAM](https://support.twilio.com/hc/en-us/articles/360051670533-Getting-Started-with-CNAM-Caller-ID).
     :ivar sim_swap: An object that contains information on the last date the subscriber identity module (SIM) was changed for a mobile phone number.
     :ivar call_forwarding: An object that contains information on the unconditional call forwarding status of mobile phone number.
-    :ivar live_activity: An object that contains live activity information for a mobile phone number.
+    :ivar line_status: An object that contains line status information for a mobile phone number.
     :ivar line_type_intelligence: An object that contains line type information including the carrier name, mobile country code, and mobile network code.
     :ivar identity_match: An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
     :ivar reassigned_number: An object that contains reassigned number information. Reassigned Numbers will return a phone number's reassignment status given a phone number and date
@@ -70,7 +70,7 @@ class PhoneNumberInstance(InstanceResource):
         self.call_forwarding: Optional[Dict[str, object]] = payload.get(
             "call_forwarding"
         )
-        self.live_activity: Optional[Dict[str, object]] = payload.get("live_activity")
+        self.line_status: Optional[Dict[str, object]] = payload.get("line_status")
         self.line_type_intelligence: Optional[Dict[str, object]] = payload.get(
             "line_type_intelligence"
         )
@@ -125,7 +125,7 @@ class PhoneNumberInstance(InstanceResource):
         """
         Fetch the PhoneNumberInstance
 
-        :param fields: A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match, reassigned_number.
+        :param fields: A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score.
         :param country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
         :param first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
         :param last_name: User’s last name. This query parameter is only used (optionally) for identity_match package requests.
@@ -176,7 +176,7 @@ class PhoneNumberInstance(InstanceResource):
         """
         Asynchronous coroutine to fetch the PhoneNumberInstance
 
-        :param fields: A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match, reassigned_number.
+        :param fields: A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score.
         :param country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
         :param first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
         :param last_name: User’s last name. This query parameter is only used (optionally) for identity_match package requests.
@@ -254,7 +254,7 @@ class PhoneNumberContext(InstanceContext):
         """
         Fetch the PhoneNumberInstance
 
-        :param fields: A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match, reassigned_number.
+        :param fields: A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score.
         :param country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
         :param first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
         :param last_name: User’s last name. This query parameter is only used (optionally) for identity_match package requests.
@@ -316,7 +316,7 @@ class PhoneNumberContext(InstanceContext):
         """
         Asynchronous coroutine to fetch the PhoneNumberInstance
 
-        :param fields: A comma-separated list of fields to return. Possible values are caller_name, sim_swap, call_forwarding, live_activity, line_type_intelligence, identity_match, reassigned_number.
+        :param fields: A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score.
         :param country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
         :param first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
         :param last_name: User’s last name. This query parameter is only used (optionally) for identity_match package requests.

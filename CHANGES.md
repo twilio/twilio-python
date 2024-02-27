@@ -3,6 +3,39 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-02-27] Version 9.0.0
+--------------------------
+**Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md###-2024-02-20-8xx-to-9xx) for detailed migration notes.
+
+**Library - Feature**
+- [PR #767](https://github.com/twilio/twilio-python/pull/767): Merge branch '9.0.0-rc' into main. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)! **(breaking change)**
+
+**Library - Chore**
+- [PR #771](https://github.com/twilio/twilio-python/pull/771): added check for unset values. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #768](https://github.com/twilio/twilio-python/pull/768): cluster tests enabled. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- remove feedback and feedback summary from call resource
+
+**Flex**
+- Adding `routing_properties` to Interactions Channels Participant
+
+**Lookups**
+- Add new `line_status` package to the lookup response
+- Remove `live_activity` package from the lookup response **(breaking change)**
+
+**Messaging**
+- Add tollfree multiple rejection reasons response array
+
+**Trusthub**
+- Add ENUM for businessRegistrationAuthority in compliance_registration. **(breaking change)**
+- Add new field in isIsvEmbed in compliance_registration.
+- Add additional optional fields in compliance_registration for Individual business type.
+
+**Twiml**
+- Add support for new Amazon Polly and Google voices (Q1 2024) for `Say` verb
+
+
 [2024-02-09] Version 8.13.0
 ---------------------------
 **Library - Fix**

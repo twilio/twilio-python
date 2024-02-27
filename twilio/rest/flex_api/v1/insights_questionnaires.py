@@ -316,7 +316,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         """
         data = values.of(
             {
-                "Active": active,
+                "Active": serialize.boolean_to_string(active),
                 "Name": name,
                 "Description": description,
                 "QuestionSids": serialize.map(question_sids, lambda e: e),
@@ -359,7 +359,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         """
         data = values.of(
             {
-                "Active": active,
+                "Active": serialize.boolean_to_string(active),
                 "Name": name,
                 "Description": description,
                 "QuestionSids": serialize.map(question_sids, lambda e: e),
@@ -447,7 +447,7 @@ class InsightsQuestionnairesList(ListResource):
             {
                 "Name": name,
                 "Description": description,
-                "Active": active,
+                "Active": serialize.boolean_to_string(active),
                 "QuestionSids": serialize.map(question_sids, lambda e: e),
             }
         )
@@ -487,7 +487,7 @@ class InsightsQuestionnairesList(ListResource):
             {
                 "Name": name,
                 "Description": description,
-                "Active": active,
+                "Active": serialize.boolean_to_string(active),
                 "QuestionSids": serialize.map(question_sids, lambda e: e),
             }
         )
@@ -657,7 +657,7 @@ class InsightsQuestionnairesList(ListResource):
         data = values.of(
             {
                 "Authorization": authorization,
-                "IncludeInactive": include_inactive,
+                "IncludeInactive": serialize.boolean_to_string(include_inactive),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -690,7 +690,7 @@ class InsightsQuestionnairesList(ListResource):
         data = values.of(
             {
                 "Authorization": authorization,
-                "IncludeInactive": include_inactive,
+                "IncludeInactive": serialize.boolean_to_string(include_inactive),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

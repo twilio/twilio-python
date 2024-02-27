@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -230,8 +230,8 @@ class DomainConfigContext(InstanceContext):
             {
                 "FallbackUrl": fallback_url,
                 "CallbackUrl": callback_url,
-                "ContinueOnFailure": continue_on_failure,
-                "DisableHttps": disable_https,
+                "ContinueOnFailure": serialize.boolean_to_string(continue_on_failure),
+                "DisableHttps": serialize.boolean_to_string(disable_https),
             }
         )
 
@@ -266,8 +266,8 @@ class DomainConfigContext(InstanceContext):
             {
                 "FallbackUrl": fallback_url,
                 "CallbackUrl": callback_url,
-                "ContinueOnFailure": continue_on_failure,
-                "DisableHttps": disable_https,
+                "ContinueOnFailure": serialize.boolean_to_string(continue_on_failure),
+                "DisableHttps": serialize.boolean_to_string(disable_https),
             }
         )
 

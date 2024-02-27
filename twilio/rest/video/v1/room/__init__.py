@@ -437,21 +437,23 @@ class RoomList(ListResource):
 
         data = values.of(
             {
-                "EnableTurn": enable_turn,
+                "EnableTurn": serialize.boolean_to_string(enable_turn),
                 "Type": type,
                 "UniqueName": unique_name,
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
                 "MaxParticipants": max_participants,
-                "RecordParticipantsOnConnect": record_participants_on_connect,
+                "RecordParticipantsOnConnect": serialize.boolean_to_string(
+                    record_participants_on_connect
+                ),
                 "VideoCodecs": serialize.map(video_codecs, lambda e: e),
                 "MediaRegion": media_region,
                 "RecordingRules": serialize.object(recording_rules),
-                "AudioOnly": audio_only,
+                "AudioOnly": serialize.boolean_to_string(audio_only),
                 "MaxParticipantDuration": max_participant_duration,
                 "EmptyRoomTimeout": empty_room_timeout,
                 "UnusedRoomTimeout": unused_room_timeout,
-                "LargeRoom": large_room,
+                "LargeRoom": serialize.boolean_to_string(large_room),
             }
         )
 
@@ -505,21 +507,23 @@ class RoomList(ListResource):
 
         data = values.of(
             {
-                "EnableTurn": enable_turn,
+                "EnableTurn": serialize.boolean_to_string(enable_turn),
                 "Type": type,
                 "UniqueName": unique_name,
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
                 "MaxParticipants": max_participants,
-                "RecordParticipantsOnConnect": record_participants_on_connect,
+                "RecordParticipantsOnConnect": serialize.boolean_to_string(
+                    record_participants_on_connect
+                ),
                 "VideoCodecs": serialize.map(video_codecs, lambda e: e),
                 "MediaRegion": media_region,
                 "RecordingRules": serialize.object(recording_rules),
-                "AudioOnly": audio_only,
+                "AudioOnly": serialize.boolean_to_string(audio_only),
                 "MaxParticipantDuration": max_participant_duration,
                 "EmptyRoomTimeout": empty_room_timeout,
                 "UnusedRoomTimeout": unused_room_timeout,
-                "LargeRoom": large_room,
+                "LargeRoom": serialize.boolean_to_string(large_room),
             }
         )
 

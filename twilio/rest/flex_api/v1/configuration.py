@@ -237,23 +237,33 @@ class ConfigurationInstance(InstanceResource):
             ui_version=ui_version,
         )
 
-    def update(self) -> "ConfigurationInstance":
+    def update(
+        self, body: Union[object, object] = values.unset
+    ) -> "ConfigurationInstance":
         """
         Update the ConfigurationInstance
 
+        :param body:
 
         :returns: The updated ConfigurationInstance
         """
-        return self._proxy.update()
+        return self._proxy.update(
+            body=body,
+        )
 
-    async def update_async(self) -> "ConfigurationInstance":
+    async def update_async(
+        self, body: Union[object, object] = values.unset
+    ) -> "ConfigurationInstance":
         """
         Asynchronous coroutine to update the ConfigurationInstance
 
+        :param body:
 
         :returns: The updated ConfigurationInstance
         """
-        return await self._proxy.update_async()
+        return await self._proxy.update_async(
+            body=body,
+        )
 
     def __repr__(self) -> str:
         """
@@ -327,36 +337,48 @@ class ConfigurationContext(InstanceContext):
             payload,
         )
 
-    def update(self) -> ConfigurationInstance:
+    def update(
+        self, body: Union[object, object] = values.unset
+    ) -> ConfigurationInstance:
         """
         Update the ConfigurationInstance
 
+        :param body:
 
         :returns: The updated ConfigurationInstance
         """
         data = values.of({})
+        headers = values.of(
+            {
+                "body": body,
+            }
+        )
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ConfigurationInstance(self._version, payload)
 
-    async def update_async(self) -> ConfigurationInstance:
+    async def update_async(
+        self, body: Union[object, object] = values.unset
+    ) -> ConfigurationInstance:
         """
         Asynchronous coroutine to update the ConfigurationInstance
 
+        :param body:
 
         :returns: The updated ConfigurationInstance
         """
         data = values.of({})
+        headers = values.of(
+            {
+                "body": body,
+            }
+        )
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ConfigurationInstance(self._version, payload)

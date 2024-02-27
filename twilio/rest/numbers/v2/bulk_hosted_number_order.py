@@ -218,32 +218,41 @@ class BulkHostedNumberOrderList(ListResource):
 
         self._uri = "/HostedNumber/Orders/Bulk"
 
-    def create(self) -> BulkHostedNumberOrderInstance:
+    def create(
+        self, body: Union[object, object] = values.unset
+    ) -> BulkHostedNumberOrderInstance:
         """
         Create the BulkHostedNumberOrderInstance
 
+        :param body:
 
         :returns: The created BulkHostedNumberOrderInstance
         """
+        data = body.to_dict()
 
+        headers = {"Content-Type": "application/json"}
         payload = self._version.create(
-            method="POST",
-            uri=self._uri,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return BulkHostedNumberOrderInstance(self._version, payload)
 
-    async def create_async(self) -> BulkHostedNumberOrderInstance:
+    async def create_async(
+        self, body: Union[object, object] = values.unset
+    ) -> BulkHostedNumberOrderInstance:
         """
         Asynchronously create the BulkHostedNumberOrderInstance
 
+        :param body:
 
         :returns: The created BulkHostedNumberOrderInstance
         """
 
+        data = body.to_dict()
+        headers = {"Content-Type": "application/json"}
+
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return BulkHostedNumberOrderInstance(self._version, payload)

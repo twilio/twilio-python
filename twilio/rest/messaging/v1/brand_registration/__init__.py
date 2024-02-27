@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -382,8 +382,10 @@ class BrandRegistrationList(ListResource):
                 "CustomerProfileBundleSid": customer_profile_bundle_sid,
                 "A2PProfileBundleSid": a2p_profile_bundle_sid,
                 "BrandType": brand_type,
-                "Mock": mock,
-                "SkipAutomaticSecVet": skip_automatic_sec_vet,
+                "Mock": serialize.boolean_to_string(mock),
+                "SkipAutomaticSecVet": serialize.boolean_to_string(
+                    skip_automatic_sec_vet
+                ),
             }
         )
 
@@ -420,8 +422,10 @@ class BrandRegistrationList(ListResource):
                 "CustomerProfileBundleSid": customer_profile_bundle_sid,
                 "A2PProfileBundleSid": a2p_profile_bundle_sid,
                 "BrandType": brand_type,
-                "Mock": mock,
-                "SkipAutomaticSecVet": skip_automatic_sec_vet,
+                "Mock": serialize.boolean_to_string(mock),
+                "SkipAutomaticSecVet": serialize.boolean_to_string(
+                    skip_automatic_sec_vet
+                ),
             }
         )
 

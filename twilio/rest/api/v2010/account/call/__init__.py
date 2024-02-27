@@ -21,8 +21,6 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.api.v2010.account.call.event import EventList
-from twilio.rest.api.v2010.account.call.feedback import FeedbackList
-from twilio.rest.api.v2010.account.call.feedback_summary import FeedbackSummaryList
 from twilio.rest.api.v2010.account.call.notification import NotificationList
 from twilio.rest.api.v2010.account.call.payment import PaymentList
 from twilio.rest.api.v2010.account.call.recording import RecordingList
@@ -271,13 +269,6 @@ class CallInstance(InstanceResource):
         return self._proxy.events
 
     @property
-    def feedback(self) -> FeedbackList:
-        """
-        Access the feedback
-        """
-        return self._proxy.feedback
-
-    @property
     def notifications(self) -> NotificationList:
         """
         Access the notifications
@@ -356,7 +347,6 @@ class CallContext(InstanceContext):
         self._uri = "/Accounts/{account_sid}/Calls/{sid}.json".format(**self._solution)
 
         self._events: Optional[EventList] = None
-        self._feedback: Optional[FeedbackList] = None
         self._notifications: Optional[NotificationList] = None
         self._payments: Optional[PaymentList] = None
         self._recordings: Optional[RecordingList] = None
@@ -553,19 +543,6 @@ class CallContext(InstanceContext):
         return self._events
 
     @property
-    def feedback(self) -> FeedbackList:
-        """
-        Access the feedback
-        """
-        if self._feedback is None:
-            self._feedback = FeedbackList(
-                self._version,
-                self._solution["account_sid"],
-                self._solution["sid"],
-            )
-        return self._feedback
-
-    @property
     def notifications(self) -> NotificationList:
         """
         Access the notifications
@@ -707,8 +684,6 @@ class CallList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/Calls.json".format(**self._solution)
 
-        self._feedback_summaries: Optional[FeedbackSummaryList] = None
-
     def create(
         self,
         to: str,
@@ -803,7 +778,7 @@ class CallList(ListResource):
                 "StatusCallbackMethod": status_callback_method,
                 "SendDigits": send_digits,
                 "Timeout": timeout,
-                "Record": record,
+                "Record": serialize.boolean_to_string(record),
                 "RecordingChannels": recording_channels,
                 "RecordingStatusCallback": recording_status_callback,
                 "RecordingStatusCallbackMethod": recording_status_callback_method,
@@ -937,7 +912,7 @@ class CallList(ListResource):
                 "StatusCallbackMethod": status_callback_method,
                 "SendDigits": send_digits,
                 "Timeout": timeout,
-                "Record": record,
+                "Record": serialize.boolean_to_string(record),
                 "RecordingChannels": recording_channels,
                 "RecordingStatusCallback": recording_status_callback,
                 "RecordingStatusCallbackMethod": recording_status_callback_method,
@@ -1271,17 +1246,6 @@ class CallList(ListResource):
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return CallPage(self._version, response, self._solution)
-
-    @property
-    def feedback_summaries(self) -> FeedbackSummaryList:
-        """
-        Access the feedback_summaries
-        """
-        if self._feedback_summaries is None:
-            self._feedback_summaries = FeedbackSummaryList(
-                self._version, account_sid=self._solution["account_sid"]
-            )
-        return self._feedback_summaries
 
     def get(self, sid: str) -> CallContext:
         """

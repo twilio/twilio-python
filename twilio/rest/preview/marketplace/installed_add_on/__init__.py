@@ -380,7 +380,9 @@ class InstalledAddOnList(ListResource):
         data = values.of(
             {
                 "AvailableAddOnSid": available_add_on_sid,
-                "AcceptTermsOfService": accept_terms_of_service,
+                "AcceptTermsOfService": serialize.boolean_to_string(
+                    accept_terms_of_service
+                ),
                 "Configuration": serialize.object(configuration),
                 "UniqueName": unique_name,
             }
@@ -415,7 +417,9 @@ class InstalledAddOnList(ListResource):
         data = values.of(
             {
                 "AvailableAddOnSid": available_add_on_sid,
-                "AcceptTermsOfService": accept_terms_of_service,
+                "AcceptTermsOfService": serialize.boolean_to_string(
+                    accept_terms_of_service
+                ),
                 "Configuration": serialize.object(configuration),
                 "UniqueName": unique_name,
             }

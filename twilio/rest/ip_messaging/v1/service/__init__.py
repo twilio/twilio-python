@@ -732,17 +732,27 @@ class ServiceContext(InstanceContext):
                 "DefaultServiceRoleSid": default_service_role_sid,
                 "DefaultChannelRoleSid": default_channel_role_sid,
                 "DefaultChannelCreatorRoleSid": default_channel_creator_role_sid,
-                "ReadStatusEnabled": read_status_enabled,
-                "ReachabilityEnabled": reachability_enabled,
+                "ReadStatusEnabled": serialize.boolean_to_string(read_status_enabled),
+                "ReachabilityEnabled": serialize.boolean_to_string(
+                    reachability_enabled
+                ),
                 "TypingIndicatorTimeout": typing_indicator_timeout,
                 "ConsumptionReportInterval": consumption_report_interval,
-                "Notifications.NewMessage.Enabled": notifications_new_message_enabled,
+                "Notifications.NewMessage.Enabled": serialize.boolean_to_string(
+                    notifications_new_message_enabled
+                ),
                 "Notifications.NewMessage.Template": notifications_new_message_template,
-                "Notifications.AddedToChannel.Enabled": notifications_added_to_channel_enabled,
+                "Notifications.AddedToChannel.Enabled": serialize.boolean_to_string(
+                    notifications_added_to_channel_enabled
+                ),
                 "Notifications.AddedToChannel.Template": notifications_added_to_channel_template,
-                "Notifications.RemovedFromChannel.Enabled": notifications_removed_from_channel_enabled,
+                "Notifications.RemovedFromChannel.Enabled": serialize.boolean_to_string(
+                    notifications_removed_from_channel_enabled
+                ),
                 "Notifications.RemovedFromChannel.Template": notifications_removed_from_channel_template,
-                "Notifications.InvitedToChannel.Enabled": notifications_invited_to_channel_enabled,
+                "Notifications.InvitedToChannel.Enabled": serialize.boolean_to_string(
+                    notifications_invited_to_channel_enabled
+                ),
                 "Notifications.InvitedToChannel.Template": notifications_invited_to_channel_template,
                 "PreWebhookUrl": pre_webhook_url,
                 "PostWebhookUrl": post_webhook_url,
@@ -916,17 +926,27 @@ class ServiceContext(InstanceContext):
                 "DefaultServiceRoleSid": default_service_role_sid,
                 "DefaultChannelRoleSid": default_channel_role_sid,
                 "DefaultChannelCreatorRoleSid": default_channel_creator_role_sid,
-                "ReadStatusEnabled": read_status_enabled,
-                "ReachabilityEnabled": reachability_enabled,
+                "ReadStatusEnabled": serialize.boolean_to_string(read_status_enabled),
+                "ReachabilityEnabled": serialize.boolean_to_string(
+                    reachability_enabled
+                ),
                 "TypingIndicatorTimeout": typing_indicator_timeout,
                 "ConsumptionReportInterval": consumption_report_interval,
-                "Notifications.NewMessage.Enabled": notifications_new_message_enabled,
+                "Notifications.NewMessage.Enabled": serialize.boolean_to_string(
+                    notifications_new_message_enabled
+                ),
                 "Notifications.NewMessage.Template": notifications_new_message_template,
-                "Notifications.AddedToChannel.Enabled": notifications_added_to_channel_enabled,
+                "Notifications.AddedToChannel.Enabled": serialize.boolean_to_string(
+                    notifications_added_to_channel_enabled
+                ),
                 "Notifications.AddedToChannel.Template": notifications_added_to_channel_template,
-                "Notifications.RemovedFromChannel.Enabled": notifications_removed_from_channel_enabled,
+                "Notifications.RemovedFromChannel.Enabled": serialize.boolean_to_string(
+                    notifications_removed_from_channel_enabled
+                ),
                 "Notifications.RemovedFromChannel.Template": notifications_removed_from_channel_template,
-                "Notifications.InvitedToChannel.Enabled": notifications_invited_to_channel_enabled,
+                "Notifications.InvitedToChannel.Enabled": serialize.boolean_to_string(
+                    notifications_invited_to_channel_enabled
+                ),
                 "Notifications.InvitedToChannel.Template": notifications_invited_to_channel_template,
                 "PreWebhookUrl": pre_webhook_url,
                 "PostWebhookUrl": post_webhook_url,

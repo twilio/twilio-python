@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, Optional, Union
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -187,8 +187,8 @@ class CompositionSettingsContext(InstanceContext):
                 "AwsCredentialsSid": aws_credentials_sid,
                 "EncryptionKeySid": encryption_key_sid,
                 "AwsS3Url": aws_s3_url,
-                "AwsStorageEnabled": aws_storage_enabled,
-                "EncryptionEnabled": encryption_enabled,
+                "AwsStorageEnabled": serialize.boolean_to_string(aws_storage_enabled),
+                "EncryptionEnabled": serialize.boolean_to_string(encryption_enabled),
             }
         )
 
@@ -223,8 +223,8 @@ class CompositionSettingsContext(InstanceContext):
                 "AwsCredentialsSid": aws_credentials_sid,
                 "EncryptionKeySid": encryption_key_sid,
                 "AwsS3Url": aws_s3_url,
-                "AwsStorageEnabled": aws_storage_enabled,
-                "EncryptionEnabled": encryption_enabled,
+                "AwsStorageEnabled": serialize.boolean_to_string(aws_storage_enabled),
+                "EncryptionEnabled": serialize.boolean_to_string(encryption_enabled),
             }
         )
 

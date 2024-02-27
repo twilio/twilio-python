@@ -13,8 +13,8 @@ r"""
 """
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
-from twilio.base import deserialize
+from typing import Any, Dict, List, Optional, Union
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -180,32 +180,41 @@ class BulkEligibilityList(ListResource):
 
         self._uri = "/HostedNumber/Eligibility/Bulk"
 
-    def create(self) -> BulkEligibilityInstance:
+    def create(
+        self, body: Union[object, object] = values.unset
+    ) -> BulkEligibilityInstance:
         """
         Create the BulkEligibilityInstance
 
+        :param body:
 
         :returns: The created BulkEligibilityInstance
         """
+        data = body.to_dict()
 
+        headers = {"Content-Type": "application/json"}
         payload = self._version.create(
-            method="POST",
-            uri=self._uri,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return BulkEligibilityInstance(self._version, payload)
 
-    async def create_async(self) -> BulkEligibilityInstance:
+    async def create_async(
+        self, body: Union[object, object] = values.unset
+    ) -> BulkEligibilityInstance:
         """
         Asynchronously create the BulkEligibilityInstance
 
+        :param body:
 
         :returns: The created BulkEligibilityInstance
         """
 
+        data = body.to_dict()
+        headers = {"Content-Type": "application/json"}
+
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return BulkEligibilityInstance(self._version, payload)

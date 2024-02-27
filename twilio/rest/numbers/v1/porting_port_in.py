@@ -12,7 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
+from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -54,32 +55,41 @@ class PortingPortInList(ListResource):
 
         self._uri = "/Porting/PortIn"
 
-    def create(self) -> PortingPortInInstance:
+    def create(
+        self, body: Union[object, object] = values.unset
+    ) -> PortingPortInInstance:
         """
         Create the PortingPortInInstance
 
+        :param body:
 
         :returns: The created PortingPortInInstance
         """
+        data = body.to_dict()
 
+        headers = {"Content-Type": "application/json"}
         payload = self._version.create(
-            method="POST",
-            uri=self._uri,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return PortingPortInInstance(self._version, payload)
 
-    async def create_async(self) -> PortingPortInInstance:
+    async def create_async(
+        self, body: Union[object, object] = values.unset
+    ) -> PortingPortInInstance:
         """
         Asynchronously create the PortingPortInInstance
 
+        :param body:
 
         :returns: The created PortingPortInInstance
         """
 
+        data = body.to_dict()
+        headers = {"Content-Type": "application/json"}
+
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return PortingPortInInstance(self._version, payload)

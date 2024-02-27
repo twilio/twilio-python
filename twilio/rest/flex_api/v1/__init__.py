@@ -22,12 +22,6 @@ from twilio.rest.flex_api.v1.flex_flow import FlexFlowList
 from twilio.rest.flex_api.v1.insights_assessments_comment import (
     InsightsAssessmentsCommentList,
 )
-from twilio.rest.flex_api.v1.insights_conversational_ai import (
-    InsightsConversationalAiList,
-)
-from twilio.rest.flex_api.v1.insights_conversational_ai_report_insights import (
-    InsightsConversationalAiReportInsightsList,
-)
 from twilio.rest.flex_api.v1.insights_conversations import InsightsConversationsList
 from twilio.rest.flex_api.v1.insights_questionnaires import InsightsQuestionnairesList
 from twilio.rest.flex_api.v1.insights_questionnaires_category import (
@@ -66,10 +60,6 @@ class V1(Version):
         self._insights_assessments_comment: Optional[InsightsAssessmentsCommentList] = (
             None
         )
-        self._insights_conversational_ai: Optional[InsightsConversationalAiList] = None
-        self._insights_conversational_ai_report_insights: Optional[
-            InsightsConversationalAiReportInsightsList
-        ] = None
         self._insights_conversations: Optional[InsightsConversationsList] = None
         self._insights_questionnaires: Optional[InsightsQuestionnairesList] = None
         self._insights_questionnaires_category: Optional[
@@ -118,22 +108,6 @@ class V1(Version):
         if self._insights_assessments_comment is None:
             self._insights_assessments_comment = InsightsAssessmentsCommentList(self)
         return self._insights_assessments_comment
-
-    @property
-    def insights_conversational_ai(self) -> InsightsConversationalAiList:
-        if self._insights_conversational_ai is None:
-            self._insights_conversational_ai = InsightsConversationalAiList(self)
-        return self._insights_conversational_ai
-
-    @property
-    def insights_conversational_ai_report_insights(
-        self,
-    ) -> InsightsConversationalAiReportInsightsList:
-        if self._insights_conversational_ai_report_insights is None:
-            self._insights_conversational_ai_report_insights = (
-                InsightsConversationalAiReportInsightsList(self)
-            )
-        return self._insights_conversational_ai_report_insights
 
     @property
     def insights_conversations(self) -> InsightsConversationsList:

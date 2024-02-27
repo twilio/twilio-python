@@ -12,7 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Union
+from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -52,32 +53,39 @@ class EligibilityList(ListResource):
 
         self._uri = "/HostedNumber/Eligibility"
 
-    def create(self) -> EligibilityInstance:
+    def create(self, body: Union[object, object] = values.unset) -> EligibilityInstance:
         """
         Create the EligibilityInstance
 
+        :param body:
 
         :returns: The created EligibilityInstance
         """
+        data = body.to_dict()
 
+        headers = {"Content-Type": "application/json"}
         payload = self._version.create(
-            method="POST",
-            uri=self._uri,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return EligibilityInstance(self._version, payload)
 
-    async def create_async(self) -> EligibilityInstance:
+    async def create_async(
+        self, body: Union[object, object] = values.unset
+    ) -> EligibilityInstance:
         """
         Asynchronously create the EligibilityInstance
 
+        :param body:
 
         :returns: The created EligibilityInstance
         """
 
+        data = body.to_dict()
+        headers = {"Content-Type": "application/json"}
+
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return EligibilityInstance(self._version, payload)

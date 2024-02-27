@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, List, Optional, Union
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -269,7 +269,7 @@ class AnnotationContext(InstanceContext):
                 "AnsweredBy": answered_by,
                 "ConnectivityIssue": connectivity_issue,
                 "QualityIssues": quality_issues,
-                "Spam": spam,
+                "Spam": serialize.boolean_to_string(spam),
                 "CallScore": call_score,
                 "Comment": comment,
                 "Incident": incident,
@@ -316,7 +316,7 @@ class AnnotationContext(InstanceContext):
                 "AnsweredBy": answered_by,
                 "ConnectivityIssue": connectivity_issue,
                 "QualityIssues": quality_issues,
-                "Spam": spam,
+                "Spam": serialize.boolean_to_string(spam),
                 "CallScore": call_score,
                 "Comment": comment,
                 "Incident": incident,

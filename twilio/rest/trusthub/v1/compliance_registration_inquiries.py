@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, Optional, Union
-from twilio.base import values
+from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -26,6 +26,13 @@ class ComplianceRegistrationInquiriesInstance(InstanceResource):
         DIRECT_CUSTOMER = "direct_customer"
         ISV_RESELLER_OR_PARTNER = "isv_reseller_or_partner"
         UNKNOWN = "unknown"
+
+    class BusinessRegistrationAuthority(object):
+        UK_CRN = "UK:CRN"
+        US_EIN = "US:EIN"
+        CA_CBN = "CA:CBN"
+        AU_ACN = "AU:ACN"
+        OTHER = "Other"
 
     class EndUserType(object):
         INDIVIDUAL = "Individual"
@@ -84,7 +91,10 @@ class ComplianceRegistrationInquiriesList(ListResource):
         business_identity_type: Union[
             "ComplianceRegistrationInquiriesInstance.BusinessIdentityType", object
         ] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "ComplianceRegistrationInquiriesInstance.BusinessRegistrationAuthority",
+            object,
+        ] = values.unset,
         business_legal_name: Union[str, object] = values.unset,
         notification_email: Union[str, object] = values.unset,
         accepted_notification_receipt: Union[bool, object] = values.unset,
@@ -111,6 +121,12 @@ class ComplianceRegistrationInquiriesList(ListResource):
         use_address_as_emergency_address: Union[bool, object] = values.unset,
         file_name: Union[str, object] = values.unset,
         file: Union[str, object] = values.unset,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        date_of_birth: Union[str, object] = values.unset,
+        individual_email: Union[str, object] = values.unset,
+        individual_phone: Union[str, object] = values.unset,
+        is_isv_embed: Union[bool, object] = values.unset,
     ) -> ComplianceRegistrationInquiriesInstance:
         """
         Create the ComplianceRegistrationInquiriesInstance
@@ -118,7 +134,7 @@ class ComplianceRegistrationInquiriesList(ListResource):
         :param end_user_type:
         :param phone_number_type:
         :param business_identity_type:
-        :param business_registration_authority: The authority that registered the business
+        :param business_registration_authority:
         :param business_legal_name: he name of the business or organization using the Tollfree number.
         :param notification_email: he email address to receive the notification about the verification result.
         :param accepted_notification_receipt: The email address to receive the notification about the verification result.
@@ -145,6 +161,12 @@ class ComplianceRegistrationInquiriesList(ListResource):
         :param use_address_as_emergency_address: Use the business address as the emergency address
         :param file_name: The name of the verification document to upload
         :param file: The verification document to upload
+        :param first_name: The first name of the Individual User.
+        :param last_name: The last name of the Individual User.
+        :param date_of_birth: The date of birth of the Individual User.
+        :param individual_email: The email address of the Individual User.
+        :param individual_phone: The phone number of the Individual User.
+        :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
 
         :returns: The created ComplianceRegistrationInquiriesInstance
         """
@@ -157,7 +179,9 @@ class ComplianceRegistrationInquiriesList(ListResource):
                 "BusinessRegistrationAuthority": business_registration_authority,
                 "BusinessLegalName": business_legal_name,
                 "NotificationEmail": notification_email,
-                "AcceptedNotificationReceipt": accepted_notification_receipt,
+                "AcceptedNotificationReceipt": serialize.boolean_to_string(
+                    accepted_notification_receipt
+                ),
                 "BusinessRegistrationNumber": business_registration_number,
                 "BusinessWebsiteUrl": business_website_url,
                 "FriendlyName": friendly_name,
@@ -178,9 +202,17 @@ class ComplianceRegistrationInquiriesList(ListResource):
                 "EmergencyAddressSubdivision": emergency_address_subdivision,
                 "EmergencyAddressPostalCode": emergency_address_postal_code,
                 "EmergencyAddressCountryCode": emergency_address_country_code,
-                "UseAddressAsEmergencyAddress": use_address_as_emergency_address,
+                "UseAddressAsEmergencyAddress": serialize.boolean_to_string(
+                    use_address_as_emergency_address
+                ),
                 "FileName": file_name,
                 "File": file,
+                "FirstName": first_name,
+                "LastName": last_name,
+                "DateOfBirth": date_of_birth,
+                "IndividualEmail": individual_email,
+                "IndividualPhone": individual_phone,
+                "IsIsvEmbed": serialize.boolean_to_string(is_isv_embed),
             }
         )
 
@@ -199,7 +231,10 @@ class ComplianceRegistrationInquiriesList(ListResource):
         business_identity_type: Union[
             "ComplianceRegistrationInquiriesInstance.BusinessIdentityType", object
         ] = values.unset,
-        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_authority: Union[
+            "ComplianceRegistrationInquiriesInstance.BusinessRegistrationAuthority",
+            object,
+        ] = values.unset,
         business_legal_name: Union[str, object] = values.unset,
         notification_email: Union[str, object] = values.unset,
         accepted_notification_receipt: Union[bool, object] = values.unset,
@@ -226,6 +261,12 @@ class ComplianceRegistrationInquiriesList(ListResource):
         use_address_as_emergency_address: Union[bool, object] = values.unset,
         file_name: Union[str, object] = values.unset,
         file: Union[str, object] = values.unset,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        date_of_birth: Union[str, object] = values.unset,
+        individual_email: Union[str, object] = values.unset,
+        individual_phone: Union[str, object] = values.unset,
+        is_isv_embed: Union[bool, object] = values.unset,
     ) -> ComplianceRegistrationInquiriesInstance:
         """
         Asynchronously create the ComplianceRegistrationInquiriesInstance
@@ -233,7 +274,7 @@ class ComplianceRegistrationInquiriesList(ListResource):
         :param end_user_type:
         :param phone_number_type:
         :param business_identity_type:
-        :param business_registration_authority: The authority that registered the business
+        :param business_registration_authority:
         :param business_legal_name: he name of the business or organization using the Tollfree number.
         :param notification_email: he email address to receive the notification about the verification result.
         :param accepted_notification_receipt: The email address to receive the notification about the verification result.
@@ -260,6 +301,12 @@ class ComplianceRegistrationInquiriesList(ListResource):
         :param use_address_as_emergency_address: Use the business address as the emergency address
         :param file_name: The name of the verification document to upload
         :param file: The verification document to upload
+        :param first_name: The first name of the Individual User.
+        :param last_name: The last name of the Individual User.
+        :param date_of_birth: The date of birth of the Individual User.
+        :param individual_email: The email address of the Individual User.
+        :param individual_phone: The phone number of the Individual User.
+        :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
 
         :returns: The created ComplianceRegistrationInquiriesInstance
         """
@@ -272,7 +319,9 @@ class ComplianceRegistrationInquiriesList(ListResource):
                 "BusinessRegistrationAuthority": business_registration_authority,
                 "BusinessLegalName": business_legal_name,
                 "NotificationEmail": notification_email,
-                "AcceptedNotificationReceipt": accepted_notification_receipt,
+                "AcceptedNotificationReceipt": serialize.boolean_to_string(
+                    accepted_notification_receipt
+                ),
                 "BusinessRegistrationNumber": business_registration_number,
                 "BusinessWebsiteUrl": business_website_url,
                 "FriendlyName": friendly_name,
@@ -293,9 +342,17 @@ class ComplianceRegistrationInquiriesList(ListResource):
                 "EmergencyAddressSubdivision": emergency_address_subdivision,
                 "EmergencyAddressPostalCode": emergency_address_postal_code,
                 "EmergencyAddressCountryCode": emergency_address_country_code,
-                "UseAddressAsEmergencyAddress": use_address_as_emergency_address,
+                "UseAddressAsEmergencyAddress": serialize.boolean_to_string(
+                    use_address_as_emergency_address
+                ),
                 "FileName": file_name,
                 "File": file,
+                "FirstName": first_name,
+                "LastName": last_name,
+                "DateOfBirth": date_of_birth,
+                "IndividualEmail": individual_email,
+                "IndividualPhone": individual_phone,
+                "IsIsvEmbed": serialize.boolean_to_string(is_isv_embed),
             }
         )
 
