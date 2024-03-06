@@ -9,7 +9,6 @@ from twilio.rest.preview.hosted_numbers.hosted_number_order import HostedNumberO
 from twilio.rest.preview.marketplace.available_add_on import AvailableAddOnList
 from twilio.rest.preview.marketplace.installed_add_on import InstalledAddOnList
 from twilio.rest.preview.sync.service import ServiceList
-from twilio.rest.preview.understand.assistant import AssistantList
 from twilio.rest.preview.wireless.command import CommandList
 from twilio.rest.preview.wireless.rate_plan import RatePlanList
 from twilio.rest.preview.wireless.sim import SimList
@@ -69,15 +68,6 @@ class Preview(PreviewBase):
             stacklevel=2,
         )
         return self.sync.services
-
-    @property
-    def assistants(self) -> AssistantList:
-        warn(
-            "assistants is deprecated. Use understand.assistants instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return self.understand.assistants
 
     @property
     def commands(self) -> CommandList:
