@@ -127,6 +127,8 @@ class ComplianceRegistrationInquiriesList(ListResource):
         individual_email: Union[str, object] = values.unset,
         individual_phone: Union[str, object] = values.unset,
         is_isv_embed: Union[bool, object] = values.unset,
+        isv_registering_for_self_or_tenant: Union[str, object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
     ) -> ComplianceRegistrationInquiriesInstance:
         """
         Create the ComplianceRegistrationInquiriesInstance
@@ -167,6 +169,8 @@ class ComplianceRegistrationInquiriesList(ListResource):
         :param individual_email: The email address of the Individual User.
         :param individual_phone: The phone number of the Individual User.
         :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
+        :param isv_registering_for_self_or_tenant: Indicates if the isv registering for self or tenant.
+        :param status_callback_url: The url we call to inform you of bundle changes.
 
         :returns: The created ComplianceRegistrationInquiriesInstance
         """
@@ -213,6 +217,8 @@ class ComplianceRegistrationInquiriesList(ListResource):
                 "IndividualEmail": individual_email,
                 "IndividualPhone": individual_phone,
                 "IsIsvEmbed": serialize.boolean_to_string(is_isv_embed),
+                "IsvRegisteringForSelfOrTenant": isv_registering_for_self_or_tenant,
+                "StatusCallbackUrl": status_callback_url,
             }
         )
 
@@ -267,6 +273,8 @@ class ComplianceRegistrationInquiriesList(ListResource):
         individual_email: Union[str, object] = values.unset,
         individual_phone: Union[str, object] = values.unset,
         is_isv_embed: Union[bool, object] = values.unset,
+        isv_registering_for_self_or_tenant: Union[str, object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
     ) -> ComplianceRegistrationInquiriesInstance:
         """
         Asynchronously create the ComplianceRegistrationInquiriesInstance
@@ -307,6 +315,8 @@ class ComplianceRegistrationInquiriesList(ListResource):
         :param individual_email: The email address of the Individual User.
         :param individual_phone: The phone number of the Individual User.
         :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
+        :param isv_registering_for_self_or_tenant: Indicates if the isv registering for self or tenant.
+        :param status_callback_url: The url we call to inform you of bundle changes.
 
         :returns: The created ComplianceRegistrationInquiriesInstance
         """
@@ -353,6 +363,8 @@ class ComplianceRegistrationInquiriesList(ListResource):
                 "IndividualEmail": individual_email,
                 "IndividualPhone": individual_phone,
                 "IsIsvEmbed": serialize.boolean_to_string(is_isv_embed),
+                "IsvRegisteringForSelfOrTenant": isv_registering_for_self_or_tenant,
+                "StatusCallbackUrl": status_callback_url,
             }
         )
 

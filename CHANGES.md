@@ -3,6 +3,35 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-03-12] Version 9.0.1
+--------------------------
+**Library - Chore**
+- [PR #775](https://github.com/twilio/twilio-python/pull/775): removing preview.understand references. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Correct precedence documentation for application_sid vs status_callback in message creation
+- Mark MaxPrice as deprecated
+
+**Flex**
+- Making `plugins` visibility to public
+
+**Messaging**
+- Add new `errors` attribute to the Brand Registration resource.
+- Mark `brand_feedback` attribute as deprecated.
+- Mark `failure_reason` attribute as deprecated.
+- The new `errors` attribute is expected to provide additional information about Brand registration failures and feedback (if any has been provided by The Campaign Registry). Consumers should use this attribute instead of `brand_feedback` and `failure_reason`.
+
+**Numbers**
+- Correcting mount_name for porting port in fetch API
+
+**Trusthub**
+- Add new field in statusCallbackUrl in compliance_registration.
+- Add new field in isvRegisteringForSelfOrTenant in compliance_registration.
+
+**Twiml**
+- Expanded description of Action parameter for Message verb
+
+
 [2024-02-27] Version 9.0.0
 --------------------------
 **Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md###-2024-02-20-8xx-to-9xx) for detailed migration notes.
