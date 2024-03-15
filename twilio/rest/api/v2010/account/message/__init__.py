@@ -674,6 +674,8 @@ class MessageList(ListResource):
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
+        date_sent_before: Union[datetime, object] = values.unset,
+        date_sent_after: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[MessageInstance]:
@@ -686,6 +688,8 @@ class MessageList(ListResource):
         :param str to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param str from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param datetime date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param datetime date_sent_before: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param datetime date_sent_after: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -697,7 +701,12 @@ class MessageList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
-            to=to, from_=from_, date_sent=date_sent, page_size=limits["page_size"]
+            to=to,
+            from_=from_,
+            date_sent=date_sent,
+            date_sent_before=date_sent_before,
+            date_sent_after=date_sent_after,
+            page_size=limits["page_size"],
         )
 
         return self._version.stream(page, limits["limit"])
@@ -707,6 +716,8 @@ class MessageList(ListResource):
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
+        date_sent_before: Union[datetime, object] = values.unset,
+        date_sent_after: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[MessageInstance]:
@@ -719,6 +730,8 @@ class MessageList(ListResource):
         :param str to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param str from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param datetime date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param datetime date_sent_before: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param datetime date_sent_after: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -730,7 +743,12 @@ class MessageList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            to=to, from_=from_, date_sent=date_sent, page_size=limits["page_size"]
+            to=to,
+            from_=from_,
+            date_sent=date_sent,
+            date_sent_before=date_sent_before,
+            date_sent_after=date_sent_after,
+            page_size=limits["page_size"],
         )
 
         return self._version.stream_async(page, limits["limit"])
@@ -740,6 +758,8 @@ class MessageList(ListResource):
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
+        date_sent_before: Union[datetime, object] = values.unset,
+        date_sent_after: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[MessageInstance]:
@@ -751,6 +771,8 @@ class MessageList(ListResource):
         :param str to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param str from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param datetime date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param datetime date_sent_before: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param datetime date_sent_after: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -765,6 +787,8 @@ class MessageList(ListResource):
                 to=to,
                 from_=from_,
                 date_sent=date_sent,
+                date_sent_before=date_sent_before,
+                date_sent_after=date_sent_after,
                 limit=limit,
                 page_size=page_size,
             )
@@ -775,6 +799,8 @@ class MessageList(ListResource):
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
+        date_sent_before: Union[datetime, object] = values.unset,
+        date_sent_after: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[MessageInstance]:
@@ -786,6 +812,8 @@ class MessageList(ListResource):
         :param str to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param str from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param datetime date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param datetime date_sent_before: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param datetime date_sent_after: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -801,6 +829,8 @@ class MessageList(ListResource):
                 to=to,
                 from_=from_,
                 date_sent=date_sent,
+                date_sent_before=date_sent_before,
+                date_sent_after=date_sent_after,
                 limit=limit,
                 page_size=page_size,
             )
@@ -811,6 +841,8 @@ class MessageList(ListResource):
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
+        date_sent_before: Union[datetime, object] = values.unset,
+        date_sent_after: Union[datetime, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -822,6 +854,8 @@ class MessageList(ListResource):
         :param to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param date_sent_before: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param date_sent_after: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -833,6 +867,8 @@ class MessageList(ListResource):
                 "To": to,
                 "From": from_,
                 "DateSent": serialize.iso8601_datetime(date_sent),
+                "DateSent<": serialize.iso8601_datetime(date_sent_before),
+                "DateSent>": serialize.iso8601_datetime(date_sent_after),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -847,6 +883,8 @@ class MessageList(ListResource):
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
+        date_sent_before: Union[datetime, object] = values.unset,
+        date_sent_after: Union[datetime, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -858,6 +896,8 @@ class MessageList(ListResource):
         :param to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param date_sent_before: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param date_sent_after: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -869,6 +909,8 @@ class MessageList(ListResource):
                 "To": to,
                 "From": from_,
                 "DateSent": serialize.iso8601_datetime(date_sent),
+                "DateSent<": serialize.iso8601_datetime(date_sent_before),
+                "DateSent>": serialize.iso8601_datetime(date_sent_after),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

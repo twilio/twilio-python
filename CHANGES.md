@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-03-15] Version 9.0.2
+--------------------------
+**Oauth**
+- Add new APIs for vendor authorize and token endpoints
+
+
 [2024-03-12] Version 9.0.1
 --------------------------
 **Library - Chore**

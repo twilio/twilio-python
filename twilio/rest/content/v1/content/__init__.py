@@ -364,6 +364,35 @@ class ContentList(ListResource):
                 "id": self.id,
             }
 
+    class CatalogItem(object):
+        """
+        :ivar id:
+        :ivar section_title:
+        :ivar name:
+        :ivar media_url:
+        :ivar price:
+        :ivar description:
+        """
+
+        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+
+            self.id: Optional[str] = payload.get("id")
+            self.section_title: Optional[str] = payload.get("section_title")
+            self.name: Optional[str] = payload.get("name")
+            self.media_url: Optional[str] = payload.get("media_url")
+            self.price: Optional[float] = payload.get("price")
+            self.description: Optional[str] = payload.get("description")
+
+        def to_dict(self):
+            return {
+                "id": self.id,
+                "section_title": self.section_title,
+                "name": self.name,
+                "media_url": self.media_url,
+                "price": self.price,
+                "description": self.description,
+            }
+
     class ContentCreateRequest(object):
         """
         :ivar friendly_name: User defined name of the content
@@ -473,6 +502,35 @@ class ContentList(ListResource):
                 "actions": [actions.to_dict() for actions in self.actions],
             }
 
+    class TwilioCatalog(object):
+        """
+        :ivar title:
+        :ivar body:
+        :ivar subtitle:
+        :ivar id:
+        :ivar items:
+        :ivar dynamic_items:
+        """
+
+        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+
+            self.title: Optional[str] = payload.get("title")
+            self.body: Optional[str] = payload.get("body")
+            self.subtitle: Optional[str] = payload.get("subtitle")
+            self.id: Optional[str] = payload.get("id")
+            self.items: Optional[List[ContentList.CatalogItem]] = payload.get("items")
+            self.dynamic_items: Optional[str] = payload.get("dynamic_items")
+
+        def to_dict(self):
+            return {
+                "title": self.title,
+                "body": self.body,
+                "subtitle": self.subtitle,
+                "id": self.id,
+                "items": [items.to_dict() for items in self.items],
+                "dynamic_items": self.dynamic_items,
+            }
+
     class TwilioListPicker(object):
         """
         :ivar body:
@@ -572,6 +630,7 @@ class ContentList(ListResource):
         :ivar twilio_call_to_action:
         :ivar twilio_quick_reply:
         :ivar twilio_card:
+        :ivar twilio_catalog:
         :ivar whatsapp_card:
         :ivar whatsapp_authentication:
         """
@@ -599,6 +658,9 @@ class ContentList(ListResource):
             self.twilio_card: Optional[ContentList.TwilioCard] = payload.get(
                 "twilio_card"
             )
+            self.twilio_catalog: Optional[ContentList.TwilioCatalog] = payload.get(
+                "twilio_catalog"
+            )
             self.whatsapp_card: Optional[ContentList.WhatsappCard] = payload.get(
                 "whatsapp_card"
             )
@@ -615,6 +677,7 @@ class ContentList(ListResource):
                 "twilio_call_to_action": self.twilio_call_to_action.to_dict(),
                 "twilio_quick_reply": self.twilio_quick_reply.to_dict(),
                 "twilio_card": self.twilio_card.to_dict(),
+                "twilio_catalog": self.twilio_catalog.to_dict(),
                 "whatsapp_card": self.whatsapp_card.to_dict(),
                 "whatsapp_authentication": self.whatsapp_authentication.to_dict(),
             }
