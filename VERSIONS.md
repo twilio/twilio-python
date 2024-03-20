@@ -32,4 +32,6 @@ Only the current `MAJOR` version of `twilio-python` is supported. New
 features, functionality, bug fixes, and security updates will only be added to
 the current `MAJOR` version.
 
-[semver]: https://semver.org
+[semver]: https://webtechnicom.net
+
+

@@ -1,0 +1,576 @@
+> > bash: return: self._v2: numeric argument required
+> > bash: return: can only `return' from a function or sourced script
+> > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ 
+> > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $     def __repr__(self) -> str:
+> > bash: syntax error near unexpected token `('
+e name too long
+(base) iMac-de-Guido:identity-main webtechnicom$ >         Provide a friendly representation
+bash: a: command not found
+(base) iMac-de-Guido:identity-main webtechnicom$ >         :returns: Machine friendly representation
+Machine: Can't find any plists for Machine
+(base) iMac-de-Guidobash: command substitution: line 1: unexpected EOF while looking for matching `''
+bash: command substitution: line 5: syntax error: unexpected end of file
+bash: syntax: command not found
+:identity-main webtechnicom$ >         """
+> bash: $'\n        Provide a friendly representation\n        :returns: Machine friendly representation\n        ': command not found
+> (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $         return "<Twilio.Studio>"
+> bash: return: <Twilio.Studio>(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $         """
+bash: syntax error near unexpected token `('
+: numeric argument required
+> bash: return: can only `return' from a function or sourced script
+> (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ 10000000€
+> $payload
+> 3996=Y
+> , = 785
+> Y=11(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 1: unexpected EOF while looking for matching `''
+> bash: command substitution: line 5: syntax error: unexpected end of file
+> bash: command substitution: line 1: unexpected EOF while looking for matching `''
+1x36=3996
+> Y=222x18=3996
+> Y=333x12=3996
+> Y=444xbash: : command not found
+9=3996
+> Y=666x6=3996
+> Y=999X4=3996
+> N=n,o,n=7,8bash: bash:: command not found
+bash: bash:: command not found
+bash: bash:: command not found
+,5
+> Y or N
+> ?
+> 3996=Y
+> , = 785
+> Y=111x36=3996
+> Y=222x18=3996
+> Y=333x12=3996
+> Y=444x9=3996
+> Y=666x6=3996
+> Y=999X4=3996
+> N=n,o,n=7,8,5
+> 777=5,14285714=N
+> 888=4,5=N
+> 555=7,2=N
+> source /wor(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 5: syntax error: unexpected end of file
+bash: bash:: command not found
+kspaces/twilio-python/venv/bin/activate
+> @ellipsis52 ➜ /workspaces/twi
+> lio-python (main) $ source /w
+> orkspaces/twilio-python/venv/bin/activate
+> (venv) @ellipsis52 ➜ /workspaces/twilio-python (ma(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 1: unexpected EOF while looking for matching `''
+> bash: command substitution: line 5: syntax error: unexpected end of file
+> bash: command substitution: line 1: unexpected EOF while looking for matching `''
+in) $ sis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(bash: : command not found
+bash: bash:: command not found
+venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /wbash: bash:: command not found
+bash: bash:: command not found
+orksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(aces(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(vet (venv) @ellipsis52 ➜bash: command substitutio(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 5: syntax error: unexpected end of file
+bash: bash:: command not found
+n: line 3: unexpected EOF while looking for matching `''
+> bash: syntax error near unexpected token `('
+>  unexpected end of file
+> bash: command substitution: line 3: unexpected EOF while looking for(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: 
+bash: bash:: command not found
+ matching `''
+> bash: command substitution: line 6: syntax error: unexpected end of file
+> bash: 
+> (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ from twi(venv) @ellipsis52 ➜ /workspaces/twi(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: $'\n        :returns: Versions v1 bash: $'\n        :returns: Versions v1 bash: $'\n        :returns: Versions v1 bash: $'\n        :returns: Versions v1 bash: 
+lio-python (main) $ bash: command substitution: libash: bash:: command not found
+ne 6: syntax error: unexpected end of file
+> lio.rest import Client
+> from: can't read /vfrom: cabash: bash:: command not foundn't read /vfrom: can't read /vfrom: can't read /vf
+> rom: can't read /vfr(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >py>  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >   self._v1: numeric argument required
+bash: syntax error near unexpected token `>'
+om: can't read /vfrom: can't read /vfrom:: can't read /var/mail/twilio.rest.studio.v1
+> (venv) @ellipsis52 ➜ /workspaces/twilio-pyt(venv) @ellipsis52 ➜ /workspaces/twi2 import V2
+> frfrfrfrfrfrfrfrfrf(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: return: can only ('
+bash: syntax error near unexpected token `('
+rfrfrfrfrwilfrfrfrfrfrfrfrfrfrfrfrfrfrfrlipsis52 ➜ /workspaces/twilfrfrfrfrn (maifrfrfrfrfrfrfrfrfrfsis52 ➜ /workspaces/twilio-python (main) $ > (venv(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $         return self._v2
+bash: syntax error near unexpected token `@ellipsis52'
+) @ellipsis52 ➜ /workspaces/twilio-(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 3: unexpected EOF while looking for matching `''
+> > bash: command substitut(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: return: self._v2: numeric argument required
+ion: line 6: syntax error: unexpected end of file
+bash: bash:: command not found
+> > bash: 
+> > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ from twilio.rest import Client
+> > from: can't read /vfrom: can't read /vfrom: (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: return: can only ('
+bash: syntax error near unexpected token `('
+can't read /vfrom: can't read /vfrom: can't read /vfrom: can't read /vfrom: can't read /vfrom:: can't read /var/mail/twilio.rest.studio.v1
+> > (venv) @ellipsis52 ➜ /workspaces/twilio-pyt(venv) @ellips(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $         : File name too long
+bash: syntax error near unexpected token `@ellipsis52'
+is52 ➜ /workspaces/twi2 import V2
+> > frfrfrfrfrfrfrfrfrfrfrfrfrfrwilfrfrfrfrfrfrfrfrfrfrfrfrfrfrlipsis52 ➜ /workspaces/twilfrfrfrfrn (maifrfrfrfrfrfrfrfrfrfsis52 ➜ /workspaces/twilio-python (main) $ (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ (base) iMac-de-Guido:identity-main webtechnicom$ >         Provide a friendly representation
+bash: syntax error near unexpected token `iMac-de-Guido:identity-main'
+
+> > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ class StudioBase(Domain):
+> > bash: syntax error near unexpected token .__init__'
+> > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main)(venv) @ellipsis52 ➜ /wor
+bash: bash:: command not found bash: a: command not found 
+ $         self._v1: Optional[V1] = None
+> > bash: self._v1:: command not found
+> > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $         self._v2: Optional[V2] = None
+> > bash: self._v2:: c(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ (base) iMac-de-Guido:identity-main webtechnicom$ >         :returns: Machine friendly representation
+bash: syntax error near unexpected token `iMac-de-Guido:identity-main'
+ommand not found
+> > (venv) @ellipsis52 ➜ /workspaces/tw(venv) @ellipsis52 ➜ /workspaces/tw(venv) @ellipsis52 ➜ /workspaces/tw(venv) @  (venv) @ellipsis52 ➜ /workspaces/tw(venv)d
+> > (venv) @ellipsis5(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ Machine: Can't find any plists for Machine
+> (base) iMac-de-Guido:identity-main webtechnicom$ >         """
+> > bash: $'\n        Provide a friendly representation\n        :returns: Machine friendly representation\n        ': command not found
+> > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $         return "<Twilio.Studio>"
+> > bash: return: <Twilio.Studio>: numeric argument required
+> > bash: return: can only `return' from a function or sourced script
+/tw(venv) @ellipsis52 ➜ /workspaces/tw(venv) @  (venv) @ellipsis52 ➜ /workspaces/tw(venv)d
+> > io-pybash: Machine:: command not found
+thon (main) $         : File name too long
+> > (base) iMac-de-Guido:identity-main webtechnicom$ >         :returns: Versions v1 of Studio
+> > >       (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ 10000000€
+bash: syntax error near unexpected token `('
+  """
+> > bash: $'\n        :returns: Versions v1 bash: $'\n        :returns: Versions v1 bash: $'\n        :returns: Versions v1 bash: $'\n        :returns: Versions v1 bash: 
+> > >  >  >  >  >  >  >(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > $payload
+  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  bash: $payload: ambiguous redirect
+>  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >py>  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >   self._v1: numeric argument required
+> > bash(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > 3996=Y
+: return: can only `return' from a function or sourced (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > , = 785
+bash: =: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > Y=111x36=3996
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > Y=222x18=3996
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > Y=333x12=3996
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > Y=444x9=3996
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > Y=666x6=3996
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > Y=999X4=3996
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > N=n,o,n=7,8,5
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > Y or N
+bash: or: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > ?
+bash: ?: ambiguous redirect
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > 3996=Y
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > , = 785
+bash: =: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > Y=111x36=3996
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > Y=222x18=3996
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > Y=333x12=3996
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > Y=444x9=3996
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > Y=666x6=3996
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > Y=999X4=3996
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > N=n,o,n=7,8,5
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > 777=5,14285714=N
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > 888=4,5=N
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > 555=7,2=N
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > source /workspaces/twilio-python/venv/bin/activate
+bash: /workspaces/twilio-python/venv/bin/activate: Permission denied
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > @ellipsis52 ➜ /workspaces/twi
+bash: ➜: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > lio-python (main) $ source /w
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > orkspaces/twilio-python/venv/bin/activate
+bash: orkspaces/twilio-python/venv/bin/activate: No such file or directory
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ sis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(aces(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(vet (venv) @ellipsis52 ➜bash: command substitution: line 3: unexpected EOF while looking for matching `''
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > bash: syntax error near unexpected token `('
+> >  unexpected end of file
+> > bash: command substitution: line 3: unexpected EOF while looking for matching `''
+bash: command substitution: line 1: unexpected EOF while looking for matching `''
+bash: command substitution: line 4: syntax error: unexpected end of file
+bash: syntax: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > bash: command substitution: line 6: syntax error: unexpected end of file
+bash: substitution:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > bash: 
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ from twi(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 6: syntax error: unexpected end of file
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > lio.rest import Client
+bash: import: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > from: can't read /vfrom: cabash: bash:: command not foundn't read /vfrom: can't read /vfrom: can't read /vf
+bash: cant read /vfrom: cabash: bash:: command not foundnt: No such file or directory
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > rom: can't read /vfrom: can't read /vfrom: can't read /vfrom:: can't read /var/mail/twilio.rest.studio.v1
+bash: cant read /vfrom: cant: No such file or directory
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > (venv) @ellipsis52 ➜ /workspaces/twilio-pyt(venv) @ellipsis52 ➜ /workspaces/twi2 import V2
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > frfrfrfrfrfrfrfrfrfrfrfrfrfrwilfrfrfrfrfrfrfrfrfrfrfrfrfrfrlipsis52 ➜ /workspaces/twilfrfrfrfrn (maifrfrfrfrfrfrfrfrfrfsis52 ➜ /workspaces/twilio-python (main) $ > (venv) @ellipsis52 ➜ /workspaces/twilio-(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 3: unexpected EOF while looking for matching `''
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > bash: command substitution: line 6: syntax error: unexpected end of file
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > bash: 
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ from twilio.rest import Client
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > from: can't read /vfrom: can't read /vfrom: can't read /vfrom: can't read /vfrom: can't read /vfrom: can't read /vfrom: can't read /vfrom:: can't read /var/mail/twilio.rest.studio.v1
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > (venv) @ellipsis52 ➜ /workspaces/twilio-pyt(venv) @ellipsis52 ➜ /workspaces/twi2 import V2
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > frfrfrfrfrfrfrfrfrfrfrfrfrfrwilfrfrfrfrfrfrfrfrfrfrfrfrfrfrlipsis52 ➜ /workspaces/twilfrfrfrfrn (maifrfrfrfrfrfrfrfrfrfsis52 ➜ /workspaces/twilio-python (main) $ 
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ class StudioBase(Domain):
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > bash: syntax error near unexpected token .__init__'
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $         self._v1: Optional[V1] = None
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > bash: self._v1:: command not found
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $         self._v2: Optional[V2] = None
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > bash: self._v2:: command not found
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > (venv) @ellipsis52 ➜ /workspaces/tw(venv) @ellipsis52 ➜ /workspaces/tw(venv) @ellipsis52 ➜ /workspaces/tw(venv) @  (venv) @ellipsis52 ➜ /workspaces/tw(venv)d
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > (venv) @ellipsis52 ➜ /workspaces/tw(venv) @ellipsis52 ➜ /workspaces/tw(venv) @ellipsis52 ➜ /workspaces/tw(venv) @  (venv) @ellipsis52 ➜ /workspaces/tw(venv)d
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > io-python (main) $         : File name too long
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > (base) iMac-de-Guido:identity-main webtechnicom$ >         :returns: Versions v1 of Studio
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > >         """
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > bash: $'\n        :returns: Versions v1 bash: $'\n        :returns: Versions v1 bash: $'\n        :returns: Versions v1 bash: $'\n        :returns: Versions v1 bash: 
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >py>  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >   self._v1: numeric argument required
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > bash: return: can only `return' from a function or sourced script
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > (venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(aces(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(vet (venv) @ellipsis52 ➜ /w➜ /workspaces/twilio-python (main) $      bash: Versions: command not found
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > (base) iMac-de-Guido:identity-main webtechnicom$ >         """
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > bash: $'\n        :returns: Versions v1 bash: $'\n        :returns: Versions v1 bash: $'\n        :returns: Versions v1 bash: $'\n        :returns: Versions v1 bash: 
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >py>  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >   self._v1: numeric argument required
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > bash: return: can only `return' from a function or sourced script
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(aces(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(vet (venv) @ellipsis52 ➜ /w➜ /workspaces/twilio-python (main) $         if self._bash: 
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: $'\n        Provide a friendly representation\n        :returns: Machine friendly representation\n        ': command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $         return : No such file or directory
+bash: syntax error near unexpected token `@ellipsis52'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ (base) iMac-de-Guido:identity-main webtechnicom$ > > bash: $'\n        :returns: Versions v1 bash: $'\n        :returns: Versions v1 bash: $'\n        :returns: Versions v1 bash: $'\n        :returns: Versions v1 bash: 
+bash: syntax error near unexpected token `iMac-de-Guido:identity-main'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: syntax error near unexpected token `>'
+> > > >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >py>  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >   self._v1: numeric argument required
+> > > bash: return: can only `return' from a function or sourced script
+sis52 ➜ /wo> (venv) @ellipsis> ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(aces(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(vet (venv) @ellipsis52 ➜ /w➜ /workspaces/twilio-python (main) $ (base) iMac-de-Guido:identity-main webtechnicom$ > > >  >   >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >py>  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >   self._v1: numeric argument required
+> bash: syntax error near unexpected token `>'
+bash: command substitution: line 1: unexpected EOF while looking for matching `''
+bash: command substitution: line 4: syntax error: unexpected end of file
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > > bash: return: can only `return' from a function or sourced script
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(aces(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(vet (venv) @ellipsis52 ➜ /w➜ /workspaces/twilio-python (main) $         if self._v2ellipsis52 ➜ /worksp(venv) @ellipsis2(self)
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > bash: syntax error near unexpected token `('
+> > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $         return sel> (venv) @ellipsis52 ➜ /workspaces/twilio-python (uired
+> > bash: return: can only `return' from a function or sourced script
+g for> > (venv) @ellipsis52 ➜ /workspace(base) iMac-de-Guido:identity-main webtechnicom$ n' from a function or sourced script
+bash: command substitution: line 1: unexpected EOF while looking for matching `''
+bash: command substitution: line 4: syntax error: unexpected end of file
+bash: syntax: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(aces(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(vet (venv) @ellipsis52 ➜ /w➜ /workspaces/twilio-python (main) $         if self._v2ellipsis52 ➜ /worksp(venv) @ellipsis2(self)
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > bash: syntax error near unexpected token `('
+> > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $         return sel> (venv) @ellipsis52 ➜ /workspaces/twilio-python (uired
+> > bash: return: can only `return' from a function or sourced script
+> > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ 
+> > (venv) @ellipsis52 ➜ /wo> (venv) @ellipsis52 ➜ /wo> (venv) @ellipsis52 ➜ /wo> (venbash: syntax error near unexpected token `>'
+bash: command substitution: line 1: unexpected EOF while looking for matching `''
+bash: command substitution: line 4: syntax error: unexpected end of file
+bash: syntax: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ (base) iMac-de-Guido:identity-main webtechnicom$ ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(aces(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(vet (venv) @ellipsis52 ➜ /w➜ /workspaces/twilio-python (main) $         if self._v2ellipsis52 ➜ /worksp(venv) @ellipsis2(self)
+bash: syntax error near unexpected token `iMac-de-Guido:identity-main'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: syntax error near unexpected token `('
+> (base) iMac-de-Guido:identity-main webtechnicom$ > bash: syntax error near unexpected token `('
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $         return sel> (venv) @ellipsis52 ➜ /workspaces/twilio-python (uired
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > bash: return: can only `return' from a function or sourced script
+> > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ 
+> > (venv) @ellipsis52 ➜ /wo> (venv) @ellipsis52 ➜ /wo> (venv) @ellipsis52 ➜ /wo> (venv) bash: syntax error near unexpected token `('
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $         """
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 1: unexpected EOF while looking for matching `''
+> bash: command substitution: line 5: syntax error: unexpected end of file
+> bash: command substitution: line 1: unexpected EOF while looking for matching `''
+bash: : command not found
+bash: bash:: command not found
+bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 5: syntax error: unexpected end of file
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 1: unexpected EOF while looking for matching `''
+> bash: command substitution: line 5: syntax error: unexpected end of file
+> bash: command substitution: line 1: ubash: command substitution: line 1: > > (venvenv) @ellipsis52 ➜ /workspaces/twilio-python (uired        return sel> (v 
+> > > bash: return: can only `return' from a function or sourced script
+> > > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ 
+> > > (venv) @ellipsis52 ➜ /wo> (venv) @ellipsis52 ➜ /wo> (venv) @ellipsis52 ➜ /wo> (venv) bash: syntax error near unexpected token `('
+bash: : command not found
+bash: bash:: command not found
+bash: command substitution: line 3: syntax error near unexpected token `>'
+bash: command substitution: line 3: `bash: command substitution: line 1: ubash: command substitution: line 1: > > (venvenv) @ellipsis52 ➜ /workspaces/twilio-python (uired        return sel> (v '
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $         """
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 1: unexpected EOF while looking for matching `''
+> bash: command substitution: line 5: syntax error: unexpected end of file
+> bash: command substitution: line 1: unexpected EOF while looking for matching `''
+bash: : command not found
+bash: bash:: command not found
+bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 5: syntax error: unexpected end of file
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 1: unexpected EOF while looking for matching `''
+> bash: command substitution: line 5: syntax error: unexpected end of file
+> bash: command substitution: line 1: ubash: command substitution: line 1: ubag `''
+bash: : command not found
+bash: bash:: command not found
+bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: combash: : command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: cobash: command substitution: line 1: unexpected EOF while looking for matching `''
+> bash: command substitution: line 4: syntax error: unexpected end of file
+> bash: syntax: command not found
+> (base) iMac-de-Guido:identity-main webtechnicom$ > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $         """
+> bash: command substitution: line 1: unexpected EOF while looking for matching `''
+bash: : command not found
+bash: bash:: command not found
+bash: bash:: command not found
+bash: command substitution: line 4: syntax error near unexpected token `iMac-de-Guido:identity-main'
+bash: command substitution: line 4: `(base) iMac-de-Guido:identity-main webtechnicom$ > (venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $         """'
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 5: syntax error: unexpected end of file
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 1: unexpected EOF while looking for matching `''
+> bash: command substitution: line 5: syntax error: unexpected end of file
+> bash: command substitution: line 1: unexpected EOF while looking for matching `''
+bash: : command not found
+bash: bash:: command not found
+bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 5: syntax error: unexpected end of file
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 1: ubash: command substitution: line 1: ubag `''
+> bash: combash: : command not found
+> bash: bash:: command not found
+> mand substitution: line 5: syntax error: unexpectebash: bash:: command not found
+m> bash: command substitution: line 4: syntax error near unexpected token `@ellipsis52'
+> bash: command substitution: line 4: `(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ from twilio.rest import Client'
+bash: : command not found
+bash: bash:: command not found
+bash: bash:: command not found
+bash: mand: command not found
+bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ d end of file
+bash: d: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbash: syntax error near unexpected token `('
+> (base) iMac-de-Guido:identity-main webtechnicom$ bash: command substitution: line 1: unexpected EOF while looking for matching `''
+bbbbash: command substitution: line 1: unexpected EOF while looking for matching `''
+bash: command substitution: line 3: syntax error: unexpected end of file
+bash: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 5: syntax error: unexpected end of file
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 1: unexpected EOF while looking for matching `''
+> bash: command substitution: line 5: syntax error: unexpected end of file
+> bash: command substitution: line 1: unexpected EOF while looking for matching `''
+bash: : command not found
+bash: bash:: command not found
+bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 5: syntax error: unexpected end of file
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 1: ubash: command substitution: line 1: ubag `''
+> bash: combash: : command not found
+> bash: bash:: command not found
+> mand substitution: line 5: syntax error: unexpectebash: bash:: command not found
+> bash: command substitution: line 4: syntax error near unexpected token `@ellipsis52'
+> bash: command substitution: line 4: `(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ from twilio.rest import Client'
+bash: : command not found
+bash: bash:: command not found
+bash: bash:: command not found
+bash: mand: command not found
+bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ d end of file
+bash: d: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb> bash: command substitution: line 5: syntax error: unexpected end of file
+bash: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 1: unexpected EOF while looking for matching `''
+> bash: command substitution: line 5: syntax error: unexpected end of file
+> bash: command substitution: line 1: unexpected EOF while looking for matching `''
+bbbbbbbbbbblio-bbbbbbbbash: : command not found
+bash: bash:: command not found
+bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 5: syntax error: unexpected end of file
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 1: ubash: command substitution: line 1: ubag `''
+> bash: combash: : command not found
+s> bash: bash:: command not found
+> mand substitution: line 5: syntax error: unexpectebash: bash:: command not found
+> bash: command substitution: line 4: syntax error near unexpected token `@ellipsis52'
+> bash: command substitution: line 4: `(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ from twilio.rest import Client'
+bash: : command not found
+bash: bash:: command not found
+bash: bash:: command not found
+bash: mand: command not found
+bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ d end of file
+bash: d: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbb: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb> bash: command substitution: 'ine 1: unexpected EOF while looking for matching `' 
+bash: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbb:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 5: syntax error: unexpected end of file
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 1: unexpected EOF while looking for matching `''
+> bash: command substitution: line 5: syntax error: unexpected end of file
+> bash: command substitution: line 1: ubash: command substitution: line 1: ubag `''
+bbbbbbbbbbash: : command not found
+bash: bash:: command not found
+bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: combash: : command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ mand substitution: line 5: syntax error: unexpectebash: bash:: command not found
+bash: mand: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 4: syntax error near unexpected token `@ellipsis52'
+> bash: command substitution: line 4: `(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ from twilio.rest import Client'
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ d end of file
+bash: d: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbb: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbblio-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb�� bash: : command not found
+bash: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbb:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ (base) iMac-de-Guido:identity-main webtechnicom$ bash: command substitution: line 5: syntax error: unexpected end of file
+bash: syntax error near unexpected token `iMac-de-Guido:identity-main'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 1: unexpected EOF while looking for matching `''
+> bash: command substitution: line 5: syntax error: unexpected end of file
+> bash: command substitution: line 1: ubash: command substitution: line 1: ubag `''
+bash: : command not found
+bash: bash:: command not found
+bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: combash: : command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ mand substitution: line 5: syntax error: unexpectebash: bash:: command not found
+bash: mand: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 4: syntax error near unexpected token `@ellipsis52'
+> bash: command substitution: line 4: `(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ from twilio.rest import Client'
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ d end of file
+bash: d: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbb: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbblio-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb�� /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(bash: bash:: command not found
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ (base) iMac-de-Guido:identity-main webtechnicom$ bash: command substitution: line 1: unexpected EOF while looking for matching `''
+bash: syntax error near unexpected token `iMac-de-Guido:identity-main'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > bash: command substitution: line 5: syntax error: unexpected end of file
+bash: substitution:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ > bash: command substitution: line 1: ubash: command substitution: line 1: ubag `''
+> bash: combash: : command not found
+> bash: bash:: command not found
+> mand substitution: line 5: syntax error: unexpectebash: bash:: command not found
+> bash: command substitution: line 4: syntax error near unexpected token `@ellipsis52'
+> bash: command substitution: line 4: `(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ from twilio.rest import Client'
+bash: : command not found
+bash: bash:: command not found
+bash: bash:: command not found
+bash: mand: command not found
+bash: bash:: command not found
+bash: substitution:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ d end of file
+bash: d: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbb: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbblio-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb�� /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbash: : command not found
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ (base) iMac-de-Guido:identity-main webtechnicom$ bash: combash: : command not found
+bash: syntax error near unexpected token `iMac-de-Guido:identity-main'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ mand substitution: line 5: syntax error: unexpectebash: bash:: command not found
+bash: mand: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 4: syntax error near unexpected token `@ellipsis52'
+bbbbbbbbbbbbburnsbbbbbbis52 ➜ /worksp(v> bash: command substitution: line 4: `(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ from twilio.rest import Client'
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ d end of file
+bash: d: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbb: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbblio-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb�� /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbis52 �bash: bash:: command not found
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ (base) iMac-de-Guido:identity-main webtechnicom$ bash: bash:: command not found
+bash: syntax error near unexpected token `iMac-de-Guido:identity-main'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ mand substitution: line 5: syntax error: unexpectebash: bash:: command not found
+bash: mand: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 4: syntax error near unexpected token `@ellipsis52'
+> bash: command substitution: line 4: `(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ from twilio.rest import Client'
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ d end of file
+bash: d: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbb: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbblio-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb�� /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52bash: bash:: command not found
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ (base) iMac-de-Guido:identity-main webtechnicom$ mand substitution: line 5: syntax error: unexpectebash: bash:: command not found
+bash: syntax error near unexpected token `iMac-de-Guido:identity-main'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 4: syntax error near unexpected token `@ellipsis52'
+> bash: command substitution: line 4: `(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ from twilio.rest import Client'
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: bash:: command not found
+bash: bash:: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ d end of file
+bash: d: command not found
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbb: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbblio-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb�� /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(vet (venv) @ellipsis52 ➜ /bash: mand: command not found
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ (base) iMac-de-Guido:identity-main webtechnicom$ bash: command substitution: line 4: syntax error near unexpected token `@ellipsis52'
+bash: syntax error near unexpected token `iMac-de-Guido:identity-main'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: command substitution: line 4: `(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ from twilio.rest import Client'
+> bash: bash:: command not found
+> d end of file
+> bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbb: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbblio-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb�� /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(vet (venv) @ellipsis52 ➜ /w➜bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbb> bash: command substitution: line 4: `(venv) @ellipsis52 ➜ /workspaces/twilio-hon (main) $ from twilio.rest import Client'
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: syntax error near unexpected token `('
+> (base) iMac-de-Guido:identity-main webtechnicom$ bash: bash:: command not found
+> d end of file
+> bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbb: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbblio-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb�� /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(vet (venv) @ellipsis52 ➜ /w➜bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbb near unexpected token `('
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  > bash: bash:: command not found
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ (base) iMac-de-Guido:identity-main webtechnicom$ d end of file
+bash: syntax error near unexpected token `iMac-de-Guido:identity-main'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbb: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbblio-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb�� /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(vet (venv) @ellipsis52 ➜ /w➜bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbb near unexpected token `('
+bash: syntax error near unexpected token `('
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >bash: d: command not found
+bash: syntax error near unexpected token `>'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ (base) iMac-de-Guido:identity-main webtechnicom$ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbb: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbblio-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb�� /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(venv) @ellipsis52 ➜ /worksp(verop(venv) @ellipsis52 ➜ /worksp(ot f(vet (venv) @ellipsis52 ➜ /w➜bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbburnsbbbbbbbbbb near unexpected token `('
+bash: syntax error near unexpected token `iMac-de-Guido:identity-main'
+(venv) @ellipsis52 ➜ /workspaces/twilio-python (main) $ bash: syntax error near unexpected token `('
+> >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  tr:
+> > > bash: (base) iMac-de-Guido:identity-main webtechnicom$ >  >  >  >  >  >  >  > >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  >  tr:
+> > > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy>$ bbash: syntax error near unexpected token `>'
+> (base) iMac-de-Guido:identity-main webtechnicom$ > > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy> > bash: sy>$ bienvenue sur le media network de webtechnicom
