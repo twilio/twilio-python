@@ -1,7 +1,7 @@
 import aiounittest
+from unittest.mock import patch, AsyncMock
 
 from aiohttp import ClientSession
-from mock import patch, AsyncMock
 from twilio.http.async_http_client import AsyncTwilioHttpClient
 
 
