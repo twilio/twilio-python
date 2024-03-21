@@ -22,11 +22,11 @@ def assert_is_not_none(obj):
 
 
 def assert_in(obj1, obj2):
-    assert obj1 in obj2, "%r is not in %r" % (obj1, obj2)
+    assert obj1 in obj2, "{!r} is not in {!r}".format(obj1, obj2)
 
 
 def assert_greater_equal(obj1, obj2):
-    assert obj1 > obj2, "%r is not greater than or equal to %r" % (obj1, obj2)
+    assert obj1 > obj2, "{!r} is not greater than or equal to {!r}".format(obj1, obj2)
 
 
 class AccessTokenTest(unittest.TestCase):

@@ -25,7 +25,7 @@ from twilio.rest.taskrouter.v1.workspace.task.reservation import ReservationList
 
 class TaskInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         PENDING = "pending"
         RESERVED = "reserved"
         ASSIGNED = "assigned"
@@ -249,8 +249,8 @@ class TaskInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.TaskInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Taskrouter.V1.TaskInstance {context}>"
 
 
 class TaskContext(InstanceContext):
@@ -467,8 +467,8 @@ class TaskContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.TaskContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Taskrouter.V1.TaskContext {context}>"
 
 
 class TaskPage(Page):

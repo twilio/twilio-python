@@ -1,7 +1,7 @@
 from typing import Any, Optional
 
 
-class Response(object):
+class Response:
     def __init__(
         self,
         status_code: int,
@@ -19,4 +19,4 @@ class Response(object):
         return self.content
 
     def __repr__(self) -> str:
-        return "HTTP {} {}".format(self.status_code, self.content)
+        return f"HTTP {self.status_code} {self.content}"

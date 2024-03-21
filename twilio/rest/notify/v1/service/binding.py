@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class BindingInstance(InstanceResource):
 
-    class BindingType(object):
+    class BindingType:
         APN = "apn"
         GCM = "gcm"
         SMS = "sms"
@@ -143,8 +143,8 @@ class BindingInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Notify.V1.BindingInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Notify.V1.BindingInstance {context}>"
 
 
 class BindingContext(InstanceContext):
@@ -236,8 +236,8 @@ class BindingContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Notify.V1.BindingContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Notify.V1.BindingContext {context}>"
 
 
 class BindingPage(Page):

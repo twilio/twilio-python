@@ -28,7 +28,7 @@ class ClientCapabilityToken(Jwt):
 
         :returns: A new CapabilityToken with zero permissions
         """
-        super(ClientCapabilityToken, self).__init__(
+        super().__init__(
             algorithm=self.ALGORITHM,
             secret_key=auth_token,
             issuer=account_sid,
@@ -93,7 +93,7 @@ class ClientCapabilityToken(Jwt):
         return {"scope": " ".join(scope_uris)}
 
 
-class ScopeURI(object):
+class ScopeURI:
     """A single capability granted to Twilio Client and scoped to a service"""
 
     def __init__(self, service, privilege, params=None):
@@ -108,10 +108,10 @@ class ScopeURI(object):
         if self.params:
             sorted_params = sorted([(k, v) for k, v in self.params.items()])
             encoded_params = urlencode(sorted_params)
-            param_string = "?{}".format(encoded_params)
+            param_string = f"?{encoded_params}"
         else:
             param_string = ""
-        return "scope:{}:{}{}".format(self.service, self.privilege, param_string)
+        return f"scope:{self.service}:{self.privilege}{param_string}"
 
     def __str__(self):
-        return "<ScopeURI {}>".format(self.to_payload())
+        return f"<ScopeURI {self.to_payload()}>"

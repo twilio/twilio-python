@@ -85,8 +85,8 @@ class SupportingDocumentTypeInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.SupportingDocumentTypeInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.SupportingDocumentTypeInstance {context}>"
 
 
 class SupportingDocumentTypeContext(InstanceContext):
@@ -152,8 +152,8 @@ class SupportingDocumentTypeContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.SupportingDocumentTypeContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.SupportingDocumentTypeContext {context}>"
 
 
 class SupportingDocumentTypePage(Page):

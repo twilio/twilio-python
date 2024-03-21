@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class SettingsUpdateInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         SCHEDULED = "scheduled"
         IN_PROGRESS = "in-progress"
         SUCCESSFUL = "successful"

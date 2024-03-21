@@ -22,11 +22,11 @@ from twilio.base.version import Version
 
 class WebhookInstance(InstanceResource):
 
-    class Method(object):
+    class Method:
         GET = "GET"
         POST = "POST"
 
-    class Target(object):
+    class Target:
         WEBHOOK = "webhook"
         FLEX = "flex"
 

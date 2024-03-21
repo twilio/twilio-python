@@ -102,8 +102,8 @@ class FlowTestUserInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V2.FlowTestUserInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V2.FlowTestUserInstance {context}>"
 
 
 class FlowTestUserContext(InstanceContext):
@@ -211,8 +211,8 @@ class FlowTestUserContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V2.FlowTestUserContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V2.FlowTestUserContext {context}>"
 
 
 class FlowTestUserList(ListResource):

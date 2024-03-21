@@ -5,7 +5,7 @@ from twilio.base.exceptions import TwilioException
 from twilio.http.response import Response
 
 
-class Page(object):
+class Page:
     """
     Represents a page of records in a collection.
 

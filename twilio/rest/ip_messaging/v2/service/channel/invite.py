@@ -127,8 +127,8 @@ class InviteInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V2.InviteInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.IpMessaging.V2.InviteInstance {context}>"
 
 
 class InviteContext(InstanceContext):
@@ -228,8 +228,8 @@ class InviteContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V2.InviteContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.IpMessaging.V2.InviteContext {context}>"
 
 
 class InvitePage(Page):

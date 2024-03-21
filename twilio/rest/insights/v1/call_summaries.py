@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class CallSummariesInstance(InstanceResource):
 
-    class AnsweredBy(object):
+    class AnsweredBy:
         UNKNOWN = "unknown"
         MACHINE_START = "machine_start"
         MACHINE_END_BEEP = "machine_end_beep"
@@ -33,7 +33,7 @@ class CallSummariesInstance(InstanceResource):
         HUMAN = "human"
         FAX = "fax"
 
-    class CallState(object):
+    class CallState:
         RINGING = "ringing"
         COMPLETED = "completed"
         BUSY = "busy"
@@ -43,23 +43,23 @@ class CallSummariesInstance(InstanceResource):
         ANSWERED = "answered"
         UNDIALED = "undialed"
 
-    class CallType(object):
+    class CallType:
         CARRIER = "carrier"
         SIP = "sip"
         TRUNKING = "trunking"
         CLIENT = "client"
 
-    class ProcessingState(object):
+    class ProcessingState:
         COMPLETE = "complete"
         PARTIAL = "partial"
 
-    class ProcessingStateRequest(object):
+    class ProcessingStateRequest:
         COMPLETED = "completed"
         STARTED = "started"
         PARTIAL = "partial"
         ALL = "all"
 
-    class SortBy(object):
+    class SortBy:
         START_TIME = "start_time"
         END_TIME = "end_time"
 

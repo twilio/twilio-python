@@ -23,7 +23,7 @@ from twilio.base.page import Page
 
 class SimIpAddressInstance(InstanceResource):
 
-    class IpAddressVersion(object):
+    class IpAddressVersion:
         IPV4 = "IPv4"
         IPV6 = "IPv6"
 
@@ -50,8 +50,8 @@ class SimIpAddressInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.SimIpAddressInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Supersim.V1.SimIpAddressInstance {context}>"
 
 
 class SimIpAddressPage(Page):

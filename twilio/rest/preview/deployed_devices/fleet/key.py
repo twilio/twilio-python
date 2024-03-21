@@ -158,8 +158,8 @@ class KeyInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.DeployedDevices.KeyInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.DeployedDevices.KeyInstance {context}>"
 
 
 class KeyContext(InstanceContext):
@@ -317,8 +317,8 @@ class KeyContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.DeployedDevices.KeyContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.DeployedDevices.KeyContext {context}>"
 
 
 class KeyPage(Page):

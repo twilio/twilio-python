@@ -114,8 +114,8 @@ class ItemAssignmentInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.ItemAssignmentInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.ItemAssignmentInstance {context}>"
 
 
 class ItemAssignmentContext(InstanceContext):
@@ -211,8 +211,8 @@ class ItemAssignmentContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.ItemAssignmentContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.ItemAssignmentContext {context}>"
 
 
 class ItemAssignmentPage(Page):

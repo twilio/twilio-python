@@ -121,8 +121,8 @@ class PlaybackGrantInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Media.V1.PlaybackGrantInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Media.V1.PlaybackGrantInstance {context}>"
 
 
 class PlaybackGrantContext(InstanceContext):
@@ -236,8 +236,8 @@ class PlaybackGrantContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Media.V1.PlaybackGrantContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Media.V1.PlaybackGrantContext {context}>"
 
 
 class PlaybackGrantList(ListResource):

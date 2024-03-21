@@ -25,17 +25,17 @@ from twilio.rest.insights.v1.room.participant import ParticipantList
 
 class RoomInstance(InstanceResource):
 
-    class Codec(object):
+    class Codec:
         VP8 = "VP8"
         H264 = "H264"
         VP9 = "VP9"
 
-    class CreatedMethod(object):
+    class CreatedMethod:
         SDK = "sdk"
         AD_HOC = "ad_hoc"
         API = "api"
 
-    class EdgeLocation(object):
+    class EdgeLocation:
         ASHBURN = "ashburn"
         DUBLIN = "dublin"
         FRANKFURT = "frankfurt"
@@ -46,25 +46,25 @@ class RoomInstance(InstanceResource):
         UMATILLA = "umatilla"
         TOKYO = "tokyo"
 
-    class EndReason(object):
+    class EndReason:
         ROOM_ENDED_VIA_API = "room_ended_via_api"
         TIMEOUT = "timeout"
 
-    class ProcessingState(object):
+    class ProcessingState:
         COMPLETE = "complete"
         IN_PROGRESS = "in_progress"
 
-    class RoomStatus(object):
+    class RoomStatus:
         IN_PROGRESS = "in_progress"
         COMPLETED = "completed"
 
-    class RoomType(object):
+    class RoomType:
         GO = "go"
         PEER_TO_PEER = "peer_to_peer"
         GROUP = "group"
         GROUP_SMALL = "group_small"
 
-    class TwilioRealm(object):
+    class TwilioRealm:
         US1 = "us1"
         US2 = "us2"
         AU1 = "au1"
@@ -218,8 +218,8 @@ class RoomInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.RoomInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Insights.V1.RoomInstance {context}>"
 
 
 class RoomContext(InstanceContext):
@@ -297,8 +297,8 @@ class RoomContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.RoomContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Insights.V1.RoomContext {context}>"
 
 
 class RoomPage(Page):

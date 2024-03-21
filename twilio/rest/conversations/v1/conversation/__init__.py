@@ -27,12 +27,12 @@ from twilio.rest.conversations.v1.conversation.webhook import WebhookList
 
 class ConversationInstance(InstanceResource):
 
-    class State(object):
+    class State:
         INACTIVE = "inactive"
         ACTIVE = "active"
         CLOSED = "closed"
 
-    class WebhookEnabledType(object):
+    class WebhookEnabledType:
         TRUE = "true"
         FALSE = "false"
 
@@ -276,8 +276,8 @@ class ConversationInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.ConversationInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Conversations.V1.ConversationInstance {context}>"
 
 
 class ConversationContext(InstanceContext):
@@ -549,8 +549,8 @@ class ConversationContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.ConversationContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Conversations.V1.ConversationContext {context}>"
 
 
 class ConversationPage(Page):

@@ -96,8 +96,8 @@ class SchemaVersionInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.SchemaVersionInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Events.V1.SchemaVersionInstance {context}>"
 
 
 class SchemaVersionContext(InstanceContext):
@@ -165,8 +165,8 @@ class SchemaVersionContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.SchemaVersionContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Events.V1.SchemaVersionContext {context}>"
 
 
 class SchemaVersionPage(Page):

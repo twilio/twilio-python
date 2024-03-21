@@ -8,7 +8,7 @@ from twilio.jwt.client import ClientCapabilityToken, ScopeURI
 class ClientCapabilityTokenTest(unittest.TestCase):
     def assertIn(self, foo, bar, msg=None):
         """backport for 2.6"""
-        assert foo in bar, msg or "%s not found in %s" % (foo, bar)
+        assert foo in bar, msg or "{} not found in {}".format(foo, bar)
 
     def now(self):
         return int(time.time())

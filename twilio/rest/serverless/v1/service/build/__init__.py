@@ -26,7 +26,7 @@ from twilio.rest.serverless.v1.service.build.build_status import BuildStatusList
 
 class BuildInstance(InstanceResource):
 
-    class Runtime(object):
+    class Runtime:
         NODE8 = "node8"
         NODE10 = "node10"
         NODE12 = "node12"
@@ -34,7 +34,7 @@ class BuildInstance(InstanceResource):
         NODE16 = "node16"
         NODE18 = "node18"
 
-    class Status(object):
+    class Status:
         BUILDING = "building"
         COMPLETED = "completed"
         FAILED = "failed"
@@ -140,8 +140,8 @@ class BuildInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.BuildInstance {}>'.format(context)
+        context = ' '.join(f'{k}={v}' for k, v in self._solution.items())
+        return f'<Twilio.Serverless.V1.BuildInstance {context}>'
 
 class BuildContext(InstanceContext):
 
@@ -241,8 +241,8 @@ class BuildContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.BuildContext {}>'.format(context)
+        context = ' '.join(f'{k}={v}' for k, v in self._solution.items())
+        return f'<Twilio.Serverless.V1.BuildContext {context}>'
 
 
 

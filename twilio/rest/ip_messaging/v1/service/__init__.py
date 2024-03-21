@@ -522,8 +522,8 @@ class ServiceInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V1.ServiceInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.IpMessaging.V1.ServiceInstance {context}>"
 
 
 class ServiceContext(InstanceContext):
@@ -1039,8 +1039,8 @@ class ServiceContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V1.ServiceContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.IpMessaging.V1.ServiceContext {context}>"
 
 
 class ServicePage(Page):

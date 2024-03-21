@@ -22,12 +22,12 @@ from twilio.base.version import Version
 
 class AnnotationInstance(InstanceResource):
 
-    class AnsweredBy(object):
+    class AnsweredBy:
         UNKNOWN_ANSWERED_BY = "unknown_answered_by"
         HUMAN = "human"
         MACHINE = "machine"
 
-    class ConnectivityIssue(object):
+    class ConnectivityIssue:
         UNKNOWN_CONNECTIVITY_ISSUE = "unknown_connectivity_issue"
         NO_CONNECTIVITY_ISSUE = "no_connectivity_issue"
         INVALID_NUMBER = "invalid_number"
@@ -180,8 +180,8 @@ class AnnotationInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.AnnotationInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Insights.V1.AnnotationInstance {context}>"
 
 
 class AnnotationContext(InstanceContext):
@@ -339,8 +339,8 @@ class AnnotationContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.AnnotationContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Insights.V1.AnnotationContext {context}>"
 
 
 class AnnotationList(ListResource):

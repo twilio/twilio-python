@@ -19,7 +19,7 @@ setup(
     help_center="https://www.twilio.com/help/contact",
     url="https://github.com/twilio/twilio-python/",
     keywords=["twilio", "twiml"],
-    python_requires=">=3.7.0",
+    python_requires=">=3.8",
     install_requires=[
         "requests >= 2.0.0",
         "PyJWT >= 2.0.0, < 3.0.0",
@@ -33,8 +33,6 @@ setup(
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",

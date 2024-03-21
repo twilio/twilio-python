@@ -232,8 +232,8 @@ class UsAppToPersonInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.UsAppToPersonInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.UsAppToPersonInstance {context}>"
 
 
 class UsAppToPersonContext(InstanceContext):
@@ -423,8 +423,8 @@ class UsAppToPersonContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.UsAppToPersonContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.UsAppToPersonContext {context}>"
 
 
 class UsAppToPersonPage(Page):

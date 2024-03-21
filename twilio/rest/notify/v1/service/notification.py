@@ -23,7 +23,7 @@ from twilio.base.version import Version
 
 class NotificationInstance(InstanceResource):
 
-    class Priority(object):
+    class Priority:
         HIGH = "high"
         LOW = "low"
 
@@ -90,8 +90,8 @@ class NotificationInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Notify.V1.NotificationInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Notify.V1.NotificationInstance {context}>"
 
 
 class NotificationList(ListResource):

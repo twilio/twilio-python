@@ -25,23 +25,23 @@ from twilio.rest.media.v1.player_streamer.playback_grant import PlaybackGrantLis
 
 class PlayerStreamerInstance(InstanceResource):
 
-    class EndedReason(object):
+    class EndedReason:
         ENDED_VIA_API = "ended-via-api"
         MAX_DURATION_EXCEEDED = "max-duration-exceeded"
         STREAM_DISCONNECTED_BY_SOURCE = "stream-disconnected-by-source"
         UNEXPECTED_FAILURE = "unexpected-failure"
 
-    class Order(object):
+    class Order:
         ASC = "asc"
         DESC = "desc"
 
-    class Status(object):
+    class Status:
         CREATED = "created"
         STARTED = "started"
         ENDED = "ended"
         FAILED = "failed"
 
-    class UpdateStatus(object):
+    class UpdateStatus:
         ENDED = "ended"
 
     """
@@ -166,8 +166,8 @@ class PlayerStreamerInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Media.V1.PlayerStreamerInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Media.V1.PlayerStreamerInstance {context}>"
 
 
 class PlayerStreamerContext(InstanceContext):
@@ -293,8 +293,8 @@ class PlayerStreamerContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Media.V1.PlayerStreamerContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Media.V1.PlayerStreamerContext {context}>"
 
 
 class PlayerStreamerPage(Page):

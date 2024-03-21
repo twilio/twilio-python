@@ -24,15 +24,15 @@ from twilio.base.page import Page
 
 class IpCommandInstance(InstanceResource):
 
-    class Direction(object):
+    class Direction:
         TO_SIM = "to_sim"
         FROM_SIM = "from_sim"
 
-    class PayloadType(object):
+    class PayloadType:
         TEXT = "text"
         BINARY = "binary"
 
-    class Status(object):
+    class Status:
         QUEUED = "queued"
         SENT = "sent"
         RECEIVED = "received"
@@ -127,8 +127,8 @@ class IpCommandInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.IpCommandInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Supersim.V1.IpCommandInstance {context}>"
 
 
 class IpCommandContext(InstanceContext):
@@ -192,8 +192,8 @@ class IpCommandContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.IpCommandContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Supersim.V1.IpCommandContext {context}>"
 
 
 class IpCommandPage(Page):

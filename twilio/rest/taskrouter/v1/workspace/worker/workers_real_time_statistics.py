@@ -96,7 +96,7 @@ class WorkersRealTimeStatisticsInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkersRealTimeStatisticsInstance {}>".format(
             context
         )
@@ -179,7 +179,7 @@ class WorkersRealTimeStatisticsContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkersRealTimeStatisticsContext {}>".format(
             context
         )

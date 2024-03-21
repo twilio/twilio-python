@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class ParticipantInstance(InstanceResource):
 
-    class WebhookEnabledType(object):
+    class WebhookEnabledType:
         TRUE = "true"
         FALSE = "false"
 
@@ -246,8 +246,8 @@ class ParticipantInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.ParticipantInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Conversations.V1.ParticipantInstance {context}>"
 
 
 class ParticipantContext(InstanceContext):
@@ -491,8 +491,8 @@ class ParticipantContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.ParticipantContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Conversations.V1.ParticipantContext {context}>"
 
 
 class ParticipantPage(Page):

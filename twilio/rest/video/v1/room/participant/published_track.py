@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class PublishedTrackInstance(InstanceResource):
 
-    class Kind(object):
+    class Kind:
         AUDIO = "audio"
         VIDEO = "video"
         DATA = "data"
@@ -113,8 +113,8 @@ class PublishedTrackInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.PublishedTrackInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Video.V1.PublishedTrackInstance {context}>"
 
 
 class PublishedTrackContext(InstanceContext):
@@ -188,8 +188,8 @@ class PublishedTrackContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.PublishedTrackContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Video.V1.PublishedTrackContext {context}>"
 
 
 class PublishedTrackPage(Page):

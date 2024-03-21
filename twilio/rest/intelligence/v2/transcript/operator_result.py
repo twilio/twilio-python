@@ -23,7 +23,7 @@ from twilio.base.page import Page
 
 class OperatorResultInstance(InstanceResource):
 
-    class OperatorType(object):
+    class OperatorType:
         CONVERSATION_CLASSIFY = "conversation_classify"
         UTTERANCE_CLASSIFY = "utterance_classify"
         EXTRACT = "extract"
@@ -143,8 +143,8 @@ class OperatorResultInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.OperatorResultInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Intelligence.V2.OperatorResultInstance {context}>"
 
 
 class OperatorResultContext(InstanceContext):
@@ -230,8 +230,8 @@ class OperatorResultContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.OperatorResultContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Intelligence.V2.OperatorResultContext {context}>"
 
 
 class OperatorResultPage(Page):

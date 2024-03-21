@@ -40,8 +40,8 @@ class SinkValidateInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.SinkValidateInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Events.V1.SinkValidateInstance {context}>"
 
 
 class SinkValidateList(ListResource):

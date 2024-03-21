@@ -23,16 +23,16 @@ from twilio.base.version import Version
 
 class SiprecInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         IN_PROGRESS = "in-progress"
         STOPPED = "stopped"
 
-    class Track(object):
+    class Track:
         INBOUND_TRACK = "inbound_track"
         OUTBOUND_TRACK = "outbound_track"
         BOTH_TRACKS = "both_tracks"
 
-    class UpdateStatus(object):
+    class UpdateStatus:
         STOPPED = "stopped"
 
     """
@@ -121,8 +121,8 @@ class SiprecInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.SiprecInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.SiprecInstance {context}>"
 
 
 class SiprecContext(InstanceContext):
@@ -212,8 +212,8 @@ class SiprecContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.SiprecContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.SiprecContext {context}>"
 
 
 class SiprecList(ListResource):

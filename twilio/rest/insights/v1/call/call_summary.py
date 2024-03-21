@@ -23,7 +23,7 @@ from twilio.base.version import Version
 
 class CallSummaryInstance(InstanceResource):
 
-    class AnsweredBy(object):
+    class AnsweredBy:
         UNKNOWN = "unknown"
         MACHINE_START = "machine_start"
         MACHINE_END_BEEP = "machine_end_beep"
@@ -32,7 +32,7 @@ class CallSummaryInstance(InstanceResource):
         HUMAN = "human"
         FAX = "fax"
 
-    class CallState(object):
+    class CallState:
         RINGING = "ringing"
         COMPLETED = "completed"
         BUSY = "busy"
@@ -42,13 +42,13 @@ class CallSummaryInstance(InstanceResource):
         ANSWERED = "answered"
         UNDIALED = "undialed"
 
-    class CallType(object):
+    class CallType:
         CARRIER = "carrier"
         SIP = "sip"
         TRUNKING = "trunking"
         CLIENT = "client"
 
-    class ProcessingState(object):
+    class ProcessingState:
         COMPLETE = "complete"
         PARTIAL = "partial"
 
@@ -181,8 +181,8 @@ class CallSummaryInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.CallSummaryInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Insights.V1.CallSummaryInstance {context}>"
 
 
 class CallSummaryContext(InstanceContext):
@@ -266,8 +266,8 @@ class CallSummaryContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.CallSummaryContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Insights.V1.CallSummaryContext {context}>"
 
 
 class CallSummaryList(ListResource):

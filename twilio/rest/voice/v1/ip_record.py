@@ -144,8 +144,8 @@ class IpRecordInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.IpRecordInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Voice.V1.IpRecordInstance {context}>"
 
 
 class IpRecordContext(InstanceContext):
@@ -281,8 +281,8 @@ class IpRecordContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.IpRecordContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Voice.V1.IpRecordContext {context}>"
 
 
 class IpRecordPage(Page):

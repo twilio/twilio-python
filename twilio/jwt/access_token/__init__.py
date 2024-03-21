@@ -3,7 +3,7 @@ import time
 from twilio.jwt import Jwt
 
 
-class AccessTokenGrant(object):
+class AccessTokenGrant:
     """A Grant giving access to a Twilio Resource"""
 
     @property
@@ -16,7 +16,7 @@ class AccessTokenGrant(object):
         raise NotImplementedError("Grant must implement to_payload.")
 
     def __str__(self):
-        return "<{} {}>".format(self.__class__.__name__, self.to_payload())
+        return f"<{self.__class__.__name__} {self.to_payload()}>"
 
 
 class AccessToken(Jwt):
@@ -45,7 +45,7 @@ class AccessToken(Jwt):
         self.identity = identity
         self.region = region
         self.grants = grants
-        super(AccessToken, self).__init__(
+        super().__init__(
             secret_key=secret,
             algorithm=self.ALGORITHM,
             issuer=signing_key_sid,
@@ -70,7 +70,7 @@ class AccessToken(Jwt):
     def _generate_payload(self):
         now = int(time.time())
         payload = {
-            "jti": "{}-{}".format(self.signing_key_sid, now),
+            "jti": f"{self.signing_key_sid}-{now}",
             "grants": {grant.key: grant.to_payload() for grant in self.grants},
         }
         if self.identity:
@@ -78,4 +78,4 @@ class AccessToken(Jwt):
         return payload
 
     def __str__(self):
-        return "<{} {}>".format(self.__class__.__name__, self.to_jwt())
+        return f"<{self.__class__.__name__} {self.to_jwt()}>"

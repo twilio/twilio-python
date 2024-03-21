@@ -30,7 +30,7 @@ class TwiMLException(Exception):
     pass
 
 
-class TwiML(object):
+class TwiML:
     MAP = {
         "from_": "from",
         "xml_lang": "xml:lang",
@@ -66,7 +66,7 @@ class TwiML(object):
         """
         xml = ET.tostring(self.xml(), encoding="utf-8").decode("utf-8")
         return (
-            '<?xml version="1.0" encoding="UTF-8"?>{}'.format(xml)
+            f'<?xml version="1.0" encoding="UTF-8"?>{xml}'
             if xml_declaration
             else xml
         )
@@ -135,6 +135,6 @@ class TwiML(object):
 
 class GenericNode(TwiML):
     def __init__(self, name, value, **kwargs):
-        super(GenericNode, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.name = name
         self.value = value

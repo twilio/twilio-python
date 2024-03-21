@@ -102,8 +102,8 @@ class CommandInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Wireless.CommandInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Wireless.CommandInstance {context}>"
 
 
 class CommandContext(InstanceContext):
@@ -167,8 +167,8 @@ class CommandContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Wireless.CommandContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Wireless.CommandContext {context}>"
 
 
 class CommandPage(Page):

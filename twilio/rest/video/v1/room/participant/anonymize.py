@@ -23,7 +23,7 @@ from twilio.base.version import Version
 
 class AnonymizeInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         CONNECTED = "connected"
         DISCONNECTED = "disconnected"
 
@@ -112,8 +112,8 @@ class AnonymizeInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.AnonymizeInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Video.V1.AnonymizeInstance {context}>"
 
 
 class AnonymizeContext(InstanceContext):
@@ -187,8 +187,8 @@ class AnonymizeContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.AnonymizeContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Video.V1.AnonymizeContext {context}>"
 
 
 class AnonymizeList(ListResource):

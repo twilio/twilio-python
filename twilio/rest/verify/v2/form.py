@@ -21,7 +21,7 @@ from twilio.base.version import Version
 
 class FormInstance(InstanceResource):
 
-    class FormTypes(object):
+    class FormTypes:
         FORM_PUSH = "form-push"
 
     """
@@ -88,8 +88,8 @@ class FormInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.FormInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.FormInstance {context}>"
 
 
 class FormContext(InstanceContext):
@@ -153,8 +153,8 @@ class FormContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.FormContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.FormContext {context}>"
 
 
 class FormList(ListResource):

@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class DeliveryReceiptInstance(InstanceResource):
 
-    class DeliveryStatus(object):
+    class DeliveryStatus:
         READ = "read"
         FAILED = "failed"
         DELIVERED = "delivered"
@@ -126,8 +126,8 @@ class DeliveryReceiptInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.DeliveryReceiptInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Conversations.V1.DeliveryReceiptInstance {context}>"
 
 
 class DeliveryReceiptContext(InstanceContext):
@@ -212,8 +212,8 @@ class DeliveryReceiptContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.DeliveryReceiptContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Conversations.V1.DeliveryReceiptContext {context}>"
 
 
 class DeliveryReceiptPage(Page):

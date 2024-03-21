@@ -79,8 +79,8 @@ class AppManifestInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Microvisor.V1.AppManifestInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Microvisor.V1.AppManifestInstance {context}>"
 
 
 class AppManifestContext(InstanceContext):
@@ -144,8 +144,8 @@ class AppManifestContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Microvisor.V1.AppManifestContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Microvisor.V1.AppManifestContext {context}>"
 
 
 class AppManifestList(ListResource):

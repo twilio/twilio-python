@@ -107,8 +107,8 @@ class NumberInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Pricing.V2.NumberInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Pricing.V2.NumberInstance {context}>"
 
 
 class NumberContext(InstanceContext):
@@ -186,8 +186,8 @@ class NumberContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Pricing.V2.NumberContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Pricing.V2.NumberContext {context}>"
 
 
 class NumberList(ListResource):

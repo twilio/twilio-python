@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class UserBindingInstance(InstanceResource):
 
-    class BindingType(object):
+    class BindingType:
         GCM = "gcm"
         APN = "apn"
         FCM = "fcm"
@@ -139,8 +139,8 @@ class UserBindingInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Chat.V2.UserBindingInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Chat.V2.UserBindingInstance {context}>"
 
 
 class UserBindingContext(InstanceContext):
@@ -238,8 +238,8 @@ class UserBindingContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Chat.V2.UserBindingContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Chat.V2.UserBindingContext {context}>"
 
 
 class UserBindingPage(Page):
