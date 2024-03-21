@@ -29,11 +29,11 @@ from twilio.rest.trunking.v1.trunk.recording import RecordingList
 
 class TrunkInstance(InstanceResource):
 
-    class TransferCallerId(object):
+    class TransferCallerId:
         FROM_TRANSFEREE = "from-transferee"
         FROM_TRANSFEROR = "from-transferor"
 
-    class TransferSetting(object):
+    class TransferSetting:
         DISABLE_ALL = "disable-all"
         ENABLE_ALL = "enable-all"
         SIP_ONLY = "sip-only"
@@ -264,8 +264,8 @@ class TrunkInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trunking.V1.TrunkInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trunking.V1.TrunkInstance {context}>"
 
 
 class TrunkContext(InstanceContext):
@@ -515,8 +515,8 @@ class TrunkContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trunking.V1.TrunkContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trunking.V1.TrunkContext {context}>"
 
 
 class TrunkPage(Page):

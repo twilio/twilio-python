@@ -23,7 +23,7 @@ from twilio.base.version import Version
 
 class BuildStatusInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         BUILDING = "building"
         COMPLETED = "completed"
         FAILED = "failed"
@@ -90,8 +90,8 @@ class BuildStatusInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.BuildStatusInstance {}>'.format(context)
+        context = ' '.join(f'{k}={v}' for k, v in self._solution.items())
+        return f'<Twilio.Serverless.V1.BuildStatusInstance {context}>'
 
 class BuildStatusContext(InstanceContext):
 
@@ -158,8 +158,8 @@ class BuildStatusContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.BuildStatusContext {}>'.format(context)
+        context = ' '.join(f'{k}={v}' for k, v in self._solution.items())
+        return f'<Twilio.Serverless.V1.BuildStatusContext {context}>'
 
 
 

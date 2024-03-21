@@ -96,8 +96,8 @@ class BulkEligibilityInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V1.BulkEligibilityInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V1.BulkEligibilityInstance {context}>"
 
 
 class BulkEligibilityContext(InstanceContext):
@@ -163,8 +163,8 @@ class BulkEligibilityContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V1.BulkEligibilityContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V1.BulkEligibilityContext {context}>"
 
 
 class BulkEligibilityList(ListResource):

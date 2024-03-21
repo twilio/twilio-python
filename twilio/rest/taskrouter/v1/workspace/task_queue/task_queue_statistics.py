@@ -129,8 +129,8 @@ class TaskQueueStatisticsInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.TaskQueueStatisticsInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Taskrouter.V1.TaskQueueStatisticsInstance {context}>"
 
 
 class TaskQueueStatisticsContext(InstanceContext):
@@ -242,8 +242,8 @@ class TaskQueueStatisticsContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.TaskQueueStatisticsContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Taskrouter.V1.TaskQueueStatisticsContext {context}>"
 
 
 class TaskQueueStatisticsList(ListResource):

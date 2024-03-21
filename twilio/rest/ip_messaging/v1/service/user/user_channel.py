@@ -23,7 +23,7 @@ from twilio.base.page import Page
 
 class UserChannelInstance(InstanceResource):
 
-    class ChannelStatus(object):
+    class ChannelStatus:
         JOINED = "joined"
         INVITED = "invited"
         NOT_PARTICIPATING = "not_participating"
@@ -70,8 +70,8 @@ class UserChannelInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V1.UserChannelInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.IpMessaging.V1.UserChannelInstance {context}>"
 
 
 class UserChannelPage(Page):

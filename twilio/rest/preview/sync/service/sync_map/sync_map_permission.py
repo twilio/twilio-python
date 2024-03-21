@@ -154,8 +154,8 @@ class SyncMapPermissionInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Sync.SyncMapPermissionInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Sync.SyncMapPermissionInstance {context}>"
 
 
 class SyncMapPermissionContext(InstanceContext):
@@ -323,8 +323,8 @@ class SyncMapPermissionContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Sync.SyncMapPermissionContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Sync.SyncMapPermissionContext {context}>"
 
 
 class SyncMapPermissionPage(Page):

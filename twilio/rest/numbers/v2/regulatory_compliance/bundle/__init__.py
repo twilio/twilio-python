@@ -36,19 +36,19 @@ from twilio.rest.numbers.v2.regulatory_compliance.bundle.replace_items import (
 
 class BundleInstance(InstanceResource):
 
-    class EndUserType(object):
+    class EndUserType:
         INDIVIDUAL = "individual"
         BUSINESS = "business"
 
-    class SortBy(object):
+    class SortBy:
         VALID_UNTIL = "valid-until"
         DATE_UPDATED = "date-updated"
 
-    class SortDirection(object):
+    class SortDirection:
         ASC = "ASC"
         DESC = "DESC"
 
-    class Status(object):
+    class Status:
         DRAFT = "draft"
         PENDING_REVIEW = "pending-review"
         IN_REVIEW = "in-review"
@@ -233,8 +233,8 @@ class BundleInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.BundleInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.BundleInstance {context}>"
 
 
 class BundleContext(InstanceContext):
@@ -443,8 +443,8 @@ class BundleContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.BundleContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.BundleContext {context}>"
 
 
 class BundlePage(Page):

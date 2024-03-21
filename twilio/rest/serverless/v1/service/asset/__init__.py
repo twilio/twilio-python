@@ -152,8 +152,8 @@ class AssetInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.AssetInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Serverless.V1.AssetInstance {context}>"
 
 
 class AssetContext(InstanceContext):
@@ -314,8 +314,8 @@ class AssetContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.AssetContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Serverless.V1.AssetContext {context}>"
 
 
 class AssetPage(Page):

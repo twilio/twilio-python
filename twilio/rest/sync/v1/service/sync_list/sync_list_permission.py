@@ -154,8 +154,8 @@ class SyncListPermissionInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Sync.V1.SyncListPermissionInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Sync.V1.SyncListPermissionInstance {context}>"
 
 
 class SyncListPermissionContext(InstanceContext):
@@ -325,8 +325,8 @@ class SyncListPermissionContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Sync.V1.SyncListPermissionContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Sync.V1.SyncListPermissionContext {context}>"
 
 
 class SyncListPermissionPage(Page):

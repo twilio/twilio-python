@@ -122,8 +122,8 @@ class ShortCodeInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.ShortCodeInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.ShortCodeInstance {context}>"
 
 
 class ShortCodeContext(InstanceContext):
@@ -215,8 +215,8 @@ class ShortCodeContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.ShortCodeContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.ShortCodeContext {context}>"
 
 
 class ShortCodePage(Page):

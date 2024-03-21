@@ -98,8 +98,8 @@ class SchemaInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.SchemaInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Events.V1.SchemaInstance {context}>"
 
 
 class SchemaContext(InstanceContext):
@@ -177,8 +177,8 @@ class SchemaContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.SchemaContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Events.V1.SchemaContext {context}>"
 
 
 class SchemaList(ListResource):

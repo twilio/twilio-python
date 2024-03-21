@@ -23,7 +23,7 @@ from twilio.base.page import Page
 
 class RegulationInstance(InstanceResource):
 
-    class EndUserType(object):
+    class EndUserType:
         INDIVIDUAL = "individual"
         BUSINESS = "business"
 
@@ -96,8 +96,8 @@ class RegulationInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.RegulationInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.RegulationInstance {context}>"
 
 
 class RegulationContext(InstanceContext):
@@ -161,8 +161,8 @@ class RegulationContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.RegulationContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.RegulationContext {context}>"
 
 
 class RegulationPage(Page):

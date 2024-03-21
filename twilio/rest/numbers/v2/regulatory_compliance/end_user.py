@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class EndUserInstance(InstanceResource):
 
-    class Type(object):
+    class Type:
         INDIVIDUAL = "individual"
         BUSINESS = "business"
 
@@ -155,8 +155,8 @@ class EndUserInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.EndUserInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.EndUserInstance {context}>"
 
 
 class EndUserContext(InstanceContext):
@@ -300,8 +300,8 @@ class EndUserContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.EndUserContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.EndUserContext {context}>"
 
 
 class EndUserPage(Page):

@@ -23,11 +23,11 @@ from twilio.base.version import Version
 
 class ChannelInstance(InstanceResource):
 
-    class ChannelType(object):
+    class ChannelType:
         PUBLIC = "public"
         PRIVATE = "private"
 
-    class WebhookEnabledType(object):
+    class WebhookEnabledType:
         TRUE = "true"
         FALSE = "false"
 
@@ -154,8 +154,8 @@ class ChannelInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Chat.V3.ChannelInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Chat.V3.ChannelInstance {context}>"
 
 
 class ChannelContext(InstanceContext):
@@ -263,8 +263,8 @@ class ChannelContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Chat.V3.ChannelContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Chat.V3.ChannelContext {context}>"
 
 
 class ChannelList(ListResource):

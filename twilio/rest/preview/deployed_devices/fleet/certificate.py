@@ -158,8 +158,8 @@ class CertificateInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.DeployedDevices.CertificateInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.DeployedDevices.CertificateInstance {context}>"
 
 
 class CertificateContext(InstanceContext):
@@ -317,8 +317,8 @@ class CertificateContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.DeployedDevices.CertificateContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.DeployedDevices.CertificateContext {context}>"
 
 
 class CertificatePage(Page):

@@ -121,8 +121,8 @@ class PhoneNumberInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Lookups.V1.PhoneNumberInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Lookups.V1.PhoneNumberInstance {context}>"
 
 
 class PhoneNumberContext(InstanceContext):
@@ -220,8 +220,8 @@ class PhoneNumberContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Lookups.V1.PhoneNumberContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Lookups.V1.PhoneNumberContext {context}>"
 
 
 class PhoneNumberList(ListResource):

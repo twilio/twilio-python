@@ -142,8 +142,8 @@ class SyncListInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Sync.SyncListInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Sync.SyncListInstance {context}>"
 
 
 class SyncListContext(InstanceContext):
@@ -264,8 +264,8 @@ class SyncListContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Sync.SyncListContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Sync.SyncListContext {context}>"
 
 
 class SyncListPage(Page):

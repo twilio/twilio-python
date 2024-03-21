@@ -24,16 +24,16 @@ from twilio.base.page import Page
 
 class MediaProcessorInstance(InstanceResource):
 
-    class Order(object):
+    class Order:
         ASC = "asc"
         DESC = "desc"
 
-    class Status(object):
+    class Status:
         FAILED = "failed"
         STARTED = "started"
         ENDED = "ended"
 
-    class UpdateStatus(object):
+    class UpdateStatus:
         ENDED = "ended"
 
     """
@@ -149,8 +149,8 @@ class MediaProcessorInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Media.V1.MediaProcessorInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Media.V1.MediaProcessorInstance {context}>"
 
 
 class MediaProcessorContext(InstanceContext):
@@ -262,8 +262,8 @@ class MediaProcessorContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Media.V1.MediaProcessorContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Media.V1.MediaProcessorContext {context}>"
 
 
 class MediaProcessorPage(Page):

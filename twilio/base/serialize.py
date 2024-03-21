@@ -56,7 +56,7 @@ def prefixed_collapsible_map(m, prefix):
 
     if isinstance(m, dict):
         flattened = flatten_dict(m)
-        return {"{}.{}".format(prefix, k): v for k, v in flattened.items()}
+        return {f"{prefix}.{k}": v for k, v in flattened.items()}
 
     return {}
 

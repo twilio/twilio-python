@@ -26,7 +26,7 @@ from twilio.rest.ip_messaging.v2.service.user.user_channel import UserChannelLis
 
 class UserInstance(InstanceResource):
 
-    class WebhookEnabledType(object):
+    class WebhookEnabledType:
         TRUE = "true"
         FALSE = "false"
 
@@ -207,8 +207,8 @@ class UserInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V2.UserInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.IpMessaging.V2.UserInstance {context}>"
 
 
 class UserContext(InstanceContext):
@@ -415,8 +415,8 @@ class UserContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V2.UserContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.IpMessaging.V2.UserContext {context}>"
 
 
 class UserPage(Page):

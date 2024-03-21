@@ -44,8 +44,8 @@ class UsAppToPersonUsecaseInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.UsAppToPersonUsecaseInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.UsAppToPersonUsecaseInstance {context}>"
 
 
 class UsAppToPersonUsecaseList(ListResource):

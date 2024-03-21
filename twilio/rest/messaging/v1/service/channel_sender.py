@@ -104,8 +104,8 @@ class ChannelSenderInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.ChannelSenderInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.ChannelSenderInstance {context}>"
 
 
 class ChannelSenderContext(InstanceContext):
@@ -175,8 +175,8 @@ class ChannelSenderContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.ChannelSenderContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.ChannelSenderContext {context}>"
 
 
 class ChannelSenderPage(Page):

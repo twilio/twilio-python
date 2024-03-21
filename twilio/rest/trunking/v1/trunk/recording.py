@@ -22,14 +22,14 @@ from twilio.base.version import Version
 
 class RecordingInstance(InstanceResource):
 
-    class RecordingMode(object):
+    class RecordingMode:
         DO_NOT_RECORD = "do-not-record"
         RECORD_FROM_RINGING = "record-from-ringing"
         RECORD_FROM_ANSWER = "record-from-answer"
         RECORD_FROM_RINGING_DUAL = "record-from-ringing-dual"
         RECORD_FROM_ANSWER_DUAL = "record-from-answer-dual"
 
-    class RecordingTrim(object):
+    class RecordingTrim:
         TRIM_SILENCE = "trim-silence"
         DO_NOT_TRIM = "do-not-trim"
 
@@ -124,8 +124,8 @@ class RecordingInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trunking.V1.RecordingInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trunking.V1.RecordingInstance {context}>"
 
 
 class RecordingContext(InstanceContext):
@@ -249,8 +249,8 @@ class RecordingContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trunking.V1.RecordingContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trunking.V1.RecordingContext {context}>"
 
 
 class RecordingList(ListResource):

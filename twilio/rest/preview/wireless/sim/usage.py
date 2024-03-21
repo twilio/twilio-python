@@ -108,8 +108,8 @@ class UsageInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Wireless.UsageInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Wireless.UsageInstance {context}>"
 
 
 class UsageContext(InstanceContext):
@@ -195,8 +195,8 @@ class UsageContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Wireless.UsageContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Wireless.UsageContext {context}>"
 
 
 class UsageList(ListResource):

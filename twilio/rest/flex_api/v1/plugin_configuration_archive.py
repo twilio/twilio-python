@@ -101,7 +101,7 @@ class PluginConfigurationArchiveInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.PluginConfigurationArchiveInstance {}>".format(
             context
         )
@@ -182,7 +182,7 @@ class PluginConfigurationArchiveContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.PluginConfigurationArchiveContext {}>".format(
             context
         )

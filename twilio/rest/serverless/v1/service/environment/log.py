@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class LogInstance(InstanceResource):
 
-    class Level(object):
+    class Level:
         INFO = "info"
         WARN = "warn"
         ERROR = "error"
@@ -117,8 +117,8 @@ class LogInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.LogInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Serverless.V1.LogInstance {context}>"
 
 
 class LogContext(InstanceContext):
@@ -196,8 +196,8 @@ class LogContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.LogContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Serverless.V1.LogContext {context}>"
 
 
 class LogPage(Page):

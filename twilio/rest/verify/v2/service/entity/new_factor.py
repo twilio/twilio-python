@@ -23,20 +23,20 @@ from twilio.base.version import Version
 
 class NewFactorInstance(InstanceResource):
 
-    class FactorStatuses(object):
+    class FactorStatuses:
         UNVERIFIED = "unverified"
         VERIFIED = "verified"
 
-    class FactorTypes(object):
+    class FactorTypes:
         PUSH = "push"
         TOTP = "totp"
 
-    class NotificationPlatforms(object):
+    class NotificationPlatforms:
         APN = "apn"
         FCM = "fcm"
         NONE = "none"
 
-    class TotpAlgorithms(object):
+    class TotpAlgorithms:
         SHA1 = "sha1"
         SHA256 = "sha256"
         SHA512 = "sha512"
@@ -97,8 +97,8 @@ class NewFactorInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.NewFactorInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.NewFactorInstance {context}>"
 
 
 class NewFactorList(ListResource):

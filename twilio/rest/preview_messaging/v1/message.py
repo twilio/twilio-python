@@ -58,7 +58,7 @@ class MessageInstance(InstanceResource):
 
 class MessageList(ListResource):
 
-    class CreateMessagesRequest(object):
+    class CreateMessagesRequest:
         """
         :ivar messages:
         :ivar from_: A Twilio phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an [alphanumeric sender ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty.
@@ -124,7 +124,7 @@ class MessageList(ListResource):
                 "application_sid": self.application_sid,
             }
 
-    class MessagingV1Message(object):
+    class MessagingV1Message:
         """
         :ivar to: The destination phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format for SMS/MMS or [Channel user address](https://www.twilio.com/docs/sms/channels#channel-addresses) for other 3rd-party channels.
         :ivar body: The text of the message you want to send. Can be up to 1,600 characters in length. Overrides the request-level body and content template if provided.

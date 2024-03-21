@@ -138,8 +138,8 @@ class PublicKeyInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Accounts.V1.PublicKeyInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Accounts.V1.PublicKeyInstance {context}>"
 
 
 class PublicKeyContext(InstanceContext):
@@ -275,8 +275,8 @@ class PublicKeyContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Accounts.V1.PublicKeyContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Accounts.V1.PublicKeyContext {context}>"
 
 
 class PublicKeyPage(Page):

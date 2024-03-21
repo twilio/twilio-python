@@ -39,7 +39,7 @@ from twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics impor
 
 class TaskQueueInstance(InstanceResource):
 
-    class TaskOrder(object):
+    class TaskOrder:
         FIFO = "FIFO"
         LIFO = "LIFO"
 
@@ -247,8 +247,8 @@ class TaskQueueInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.TaskQueueInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Taskrouter.V1.TaskQueueInstance {context}>"
 
 
 class TaskQueueContext(InstanceContext):
@@ -475,8 +475,8 @@ class TaskQueueContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.TaskQueueContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Taskrouter.V1.TaskQueueContext {context}>"
 
 
 class TaskQueuePage(Page):

@@ -24,15 +24,15 @@ from twilio.base.page import Page
 
 class MediaRecordingInstance(InstanceResource):
 
-    class Format(object):
+    class Format:
         MP4 = "mp4"
         WEBM = "webm"
 
-    class Order(object):
+    class Order:
         ASC = "asc"
         DESC = "desc"
 
-    class Status(object):
+    class Status:
         PROCESSING = "processing"
         COMPLETED = "completed"
         DELETED = "deleted"
@@ -145,8 +145,8 @@ class MediaRecordingInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Media.V1.MediaRecordingInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Media.V1.MediaRecordingInstance {context}>"
 
 
 class MediaRecordingContext(InstanceContext):
@@ -234,8 +234,8 @@ class MediaRecordingContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Media.V1.MediaRecordingContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Media.V1.MediaRecordingContext {context}>"
 
 
 class MediaRecordingPage(Page):

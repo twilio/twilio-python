@@ -28,7 +28,7 @@ from twilio.rest.video.v1.room.participant.subscribed_track import SubscribedTra
 
 class ParticipantInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         CONNECTED = "connected"
         DISCONNECTED = "disconnected"
 
@@ -179,8 +179,8 @@ class ParticipantInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.ParticipantInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Video.V1.ParticipantInstance {context}>"
 
 
 class ParticipantContext(InstanceContext):
@@ -363,8 +363,8 @@ class ParticipantContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.ParticipantContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Video.V1.ParticipantContext {context}>"
 
 
 class ParticipantPage(Page):

@@ -68,8 +68,8 @@ class ArchivedCallContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.ArchivedCallContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Voice.V1.ArchivedCallContext {context}>"
 
 
 class ArchivedCallList(ListResource):

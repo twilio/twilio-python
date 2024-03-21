@@ -28,7 +28,7 @@ from twilio.rest.studio.v1.flow.engagement.step import StepList
 
 class EngagementInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         ACTIVE = "active"
         ENDED = "ended"
 
@@ -151,8 +151,8 @@ class EngagementInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V1.EngagementInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V1.EngagementInstance {context}>"
 
 
 class EngagementContext(InstanceContext):
@@ -273,8 +273,8 @@ class EngagementContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V1.EngagementContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V1.EngagementContext {context}>"
 
 
 class EngagementPage(Page):

@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class MemberInstance(InstanceResource):
 
-    class WebhookEnabledType(object):
+    class WebhookEnabledType:
         TRUE = "true"
         FALSE = "false"
 
@@ -226,8 +226,8 @@ class MemberInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V2.MemberInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.IpMessaging.V2.MemberInstance {context}>"
 
 
 class MemberContext(InstanceContext):
@@ -457,8 +457,8 @@ class MemberContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V2.MemberContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.IpMessaging.V2.MemberContext {context}>"
 
 
 class MemberPage(Page):

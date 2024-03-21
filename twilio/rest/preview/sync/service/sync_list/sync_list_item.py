@@ -24,11 +24,11 @@ from twilio.base.page import Page
 
 class SyncListItemInstance(InstanceResource):
 
-    class QueryFromBoundType(object):
+    class QueryFromBoundType:
         INCLUSIVE = "inclusive"
         EXCLUSIVE = "exclusive"
 
-    class QueryResultOrder(object):
+    class QueryResultOrder:
         ASC = "asc"
         DESC = "desc"
 
@@ -174,8 +174,8 @@ class SyncListItemInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Sync.SyncListItemInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Sync.SyncListItemInstance {context}>"
 
 
 class SyncListItemContext(InstanceContext):
@@ -351,8 +351,8 @@ class SyncListItemContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Sync.SyncListItemContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Sync.SyncListItemContext {context}>"
 
 
 class SyncListItemPage(Page):

@@ -94,7 +94,7 @@ class FunctionVersionContentInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Serverless.V1.FunctionVersionContentInstance {}>".format(
             context
         )
@@ -171,8 +171,8 @@ class FunctionVersionContentContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.FunctionVersionContentContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Serverless.V1.FunctionVersionContentContext {context}>"
 
 
 class FunctionVersionContentList(ListResource):

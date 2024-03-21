@@ -58,7 +58,7 @@ def add_port(uri):
     return new_uri.geturl()
 
 
-class RequestValidator(object):
+class RequestValidator:
     def __init__(self, token):
         self.token = token.encode("utf-8")
 

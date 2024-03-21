@@ -25,7 +25,7 @@ from twilio.rest.api.v2010.account.recording.add_on_result.payload import Payloa
 
 class AddOnResultInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         CANCELED = "canceled"
         COMPLETED = "completed"
         DELETED = "deleted"
@@ -152,8 +152,8 @@ class AddOnResultInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.AddOnResultInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.AddOnResultInstance {context}>"
 
 
 class AddOnResultContext(InstanceContext):
@@ -269,8 +269,8 @@ class AddOnResultContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.AddOnResultContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.AddOnResultContext {context}>"
 
 
 class AddOnResultPage(Page):

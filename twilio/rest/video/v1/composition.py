@@ -24,11 +24,11 @@ from twilio.base.page import Page
 
 class CompositionInstance(InstanceResource):
 
-    class Format(object):
+    class Format:
         MP4 = "mp4"
         WEBM = "webm"
 
-    class Status(object):
+    class Status:
         ENQUEUED = "enqueued"
         PROCESSING = "processing"
         COMPLETED = "completed"
@@ -160,8 +160,8 @@ class CompositionInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.CompositionInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Video.V1.CompositionInstance {context}>"
 
 
 class CompositionContext(InstanceContext):
@@ -249,8 +249,8 @@ class CompositionContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.CompositionContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Video.V1.CompositionContext {context}>"
 
 
 class CompositionPage(Page):

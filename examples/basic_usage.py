@@ -15,7 +15,7 @@ def example():
 
     # Get all messages
     all_messages = client.messages.list()
-    print("There are {} messages in your account.".format(len(all_messages)))
+    print(f"There are {len(all_messages)} messages in your account.")
 
     # Get only last 10 messages...
     some_messages = client.messages.list(limit=10)
@@ -25,7 +25,7 @@ def example():
 
     # Get messages in smaller pages...
     all_messages = client.messages.list(page_size=10)
-    print("There are {} messages in your account.".format(len(all_messages)))
+    print(f"There are {len(all_messages)} messages in your account.")
 
     print("Sending a message...")
     new_message = client.messages.create(to="XXXX", from_="YYYY", body="Twilio rocks!")
@@ -38,7 +38,7 @@ def example():
     twiml_response.say("Hello!")
     twiml_response.hangup()
     twiml_xml = twiml_response.to_xml()
-    print("Generated twiml: {}".format(twiml_xml))
+    print(f"Generated twiml: {twiml_xml}")
 
 
 if __name__ == "__main__":

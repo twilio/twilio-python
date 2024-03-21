@@ -93,8 +93,8 @@ class ComplianceInquiriesInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.ComplianceInquiriesInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trusthub.V1.ComplianceInquiriesInstance {context}>"
 
 
 class ComplianceInquiriesContext(InstanceContext):
@@ -172,8 +172,8 @@ class ComplianceInquiriesContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.ComplianceInquiriesContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trusthub.V1.ComplianceInquiriesContext {context}>"
 
 
 class ComplianceInquiriesList(ListResource):

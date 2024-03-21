@@ -22,7 +22,7 @@ from twilio.base.version import Version
 
 class PortingPortabilityInstance(InstanceResource):
 
-    class NumberType(object):
+    class NumberType:
         LOCAL = "LOCAL"
         UNKNOWN = "UNKNOWN"
         MOBILE = "MOBILE"
@@ -122,8 +122,8 @@ class PortingPortabilityInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V1.PortingPortabilityInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V1.PortingPortabilityInstance {context}>"
 
 
 class PortingPortabilityContext(InstanceContext):
@@ -203,8 +203,8 @@ class PortingPortabilityContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V1.PortingPortabilityContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V1.PortingPortabilityContext {context}>"
 
 
 class PortingPortabilityList(ListResource):

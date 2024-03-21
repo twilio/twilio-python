@@ -24,18 +24,18 @@ from twilio.base.page import Page
 
 class TriggerInstance(InstanceResource):
 
-    class Recurring(object):
+    class Recurring:
         DAILY = "daily"
         MONTHLY = "monthly"
         YEARLY = "yearly"
         ALLTIME = "alltime"
 
-    class TriggerField(object):
+    class TriggerField:
         COUNT = "count"
         USAGE = "usage"
         PRICE = "price"
 
-    class UsageCategory(object):
+    class UsageCategory:
         A2P_REGISTRATION_FEES = "a2p-registration-fees"
         AGENT_CONFERENCE = "agent-conference"
         AMAZON_POLLY = "amazon-polly"
@@ -519,8 +519,8 @@ class TriggerInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.TriggerInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.TriggerInstance {context}>"
 
 
 class TriggerContext(InstanceContext):
@@ -686,8 +686,8 @@ class TriggerContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.TriggerContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.TriggerContext {context}>"
 
 
 class TriggerPage(Page):
