@@ -5,7 +5,7 @@ venv:
 	virtualenv --python=python venv
 
 install: venv
-	. venv/bin/activate; pip install .
+	pip install .
 
 test-install: install
 	. venv/bin/activate; pip install -r tests/requirements.txt
