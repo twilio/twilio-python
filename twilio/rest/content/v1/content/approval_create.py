@@ -29,7 +29,7 @@ class ApprovalCreateInstance(InstanceResource):
     :ivar allow_category_change:
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], sid: str):
+    def __init__(self, version: Version, payload: Dict[str, Any], content_sid: str):
         super().__init__(version)
 
         self.name: Optional[str] = payload.get("name")
@@ -42,7 +42,7 @@ class ApprovalCreateInstance(InstanceResource):
         )
 
         self._solution = {
-            "sid": sid,
+            "content_sid": content_sid,
         }
 
     def __repr__(self) -> str:
@@ -63,7 +63,7 @@ class ApprovalCreateList(ListResource):
         :ivar category: A WhatsApp recognized template category.
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: str):
+        def __init__(self, payload: Dict[str, Any], content_sid: str):
 
             self.name: Optional[str] = payload.get("name")
             self.category: Optional[str] = payload.get("category")
@@ -74,21 +74,23 @@ class ApprovalCreateList(ListResource):
                 "category": self.category,
             }
 
-    def __init__(self, version: Version, sid: str):
+    def __init__(self, version: Version, content_sid: str):
         """
         Initialize the ApprovalCreateList
 
         :param version: Version that contains the resource
-        :param sid:
+        :param content_sid:
 
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {
-            "sid": sid,
+            "content_sid": content_sid,
         }
-        self._uri = "/Content/{sid}/ApprovalRequests/whatsapp".format(**self._solution)
+        self._uri = "/Content/{content_sid}/ApprovalRequests/whatsapp".format(
+            **self._solution
+        )
 
     def create(
         self, content_approval_request: ContentApprovalRequest
@@ -103,11 +105,14 @@ class ApprovalCreateList(ListResource):
         data = content_approval_request.to_dict()
 
         headers = {"Content-Type": "application/json"}
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
-        return ApprovalCreateInstance(self._version, payload, sid=self._solution["sid"])
+        return ApprovalCreateInstance(
+            self._version, payload, content_sid=self._solution["content_sid"]
+        )
 
     async def create_async(
         self, content_approval_request: ContentApprovalRequest
@@ -119,15 +124,17 @@ class ApprovalCreateList(ListResource):
 
         :returns: The created ApprovalCreateInstance
         """
-
         data = content_approval_request.to_dict()
+
         headers = {"Content-Type": "application/json"}
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
-        return ApprovalCreateInstance(self._version, payload, sid=self._solution["sid"])
+        return ApprovalCreateInstance(
+            self._version, payload, content_sid=self._solution["content_sid"]
+        )
 
     def __repr__(self) -> str:
         """
