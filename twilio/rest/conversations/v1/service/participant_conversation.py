@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class ParticipantConversationInstance(InstanceResource):
 
-    class State(object):
+    class State:
         INACTIVE = "inactive"
         ACTIVE = "active"
         CLOSED = "closed"
@@ -98,7 +98,7 @@ class ParticipantConversationInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.ParticipantConversationInstance {}>".format(
             context
         )

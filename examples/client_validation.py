@@ -64,7 +64,7 @@ def example():
     print("Trying out client validation...")
     messages = client.messages.list(limit=10)
     for m in messages:
-        print("Message {}".format(m.sid))
+        print(f"Message {m.sid}")
 
     print("Client validation works!")
 

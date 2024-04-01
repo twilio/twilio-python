@@ -159,7 +159,7 @@ class AvailablePhoneNumberCountryInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Api.V2010.AvailablePhoneNumberCountryInstance {}>".format(
             context
         )
@@ -333,7 +333,7 @@ class AvailablePhoneNumberCountryContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Api.V2010.AvailablePhoneNumberCountryContext {}>".format(
             context
         )

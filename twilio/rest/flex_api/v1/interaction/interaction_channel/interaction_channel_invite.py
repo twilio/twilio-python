@@ -56,8 +56,8 @@ class InteractionChannelInviteInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InteractionChannelInviteInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.InteractionChannelInviteInstance {context}>"
 
 
 class InteractionChannelInvitePage(Page):

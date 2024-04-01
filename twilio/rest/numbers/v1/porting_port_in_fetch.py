@@ -114,8 +114,8 @@ class PortingPortInFetchInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V1.PortingPortInFetchInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V1.PortingPortInFetchInstance {context}>"
 
 
 class PortingPortInFetchContext(InstanceContext):
@@ -179,8 +179,8 @@ class PortingPortInFetchContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V1.PortingPortInFetchContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V1.PortingPortInFetchContext {context}>"
 
 
 class PortingPortInFetchList(ListResource):

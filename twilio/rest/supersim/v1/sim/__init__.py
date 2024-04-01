@@ -26,14 +26,14 @@ from twilio.rest.supersim.v1.sim.sim_ip_address import SimIpAddressList
 
 class SimInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         NEW = "new"
         READY = "ready"
         ACTIVE = "active"
         INACTIVE = "inactive"
         SCHEDULED = "scheduled"
 
-    class StatusUpdate(object):
+    class StatusUpdate:
         READY = "ready"
         ACTIVE = "active"
         INACTIVE = "inactive"
@@ -189,8 +189,8 @@ class SimInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.SimInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Supersim.V1.SimInstance {context}>"
 
 
 class SimContext(InstanceContext):
@@ -361,8 +361,8 @@ class SimContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.SimContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Supersim.V1.SimContext {context}>"
 
 
 class SimPage(Page):

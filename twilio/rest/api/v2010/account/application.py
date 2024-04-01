@@ -274,8 +274,8 @@ class ApplicationInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.ApplicationInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.ApplicationInstance {context}>"
 
 
 class ApplicationContext(InstanceContext):
@@ -527,8 +527,8 @@ class ApplicationContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.ApplicationContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.ApplicationContext {context}>"
 
 
 class ApplicationPage(Page):

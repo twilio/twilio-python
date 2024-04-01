@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class FleetInstance(InstanceResource):
 
-    class DataMetering(object):
+    class DataMetering:
         PAYG = "payg"
 
     """
@@ -184,8 +184,8 @@ class FleetInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.FleetInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Supersim.V1.FleetInstance {context}>"
 
 
 class FleetContext(InstanceContext):
@@ -335,8 +335,8 @@ class FleetContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.FleetContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Supersim.V1.FleetContext {context}>"
 
 
 class FleetPage(Page):

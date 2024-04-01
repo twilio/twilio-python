@@ -100,8 +100,8 @@ class ExportInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Bulkexports.V1.ExportInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Bulkexports.V1.ExportInstance {context}>"
 
 
 class ExportContext(InstanceContext):
@@ -192,8 +192,8 @@ class ExportContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Bulkexports.V1.ExportContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Bulkexports.V1.ExportContext {context}>"
 
 
 class ExportList(ListResource):

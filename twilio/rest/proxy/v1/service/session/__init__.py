@@ -26,12 +26,12 @@ from twilio.rest.proxy.v1.service.session.participant import ParticipantList
 
 class SessionInstance(InstanceResource):
 
-    class Mode(object):
+    class Mode:
         MESSAGE_ONLY = "message-only"
         VOICE_ONLY = "voice-only"
         VOICE_AND_MESSAGE = "voice-and-message"
 
-    class Status(object):
+    class Status:
         OPEN = "open"
         IN_PROGRESS = "in-progress"
         CLOSED = "closed"
@@ -215,8 +215,8 @@ class SessionInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Proxy.V1.SessionInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Proxy.V1.SessionInstance {context}>"
 
 
 class SessionContext(InstanceContext):
@@ -409,8 +409,8 @@ class SessionContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Proxy.V1.SessionContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Proxy.V1.SessionContext {context}>"
 
 
 class SessionPage(Page):

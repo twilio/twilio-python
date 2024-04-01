@@ -134,8 +134,8 @@ class SipDomainInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Routes.V2.SipDomainInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Routes.V2.SipDomainInstance {context}>"
 
 
 class SipDomainContext(InstanceContext):
@@ -259,8 +259,8 @@ class SipDomainContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Routes.V2.SipDomainContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Routes.V2.SipDomainContext {context}>"
 
 
 class SipDomainList(ListResource):

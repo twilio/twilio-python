@@ -23,7 +23,7 @@ from twilio.base.version import Version
 
 class PortingBulkPortabilityInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         IN_PROGRESS = "in-progress"
         COMPLETED = "completed"
         EXPIRED = "expired"
@@ -97,8 +97,8 @@ class PortingBulkPortabilityInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V1.PortingBulkPortabilityInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V1.PortingBulkPortabilityInstance {context}>"
 
 
 class PortingBulkPortabilityContext(InstanceContext):
@@ -162,8 +162,8 @@ class PortingBulkPortabilityContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V1.PortingBulkPortabilityContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V1.PortingBulkPortabilityContext {context}>"
 
 
 class PortingBulkPortabilityList(ListResource):

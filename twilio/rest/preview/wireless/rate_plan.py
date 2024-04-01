@@ -166,8 +166,8 @@ class RatePlanInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Wireless.RatePlanInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Wireless.RatePlanInstance {context}>"
 
 
 class RatePlanContext(InstanceContext):
@@ -311,8 +311,8 @@ class RatePlanContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Wireless.RatePlanContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Wireless.RatePlanContext {context}>"
 
 
 class RatePlanPage(Page):

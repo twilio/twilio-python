@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from tests.unit.twiml import TwilioTest
 from twilio.twiml.voice_response import VoiceResponse, Dial, Enqueue, Gather
 

@@ -136,8 +136,8 @@ class AssessmentsInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.AssessmentsInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.AssessmentsInstance {context}>"
 
 
 class AssessmentsContext(InstanceContext):
@@ -241,8 +241,8 @@ class AssessmentsContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.AssessmentsContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.AssessmentsContext {context}>"
 
 
 class AssessmentsPage(Page):

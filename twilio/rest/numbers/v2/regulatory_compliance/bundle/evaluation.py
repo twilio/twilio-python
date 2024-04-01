@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class EvaluationInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         COMPLIANT = "compliant"
         NONCOMPLIANT = "noncompliant"
 
@@ -105,8 +105,8 @@ class EvaluationInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.EvaluationInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.EvaluationInstance {context}>"
 
 
 class EvaluationContext(InstanceContext):
@@ -178,8 +178,8 @@ class EvaluationContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.EvaluationContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.EvaluationContext {context}>"
 
 
 class EvaluationPage(Page):

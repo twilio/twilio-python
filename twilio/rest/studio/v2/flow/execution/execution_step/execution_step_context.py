@@ -94,8 +94,8 @@ class ExecutionStepContextInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V2.ExecutionStepContextInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V2.ExecutionStepContextInstance {context}>"
 
 
 class ExecutionStepContextContext(InstanceContext):
@@ -171,8 +171,8 @@ class ExecutionStepContextContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V2.ExecutionStepContextContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V2.ExecutionStepContextContext {context}>"
 
 
 class ExecutionStepContextList(ListResource):

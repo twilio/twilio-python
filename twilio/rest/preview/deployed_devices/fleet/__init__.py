@@ -186,8 +186,8 @@ class FleetInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.DeployedDevices.FleetInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.DeployedDevices.FleetInstance {context}>"
 
 
 class FleetContext(InstanceContext):
@@ -384,8 +384,8 @@ class FleetContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.DeployedDevices.FleetContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.DeployedDevices.FleetContext {context}>"
 
 
 class FleetPage(Page):

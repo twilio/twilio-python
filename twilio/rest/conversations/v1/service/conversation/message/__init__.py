@@ -27,11 +27,11 @@ from twilio.rest.conversations.v1.service.conversation.message.delivery_receipt 
 
 class MessageInstance(InstanceResource):
 
-    class OrderType(object):
+    class OrderType:
         ASC = "asc"
         DESC = "desc"
 
-    class WebhookEnabledType(object):
+    class WebhookEnabledType:
         TRUE = "true"
         FALSE = "false"
 
@@ -244,8 +244,8 @@ class MessageInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.MessageInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Conversations.V1.MessageInstance {context}>"
 
 
 class MessageContext(InstanceContext):
@@ -487,8 +487,8 @@ class MessageContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.MessageContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Conversations.V1.MessageContext {context}>"
 
 
 class MessagePage(Page):

@@ -85,8 +85,8 @@ class SupportingDocumentTypeInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.SupportingDocumentTypeInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trusthub.V1.SupportingDocumentTypeInstance {context}>"
 
 
 class SupportingDocumentTypeContext(InstanceContext):
@@ -150,8 +150,8 @@ class SupportingDocumentTypeContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.SupportingDocumentTypeContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trusthub.V1.SupportingDocumentTypeContext {context}>"
 
 
 class SupportingDocumentTypePage(Page):

@@ -5,7 +5,7 @@ import platform
 from twilio import __version__
 
 
-class Hologram(object):
+class Hologram:
     def __init__(self, request, response):
         self.request = request
         self.response = response
@@ -32,7 +32,7 @@ class Holodeck(HttpClient):
                 platform.machine(),
                 platform.python_version(),
             ),
-            "X-Twilio-Client": "python-{}".format(__version__),
+            "X-Twilio-Client": f"python-{__version__}",
             "Accept": "application/json",
             "Accept-Charset": "utf-8",
         }
@@ -54,7 +54,7 @@ class Holodeck(HttpClient):
         )
         if self._requests:
             message += "Requests received:\n"
-            message += "\n".join(" * {}".format(r) for r in self.requests)
+            message += "\n".join(f" * {r}" for r in self.requests)
         else:
             message += "No Requests received"
 
@@ -79,10 +79,10 @@ class Holodeck(HttpClient):
             if hologram.request == request:
                 return hologram.response
 
-        message = "\nHolodeck has no hologram for: {}\n".format(request)
+        message = f"\nHolodeck has no hologram for: {request}\n"
         if self._holograms:
             message += "Holograms loaded:\n"
-            message += "\n".join(" - {}".format(h.request) for h in self._holograms)
+            message += "\n".join(f" - {h.request}" for h in self._holograms)
         else:
             message += "No Holograms loaded"
 

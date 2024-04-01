@@ -22,7 +22,7 @@ from twilio.base.version import Version
 
 class FlowValidateInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         DRAFT = "draft"
         PUBLISHED = "published"
 

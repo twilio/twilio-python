@@ -121,8 +121,8 @@ class StepInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V1.StepInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V1.StepInstance {context}>"
 
 
 class StepContext(InstanceContext):
@@ -212,8 +212,8 @@ class StepContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V1.StepContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V1.StepContext {context}>"
 
 
 class StepPage(Page):

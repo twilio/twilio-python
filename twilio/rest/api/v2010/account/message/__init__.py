@@ -26,28 +26,28 @@ from twilio.rest.api.v2010.account.message.media import MediaList
 
 class MessageInstance(InstanceResource):
 
-    class AddressRetention(object):
+    class AddressRetention:
         RETAIN = "retain"
         OBFUSCATE = "obfuscate"
 
-    class ContentRetention(object):
+    class ContentRetention:
         RETAIN = "retain"
         DISCARD = "discard"
 
-    class Direction(object):
+    class Direction:
         INBOUND = "inbound"
         OUTBOUND_API = "outbound-api"
         OUTBOUND_CALL = "outbound-call"
         OUTBOUND_REPLY = "outbound-reply"
 
-    class RiskCheck(object):
+    class RiskCheck:
         ENABLE = "enable"
         DISABLE = "disable"
 
-    class ScheduleType(object):
+    class ScheduleType:
         FIXED = "fixed"
 
-    class Status(object):
+    class Status:
         QUEUED = "queued"
         SENDING = "sending"
         SENT = "sent"
@@ -62,7 +62,7 @@ class MessageInstance(InstanceResource):
         PARTIALLY_DELIVERED = "partially_delivered"
         CANCELED = "canceled"
 
-    class UpdateStatus(object):
+    class UpdateStatus:
         CANCELED = "canceled"
 
     """
@@ -240,8 +240,8 @@ class MessageInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.MessageInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.MessageInstance {context}>"
 
 
 class MessageContext(InstanceContext):
@@ -430,8 +430,8 @@ class MessageContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.MessageContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.MessageContext {context}>"
 
 
 class MessagePage(Page):

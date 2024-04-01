@@ -126,8 +126,8 @@ class ContentInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Content.V1.ContentInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Content.V1.ContentInstance {context}>"
 
 
 class ContentContext(InstanceContext):
@@ -229,8 +229,8 @@ class ContentContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Content.V1.ContentContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Content.V1.ContentContext {context}>"
 
 
 class ContentPage(Page):

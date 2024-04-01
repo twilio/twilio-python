@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class BundleCopyInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         DRAFT = "draft"
         PENDING_REVIEW = "pending-review"
         IN_REVIEW = "in-review"
@@ -75,8 +75,8 @@ class BundleCopyInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.BundleCopyInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.BundleCopyInstance {context}>"
 
 
 class BundleCopyPage(Page):

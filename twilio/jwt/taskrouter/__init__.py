@@ -26,7 +26,7 @@ class TaskRouterCapabilityToken(Jwt):
                                                    defaults to False
         :returns a new TaskRouterCapabilityToken with capabilities set depending on kwargs.
         """
-        super(TaskRouterCapabilityToken, self).__init__(
+        super().__init__(
             secret_key=auth_token,
             issuer=account_sid,
             algorithm=self.ALGORITHM,
@@ -130,13 +130,13 @@ class TaskRouterCapabilityToken(Jwt):
 
     def _validate_inputs(self, account_sid, workspace_sid, channel_id):
         if not account_sid or not account_sid.startswith("AC"):
-            raise ValueError("Invalid account sid provided {}".format(account_sid))
+            raise ValueError(f"Invalid account sid provided {account_sid}")
 
         if not workspace_sid or not workspace_sid.startswith("WS"):
-            raise ValueError("Invalid workspace sid provided {}".format(workspace_sid))
+            raise ValueError(f"Invalid workspace sid provided {workspace_sid}")
 
         if not channel_id or not channel_id.startswith(self.channel_prefix):
-            raise ValueError("Invalid channel id provided {}".format(channel_id))
+            raise ValueError(f"Invalid channel id provided {channel_id}")
 
     def __str__(self):
-        return "<TaskRouterCapabilityToken {}>".format(self.to_jwt())
+        return f"<TaskRouterCapabilityToken {self.to_jwt()}>"

@@ -148,8 +148,8 @@ class DomainConfigInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.DomainConfigInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.DomainConfigInstance {context}>"
 
 
 class DomainConfigContext(InstanceContext):
@@ -287,8 +287,8 @@ class DomainConfigContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.DomainConfigContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.DomainConfigContext {context}>"
 
 
 class DomainConfigList(ListResource):

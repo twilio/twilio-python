@@ -24,11 +24,11 @@ from twilio.base.page import Page
 
 class SyncMapItemInstance(InstanceResource):
 
-    class QueryFromBoundType(object):
+    class QueryFromBoundType:
         INCLUSIVE = "inclusive"
         EXCLUSIVE = "exclusive"
 
-    class QueryResultOrder(object):
+    class QueryResultOrder:
         ASC = "asc"
         DESC = "desc"
 
@@ -200,8 +200,8 @@ class SyncMapItemInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Sync.V1.SyncMapItemInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Sync.V1.SyncMapItemInstance {context}>"
 
 
 class SyncMapItemContext(InstanceContext):
@@ -399,8 +399,8 @@ class SyncMapItemContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Sync.V1.SyncMapItemContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Sync.V1.SyncMapItemContext {context}>"
 
 
 class SyncMapItemPage(Page):

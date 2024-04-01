@@ -24,14 +24,14 @@ from twilio.base.page import Page
 
 class TollfreeVerificationInstance(InstanceResource):
 
-    class OptInType(object):
+    class OptInType:
         VERBAL = "VERBAL"
         WEB_FORM = "WEB_FORM"
         PAPER_FORM = "PAPER_FORM"
         VIA_TEXT = "VIA_TEXT"
         MOBILE_QR_CODE = "MOBILE_QR_CODE"
 
-    class Status(object):
+    class Status:
         PENDING_REVIEW = "PENDING_REVIEW"
         IN_REVIEW = "IN_REVIEW"
         TWILIO_APPROVED = "TWILIO_APPROVED"
@@ -370,8 +370,8 @@ class TollfreeVerificationInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.TollfreeVerificationInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.TollfreeVerificationInstance {context}>"
 
 
 class TollfreeVerificationContext(InstanceContext):
@@ -637,8 +637,8 @@ class TollfreeVerificationContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.TollfreeVerificationContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.TollfreeVerificationContext {context}>"
 
 
 class TollfreeVerificationPage(Page):

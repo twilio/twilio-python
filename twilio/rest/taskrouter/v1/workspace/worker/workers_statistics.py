@@ -131,8 +131,8 @@ class WorkersStatisticsInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.WorkersStatisticsInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Taskrouter.V1.WorkersStatisticsInstance {context}>"
 
 
 class WorkersStatisticsContext(InstanceContext):
@@ -250,8 +250,8 @@ class WorkersStatisticsContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.WorkersStatisticsContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Taskrouter.V1.WorkersStatisticsContext {context}>"
 
 
 class WorkersStatisticsList(ListResource):

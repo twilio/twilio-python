@@ -26,7 +26,7 @@ from twilio.rest.studio.v1.flow.execution import ExecutionList
 
 class FlowInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         DRAFT = "draft"
         PUBLISHED = "published"
 
@@ -137,8 +137,8 @@ class FlowInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V1.FlowInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V1.FlowInstance {context}>"
 
 
 class FlowContext(InstanceContext):
@@ -253,8 +253,8 @@ class FlowContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V1.FlowContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V1.FlowContext {context}>"
 
 
 class FlowPage(Page):

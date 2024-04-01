@@ -136,8 +136,8 @@ class AwsInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Accounts.V1.AwsInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Accounts.V1.AwsInstance {context}>"
 
 
 class AwsContext(InstanceContext):
@@ -271,8 +271,8 @@ class AwsContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Accounts.V1.AwsContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Accounts.V1.AwsContext {context}>"
 
 
 class AwsPage(Page):

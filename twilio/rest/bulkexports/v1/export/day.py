@@ -93,8 +93,8 @@ class DayInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Bulkexports.V1.DayInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Bulkexports.V1.DayInstance {context}>"
 
 
 class DayContext(InstanceContext):
@@ -162,8 +162,8 @@ class DayContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Bulkexports.V1.DayContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Bulkexports.V1.DayContext {context}>"
 
 
 class DayPage(Page):

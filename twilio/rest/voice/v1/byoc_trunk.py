@@ -214,8 +214,8 @@ class ByocTrunkInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.ByocTrunkInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Voice.V1.ByocTrunkInstance {context}>"
 
 
 class ByocTrunkContext(InstanceContext):
@@ -407,8 +407,8 @@ class ByocTrunkContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.ByocTrunkContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Voice.V1.ByocTrunkContext {context}>"
 
 
 class ByocTrunkPage(Page):

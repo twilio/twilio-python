@@ -192,8 +192,8 @@ class ServiceInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Sync.ServiceInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Sync.ServiceInstance {context}>"
 
 
 class ServiceContext(InstanceContext):
@@ -393,8 +393,8 @@ class ServiceContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Sync.ServiceContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Sync.ServiceContext {context}>"
 
 
 class ServicePage(Page):

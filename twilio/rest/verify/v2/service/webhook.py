@@ -24,15 +24,15 @@ from twilio.base.page import Page
 
 class WebhookInstance(InstanceResource):
 
-    class Methods(object):
+    class Methods:
         GET = "GET"
         POST = "POST"
 
-    class Status(object):
+    class Status:
         ENABLED = "enabled"
         DISABLED = "disabled"
 
-    class Version(object):
+    class Version:
         V1 = "v1"
         V2 = "v2"
 
@@ -197,8 +197,8 @@ class WebhookInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.WebhookInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.WebhookInstance {context}>"
 
 
 class WebhookContext(InstanceContext):
@@ -374,8 +374,8 @@ class WebhookContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.WebhookContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.WebhookContext {context}>"
 
 
 class WebhookPage(Page):

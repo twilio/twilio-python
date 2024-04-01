@@ -180,8 +180,8 @@ class ConnectionPolicyTargetInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.ConnectionPolicyTargetInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Voice.V1.ConnectionPolicyTargetInstance {context}>"
 
 
 class ConnectionPolicyTargetContext(InstanceContext):
@@ -359,8 +359,8 @@ class ConnectionPolicyTargetContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.ConnectionPolicyTargetContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Voice.V1.ConnectionPolicyTargetContext {context}>"
 
 
 class ConnectionPolicyTargetPage(Page):

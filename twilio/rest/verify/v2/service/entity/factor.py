@@ -24,15 +24,15 @@ from twilio.base.page import Page
 
 class FactorInstance(InstanceResource):
 
-    class FactorStatuses(object):
+    class FactorStatuses:
         UNVERIFIED = "unverified"
         VERIFIED = "verified"
 
-    class FactorTypes(object):
+    class FactorTypes:
         PUSH = "push"
         TOTP = "totp"
 
-    class TotpAlgorithms(object):
+    class TotpAlgorithms:
         SHA1 = "sha1"
         SHA256 = "sha256"
         SHA512 = "sha512"
@@ -227,8 +227,8 @@ class FactorInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.FactorInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.FactorInstance {context}>"
 
 
 class FactorContext(InstanceContext):
@@ -436,8 +436,8 @@ class FactorContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.FactorContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.FactorContext {context}>"
 
 
 class FactorPage(Page):

@@ -119,8 +119,8 @@ class WorkspaceStatisticsInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.WorkspaceStatisticsInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Taskrouter.V1.WorkspaceStatisticsInstance {context}>"
 
 
 class WorkspaceStatisticsContext(InstanceContext):
@@ -224,8 +224,8 @@ class WorkspaceStatisticsContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.WorkspaceStatisticsContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Taskrouter.V1.WorkspaceStatisticsContext {context}>"
 
 
 class WorkspaceStatisticsList(ListResource):

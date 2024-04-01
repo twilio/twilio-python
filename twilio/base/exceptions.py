@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import sys
 from typing import Optional
 
@@ -51,7 +50,7 @@ class TwilioRestException(TwilioException):
             return "\033[36m\033[49m%s\033[0m" % words
 
         def get_uri(code: int) -> str:
-            return "https://www.twilio.com/docs/errors/{0}".format(code)
+            return f"https://www.twilio.com/docs/errors/{code}"
 
         # If it makes sense to print a human readable error message, try to
         # do it. The one problem is that someone might catch this error and
@@ -62,7 +61,7 @@ class TwilioRestException(TwilioException):
                 "\n\n{twilio_returned}\n\n{message}\n".format(
                     red_error=red("HTTP Error"),
                     request_was=white("Your request was:"),
-                    http_line=teal("%s %s" % (self.method, self.uri)),
+                    http_line=teal("{} {}".format(self.method, self.uri)),
                     twilio_returned=white("Twilio returned the following information:"),
                     message=blue(str(self.msg)),
                 )
@@ -79,4 +78,4 @@ class TwilioRestException(TwilioException):
                 )
             return msg
         else:
-            return "HTTP {0} error: {1}".format(self.status, self.msg)
+            return f"HTTP {self.status} error: {self.msg}"

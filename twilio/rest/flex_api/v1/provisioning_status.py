@@ -21,7 +21,7 @@ from twilio.base.version import Version
 
 class ProvisioningStatusInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         ACTIVE = "active"
         IN_PROGRESS = "in-progress"
         NOT_CONFIGURED = "not-configured"

@@ -161,8 +161,8 @@ class BucketInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.BucketInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.BucketInstance {context}>"
 
 
 class BucketContext(InstanceContext):
@@ -332,8 +332,8 @@ class BucketContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.BucketContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.BucketContext {context}>"
 
 
 class BucketPage(Page):

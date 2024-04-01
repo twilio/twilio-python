@@ -27,7 +27,7 @@ from twilio.rest.numbers.v2.authorization_document.dependent_hosted_number_order
 
 class AuthorizationDocumentInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         OPENED = "opened"
         SIGNING = "signing"
         SIGNED = "signed"
@@ -136,8 +136,8 @@ class AuthorizationDocumentInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.AuthorizationDocumentInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.AuthorizationDocumentInstance {context}>"
 
 
 class AuthorizationDocumentContext(InstanceContext):
@@ -243,8 +243,8 @@ class AuthorizationDocumentContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.AuthorizationDocumentContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.AuthorizationDocumentContext {context}>"
 
 
 class AuthorizationDocumentPage(Page):

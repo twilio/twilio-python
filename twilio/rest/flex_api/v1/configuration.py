@@ -23,7 +23,7 @@ from twilio.base.version import Version
 
 class ConfigurationInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         OK = "ok"
         INPROGRESS = "inprogress"
         NOTSTARTED = "notstarted"

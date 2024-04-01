@@ -23,7 +23,7 @@ from twilio.base.version import Version
 
 class FeedbackInstance(InstanceResource):
 
-    class Outcome(object):
+    class Outcome:
         CONFIRMED = "confirmed"
         UNCONFIRMED = "unconfirmed"
 
@@ -67,8 +67,8 @@ class FeedbackInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.FeedbackInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.FeedbackInstance {context}>"
 
 
 class FeedbackList(ListResource):

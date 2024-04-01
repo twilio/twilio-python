@@ -114,8 +114,8 @@ class PluginVersionsInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.PluginVersionsInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.PluginVersionsInstance {context}>"
 
 
 class PluginVersionsContext(InstanceContext):
@@ -199,8 +199,8 @@ class PluginVersionsContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.PluginVersionsContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.PluginVersionsContext {context}>"
 
 
 class PluginVersionsPage(Page):

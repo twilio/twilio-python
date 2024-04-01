@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 import os
 import unittest
 from collections import OrderedDict
 
-from mock import Mock, patch
+from unittest.mock import Mock, patch
 from requests import Session
 
 from twilio.base.exceptions import TwilioRestException

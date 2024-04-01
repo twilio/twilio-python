@@ -33,7 +33,7 @@ from twilio.rest.trusthub.v1.trust_products.trust_products_evaluations import (
 
 class TrustProductsInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         DRAFT = "draft"
         PENDING_REVIEW = "pending-review"
         IN_REVIEW = "in-review"
@@ -212,8 +212,8 @@ class TrustProductsInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.TrustProductsInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trusthub.V1.TrustProductsInstance {context}>"
 
 
 class TrustProductsContext(InstanceContext):
@@ -419,8 +419,8 @@ class TrustProductsContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.TrustProductsContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trusthub.V1.TrustProductsContext {context}>"
 
 
 class TrustProductsPage(Page):
