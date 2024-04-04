@@ -30,6 +30,7 @@ class PortingPortInFetchInstance(InstanceResource):
     :ivar target_port_in_date: Minimum number of days in the future (at least 2 days) needs to be established with the Ops team for validation.
     :ivar target_port_in_time_range_start: Minimum hour in the future needs to be established with the Ops team for validation.
     :ivar target_port_in_time_range_end: Maximum hour in the future needs to be established with the Ops team for validation.
+    :ivar port_in_request_status: The status of the port in request. The possible values are: In progress, Completed, Expired, In review, Waiting for Signature, Action Required, and Canceled.
     :ivar losing_carrier_information: The information for the losing carrier.
     :ivar phone_numbers: The list of phone numbers to Port in. Phone numbers are in E.164 format (e.g. +16175551212).
     :ivar documents: The list of documents SID referencing a utility bills
@@ -57,6 +58,9 @@ class PortingPortInFetchInstance(InstanceResource):
         )
         self.target_port_in_time_range_end: Optional[str] = payload.get(
             "target_port_in_time_range_end"
+        )
+        self.port_in_request_status: Optional[str] = payload.get(
+            "port_in_request_status"
         )
         self.losing_carrier_information: Optional[Dict[str, object]] = payload.get(
             "losing_carrier_information"

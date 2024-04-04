@@ -41,18 +41,18 @@ class TrustProductsInstance(InstanceResource):
         TWILIO_APPROVED = "twilio-approved"
 
     """
-    :ivar sid: The unique string that we created to identify the Customer-Profile resource.
-    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Customer-Profile resource.
-    :ivar policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+    :ivar sid: The unique string that we created to identify the Trust Product resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Trust Product resource.
+    :ivar policy_sid: The unique string of the policy that is associated with the Trust Product resource.
     :ivar friendly_name: The string that you assigned to describe the resource.
     :ivar status: 
-    :ivar valid_until: The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format when the resource will be valid until.
-    :ivar email: The email address that will receive updates when the Customer-Profile resource changes status.
+    :ivar valid_until: The date and time in GMT in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format until which the resource will be valid.
+    :ivar email: The email address that will receive updates when the Trust Product resource changes status.
     :ivar status_callback: The URL we call to inform your application of status changes.
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-    :ivar url: The absolute URL of the Customer-Profile resource.
-    :ivar links: The URLs of the Assigned Items of the Customer-Profile resource.
+    :ivar url: The absolute URL of the Trust Product resource.
+    :ivar links: The URLs of the Assigned Items of the Trust Product resource.
     """
 
     def __init__(
@@ -148,7 +148,7 @@ class TrustProductsInstance(InstanceResource):
         :param status:
         :param status_callback: The URL we call to inform your application of status changes.
         :param friendly_name: The string that you assigned to describe the resource.
-        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param email: The email address that will receive updates when the Trust Product resource changes status.
 
         :returns: The updated TrustProductsInstance
         """
@@ -172,7 +172,7 @@ class TrustProductsInstance(InstanceResource):
         :param status:
         :param status_callback: The URL we call to inform your application of status changes.
         :param friendly_name: The string that you assigned to describe the resource.
-        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param email: The email address that will receive updates when the Trust Product resource changes status.
 
         :returns: The updated TrustProductsInstance
         """
@@ -223,7 +223,7 @@ class TrustProductsContext(InstanceContext):
         Initialize the TrustProductsContext
 
         :param version: Version that contains the resource
-        :param sid: The unique string that we created to identify the Customer-Profile resource.
+        :param sid: The unique string that we created to identify the Trust Product resource.
         """
         super().__init__(version)
 
@@ -316,7 +316,7 @@ class TrustProductsContext(InstanceContext):
         :param status:
         :param status_callback: The URL we call to inform your application of status changes.
         :param friendly_name: The string that you assigned to describe the resource.
-        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param email: The email address that will receive updates when the Trust Product resource changes status.
 
         :returns: The updated TrustProductsInstance
         """
@@ -350,7 +350,7 @@ class TrustProductsContext(InstanceContext):
         :param status:
         :param status_callback: The URL we call to inform your application of status changes.
         :param friendly_name: The string that you assigned to describe the resource.
-        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
+        :param email: The email address that will receive updates when the Trust Product resource changes status.
 
         :returns: The updated TrustProductsInstance
         """
@@ -466,8 +466,8 @@ class TrustProductsList(ListResource):
         Create the TrustProductsInstance
 
         :param friendly_name: The string that you assigned to describe the resource.
-        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
-        :param policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param email: The email address that will receive updates when the Trust Product resource changes status.
+        :param policy_sid: The unique string of a policy that is associated to the Trust Product resource.
         :param status_callback: The URL we call to inform your application of status changes.
 
         :returns: The created TrustProductsInstance
@@ -501,8 +501,8 @@ class TrustProductsList(ListResource):
         Asynchronously create the TrustProductsInstance
 
         :param friendly_name: The string that you assigned to describe the resource.
-        :param email: The email address that will receive updates when the Customer-Profile resource changes status.
-        :param policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param email: The email address that will receive updates when the Trust Product resource changes status.
+        :param policy_sid: The unique string of a policy that is associated to the Trust Product resource.
         :param status_callback: The URL we call to inform your application of status changes.
 
         :returns: The created TrustProductsInstance
@@ -539,9 +539,9 @@ class TrustProductsList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Customer-Profile resource.
+        :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Trust Product resource.
         :param str friendly_name: The string that you assigned to describe the resource.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param str policy_sid: The unique string of a policy that is associated to the Trust Product resource.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -575,9 +575,9 @@ class TrustProductsList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Customer-Profile resource.
+        :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Trust Product resource.
         :param str friendly_name: The string that you assigned to describe the resource.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param str policy_sid: The unique string of a policy that is associated to the Trust Product resource.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -610,9 +610,9 @@ class TrustProductsList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Customer-Profile resource.
+        :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Trust Product resource.
         :param str friendly_name: The string that you assigned to describe the resource.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param str policy_sid: The unique string of a policy that is associated to the Trust Product resource.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -645,9 +645,9 @@ class TrustProductsList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Customer-Profile resource.
+        :param &quot;TrustProductsInstance.Status&quot; status: The verification status of the Trust Product resource.
         :param str friendly_name: The string that you assigned to describe the resource.
-        :param str policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param str policy_sid: The unique string of a policy that is associated to the Trust Product resource.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -681,9 +681,9 @@ class TrustProductsList(ListResource):
         Retrieve a single page of TrustProductsInstance records from the API.
         Request is executed immediately
 
-        :param status: The verification status of the Customer-Profile resource.
+        :param status: The verification status of the Trust Product resource.
         :param friendly_name: The string that you assigned to describe the resource.
-        :param policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param policy_sid: The unique string of a policy that is associated to the Trust Product resource.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -717,9 +717,9 @@ class TrustProductsList(ListResource):
         Asynchronously retrieve a single page of TrustProductsInstance records from the API.
         Request is executed immediately
 
-        :param status: The verification status of the Customer-Profile resource.
+        :param status: The verification status of the Trust Product resource.
         :param friendly_name: The string that you assigned to describe the resource.
-        :param policy_sid: The unique string of a policy that is associated to the Customer-Profile resource.
+        :param policy_sid: The unique string of a policy that is associated to the Trust Product resource.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -770,7 +770,7 @@ class TrustProductsList(ListResource):
         """
         Constructs a TrustProductsContext
 
-        :param sid: The unique string that we created to identify the Customer-Profile resource.
+        :param sid: The unique string that we created to identify the Trust Product resource.
         """
         return TrustProductsContext(self._version, sid=sid)
 
@@ -778,7 +778,7 @@ class TrustProductsList(ListResource):
         """
         Constructs a TrustProductsContext
 
-        :param sid: The unique string that we created to identify the Customer-Profile resource.
+        :param sid: The unique string that we created to identify the Trust Product resource.
         """
         return TrustProductsContext(self._version, sid=sid)
 

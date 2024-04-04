@@ -13,24 +13,24 @@ from typing import Optional
 
 from twilio.base.domain import Domain
 from twilio.rest import Client
-from twilio.rest.media.v1 import V1
+from twilio.rest.oauth.v1 import V1
 
 
-class MediaBase(Domain):
+class OauthBase(Domain):
 
     def __init__(self, twilio: Client):
         """
-        Initialize the Media Domain
+        Initialize the Oauth Domain
 
-        :returns: Domain for Media
+        :returns: Domain for Oauth
         """
-        super().__init__(twilio, "https://media.twilio.com")
+        super().__init__(twilio, "https://oauth.twilio.com")
         self._v1: Optional[V1] = None
 
     @property
     def v1(self) -> V1:
         """
-        :returns: Versions v1 of Media
+        :returns: Versions v1 of Oauth
         """
         if self._v1 is None:
             self._v1 = V1(self)
@@ -41,4 +41,4 @@ class MediaBase(Domain):
         Provide a friendly representation
         :returns: Machine friendly representation
         """
-        return "<Twilio.Media>"
+        return "<Twilio.Oauth>"

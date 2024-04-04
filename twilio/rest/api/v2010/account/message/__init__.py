@@ -508,8 +508,8 @@ class MessageList(ListResource):
 
         :param to: The recipient's phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (for SMS/MMS) or [channel address](https://www.twilio.com/docs/messaging/channels), e.g. `whatsapp:+15552229999`.
         :param status_callback: The URL of the endpoint to which Twilio sends [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url). URL must contain a valid hostname and underscores are not allowed. If you include this parameter with the `messaging_service_sid`, Twilio uses this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource).
-        :param application_sid: The SID of the associated [TwiML Application](https://www.twilio.com/docs/usage/api/applications). If this parameter is provided, the `status_callback` parameter of this request is ignored; [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url) are sent to the TwiML App's `message_status_callback` URL.
-        :param max_price: The maximum price in US dollars that you are willing to pay for this Message's delivery. The value can have up to four decimal places. When the `max_price` parameter is provided, the cost of a message is checked before it is sent. If the cost exceeds `max_price`, the message is not sent and the Message `status` is `failed`.
+        :param application_sid: The SID of the associated [TwiML Application](https://www.twilio.com/docs/usage/api/applications). [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url) are sent to the TwiML App's `message_status_callback` URL. Note that the `status_callback` parameter of a request takes priority over the `application_sid` parameter; if both are included `application_sid` is ignored.
+        :param max_price: [DEPRECATED] This parameter will no longer have any effect as of 2024-06-03.
         :param provide_feedback: Boolean indicating whether or not you intend to provide delivery confirmation feedback to Twilio (used in conjunction with the [Message Feedback subresource](https://www.twilio.com/docs/sms/api/message-feedback-resource)). Default value is `false`.
         :param attempt: Total number of attempts made (including this request) to send the message regardless of the provider used
         :param validity_period: The maximum length in seconds that the Message can remain in Twilio's outgoing message queue. If a queued Message exceeds the `validity_period`, the Message is not sent. Accepted values are integers from `1` to `14400`. Default value is `14400`. A `validity_period` greater than `5` is recommended. [Learn more about the validity period](https://www.twilio.com/blog/take-more-control-of-outbound-messages-using-validity-period-html)
@@ -606,8 +606,8 @@ class MessageList(ListResource):
 
         :param to: The recipient's phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (for SMS/MMS) or [channel address](https://www.twilio.com/docs/messaging/channels), e.g. `whatsapp:+15552229999`.
         :param status_callback: The URL of the endpoint to which Twilio sends [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url). URL must contain a valid hostname and underscores are not allowed. If you include this parameter with the `messaging_service_sid`, Twilio uses this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource).
-        :param application_sid: The SID of the associated [TwiML Application](https://www.twilio.com/docs/usage/api/applications). If this parameter is provided, the `status_callback` parameter of this request is ignored; [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url) are sent to the TwiML App's `message_status_callback` URL.
-        :param max_price: The maximum price in US dollars that you are willing to pay for this Message's delivery. The value can have up to four decimal places. When the `max_price` parameter is provided, the cost of a message is checked before it is sent. If the cost exceeds `max_price`, the message is not sent and the Message `status` is `failed`.
+        :param application_sid: The SID of the associated [TwiML Application](https://www.twilio.com/docs/usage/api/applications). [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url) are sent to the TwiML App's `message_status_callback` URL. Note that the `status_callback` parameter of a request takes priority over the `application_sid` parameter; if both are included `application_sid` is ignored.
+        :param max_price: [DEPRECATED] This parameter will no longer have any effect as of 2024-06-03.
         :param provide_feedback: Boolean indicating whether or not you intend to provide delivery confirmation feedback to Twilio (used in conjunction with the [Message Feedback subresource](https://www.twilio.com/docs/sms/api/message-feedback-resource)). Default value is `false`.
         :param attempt: Total number of attempts made (including this request) to send the message regardless of the provider used
         :param validity_period: The maximum length in seconds that the Message can remain in Twilio's outgoing message queue. If a queued Message exceeds the `validity_period`, the Message is not sent. Accepted values are integers from `1` to `14400`. Default value is `14400`. A `validity_period` greater than `5` is recommended. [Learn more about the validity period](https://www.twilio.com/blog/take-more-control-of-outbound-messages-using-validity-period-html)
@@ -674,6 +674,8 @@ class MessageList(ListResource):
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
+        date_sent_before: Union[datetime, object] = values.unset,
+        date_sent_after: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[MessageInstance]:
@@ -686,6 +688,8 @@ class MessageList(ListResource):
         :param str to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param str from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param datetime date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param datetime date_sent_before: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param datetime date_sent_after: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -697,7 +701,12 @@ class MessageList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
-            to=to, from_=from_, date_sent=date_sent, page_size=limits["page_size"]
+            to=to,
+            from_=from_,
+            date_sent=date_sent,
+            date_sent_before=date_sent_before,
+            date_sent_after=date_sent_after,
+            page_size=limits["page_size"],
         )
 
         return self._version.stream(page, limits["limit"])
@@ -707,6 +716,8 @@ class MessageList(ListResource):
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
+        date_sent_before: Union[datetime, object] = values.unset,
+        date_sent_after: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[MessageInstance]:
@@ -719,6 +730,8 @@ class MessageList(ListResource):
         :param str to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param str from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param datetime date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param datetime date_sent_before: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param datetime date_sent_after: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -730,7 +743,12 @@ class MessageList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            to=to, from_=from_, date_sent=date_sent, page_size=limits["page_size"]
+            to=to,
+            from_=from_,
+            date_sent=date_sent,
+            date_sent_before=date_sent_before,
+            date_sent_after=date_sent_after,
+            page_size=limits["page_size"],
         )
 
         return self._version.stream_async(page, limits["limit"])
@@ -740,6 +758,8 @@ class MessageList(ListResource):
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
+        date_sent_before: Union[datetime, object] = values.unset,
+        date_sent_after: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[MessageInstance]:
@@ -751,6 +771,8 @@ class MessageList(ListResource):
         :param str to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param str from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param datetime date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param datetime date_sent_before: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param datetime date_sent_after: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -765,6 +787,8 @@ class MessageList(ListResource):
                 to=to,
                 from_=from_,
                 date_sent=date_sent,
+                date_sent_before=date_sent_before,
+                date_sent_after=date_sent_after,
                 limit=limit,
                 page_size=page_size,
             )
@@ -775,6 +799,8 @@ class MessageList(ListResource):
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
+        date_sent_before: Union[datetime, object] = values.unset,
+        date_sent_after: Union[datetime, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[MessageInstance]:
@@ -786,6 +812,8 @@ class MessageList(ListResource):
         :param str to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param str from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param datetime date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param datetime date_sent_before: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param datetime date_sent_after: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -801,6 +829,8 @@ class MessageList(ListResource):
                 to=to,
                 from_=from_,
                 date_sent=date_sent,
+                date_sent_before=date_sent_before,
+                date_sent_after=date_sent_after,
                 limit=limit,
                 page_size=page_size,
             )
@@ -811,6 +841,8 @@ class MessageList(ListResource):
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
+        date_sent_before: Union[datetime, object] = values.unset,
+        date_sent_after: Union[datetime, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -822,6 +854,8 @@ class MessageList(ListResource):
         :param to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param date_sent_before: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param date_sent_after: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -833,6 +867,8 @@ class MessageList(ListResource):
                 "To": to,
                 "From": from_,
                 "DateSent": serialize.iso8601_datetime(date_sent),
+                "DateSent<": serialize.iso8601_datetime(date_sent_before),
+                "DateSent>": serialize.iso8601_datetime(date_sent_after),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -847,6 +883,8 @@ class MessageList(ListResource):
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
+        date_sent_before: Union[datetime, object] = values.unset,
+        date_sent_after: Union[datetime, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -858,6 +896,8 @@ class MessageList(ListResource):
         :param to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param date_sent_before: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
+        :param date_sent_after: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -869,6 +909,8 @@ class MessageList(ListResource):
                 "To": to,
                 "From": from_,
                 "DateSent": serialize.iso8601_datetime(date_sent),
+                "DateSent<": serialize.iso8601_datetime(date_sent_before),
+                "DateSent>": serialize.iso8601_datetime(date_sent_after),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

@@ -111,6 +111,7 @@ class RecordingRulesList(ListResource):
 
         :returns: The created RecordingRulesInstance
         """
+
         data = values.of(
             {
                 "Rules": serialize.object(rules),
@@ -137,6 +138,7 @@ class RecordingRulesList(ListResource):
 
         :returns: The created RecordingRulesInstance
         """
+
         data = values.of(
             {
                 "Rules": serialize.object(rules),

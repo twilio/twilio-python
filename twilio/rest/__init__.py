@@ -27,13 +27,13 @@ if TYPE_CHECKING:
     from twilio.rest.intelligence import Intelligence
     from twilio.rest.ip_messaging import IpMessaging
     from twilio.rest.lookups import Lookups
-    from twilio.rest.media import Media
     from twilio.rest.preview_messaging import PreviewMessaging
     from twilio.rest.messaging import Messaging
     from twilio.rest.microvisor import Microvisor
     from twilio.rest.monitor import Monitor
     from twilio.rest.notify import Notify
     from twilio.rest.numbers import Numbers
+    from twilio.rest.oauth import Oauth
     from twilio.rest.preview import Preview
     from twilio.rest.pricing import Pricing
     from twilio.rest.proxy import Proxy
@@ -135,13 +135,13 @@ class Client(ClientBase):
         self._intelligence: Optional["Intelligence"] = None
         self._ip_messaging: Optional["IpMessaging"] = None
         self._lookups: Optional["Lookups"] = None
-        self._media: Optional["Media"] = None
         self._preview_messaging: Optional["PreviewMessaging"] = None
         self._messaging: Optional["Messaging"] = None
         self._microvisor: Optional["Microvisor"] = None
         self._monitor: Optional["Monitor"] = None
         self._notify: Optional["Notify"] = None
         self._numbers: Optional["Numbers"] = None
+        self._oauth: Optional["Oauth"] = None
         self._preview: Optional["Preview"] = None
         self._pricing: Optional["Pricing"] = None
         self._proxy: Optional["Proxy"] = None
@@ -328,19 +328,6 @@ class Client(ClientBase):
         return self._lookups
 
     @property
-    def media(self) -> "Media":
-        """
-        Access the Media Twilio Domain
-
-        :returns: Media Twilio Domain
-        """
-        if self._media is None:
-            from twilio.rest.media import Media
-
-            self._media = Media(self)
-        return self._media
-
-    @property
     def preview_messaging(self) -> "PreviewMessaging":
         """
         Access the PreviewMessaging Twilio Domain
@@ -417,6 +404,19 @@ class Client(ClientBase):
 
             self._numbers = Numbers(self)
         return self._numbers
+
+    @property
+    def oauth(self) -> "Oauth":
+        """
+        Access the Oauth Twilio Domain
+
+        :returns: Oauth Twilio Domain
+        """
+        if self._oauth is None:
+            from twilio.rest.oauth import Oauth
+
+            self._oauth = Oauth(self)
+        return self._oauth
 
     @property
     def preview(self) -> "Preview":

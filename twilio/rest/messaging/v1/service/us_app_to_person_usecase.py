@@ -85,6 +85,7 @@ class UsAppToPersonUsecaseList(ListResource):
                 "BrandRegistrationSid": brand_registration_sid,
             }
         )
+
         payload = self._version.fetch(method="GET", uri=self._uri, params=params)
 
         return UsAppToPersonUsecaseInstance(
@@ -108,6 +109,7 @@ class UsAppToPersonUsecaseList(ListResource):
                 "BrandRegistrationSid": brand_registration_sid,
             }
         )
+
         payload = await self._version.fetch_async(
             method="GET", uri=self._uri, params=params
         )

@@ -150,6 +150,7 @@ class SafelistList(ListResource):
                 "PhoneNumber": phone_number,
             }
         )
+
         payload = self._version.fetch(method="GET", uri=self._uri, params=params)
 
         return SafelistInstance(self._version, payload)
@@ -169,6 +170,7 @@ class SafelistList(ListResource):
                 "PhoneNumber": phone_number,
             }
         )
+
         payload = await self._version.fetch_async(
             method="GET", uri=self._uri, params=params
         )

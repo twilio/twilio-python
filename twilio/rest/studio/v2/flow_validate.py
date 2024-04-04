@@ -75,6 +75,7 @@ class FlowValidateList(ListResource):
 
         :returns: The created FlowValidateInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -109,6 +110,7 @@ class FlowValidateList(ListResource):
 
         :returns: The created FlowValidateInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

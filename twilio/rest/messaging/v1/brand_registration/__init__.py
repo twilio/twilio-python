@@ -58,10 +58,11 @@ class BrandRegistrationInstance(InstanceResource):
     :ivar brand_type: Type of brand. One of: \"STANDARD\", \"SOLE_PROPRIETOR\". SOLE_PROPRIETOR is for the low volume, SOLE_PROPRIETOR campaign use case. There can only be one SOLE_PROPRIETOR campaign created per SOLE_PROPRIETOR brand. STANDARD is for all other campaign use cases. Multiple campaign use cases can be created per STANDARD brand.
     :ivar status: 
     :ivar tcr_id: Campaign Registry (TCR) Brand ID. Assigned only after successful brand registration.
-    :ivar failure_reason: A reason why brand registration has failed. Only applicable when status is FAILED.
+    :ivar failure_reason: DEPRECATED. A reason why brand registration has failed. Only applicable when status is FAILED.
+    :ivar errors: A list of errors that occurred during the brand registration process.
     :ivar url: The absolute URL of the Brand Registration resource.
     :ivar brand_score: The secondary vetting score if it was done. Otherwise, it will be the brand score if it's returned from TCR. It may be null if no score is available.
-    :ivar brand_feedback: Feedback on how to improve brand score
+    :ivar brand_feedback: DEPRECATED. Feedback on how to improve brand score
     :ivar identity_status: 
     :ivar russell_3000: Publicly traded company identified in the Russell 3000 Index
     :ivar government_entity: Identified as a government entity
@@ -96,6 +97,7 @@ class BrandRegistrationInstance(InstanceResource):
         )
         self.tcr_id: Optional[str] = payload.get("tcr_id")
         self.failure_reason: Optional[str] = payload.get("failure_reason")
+        self.errors: Optional[List[Dict[str, object]]] = payload.get("errors")
         self.url: Optional[str] = payload.get("url")
         self.brand_score: Optional[int] = deserialize.integer(
             payload.get("brand_score")

@@ -36,7 +36,7 @@ class V1(Version):
         self._eligibilities: Optional[EligibilityList] = None
         self._porting_bulk_portabilities: Optional[PortingBulkPortabilityList] = None
         self._porting_port_ins: Optional[PortingPortInList] = None
-        self._porting_port_ins: Optional[PortingPortInFetchList] = None
+        self._porting_port_ins_fetch: Optional[PortingPortInFetchList] = None
         self._porting_portabilities: Optional[PortingPortabilityList] = None
 
     @property
@@ -64,10 +64,10 @@ class V1(Version):
         return self._porting_port_ins
 
     @property
-    def porting_port_ins(self) -> PortingPortInFetchList:
-        if self._porting_port_ins is None:
-            self._porting_port_ins = PortingPortInFetchList(self)
-        return self._porting_port_ins
+    def porting_port_ins_fetch(self) -> PortingPortInFetchList:
+        if self._porting_port_ins_fetch is None:
+            self._porting_port_ins_fetch = PortingPortInFetchList(self)
+        return self._porting_port_ins_fetch
 
     @property
     def porting_portabilities(self) -> PortingPortabilityList:

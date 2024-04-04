@@ -14,7 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
-
+from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -51,7 +51,12 @@ class ComplianceRegistrationInquiriesInstance(InstanceResource):
     :ivar url: The URL of this resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any]):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        registration_id: Optional[str] = None,
+    ):
         super().__init__(version)
 
         self.inquiry_id: Optional[str] = payload.get("inquiry_id")
@@ -59,14 +64,163 @@ class ComplianceRegistrationInquiriesInstance(InstanceResource):
         self.registration_id: Optional[str] = payload.get("registration_id")
         self.url: Optional[str] = payload.get("url")
 
+        self._solution = {
+            "registration_id": registration_id or self.registration_id,
+        }
+        self._context: Optional[ComplianceRegistrationInquiriesContext] = None
+
+    @property
+    def _proxy(self) -> "ComplianceRegistrationInquiriesContext":
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: ComplianceRegistrationInquiriesContext for this ComplianceRegistrationInquiriesInstance
+        """
+        if self._context is None:
+            self._context = ComplianceRegistrationInquiriesContext(
+                self._version,
+                registration_id=self._solution["registration_id"],
+            )
+        return self._context
+
+    def update(
+        self,
+        is_isv_embed: Union[bool, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+    ) -> "ComplianceRegistrationInquiriesInstance":
+        """
+        Update the ComplianceRegistrationInquiriesInstance
+
+        :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
+        :param theme_set_id: Theme id for styling the inquiry form.
+
+        :returns: The updated ComplianceRegistrationInquiriesInstance
+        """
+        return self._proxy.update(
+            is_isv_embed=is_isv_embed,
+            theme_set_id=theme_set_id,
+        )
+
+    async def update_async(
+        self,
+        is_isv_embed: Union[bool, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+    ) -> "ComplianceRegistrationInquiriesInstance":
+        """
+        Asynchronous coroutine to update the ComplianceRegistrationInquiriesInstance
+
+        :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
+        :param theme_set_id: Theme id for styling the inquiry form.
+
+        :returns: The updated ComplianceRegistrationInquiriesInstance
+        """
+        return await self._proxy.update_async(
+            is_isv_embed=is_isv_embed,
+            theme_set_id=theme_set_id,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Trusthub.V1.ComplianceRegistrationInquiriesInstance {}>".format(
+            context
+        )
 
-        return "<Twilio.Trusthub.V1.ComplianceRegistrationInquiriesInstance>"
+
+class ComplianceRegistrationInquiriesContext(InstanceContext):
+
+    def __init__(self, version: Version, registration_id: str):
+        """
+        Initialize the ComplianceRegistrationInquiriesContext
+
+        :param version: Version that contains the resource
+        :param registration_id: The unique RegistrationId matching the Regulatory Compliance Inquiry that should be resumed or resubmitted. This value will have been returned by the initial Regulatory Compliance Inquiry creation call.
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "registration_id": registration_id,
+        }
+        self._uri = "/ComplianceInquiries/Registration/{registration_id}/RegulatoryCompliance/GB/Initialize".format(
+            **self._solution
+        )
+
+    def update(
+        self,
+        is_isv_embed: Union[bool, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+    ) -> ComplianceRegistrationInquiriesInstance:
+        """
+        Update the ComplianceRegistrationInquiriesInstance
+
+        :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
+        :param theme_set_id: Theme id for styling the inquiry form.
+
+        :returns: The updated ComplianceRegistrationInquiriesInstance
+        """
+        data = values.of(
+            {
+                "IsIsvEmbed": serialize.boolean_to_string(is_isv_embed),
+                "ThemeSetId": theme_set_id,
+            }
+        )
+
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ComplianceRegistrationInquiriesInstance(
+            self._version, payload, registration_id=self._solution["registration_id"]
+        )
+
+    async def update_async(
+        self,
+        is_isv_embed: Union[bool, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+    ) -> ComplianceRegistrationInquiriesInstance:
+        """
+        Asynchronous coroutine to update the ComplianceRegistrationInquiriesInstance
+
+        :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
+        :param theme_set_id: Theme id for styling the inquiry form.
+
+        :returns: The updated ComplianceRegistrationInquiriesInstance
+        """
+        data = values.of(
+            {
+                "IsIsvEmbed": serialize.boolean_to_string(is_isv_embed),
+                "ThemeSetId": theme_set_id,
+            }
+        )
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ComplianceRegistrationInquiriesInstance(
+            self._version, payload, registration_id=self._solution["registration_id"]
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Trusthub.V1.ComplianceRegistrationInquiriesContext {}>".format(
+            context
+        )
 
 
 class ComplianceRegistrationInquiriesList(ListResource):
@@ -127,6 +281,9 @@ class ComplianceRegistrationInquiriesList(ListResource):
         individual_email: Union[str, object] = values.unset,
         individual_phone: Union[str, object] = values.unset,
         is_isv_embed: Union[bool, object] = values.unset,
+        isv_registering_for_self_or_tenant: Union[str, object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
     ) -> ComplianceRegistrationInquiriesInstance:
         """
         Create the ComplianceRegistrationInquiriesInstance
@@ -167,6 +324,9 @@ class ComplianceRegistrationInquiriesList(ListResource):
         :param individual_email: The email address of the Individual User.
         :param individual_phone: The phone number of the Individual User.
         :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
+        :param isv_registering_for_self_or_tenant: Indicates if the isv registering for self or tenant.
+        :param status_callback_url: The url we call to inform you of bundle changes.
+        :param theme_set_id: Theme id for styling the inquiry form.
 
         :returns: The created ComplianceRegistrationInquiriesInstance
         """
@@ -213,6 +373,9 @@ class ComplianceRegistrationInquiriesList(ListResource):
                 "IndividualEmail": individual_email,
                 "IndividualPhone": individual_phone,
                 "IsIsvEmbed": serialize.boolean_to_string(is_isv_embed),
+                "IsvRegisteringForSelfOrTenant": isv_registering_for_self_or_tenant,
+                "StatusCallbackUrl": status_callback_url,
+                "ThemeSetId": theme_set_id,
             }
         )
 
@@ -267,6 +430,9 @@ class ComplianceRegistrationInquiriesList(ListResource):
         individual_email: Union[str, object] = values.unset,
         individual_phone: Union[str, object] = values.unset,
         is_isv_embed: Union[bool, object] = values.unset,
+        isv_registering_for_self_or_tenant: Union[str, object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
     ) -> ComplianceRegistrationInquiriesInstance:
         """
         Asynchronously create the ComplianceRegistrationInquiriesInstance
@@ -307,6 +473,9 @@ class ComplianceRegistrationInquiriesList(ListResource):
         :param individual_email: The email address of the Individual User.
         :param individual_phone: The phone number of the Individual User.
         :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
+        :param isv_registering_for_self_or_tenant: Indicates if the isv registering for self or tenant.
+        :param status_callback_url: The url we call to inform you of bundle changes.
+        :param theme_set_id: Theme id for styling the inquiry form.
 
         :returns: The created ComplianceRegistrationInquiriesInstance
         """
@@ -353,6 +522,9 @@ class ComplianceRegistrationInquiriesList(ListResource):
                 "IndividualEmail": individual_email,
                 "IndividualPhone": individual_phone,
                 "IsIsvEmbed": serialize.boolean_to_string(is_isv_embed),
+                "IsvRegisteringForSelfOrTenant": isv_registering_for_self_or_tenant,
+                "StatusCallbackUrl": status_callback_url,
+                "ThemeSetId": theme_set_id,
             }
         )
 
@@ -363,6 +535,26 @@ class ComplianceRegistrationInquiriesList(ListResource):
         )
 
         return ComplianceRegistrationInquiriesInstance(self._version, payload)
+
+    def get(self, registration_id: str) -> ComplianceRegistrationInquiriesContext:
+        """
+        Constructs a ComplianceRegistrationInquiriesContext
+
+        :param registration_id: The unique RegistrationId matching the Regulatory Compliance Inquiry that should be resumed or resubmitted. This value will have been returned by the initial Regulatory Compliance Inquiry creation call.
+        """
+        return ComplianceRegistrationInquiriesContext(
+            self._version, registration_id=registration_id
+        )
+
+    def __call__(self, registration_id: str) -> ComplianceRegistrationInquiriesContext:
+        """
+        Constructs a ComplianceRegistrationInquiriesContext
+
+        :param registration_id: The unique RegistrationId matching the Regulatory Compliance Inquiry that should be resumed or resubmitted. This value will have been returned by the initial Regulatory Compliance Inquiry creation call.
+        """
+        return ComplianceRegistrationInquiriesContext(
+            self._version, registration_id=registration_id
+        )
 
     def __repr__(self) -> str:
         """

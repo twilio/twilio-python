@@ -64,6 +64,7 @@ class EligibilityList(ListResource):
         data = body.to_dict()
 
         headers = {"Content-Type": "application/json"}
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -80,8 +81,8 @@ class EligibilityList(ListResource):
 
         :returns: The created EligibilityInstance
         """
-
         data = body.to_dict()
+
         headers = {"Content-Type": "application/json"}
 
         payload = await self._version.create_async(
