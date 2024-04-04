@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class SettingsUpdateInstance(InstanceResource):
+
     class Status(object):
         SCHEDULED = "scheduled"
         IN_PROGRESS = "in-progress"
@@ -48,7 +48,7 @@ class SettingsUpdateInstance(InstanceResource):
         self.iccid: Optional[str] = payload.get("iccid")
         self.sim_sid: Optional[str] = payload.get("sim_sid")
         self.status: Optional["SettingsUpdateInstance.Status"] = payload.get("status")
-        self.packages: Optional[List[object]] = payload.get("packages")
+        self.packages: Optional[List[Dict[str, object]]] = payload.get("packages")
         self.date_completed: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_completed")
         )
@@ -70,6 +70,7 @@ class SettingsUpdateInstance(InstanceResource):
 
 
 class SettingsUpdatePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SettingsUpdateInstance:
         """
         Build an instance of SettingsUpdateInstance
@@ -88,6 +89,7 @@ class SettingsUpdatePage(Page):
 
 
 class SettingsUpdateList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SettingsUpdateList

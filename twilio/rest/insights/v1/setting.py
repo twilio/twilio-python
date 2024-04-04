@@ -12,9 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional, Union
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -22,12 +21,11 @@ from twilio.base.version import Version
 
 
 class SettingInstance(InstanceResource):
-
     """
-    :ivar account_sid:
-    :ivar advanced_features:
-    :ivar voice_trace:
-    :ivar url:
+    :ivar account_sid: The unique SID identifier of the Account.
+    :ivar advanced_features: A boolean flag indicating whether Advanced Features for Voice Insights are enabled.
+    :ivar voice_trace: A boolean flag indicating whether Voice Trace is enabled.
+    :ivar url: The URL of this resource.
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any]):
@@ -60,7 +58,7 @@ class SettingInstance(InstanceResource):
         """
         Fetch the SettingInstance
 
-        :param subaccount_sid:
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
 
         :returns: The fetched SettingInstance
         """
@@ -74,7 +72,7 @@ class SettingInstance(InstanceResource):
         """
         Asynchronous coroutine to fetch the SettingInstance
 
-        :param subaccount_sid:
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
 
         :returns: The fetched SettingInstance
         """
@@ -91,9 +89,9 @@ class SettingInstance(InstanceResource):
         """
         Update the SettingInstance
 
-        :param advanced_features:
-        :param voice_trace:
-        :param subaccount_sid:
+        :param advanced_features: A boolean flag to enable Advanced Features for Voice Insights.
+        :param voice_trace: A boolean flag to enable Voice Trace.
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
 
         :returns: The updated SettingInstance
         """
@@ -112,9 +110,9 @@ class SettingInstance(InstanceResource):
         """
         Asynchronous coroutine to update the SettingInstance
 
-        :param advanced_features:
-        :param voice_trace:
-        :param subaccount_sid:
+        :param advanced_features: A boolean flag to enable Advanced Features for Voice Insights.
+        :param voice_trace: A boolean flag to enable Voice Trace.
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
 
         :returns: The updated SettingInstance
         """
@@ -135,6 +133,7 @@ class SettingInstance(InstanceResource):
 
 
 class SettingContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the SettingContext
@@ -151,7 +150,7 @@ class SettingContext(InstanceContext):
         """
         Fetch the SettingInstance
 
-        :param subaccount_sid:
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
 
         :returns: The fetched SettingInstance
         """
@@ -175,7 +174,7 @@ class SettingContext(InstanceContext):
         """
         Asynchronous coroutine to fetch the SettingInstance
 
-        :param subaccount_sid:
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
 
         :returns: The fetched SettingInstance
         """
@@ -204,16 +203,16 @@ class SettingContext(InstanceContext):
         """
         Update the SettingInstance
 
-        :param advanced_features:
-        :param voice_trace:
-        :param subaccount_sid:
+        :param advanced_features: A boolean flag to enable Advanced Features for Voice Insights.
+        :param voice_trace: A boolean flag to enable Voice Trace.
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
 
         :returns: The updated SettingInstance
         """
         data = values.of(
             {
-                "AdvancedFeatures": advanced_features,
-                "VoiceTrace": voice_trace,
+                "AdvancedFeatures": serialize.boolean_to_string(advanced_features),
+                "VoiceTrace": serialize.boolean_to_string(voice_trace),
                 "SubaccountSid": subaccount_sid,
             }
         )
@@ -235,16 +234,16 @@ class SettingContext(InstanceContext):
         """
         Asynchronous coroutine to update the SettingInstance
 
-        :param advanced_features:
-        :param voice_trace:
-        :param subaccount_sid:
+        :param advanced_features: A boolean flag to enable Advanced Features for Voice Insights.
+        :param voice_trace: A boolean flag to enable Voice Trace.
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
 
         :returns: The updated SettingInstance
         """
         data = values.of(
             {
-                "AdvancedFeatures": advanced_features,
-                "VoiceTrace": voice_trace,
+                "AdvancedFeatures": serialize.boolean_to_string(advanced_features),
+                "VoiceTrace": serialize.boolean_to_string(voice_trace),
                 "SubaccountSid": subaccount_sid,
             }
         )
@@ -268,6 +267,7 @@ class SettingContext(InstanceContext):
 
 
 class SettingList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SettingList

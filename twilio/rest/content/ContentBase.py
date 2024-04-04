@@ -17,6 +17,7 @@ from twilio.rest.content.v1 import V1
 
 
 class ContentBase(Domain):
+
     def __init__(self, twilio: Client):
         """
         Initialize the Content Domain

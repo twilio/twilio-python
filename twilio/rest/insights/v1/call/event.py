@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 
@@ -23,6 +22,7 @@ from twilio.base.page import Page
 
 
 class EventInstance(InstanceResource):
+
     class Level(object):
         UNKNOWN = "UNKNOWN"
         DEBUG = "DEBUG"
@@ -38,17 +38,17 @@ class EventInstance(InstanceResource):
         CLIENT_EDGE = "client_edge"
 
     """
-    :ivar timestamp: 
-    :ivar call_sid: 
-    :ivar account_sid: 
+    :ivar timestamp: Event time.
+    :ivar call_sid: The unique SID identifier of the Call.
+    :ivar account_sid: The unique SID identifier of the Account.
     :ivar edge: 
-    :ivar group: 
+    :ivar group: Event group.
     :ivar level: 
-    :ivar name: 
-    :ivar carrier_edge: 
-    :ivar sip_edge: 
-    :ivar sdk_edge: 
-    :ivar client_edge: 
+    :ivar name: Event name.
+    :ivar carrier_edge: Represents the connection between Twilio and our immediate carrier partners. The events here describe the call lifecycle as reported by Twilio's carrier media gateways.
+    :ivar sip_edge: Represents the Twilio media gateway for SIP interface and SIP trunking calls. The events here describe the call lifecycle as reported by Twilio's public media gateways.
+    :ivar sdk_edge: Represents the Voice SDK running locally in the browser or in the Android/iOS application. The events here are emitted by the Voice SDK in response to certain call progress events, network changes, or call quality conditions.
+    :ivar client_edge: Represents the Twilio media gateway for Client calls. The events here describe the call lifecycle as reported by Twilio's Voice SDK media gateways.
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any], call_sid: str):
@@ -81,6 +81,7 @@ class EventInstance(InstanceResource):
 
 
 class EventPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EventInstance:
         """
         Build an instance of EventInstance
@@ -101,12 +102,13 @@ class EventPage(Page):
 
 
 class EventList(ListResource):
+
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the EventList
 
         :param version: Version that contains the resource
-        :param call_sid:
+        :param call_sid: The unique SID identifier of the Call.
 
         """
         super().__init__(version)
@@ -129,7 +131,7 @@ class EventList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param &quot;EventInstance.TwilioEdge&quot; edge:
+        :param &quot;EventInstance.TwilioEdge&quot; edge: The Edge of this Event. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -156,7 +158,7 @@ class EventList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param &quot;EventInstance.TwilioEdge&quot; edge:
+        :param &quot;EventInstance.TwilioEdge&quot; edge: The Edge of this Event. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -182,7 +184,7 @@ class EventList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param &quot;EventInstance.TwilioEdge&quot; edge:
+        :param &quot;EventInstance.TwilioEdge&quot; edge: The Edge of this Event. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -211,7 +213,7 @@ class EventList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param &quot;EventInstance.TwilioEdge&quot; edge:
+        :param &quot;EventInstance.TwilioEdge&quot; edge: The Edge of this Event. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -241,7 +243,7 @@ class EventList(ListResource):
         Retrieve a single page of EventInstance records from the API.
         Request is executed immediately
 
-        :param edge:
+        :param edge: The Edge of this Event. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -271,7 +273,7 @@ class EventList(ListResource):
         Asynchronously retrieve a single page of EventInstance records from the API.
         Request is executed immediately
 
-        :param edge:
+        :param edge: The Edge of this Event. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50

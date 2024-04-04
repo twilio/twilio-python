@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class SubscribedTrackInstance(InstanceResource):
+
     class Kind(object):
         AUDIO = "audio"
         VIDEO = "video"
@@ -120,6 +120,7 @@ class SubscribedTrackInstance(InstanceResource):
 
 
 class SubscribedTrackContext(InstanceContext):
+
     def __init__(self, version: Version, room_sid: str, participant_sid: str, sid: str):
         """
         Initialize the SubscribedTrackContext
@@ -194,6 +195,7 @@ class SubscribedTrackContext(InstanceContext):
 
 
 class SubscribedTrackPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SubscribedTrackInstance:
         """
         Build an instance of SubscribedTrackInstance
@@ -217,6 +219,7 @@ class SubscribedTrackPage(Page):
 
 
 class SubscribedTrackList(ListResource):
+
     def __init__(self, version: Version, room_sid: str, participant_sid: str):
         """
         Initialize the SubscribedTrackList

@@ -12,10 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class CallSummariesInstance(InstanceResource):
+
     class AnsweredBy(object):
         UNKNOWN = "unknown"
         MACHINE_START = "machine_start"
@@ -64,28 +64,29 @@ class CallSummariesInstance(InstanceResource):
         END_TIME = "end_time"
 
     """
-    :ivar account_sid: 
-    :ivar call_sid: 
+    :ivar account_sid: The unique SID identifier of the Account.
+    :ivar call_sid: The unique SID identifier of the Call.
     :ivar answered_by: 
     :ivar call_type: 
     :ivar call_state: 
     :ivar processing_state: 
-    :ivar created_time: 
-    :ivar start_time: 
-    :ivar end_time: 
-    :ivar duration: 
-    :ivar connect_duration: 
-    :ivar _from: 
-    :ivar to: 
-    :ivar carrier_edge: 
-    :ivar client_edge: 
-    :ivar sdk_edge: 
-    :ivar sip_edge: 
-    :ivar tags: 
-    :ivar url: 
-    :ivar attributes: 
-    :ivar properties: 
-    :ivar trust: 
+    :ivar created_time: The time at which the Call was created, given in ISO 8601 format. Can be different from `start_time` in the event of queueing due to CPS
+    :ivar start_time: The time at which the Call was started, given in ISO 8601 format.
+    :ivar end_time: The time at which the Call was ended, given in ISO 8601 format.
+    :ivar duration: Duration between when the call was initiated and the call was ended
+    :ivar connect_duration: Duration between when the call was answered and when it ended
+    :ivar _from: The calling party.
+    :ivar to: The called party.
+    :ivar carrier_edge: Contains metrics and properties for the Twilio media gateway of a PSTN call.
+    :ivar client_edge: Contains metrics and properties for the Twilio media gateway of a Client call.
+    :ivar sdk_edge: Contains metrics and properties for the SDK sensor library for Client calls.
+    :ivar sip_edge: Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call.
+    :ivar tags: Tags applied to calls by Voice Insights analysis indicating a condition that could result in subjective degradation of the call quality.
+    :ivar url: The URL of this resource.
+    :ivar attributes: Attributes capturing call-flow-specific details.
+    :ivar properties: Contains edge-agnostic call-level details.
+    :ivar trust: Contains trusted communications details including Branded Call and verified caller ID.
+    :ivar annotation: 
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any]):
@@ -102,9 +103,9 @@ class CallSummariesInstance(InstanceResource):
         self.call_state: Optional["CallSummariesInstance.CallState"] = payload.get(
             "call_state"
         )
-        self.processing_state: Optional[
-            "CallSummariesInstance.ProcessingState"
-        ] = payload.get("processing_state")
+        self.processing_state: Optional["CallSummariesInstance.ProcessingState"] = (
+            payload.get("processing_state")
+        )
         self.created_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("created_time")
         )
@@ -129,6 +130,7 @@ class CallSummariesInstance(InstanceResource):
         self.attributes: Optional[Dict[str, object]] = payload.get("attributes")
         self.properties: Optional[Dict[str, object]] = payload.get("properties")
         self.trust: Optional[Dict[str, object]] = payload.get("trust")
+        self.annotation: Optional[Dict[str, object]] = payload.get("annotation")
 
     def __repr__(self) -> str:
         """
@@ -141,6 +143,7 @@ class CallSummariesInstance(InstanceResource):
 
 
 class CallSummariesPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CallSummariesInstance:
         """
         Build an instance of CallSummariesInstance
@@ -159,6 +162,7 @@ class CallSummariesPage(Page):
 
 
 class CallSummariesList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CallSummariesList
@@ -193,10 +197,11 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issues: Union[str, object] = values.unset,
-        quality_issues: Union[str, object] = values.unset,
-        spam: Union[bool, object] = values.unset,
-        call_scores: Union[str, object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[CallSummariesInstance]:
@@ -206,29 +211,30 @@ class CallSummariesList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str from_:
-        :param str to:
-        :param str from_carrier:
-        :param str to_carrier:
-        :param str from_country_code:
-        :param str to_country_code:
-        :param bool branded:
-        :param bool verified_caller:
-        :param bool has_tag:
-        :param str start_time:
-        :param str end_time:
-        :param str call_type:
-        :param str call_state:
-        :param str direction:
-        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state:
-        :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
-        :param str subaccount:
-        :param bool abnormal_session:
-        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by:
-        :param str connectivity_issues:
-        :param str quality_issues:
-        :param bool spam:
-        :param str call_scores:
+        :param str from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str from_carrier: An origination carrier.
+        :param str to_carrier: A destination carrier.
+        :param str from_country_code: A source country code based on phone number in From.
+        :param str to_country_code: A destination country code. Based on phone number in To.
+        :param bool branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
+        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param bool has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param str start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param str end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param str call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param str call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param str direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param str subaccount: A unique SID identifier of a Subaccount.
+        :param bool abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param str answered_by_annotation: Either machine or human.
+        :param str connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param str quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param bool spam_annotation: A boolean flag indicating spam calls.
+        :param str call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -259,10 +265,11 @@ class CallSummariesList(ListResource):
             subaccount=subaccount,
             abnormal_session=abnormal_session,
             answered_by=answered_by,
-            connectivity_issues=connectivity_issues,
-            quality_issues=quality_issues,
-            spam=spam,
-            call_scores=call_scores,
+            answered_by_annotation=answered_by_annotation,
+            connectivity_issue_annotation=connectivity_issue_annotation,
+            quality_issue_annotation=quality_issue_annotation,
+            spam_annotation=spam_annotation,
+            call_score_annotation=call_score_annotation,
             page_size=limits["page_size"],
         )
 
@@ -291,10 +298,11 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issues: Union[str, object] = values.unset,
-        quality_issues: Union[str, object] = values.unset,
-        spam: Union[bool, object] = values.unset,
-        call_scores: Union[str, object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[CallSummariesInstance]:
@@ -304,29 +312,30 @@ class CallSummariesList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str from_:
-        :param str to:
-        :param str from_carrier:
-        :param str to_carrier:
-        :param str from_country_code:
-        :param str to_country_code:
-        :param bool branded:
-        :param bool verified_caller:
-        :param bool has_tag:
-        :param str start_time:
-        :param str end_time:
-        :param str call_type:
-        :param str call_state:
-        :param str direction:
-        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state:
-        :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
-        :param str subaccount:
-        :param bool abnormal_session:
-        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by:
-        :param str connectivity_issues:
-        :param str quality_issues:
-        :param bool spam:
-        :param str call_scores:
+        :param str from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str from_carrier: An origination carrier.
+        :param str to_carrier: A destination carrier.
+        :param str from_country_code: A source country code based on phone number in From.
+        :param str to_country_code: A destination country code. Based on phone number in To.
+        :param bool branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
+        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param bool has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param str start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param str end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param str call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param str call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param str direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param str subaccount: A unique SID identifier of a Subaccount.
+        :param bool abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param str answered_by_annotation: Either machine or human.
+        :param str connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param str quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param bool spam_annotation: A boolean flag indicating spam calls.
+        :param str call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -357,10 +366,11 @@ class CallSummariesList(ListResource):
             subaccount=subaccount,
             abnormal_session=abnormal_session,
             answered_by=answered_by,
-            connectivity_issues=connectivity_issues,
-            quality_issues=quality_issues,
-            spam=spam,
-            call_scores=call_scores,
+            answered_by_annotation=answered_by_annotation,
+            connectivity_issue_annotation=connectivity_issue_annotation,
+            quality_issue_annotation=quality_issue_annotation,
+            spam_annotation=spam_annotation,
+            call_score_annotation=call_score_annotation,
             page_size=limits["page_size"],
         )
 
@@ -389,10 +399,11 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issues: Union[str, object] = values.unset,
-        quality_issues: Union[str, object] = values.unset,
-        spam: Union[bool, object] = values.unset,
-        call_scores: Union[str, object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CallSummariesInstance]:
@@ -401,29 +412,30 @@ class CallSummariesList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str from_:
-        :param str to:
-        :param str from_carrier:
-        :param str to_carrier:
-        :param str from_country_code:
-        :param str to_country_code:
-        :param bool branded:
-        :param bool verified_caller:
-        :param bool has_tag:
-        :param str start_time:
-        :param str end_time:
-        :param str call_type:
-        :param str call_state:
-        :param str direction:
-        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state:
-        :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
-        :param str subaccount:
-        :param bool abnormal_session:
-        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by:
-        :param str connectivity_issues:
-        :param str quality_issues:
-        :param bool spam:
-        :param str call_scores:
+        :param str from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str from_carrier: An origination carrier.
+        :param str to_carrier: A destination carrier.
+        :param str from_country_code: A source country code based on phone number in From.
+        :param str to_country_code: A destination country code. Based on phone number in To.
+        :param bool branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
+        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param bool has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param str start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param str end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param str call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param str call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param str direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param str subaccount: A unique SID identifier of a Subaccount.
+        :param bool abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param str answered_by_annotation: Either machine or human.
+        :param str connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param str quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param bool spam_annotation: A boolean flag indicating spam calls.
+        :param str call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -454,10 +466,11 @@ class CallSummariesList(ListResource):
                 subaccount=subaccount,
                 abnormal_session=abnormal_session,
                 answered_by=answered_by,
-                connectivity_issues=connectivity_issues,
-                quality_issues=quality_issues,
-                spam=spam,
-                call_scores=call_scores,
+                answered_by_annotation=answered_by_annotation,
+                connectivity_issue_annotation=connectivity_issue_annotation,
+                quality_issue_annotation=quality_issue_annotation,
+                spam_annotation=spam_annotation,
+                call_score_annotation=call_score_annotation,
                 limit=limit,
                 page_size=page_size,
             )
@@ -486,10 +499,11 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issues: Union[str, object] = values.unset,
-        quality_issues: Union[str, object] = values.unset,
-        spam: Union[bool, object] = values.unset,
-        call_scores: Union[str, object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CallSummariesInstance]:
@@ -498,29 +512,30 @@ class CallSummariesList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str from_:
-        :param str to:
-        :param str from_carrier:
-        :param str to_carrier:
-        :param str from_country_code:
-        :param str to_country_code:
-        :param bool branded:
-        :param bool verified_caller:
-        :param bool has_tag:
-        :param str start_time:
-        :param str end_time:
-        :param str call_type:
-        :param str call_state:
-        :param str direction:
-        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state:
-        :param &quot;CallSummariesInstance.SortBy&quot; sort_by:
-        :param str subaccount:
-        :param bool abnormal_session:
-        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by:
-        :param str connectivity_issues:
-        :param str quality_issues:
-        :param bool spam:
-        :param str call_scores:
+        :param str from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str from_carrier: An origination carrier.
+        :param str to_carrier: A destination carrier.
+        :param str from_country_code: A source country code based on phone number in From.
+        :param str to_country_code: A destination country code. Based on phone number in To.
+        :param bool branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
+        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param bool has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param str start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param str end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param str call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param str call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param str direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param str subaccount: A unique SID identifier of a Subaccount.
+        :param bool abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param str answered_by_annotation: Either machine or human.
+        :param str connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param str quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param bool spam_annotation: A boolean flag indicating spam calls.
+        :param str call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -552,10 +567,11 @@ class CallSummariesList(ListResource):
                 subaccount=subaccount,
                 abnormal_session=abnormal_session,
                 answered_by=answered_by,
-                connectivity_issues=connectivity_issues,
-                quality_issues=quality_issues,
-                spam=spam,
-                call_scores=call_scores,
+                answered_by_annotation=answered_by_annotation,
+                connectivity_issue_annotation=connectivity_issue_annotation,
+                quality_issue_annotation=quality_issue_annotation,
+                spam_annotation=spam_annotation,
+                call_score_annotation=call_score_annotation,
                 limit=limit,
                 page_size=page_size,
             )
@@ -584,10 +600,11 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issues: Union[str, object] = values.unset,
-        quality_issues: Union[str, object] = values.unset,
-        spam: Union[bool, object] = values.unset,
-        call_scores: Union[str, object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -596,29 +613,30 @@ class CallSummariesList(ListResource):
         Retrieve a single page of CallSummariesInstance records from the API.
         Request is executed immediately
 
-        :param from_:
-        :param to:
-        :param from_carrier:
-        :param to_carrier:
-        :param from_country_code:
-        :param to_country_code:
-        :param branded:
-        :param verified_caller:
-        :param has_tag:
-        :param start_time:
-        :param end_time:
-        :param call_type:
-        :param call_state:
-        :param direction:
-        :param processing_state:
-        :param sort_by:
-        :param subaccount:
-        :param abnormal_session:
-        :param answered_by:
-        :param connectivity_issues:
-        :param quality_issues:
-        :param spam:
-        :param call_scores:
+        :param from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param from_carrier: An origination carrier.
+        :param to_carrier: A destination carrier.
+        :param from_country_code: A source country code based on phone number in From.
+        :param to_country_code: A destination country code. Based on phone number in To.
+        :param branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
+        :param verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param subaccount: A unique SID identifier of a Subaccount.
+        :param abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param answered_by_annotation: Either machine or human.
+        :param connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param spam_annotation: A boolean flag indicating spam calls.
+        :param call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -633,9 +651,9 @@ class CallSummariesList(ListResource):
                 "ToCarrier": to_carrier,
                 "FromCountryCode": from_country_code,
                 "ToCountryCode": to_country_code,
-                "Branded": branded,
-                "VerifiedCaller": verified_caller,
-                "HasTag": has_tag,
+                "Branded": serialize.boolean_to_string(branded),
+                "VerifiedCaller": serialize.boolean_to_string(verified_caller),
+                "HasTag": serialize.boolean_to_string(has_tag),
                 "StartTime": start_time,
                 "EndTime": end_time,
                 "CallType": call_type,
@@ -644,12 +662,13 @@ class CallSummariesList(ListResource):
                 "ProcessingState": processing_state,
                 "SortBy": sort_by,
                 "Subaccount": subaccount,
-                "AbnormalSession": abnormal_session,
+                "AbnormalSession": serialize.boolean_to_string(abnormal_session),
                 "AnsweredBy": answered_by,
-                "ConnectivityIssues": connectivity_issues,
-                "QualityIssues": quality_issues,
-                "Spam": spam,
-                "CallScores": call_scores,
+                "AnsweredByAnnotation": answered_by_annotation,
+                "ConnectivityIssueAnnotation": connectivity_issue_annotation,
+                "QualityIssueAnnotation": quality_issue_annotation,
+                "SpamAnnotation": serialize.boolean_to_string(spam_annotation),
+                "CallScoreAnnotation": call_score_annotation,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -682,10 +701,11 @@ class CallSummariesList(ListResource):
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
         answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
-        connectivity_issues: Union[str, object] = values.unset,
-        quality_issues: Union[str, object] = values.unset,
-        spam: Union[bool, object] = values.unset,
-        call_scores: Union[str, object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -694,29 +714,30 @@ class CallSummariesList(ListResource):
         Asynchronously retrieve a single page of CallSummariesInstance records from the API.
         Request is executed immediately
 
-        :param from_:
-        :param to:
-        :param from_carrier:
-        :param to_carrier:
-        :param from_country_code:
-        :param to_country_code:
-        :param branded:
-        :param verified_caller:
-        :param has_tag:
-        :param start_time:
-        :param end_time:
-        :param call_type:
-        :param call_state:
-        :param direction:
-        :param processing_state:
-        :param sort_by:
-        :param subaccount:
-        :param abnormal_session:
-        :param answered_by:
-        :param connectivity_issues:
-        :param quality_issues:
-        :param spam:
-        :param call_scores:
+        :param from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param from_carrier: An origination carrier.
+        :param to_carrier: A destination carrier.
+        :param from_country_code: A source country code based on phone number in From.
+        :param to_country_code: A destination country code. Based on phone number in To.
+        :param branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
+        :param verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param subaccount: A unique SID identifier of a Subaccount.
+        :param abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param answered_by_annotation: Either machine or human.
+        :param connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param spam_annotation: A boolean flag indicating spam calls.
+        :param call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -731,9 +752,9 @@ class CallSummariesList(ListResource):
                 "ToCarrier": to_carrier,
                 "FromCountryCode": from_country_code,
                 "ToCountryCode": to_country_code,
-                "Branded": branded,
-                "VerifiedCaller": verified_caller,
-                "HasTag": has_tag,
+                "Branded": serialize.boolean_to_string(branded),
+                "VerifiedCaller": serialize.boolean_to_string(verified_caller),
+                "HasTag": serialize.boolean_to_string(has_tag),
                 "StartTime": start_time,
                 "EndTime": end_time,
                 "CallType": call_type,
@@ -742,12 +763,13 @@ class CallSummariesList(ListResource):
                 "ProcessingState": processing_state,
                 "SortBy": sort_by,
                 "Subaccount": subaccount,
-                "AbnormalSession": abnormal_session,
+                "AbnormalSession": serialize.boolean_to_string(abnormal_session),
                 "AnsweredBy": answered_by,
-                "ConnectivityIssues": connectivity_issues,
-                "QualityIssues": quality_issues,
-                "Spam": spam,
-                "CallScores": call_scores,
+                "AnsweredByAnnotation": answered_by_annotation,
+                "ConnectivityIssueAnnotation": connectivity_issue_annotation,
+                "QualityIssueAnnotation": quality_issue_annotation,
+                "SpamAnnotation": serialize.boolean_to_string(spam_annotation),
+                "CallScoreAnnotation": call_score_annotation,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

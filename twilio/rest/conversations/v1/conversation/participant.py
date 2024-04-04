@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class ParticipantInstance(InstanceResource):
+
     class WebhookEnabledType(object):
         TRUE = "true"
         FALSE = "false"
@@ -246,6 +246,7 @@ class ParticipantInstance(InstanceResource):
 
 
 class ParticipantContext(InstanceContext):
+
     def __init__(self, version: Version, conversation_sid: str, sid: str):
         """
         Initialize the ParticipantContext
@@ -482,6 +483,7 @@ class ParticipantContext(InstanceContext):
 
 
 class ParticipantPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ParticipantInstance:
         """
         Build an instance of ParticipantInstance
@@ -502,6 +504,7 @@ class ParticipantPage(Page):
 
 
 class ParticipantList(ListResource):
+
     def __init__(self, version: Version, conversation_sid: str):
         """
         Initialize the ParticipantList
@@ -549,6 +552,7 @@ class ParticipantList(ListResource):
 
         :returns: The created ParticipantInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,
@@ -566,6 +570,7 @@ class ParticipantList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -603,6 +608,7 @@ class ParticipantList(ListResource):
 
         :returns: The created ParticipantInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,
@@ -620,6 +626,7 @@ class ParticipantList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

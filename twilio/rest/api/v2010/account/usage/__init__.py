@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Optional
 
 
@@ -24,6 +23,7 @@ from twilio.rest.api.v2010.account.usage.trigger import TriggerList
 
 
 class UsageList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the UsageList

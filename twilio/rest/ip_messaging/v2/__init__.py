@@ -20,6 +20,7 @@ from twilio.rest.ip_messaging.v2.service import ServiceList
 
 
 class V2(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of IpMessaging

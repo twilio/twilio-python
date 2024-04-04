@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -27,7 +26,6 @@ from twilio.rest.preview.sync.service.document.document_permission import (
 
 
 class DocumentInstance(InstanceResource):
-
     """
     :ivar sid:
     :ivar unique_name:
@@ -175,6 +173,7 @@ class DocumentInstance(InstanceResource):
 
 
 class DocumentContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the DocumentContext
@@ -348,6 +347,7 @@ class DocumentContext(InstanceContext):
 
 
 class DocumentPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DocumentInstance:
         """
         Build an instance of DocumentInstance
@@ -368,6 +368,7 @@ class DocumentPage(Page):
 
 
 class DocumentList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the DocumentList
@@ -397,6 +398,7 @@ class DocumentList(ListResource):
 
         :returns: The created DocumentInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -427,6 +429,7 @@ class DocumentList(ListResource):
 
         :returns: The created DocumentInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

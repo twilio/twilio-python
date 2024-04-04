@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 
@@ -23,6 +22,7 @@ from twilio.base.page import Page
 
 
 class MetricInstance(InstanceResource):
+
     class StreamDirection(object):
         UNKNOWN = "unknown"
         INBOUND = "inbound"
@@ -37,15 +37,15 @@ class MetricInstance(InstanceResource):
         CLIENT_EDGE = "client_edge"
 
     """
-    :ivar timestamp: 
-    :ivar call_sid: 
-    :ivar account_sid: 
+    :ivar timestamp: Timestamp of metric sample. Samples are taken every 10 seconds and contain the metrics for the previous 10 seconds.
+    :ivar call_sid: The unique SID identifier of the Call.
+    :ivar account_sid: The unique SID identifier of the Account.
     :ivar edge: 
     :ivar direction: 
-    :ivar carrier_edge: 
-    :ivar sip_edge: 
-    :ivar sdk_edge: 
-    :ivar client_edge: 
+    :ivar carrier_edge: Contains metrics and properties for the Twilio media gateway of a PSTN call.
+    :ivar sip_edge: Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call.
+    :ivar sdk_edge: Contains metrics and properties for the SDK sensor library for Client calls.
+    :ivar client_edge: Contains metrics and properties for the Twilio media gateway of a Client call.
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any], call_sid: str):
@@ -78,6 +78,7 @@ class MetricInstance(InstanceResource):
 
 
 class MetricPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MetricInstance:
         """
         Build an instance of MetricInstance
@@ -98,12 +99,13 @@ class MetricPage(Page):
 
 
 class MetricList(ListResource):
+
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the MetricList
 
         :param version: Version that contains the resource
-        :param call_sid:
+        :param call_sid: The unique SID identifier of the Call.
 
         """
         super().__init__(version)
@@ -127,8 +129,8 @@ class MetricList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param &quot;MetricInstance.TwilioEdge&quot; edge:
-        :param &quot;MetricInstance.StreamDirection&quot; direction:
+        :param &quot;MetricInstance.TwilioEdge&quot; edge: The Edge of this Metric. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
+        :param &quot;MetricInstance.StreamDirection&quot; direction: The Direction of this Metric. One of `unknown`, `inbound`, `outbound` or `both`.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -156,8 +158,8 @@ class MetricList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param &quot;MetricInstance.TwilioEdge&quot; edge:
-        :param &quot;MetricInstance.StreamDirection&quot; direction:
+        :param &quot;MetricInstance.TwilioEdge&quot; edge: The Edge of this Metric. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
+        :param &quot;MetricInstance.StreamDirection&quot; direction: The Direction of this Metric. One of `unknown`, `inbound`, `outbound` or `both`.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -186,8 +188,8 @@ class MetricList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param &quot;MetricInstance.TwilioEdge&quot; edge:
-        :param &quot;MetricInstance.StreamDirection&quot; direction:
+        :param &quot;MetricInstance.TwilioEdge&quot; edge: The Edge of this Metric. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
+        :param &quot;MetricInstance.StreamDirection&quot; direction: The Direction of this Metric. One of `unknown`, `inbound`, `outbound` or `both`.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -218,8 +220,8 @@ class MetricList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param &quot;MetricInstance.TwilioEdge&quot; edge:
-        :param &quot;MetricInstance.StreamDirection&quot; direction:
+        :param &quot;MetricInstance.TwilioEdge&quot; edge: The Edge of this Metric. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
+        :param &quot;MetricInstance.StreamDirection&quot; direction: The Direction of this Metric. One of `unknown`, `inbound`, `outbound` or `both`.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -251,8 +253,8 @@ class MetricList(ListResource):
         Retrieve a single page of MetricInstance records from the API.
         Request is executed immediately
 
-        :param edge:
-        :param direction:
+        :param edge: The Edge of this Metric. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
+        :param direction: The Direction of this Metric. One of `unknown`, `inbound`, `outbound` or `both`.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -284,8 +286,8 @@ class MetricList(ListResource):
         Asynchronously retrieve a single page of MetricInstance records from the API.
         Request is executed immediately
 
-        :param edge:
-        :param direction:
+        :param edge: The Edge of this Metric. One of `unknown_edge`, `carrier_edge`, `sip_edge`, `sdk_edge` or `client_edge`.
+        :param direction: The Direction of this Metric. One of `unknown`, `inbound`, `outbound` or `both`.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50

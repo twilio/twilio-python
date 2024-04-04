@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Optional
 
 
@@ -24,6 +23,7 @@ from twilio.rest.pricing.v1.voice.number import NumberList
 
 
 class VoiceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the VoiceList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class CountryInstance(InstanceResource):
-
     """
     :ivar country: The name of the country.
     :ivar iso_country: The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
@@ -99,6 +97,7 @@ class CountryInstance(InstanceResource):
 
 
 class CountryContext(InstanceContext):
+
     def __init__(self, version: Version, iso_country: str):
         """
         Initialize the CountryContext
@@ -163,6 +162,7 @@ class CountryContext(InstanceContext):
 
 
 class CountryPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CountryInstance:
         """
         Build an instance of CountryInstance
@@ -181,6 +181,7 @@ class CountryPage(Page):
 
 
 class CountryList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CountryList

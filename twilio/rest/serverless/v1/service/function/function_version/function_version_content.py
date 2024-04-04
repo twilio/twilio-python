@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -21,7 +20,6 @@ from twilio.base.version import Version
 
 
 class FunctionVersionContentInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Function Version resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Function Version resource.
@@ -103,6 +101,7 @@ class FunctionVersionContentInstance(InstanceResource):
 
 
 class FunctionVersionContentContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, function_sid: str, sid: str):
         """
         Initialize the FunctionVersionContentContext
@@ -177,6 +176,7 @@ class FunctionVersionContentContext(InstanceContext):
 
 
 class FunctionVersionContentList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, function_sid: str, sid: str):
         """
         Initialize the FunctionVersionContentList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class NotificationInstance(InstanceResource):
-
     """
     :ivar sid: A 34 character string that uniquely identifies this Notification.
     :ivar account_sid: The unique SID identifier of the Account.
@@ -75,6 +73,7 @@ class NotificationInstance(InstanceResource):
 
 
 class NotificationList(ListResource):
+
     def __init__(
         self, version: Version, service_sid: str, identity: str, challenge_sid: str
     ):
@@ -107,6 +106,7 @@ class NotificationList(ListResource):
 
         :returns: The created NotificationInstance
         """
+
         data = values.of(
             {
                 "Ttl": ttl,
@@ -137,6 +137,7 @@ class NotificationList(ListResource):
 
         :returns: The created NotificationInstance
         """
+
         data = values.of(
             {
                 "Ttl": ttl,

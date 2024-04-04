@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -26,6 +25,7 @@ from twilio.rest.supersim.v1.sim.sim_ip_address import SimIpAddressList
 
 
 class SimInstance(InstanceResource):
+
     class Status(object):
         NEW = "new"
         READY = "ready"
@@ -194,6 +194,7 @@ class SimInstance(InstanceResource):
 
 
 class SimContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SimContext
@@ -365,6 +366,7 @@ class SimContext(InstanceContext):
 
 
 class SimPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SimInstance:
         """
         Build an instance of SimInstance
@@ -383,6 +385,7 @@ class SimPage(Page):
 
 
 class SimList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SimList
@@ -403,6 +406,7 @@ class SimList(ListResource):
 
         :returns: The created SimInstance
         """
+
         data = values.of(
             {
                 "Iccid": iccid,
@@ -427,6 +431,7 @@ class SimList(ListResource):
 
         :returns: The created SimInstance
         """
+
         data = values.of(
             {
                 "Iccid": iccid,

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class SmsCommandInstance(InstanceResource):
+
     class Direction(object):
         TO_SIM = "to_sim"
         FROM_SIM = "from_sim"
@@ -117,6 +117,7 @@ class SmsCommandInstance(InstanceResource):
 
 
 class SmsCommandContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SmsCommandContext
@@ -181,6 +182,7 @@ class SmsCommandContext(InstanceContext):
 
 
 class SmsCommandPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SmsCommandInstance:
         """
         Build an instance of SmsCommandInstance
@@ -199,6 +201,7 @@ class SmsCommandPage(Page):
 
 
 class SmsCommandList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SmsCommandList
@@ -227,6 +230,7 @@ class SmsCommandList(ListResource):
 
         :returns: The created SmsCommandInstance
         """
+
         data = values.of(
             {
                 "Sim": sim,
@@ -261,6 +265,7 @@ class SmsCommandList(ListResource):
 
         :returns: The created SmsCommandInstance
         """
+
         data = values.of(
             {
                 "Sim": sim,

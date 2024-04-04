@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
@@ -23,6 +22,7 @@ from twilio.base.version import Version
 
 
 class CallSummaryInstance(InstanceResource):
+
     class AnsweredBy(object):
         UNKNOWN = "unknown"
         MACHINE_START = "machine_start"
@@ -53,29 +53,29 @@ class CallSummaryInstance(InstanceResource):
         PARTIAL = "partial"
 
     """
-    :ivar account_sid: 
-    :ivar call_sid: 
+    :ivar account_sid: The unique SID identifier of the Account.
+    :ivar call_sid: The unique SID identifier of the Call.
     :ivar call_type: 
     :ivar call_state: 
     :ivar answered_by: 
     :ivar processing_state: 
-    :ivar created_time: 
-    :ivar start_time: 
-    :ivar end_time: 
-    :ivar duration: 
-    :ivar connect_duration: 
-    :ivar _from: 
-    :ivar to: 
-    :ivar carrier_edge: 
-    :ivar client_edge: 
-    :ivar sdk_edge: 
-    :ivar sip_edge: 
-    :ivar tags: 
-    :ivar url: 
-    :ivar attributes: 
-    :ivar properties: 
-    :ivar trust: 
-    :ivar annotation: 
+    :ivar created_time: The time at which the Call was created, given in ISO 8601 format. Can be different from `start_time` in the event of queueing due to CPS
+    :ivar start_time: The time at which the Call was started, given in ISO 8601 format.
+    :ivar end_time: The time at which the Call was ended, given in ISO 8601 format.
+    :ivar duration: Duration between when the call was initiated and the call was ended
+    :ivar connect_duration: Duration between when the call was answered and when it ended
+    :ivar _from: The calling party.
+    :ivar to: The called party.
+    :ivar carrier_edge: Contains metrics and properties for the Twilio media gateway of a PSTN call.
+    :ivar client_edge: Contains metrics and properties for the Twilio media gateway of a Client call.
+    :ivar sdk_edge: Contains metrics and properties for the SDK sensor library for Client calls.
+    :ivar sip_edge: Contains metrics and properties for the Twilio media gateway of a SIP Interface or Trunking call.
+    :ivar tags: Tags applied to calls by Voice Insights analysis indicating a condition that could result in subjective degradation of the call quality.
+    :ivar url: The URL of this resource.
+    :ivar attributes: Attributes capturing call-flow-specific details.
+    :ivar properties: Contains edge-agnostic call-level details.
+    :ivar trust: Contains trusted communications details including Branded Call and verified caller ID.
+    :ivar annotation: Programmatically labeled annotations for the Call. Developers can update the Call Summary records with Annotation during or after a Call. Annotations can be updated as long as the Call Summary record is addressable via the API.
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any], call_sid: str):
@@ -92,9 +92,9 @@ class CallSummaryInstance(InstanceResource):
         self.answered_by: Optional["CallSummaryInstance.AnsweredBy"] = payload.get(
             "answered_by"
         )
-        self.processing_state: Optional[
-            "CallSummaryInstance.ProcessingState"
-        ] = payload.get("processing_state")
+        self.processing_state: Optional["CallSummaryInstance.ProcessingState"] = (
+            payload.get("processing_state")
+        )
         self.created_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("created_time")
         )
@@ -150,7 +150,7 @@ class CallSummaryInstance(InstanceResource):
         """
         Fetch the CallSummaryInstance
 
-        :param processing_state:
+        :param processing_state: The Processing State of this Call Summary. One of `complete`, `partial` or `all`.
 
         :returns: The fetched CallSummaryInstance
         """
@@ -167,7 +167,7 @@ class CallSummaryInstance(InstanceResource):
         """
         Asynchronous coroutine to fetch the CallSummaryInstance
 
-        :param processing_state:
+        :param processing_state: The Processing State of this Call Summary. One of `complete`, `partial` or `all`.
 
         :returns: The fetched CallSummaryInstance
         """
@@ -186,12 +186,13 @@ class CallSummaryInstance(InstanceResource):
 
 
 class CallSummaryContext(InstanceContext):
+
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the CallSummaryContext
 
         :param version: Version that contains the resource
-        :param call_sid:
+        :param call_sid: The unique SID identifier of the Call.
         """
         super().__init__(version)
 
@@ -210,7 +211,7 @@ class CallSummaryContext(InstanceContext):
         """
         Fetch the CallSummaryInstance
 
-        :param processing_state:
+        :param processing_state: The Processing State of this Call Summary. One of `complete`, `partial` or `all`.
 
         :returns: The fetched CallSummaryInstance
         """
@@ -238,7 +239,7 @@ class CallSummaryContext(InstanceContext):
         """
         Asynchronous coroutine to fetch the CallSummaryInstance
 
-        :param processing_state:
+        :param processing_state: The Processing State of this Call Summary. One of `complete`, `partial` or `all`.
 
         :returns: The fetched CallSummaryInstance
         """
@@ -270,12 +271,13 @@ class CallSummaryContext(InstanceContext):
 
 
 class CallSummaryList(ListResource):
+
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the CallSummaryList
 
         :param version: Version that contains the resource
-        :param call_sid:
+        :param call_sid: The unique SID identifier of the Call.
 
         """
         super().__init__(version)

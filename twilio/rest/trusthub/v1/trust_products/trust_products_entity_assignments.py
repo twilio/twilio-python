@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class TrustProductsEntityAssignmentsInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Item Assignment resource.
     :ivar trust_product_sid: The unique string that we created to identify the TrustProduct resource.
@@ -123,6 +121,7 @@ class TrustProductsEntityAssignmentsInstance(InstanceResource):
 
 
 class TrustProductsEntityAssignmentsContext(InstanceContext):
+
     def __init__(self, version: Version, trust_product_sid: str, sid: str):
         """
         Initialize the TrustProductsEntityAssignmentsContext
@@ -219,6 +218,7 @@ class TrustProductsEntityAssignmentsContext(InstanceContext):
 
 
 class TrustProductsEntityAssignmentsPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> TrustProductsEntityAssignmentsInstance:
@@ -243,6 +243,7 @@ class TrustProductsEntityAssignmentsPage(Page):
 
 
 class TrustProductsEntityAssignmentsList(ListResource):
+
     def __init__(self, version: Version, trust_product_sid: str):
         """
         Initialize the TrustProductsEntityAssignmentsList
@@ -269,6 +270,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
         :returns: The created TrustProductsEntityAssignmentsInstance
         """
+
         data = values.of(
             {
                 "ObjectSid": object_sid,
@@ -297,6 +299,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
         :returns: The created TrustProductsEntityAssignmentsInstance
         """
+
         data = values.of(
             {
                 "ObjectSid": object_sid,
@@ -317,6 +320,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
     def stream(
         self,
+        object_type: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[TrustProductsEntityAssignmentsInstance]:
@@ -326,6 +330,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param str object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -336,12 +341,13 @@ class TrustProductsEntityAssignmentsList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(object_type=object_type, page_size=limits["page_size"])
 
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
         self,
+        object_type: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[TrustProductsEntityAssignmentsInstance]:
@@ -351,6 +357,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param str object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -361,12 +368,15 @@ class TrustProductsEntityAssignmentsList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            object_type=object_type, page_size=limits["page_size"]
+        )
 
         return self._version.stream_async(page, limits["limit"])
 
     def list(
         self,
+        object_type: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[TrustProductsEntityAssignmentsInstance]:
@@ -375,6 +385,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param str object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -386,6 +397,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         """
         return list(
             self.stream(
+                object_type=object_type,
                 limit=limit,
                 page_size=page_size,
             )
@@ -393,6 +405,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
     async def list_async(
         self,
+        object_type: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[TrustProductsEntityAssignmentsInstance]:
@@ -401,6 +414,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param str object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -413,6 +427,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         return [
             record
             async for record in await self.stream_async(
+                object_type=object_type,
                 limit=limit,
                 page_size=page_size,
             )
@@ -420,6 +435,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
     def page(
         self,
+        object_type: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -428,6 +444,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         Retrieve a single page of TrustProductsEntityAssignmentsInstance records from the API.
         Request is executed immediately
 
+        :param object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -436,6 +453,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         """
         data = values.of(
             {
+                "ObjectType": object_type,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -449,6 +467,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
     async def page_async(
         self,
+        object_type: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -457,6 +476,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         Asynchronously retrieve a single page of TrustProductsEntityAssignmentsInstance records from the API.
         Request is executed immediately
 
+        :param object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -465,6 +485,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         """
         data = values.of(
             {
+                "ObjectType": object_type,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

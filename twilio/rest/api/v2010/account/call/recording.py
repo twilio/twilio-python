@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import date, datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class RecordingInstance(InstanceResource):
+
     class Source(object):
         DIALVERB = "DialVerb"
         CONFERENCE = "Conference"
@@ -206,6 +206,7 @@ class RecordingInstance(InstanceResource):
 
 
 class RecordingContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
         """
         Initialize the RecordingContext
@@ -374,6 +375,7 @@ class RecordingContext(InstanceContext):
 
 
 class RecordingPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> RecordingInstance:
         """
         Build an instance of RecordingInstance
@@ -397,6 +399,7 @@ class RecordingPage(Page):
 
 
 class RecordingList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the RecordingList
@@ -438,6 +441,7 @@ class RecordingList(ListResource):
 
         :returns: The created RecordingInstance
         """
+
         data = values.of(
             {
                 "RecordingStatusCallbackEvent": serialize.map(
@@ -485,6 +489,7 @@ class RecordingList(ListResource):
 
         :returns: The created RecordingInstance
         """
+
         data = values.of(
             {
                 "RecordingStatusCallbackEvent": serialize.map(

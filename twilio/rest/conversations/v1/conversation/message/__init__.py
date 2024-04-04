@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -27,6 +26,7 @@ from twilio.rest.conversations.v1.conversation.message.delivery_receipt import (
 
 
 class MessageInstance(InstanceResource):
+
     class OrderType(object):
         ASC = "asc"
         DESC = "desc"
@@ -50,7 +50,7 @@ class MessageInstance(InstanceResource):
     :ivar url: An absolute API resource API URL for this message.
     :ivar delivery: An object that contains the summary of delivery statuses for the message to non-chat participants.
     :ivar links: Contains an absolute API resource URL to access the delivery & read receipts of this message.
-    :ivar content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template.
+    :ivar content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template.
     """
 
     def __init__(
@@ -68,7 +68,7 @@ class MessageInstance(InstanceResource):
         self.index: Optional[int] = deserialize.integer(payload.get("index"))
         self.author: Optional[str] = payload.get("author")
         self.body: Optional[str] = payload.get("body")
-        self.media: Optional[List[object]] = payload.get("media")
+        self.media: Optional[List[Dict[str, object]]] = payload.get("media")
         self.attributes: Optional[str] = payload.get("attributes")
         self.participant_sid: Optional[str] = payload.get("participant_sid")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
@@ -166,6 +166,7 @@ class MessageInstance(InstanceResource):
         date_created: Union[datetime, object] = values.unset,
         date_updated: Union[datetime, object] = values.unset,
         attributes: Union[str, object] = values.unset,
+        subject: Union[str, object] = values.unset,
     ) -> "MessageInstance":
         """
         Update the MessageInstance
@@ -176,6 +177,7 @@ class MessageInstance(InstanceResource):
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param subject: The subject of the message, can be up to 256 characters long.
 
         :returns: The updated MessageInstance
         """
@@ -186,6 +188,7 @@ class MessageInstance(InstanceResource):
             date_created=date_created,
             date_updated=date_updated,
             attributes=attributes,
+            subject=subject,
         )
 
     async def update_async(
@@ -198,6 +201,7 @@ class MessageInstance(InstanceResource):
         date_created: Union[datetime, object] = values.unset,
         date_updated: Union[datetime, object] = values.unset,
         attributes: Union[str, object] = values.unset,
+        subject: Union[str, object] = values.unset,
     ) -> "MessageInstance":
         """
         Asynchronous coroutine to update the MessageInstance
@@ -208,6 +212,7 @@ class MessageInstance(InstanceResource):
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param subject: The subject of the message, can be up to 256 characters long.
 
         :returns: The updated MessageInstance
         """
@@ -218,6 +223,7 @@ class MessageInstance(InstanceResource):
             date_created=date_created,
             date_updated=date_updated,
             attributes=attributes,
+            subject=subject,
         )
 
     @property
@@ -238,6 +244,7 @@ class MessageInstance(InstanceResource):
 
 
 class MessageContext(InstanceContext):
+
     def __init__(self, version: Version, conversation_sid: str, sid: str):
         """
         Initialize the MessageContext
@@ -353,6 +360,7 @@ class MessageContext(InstanceContext):
         date_created: Union[datetime, object] = values.unset,
         date_updated: Union[datetime, object] = values.unset,
         attributes: Union[str, object] = values.unset,
+        subject: Union[str, object] = values.unset,
     ) -> MessageInstance:
         """
         Update the MessageInstance
@@ -363,6 +371,7 @@ class MessageContext(InstanceContext):
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param subject: The subject of the message, can be up to 256 characters long.
 
         :returns: The updated MessageInstance
         """
@@ -373,6 +382,7 @@ class MessageContext(InstanceContext):
                 "DateCreated": serialize.iso8601_datetime(date_created),
                 "DateUpdated": serialize.iso8601_datetime(date_updated),
                 "Attributes": attributes,
+                "Subject": subject,
             }
         )
         headers = values.of(
@@ -402,6 +412,7 @@ class MessageContext(InstanceContext):
         date_created: Union[datetime, object] = values.unset,
         date_updated: Union[datetime, object] = values.unset,
         attributes: Union[str, object] = values.unset,
+        subject: Union[str, object] = values.unset,
     ) -> MessageInstance:
         """
         Asynchronous coroutine to update the MessageInstance
@@ -412,6 +423,7 @@ class MessageContext(InstanceContext):
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param subject: The subject of the message, can be up to 256 characters long.
 
         :returns: The updated MessageInstance
         """
@@ -422,6 +434,7 @@ class MessageContext(InstanceContext):
                 "DateCreated": serialize.iso8601_datetime(date_created),
                 "DateUpdated": serialize.iso8601_datetime(date_updated),
                 "Attributes": attributes,
+                "Subject": subject,
             }
         )
         headers = values.of(
@@ -465,6 +478,7 @@ class MessageContext(InstanceContext):
 
 
 class MessagePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MessageInstance:
         """
         Build an instance of MessageInstance
@@ -485,6 +499,7 @@ class MessagePage(Page):
 
 
 class MessageList(ListResource):
+
     def __init__(self, version: Version, conversation_sid: str):
         """
         Initialize the MessageList
@@ -516,6 +531,7 @@ class MessageList(ListResource):
         media_sid: Union[str, object] = values.unset,
         content_sid: Union[str, object] = values.unset,
         content_variables: Union[str, object] = values.unset,
+        subject: Union[str, object] = values.unset,
     ) -> MessageInstance:
         """
         Create the MessageInstance
@@ -527,11 +543,13 @@ class MessageList(ListResource):
         :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param media_sid: The Media SID to be attached to the new Message.
-        :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
+        :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
         :param content_variables: A structurally valid JSON string that contains values to resolve Rich Content template variables.
+        :param subject: The subject of the message, can be up to 256 characters long.
 
         :returns: The created MessageInstance
         """
+
         data = values.of(
             {
                 "Author": author,
@@ -542,6 +560,7 @@ class MessageList(ListResource):
                 "MediaSid": media_sid,
                 "ContentSid": content_sid,
                 "ContentVariables": content_variables,
+                "Subject": subject,
             }
         )
         headers = values.of(
@@ -549,6 +568,7 @@ class MessageList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -570,6 +590,7 @@ class MessageList(ListResource):
         media_sid: Union[str, object] = values.unset,
         content_sid: Union[str, object] = values.unset,
         content_variables: Union[str, object] = values.unset,
+        subject: Union[str, object] = values.unset,
     ) -> MessageInstance:
         """
         Asynchronously create the MessageInstance
@@ -581,11 +602,13 @@ class MessageList(ListResource):
         :param date_updated: The date that this resource was last updated. `null` if the message has not been edited.
         :param attributes: A string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param media_sid: The Media SID to be attached to the new Message.
-        :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content-api) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
+        :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
         :param content_variables: A structurally valid JSON string that contains values to resolve Rich Content template variables.
+        :param subject: The subject of the message, can be up to 256 characters long.
 
         :returns: The created MessageInstance
         """
+
         data = values.of(
             {
                 "Author": author,
@@ -596,6 +619,7 @@ class MessageList(ListResource):
                 "MediaSid": media_sid,
                 "ContentSid": content_sid,
                 "ContentVariables": content_variables,
+                "Subject": subject,
             }
         )
         headers = values.of(
@@ -603,6 +627,7 @@ class MessageList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )

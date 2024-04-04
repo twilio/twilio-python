@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -28,7 +27,6 @@ from twilio.rest.preview.deployed_devices.fleet.key import KeyList
 
 
 class FleetInstance(InstanceResource):
-
     """
     :ivar sid: Contains a 34 character string that uniquely identifies this Fleet resource.
     :ivar url: Contains an absolute URL for this Fleet resource.
@@ -193,6 +191,7 @@ class FleetInstance(InstanceResource):
 
 
 class FleetContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FleetContext
@@ -390,6 +389,7 @@ class FleetContext(InstanceContext):
 
 
 class FleetPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> FleetInstance:
         """
         Build an instance of FleetInstance
@@ -408,6 +408,7 @@ class FleetPage(Page):
 
 
 class FleetList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the FleetList
@@ -427,6 +428,7 @@ class FleetList(ListResource):
 
         :returns: The created FleetInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -451,6 +453,7 @@ class FleetList(ListResource):
 
         :returns: The created FleetInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

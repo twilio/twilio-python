@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class RoomRecordingInstance(InstanceResource):
+
     class Codec(object):
         VP8 = "VP8"
         H264 = "H264"
@@ -167,6 +167,7 @@ class RoomRecordingInstance(InstanceResource):
 
 
 class RoomRecordingContext(InstanceContext):
+
     def __init__(self, version: Version, room_sid: str, sid: str):
         """
         Initialize the RoomRecordingContext
@@ -259,6 +260,7 @@ class RoomRecordingContext(InstanceContext):
 
 
 class RoomRecordingPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> RoomRecordingInstance:
         """
         Build an instance of RoomRecordingInstance
@@ -279,6 +281,7 @@ class RoomRecordingPage(Page):
 
 
 class RoomRecordingList(ListResource):
+
     def __init__(self, version: Version, room_sid: str):
         """
         Initialize the RoomRecordingList

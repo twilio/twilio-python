@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -27,6 +26,7 @@ from twilio.rest.conversations.v1.conversation.webhook import WebhookList
 
 
 class ConversationInstance(InstanceResource):
+
     class State(object):
         INACTIVE = "inactive"
         ACTIVE = "active"
@@ -39,7 +39,7 @@ class ConversationInstance(InstanceResource):
     """
     :ivar account_sid: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
     :ivar chat_service_sid: The unique ID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) this conversation belongs to.
-    :ivar messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+    :ivar messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
     :ivar sid: A 34 character string that uniquely identifies this resource.
     :ivar friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
     :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
@@ -163,6 +163,8 @@ class ConversationInstance(InstanceResource):
         timers_inactive: Union[str, object] = values.unset,
         timers_closed: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
     ) -> "ConversationInstance":
         """
         Update the ConversationInstance
@@ -172,11 +174,13 @@ class ConversationInstance(InstanceResource):
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
         :param state:
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
+        :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
 
         :returns: The updated ConversationInstance
         """
@@ -191,6 +195,8 @@ class ConversationInstance(InstanceResource):
             timers_inactive=timers_inactive,
             timers_closed=timers_closed,
             unique_name=unique_name,
+            bindings_email_address=bindings_email_address,
+            bindings_email_name=bindings_email_name,
         )
 
     async def update_async(
@@ -207,6 +213,8 @@ class ConversationInstance(InstanceResource):
         timers_inactive: Union[str, object] = values.unset,
         timers_closed: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
     ) -> "ConversationInstance":
         """
         Asynchronous coroutine to update the ConversationInstance
@@ -216,11 +224,13 @@ class ConversationInstance(InstanceResource):
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
         :param state:
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
+        :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
 
         :returns: The updated ConversationInstance
         """
@@ -235,6 +245,8 @@ class ConversationInstance(InstanceResource):
             timers_inactive=timers_inactive,
             timers_closed=timers_closed,
             unique_name=unique_name,
+            bindings_email_address=bindings_email_address,
+            bindings_email_name=bindings_email_name,
         )
 
     @property
@@ -269,6 +281,7 @@ class ConversationInstance(InstanceResource):
 
 
 class ConversationContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ConversationContext
@@ -384,6 +397,8 @@ class ConversationContext(InstanceContext):
         timers_inactive: Union[str, object] = values.unset,
         timers_closed: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
     ) -> ConversationInstance:
         """
         Update the ConversationInstance
@@ -393,11 +408,13 @@ class ConversationContext(InstanceContext):
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
         :param state:
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
+        :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
 
         :returns: The updated ConversationInstance
         """
@@ -412,6 +429,8 @@ class ConversationContext(InstanceContext):
                 "Timers.Inactive": timers_inactive,
                 "Timers.Closed": timers_closed,
                 "UniqueName": unique_name,
+                "Bindings.Email.Address": bindings_email_address,
+                "Bindings.Email.Name": bindings_email_name,
             }
         )
         headers = values.of(
@@ -440,6 +459,8 @@ class ConversationContext(InstanceContext):
         timers_inactive: Union[str, object] = values.unset,
         timers_closed: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
     ) -> ConversationInstance:
         """
         Asynchronous coroutine to update the ConversationInstance
@@ -449,11 +470,13 @@ class ConversationContext(InstanceContext):
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
         :param state:
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
+        :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
 
         :returns: The updated ConversationInstance
         """
@@ -468,6 +491,8 @@ class ConversationContext(InstanceContext):
                 "Timers.Inactive": timers_inactive,
                 "Timers.Closed": timers_closed,
                 "UniqueName": unique_name,
+                "Bindings.Email.Address": bindings_email_address,
+                "Bindings.Email.Name": bindings_email_name,
             }
         )
         headers = values.of(
@@ -529,6 +554,7 @@ class ConversationContext(InstanceContext):
 
 
 class ConversationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ConversationInstance:
         """
         Build an instance of ConversationInstance
@@ -547,6 +573,7 @@ class ConversationPage(Page):
 
 
 class ConversationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ConversationList
@@ -572,6 +599,8 @@ class ConversationList(ListResource):
         state: Union["ConversationInstance.State", object] = values.unset,
         timers_inactive: Union[str, object] = values.unset,
         timers_closed: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
     ) -> ConversationInstance:
         """
         Create the ConversationInstance
@@ -581,14 +610,17 @@ class ConversationList(ListResource):
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param state:
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
+        :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
 
         :returns: The created ConversationInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -600,6 +632,8 @@ class ConversationList(ListResource):
                 "State": state,
                 "Timers.Inactive": timers_inactive,
                 "Timers.Closed": timers_closed,
+                "Bindings.Email.Address": bindings_email_address,
+                "Bindings.Email.Name": bindings_email_name,
             }
         )
         headers = values.of(
@@ -607,6 +641,7 @@ class ConversationList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -627,6 +662,8 @@ class ConversationList(ListResource):
         state: Union["ConversationInstance.State", object] = values.unset,
         timers_inactive: Union[str, object] = values.unset,
         timers_closed: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
     ) -> ConversationInstance:
         """
         Asynchronously create the ConversationInstance
@@ -636,14 +673,17 @@ class ConversationList(ListResource):
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this conversation belongs to.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param state:
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
+        :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
 
         :returns: The created ConversationInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -655,6 +695,8 @@ class ConversationList(ListResource):
                 "State": state,
                 "Timers.Inactive": timers_inactive,
                 "Timers.Closed": timers_closed,
+                "Bindings.Email.Address": bindings_email_address,
+                "Bindings.Email.Name": bindings_email_name,
             }
         )
         headers = values.of(
@@ -662,6 +704,7 @@ class ConversationList(ListResource):
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
             }
         )
+
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -682,8 +725,8 @@ class ConversationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
-        :param str end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
+        :param str start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param str end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -718,8 +761,8 @@ class ConversationList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param str start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
-        :param str end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
+        :param str start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param str end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -753,8 +796,8 @@ class ConversationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
-        :param str end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
+        :param str start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param str end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -788,8 +831,8 @@ class ConversationList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param str start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
-        :param str end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
+        :param str start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param str end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -824,8 +867,8 @@ class ConversationList(ListResource):
         Retrieve a single page of ConversationInstance records from the API.
         Request is executed immediately
 
-        :param start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
-        :param end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
+        :param start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -860,8 +903,8 @@ class ConversationList(ListResource):
         Asynchronously retrieve a single page of ConversationInstance records from the API.
         Request is executed immediately
 
-        :param start_date: Start date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the start time of the date is used (YYYY-MM-DDT00:00:00Z). Can be combined with other filters.
-        :param end_date: End date or time in ISO8601 format for filtering list of Conversations. If a date is provided, the end time of the date is used (YYYY-MM-DDT23:59:59Z). Can be combined with other filters.
+        :param start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state

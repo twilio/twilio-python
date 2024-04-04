@@ -12,9 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class SentenceInstance(InstanceResource):
-
     """
     :ivar media_channel: The channel number.
     :ivar sentence_index: The index of the sentence in the transcript.
@@ -68,6 +66,7 @@ class SentenceInstance(InstanceResource):
 
 
 class SentencePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SentenceInstance:
         """
         Build an instance of SentenceInstance
@@ -88,6 +87,7 @@ class SentencePage(Page):
 
 
 class SentenceList(ListResource):
+
     def __init__(self, version: Version, transcript_sid: str):
         """
         Initialize the SentenceList
@@ -116,7 +116,7 @@ class SentenceList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences.
+        :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -143,7 +143,7 @@ class SentenceList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences.
+        :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -169,7 +169,7 @@ class SentenceList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences.
+        :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -198,7 +198,7 @@ class SentenceList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences.
+        :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -228,7 +228,7 @@ class SentenceList(ListResource):
         Retrieve a single page of SentenceInstance records from the API.
         Request is executed immediately
 
-        :param redacted: Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences.
+        :param redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -237,7 +237,7 @@ class SentenceList(ListResource):
         """
         data = values.of(
             {
-                "Redacted": redacted,
+                "Redacted": serialize.boolean_to_string(redacted),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -258,7 +258,7 @@ class SentenceList(ListResource):
         Asynchronously retrieve a single page of SentenceInstance records from the API.
         Request is executed immediately
 
-        :param redacted: Grant access to PII Redacted/Unredacted Sentences. The default is `true` to access redacted sentences.
+        :param redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -267,7 +267,7 @@ class SentenceList(ListResource):
         """
         data = values.of(
             {
-                "Redacted": redacted,
+                "Redacted": serialize.boolean_to_string(redacted),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

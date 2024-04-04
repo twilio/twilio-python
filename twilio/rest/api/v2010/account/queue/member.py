@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class MemberInstance(InstanceResource):
-
     """
     :ivar call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Member resource is associated with.
     :ivar date_enqueued: The date that the member was enqueued, given in RFC 2822 format.
@@ -138,6 +136,7 @@ class MemberInstance(InstanceResource):
 
 
 class MemberContext(InstanceContext):
+
     def __init__(
         self, version: Version, account_sid: str, queue_sid: str, call_sid: str
     ):
@@ -280,6 +279,7 @@ class MemberContext(InstanceContext):
 
 
 class MemberPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MemberInstance:
         """
         Build an instance of MemberInstance
@@ -303,6 +303,7 @@ class MemberPage(Page):
 
 
 class MemberList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, queue_sid: str):
         """
         Initialize the MemberList

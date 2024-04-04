@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class ParticipantInstance(InstanceResource):
+
     class Status(object):
         QUEUED = "queued"
         CONNECTING = "connecting"
@@ -46,6 +46,7 @@ class ParticipantInstance(InstanceResource):
     :ivar hold: Whether the participant is on hold. Can be `true` or `false`.
     :ivar start_conference_on_enter: Whether the conference starts when the participant joins the conference, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
     :ivar status: 
+    :ivar queue_time: The wait time in milliseconds before participant's call is placed. Only available in the response to a create participant request.
     :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
     """
 
@@ -80,6 +81,7 @@ class ParticipantInstance(InstanceResource):
             "start_conference_on_enter"
         )
         self.status: Optional["ParticipantInstance.Status"] = payload.get("status")
+        self.queue_time: Optional[str] = payload.get("queue_time")
         self.uri: Optional[str] = payload.get("uri")
 
         self._solution = {
@@ -249,6 +251,7 @@ class ParticipantInstance(InstanceResource):
 
 
 class ParticipantContext(InstanceContext):
+
     def __init__(
         self, version: Version, account_sid: str, conference_sid: str, call_sid: str
     ):
@@ -373,17 +376,19 @@ class ParticipantContext(InstanceContext):
         """
         data = values.of(
             {
-                "Muted": muted,
-                "Hold": hold,
+                "Muted": serialize.boolean_to_string(muted),
+                "Hold": serialize.boolean_to_string(hold),
                 "HoldUrl": hold_url,
                 "HoldMethod": hold_method,
                 "AnnounceUrl": announce_url,
                 "AnnounceMethod": announce_method,
                 "WaitUrl": wait_url,
                 "WaitMethod": wait_method,
-                "BeepOnExit": beep_on_exit,
-                "EndConferenceOnExit": end_conference_on_exit,
-                "Coaching": coaching,
+                "BeepOnExit": serialize.boolean_to_string(beep_on_exit),
+                "EndConferenceOnExit": serialize.boolean_to_string(
+                    end_conference_on_exit
+                ),
+                "Coaching": serialize.boolean_to_string(coaching),
                 "CallSidToCoach": call_sid_to_coach,
             }
         )
@@ -437,17 +442,19 @@ class ParticipantContext(InstanceContext):
         """
         data = values.of(
             {
-                "Muted": muted,
-                "Hold": hold,
+                "Muted": serialize.boolean_to_string(muted),
+                "Hold": serialize.boolean_to_string(hold),
                 "HoldUrl": hold_url,
                 "HoldMethod": hold_method,
                 "AnnounceUrl": announce_url,
                 "AnnounceMethod": announce_method,
                 "WaitUrl": wait_url,
                 "WaitMethod": wait_method,
-                "BeepOnExit": beep_on_exit,
-                "EndConferenceOnExit": end_conference_on_exit,
-                "Coaching": coaching,
+                "BeepOnExit": serialize.boolean_to_string(beep_on_exit),
+                "EndConferenceOnExit": serialize.boolean_to_string(
+                    end_conference_on_exit
+                ),
+                "Coaching": serialize.boolean_to_string(coaching),
                 "CallSidToCoach": call_sid_to_coach,
             }
         )
@@ -477,6 +484,7 @@ class ParticipantContext(InstanceContext):
 
 
 class ParticipantPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ParticipantInstance:
         """
         Build an instance of ParticipantInstance
@@ -500,6 +508,7 @@ class ParticipantPage(Page):
 
 
 class ParticipantList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, conference_sid: str):
         """
         Initialize the ParticipantList
@@ -571,6 +580,7 @@ class ParticipantList(ListResource):
         amd_status_callback: Union[str, object] = values.unset,
         amd_status_callback_method: Union[str, object] = values.unset,
         trim: Union[str, object] = values.unset,
+        call_token: Union[str, object] = values.unset,
     ) -> ParticipantInstance:
         """
         Create the ParticipantInstance
@@ -614,7 +624,7 @@ class ParticipantList(ListResource):
         :param call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
         :param recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
         :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
-        :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
+        :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
         :param machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
         :param machine_detection_speech_threshold: The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400.
         :param machine_detection_speech_end_threshold: The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200.
@@ -622,9 +632,11 @@ class ParticipantList(ListResource):
         :param amd_status_callback: The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
         :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
         :param trim: Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
+        :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
 
         :returns: The created ParticipantInstance
         """
+
         data = values.of(
             {
                 "From": from_,
@@ -636,14 +648,18 @@ class ParticipantList(ListResource):
                 ),
                 "Label": label,
                 "Timeout": timeout,
-                "Record": record,
-                "Muted": muted,
+                "Record": serialize.boolean_to_string(record),
+                "Muted": serialize.boolean_to_string(muted),
                 "Beep": beep,
-                "StartConferenceOnEnter": start_conference_on_enter,
-                "EndConferenceOnExit": end_conference_on_exit,
+                "StartConferenceOnEnter": serialize.boolean_to_string(
+                    start_conference_on_enter
+                ),
+                "EndConferenceOnExit": serialize.boolean_to_string(
+                    end_conference_on_exit
+                ),
                 "WaitUrl": wait_url,
                 "WaitMethod": wait_method,
-                "EarlyMedia": early_media,
+                "EarlyMedia": serialize.boolean_to_string(early_media),
                 "MaxParticipants": max_participants,
                 "ConferenceRecord": conference_record,
                 "ConferenceTrim": conference_trim,
@@ -666,7 +682,7 @@ class ParticipantList(ListResource):
                 "ConferenceRecordingStatusCallbackEvent": serialize.map(
                     conference_recording_status_callback_event, lambda e: e
                 ),
-                "Coaching": coaching,
+                "Coaching": serialize.boolean_to_string(coaching),
                 "CallSidToCoach": call_sid_to_coach,
                 "JitterBufferSize": jitter_buffer_size,
                 "Byoc": byoc,
@@ -682,6 +698,7 @@ class ParticipantList(ListResource):
                 "AmdStatusCallback": amd_status_callback,
                 "AmdStatusCallbackMethod": amd_status_callback_method,
                 "Trim": trim,
+                "CallToken": call_token,
             }
         )
 
@@ -749,6 +766,7 @@ class ParticipantList(ListResource):
         amd_status_callback: Union[str, object] = values.unset,
         amd_status_callback_method: Union[str, object] = values.unset,
         trim: Union[str, object] = values.unset,
+        call_token: Union[str, object] = values.unset,
     ) -> ParticipantInstance:
         """
         Asynchronously create the ParticipantInstance
@@ -792,7 +810,7 @@ class ParticipantList(ListResource):
         :param call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
         :param recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
         :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
-        :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. If `send_digits` is provided, this parameter is ignored. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
+        :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
         :param machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
         :param machine_detection_speech_threshold: The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400.
         :param machine_detection_speech_end_threshold: The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200.
@@ -800,9 +818,11 @@ class ParticipantList(ListResource):
         :param amd_status_callback: The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
         :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
         :param trim: Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
+        :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
 
         :returns: The created ParticipantInstance
         """
+
         data = values.of(
             {
                 "From": from_,
@@ -814,14 +834,18 @@ class ParticipantList(ListResource):
                 ),
                 "Label": label,
                 "Timeout": timeout,
-                "Record": record,
-                "Muted": muted,
+                "Record": serialize.boolean_to_string(record),
+                "Muted": serialize.boolean_to_string(muted),
                 "Beep": beep,
-                "StartConferenceOnEnter": start_conference_on_enter,
-                "EndConferenceOnExit": end_conference_on_exit,
+                "StartConferenceOnEnter": serialize.boolean_to_string(
+                    start_conference_on_enter
+                ),
+                "EndConferenceOnExit": serialize.boolean_to_string(
+                    end_conference_on_exit
+                ),
                 "WaitUrl": wait_url,
                 "WaitMethod": wait_method,
-                "EarlyMedia": early_media,
+                "EarlyMedia": serialize.boolean_to_string(early_media),
                 "MaxParticipants": max_participants,
                 "ConferenceRecord": conference_record,
                 "ConferenceTrim": conference_trim,
@@ -844,7 +868,7 @@ class ParticipantList(ListResource):
                 "ConferenceRecordingStatusCallbackEvent": serialize.map(
                     conference_recording_status_callback_event, lambda e: e
                 ),
-                "Coaching": coaching,
+                "Coaching": serialize.boolean_to_string(coaching),
                 "CallSidToCoach": call_sid_to_coach,
                 "JitterBufferSize": jitter_buffer_size,
                 "Byoc": byoc,
@@ -860,6 +884,7 @@ class ParticipantList(ListResource):
                 "AmdStatusCallback": amd_status_callback,
                 "AmdStatusCallbackMethod": amd_status_callback_method,
                 "Trim": trim,
+                "CallToken": call_token,
             }
         )
 
@@ -1037,9 +1062,9 @@ class ParticipantList(ListResource):
         """
         data = values.of(
             {
-                "Muted": muted,
-                "Hold": hold,
-                "Coaching": coaching,
+                "Muted": serialize.boolean_to_string(muted),
+                "Hold": serialize.boolean_to_string(hold),
+                "Coaching": serialize.boolean_to_string(coaching),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -1073,9 +1098,9 @@ class ParticipantList(ListResource):
         """
         data = values.of(
             {
-                "Muted": muted,
-                "Hold": hold,
-                "Coaching": coaching,
+                "Muted": serialize.boolean_to_string(muted),
+                "Hold": serialize.boolean_to_string(hold),
+                "Coaching": serialize.boolean_to_string(coaching),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

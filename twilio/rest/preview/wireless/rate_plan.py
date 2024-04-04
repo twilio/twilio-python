@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class RatePlanInstance(InstanceResource):
-
     """
     :ivar sid:
     :ivar unique_name:
@@ -173,6 +171,7 @@ class RatePlanInstance(InstanceResource):
 
 
 class RatePlanContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the RatePlanContext
@@ -317,6 +316,7 @@ class RatePlanContext(InstanceContext):
 
 
 class RatePlanPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> RatePlanInstance:
         """
         Build an instance of RatePlanInstance
@@ -335,6 +335,7 @@ class RatePlanPage(Page):
 
 
 class RatePlanList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the RatePlanList
@@ -375,17 +376,20 @@ class RatePlanList(ListResource):
 
         :returns: The created RatePlanInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
                 "FriendlyName": friendly_name,
-                "DataEnabled": data_enabled,
+                "DataEnabled": serialize.boolean_to_string(data_enabled),
                 "DataLimit": data_limit,
                 "DataMetering": data_metering,
-                "MessagingEnabled": messaging_enabled,
-                "VoiceEnabled": voice_enabled,
-                "CommandsEnabled": commands_enabled,
-                "NationalRoamingEnabled": national_roaming_enabled,
+                "MessagingEnabled": serialize.boolean_to_string(messaging_enabled),
+                "VoiceEnabled": serialize.boolean_to_string(voice_enabled),
+                "CommandsEnabled": serialize.boolean_to_string(commands_enabled),
+                "NationalRoamingEnabled": serialize.boolean_to_string(
+                    national_roaming_enabled
+                ),
                 "InternationalRoaming": serialize.map(
                     international_roaming, lambda e: e
                 ),
@@ -429,17 +433,20 @@ class RatePlanList(ListResource):
 
         :returns: The created RatePlanInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
                 "FriendlyName": friendly_name,
-                "DataEnabled": data_enabled,
+                "DataEnabled": serialize.boolean_to_string(data_enabled),
                 "DataLimit": data_limit,
                 "DataMetering": data_metering,
-                "MessagingEnabled": messaging_enabled,
-                "VoiceEnabled": voice_enabled,
-                "CommandsEnabled": commands_enabled,
-                "NationalRoamingEnabled": national_roaming_enabled,
+                "MessagingEnabled": serialize.boolean_to_string(messaging_enabled),
+                "VoiceEnabled": serialize.boolean_to_string(voice_enabled),
+                "CommandsEnabled": serialize.boolean_to_string(commands_enabled),
+                "NationalRoamingEnabled": serialize.boolean_to_string(
+                    national_roaming_enabled
+                ),
                 "InternationalRoaming": serialize.map(
                     international_roaming, lambda e: e
                 ),

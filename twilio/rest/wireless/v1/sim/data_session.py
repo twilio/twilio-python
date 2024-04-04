@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,18 +23,17 @@ from twilio.base.page import Page
 
 
 class DataSessionInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the DataSession resource.
-    :ivar sim_sid: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) that the Data Session is for.
+    :ivar sim_sid: The SID of the [Sim resource](https://www.twilio.com/docs/iot/wireless/api/sim-resource) that the Data Session is for.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DataSession resource.
     :ivar radio_link: The generation of wireless technology that the device was using.
     :ivar operator_mcc: The 'mobile country code' is the unique ID of the home country where the Data Session took place. See: [MCC/MNC lookup](http://mcc-mnc.com/).
     :ivar operator_mnc: The 'mobile network code' is the unique ID specific to the mobile operator network where the Data Session took place.
     :ivar operator_country: The three letter country code representing where the device's Data Session took place. This is determined by looking up the `operator_mcc`.
-    :ivar operator_name: The friendly name of the mobile operator network that the [SIM](https://www.twilio.com/docs/wireless/api/sim-resource)-connected device is attached to. This is determined by looking up the `operator_mnc`.
+    :ivar operator_name: The friendly name of the mobile operator network that the [SIM](https://www.twilio.com/docs/iot/wireless/api/sim-resource)-connected device is attached to. This is determined by looking up the `operator_mnc`.
     :ivar cell_id: The unique ID of the cellular tower that the device was attached to at the moment when the Data Session was last updated.
-    :ivar cell_location_estimate: An object that describes the estimated location in latitude and longitude where the device's Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/wireless/api/datasession-resource#cell-location-estimate-object).
+    :ivar cell_location_estimate: An object that describes the estimated location in latitude and longitude where the device's Data Session took place. The location is derived from the `cell_id` when the Data Session was last updated. See [Cell Location Estimate Object](https://www.twilio.com/docs/iot/wireless/api/datasession-resource#cell-location-estimate-object).
     :ivar packets_uploaded: The number of packets uploaded by the device between the `start` time and when the Data Session was last updated.
     :ivar packets_downloaded: The number of packets downloaded by the device between the `start` time and when the Data Session was last updated.
     :ivar last_updated: The date that the resource was last updated, given as GMT in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
@@ -89,6 +87,7 @@ class DataSessionInstance(InstanceResource):
 
 
 class DataSessionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DataSessionInstance:
         """
         Build an instance of DataSessionInstance
@@ -109,12 +108,13 @@ class DataSessionPage(Page):
 
 
 class DataSessionList(ListResource):
+
     def __init__(self, version: Version, sim_sid: str):
         """
         Initialize the DataSessionList
 
         :param version: Version that contains the resource
-        :param sim_sid: The SID of the [Sim resource](https://www.twilio.com/docs/wireless/api/sim-resource) with the Data Sessions to read.
+        :param sim_sid: The SID of the [Sim resource](https://www.twilio.com/docs/iot/wireless/api/sim-resource) with the Data Sessions to read.
 
         """
         super().__init__(version)

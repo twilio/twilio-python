@@ -12,8 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -26,13 +25,13 @@ from twilio.rest.flex_api.v1.interaction.interaction_channel import (
 
 
 class InteractionInstance(InstanceResource):
-
     """
     :ivar sid: The unique string created by Twilio to identify an Interaction resource, prefixed with KD.
     :ivar channel: A JSON object that defines the Interaction’s communication channel and includes details about the channel. See the [Outbound SMS](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#agent-initiated-outbound-interactions) and [inbound (API-initiated)](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#api-initiated-contact) Channel object examples.
     :ivar routing: A JSON Object representing the routing rules for the Interaction Channel. See [Outbound SMS Example](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#agent-initiated-outbound-interactions) for an example Routing object. The Interactions resource uses TaskRouter for all routing functionality.   All attributes in the Routing object on your Interaction request body are added “as is” to the task. For a list of known attributes consumed by the Flex UI and/or Flex Insights, see [Known Task Attributes](https://www.twilio.com/docs/flex/developer/conversations/interactions-api#task-attributes).
     :ivar url:
     :ivar links:
+    :ivar interaction_context_sid:
     """
 
     def __init__(
@@ -45,6 +44,9 @@ class InteractionInstance(InstanceResource):
         self.routing: Optional[Dict[str, object]] = payload.get("routing")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.interaction_context_sid: Optional[str] = payload.get(
+            "interaction_context_sid"
+        )
 
         self._solution = {
             "sid": sid or self.sid,
@@ -102,6 +104,7 @@ class InteractionInstance(InstanceResource):
 
 
 class InteractionContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the InteractionContext
@@ -180,6 +183,7 @@ class InteractionContext(InstanceContext):
 
 
 class InteractionList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the InteractionList
@@ -191,19 +195,27 @@ class InteractionList(ListResource):
 
         self._uri = "/Interactions"
 
-    def create(self, channel: object, routing: object) -> InteractionInstance:
+    def create(
+        self,
+        channel: object,
+        routing: object,
+        interaction_context_sid: Union[str, object] = values.unset,
+    ) -> InteractionInstance:
         """
         Create the InteractionInstance
 
         :param channel: The Interaction's channel.
         :param routing: The Interaction's routing logic.
+        :param interaction_context_sid: The Interaction context sid is used for adding a context lookup sid
 
         :returns: The created InteractionInstance
         """
+
         data = values.of(
             {
                 "Channel": serialize.object(channel),
                 "Routing": serialize.object(routing),
+                "InteractionContextSid": interaction_context_sid,
             }
         )
 
@@ -216,20 +228,26 @@ class InteractionList(ListResource):
         return InteractionInstance(self._version, payload)
 
     async def create_async(
-        self, channel: object, routing: object
+        self,
+        channel: object,
+        routing: object,
+        interaction_context_sid: Union[str, object] = values.unset,
     ) -> InteractionInstance:
         """
         Asynchronously create the InteractionInstance
 
         :param channel: The Interaction's channel.
         :param routing: The Interaction's routing logic.
+        :param interaction_context_sid: The Interaction context sid is used for adding a context lookup sid
 
         :returns: The created InteractionInstance
         """
+
         data = values.of(
             {
                 "Channel": serialize.object(channel),
                 "Routing": serialize.object(routing),
+                "InteractionContextSid": interaction_context_sid,
             }
         )
 

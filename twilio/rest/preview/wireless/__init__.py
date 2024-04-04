@@ -21,6 +21,7 @@ from twilio.rest.preview.wireless.sim import SimList
 
 
 class Wireless(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the Wireless version of Preview

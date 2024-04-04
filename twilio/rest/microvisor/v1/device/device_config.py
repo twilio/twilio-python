@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class DeviceConfigInstance(InstanceResource):
-
     """
     :ivar device_sid: A 34-character string that uniquely identifies the parent Device.
     :ivar key: The config key; up to 100 characters.
@@ -143,6 +141,7 @@ class DeviceConfigInstance(InstanceResource):
 
 
 class DeviceConfigContext(InstanceContext):
+
     def __init__(self, version: Version, device_sid: str, key: str):
         """
         Initialize the DeviceConfigContext
@@ -289,6 +288,7 @@ class DeviceConfigContext(InstanceContext):
 
 
 class DeviceConfigPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DeviceConfigInstance:
         """
         Build an instance of DeviceConfigInstance
@@ -309,6 +309,7 @@ class DeviceConfigPage(Page):
 
 
 class DeviceConfigList(ListResource):
+
     def __init__(self, version: Version, device_sid: str):
         """
         Initialize the DeviceConfigList
@@ -334,6 +335,7 @@ class DeviceConfigList(ListResource):
 
         :returns: The created DeviceConfigInstance
         """
+
         data = values.of(
             {
                 "Key": key,
@@ -360,6 +362,7 @@ class DeviceConfigList(ListResource):
 
         :returns: The created DeviceConfigInstance
         """
+
         data = values.of(
             {
                 "Key": key,

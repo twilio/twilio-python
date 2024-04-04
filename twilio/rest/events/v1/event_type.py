@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class EventTypeInstance(InstanceResource):
-
     """
     :ivar type: A string that uniquely identifies this Event Type.
     :ivar schema_id: A string that uniquely identifies the Schema this Event Type adheres to.
@@ -101,6 +99,7 @@ class EventTypeInstance(InstanceResource):
 
 
 class EventTypeContext(InstanceContext):
+
     def __init__(self, version: Version, type: str):
         """
         Initialize the EventTypeContext
@@ -165,6 +164,7 @@ class EventTypeContext(InstanceContext):
 
 
 class EventTypePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EventTypeInstance:
         """
         Build an instance of EventTypeInstance
@@ -183,6 +183,7 @@ class EventTypePage(Page):
 
 
 class EventTypeList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the EventTypeList

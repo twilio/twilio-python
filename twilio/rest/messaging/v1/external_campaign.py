@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
@@ -23,12 +22,11 @@ from twilio.base.version import Version
 
 
 class ExternalCampaignInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Campaign belongs to.
     :ivar campaign_id: ID of the preregistered campaign.
-    :ivar messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
+    :ivar messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     """
 
@@ -54,6 +52,7 @@ class ExternalCampaignInstance(InstanceResource):
 
 
 class ExternalCampaignList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ExternalCampaignList
@@ -72,10 +71,11 @@ class ExternalCampaignList(ListResource):
         Create the ExternalCampaignInstance
 
         :param campaign_id: ID of the preregistered campaign.
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
 
         :returns: The created ExternalCampaignInstance
         """
+
         data = values.of(
             {
                 "CampaignId": campaign_id,
@@ -98,10 +98,11 @@ class ExternalCampaignList(ListResource):
         Asynchronously create the ExternalCampaignInstance
 
         :param campaign_id: ID of the preregistered campaign.
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services/api) that the resource is associated with.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
 
         :returns: The created ExternalCampaignInstance
         """
+
         data = values.of(
             {
                 "CampaignId": campaign_id,

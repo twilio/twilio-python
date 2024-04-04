@@ -12,9 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class VoipInstance(InstanceResource):
-
     """
     :ivar friendly_name: A formatted version of the phone number.
     :ivar phone_number: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
@@ -79,6 +77,7 @@ class VoipInstance(InstanceResource):
 
 
 class VoipPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> VoipInstance:
         """
         Build an instance of VoipInstance
@@ -102,6 +101,7 @@ class VoipPage(Page):
 
 
 class VoipList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
         Initialize the VoipList
@@ -501,13 +501,19 @@ class VoipList(ListResource):
             {
                 "AreaCode": area_code,
                 "Contains": contains,
-                "SmsEnabled": sms_enabled,
-                "MmsEnabled": mms_enabled,
-                "VoiceEnabled": voice_enabled,
-                "ExcludeAllAddressRequired": exclude_all_address_required,
-                "ExcludeLocalAddressRequired": exclude_local_address_required,
-                "ExcludeForeignAddressRequired": exclude_foreign_address_required,
-                "Beta": beta,
+                "SmsEnabled": serialize.boolean_to_string(sms_enabled),
+                "MmsEnabled": serialize.boolean_to_string(mms_enabled),
+                "VoiceEnabled": serialize.boolean_to_string(voice_enabled),
+                "ExcludeAllAddressRequired": serialize.boolean_to_string(
+                    exclude_all_address_required
+                ),
+                "ExcludeLocalAddressRequired": serialize.boolean_to_string(
+                    exclude_local_address_required
+                ),
+                "ExcludeForeignAddressRequired": serialize.boolean_to_string(
+                    exclude_foreign_address_required
+                ),
+                "Beta": serialize.boolean_to_string(beta),
                 "NearNumber": near_number,
                 "NearLatLong": near_lat_long,
                 "Distance": distance,
@@ -516,7 +522,7 @@ class VoipList(ListResource):
                 "InRateCenter": in_rate_center,
                 "InLata": in_lata,
                 "InLocality": in_locality,
-                "FaxEnabled": fax_enabled,
+                "FaxEnabled": serialize.boolean_to_string(fax_enabled),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -582,13 +588,19 @@ class VoipList(ListResource):
             {
                 "AreaCode": area_code,
                 "Contains": contains,
-                "SmsEnabled": sms_enabled,
-                "MmsEnabled": mms_enabled,
-                "VoiceEnabled": voice_enabled,
-                "ExcludeAllAddressRequired": exclude_all_address_required,
-                "ExcludeLocalAddressRequired": exclude_local_address_required,
-                "ExcludeForeignAddressRequired": exclude_foreign_address_required,
-                "Beta": beta,
+                "SmsEnabled": serialize.boolean_to_string(sms_enabled),
+                "MmsEnabled": serialize.boolean_to_string(mms_enabled),
+                "VoiceEnabled": serialize.boolean_to_string(voice_enabled),
+                "ExcludeAllAddressRequired": serialize.boolean_to_string(
+                    exclude_all_address_required
+                ),
+                "ExcludeLocalAddressRequired": serialize.boolean_to_string(
+                    exclude_local_address_required
+                ),
+                "ExcludeForeignAddressRequired": serialize.boolean_to_string(
+                    exclude_foreign_address_required
+                ),
+                "Beta": serialize.boolean_to_string(beta),
                 "NearNumber": near_number,
                 "NearLatLong": near_lat_long,
                 "Distance": distance,
@@ -597,7 +609,7 @@ class VoipList(ListResource):
                 "InRateCenter": in_rate_center,
                 "InLata": in_lata,
                 "InLocality": in_locality,
-                "FaxEnabled": fax_enabled,
+                "FaxEnabled": serialize.boolean_to_string(fax_enabled),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

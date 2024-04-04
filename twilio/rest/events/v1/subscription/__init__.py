@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -25,7 +24,6 @@ from twilio.rest.events.v1.subscription.subscribed_event import SubscribedEventL
 
 
 class SubscriptionInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique SID identifier of the Account.
     :ivar sid: A 34 character string that uniquely identifies this Subscription.
@@ -165,6 +163,7 @@ class SubscriptionInstance(InstanceResource):
 
 
 class SubscriptionContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SubscriptionContext
@@ -323,6 +322,7 @@ class SubscriptionContext(InstanceContext):
 
 
 class SubscriptionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SubscriptionInstance:
         """
         Build an instance of SubscriptionInstance
@@ -341,6 +341,7 @@ class SubscriptionPage(Page):
 
 
 class SubscriptionList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SubscriptionList
@@ -364,6 +365,7 @@ class SubscriptionList(ListResource):
 
         :returns: The created SubscriptionInstance
         """
+
         data = values.of(
             {
                 "Description": description,
@@ -392,6 +394,7 @@ class SubscriptionList(ListResource):
 
         :returns: The created SubscriptionInstance
         """
+
         data = values.of(
             {
                 "Description": description,

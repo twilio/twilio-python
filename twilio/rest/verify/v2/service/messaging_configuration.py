@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,12 +23,11 @@ from twilio.base.page import Page
 
 
 class MessagingConfigurationInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
     :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) that the resource is associated with.
     :ivar country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
-    :ivar messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+    :ivar messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
     :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar url: The URL of this resource.
@@ -118,7 +116,7 @@ class MessagingConfigurationInstance(InstanceResource):
         """
         Update the MessagingConfigurationInstance
 
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
 
         :returns: The updated MessagingConfigurationInstance
         """
@@ -132,7 +130,7 @@ class MessagingConfigurationInstance(InstanceResource):
         """
         Asynchronous coroutine to update the MessagingConfigurationInstance
 
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
 
         :returns: The updated MessagingConfigurationInstance
         """
@@ -151,6 +149,7 @@ class MessagingConfigurationInstance(InstanceResource):
 
 
 class MessagingConfigurationContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, country: str):
         """
         Initialize the MessagingConfigurationContext
@@ -238,7 +237,7 @@ class MessagingConfigurationContext(InstanceContext):
         """
         Update the MessagingConfigurationInstance
 
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
 
         :returns: The updated MessagingConfigurationInstance
         """
@@ -267,7 +266,7 @@ class MessagingConfigurationContext(InstanceContext):
         """
         Asynchronous coroutine to update the MessagingConfigurationInstance
 
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
 
         :returns: The updated MessagingConfigurationInstance
         """
@@ -301,6 +300,7 @@ class MessagingConfigurationContext(InstanceContext):
 
 
 class MessagingConfigurationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MessagingConfigurationInstance:
         """
         Build an instance of MessagingConfigurationInstance
@@ -321,6 +321,7 @@ class MessagingConfigurationPage(Page):
 
 
 class MessagingConfigurationList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the MessagingConfigurationList
@@ -346,10 +347,11 @@ class MessagingConfigurationList(ListResource):
         Create the MessagingConfigurationInstance
 
         :param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
 
         :returns: The created MessagingConfigurationInstance
         """
+
         data = values.of(
             {
                 "Country": country,
@@ -374,10 +376,11 @@ class MessagingConfigurationList(ListResource):
         Asynchronously create the MessagingConfigurationInstance
 
         :param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) to be used to send SMS to the country of this configuration.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
 
         :returns: The created MessagingConfigurationInstance
         """
+
         data = values.of(
             {
                 "Country": country,

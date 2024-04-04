@@ -8,6 +8,7 @@ r"""
   https://openapi-generator.tech
   Do not edit the class manually.
 """
+
 from typing import TYPE_CHECKING, Optional
 
 from twilio.base.client_base import ClientBase
@@ -15,7 +16,6 @@ from twilio.base.client_base import ClientBase
 if TYPE_CHECKING:
     from twilio.rest.accounts import Accounts
     from twilio.rest.api import Api
-    from twilio.rest.autopilot import Autopilot
     from twilio.rest.bulkexports import Bulkexports
     from twilio.rest.chat import Chat
     from twilio.rest.content import Content
@@ -27,7 +27,7 @@ if TYPE_CHECKING:
     from twilio.rest.intelligence import Intelligence
     from twilio.rest.ip_messaging import IpMessaging
     from twilio.rest.lookups import Lookups
-    from twilio.rest.media import Media
+    from twilio.rest.preview_messaging import PreviewMessaging
     from twilio.rest.messaging import Messaging
     from twilio.rest.microvisor import Microvisor
     from twilio.rest.monitor import Monitor
@@ -124,7 +124,6 @@ class Client(ClientBase):
         # Domains
         self._accounts: Optional["Accounts"] = None
         self._api: Optional["Api"] = None
-        self._autopilot: Optional["Autopilot"] = None
         self._bulkexports: Optional["Bulkexports"] = None
         self._chat: Optional["Chat"] = None
         self._content: Optional["Content"] = None
@@ -136,7 +135,7 @@ class Client(ClientBase):
         self._intelligence: Optional["Intelligence"] = None
         self._ip_messaging: Optional["IpMessaging"] = None
         self._lookups: Optional["Lookups"] = None
-        self._media: Optional["Media"] = None
+        self._preview_messaging: Optional["PreviewMessaging"] = None
         self._messaging: Optional["Messaging"] = None
         self._microvisor: Optional["Microvisor"] = None
         self._monitor: Optional["Monitor"] = None
@@ -184,19 +183,6 @@ class Client(ClientBase):
 
             self._api = Api(self)
         return self._api
-
-    @property
-    def autopilot(self) -> "Autopilot":
-        """
-        Access the Autopilot Twilio Domain
-
-        :returns: Autopilot Twilio Domain
-        """
-        if self._autopilot is None:
-            from twilio.rest.autopilot import Autopilot
-
-            self._autopilot = Autopilot(self)
-        return self._autopilot
 
     @property
     def bulkexports(self) -> "Bulkexports":
@@ -342,17 +328,17 @@ class Client(ClientBase):
         return self._lookups
 
     @property
-    def media(self) -> "Media":
+    def preview_messaging(self) -> "PreviewMessaging":
         """
-        Access the Media Twilio Domain
+        Access the PreviewMessaging Twilio Domain
 
-        :returns: Media Twilio Domain
+        :returns: PreviewMessaging Twilio Domain
         """
-        if self._media is None:
-            from twilio.rest.media import Media
+        if self._preview_messaging is None:
+            from twilio.rest.preview_messaging import PreviewMessaging
 
-            self._media = Media(self)
-        return self._media
+            self._preview_messaging = PreviewMessaging(self)
+        return self._preview_messaging
 
     @property
     def messaging(self) -> "Messaging":

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,6 +22,7 @@ from twilio.base.version import Version
 
 
 class VerificationAttemptsSummaryInstance(InstanceResource):
+
     class Channels(object):
         SMS = "sms"
         CALL = "call"
@@ -85,10 +85,10 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         Fetch the VerificationAttemptsSummaryInstance
 
         :param verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
-        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
-        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS`, `CALL` and `WHATSAPP`
         :param destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
@@ -117,10 +117,10 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         Asynchronous coroutine to fetch the VerificationAttemptsSummaryInstance
 
         :param verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
-        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
-        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS`, `CALL` and `WHATSAPP`
         :param destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
@@ -145,6 +145,7 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
 
 
 class VerificationAttemptsSummaryContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the VerificationAttemptsSummaryContext
@@ -170,10 +171,10 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         Fetch the VerificationAttemptsSummaryInstance
 
         :param verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
-        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
-        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS`, `CALL` and `WHATSAPP`
         :param destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
@@ -212,10 +213,10 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         Asynchronous coroutine to fetch the VerificationAttemptsSummaryInstance
 
         :param verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
-        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
-        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in RFC 2822 format.
+        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS` and `CALL`
+        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS`, `CALL` and `WHATSAPP`
         :param destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
@@ -252,6 +253,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
 
 
 class VerificationAttemptsSummaryList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the VerificationAttemptsSummaryList

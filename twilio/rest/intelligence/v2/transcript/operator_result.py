@@ -12,9 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,6 +22,7 @@ from twilio.base.page import Page
 
 
 class OperatorResultInstance(InstanceResource):
+
     class OperatorType(object):
         CONVERSATION_CLASSIFY = "conversation_classify"
         UTTERANCE_CLASSIFY = "utterance_classify"
@@ -43,6 +43,7 @@ class OperatorResultInstance(InstanceResource):
     :ivar predicted_probability: Percentage of 'matching' class needed to consider a sentence matches.
     :ivar label_probabilities: The labels probabilities. This might be available on conversation classify model outputs.
     :ivar extract_results: List of text extraction results. This might be available on classify-extract model outputs.
+    :ivar text_generation_results: Output of a text generation operator for example Conversation Sumamary.
     :ivar transcript_sid: A 34 character string that uniquely identifies this Transcript.
     :ivar url: The URL of this resource.
     """
@@ -56,9 +57,9 @@ class OperatorResultInstance(InstanceResource):
     ):
         super().__init__(version)
 
-        self.operator_type: Optional[
-            "OperatorResultInstance.OperatorType"
-        ] = payload.get("operator_type")
+        self.operator_type: Optional["OperatorResultInstance.OperatorType"] = (
+            payload.get("operator_type")
+        )
         self.name: Optional[str] = payload.get("name")
         self.operator_sid: Optional[str] = payload.get("operator_sid")
         self.extract_match: Optional[bool] = payload.get("extract_match")
@@ -66,7 +67,7 @@ class OperatorResultInstance(InstanceResource):
             payload.get("match_probability")
         )
         self.normalized_result: Optional[str] = payload.get("normalized_result")
-        self.utterance_results: Optional[List[object]] = payload.get(
+        self.utterance_results: Optional[List[Dict[str, object]]] = payload.get(
             "utterance_results"
         )
         self.utterance_match: Optional[bool] = payload.get("utterance_match")
@@ -79,6 +80,9 @@ class OperatorResultInstance(InstanceResource):
         )
         self.extract_results: Optional[Dict[str, object]] = payload.get(
             "extract_results"
+        )
+        self.text_generation_results: Optional[Dict[str, object]] = payload.get(
+            "text_generation_results"
         )
         self.transcript_sid: Optional[str] = payload.get("transcript_sid")
         self.url: Optional[str] = payload.get("url")
@@ -111,7 +115,7 @@ class OperatorResultInstance(InstanceResource):
         """
         Fetch the OperatorResultInstance
 
-        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
 
         :returns: The fetched OperatorResultInstance
         """
@@ -125,7 +129,7 @@ class OperatorResultInstance(InstanceResource):
         """
         Asynchronous coroutine to fetch the OperatorResultInstance
 
-        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
 
         :returns: The fetched OperatorResultInstance
         """
@@ -144,6 +148,7 @@ class OperatorResultInstance(InstanceResource):
 
 
 class OperatorResultContext(InstanceContext):
+
     def __init__(self, version: Version, transcript_sid: str, operator_sid: str):
         """
         Initialize the OperatorResultContext
@@ -171,14 +176,14 @@ class OperatorResultContext(InstanceContext):
         """
         Fetch the OperatorResultInstance
 
-        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
 
         :returns: The fetched OperatorResultInstance
         """
 
         data = values.of(
             {
-                "Redacted": redacted,
+                "Redacted": serialize.boolean_to_string(redacted),
             }
         )
 
@@ -197,14 +202,14 @@ class OperatorResultContext(InstanceContext):
         """
         Asynchronous coroutine to fetch the OperatorResultInstance
 
-        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
 
         :returns: The fetched OperatorResultInstance
         """
 
         data = values.of(
             {
-                "Redacted": redacted,
+                "Redacted": serialize.boolean_to_string(redacted),
             }
         )
 
@@ -230,6 +235,7 @@ class OperatorResultContext(InstanceContext):
 
 
 class OperatorResultPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> OperatorResultInstance:
         """
         Build an instance of OperatorResultInstance
@@ -250,6 +256,7 @@ class OperatorResultPage(Page):
 
 
 class OperatorResultList(ListResource):
+
     def __init__(self, version: Version, transcript_sid: str):
         """
         Initialize the OperatorResultList
@@ -280,7 +287,7 @@ class OperatorResultList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param bool redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param bool redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -307,7 +314,7 @@ class OperatorResultList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param bool redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param bool redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -333,7 +340,7 @@ class OperatorResultList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param bool redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param bool redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -362,7 +369,7 @@ class OperatorResultList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param bool redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param bool redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -392,7 +399,7 @@ class OperatorResultList(ListResource):
         Retrieve a single page of OperatorResultInstance records from the API.
         Request is executed immediately
 
-        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -401,7 +408,7 @@ class OperatorResultList(ListResource):
         """
         data = values.of(
             {
-                "Redacted": redacted,
+                "Redacted": serialize.boolean_to_string(redacted),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -422,7 +429,7 @@ class OperatorResultList(ListResource):
         Asynchronously retrieve a single page of OperatorResultInstance records from the API.
         Request is executed immediately
 
-        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. The default is True.
+        :param redacted: Grant access to PII redacted/unredacted Language Understanding operator. If redaction is enabled, the default is True.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -431,7 +438,7 @@ class OperatorResultList(ListResource):
         """
         data = values.of(
             {
-                "Redacted": redacted,
+                "Redacted": serialize.boolean_to_string(redacted),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

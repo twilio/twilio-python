@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class UsageRecordInstance(InstanceResource):
+
     class Granularity(object):
         HOURLY = "hourly"
         DAILY = "daily"
@@ -32,8 +32,8 @@ class UsageRecordInstance(InstanceResource):
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the AccountUsageRecord resource.
     :ivar period: The time period for which usage is reported. Contains `start` and `end` properties that describe the period using GMT date-time values specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-    :ivar commands: An object that describes the aggregated Commands usage for all SIMs during the specified period. See [Commands Usage Object](https://www.twilio.com/docs/wireless/api/account-usagerecord-resource#commands-usage-object).
-    :ivar data: An object that describes the aggregated Data usage for all SIMs over the period. See [Data Usage Object](https://www.twilio.com/docs/wireless/api/account-usagerecord-resource#data-usage-object).
+    :ivar commands: An object that describes the aggregated Commands usage for all SIMs during the specified period. See [Commands Usage Object](https://www.twilio.com/docs/iot/wireless/api/account-usagerecord-resource#commands-usage-object).
+    :ivar data: An object that describes the aggregated Data usage for all SIMs over the period. See [Data Usage Object](https://www.twilio.com/docs/iot/wireless/api/account-usagerecord-resource#data-usage-object).
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any]):
@@ -55,6 +55,7 @@ class UsageRecordInstance(InstanceResource):
 
 
 class UsageRecordPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> UsageRecordInstance:
         """
         Build an instance of UsageRecordInstance
@@ -73,6 +74,7 @@ class UsageRecordPage(Page):
 
 
 class UsageRecordList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the UsageRecordList

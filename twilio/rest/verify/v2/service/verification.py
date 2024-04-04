@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,12 +22,17 @@ from twilio.base.version import Version
 
 
 class VerificationInstance(InstanceResource):
+
     class Channel(object):
         SMS = "sms"
         CALL = "call"
         EMAIL = "email"
         WHATSAPP = "whatsapp"
         SNA = "sna"
+
+    class RiskCheck(object):
+        ENABLE = "enable"
+        DISABLE = "disable"
 
     class Status(object):
         CANCELED = "canceled"
@@ -71,7 +75,7 @@ class VerificationInstance(InstanceResource):
         self.lookup: Optional[Dict[str, object]] = payload.get("lookup")
         self.amount: Optional[str] = payload.get("amount")
         self.payee: Optional[str] = payload.get("payee")
-        self.send_code_attempts: Optional[List[object]] = payload.get(
+        self.send_code_attempts: Optional[List[Dict[str, object]]] = payload.get(
             "send_code_attempts"
         )
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
@@ -160,6 +164,7 @@ class VerificationInstance(InstanceResource):
 
 
 class VerificationContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the VerificationContext
@@ -286,6 +291,7 @@ class VerificationContext(InstanceContext):
 
 
 class VerificationList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the VerificationList
@@ -319,6 +325,8 @@ class VerificationList(ListResource):
         template_sid: Union[str, object] = values.unset,
         template_custom_substitutions: Union[str, object] = values.unset,
         device_ip: Union[str, object] = values.unset,
+        risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
+        tags: Union[str, object] = values.unset,
     ) -> VerificationInstance:
         """
         Create the VerificationInstance
@@ -338,9 +346,12 @@ class VerificationList(ListResource):
         :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
         :param template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
         :param device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
+        :param risk_check:
+        :param tags: A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
 
         :returns: The created VerificationInstance
         """
+
         data = values.of(
             {
                 "To": to,
@@ -358,6 +369,8 @@ class VerificationList(ListResource):
                 "TemplateSid": template_sid,
                 "TemplateCustomSubstitutions": template_custom_substitutions,
                 "DeviceIp": device_ip,
+                "RiskCheck": risk_check,
+                "Tags": tags,
             }
         )
 
@@ -388,6 +401,8 @@ class VerificationList(ListResource):
         template_sid: Union[str, object] = values.unset,
         template_custom_substitutions: Union[str, object] = values.unset,
         device_ip: Union[str, object] = values.unset,
+        risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
+        tags: Union[str, object] = values.unset,
     ) -> VerificationInstance:
         """
         Asynchronously create the VerificationInstance
@@ -407,9 +422,12 @@ class VerificationList(ListResource):
         :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
         :param template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
         :param device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
+        :param risk_check:
+        :param tags: A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
 
         :returns: The created VerificationInstance
         """
+
         data = values.of(
             {
                 "To": to,
@@ -427,6 +445,8 @@ class VerificationList(ListResource):
                 "TemplateSid": template_sid,
                 "TemplateCustomSubstitutions": template_custom_substitutions,
                 "DeviceIp": device_ip,
+                "RiskCheck": risk_check,
+                "Tags": tags,
             }
         )
 

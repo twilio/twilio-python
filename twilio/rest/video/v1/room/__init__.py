@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -27,6 +26,7 @@ from twilio.rest.video.v1.room.room_recording import RoomRecordingList
 
 
 class RoomInstance(InstanceResource):
+
     class RoomStatus(object):
         IN_PROGRESS = "in-progress"
         COMPLETED = "completed"
@@ -60,7 +60,7 @@ class RoomInstance(InstanceResource):
     :ivar max_concurrent_published_tracks: The maximum number of published audio, video, and data tracks all participants combined are allowed to publish in the room at the same time. Check [Programmable Video Limits](https://www.twilio.com/docs/video/programmable-video-limits) for more details. If it is set to 0 it means unconstrained.
     :ivar record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
     :ivar video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
-    :ivar media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#media-servers). ***This feature is not available in `peer-to-peer` rooms.***
+    :ivar media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#media-servers). ***This feature is not available in `peer-to-peer` rooms.***
     :ivar audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
     :ivar empty_room_timeout: Specifies how long (in minutes) a room will remain active after last participant leaves. Can be configured when creating a room via REST API. For Ad-Hoc rooms this value cannot be changed.
     :ivar unused_room_timeout: Specifies how long (in minutes) a room will remain active if no one joins. Can be configured when creating a room via REST API. For Ad-Hoc rooms this value cannot be changed.
@@ -215,6 +215,7 @@ class RoomInstance(InstanceResource):
 
 
 class RoomContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the RoomContext
@@ -363,6 +364,7 @@ class RoomContext(InstanceContext):
 
 
 class RoomPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> RoomInstance:
         """
         Build an instance of RoomInstance
@@ -381,6 +383,7 @@ class RoomPage(Page):
 
 
 class RoomList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the RoomList
@@ -421,7 +424,7 @@ class RoomList(ListResource):
         :param max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
         :param record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
         :param video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
-        :param media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
+        :param media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
         :param recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
         :param audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
         :param max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
@@ -431,23 +434,26 @@ class RoomList(ListResource):
 
         :returns: The created RoomInstance
         """
+
         data = values.of(
             {
-                "EnableTurn": enable_turn,
+                "EnableTurn": serialize.boolean_to_string(enable_turn),
                 "Type": type,
                 "UniqueName": unique_name,
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
                 "MaxParticipants": max_participants,
-                "RecordParticipantsOnConnect": record_participants_on_connect,
+                "RecordParticipantsOnConnect": serialize.boolean_to_string(
+                    record_participants_on_connect
+                ),
                 "VideoCodecs": serialize.map(video_codecs, lambda e: e),
                 "MediaRegion": media_region,
                 "RecordingRules": serialize.object(recording_rules),
-                "AudioOnly": audio_only,
+                "AudioOnly": serialize.boolean_to_string(audio_only),
                 "MaxParticipantDuration": max_participant_duration,
                 "EmptyRoomTimeout": empty_room_timeout,
                 "UnusedRoomTimeout": unused_room_timeout,
-                "LargeRoom": large_room,
+                "LargeRoom": serialize.boolean_to_string(large_room),
             }
         )
 
@@ -488,7 +494,7 @@ class RoomList(ListResource):
         :param max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
         :param record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
         :param video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
-        :param media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
+        :param media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
         :param recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
         :param audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
         :param max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
@@ -498,23 +504,26 @@ class RoomList(ListResource):
 
         :returns: The created RoomInstance
         """
+
         data = values.of(
             {
-                "EnableTurn": enable_turn,
+                "EnableTurn": serialize.boolean_to_string(enable_turn),
                 "Type": type,
                 "UniqueName": unique_name,
                 "StatusCallback": status_callback,
                 "StatusCallbackMethod": status_callback_method,
                 "MaxParticipants": max_participants,
-                "RecordParticipantsOnConnect": record_participants_on_connect,
+                "RecordParticipantsOnConnect": serialize.boolean_to_string(
+                    record_participants_on_connect
+                ),
                 "VideoCodecs": serialize.map(video_codecs, lambda e: e),
                 "MediaRegion": media_region,
                 "RecordingRules": serialize.object(recording_rules),
-                "AudioOnly": audio_only,
+                "AudioOnly": serialize.boolean_to_string(audio_only),
                 "MaxParticipantDuration": max_participant_duration,
                 "EmptyRoomTimeout": empty_room_timeout,
                 "UnusedRoomTimeout": unused_room_timeout,
-                "LargeRoom": large_room,
+                "LargeRoom": serialize.boolean_to_string(large_room),
             }
         )
 

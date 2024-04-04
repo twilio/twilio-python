@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,6 +22,7 @@ from twilio.base.version import Version
 
 
 class PaymentInstance(InstanceResource):
+
     class BankAccountType(object):
         CONSUMER_CHECKING = "consumer-checking"
         CONSUMER_SAVINGS = "consumer-savings"
@@ -47,6 +47,7 @@ class PaymentInstance(InstanceResource):
     class TokenType(object):
         ONE_TIME = "one-time"
         REUSABLE = "reusable"
+        PAYMENT_METHOD = "payment-method"
 
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource.
@@ -161,6 +162,7 @@ class PaymentInstance(InstanceResource):
 
 
 class PaymentContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
         """
         Initialize the PaymentContext
@@ -275,6 +277,7 @@ class PaymentContext(InstanceContext):
 
 
 class PaymentList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the PaymentList
@@ -338,6 +341,7 @@ class PaymentList(ListResource):
 
         :returns: The created PaymentInstance
         """
+
         data = values.of(
             {
                 "IdempotencyKey": idempotency_key,
@@ -351,8 +355,8 @@ class PaymentList(ListResource):
                 "Parameter": serialize.object(parameter),
                 "PaymentConnector": payment_connector,
                 "PaymentMethod": payment_method,
-                "PostalCode": postal_code,
-                "SecurityCode": security_code,
+                "PostalCode": serialize.boolean_to_string(postal_code),
+                "SecurityCode": serialize.boolean_to_string(security_code),
                 "Timeout": timeout,
                 "TokenType": token_type,
                 "ValidCardTypes": valid_card_types,
@@ -415,6 +419,7 @@ class PaymentList(ListResource):
 
         :returns: The created PaymentInstance
         """
+
         data = values.of(
             {
                 "IdempotencyKey": idempotency_key,
@@ -428,8 +433,8 @@ class PaymentList(ListResource):
                 "Parameter": serialize.object(parameter),
                 "PaymentConnector": payment_connector,
                 "PaymentMethod": payment_method,
-                "PostalCode": postal_code,
-                "SecurityCode": security_code,
+                "PostalCode": serialize.boolean_to_string(postal_code),
+                "SecurityCode": serialize.boolean_to_string(security_code),
                 "Timeout": timeout,
                 "TokenType": token_type,
                 "ValidCardTypes": valid_card_types,

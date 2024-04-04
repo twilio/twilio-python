@@ -23,7 +23,7 @@ it can be.
 
 If you have questions about how to use `twilio-python`, please see our
 [docs](./README.md), and if you don't find the answer there, please contact
-[help@twilio.com](mailto:help@twilio.com) with any issues you have.
+[Twilio Support](https://www.twilio.com/help/contact) with any issues you have.
 
 ## <a name="issue"></a> Found an Issue?
 

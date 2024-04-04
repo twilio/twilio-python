@@ -12,10 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -26,7 +25,6 @@ from twilio.rest.microvisor.v1.device.device_secret import DeviceSecretList
 
 
 class DeviceInstance(InstanceResource):
-
     """
     :ivar sid: A 34-character string that uniquely identifies this Device.
     :ivar unique_name: A developer-defined string that uniquely identifies the Device. This value must be unique for all Devices on this Account. The `unique_name` value may be used as an alternative to the `sid` in the URL path to address the resource.
@@ -101,6 +99,7 @@ class DeviceInstance(InstanceResource):
         unique_name: Union[str, object] = values.unset,
         target_app: Union[str, object] = values.unset,
         logging_enabled: Union[bool, object] = values.unset,
+        restart_app: Union[bool, object] = values.unset,
     ) -> "DeviceInstance":
         """
         Update the DeviceInstance
@@ -108,6 +107,7 @@ class DeviceInstance(InstanceResource):
         :param unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
         :param target_app: The SID or unique name of the App to be targeted to the Device.
         :param logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
+        :param restart_app: Set to true to restart the App running on the Device.
 
         :returns: The updated DeviceInstance
         """
@@ -115,6 +115,7 @@ class DeviceInstance(InstanceResource):
             unique_name=unique_name,
             target_app=target_app,
             logging_enabled=logging_enabled,
+            restart_app=restart_app,
         )
 
     async def update_async(
@@ -122,6 +123,7 @@ class DeviceInstance(InstanceResource):
         unique_name: Union[str, object] = values.unset,
         target_app: Union[str, object] = values.unset,
         logging_enabled: Union[bool, object] = values.unset,
+        restart_app: Union[bool, object] = values.unset,
     ) -> "DeviceInstance":
         """
         Asynchronous coroutine to update the DeviceInstance
@@ -129,6 +131,7 @@ class DeviceInstance(InstanceResource):
         :param unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
         :param target_app: The SID or unique name of the App to be targeted to the Device.
         :param logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
+        :param restart_app: Set to true to restart the App running on the Device.
 
         :returns: The updated DeviceInstance
         """
@@ -136,6 +139,7 @@ class DeviceInstance(InstanceResource):
             unique_name=unique_name,
             target_app=target_app,
             logging_enabled=logging_enabled,
+            restart_app=restart_app,
         )
 
     @property
@@ -163,6 +167,7 @@ class DeviceInstance(InstanceResource):
 
 
 class DeviceContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the DeviceContext
@@ -224,6 +229,7 @@ class DeviceContext(InstanceContext):
         unique_name: Union[str, object] = values.unset,
         target_app: Union[str, object] = values.unset,
         logging_enabled: Union[bool, object] = values.unset,
+        restart_app: Union[bool, object] = values.unset,
     ) -> DeviceInstance:
         """
         Update the DeviceInstance
@@ -231,6 +237,7 @@ class DeviceContext(InstanceContext):
         :param unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
         :param target_app: The SID or unique name of the App to be targeted to the Device.
         :param logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
+        :param restart_app: Set to true to restart the App running on the Device.
 
         :returns: The updated DeviceInstance
         """
@@ -238,7 +245,8 @@ class DeviceContext(InstanceContext):
             {
                 "UniqueName": unique_name,
                 "TargetApp": target_app,
-                "LoggingEnabled": logging_enabled,
+                "LoggingEnabled": serialize.boolean_to_string(logging_enabled),
+                "RestartApp": serialize.boolean_to_string(restart_app),
             }
         )
 
@@ -255,6 +263,7 @@ class DeviceContext(InstanceContext):
         unique_name: Union[str, object] = values.unset,
         target_app: Union[str, object] = values.unset,
         logging_enabled: Union[bool, object] = values.unset,
+        restart_app: Union[bool, object] = values.unset,
     ) -> DeviceInstance:
         """
         Asynchronous coroutine to update the DeviceInstance
@@ -262,6 +271,7 @@ class DeviceContext(InstanceContext):
         :param unique_name: A unique and addressable name to be assigned to this Device by the developer. It may be used in place of the Device SID.
         :param target_app: The SID or unique name of the App to be targeted to the Device.
         :param logging_enabled: A Boolean flag specifying whether to enable application logging. Logs will be enabled or extended for 24 hours.
+        :param restart_app: Set to true to restart the App running on the Device.
 
         :returns: The updated DeviceInstance
         """
@@ -269,7 +279,8 @@ class DeviceContext(InstanceContext):
             {
                 "UniqueName": unique_name,
                 "TargetApp": target_app,
-                "LoggingEnabled": logging_enabled,
+                "LoggingEnabled": serialize.boolean_to_string(logging_enabled),
+                "RestartApp": serialize.boolean_to_string(restart_app),
             }
         )
 
@@ -316,6 +327,7 @@ class DeviceContext(InstanceContext):
 
 
 class DevicePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DeviceInstance:
         """
         Build an instance of DeviceInstance
@@ -334,6 +346,7 @@ class DevicePage(Page):
 
 
 class DeviceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the DeviceList

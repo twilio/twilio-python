@@ -12,10 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,6 +22,7 @@ from twilio.base.page import Page
 
 
 class AuthorizedConnectAppInstance(InstanceResource):
+
     class Permission(object):
         GET_ALL = "get-all"
         POST_ALL = "post-all"
@@ -35,8 +34,6 @@ class AuthorizedConnectAppInstance(InstanceResource):
     :ivar connect_app_friendly_name: The name of the Connect App.
     :ivar connect_app_homepage_url: The public URL for the Connect App.
     :ivar connect_app_sid: The SID that we assigned to the Connect App.
-    :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-    :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar permissions: The set of permissions that you authorized for the Connect App.  Can be: `get-all` or `post-all`.
     :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
     """
@@ -64,15 +61,9 @@ class AuthorizedConnectAppInstance(InstanceResource):
             "connect_app_homepage_url"
         )
         self.connect_app_sid: Optional[str] = payload.get("connect_app_sid")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_created")
+        self.permissions: Optional[List["AuthorizedConnectAppInstance.Permission"]] = (
+            payload.get("permissions")
         )
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_updated")
-        )
-        self.permissions: Optional[
-            List["AuthorizedConnectAppInstance.Permission"]
-        ] = payload.get("permissions")
         self.uri: Optional[str] = payload.get("uri")
 
         self._solution = {
@@ -126,6 +117,7 @@ class AuthorizedConnectAppInstance(InstanceResource):
 
 
 class AuthorizedConnectAppContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, connect_app_sid: str):
         """
         Initialize the AuthorizedConnectAppContext
@@ -196,6 +188,7 @@ class AuthorizedConnectAppContext(InstanceContext):
 
 
 class AuthorizedConnectAppPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AuthorizedConnectAppInstance:
         """
         Build an instance of AuthorizedConnectAppInstance
@@ -216,6 +209,7 @@ class AuthorizedConnectAppPage(Page):
 
 
 class AuthorizedConnectAppList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the AuthorizedConnectAppList

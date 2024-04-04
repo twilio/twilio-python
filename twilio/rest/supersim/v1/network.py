@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class NetworkInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Network resource.
     :ivar friendly_name: A human readable identifier of this resource.
@@ -41,7 +39,7 @@ class NetworkInstance(InstanceResource):
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.url: Optional[str] = payload.get("url")
         self.iso_country: Optional[str] = payload.get("iso_country")
-        self.identifiers: Optional[List[object]] = payload.get("identifiers")
+        self.identifiers: Optional[List[Dict[str, object]]] = payload.get("identifiers")
 
         self._solution = {
             "sid": sid or self.sid,
@@ -92,6 +90,7 @@ class NetworkInstance(InstanceResource):
 
 
 class NetworkContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the NetworkContext
@@ -156,6 +155,7 @@ class NetworkContext(InstanceContext):
 
 
 class NetworkPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> NetworkInstance:
         """
         Build an instance of NetworkInstance
@@ -174,6 +174,7 @@ class NetworkPage(Page):
 
 
 class NetworkList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the NetworkList

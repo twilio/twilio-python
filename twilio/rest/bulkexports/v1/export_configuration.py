@@ -12,9 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional, Union
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class ExportConfigurationInstance(InstanceResource):
-
     """
     :ivar enabled: If true, Twilio will automatically generate every day's file when the day is over.
     :ivar webhook_url: Stores the URL destination for the method specified in webhook_method.
@@ -136,6 +134,7 @@ class ExportConfigurationInstance(InstanceResource):
 
 
 class ExportConfigurationContext(InstanceContext):
+
     def __init__(self, version: Version, resource_type: str):
         """
         Initialize the ExportConfigurationContext
@@ -206,7 +205,7 @@ class ExportConfigurationContext(InstanceContext):
         """
         data = values.of(
             {
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "WebhookUrl": webhook_url,
                 "WebhookMethod": webhook_method,
             }
@@ -239,7 +238,7 @@ class ExportConfigurationContext(InstanceContext):
         """
         data = values.of(
             {
-                "Enabled": enabled,
+                "Enabled": serialize.boolean_to_string(enabled),
                 "WebhookUrl": webhook_url,
                 "WebhookMethod": webhook_method,
             }
@@ -266,6 +265,7 @@ class ExportConfigurationContext(InstanceContext):
 
 
 class ExportConfigurationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ExportConfigurationList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,6 +22,7 @@ from twilio.base.version import Version
 
 
 class SiprecInstance(InstanceResource):
+
     class Status(object):
         IN_PROGRESS = "in-progress"
         STOPPED = "stopped"
@@ -126,6 +126,7 @@ class SiprecInstance(InstanceResource):
 
 
 class SiprecContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
         """
         Initialize the SiprecContext
@@ -216,6 +217,7 @@ class SiprecContext(InstanceContext):
 
 
 class SiprecList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the SiprecList
@@ -651,6 +653,7 @@ class SiprecList(ListResource):
 
         :returns: The created SiprecInstance
         """
+
         data = values.of(
             {
                 "Name": name,
@@ -1287,6 +1290,7 @@ class SiprecList(ListResource):
 
         :returns: The created SiprecInstance
         """
+
         data = values.of(
             {
                 "Name": name,

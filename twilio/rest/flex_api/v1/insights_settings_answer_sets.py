@@ -12,8 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Union
+from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -21,7 +21,6 @@ from twilio.base.version import Version
 
 
 class InsightsSettingsAnswerSetsInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
     :ivar answer_sets: The lis of answer sets
@@ -52,6 +51,7 @@ class InsightsSettingsAnswerSetsInstance(InstanceResource):
 
 
 class InsightsSettingsAnswerSetsList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the InsightsSettingsAnswerSetsList
@@ -63,23 +63,43 @@ class InsightsSettingsAnswerSetsList(ListResource):
 
         self._uri = "/Insights/QualityManagement/Settings/AnswerSets"
 
-    def fetch(self) -> InsightsSettingsAnswerSetsInstance:
+    def fetch(
+        self, authorization: Union[str, object] = values.unset
+    ) -> InsightsSettingsAnswerSetsInstance:
         """
         Asynchronously fetch the InsightsSettingsAnswerSetsInstance
 
+        :param authorization: The Authorization HTTP request header
         :returns: The fetched InsightsSettingsAnswerSetsInstance
         """
-        payload = self._version.fetch(method="GET", uri=self._uri)
+        headers = values.of(
+            {
+                "Authorization": authorization,
+            }
+        )
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return InsightsSettingsAnswerSetsInstance(self._version, payload)
 
-    async def fetch_async(self) -> InsightsSettingsAnswerSetsInstance:
+    async def fetch_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> InsightsSettingsAnswerSetsInstance:
         """
         Asynchronously fetch the InsightsSettingsAnswerSetsInstance
 
+        :param authorization: The Authorization HTTP request header
         :returns: The fetched InsightsSettingsAnswerSetsInstance
         """
-        payload = await self._version.fetch_async(method="GET", uri=self._uri)
+        headers = values.of(
+            {
+                "Authorization": authorization,
+            }
+        )
+
+        payload = await self._version.fetch_async(
+            method="GET", uri=self._uri, headers=headers
+        )
 
         return InsightsSettingsAnswerSetsInstance(self._version, payload)
 

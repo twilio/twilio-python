@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class TrustProductsChannelEndpointAssignmentInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Item Assignment resource.
     :ivar trust_product_sid: The unique string that we created to identify the CustomerProfile resource.
@@ -125,6 +123,7 @@ class TrustProductsChannelEndpointAssignmentInstance(InstanceResource):
 
 
 class TrustProductsChannelEndpointAssignmentContext(InstanceContext):
+
     def __init__(self, version: Version, trust_product_sid: str, sid: str):
         """
         Initialize the TrustProductsChannelEndpointAssignmentContext
@@ -221,6 +220,7 @@ class TrustProductsChannelEndpointAssignmentContext(InstanceContext):
 
 
 class TrustProductsChannelEndpointAssignmentPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> TrustProductsChannelEndpointAssignmentInstance:
@@ -245,6 +245,7 @@ class TrustProductsChannelEndpointAssignmentPage(Page):
 
 
 class TrustProductsChannelEndpointAssignmentList(ListResource):
+
     def __init__(self, version: Version, trust_product_sid: str):
         """
         Initialize the TrustProductsChannelEndpointAssignmentList
@@ -276,6 +277,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
 
         :returns: The created TrustProductsChannelEndpointAssignmentInstance
         """
+
         data = values.of(
             {
                 "ChannelEndpointType": channel_endpoint_type,
@@ -306,6 +308,7 @@ class TrustProductsChannelEndpointAssignmentList(ListResource):
 
         :returns: The created TrustProductsChannelEndpointAssignmentInstance
         """
+
         data = values.of(
             {
                 "ChannelEndpointType": channel_endpoint_type,

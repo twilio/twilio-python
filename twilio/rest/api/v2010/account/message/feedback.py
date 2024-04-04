@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,16 +22,17 @@ from twilio.base.version import Version
 
 
 class FeedbackInstance(InstanceResource):
+
     class Outcome(object):
         CONFIRMED = "confirmed"
         UNCONFIRMED = "unconfirmed"
 
     """
-    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the MessageFeedback resource.
-    :ivar message_sid: The SID of the Message resource for which the feedback was provided.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with this MessageFeedback resource.
+    :ivar message_sid: The SID of the Message resource associated with this MessageFeedback resource.
     :ivar outcome: 
-    :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-    :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_created: The date and time in GMT when this MessageFeedback resource was created, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar date_updated: The date and time in GMT when this MessageFeedback resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
     """
 
@@ -72,13 +72,14 @@ class FeedbackInstance(InstanceResource):
 
 
 class FeedbackList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, message_sid: str):
         """
         Initialize the FeedbackList
 
         :param version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-        :param message_sid: The SID of the Message resource for which the feedback was provided.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with the Message resource for which to create MessageFeedback.
+        :param message_sid: The SID of the Message resource for which to create MessageFeedback.
 
         """
         super().__init__(version)
@@ -104,6 +105,7 @@ class FeedbackList(ListResource):
 
         :returns: The created FeedbackInstance
         """
+
         data = values.of(
             {
                 "Outcome": outcome,
@@ -133,6 +135,7 @@ class FeedbackList(ListResource):
 
         :returns: The created FeedbackInstance
         """
+
         data = values.of(
             {
                 "Outcome": outcome,

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class ParticipantInstance(InstanceResource):
+
     class Codec(object):
         VP8 = "VP8"
         H264 = "H264"
@@ -66,13 +66,13 @@ class ParticipantInstance(InstanceResource):
     :ivar room_sid: Unique identifier for the room.
     :ivar status: 
     :ivar codecs: Codecs detected from the participant. Can be `VP8`, `H264`, or `VP9`.
-    :ivar end_reason: Reason the participant left the room. See [the list of possible values here](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#end_reason).
+    :ivar end_reason: Reason the participant left the room. See [the list of possible values here](https://www.twilio.com/docs/video/troubleshooting/video-log-analyzer-api#end_reason).
     :ivar error_code: Errors encountered by the participant.
     :ivar error_code_url: Twilio error code dictionary link.
     :ivar media_region: 
-    :ivar properties: Object containing information about the participant's data from the room. See [below](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#properties) for more information.
+    :ivar properties: Object containing information about the participant's data from the room. See [below](https://www.twilio.com/docs/video/troubleshooting/video-log-analyzer-api#properties) for more information.
     :ivar edge_location: 
-    :ivar publisher_info: Object containing information about the SDK name and version. See [below](https://www.twilio.com/docs/video/video-log-analyzer/video-log-analyzer-api#publisher_info) for more information.
+    :ivar publisher_info: Object containing information about the SDK name and version. See [below](https://www.twilio.com/docs/video/troubleshooting/video-log-analyzer-api#publisher_info) for more information.
     :ivar url: URL of the participant resource.
     """
 
@@ -162,6 +162,7 @@ class ParticipantInstance(InstanceResource):
 
 
 class ParticipantContext(InstanceContext):
+
     def __init__(self, version: Version, room_sid: str, participant_sid: str):
         """
         Initialize the ParticipantContext
@@ -232,6 +233,7 @@ class ParticipantContext(InstanceContext):
 
 
 class ParticipantPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ParticipantInstance:
         """
         Build an instance of ParticipantInstance
@@ -252,6 +254,7 @@ class ParticipantPage(Page):
 
 
 class ParticipantList(ListResource):
+
     def __init__(self, version: Version, room_sid: str):
         """
         Initialize the ParticipantList

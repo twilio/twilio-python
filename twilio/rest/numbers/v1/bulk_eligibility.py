@@ -12,10 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
-from typing import Any, Dict, List, Optional
-from twilio.base import deserialize
+from typing import Any, Dict, List, Optional, Union
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class BulkEligibilityInstance(InstanceResource):
-
     """
     :ivar request_id: The SID of the bulk eligibility check that you want to know about.
     :ivar url: This is the url of the request that you're trying to reach out to locate the resource.
@@ -44,7 +42,7 @@ class BulkEligibilityInstance(InstanceResource):
 
         self.request_id: Optional[str] = payload.get("request_id")
         self.url: Optional[str] = payload.get("url")
-        self.results: Optional[List[object]] = payload.get("results")
+        self.results: Optional[List[Dict[str, object]]] = payload.get("results")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.status: Optional[str] = payload.get("status")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
@@ -103,6 +101,7 @@ class BulkEligibilityInstance(InstanceResource):
 
 
 class BulkEligibilityContext(InstanceContext):
+
     def __init__(self, version: Version, request_id: str):
         """
         Initialize the BulkEligibilityContext
@@ -169,6 +168,7 @@ class BulkEligibilityContext(InstanceContext):
 
 
 class BulkEligibilityList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the BulkEligibilityList
@@ -177,6 +177,48 @@ class BulkEligibilityList(ListResource):
 
         """
         super().__init__(version)
+
+        self._uri = "/HostedNumber/Eligibility/Bulk"
+
+    def create(
+        self, body: Union[object, object] = values.unset
+    ) -> BulkEligibilityInstance:
+        """
+        Create the BulkEligibilityInstance
+
+        :param body:
+
+        :returns: The created BulkEligibilityInstance
+        """
+        data = body.to_dict()
+
+        headers = {"Content-Type": "application/json"}
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return BulkEligibilityInstance(self._version, payload)
+
+    async def create_async(
+        self, body: Union[object, object] = values.unset
+    ) -> BulkEligibilityInstance:
+        """
+        Asynchronously create the BulkEligibilityInstance
+
+        :param body:
+
+        :returns: The created BulkEligibilityInstance
+        """
+        data = body.to_dict()
+
+        headers = {"Content-Type": "application/json"}
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return BulkEligibilityInstance(self._version, payload)
 
     def get(self, request_id: str) -> BulkEligibilityContext:
         """

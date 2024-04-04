@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -27,7 +26,6 @@ from twilio.rest.serverless.v1.service.environment.variable import VariableList
 
 
 class EnvironmentInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Environment resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Environment resource.
@@ -157,6 +155,7 @@ class EnvironmentInstance(InstanceResource):
 
 
 class EnvironmentContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the EnvironmentContext
@@ -294,6 +293,7 @@ class EnvironmentContext(InstanceContext):
 
 
 class EnvironmentPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EnvironmentInstance:
         """
         Build an instance of EnvironmentInstance
@@ -314,6 +314,7 @@ class EnvironmentPage(Page):
 
 
 class EnvironmentList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the EnvironmentList
@@ -341,6 +342,7 @@ class EnvironmentList(ListResource):
 
         :returns: The created EnvironmentInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -369,6 +371,7 @@ class EnvironmentList(ListResource):
 
         :returns: The created EnvironmentInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -21,7 +20,6 @@ from twilio.base.version import Version
 
 
 class JobInstance(InstanceResource):
-
     """
     :ivar resource_type: The type of communication – Messages, Calls, Conferences, and Participants
     :ivar friendly_name: The friendly name specified when creating the job
@@ -124,6 +122,7 @@ class JobInstance(InstanceResource):
 
 
 class JobContext(InstanceContext):
+
     def __init__(self, version: Version, job_sid: str):
         """
         Initialize the JobContext
@@ -212,6 +211,7 @@ class JobContext(InstanceContext):
 
 
 class JobList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the JobList

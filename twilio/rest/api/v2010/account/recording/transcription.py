@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class TranscriptionInstance(InstanceResource):
+
     class Status(object):
         IN_PROGRESS = "in-progress"
         COMPLETED = "completed"
@@ -144,6 +144,7 @@ class TranscriptionInstance(InstanceResource):
 
 
 class TranscriptionContext(InstanceContext):
+
     def __init__(
         self, version: Version, account_sid: str, recording_sid: str, sid: str
     ):
@@ -244,6 +245,7 @@ class TranscriptionContext(InstanceContext):
 
 
 class TranscriptionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TranscriptionInstance:
         """
         Build an instance of TranscriptionInstance
@@ -267,6 +269,7 @@ class TranscriptionPage(Page):
 
 
 class TranscriptionList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, recording_sid: str):
         """
         Initialize the TranscriptionList

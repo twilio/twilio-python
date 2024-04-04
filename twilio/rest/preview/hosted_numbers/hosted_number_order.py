@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class HostedNumberOrderInstance(InstanceResource):
+
     class Status(object):
         RECEIVED = "received"
         PENDING_VERIFICATION = "pending-verification"
@@ -42,9 +42,9 @@ class HostedNumberOrderInstance(InstanceResource):
     """
     :ivar sid: A 34 character string that uniquely identifies this HostedNumberOrder.
     :ivar account_sid: A 34 character string that uniquely identifies the account.
-    :ivar incoming_phone_number_sid: A 34 character string that uniquely identifies the [IncomingPhoneNumber](https://www.twilio.com/docs/api/rest/incoming-phone-numbers) resource that represents the phone number being hosted.
+    :ivar incoming_phone_number_sid: A 34 character string that uniquely identifies the [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the phone number being hosted.
     :ivar address_sid: A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
-    :ivar signing_document_sid: A 34 character string that uniquely identifies the [Authorization Document](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents) the user needs to sign.
+    :ivar signing_document_sid: A 34 character string that uniquely identifies the [Authorization Document](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource) the user needs to sign.
     :ivar phone_number: Phone number to be hosted. This must be in [E.164](https://en.wikipedia.org/wiki/E.164) format, e.g., +16175551212
     :ivar capabilities: 
     :ivar friendly_name: A 64 character string that is a human-readable text that describes this resource.
@@ -267,12 +267,13 @@ class HostedNumberOrderInstance(InstanceResource):
 
 
 class HostedNumberOrderContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the HostedNumberOrderContext
 
         :param version: Version that contains the resource
-        :param sid:
+        :param sid: A 34 character string that uniquely identifies this HostedNumberOrder.
         """
         super().__init__(version)
 
@@ -469,6 +470,7 @@ class HostedNumberOrderContext(InstanceContext):
 
 
 class HostedNumberOrderPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> HostedNumberOrderInstance:
         """
         Build an instance of HostedNumberOrderInstance
@@ -487,6 +489,7 @@ class HostedNumberOrderPage(Page):
 
 
 class HostedNumberOrderList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the HostedNumberOrderList
@@ -543,10 +546,11 @@ class HostedNumberOrderList(ListResource):
 
         :returns: The created HostedNumberOrderInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
-                "SmsCapability": sms_capability,
+                "SmsCapability": serialize.boolean_to_string(sms_capability),
                 "AccountSid": account_sid,
                 "FriendlyName": friendly_name,
                 "UniqueName": unique_name,
@@ -618,10 +622,11 @@ class HostedNumberOrderList(ListResource):
 
         :returns: The created HostedNumberOrderInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
-                "SmsCapability": sms_capability,
+                "SmsCapability": serialize.boolean_to_string(sms_capability),
                 "AccountSid": account_sid,
                 "FriendlyName": friendly_name,
                 "UniqueName": unique_name,
@@ -929,7 +934,7 @@ class HostedNumberOrderList(ListResource):
         """
         Constructs a HostedNumberOrderContext
 
-        :param sid:
+        :param sid: A 34 character string that uniquely identifies this HostedNumberOrder.
         """
         return HostedNumberOrderContext(self._version, sid=sid)
 
@@ -937,7 +942,7 @@ class HostedNumberOrderList(ListResource):
         """
         Constructs a HostedNumberOrderContext
 
-        :param sid:
+        :param sid: A 34 character string that uniquely identifies this HostedNumberOrder.
         """
         return HostedNumberOrderContext(self._version, sid=sid)
 

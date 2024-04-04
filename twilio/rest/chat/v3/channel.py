@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,6 +22,7 @@ from twilio.base.version import Version
 
 
 class ChannelInstance(InstanceResource):
+
     class ChannelType(object):
         PUBLIC = "public"
         PRIVATE = "private"
@@ -44,7 +44,7 @@ class ChannelInstance(InstanceResource):
     :ivar created_by: The `identity` of the User that created the channel. If the Channel was created by using the API, the value is `system`.
     :ivar members_count: The number of Members in the Channel.
     :ivar messages_count: The number of Messages that have been passed in the Channel.
-    :ivar messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
+    :ivar messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
     :ivar url: The absolute URL of the Channel resource.
     """
 
@@ -115,7 +115,7 @@ class ChannelInstance(InstanceResource):
 
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param type:
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
 
         :returns: The updated ChannelInstance
         """
@@ -138,7 +138,7 @@ class ChannelInstance(InstanceResource):
 
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param type:
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
 
         :returns: The updated ChannelInstance
         """
@@ -159,6 +159,7 @@ class ChannelInstance(InstanceResource):
 
 
 class ChannelContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the ChannelContext
@@ -189,7 +190,7 @@ class ChannelContext(InstanceContext):
 
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param type:
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
 
         :returns: The updated ChannelInstance
         """
@@ -229,7 +230,7 @@ class ChannelContext(InstanceContext):
 
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param type:
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/sms/services/api) this channel belongs to.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
 
         :returns: The updated ChannelInstance
         """
@@ -267,6 +268,7 @@ class ChannelContext(InstanceContext):
 
 
 class ChannelList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ChannelList

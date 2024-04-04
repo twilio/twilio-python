@@ -40,10 +40,20 @@ from twilio.rest.flex_api.v1.insights_settings_comment import (
 )
 from twilio.rest.flex_api.v1.insights_user_roles import InsightsUserRolesList
 from twilio.rest.flex_api.v1.interaction import InteractionList
+from twilio.rest.flex_api.v1.plugin import PluginList
+from twilio.rest.flex_api.v1.plugin_archive import PluginArchiveList
+from twilio.rest.flex_api.v1.plugin_configuration import PluginConfigurationList
+from twilio.rest.flex_api.v1.plugin_configuration_archive import (
+    PluginConfigurationArchiveList,
+)
+from twilio.rest.flex_api.v1.plugin_release import PluginReleaseList
+from twilio.rest.flex_api.v1.plugin_version_archive import PluginVersionArchiveList
+from twilio.rest.flex_api.v1.provisioning_status import ProvisioningStatusList
 from twilio.rest.flex_api.v1.web_channel import WebChannelList
 
 
 class V1(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of FlexApi
@@ -55,9 +65,9 @@ class V1(Version):
         self._channel: Optional[ChannelList] = None
         self._configuration: Optional[ConfigurationList] = None
         self._flex_flow: Optional[FlexFlowList] = None
-        self._insights_assessments_comment: Optional[
-            InsightsAssessmentsCommentList
-        ] = None
+        self._insights_assessments_comment: Optional[InsightsAssessmentsCommentList] = (
+            None
+        )
         self._insights_conversations: Optional[InsightsConversationsList] = None
         self._insights_questionnaires: Optional[InsightsQuestionnairesList] = None
         self._insights_questionnaires_category: Optional[
@@ -74,6 +84,15 @@ class V1(Version):
         self._insights_settings_comment: Optional[InsightsSettingsCommentList] = None
         self._insights_user_roles: Optional[InsightsUserRolesList] = None
         self._interaction: Optional[InteractionList] = None
+        self._plugins: Optional[PluginList] = None
+        self._plugin_archive: Optional[PluginArchiveList] = None
+        self._plugin_configurations: Optional[PluginConfigurationList] = None
+        self._plugin_configuration_archive: Optional[PluginConfigurationArchiveList] = (
+            None
+        )
+        self._plugin_releases: Optional[PluginReleaseList] = None
+        self._plugin_version_archive: Optional[PluginVersionArchiveList] = None
+        self._provisioning_status: Optional[ProvisioningStatusList] = None
         self._web_channel: Optional[WebChannelList] = None
 
     @property
@@ -169,6 +188,48 @@ class V1(Version):
         if self._interaction is None:
             self._interaction = InteractionList(self)
         return self._interaction
+
+    @property
+    def plugins(self) -> PluginList:
+        if self._plugins is None:
+            self._plugins = PluginList(self)
+        return self._plugins
+
+    @property
+    def plugin_archive(self) -> PluginArchiveList:
+        if self._plugin_archive is None:
+            self._plugin_archive = PluginArchiveList(self)
+        return self._plugin_archive
+
+    @property
+    def plugin_configurations(self) -> PluginConfigurationList:
+        if self._plugin_configurations is None:
+            self._plugin_configurations = PluginConfigurationList(self)
+        return self._plugin_configurations
+
+    @property
+    def plugin_configuration_archive(self) -> PluginConfigurationArchiveList:
+        if self._plugin_configuration_archive is None:
+            self._plugin_configuration_archive = PluginConfigurationArchiveList(self)
+        return self._plugin_configuration_archive
+
+    @property
+    def plugin_releases(self) -> PluginReleaseList:
+        if self._plugin_releases is None:
+            self._plugin_releases = PluginReleaseList(self)
+        return self._plugin_releases
+
+    @property
+    def plugin_version_archive(self) -> PluginVersionArchiveList:
+        if self._plugin_version_archive is None:
+            self._plugin_version_archive = PluginVersionArchiveList(self)
+        return self._plugin_version_archive
+
+    @property
+    def provisioning_status(self) -> ProvisioningStatusList:
+        if self._provisioning_status is None:
+            self._provisioning_status = ProvisioningStatusList(self)
+        return self._provisioning_status
 
     @property
     def web_channel(self) -> WebChannelList:

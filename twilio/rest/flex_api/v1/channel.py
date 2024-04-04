@@ -12,10 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class ChannelInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Channel resource and owns this Workflow.
     :ivar flex_flow_sid: The SID of the Flex Flow.
@@ -121,6 +119,7 @@ class ChannelInstance(InstanceResource):
 
 
 class ChannelContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ChannelContext
@@ -209,6 +208,7 @@ class ChannelContext(InstanceContext):
 
 
 class ChannelPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ChannelInstance:
         """
         Build an instance of ChannelInstance
@@ -227,6 +227,7 @@ class ChannelPage(Page):
 
 
 class ChannelList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ChannelList
@@ -267,6 +268,7 @@ class ChannelList(ListResource):
 
         :returns: The created ChannelInstance
         """
+
         data = values.of(
             {
                 "FlexFlowSid": flex_flow_sid,
@@ -278,7 +280,7 @@ class ChannelList(ListResource):
                 "PreEngagementData": pre_engagement_data,
                 "TaskSid": task_sid,
                 "TaskAttributes": task_attributes,
-                "LongLived": long_lived,
+                "LongLived": serialize.boolean_to_string(long_lived),
             }
         )
 
@@ -319,6 +321,7 @@ class ChannelList(ListResource):
 
         :returns: The created ChannelInstance
         """
+
         data = values.of(
             {
                 "FlexFlowSid": flex_flow_sid,
@@ -330,7 +333,7 @@ class ChannelList(ListResource):
                 "PreEngagementData": pre_engagement_data,
                 "TaskSid": task_sid,
                 "TaskAttributes": task_attributes,
-                "LongLived": long_lived,
+                "LongLived": serialize.boolean_to_string(long_lived),
             }
         )
 
