@@ -168,6 +168,7 @@ class MessageList(ListResource):
         data = create_messages_request.to_dict()
 
         headers = {"Content-Type": "application/json"}
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -184,8 +185,8 @@ class MessageList(ListResource):
 
         :returns: The created MessageInstance
         """
-
         data = create_messages_request.to_dict()
+
         headers = {"Content-Type": "application/json"}
 
         payload = await self._version.create_async(

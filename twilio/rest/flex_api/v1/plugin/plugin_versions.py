@@ -251,6 +251,8 @@ class PluginVersionsList(ListResource):
         flex_metadata: Union[str, object] = values.unset,
         changelog: Union[str, object] = values.unset,
         private: Union[bool, object] = values.unset,
+        cli_version: Union[str, object] = values.unset,
+        validate_status: Union[str, object] = values.unset,
     ) -> PluginVersionsInstance:
         """
         Create the PluginVersionsInstance
@@ -260,6 +262,8 @@ class PluginVersionsList(ListResource):
         :param flex_metadata: The Flex-Metadata HTTP request header
         :param changelog: The changelog of the Flex Plugin Version.
         :param private: Whether this Flex Plugin Version requires authorization.
+        :param cli_version: The version of Flex Plugins CLI used to create this plugin
+        :param validate_status: The validation status of the plugin, indicating whether it has been validated
 
         :returns: The created PluginVersionsInstance
         """
@@ -270,6 +274,8 @@ class PluginVersionsList(ListResource):
                 "PluginUrl": plugin_url,
                 "Changelog": changelog,
                 "Private": serialize.boolean_to_string(private),
+                "CliVersion": cli_version,
+                "ValidateStatus": validate_status,
             }
         )
         headers = values.of(
@@ -293,6 +299,8 @@ class PluginVersionsList(ListResource):
         flex_metadata: Union[str, object] = values.unset,
         changelog: Union[str, object] = values.unset,
         private: Union[bool, object] = values.unset,
+        cli_version: Union[str, object] = values.unset,
+        validate_status: Union[str, object] = values.unset,
     ) -> PluginVersionsInstance:
         """
         Asynchronously create the PluginVersionsInstance
@@ -302,6 +310,8 @@ class PluginVersionsList(ListResource):
         :param flex_metadata: The Flex-Metadata HTTP request header
         :param changelog: The changelog of the Flex Plugin Version.
         :param private: Whether this Flex Plugin Version requires authorization.
+        :param cli_version: The version of Flex Plugins CLI used to create this plugin
+        :param validate_status: The validation status of the plugin, indicating whether it has been validated
 
         :returns: The created PluginVersionsInstance
         """
@@ -312,6 +322,8 @@ class PluginVersionsList(ListResource):
                 "PluginUrl": plugin_url,
                 "Changelog": changelog,
                 "Private": serialize.boolean_to_string(private),
+                "CliVersion": cli_version,
+                "ValidateStatus": validate_status,
             }
         )
         headers = values.of(

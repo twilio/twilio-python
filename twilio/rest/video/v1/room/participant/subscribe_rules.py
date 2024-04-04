@@ -132,6 +132,7 @@ class SubscribeRulesList(ListResource):
 
         :returns: The created SubscribeRulesInstance
         """
+
         data = values.of(
             {
                 "Rules": serialize.object(rules),
@@ -161,6 +162,7 @@ class SubscribeRulesList(ListResource):
 
         :returns: The created SubscribeRulesInstance
         """
+
         data = values.of(
             {
                 "Rules": serialize.object(rules),

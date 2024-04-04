@@ -68,6 +68,7 @@ class PortingPortInList(ListResource):
         data = body.to_dict()
 
         headers = {"Content-Type": "application/json"}
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -84,8 +85,8 @@ class PortingPortInList(ListResource):
 
         :returns: The created PortingPortInInstance
         """
-
         data = body.to_dict()
+
         headers = {"Content-Type": "application/json"}
 
         payload = await self._version.create_async(

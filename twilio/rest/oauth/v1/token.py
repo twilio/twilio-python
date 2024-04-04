@@ -12,9 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
 from typing import Any, Dict, Optional, Union
-from twilio.base import deserialize, values
+from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -37,9 +36,7 @@ class TokenInstance(InstanceResource):
         self.refresh_token: Optional[str] = payload.get("refresh_token")
         self.id_token: Optional[str] = payload.get("id_token")
         self.token_type: Optional[str] = payload.get("token_type")
-        self.expires_in: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("expires_in")
-        )
+        self.expires_in: Optional[int] = payload.get("expires_in")
 
     def __repr__(self) -> str:
         """
@@ -68,10 +65,12 @@ class TokenList(ListResource):
         self,
         grant_type: str,
         client_id: str,
-        client_secret: str,
+        client_secret: Union[str, object] = values.unset,
         code: Union[str, object] = values.unset,
         redirect_uri: Union[str, object] = values.unset,
         audience: Union[str, object] = values.unset,
+        refresh_token: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
     ) -> TokenInstance:
         """
         Create the TokenInstance
@@ -82,6 +81,8 @@ class TokenList(ListResource):
         :param code: JWT token related to the authorization code grant type.
         :param redirect_uri: The redirect uri
         :param audience: The targeted audience uri
+        :param refresh_token: JWT token related to refresh access token.
+        :param scope: The scope of token
 
         :returns: The created TokenInstance
         """
@@ -94,6 +95,8 @@ class TokenList(ListResource):
                 "Code": code,
                 "RedirectUri": redirect_uri,
                 "Audience": audience,
+                "RefreshToken": refresh_token,
+                "Scope": scope,
             }
         )
 
@@ -109,10 +112,12 @@ class TokenList(ListResource):
         self,
         grant_type: str,
         client_id: str,
-        client_secret: str,
+        client_secret: Union[str, object] = values.unset,
         code: Union[str, object] = values.unset,
         redirect_uri: Union[str, object] = values.unset,
         audience: Union[str, object] = values.unset,
+        refresh_token: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
     ) -> TokenInstance:
         """
         Asynchronously create the TokenInstance
@@ -123,6 +128,8 @@ class TokenList(ListResource):
         :param code: JWT token related to the authorization code grant type.
         :param redirect_uri: The redirect uri
         :param audience: The targeted audience uri
+        :param refresh_token: JWT token related to refresh access token.
+        :param scope: The scope of token
 
         :returns: The created TokenInstance
         """
@@ -135,6 +142,8 @@ class TokenList(ListResource):
                 "Code": code,
                 "RedirectUri": redirect_uri,
                 "Audience": audience,
+                "RefreshToken": refresh_token,
+                "Scope": scope,
             }
         )
 
