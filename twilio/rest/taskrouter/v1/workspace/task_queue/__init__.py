@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -21,6 +20,9 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+from twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_bulk_real_time_statistics import (
+    TaskQueueBulkRealTimeStatisticsList,
+)
 from twilio.rest.taskrouter.v1.workspace.task_queue.task_queue_cumulative_statistics import (
     TaskQueueCumulativeStatisticsList,
 )
@@ -36,6 +38,7 @@ from twilio.rest.taskrouter.v1.workspace.task_queue.task_queues_statistics impor
 
 
 class TaskQueueInstance(InstanceResource):
+
     class TaskOrder(object):
         FIFO = "FIFO"
         LIFO = "LIFO"
@@ -249,6 +252,7 @@ class TaskQueueInstance(InstanceResource):
 
 
 class TaskQueueContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the TaskQueueContext
@@ -476,6 +480,7 @@ class TaskQueueContext(InstanceContext):
 
 
 class TaskQueuePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TaskQueueInstance:
         """
         Build an instance of TaskQueueInstance
@@ -496,6 +501,7 @@ class TaskQueuePage(Page):
 
 
 class TaskQueueList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskQueueList
@@ -512,6 +518,9 @@ class TaskQueueList(ListResource):
         }
         self._uri = "/Workspaces/{workspace_sid}/TaskQueues".format(**self._solution)
 
+        self._bulk_real_time_statistics: Optional[
+            TaskQueueBulkRealTimeStatisticsList
+        ] = None
         self._statistics: Optional[TaskQueuesStatisticsList] = None
 
     def create(
@@ -535,6 +544,7 @@ class TaskQueueList(ListResource):
 
         :returns: The created TaskQueueInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -577,6 +587,7 @@ class TaskQueueList(ListResource):
 
         :returns: The created TaskQueueInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -856,6 +867,17 @@ class TaskQueueList(ListResource):
         """
         response = await self._version.domain.twilio.request_async("GET", target_url)
         return TaskQueuePage(self._version, response, self._solution)
+
+    @property
+    def bulk_real_time_statistics(self) -> TaskQueueBulkRealTimeStatisticsList:
+        """
+        Access the bulk_real_time_statistics
+        """
+        if self._bulk_real_time_statistics is None:
+            self._bulk_real_time_statistics = TaskQueueBulkRealTimeStatisticsList(
+                self._version, workspace_sid=self._solution["workspace_sid"]
+            )
+        return self._bulk_real_time_statistics
 
     @property
     def statistics(self) -> TaskQueuesStatisticsList:

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -27,7 +26,6 @@ from twilio.rest.voice.v1.connection_policy.connection_policy_target import (
 
 
 class ConnectionPolicyInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Connection Policy resource.
     :ivar sid: The unique string that we created to identify the Connection Policy resource.
@@ -157,6 +155,7 @@ class ConnectionPolicyInstance(InstanceResource):
 
 
 class ConnectionPolicyContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ConnectionPolicyContext
@@ -311,6 +310,7 @@ class ConnectionPolicyContext(InstanceContext):
 
 
 class ConnectionPolicyPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ConnectionPolicyInstance:
         """
         Build an instance of ConnectionPolicyInstance
@@ -329,6 +329,7 @@ class ConnectionPolicyPage(Page):
 
 
 class ConnectionPolicyList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ConnectionPolicyList
@@ -350,6 +351,7 @@ class ConnectionPolicyList(ListResource):
 
         :returns: The created ConnectionPolicyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -374,6 +376,7 @@ class ConnectionPolicyList(ListResource):
 
         :returns: The created ConnectionPolicyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

@@ -12,9 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional, Union
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -27,7 +26,6 @@ from twilio.rest.conversations.v1.service.configuration.webhook import WebhookLi
 
 
 class ConfigurationInstance(InstanceResource):
-
     """
     :ivar chat_service_sid: The unique string that we created to identify the Service configuration resource.
     :ivar default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
@@ -154,6 +152,7 @@ class ConfigurationInstance(InstanceResource):
 
 
 class ConfigurationContext(InstanceContext):
+
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the ConfigurationContext
@@ -231,7 +230,9 @@ class ConfigurationContext(InstanceContext):
                 "DefaultConversationCreatorRoleSid": default_conversation_creator_role_sid,
                 "DefaultConversationRoleSid": default_conversation_role_sid,
                 "DefaultChatServiceRoleSid": default_chat_service_role_sid,
-                "ReachabilityEnabled": reachability_enabled,
+                "ReachabilityEnabled": serialize.boolean_to_string(
+                    reachability_enabled
+                ),
             }
         )
 
@@ -267,7 +268,9 @@ class ConfigurationContext(InstanceContext):
                 "DefaultConversationCreatorRoleSid": default_conversation_creator_role_sid,
                 "DefaultConversationRoleSid": default_conversation_role_sid,
                 "DefaultChatServiceRoleSid": default_chat_service_role_sid,
-                "ReachabilityEnabled": reachability_enabled,
+                "ReachabilityEnabled": serialize.boolean_to_string(
+                    reachability_enabled
+                ),
             }
         )
 
@@ -292,6 +295,7 @@ class ConfigurationContext(InstanceContext):
 
 
 class ConfigurationList(ListResource):
+
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the ConfigurationList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class TokenInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Token resource.
     :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
@@ -64,6 +62,7 @@ class TokenInstance(InstanceResource):
 
 
 class TokenList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the TokenList
@@ -88,6 +87,7 @@ class TokenList(ListResource):
 
         :returns: The created TokenInstance
         """
+
         data = values.of(
             {
                 "Ttl": ttl,
@@ -114,6 +114,7 @@ class TokenList(ListResource):
 
         :returns: The created TokenInstance
         """
+
         data = values.of(
             {
                 "Ttl": ttl,

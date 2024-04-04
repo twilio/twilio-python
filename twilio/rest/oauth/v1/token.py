@@ -12,10 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import datetime
 from typing import Any, Dict, Optional, Union
-from twilio.base import deserialize, values
+from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,13 +21,12 @@ from twilio.base.version import Version
 
 
 class TokenInstance(InstanceResource):
-
     """
     :ivar access_token: Token which carries the necessary information to access a Twilio resource directly.
     :ivar refresh_token: Token which carries the information necessary to get a new access token.
-    :ivar id_token:
-    :ivar refresh_token_expires_at: The date and time in GMT when the refresh token expires in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-    :ivar access_token_expires_at: The date and time in GMT when the refresh token expires in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar id_token: Token which carries the information necessary of user profile.
+    :ivar token_type: Token type
+    :ivar expires_in:
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any]):
@@ -38,12 +35,8 @@ class TokenInstance(InstanceResource):
         self.access_token: Optional[str] = payload.get("access_token")
         self.refresh_token: Optional[str] = payload.get("refresh_token")
         self.id_token: Optional[str] = payload.get("id_token")
-        self.refresh_token_expires_at: Optional[
-            datetime
-        ] = deserialize.iso8601_datetime(payload.get("refresh_token_expires_at"))
-        self.access_token_expires_at: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("access_token_expires_at")
-        )
+        self.token_type: Optional[str] = payload.get("token_type")
+        self.expires_in: Optional[int] = payload.get("expires_in")
 
     def __repr__(self) -> str:
         """
@@ -56,6 +49,7 @@ class TokenInstance(InstanceResource):
 
 
 class TokenList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the TokenList
@@ -70,38 +64,39 @@ class TokenList(ListResource):
     def create(
         self,
         grant_type: str,
-        client_sid: str,
+        client_id: str,
         client_secret: Union[str, object] = values.unset,
         code: Union[str, object] = values.unset,
-        code_verifier: Union[str, object] = values.unset,
-        device_code: Union[str, object] = values.unset,
+        redirect_uri: Union[str, object] = values.unset,
+        audience: Union[str, object] = values.unset,
         refresh_token: Union[str, object] = values.unset,
-        device_id: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
     ) -> TokenInstance:
         """
         Create the TokenInstance
 
         :param grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
-        :param client_sid: A 34 character string that uniquely identifies this OAuth App.
+        :param client_id: A 34 character string that uniquely identifies this OAuth App.
         :param client_secret: The credential for confidential OAuth App.
         :param code: JWT token related to the authorization code grant type.
-        :param code_verifier: A code which is generation cryptographically.
-        :param device_code: JWT token related to the device code grant type.
-        :param refresh_token: JWT token related to the refresh token grant type.
-        :param device_id: The Id of the device associated with the token (refresh token).
+        :param redirect_uri: The redirect uri
+        :param audience: The targeted audience uri
+        :param refresh_token: JWT token related to refresh access token.
+        :param scope: The scope of token
 
         :returns: The created TokenInstance
         """
+
         data = values.of(
             {
                 "GrantType": grant_type,
-                "ClientSid": client_sid,
+                "ClientId": client_id,
                 "ClientSecret": client_secret,
                 "Code": code,
-                "CodeVerifier": code_verifier,
-                "DeviceCode": device_code,
+                "RedirectUri": redirect_uri,
+                "Audience": audience,
                 "RefreshToken": refresh_token,
-                "DeviceId": device_id,
+                "Scope": scope,
             }
         )
 
@@ -116,38 +111,39 @@ class TokenList(ListResource):
     async def create_async(
         self,
         grant_type: str,
-        client_sid: str,
+        client_id: str,
         client_secret: Union[str, object] = values.unset,
         code: Union[str, object] = values.unset,
-        code_verifier: Union[str, object] = values.unset,
-        device_code: Union[str, object] = values.unset,
+        redirect_uri: Union[str, object] = values.unset,
+        audience: Union[str, object] = values.unset,
         refresh_token: Union[str, object] = values.unset,
-        device_id: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
     ) -> TokenInstance:
         """
         Asynchronously create the TokenInstance
 
         :param grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
-        :param client_sid: A 34 character string that uniquely identifies this OAuth App.
+        :param client_id: A 34 character string that uniquely identifies this OAuth App.
         :param client_secret: The credential for confidential OAuth App.
         :param code: JWT token related to the authorization code grant type.
-        :param code_verifier: A code which is generation cryptographically.
-        :param device_code: JWT token related to the device code grant type.
-        :param refresh_token: JWT token related to the refresh token grant type.
-        :param device_id: The Id of the device associated with the token (refresh token).
+        :param redirect_uri: The redirect uri
+        :param audience: The targeted audience uri
+        :param refresh_token: JWT token related to refresh access token.
+        :param scope: The scope of token
 
         :returns: The created TokenInstance
         """
+
         data = values.of(
             {
                 "GrantType": grant_type,
-                "ClientSid": client_sid,
+                "ClientId": client_id,
                 "ClientSecret": client_secret,
                 "Code": code,
-                "CodeVerifier": code_verifier,
-                "DeviceCode": device_code,
+                "RedirectUri": redirect_uri,
+                "Audience": audience,
                 "RefreshToken": refresh_token,
-                "DeviceId": device_id,
+                "Scope": scope,
             }
         )
 

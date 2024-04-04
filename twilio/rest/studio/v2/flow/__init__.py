@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -27,6 +26,7 @@ from twilio.rest.studio.v2.flow.flow_test_user import FlowTestUserList
 
 
 class FlowInstance(InstanceResource):
+
     class Status(object):
         DRAFT = "draft"
         PUBLISHED = "published"
@@ -62,8 +62,8 @@ class FlowInstance(InstanceResource):
         self.revision: Optional[int] = deserialize.integer(payload.get("revision"))
         self.commit_message: Optional[str] = payload.get("commit_message")
         self.valid: Optional[bool] = payload.get("valid")
-        self.errors: Optional[List[object]] = payload.get("errors")
-        self.warnings: Optional[List[object]] = payload.get("warnings")
+        self.errors: Optional[List[Dict[str, object]]] = payload.get("errors")
+        self.warnings: Optional[List[Dict[str, object]]] = payload.get("warnings")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
@@ -210,6 +210,7 @@ class FlowInstance(InstanceResource):
 
 
 class FlowContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FlowContext
@@ -406,6 +407,7 @@ class FlowContext(InstanceContext):
 
 
 class FlowPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> FlowInstance:
         """
         Build an instance of FlowInstance
@@ -424,6 +426,7 @@ class FlowPage(Page):
 
 
 class FlowList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the FlowList
@@ -452,6 +455,7 @@ class FlowList(ListResource):
 
         :returns: The created FlowInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -486,6 +490,7 @@ class FlowList(ListResource):
 
         :returns: The created FlowInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

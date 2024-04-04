@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class CredentialInstance(InstanceResource):
-
     """
     :ivar sid: A 34 character string that uniquely identifies this resource.
     :ivar account_sid: The unique id of the Account that is responsible for this resource.
@@ -156,6 +154,7 @@ class CredentialInstance(InstanceResource):
 
 
 class CredentialContext(InstanceContext):
+
     def __init__(
         self, version: Version, account_sid: str, credential_list_sid: str, sid: str
     ):
@@ -314,6 +313,7 @@ class CredentialContext(InstanceContext):
 
 
 class CredentialPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CredentialInstance:
         """
         Build an instance of CredentialInstance
@@ -337,6 +337,7 @@ class CredentialPage(Page):
 
 
 class CredentialList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, credential_list_sid: str):
         """
         Initialize the CredentialList
@@ -366,6 +367,7 @@ class CredentialList(ListResource):
 
         :returns: The created CredentialInstance
         """
+
         data = values.of(
             {
                 "Username": username,
@@ -395,6 +397,7 @@ class CredentialList(ListResource):
 
         :returns: The created CredentialInstance
         """
+
         data = values.of(
             {
                 "Username": username,

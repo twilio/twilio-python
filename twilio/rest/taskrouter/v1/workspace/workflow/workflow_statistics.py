@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class WorkflowStatisticsInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workflow resource.
     :ivar cumulative: An object that contains the cumulative statistics for the Workflow.
@@ -136,6 +134,7 @@ class WorkflowStatisticsInstance(InstanceResource):
 
 
 class WorkflowStatisticsContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
         """
         Initialize the WorkflowStatisticsContext
@@ -248,6 +247,7 @@ class WorkflowStatisticsContext(InstanceContext):
 
 
 class WorkflowStatisticsList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
         """
         Initialize the WorkflowStatisticsList

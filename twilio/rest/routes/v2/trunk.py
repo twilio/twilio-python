@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class TrunkInstance(InstanceResource):
-
     """
     :ivar sip_trunk_domain: The absolute URL of the SIP Trunk
     :ivar url: The absolute URL of the resource.
@@ -141,6 +139,7 @@ class TrunkInstance(InstanceResource):
 
 
 class TrunkContext(InstanceContext):
+
     def __init__(self, version: Version, sip_trunk_domain: str):
         """
         Initialize the TrunkContext
@@ -265,6 +264,7 @@ class TrunkContext(InstanceContext):
 
 
 class TrunkList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the TrunkList

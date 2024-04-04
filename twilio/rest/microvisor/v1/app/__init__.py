@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -25,7 +24,6 @@ from twilio.rest.microvisor.v1.app.app_manifest import AppManifestList
 
 
 class AppInstance(InstanceResource):
-
     """
     :ivar sid: A 34-character string that uniquely identifies this App.
     :ivar account_sid: The unique SID identifier of the Account.
@@ -129,6 +127,7 @@ class AppInstance(InstanceResource):
 
 
 class AppContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the AppContext
@@ -231,6 +230,7 @@ class AppContext(InstanceContext):
 
 
 class AppPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AppInstance:
         """
         Build an instance of AppInstance
@@ -249,6 +249,7 @@ class AppPage(Page):
 
 
 class AppList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AppList

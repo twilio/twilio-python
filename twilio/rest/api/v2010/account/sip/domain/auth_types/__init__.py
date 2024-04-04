@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Optional
 
 
@@ -28,6 +27,7 @@ from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations
 
 
 class AuthTypesList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
         Initialize the AuthTypesList

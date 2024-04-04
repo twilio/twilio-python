@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 
@@ -23,6 +22,7 @@ from twilio.base.page import Page
 
 
 class SimIpAddressInstance(InstanceResource):
+
     class IpAddressVersion(object):
         IPV4 = "IPv4"
         IPV6 = "IPv6"
@@ -36,9 +36,9 @@ class SimIpAddressInstance(InstanceResource):
         super().__init__(version)
 
         self.ip_address: Optional[str] = payload.get("ip_address")
-        self.ip_address_version: Optional[
-            "SimIpAddressInstance.IpAddressVersion"
-        ] = payload.get("ip_address_version")
+        self.ip_address_version: Optional["SimIpAddressInstance.IpAddressVersion"] = (
+            payload.get("ip_address_version")
+        )
 
         self._solution = {
             "sim_sid": sim_sid,
@@ -55,6 +55,7 @@ class SimIpAddressInstance(InstanceResource):
 
 
 class SimIpAddressPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SimIpAddressInstance:
         """
         Build an instance of SimIpAddressInstance
@@ -75,6 +76,7 @@ class SimIpAddressPage(Page):
 
 
 class SimIpAddressList(ListResource):
+
     def __init__(self, version: Version, sim_sid: str):
         """
         Initialize the SimIpAddressList

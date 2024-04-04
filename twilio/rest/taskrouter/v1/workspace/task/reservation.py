@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class ReservationInstance(InstanceResource):
+
     class CallStatus(object):
         INITIATED = "initiated"
         RINGING = "ringing"
@@ -200,6 +200,7 @@ class ReservationInstance(InstanceResource):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
+        jitter_buffer_size: Union[str, object] = values.unset,
     ) -> "ReservationInstance":
         """
         Update the ReservationInstance
@@ -258,6 +259,7 @@ class ReservationInstance(InstanceResource):
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
+        :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
         :returns: The updated ReservationInstance
         """
@@ -316,6 +318,7 @@ class ReservationInstance(InstanceResource):
             supervisor=supervisor,
             end_conference_on_customer_exit=end_conference_on_customer_exit,
             beep_on_customer_entrance=beep_on_customer_entrance,
+            jitter_buffer_size=jitter_buffer_size,
         )
 
     async def update_async(
@@ -380,6 +383,7 @@ class ReservationInstance(InstanceResource):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
+        jitter_buffer_size: Union[str, object] = values.unset,
     ) -> "ReservationInstance":
         """
         Asynchronous coroutine to update the ReservationInstance
@@ -438,6 +442,7 @@ class ReservationInstance(InstanceResource):
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
+        :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
         :returns: The updated ReservationInstance
         """
@@ -496,6 +501,7 @@ class ReservationInstance(InstanceResource):
             supervisor=supervisor,
             end_conference_on_customer_exit=end_conference_on_customer_exit,
             beep_on_customer_entrance=beep_on_customer_entrance,
+            jitter_buffer_size=jitter_buffer_size,
         )
 
     def __repr__(self) -> str:
@@ -509,6 +515,7 @@ class ReservationInstance(InstanceResource):
 
 
 class ReservationContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, task_sid: str, sid: str):
         """
         Initialize the ReservationContext
@@ -636,6 +643,7 @@ class ReservationContext(InstanceContext):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
+        jitter_buffer_size: Union[str, object] = values.unset,
     ) -> ReservationInstance:
         """
         Update the ReservationInstance
@@ -694,6 +702,7 @@ class ReservationContext(InstanceContext):
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
+        :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
         :returns: The updated ReservationInstance
         """
@@ -714,9 +723,9 @@ class ReservationContext(InstanceContext):
                 "CallTo": call_to,
                 "CallUrl": call_url,
                 "CallStatusCallbackUrl": call_status_callback_url,
-                "CallAccept": call_accept,
+                "CallAccept": serialize.boolean_to_string(call_accept),
                 "RedirectCallSid": redirect_call_sid,
-                "RedirectAccept": redirect_accept,
+                "RedirectAccept": serialize.boolean_to_string(redirect_accept),
                 "RedirectUrl": redirect_url,
                 "To": to,
                 "From": from_,
@@ -726,14 +735,18 @@ class ReservationContext(InstanceContext):
                     status_callback_event, lambda e: e
                 ),
                 "Timeout": timeout,
-                "Record": record,
-                "Muted": muted,
+                "Record": serialize.boolean_to_string(record),
+                "Muted": serialize.boolean_to_string(muted),
                 "Beep": beep,
-                "StartConferenceOnEnter": start_conference_on_enter,
-                "EndConferenceOnExit": end_conference_on_exit,
+                "StartConferenceOnEnter": serialize.boolean_to_string(
+                    start_conference_on_enter
+                ),
+                "EndConferenceOnExit": serialize.boolean_to_string(
+                    end_conference_on_exit
+                ),
                 "WaitUrl": wait_url,
                 "WaitMethod": wait_method,
-                "EarlyMedia": early_media,
+                "EarlyMedia": serialize.boolean_to_string(early_media),
                 "MaxParticipants": max_participants,
                 "ConferenceStatusCallback": conference_status_callback,
                 "ConferenceStatusCallbackMethod": conference_status_callback_method,
@@ -756,8 +769,13 @@ class ReservationContext(InstanceContext):
                 "PostWorkActivitySid": post_work_activity_sid,
                 "SupervisorMode": supervisor_mode,
                 "Supervisor": supervisor,
-                "EndConferenceOnCustomerExit": end_conference_on_customer_exit,
-                "BeepOnCustomerEntrance": beep_on_customer_entrance,
+                "EndConferenceOnCustomerExit": serialize.boolean_to_string(
+                    end_conference_on_customer_exit
+                ),
+                "BeepOnCustomerEntrance": serialize.boolean_to_string(
+                    beep_on_customer_entrance
+                ),
+                "JitterBufferSize": jitter_buffer_size,
             }
         )
         headers = values.of(
@@ -840,6 +858,7 @@ class ReservationContext(InstanceContext):
         supervisor: Union[str, object] = values.unset,
         end_conference_on_customer_exit: Union[bool, object] = values.unset,
         beep_on_customer_entrance: Union[bool, object] = values.unset,
+        jitter_buffer_size: Union[str, object] = values.unset,
     ) -> ReservationInstance:
         """
         Asynchronous coroutine to update the ReservationInstance
@@ -898,6 +917,7 @@ class ReservationContext(InstanceContext):
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
+        :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
 
         :returns: The updated ReservationInstance
         """
@@ -918,9 +938,9 @@ class ReservationContext(InstanceContext):
                 "CallTo": call_to,
                 "CallUrl": call_url,
                 "CallStatusCallbackUrl": call_status_callback_url,
-                "CallAccept": call_accept,
+                "CallAccept": serialize.boolean_to_string(call_accept),
                 "RedirectCallSid": redirect_call_sid,
-                "RedirectAccept": redirect_accept,
+                "RedirectAccept": serialize.boolean_to_string(redirect_accept),
                 "RedirectUrl": redirect_url,
                 "To": to,
                 "From": from_,
@@ -930,14 +950,18 @@ class ReservationContext(InstanceContext):
                     status_callback_event, lambda e: e
                 ),
                 "Timeout": timeout,
-                "Record": record,
-                "Muted": muted,
+                "Record": serialize.boolean_to_string(record),
+                "Muted": serialize.boolean_to_string(muted),
                 "Beep": beep,
-                "StartConferenceOnEnter": start_conference_on_enter,
-                "EndConferenceOnExit": end_conference_on_exit,
+                "StartConferenceOnEnter": serialize.boolean_to_string(
+                    start_conference_on_enter
+                ),
+                "EndConferenceOnExit": serialize.boolean_to_string(
+                    end_conference_on_exit
+                ),
                 "WaitUrl": wait_url,
                 "WaitMethod": wait_method,
-                "EarlyMedia": early_media,
+                "EarlyMedia": serialize.boolean_to_string(early_media),
                 "MaxParticipants": max_participants,
                 "ConferenceStatusCallback": conference_status_callback,
                 "ConferenceStatusCallbackMethod": conference_status_callback_method,
@@ -960,8 +984,13 @@ class ReservationContext(InstanceContext):
                 "PostWorkActivitySid": post_work_activity_sid,
                 "SupervisorMode": supervisor_mode,
                 "Supervisor": supervisor,
-                "EndConferenceOnCustomerExit": end_conference_on_customer_exit,
-                "BeepOnCustomerEntrance": beep_on_customer_entrance,
+                "EndConferenceOnCustomerExit": serialize.boolean_to_string(
+                    end_conference_on_customer_exit
+                ),
+                "BeepOnCustomerEntrance": serialize.boolean_to_string(
+                    beep_on_customer_entrance
+                ),
+                "JitterBufferSize": jitter_buffer_size,
             }
         )
         headers = values.of(
@@ -993,6 +1022,7 @@ class ReservationContext(InstanceContext):
 
 
 class ReservationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ReservationInstance:
         """
         Build an instance of ReservationInstance
@@ -1016,6 +1046,7 @@ class ReservationPage(Page):
 
 
 class ReservationList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str, task_sid: str):
         """
         Initialize the ReservationList

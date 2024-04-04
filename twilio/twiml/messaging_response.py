@@ -34,7 +34,7 @@ class MessagingResponse(TwiML):
         :param body: Message Body
         :param to: Phone Number to send Message to
         :param from: Phone Number to send Message from
-        :param action: Action URL
+        :param action: A URL specifying where Twilio should send status callbacks for the created outbound message.
         :param method: Action URL Method
         :param status_callback: Status callback URL. Deprecated in favor of action.
         :param kwargs: additional attributes

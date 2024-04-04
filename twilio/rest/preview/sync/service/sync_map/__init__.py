@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -28,7 +27,6 @@ from twilio.rest.preview.sync.service.sync_map.sync_map_permission import (
 
 
 class SyncMapInstance(InstanceResource):
-
     """
     :ivar sid:
     :ivar unique_name:
@@ -149,6 +147,7 @@ class SyncMapInstance(InstanceResource):
 
 
 class SyncMapContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the SyncMapContext
@@ -270,6 +269,7 @@ class SyncMapContext(InstanceContext):
 
 
 class SyncMapPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SyncMapInstance:
         """
         Build an instance of SyncMapInstance
@@ -290,6 +290,7 @@ class SyncMapPage(Page):
 
 
 class SyncMapList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the SyncMapList
@@ -314,6 +315,7 @@ class SyncMapList(ListResource):
 
         :returns: The created SyncMapInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -340,6 +342,7 @@ class SyncMapList(ListResource):
 
         :returns: The created SyncMapInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

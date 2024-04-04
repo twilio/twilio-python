@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -21,7 +20,6 @@ from twilio.base.version import Version
 
 
 class AppManifestInstance(InstanceResource):
-
     """
     :ivar app_sid: A 34-character string that uniquely identifies this App.
     :ivar hash: App manifest hash represented as `hash_algorithm:hash_value`.
@@ -86,6 +84,7 @@ class AppManifestInstance(InstanceResource):
 
 
 class AppManifestContext(InstanceContext):
+
     def __init__(self, version: Version, app_sid: str):
         """
         Initialize the AppManifestContext
@@ -150,6 +149,7 @@ class AppManifestContext(InstanceContext):
 
 
 class AppManifestList(ListResource):
+
     def __init__(self, version: Version, app_sid: str):
         """
         Initialize the AppManifestList

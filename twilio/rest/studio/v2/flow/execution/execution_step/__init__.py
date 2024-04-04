@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -27,7 +26,6 @@ from twilio.rest.studio.v2.flow.execution.execution_step.execution_step_context 
 
 
 class ExecutionStepInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the ExecutionStep resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ExecutionStep resource.
@@ -130,6 +128,7 @@ class ExecutionStepInstance(InstanceResource):
 
 
 class ExecutionStepContext(InstanceContext):
+
     def __init__(self, version: Version, flow_sid: str, execution_sid: str, sid: str):
         """
         Initialize the ExecutionStepContext
@@ -220,6 +219,7 @@ class ExecutionStepContext(InstanceContext):
 
 
 class ExecutionStepPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ExecutionStepInstance:
         """
         Build an instance of ExecutionStepInstance
@@ -243,6 +243,7 @@ class ExecutionStepPage(Page):
 
 
 class ExecutionStepList(ListResource):
+
     def __init__(self, version: Version, flow_sid: str, execution_sid: str):
         """
         Initialize the ExecutionStepList

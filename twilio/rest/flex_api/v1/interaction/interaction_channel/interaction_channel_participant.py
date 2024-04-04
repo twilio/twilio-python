@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -23,6 +22,7 @@ from twilio.base.page import Page
 
 
 class InteractionChannelParticipantInstance(InstanceResource):
+
     class Status(object):
         CLOSED = "closed"
         WRAPUP = "wrapup"
@@ -40,6 +40,7 @@ class InteractionChannelParticipantInstance(InstanceResource):
     :ivar interaction_sid: The Interaction Sid for this channel.
     :ivar channel_sid: The Channel Sid for this Participant.
     :ivar url: 
+    :ivar routing_properties: The Participant's routing properties.
     """
 
     def __init__(
@@ -59,6 +60,9 @@ class InteractionChannelParticipantInstance(InstanceResource):
         self.interaction_sid: Optional[str] = payload.get("interaction_sid")
         self.channel_sid: Optional[str] = payload.get("channel_sid")
         self.url: Optional[str] = payload.get("url")
+        self.routing_properties: Optional[Dict[str, object]] = payload.get(
+            "routing_properties"
+        )
 
         self._solution = {
             "interaction_sid": interaction_sid,
@@ -125,6 +129,7 @@ class InteractionChannelParticipantInstance(InstanceResource):
 
 
 class InteractionChannelParticipantContext(InstanceContext):
+
     def __init__(
         self, version: Version, interaction_sid: str, channel_sid: str, sid: str
     ):
@@ -221,6 +226,7 @@ class InteractionChannelParticipantContext(InstanceContext):
 
 
 class InteractionChannelParticipantPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> InteractionChannelParticipantInstance:
@@ -246,6 +252,7 @@ class InteractionChannelParticipantPage(Page):
 
 
 class InteractionChannelParticipantList(ListResource):
+
     def __init__(self, version: Version, interaction_sid: str, channel_sid: str):
         """
         Initialize the InteractionChannelParticipantList
@@ -270,19 +277,23 @@ class InteractionChannelParticipantList(ListResource):
         self,
         type: "InteractionChannelParticipantInstance.Type",
         media_properties: object,
+        routing_properties: Union[object, object] = values.unset,
     ) -> InteractionChannelParticipantInstance:
         """
         Create the InteractionChannelParticipantInstance
 
         :param type:
         :param media_properties: JSON representing the Media Properties for the new Participant.
+        :param routing_properties: Object representing the Routing Properties for the new Participant.
 
         :returns: The created InteractionChannelParticipantInstance
         """
+
         data = values.of(
             {
                 "Type": type,
                 "MediaProperties": serialize.object(media_properties),
+                "RoutingProperties": serialize.object(routing_properties),
             }
         )
 
@@ -303,19 +314,23 @@ class InteractionChannelParticipantList(ListResource):
         self,
         type: "InteractionChannelParticipantInstance.Type",
         media_properties: object,
+        routing_properties: Union[object, object] = values.unset,
     ) -> InteractionChannelParticipantInstance:
         """
         Asynchronously create the InteractionChannelParticipantInstance
 
         :param type:
         :param media_properties: JSON representing the Media Properties for the new Participant.
+        :param routing_properties: Object representing the Routing Properties for the new Participant.
 
         :returns: The created InteractionChannelParticipantInstance
         """
+
         data = values.of(
             {
                 "Type": type,
                 "MediaProperties": serialize.object(media_properties),
+                "RoutingProperties": serialize.object(routing_properties),
             }
         )
 

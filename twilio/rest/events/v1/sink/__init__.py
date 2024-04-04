@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -26,6 +25,7 @@ from twilio.rest.events.v1.sink.sink_validate import SinkValidateList
 
 
 class SinkInstance(InstanceResource):
+
     class SinkType(object):
         KINESIS = "kinesis"
         WEBHOOK = "webhook"
@@ -175,6 +175,7 @@ class SinkInstance(InstanceResource):
 
 
 class SinkContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SinkContext
@@ -334,6 +335,7 @@ class SinkContext(InstanceContext):
 
 
 class SinkPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SinkInstance:
         """
         Build an instance of SinkInstance
@@ -352,6 +354,7 @@ class SinkPage(Page):
 
 
 class SinkList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SinkList
@@ -378,6 +381,7 @@ class SinkList(ListResource):
 
         :returns: The created SinkInstance
         """
+
         data = values.of(
             {
                 "Description": description,
@@ -409,6 +413,7 @@ class SinkList(ListResource):
 
         :returns: The created SinkInstance
         """
+
         data = values.of(
             {
                 "Description": description,
@@ -572,7 +577,7 @@ class SinkList(ListResource):
         """
         data = values.of(
             {
-                "InUse": in_use,
+                "InUse": serialize.boolean_to_string(in_use),
                 "Status": status,
                 "PageToken": page_token,
                 "Page": page_number,
@@ -605,7 +610,7 @@ class SinkList(ListResource):
         """
         data = values.of(
             {
-                "InUse": in_use,
+                "InUse": serialize.boolean_to_string(in_use),
                 "Status": status,
                 "PageToken": page_token,
                 "Page": page_number,

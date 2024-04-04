@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -28,7 +27,6 @@ from twilio.rest.ip_messaging.v2.service.user import UserList
 
 
 class ServiceInstance(InstanceResource):
-
     """
     :ivar sid:
     :ivar account_sid:
@@ -411,6 +409,7 @@ class ServiceInstance(InstanceResource):
 
 
 class ServiceContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ServiceContext
@@ -572,21 +571,33 @@ class ServiceContext(InstanceContext):
                 "DefaultServiceRoleSid": default_service_role_sid,
                 "DefaultChannelRoleSid": default_channel_role_sid,
                 "DefaultChannelCreatorRoleSid": default_channel_creator_role_sid,
-                "ReadStatusEnabled": read_status_enabled,
-                "ReachabilityEnabled": reachability_enabled,
+                "ReadStatusEnabled": serialize.boolean_to_string(read_status_enabled),
+                "ReachabilityEnabled": serialize.boolean_to_string(
+                    reachability_enabled
+                ),
                 "TypingIndicatorTimeout": typing_indicator_timeout,
                 "ConsumptionReportInterval": consumption_report_interval,
-                "Notifications.NewMessage.Enabled": notifications_new_message_enabled,
+                "Notifications.NewMessage.Enabled": serialize.boolean_to_string(
+                    notifications_new_message_enabled
+                ),
                 "Notifications.NewMessage.Template": notifications_new_message_template,
                 "Notifications.NewMessage.Sound": notifications_new_message_sound,
-                "Notifications.NewMessage.BadgeCountEnabled": notifications_new_message_badge_count_enabled,
-                "Notifications.AddedToChannel.Enabled": notifications_added_to_channel_enabled,
+                "Notifications.NewMessage.BadgeCountEnabled": serialize.boolean_to_string(
+                    notifications_new_message_badge_count_enabled
+                ),
+                "Notifications.AddedToChannel.Enabled": serialize.boolean_to_string(
+                    notifications_added_to_channel_enabled
+                ),
                 "Notifications.AddedToChannel.Template": notifications_added_to_channel_template,
                 "Notifications.AddedToChannel.Sound": notifications_added_to_channel_sound,
-                "Notifications.RemovedFromChannel.Enabled": notifications_removed_from_channel_enabled,
+                "Notifications.RemovedFromChannel.Enabled": serialize.boolean_to_string(
+                    notifications_removed_from_channel_enabled
+                ),
                 "Notifications.RemovedFromChannel.Template": notifications_removed_from_channel_template,
                 "Notifications.RemovedFromChannel.Sound": notifications_removed_from_channel_sound,
-                "Notifications.InvitedToChannel.Enabled": notifications_invited_to_channel_enabled,
+                "Notifications.InvitedToChannel.Enabled": serialize.boolean_to_string(
+                    notifications_invited_to_channel_enabled
+                ),
                 "Notifications.InvitedToChannel.Template": notifications_invited_to_channel_template,
                 "Notifications.InvitedToChannel.Sound": notifications_invited_to_channel_sound,
                 "PreWebhookUrl": pre_webhook_url,
@@ -598,7 +609,9 @@ class ServiceContext(InstanceContext):
                 "Media.CompatibilityMessage": media_compatibility_message,
                 "PreWebhookRetryCount": pre_webhook_retry_count,
                 "PostWebhookRetryCount": post_webhook_retry_count,
-                "Notifications.LogEnabled": notifications_log_enabled,
+                "Notifications.LogEnabled": serialize.boolean_to_string(
+                    notifications_log_enabled
+                ),
             }
         )
 
@@ -689,21 +702,33 @@ class ServiceContext(InstanceContext):
                 "DefaultServiceRoleSid": default_service_role_sid,
                 "DefaultChannelRoleSid": default_channel_role_sid,
                 "DefaultChannelCreatorRoleSid": default_channel_creator_role_sid,
-                "ReadStatusEnabled": read_status_enabled,
-                "ReachabilityEnabled": reachability_enabled,
+                "ReadStatusEnabled": serialize.boolean_to_string(read_status_enabled),
+                "ReachabilityEnabled": serialize.boolean_to_string(
+                    reachability_enabled
+                ),
                 "TypingIndicatorTimeout": typing_indicator_timeout,
                 "ConsumptionReportInterval": consumption_report_interval,
-                "Notifications.NewMessage.Enabled": notifications_new_message_enabled,
+                "Notifications.NewMessage.Enabled": serialize.boolean_to_string(
+                    notifications_new_message_enabled
+                ),
                 "Notifications.NewMessage.Template": notifications_new_message_template,
                 "Notifications.NewMessage.Sound": notifications_new_message_sound,
-                "Notifications.NewMessage.BadgeCountEnabled": notifications_new_message_badge_count_enabled,
-                "Notifications.AddedToChannel.Enabled": notifications_added_to_channel_enabled,
+                "Notifications.NewMessage.BadgeCountEnabled": serialize.boolean_to_string(
+                    notifications_new_message_badge_count_enabled
+                ),
+                "Notifications.AddedToChannel.Enabled": serialize.boolean_to_string(
+                    notifications_added_to_channel_enabled
+                ),
                 "Notifications.AddedToChannel.Template": notifications_added_to_channel_template,
                 "Notifications.AddedToChannel.Sound": notifications_added_to_channel_sound,
-                "Notifications.RemovedFromChannel.Enabled": notifications_removed_from_channel_enabled,
+                "Notifications.RemovedFromChannel.Enabled": serialize.boolean_to_string(
+                    notifications_removed_from_channel_enabled
+                ),
                 "Notifications.RemovedFromChannel.Template": notifications_removed_from_channel_template,
                 "Notifications.RemovedFromChannel.Sound": notifications_removed_from_channel_sound,
-                "Notifications.InvitedToChannel.Enabled": notifications_invited_to_channel_enabled,
+                "Notifications.InvitedToChannel.Enabled": serialize.boolean_to_string(
+                    notifications_invited_to_channel_enabled
+                ),
                 "Notifications.InvitedToChannel.Template": notifications_invited_to_channel_template,
                 "Notifications.InvitedToChannel.Sound": notifications_invited_to_channel_sound,
                 "PreWebhookUrl": pre_webhook_url,
@@ -715,7 +740,9 @@ class ServiceContext(InstanceContext):
                 "Media.CompatibilityMessage": media_compatibility_message,
                 "PreWebhookRetryCount": pre_webhook_retry_count,
                 "PostWebhookRetryCount": post_webhook_retry_count,
-                "Notifications.LogEnabled": notifications_log_enabled,
+                "Notifications.LogEnabled": serialize.boolean_to_string(
+                    notifications_log_enabled
+                ),
             }
         )
 
@@ -786,6 +813,7 @@ class ServiceContext(InstanceContext):
 
 
 class ServicePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
@@ -804,6 +832,7 @@ class ServicePage(Page):
 
 
 class ServiceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
@@ -823,6 +852,7 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -845,6 +875,7 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

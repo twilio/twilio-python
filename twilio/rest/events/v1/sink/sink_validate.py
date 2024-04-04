@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 from twilio.base import values
 
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class SinkValidateInstance(InstanceResource):
-
     """
     :ivar result: Feedback indicating whether the given Sink was validated.
     """
@@ -47,6 +45,7 @@ class SinkValidateInstance(InstanceResource):
 
 
 class SinkValidateList(ListResource):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SinkValidateList
@@ -71,6 +70,7 @@ class SinkValidateList(ListResource):
 
         :returns: The created SinkValidateInstance
         """
+
         data = values.of(
             {
                 "TestId": test_id,
@@ -93,6 +93,7 @@ class SinkValidateList(ListResource):
 
         :returns: The created SinkValidateInstance
         """
+
         data = values.of(
             {
                 "TestId": test_id,

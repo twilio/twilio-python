@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class PhoneNumberInstance(InstanceResource):
-
     """
     :ivar phone_number: The phone number in E.164 format
     :ivar url: The absolute URL of the resource.
@@ -141,6 +139,7 @@ class PhoneNumberInstance(InstanceResource):
 
 
 class PhoneNumberContext(InstanceContext):
+
     def __init__(self, version: Version, phone_number: str):
         """
         Initialize the PhoneNumberContext
@@ -265,6 +264,7 @@ class PhoneNumberContext(InstanceContext):
 
 
 class PhoneNumberList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the PhoneNumberList

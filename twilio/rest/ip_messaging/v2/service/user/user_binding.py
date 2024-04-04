@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class UserBindingInstance(InstanceResource):
+
     class BindingType(object):
         GCM = "gcm"
         APN = "apn"
@@ -144,6 +144,7 @@ class UserBindingInstance(InstanceResource):
 
 
 class UserBindingContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, user_sid: str, sid: str):
         """
         Initialize the UserBindingContext
@@ -242,6 +243,7 @@ class UserBindingContext(InstanceContext):
 
 
 class UserBindingPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> UserBindingInstance:
         """
         Build an instance of UserBindingInstance
@@ -265,6 +267,7 @@ class UserBindingPage(Page):
 
 
 class UserBindingList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, user_sid: str):
         """
         Initialize the UserBindingList

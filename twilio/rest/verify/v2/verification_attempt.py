@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class VerificationAttemptInstance(InstanceResource):
+
     class Channels(object):
         SMS = "sms"
         CALL = "call"
@@ -43,7 +43,7 @@ class VerificationAttemptInstance(InstanceResource):
     :ivar date_updated: The date that this Attempt was updated, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar conversion_status: 
     :ivar channel: 
-    :ivar price: An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/verify/pricing).
+    :ivar price: An object containing the charge for this verification attempt related to the channel costs and the currency used. The costs related to the succeeded verifications are not included. May not be immediately available. More information on pricing is available [here](https://www.twilio.com/en-us/verify/pricing).
     :ivar channel_data: An object containing the channel specific information for an attempt.
     :ivar url: 
     """
@@ -122,6 +122,7 @@ class VerificationAttemptInstance(InstanceResource):
 
 
 class VerificationAttemptContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the VerificationAttemptContext
@@ -186,6 +187,7 @@ class VerificationAttemptContext(InstanceContext):
 
 
 class VerificationAttemptPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> VerificationAttemptInstance:
         """
         Build an instance of VerificationAttemptInstance
@@ -204,6 +206,7 @@ class VerificationAttemptPage(Page):
 
 
 class VerificationAttemptList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the VerificationAttemptList

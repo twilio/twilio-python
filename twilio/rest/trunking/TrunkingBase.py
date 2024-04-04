@@ -17,6 +17,7 @@ from twilio.rest.trunking.v1 import V1
 
 
 class TrunkingBase(Domain):
+
     def __init__(self, twilio: Client):
         """
         Initialize the Trunking Domain

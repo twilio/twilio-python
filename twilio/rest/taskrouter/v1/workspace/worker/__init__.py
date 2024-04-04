@@ -12,10 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -38,7 +37,6 @@ from twilio.rest.taskrouter.v1.workspace.worker.workers_statistics import (
 
 
 class WorkerInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Worker resource.
     :ivar activity_name: The `friendly_name` of the Worker's current Activity.
@@ -234,6 +232,7 @@ class WorkerInstance(InstanceResource):
 
 
 class WorkerContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the WorkerContext
@@ -353,7 +352,9 @@ class WorkerContext(InstanceContext):
                 "ActivitySid": activity_sid,
                 "Attributes": attributes,
                 "FriendlyName": friendly_name,
-                "RejectPendingReservations": reject_pending_reservations,
+                "RejectPendingReservations": serialize.boolean_to_string(
+                    reject_pending_reservations
+                ),
             }
         )
         headers = values.of(
@@ -397,7 +398,9 @@ class WorkerContext(InstanceContext):
                 "ActivitySid": activity_sid,
                 "Attributes": attributes,
                 "FriendlyName": friendly_name,
-                "RejectPendingReservations": reject_pending_reservations,
+                "RejectPendingReservations": serialize.boolean_to_string(
+                    reject_pending_reservations
+                ),
             }
         )
         headers = values.of(
@@ -467,6 +470,7 @@ class WorkerContext(InstanceContext):
 
 
 class WorkerPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> WorkerInstance:
         """
         Build an instance of WorkerInstance
@@ -487,6 +491,7 @@ class WorkerPage(Page):
 
 
 class WorkerList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the WorkerList
@@ -522,6 +527,7 @@ class WorkerList(ListResource):
 
         :returns: The created WorkerInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -555,6 +561,7 @@ class WorkerList(ListResource):
 
         :returns: The created WorkerInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -26,6 +25,7 @@ from twilio.rest.studio.v1.flow.execution import ExecutionList
 
 
 class FlowInstance(InstanceResource):
+
     class Status(object):
         DRAFT = "draft"
         PUBLISHED = "published"
@@ -142,6 +142,7 @@ class FlowInstance(InstanceResource):
 
 
 class FlowContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FlowContext
@@ -257,6 +258,7 @@ class FlowContext(InstanceContext):
 
 
 class FlowPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> FlowInstance:
         """
         Build an instance of FlowInstance
@@ -275,6 +277,7 @@ class FlowPage(Page):
 
 
 class FlowList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the FlowList

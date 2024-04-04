@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -22,6 +21,7 @@ from twilio.base.version import Version
 
 
 class PortingPortabilityInstance(InstanceResource):
+
     class NumberType(object):
         LOCAL = "LOCAL"
         UNKNOWN = "UNKNOWN"
@@ -60,9 +60,9 @@ class PortingPortabilityInstance(InstanceResource):
         self.not_portable_reason_code: Optional[int] = deserialize.integer(
             payload.get("not_portable_reason_code")
         )
-        self.number_type: Optional[
-            "PortingPortabilityInstance.NumberType"
-        ] = payload.get("number_type")
+        self.number_type: Optional["PortingPortabilityInstance.NumberType"] = (
+            payload.get("number_type")
+        )
         self.country: Optional[str] = payload.get("country")
         self.messaging_carrier: Optional[str] = payload.get("messaging_carrier")
         self.voice_carrier: Optional[str] = payload.get("voice_carrier")
@@ -127,6 +127,7 @@ class PortingPortabilityInstance(InstanceResource):
 
 
 class PortingPortabilityContext(InstanceContext):
+
     def __init__(self, version: Version, phone_number: str):
         """
         Initialize the PortingPortabilityContext
@@ -207,6 +208,7 @@ class PortingPortabilityContext(InstanceContext):
 
 
 class PortingPortabilityList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the PortingPortabilityList

@@ -12,10 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -31,7 +30,6 @@ from twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping imp
 
 
 class DomainInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource.
     :ivar api_version: The API version used to process the call.
@@ -291,6 +289,7 @@ class DomainInstance(InstanceResource):
 
 
 class DomainContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the DomainContext
@@ -424,10 +423,12 @@ class DomainContext(InstanceContext):
                 "VoiceStatusCallbackMethod": voice_status_callback_method,
                 "VoiceStatusCallbackUrl": voice_status_callback_url,
                 "VoiceUrl": voice_url,
-                "SipRegistration": sip_registration,
+                "SipRegistration": serialize.boolean_to_string(sip_registration),
                 "DomainName": domain_name,
-                "EmergencyCallingEnabled": emergency_calling_enabled,
-                "Secure": secure,
+                "EmergencyCallingEnabled": serialize.boolean_to_string(
+                    emergency_calling_enabled
+                ),
+                "Secure": serialize.boolean_to_string(secure),
                 "ByocTrunkSid": byoc_trunk_sid,
                 "EmergencyCallerSid": emergency_caller_sid,
             }
@@ -490,10 +491,12 @@ class DomainContext(InstanceContext):
                 "VoiceStatusCallbackMethod": voice_status_callback_method,
                 "VoiceStatusCallbackUrl": voice_status_callback_url,
                 "VoiceUrl": voice_url,
-                "SipRegistration": sip_registration,
+                "SipRegistration": serialize.boolean_to_string(sip_registration),
                 "DomainName": domain_name,
-                "EmergencyCallingEnabled": emergency_calling_enabled,
-                "Secure": secure,
+                "EmergencyCallingEnabled": serialize.boolean_to_string(
+                    emergency_calling_enabled
+                ),
+                "Secure": serialize.boolean_to_string(secure),
                 "ByocTrunkSid": byoc_trunk_sid,
                 "EmergencyCallerSid": emergency_caller_sid,
             }
@@ -562,6 +565,7 @@ class DomainContext(InstanceContext):
 
 
 class DomainPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DomainInstance:
         """
         Build an instance of DomainInstance
@@ -582,6 +586,7 @@ class DomainPage(Page):
 
 
 class DomainList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the DomainList
@@ -633,6 +638,7 @@ class DomainList(ListResource):
 
         :returns: The created DomainInstance
         """
+
         data = values.of(
             {
                 "DomainName": domain_name,
@@ -643,9 +649,11 @@ class DomainList(ListResource):
                 "VoiceFallbackMethod": voice_fallback_method,
                 "VoiceStatusCallbackUrl": voice_status_callback_url,
                 "VoiceStatusCallbackMethod": voice_status_callback_method,
-                "SipRegistration": sip_registration,
-                "EmergencyCallingEnabled": emergency_calling_enabled,
-                "Secure": secure,
+                "SipRegistration": serialize.boolean_to_string(sip_registration),
+                "EmergencyCallingEnabled": serialize.boolean_to_string(
+                    emergency_calling_enabled
+                ),
+                "Secure": serialize.boolean_to_string(secure),
                 "ByocTrunkSid": byoc_trunk_sid,
                 "EmergencyCallerSid": emergency_caller_sid,
             }
@@ -696,6 +704,7 @@ class DomainList(ListResource):
 
         :returns: The created DomainInstance
         """
+
         data = values.of(
             {
                 "DomainName": domain_name,
@@ -706,9 +715,11 @@ class DomainList(ListResource):
                 "VoiceFallbackMethod": voice_fallback_method,
                 "VoiceStatusCallbackUrl": voice_status_callback_url,
                 "VoiceStatusCallbackMethod": voice_status_callback_method,
-                "SipRegistration": sip_registration,
-                "EmergencyCallingEnabled": emergency_calling_enabled,
-                "Secure": secure,
+                "SipRegistration": serialize.boolean_to_string(sip_registration),
+                "EmergencyCallingEnabled": serialize.boolean_to_string(
+                    emergency_calling_enabled
+                ),
+                "Secure": serialize.boolean_to_string(secure),
                 "ByocTrunkSid": byoc_trunk_sid,
                 "EmergencyCallerSid": emergency_caller_sid,
             }

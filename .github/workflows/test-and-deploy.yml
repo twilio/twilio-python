@@ -33,6 +33,7 @@ jobs:
         run: |
           pip install virtualenv --upgrade
           make install test-install
+          make prettier
 
       - name: Run the tests
         run: make test-with-coverage

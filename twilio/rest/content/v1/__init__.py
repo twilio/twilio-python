@@ -21,6 +21,7 @@ from twilio.rest.content.v1.legacy_content import LegacyContentList
 
 
 class V1(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Content

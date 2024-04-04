@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -25,6 +24,7 @@ from twilio.rest.verify.v2.service.entity.challenge.notification import Notifica
 
 
 class ChallengeInstance(InstanceResource):
+
     class ChallengeReasons(object):
         NONE = "none"
         NOT_NEEDED = "not_needed"
@@ -96,9 +96,9 @@ class ChallengeInstance(InstanceResource):
         self.status: Optional["ChallengeInstance.ChallengeStatuses"] = payload.get(
             "status"
         )
-        self.responded_reason: Optional[
-            "ChallengeInstance.ChallengeReasons"
-        ] = payload.get("responded_reason")
+        self.responded_reason: Optional["ChallengeInstance.ChallengeReasons"] = (
+            payload.get("responded_reason")
+        )
         self.details: Optional[Dict[str, object]] = payload.get("details")
         self.hidden_details: Optional[Dict[str, object]] = payload.get("hidden_details")
         self.metadata: Optional[Dict[str, object]] = payload.get("metadata")
@@ -204,6 +204,7 @@ class ChallengeInstance(InstanceResource):
 
 
 class ChallengeContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, identity: str, sid: str):
         """
         Initialize the ChallengeContext
@@ -364,6 +365,7 @@ class ChallengeContext(InstanceContext):
 
 
 class ChallengePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ChallengeInstance:
         """
         Build an instance of ChallengeInstance
@@ -387,6 +389,7 @@ class ChallengePage(Page):
 
 
 class ChallengeList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, identity: str):
         """
         Initialize the ChallengeList
@@ -428,6 +431,7 @@ class ChallengeList(ListResource):
 
         :returns: The created ChallengeInstance
         """
+
         data = values.of(
             {
                 "FactorSid": factor_sid,
@@ -475,6 +479,7 @@ class ChallengeList(ListResource):
 
         :returns: The created ChallengeInstance
         """
+
         data = values.of(
             {
                 "FactorSid": factor_sid,

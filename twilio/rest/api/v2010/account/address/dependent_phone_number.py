@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class DependentPhoneNumberInstance(InstanceResource):
+
     class AddressRequirement(object):
         NONE = "none"
         ANY = "any"
@@ -127,6 +127,7 @@ class DependentPhoneNumberInstance(InstanceResource):
 
 
 class DependentPhoneNumberPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DependentPhoneNumberInstance:
         """
         Build an instance of DependentPhoneNumberInstance
@@ -150,6 +151,7 @@ class DependentPhoneNumberPage(Page):
 
 
 class DependentPhoneNumberList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, address_sid: str):
         """
         Initialize the DependentPhoneNumberList

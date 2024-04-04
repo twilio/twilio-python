@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -26,6 +25,7 @@ from twilio.rest.api.v2010.account.recording.transcription import TranscriptionL
 
 
 class RecordingInstance(InstanceResource):
+
     class Source(object):
         DIALVERB = "DialVerb"
         CONFERENCE = "Conference"
@@ -198,6 +198,7 @@ class RecordingInstance(InstanceResource):
 
 
 class RecordingContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, sid: str):
         """
         Initialize the RecordingContext
@@ -257,7 +258,7 @@ class RecordingContext(InstanceContext):
 
         data = values.of(
             {
-                "IncludeSoftDeleted": include_soft_deleted,
+                "IncludeSoftDeleted": serialize.boolean_to_string(include_soft_deleted),
             }
         )
 
@@ -283,7 +284,7 @@ class RecordingContext(InstanceContext):
 
         data = values.of(
             {
-                "IncludeSoftDeleted": include_soft_deleted,
+                "IncludeSoftDeleted": serialize.boolean_to_string(include_soft_deleted),
             }
         )
 
@@ -335,6 +336,7 @@ class RecordingContext(InstanceContext):
 
 
 class RecordingPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> RecordingInstance:
         """
         Build an instance of RecordingInstance
@@ -355,6 +357,7 @@ class RecordingPage(Page):
 
 
 class RecordingList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the RecordingList
@@ -585,7 +588,7 @@ class RecordingList(ListResource):
                 "DateCreated>": serialize.iso8601_datetime(date_created_after),
                 "CallSid": call_sid,
                 "ConferenceSid": conference_sid,
-                "IncludeSoftDeleted": include_soft_deleted,
+                "IncludeSoftDeleted": serialize.boolean_to_string(include_soft_deleted),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -630,7 +633,7 @@ class RecordingList(ListResource):
                 "DateCreated>": serialize.iso8601_datetime(date_created_after),
                 "CallSid": call_sid,
                 "ConferenceSid": conference_sid,
-                "IncludeSoftDeleted": include_soft_deleted,
+                "IncludeSoftDeleted": serialize.boolean_to_string(include_soft_deleted),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

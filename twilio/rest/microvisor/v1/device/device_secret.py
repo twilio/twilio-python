@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class DeviceSecretInstance(InstanceResource):
-
     """
     :ivar device_sid: A 34-character string that uniquely identifies the parent Device.
     :ivar key: The secret key; up to 100 characters.
@@ -141,6 +139,7 @@ class DeviceSecretInstance(InstanceResource):
 
 
 class DeviceSecretContext(InstanceContext):
+
     def __init__(self, version: Version, device_sid: str, key: str):
         """
         Initialize the DeviceSecretContext
@@ -287,6 +286,7 @@ class DeviceSecretContext(InstanceContext):
 
 
 class DeviceSecretPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DeviceSecretInstance:
         """
         Build an instance of DeviceSecretInstance
@@ -307,6 +307,7 @@ class DeviceSecretPage(Page):
 
 
 class DeviceSecretList(ListResource):
+
     def __init__(self, version: Version, device_sid: str):
         """
         Initialize the DeviceSecretList
@@ -332,6 +333,7 @@ class DeviceSecretList(ListResource):
 
         :returns: The created DeviceSecretInstance
         """
+
         data = values.of(
             {
                 "Key": key,
@@ -358,6 +360,7 @@ class DeviceSecretList(ListResource):
 
         :returns: The created DeviceSecretInstance
         """
+
         data = values.of(
             {
                 "Key": key,

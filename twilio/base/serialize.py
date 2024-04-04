@@ -61,6 +61,19 @@ def prefixed_collapsible_map(m, prefix):
     return {}
 
 
+def boolean_to_string(bool_or_str):
+    if bool_or_str == values.unset:
+        return bool_or_str
+
+    if bool_or_str is None:
+        return bool_or_str
+
+    if isinstance(bool_or_str, str):
+        return bool_or_str.lower()
+
+    return "true" if bool_or_str else "false"
+
+
 def object(obj):
     """
     Return a jsonified string represenation of obj if obj is jsonifiable else

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -28,6 +27,7 @@ from twilio.rest.video.v1.room.participant.subscribed_track import SubscribedTra
 
 
 class ParticipantInstance(InstanceResource):
+
     class Status(object):
         CONNECTED = "connected"
         DISCONNECTED = "disconnected"
@@ -184,6 +184,7 @@ class ParticipantInstance(InstanceResource):
 
 
 class ParticipantContext(InstanceContext):
+
     def __init__(self, version: Version, room_sid: str, sid: str):
         """
         Initialize the ParticipantContext
@@ -367,6 +368,7 @@ class ParticipantContext(InstanceContext):
 
 
 class ParticipantPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ParticipantInstance:
         """
         Build an instance of ParticipantInstance
@@ -387,6 +389,7 @@ class ParticipantPage(Page):
 
 
 class ParticipantList(ListResource):
+
     def __init__(self, version: Version, room_sid: str):
         """
         Initialize the ParticipantList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -21,7 +20,6 @@ from twilio.base.version import Version
 
 
 class LinkshorteningMessagingServiceDomainAssociationInstance(InstanceResource):
-
     """
     :ivar domain_sid: The unique string that we created to identify the Domain resource.
     :ivar messaging_service_sid: The unique string that identifies the messaging service
@@ -96,6 +94,7 @@ class LinkshorteningMessagingServiceDomainAssociationInstance(InstanceResource):
 
 
 class LinkshorteningMessagingServiceDomainAssociationContext(InstanceContext):
+
     def __init__(self, version: Version, messaging_service_sid: str):
         """
         Initialize the LinkshorteningMessagingServiceDomainAssociationContext
@@ -168,6 +167,7 @@ class LinkshorteningMessagingServiceDomainAssociationContext(InstanceContext):
 
 
 class LinkshorteningMessagingServiceDomainAssociationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the LinkshorteningMessagingServiceDomainAssociationList

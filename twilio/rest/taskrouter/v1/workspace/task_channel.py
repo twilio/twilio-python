@@ -12,10 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class TaskChannelInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Task Channel resource.
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -169,6 +167,7 @@ class TaskChannelInstance(InstanceResource):
 
 
 class TaskChannelContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the TaskChannelContext
@@ -268,7 +267,9 @@ class TaskChannelContext(InstanceContext):
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "ChannelOptimizedRouting": channel_optimized_routing,
+                "ChannelOptimizedRouting": serialize.boolean_to_string(
+                    channel_optimized_routing
+                ),
             }
         )
 
@@ -301,7 +302,9 @@ class TaskChannelContext(InstanceContext):
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "ChannelOptimizedRouting": channel_optimized_routing,
+                "ChannelOptimizedRouting": serialize.boolean_to_string(
+                    channel_optimized_routing
+                ),
             }
         )
 
@@ -329,6 +332,7 @@ class TaskChannelContext(InstanceContext):
 
 
 class TaskChannelPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TaskChannelInstance:
         """
         Build an instance of TaskChannelInstance
@@ -349,6 +353,7 @@ class TaskChannelPage(Page):
 
 
 class TaskChannelList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskChannelList
@@ -380,11 +385,14 @@ class TaskChannelList(ListResource):
 
         :returns: The created TaskChannelInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "UniqueName": unique_name,
-                "ChannelOptimizedRouting": channel_optimized_routing,
+                "ChannelOptimizedRouting": serialize.boolean_to_string(
+                    channel_optimized_routing
+                ),
             }
         )
 
@@ -413,11 +421,14 @@ class TaskChannelList(ListResource):
 
         :returns: The created TaskChannelInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "UniqueName": unique_name,
-                "ChannelOptimizedRouting": channel_optimized_routing,
+                "ChannelOptimizedRouting": serialize.boolean_to_string(
+                    channel_optimized_routing
+                ),
             }
         )
 

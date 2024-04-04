@@ -15,14 +15,12 @@ r"""
 from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.oauth.v1.device_code import DeviceCodeList
-from twilio.rest.oauth.v1.oauth import OauthList
-from twilio.rest.oauth.v1.openid_discovery import OpenidDiscoveryList
+from twilio.rest.oauth.v1.authorize import AuthorizeList
 from twilio.rest.oauth.v1.token import TokenList
-from twilio.rest.oauth.v1.user_info import UserInfoList
 
 
 class V1(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Oauth
@@ -30,41 +28,20 @@ class V1(Version):
         :param domain: The Twilio.oauth domain
         """
         super().__init__(domain, "v1")
-        self._device_code: Optional[DeviceCodeList] = None
-        self._oauth: Optional[OauthList] = None
-        self._openid_discovery: Optional[OpenidDiscoveryList] = None
+        self._authorize: Optional[AuthorizeList] = None
         self._token: Optional[TokenList] = None
-        self._user_info: Optional[UserInfoList] = None
 
     @property
-    def device_code(self) -> DeviceCodeList:
-        if self._device_code is None:
-            self._device_code = DeviceCodeList(self)
-        return self._device_code
-
-    @property
-    def oauth(self) -> OauthList:
-        if self._oauth is None:
-            self._oauth = OauthList(self)
-        return self._oauth
-
-    @property
-    def openid_discovery(self) -> OpenidDiscoveryList:
-        if self._openid_discovery is None:
-            self._openid_discovery = OpenidDiscoveryList(self)
-        return self._openid_discovery
+    def authorize(self) -> AuthorizeList:
+        if self._authorize is None:
+            self._authorize = AuthorizeList(self)
+        return self._authorize
 
     @property
     def token(self) -> TokenList:
         if self._token is None:
             self._token = TokenList(self)
         return self._token
-
-    @property
-    def user_info(self) -> UserInfoList:
-        if self._user_info is None:
-            self._user_info = UserInfoList(self)
-        return self._user_info
 
     def __repr__(self) -> str:
         """
