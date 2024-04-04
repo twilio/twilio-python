@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class PhoneNumberInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the PhoneNumber resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the PhoneNumber resource.
@@ -129,6 +127,7 @@ class PhoneNumberInstance(InstanceResource):
 
 
 class PhoneNumberContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the PhoneNumberContext
@@ -223,6 +222,7 @@ class PhoneNumberContext(InstanceContext):
 
 
 class PhoneNumberPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> PhoneNumberInstance:
         """
         Build an instance of PhoneNumberInstance
@@ -243,6 +243,7 @@ class PhoneNumberPage(Page):
 
 
 class PhoneNumberList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the PhoneNumberList
@@ -267,6 +268,7 @@ class PhoneNumberList(ListResource):
 
         :returns: The created PhoneNumberInstance
         """
+
         data = values.of(
             {
                 "PhoneNumberSid": phone_number_sid,
@@ -291,6 +293,7 @@ class PhoneNumberList(ListResource):
 
         :returns: The created PhoneNumberInstance
         """
+
         data = values.of(
             {
                 "PhoneNumberSid": phone_number_sid,

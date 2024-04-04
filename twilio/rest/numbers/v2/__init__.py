@@ -22,6 +22,7 @@ from twilio.rest.numbers.v2.regulatory_compliance import RegulatoryComplianceLis
 
 
 class V2(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of Numbers

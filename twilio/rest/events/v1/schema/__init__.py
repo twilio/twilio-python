@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize
@@ -25,7 +24,6 @@ from twilio.rest.events.v1.schema.schema_version import SchemaVersionList
 
 
 class SchemaInstance(InstanceResource):
-
     """
     :ivar id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
     :ivar url: The URL of this resource.
@@ -42,9 +40,9 @@ class SchemaInstance(InstanceResource):
         self.id: Optional[str] = payload.get("id")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
-        self.latest_version_date_created: Optional[
-            datetime
-        ] = deserialize.iso8601_datetime(payload.get("latest_version_date_created"))
+        self.latest_version_date_created: Optional[datetime] = (
+            deserialize.iso8601_datetime(payload.get("latest_version_date_created"))
+        )
         self.latest_version: Optional[int] = deserialize.integer(
             payload.get("latest_version")
         )
@@ -105,6 +103,7 @@ class SchemaInstance(InstanceResource):
 
 
 class SchemaContext(InstanceContext):
+
     def __init__(self, version: Version, id: str):
         """
         Initialize the SchemaContext
@@ -183,6 +182,7 @@ class SchemaContext(InstanceContext):
 
 
 class SchemaList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SchemaList

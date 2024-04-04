@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class SubscribedEventInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique SID identifier of the Account.
     :ivar type: Type of event being subscribed to.
@@ -146,6 +144,7 @@ class SubscribedEventInstance(InstanceResource):
 
 
 class SubscribedEventContext(InstanceContext):
+
     def __init__(self, version: Version, subscription_sid: str, type: str):
         """
         Initialize the SubscribedEventContext
@@ -298,6 +297,7 @@ class SubscribedEventContext(InstanceContext):
 
 
 class SubscribedEventPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SubscribedEventInstance:
         """
         Build an instance of SubscribedEventInstance
@@ -318,6 +318,7 @@ class SubscribedEventPage(Page):
 
 
 class SubscribedEventList(ListResource):
+
     def __init__(self, version: Version, subscription_sid: str):
         """
         Initialize the SubscribedEventList
@@ -347,6 +348,7 @@ class SubscribedEventList(ListResource):
 
         :returns: The created SubscribedEventInstance
         """
+
         data = values.of(
             {
                 "Type": type,
@@ -375,6 +377,7 @@ class SubscribedEventList(ListResource):
 
         :returns: The created SubscribedEventInstance
         """
+
         data = values.of(
             {
                 "Type": type,

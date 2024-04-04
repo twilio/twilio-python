@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
 
@@ -22,7 +21,6 @@ from twilio.base.version import Version
 
 
 class SafelistInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the SafeList resource.
     :ivar phone_number: The phone number in SafeList.
@@ -45,6 +43,7 @@ class SafelistInstance(InstanceResource):
 
 
 class SafelistList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SafelistList
@@ -64,6 +63,7 @@ class SafelistList(ListResource):
 
         :returns: The created SafelistInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
@@ -86,6 +86,7 @@ class SafelistList(ListResource):
 
         :returns: The created SafelistInstance
         """
+
         data = values.of(
             {
                 "PhoneNumber": phone_number,
@@ -149,6 +150,7 @@ class SafelistList(ListResource):
                 "PhoneNumber": phone_number,
             }
         )
+
         payload = self._version.fetch(method="GET", uri=self._uri, params=params)
 
         return SafelistInstance(self._version, payload)
@@ -168,6 +170,7 @@ class SafelistList(ListResource):
                 "PhoneNumber": phone_number,
             }
         )
+
         payload = await self._version.fetch_async(
             method="GET", uri=self._uri, params=params
         )

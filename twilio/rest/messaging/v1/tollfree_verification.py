@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class TollfreeVerificationInstance(InstanceResource):
+
     class OptInType(object):
         VERBAL = "VERBAL"
         WEB_FORM = "WEB_FORM"
@@ -56,7 +56,7 @@ class TollfreeVerificationInstance(InstanceResource):
     :ivar business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
     :ivar business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
     :ivar business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
-    :ivar business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+    :ivar business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
     :ivar notification_email: The email address to receive the notification about the verification result. .
     :ivar use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
     :ivar use_case_summary: Use this to further explain how messaging is used by the business or organization.
@@ -72,6 +72,7 @@ class TollfreeVerificationInstance(InstanceResource):
     :ivar error_code: The error code given when a Tollfree Verification has been rejected.
     :ivar edit_expiration: The date and time when the ability to edit a rejected verification expires.
     :ivar edit_allowed: If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not.
+    :ivar rejection_reasons: A list of rejection reasons and codes describing why a Tollfree Verification has been rejected.
     :ivar resource_links: The URLs of the documents associated with the Tollfree Verification resource.
     :ivar external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
     """
@@ -127,9 +128,9 @@ class TollfreeVerificationInstance(InstanceResource):
             "production_message_sample"
         )
         self.opt_in_image_urls: Optional[List[str]] = payload.get("opt_in_image_urls")
-        self.opt_in_type: Optional[
-            "TollfreeVerificationInstance.OptInType"
-        ] = payload.get("opt_in_type")
+        self.opt_in_type: Optional["TollfreeVerificationInstance.OptInType"] = (
+            payload.get("opt_in_type")
+        )
         self.message_volume: Optional[str] = payload.get("message_volume")
         self.additional_information: Optional[str] = payload.get(
             "additional_information"
@@ -147,6 +148,9 @@ class TollfreeVerificationInstance(InstanceResource):
             payload.get("edit_expiration")
         )
         self.edit_allowed: Optional[bool] = payload.get("edit_allowed")
+        self.rejection_reasons: Optional[List[Dict[str, object]]] = payload.get(
+            "rejection_reasons"
+        )
         self.resource_links: Optional[Dict[str, object]] = payload.get("resource_links")
         self.external_reference_id: Optional[str] = payload.get("external_reference_id")
 
@@ -254,7 +258,7 @@ class TollfreeVerificationInstance(InstanceResource):
         :param business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
         :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
-        :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
 
         :returns: The updated TollfreeVerificationInstance
@@ -331,7 +335,7 @@ class TollfreeVerificationInstance(InstanceResource):
         :param business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
         :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
-        :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
 
         :returns: The updated TollfreeVerificationInstance
@@ -371,6 +375,7 @@ class TollfreeVerificationInstance(InstanceResource):
 
 
 class TollfreeVerificationContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the TollfreeVerificationContext
@@ -496,7 +501,7 @@ class TollfreeVerificationContext(InstanceContext):
         :param business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
         :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
-        :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
 
         :returns: The updated TollfreeVerificationInstance
@@ -585,7 +590,7 @@ class TollfreeVerificationContext(InstanceContext):
         :param business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
         :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
-        :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
 
         :returns: The updated TollfreeVerificationInstance
@@ -637,6 +642,7 @@ class TollfreeVerificationContext(InstanceContext):
 
 
 class TollfreeVerificationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TollfreeVerificationInstance:
         """
         Build an instance of TollfreeVerificationInstance
@@ -655,6 +661,7 @@ class TollfreeVerificationPage(Page):
 
 
 class TollfreeVerificationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the TollfreeVerificationList
@@ -716,11 +723,12 @@ class TollfreeVerificationList(ListResource):
         :param business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
         :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
-        :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
 
         :returns: The created TollfreeVerificationInstance
         """
+
         data = values.of(
             {
                 "BusinessName": business_name,
@@ -807,11 +815,12 @@ class TollfreeVerificationList(ListResource):
         :param business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
         :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
-        :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
 
         :returns: The created TollfreeVerificationInstance
         """
+
         data = values.of(
             {
                 "BusinessName": business_name,

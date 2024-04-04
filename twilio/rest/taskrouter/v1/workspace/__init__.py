@@ -12,10 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -40,6 +39,7 @@ from twilio.rest.taskrouter.v1.workspace.workspace_statistics import (
 
 
 class WorkspaceInstance(InstanceResource):
+
     class QueueOrder(object):
         FIFO = "FIFO"
         LIFO = "LIFO"
@@ -83,9 +83,9 @@ class WorkspaceInstance(InstanceResource):
         self.sid: Optional[str] = payload.get("sid")
         self.timeout_activity_name: Optional[str] = payload.get("timeout_activity_name")
         self.timeout_activity_sid: Optional[str] = payload.get("timeout_activity_sid")
-        self.prioritize_queue_order: Optional[
-            "WorkspaceInstance.QueueOrder"
-        ] = payload.get("prioritize_queue_order")
+        self.prioritize_queue_order: Optional["WorkspaceInstance.QueueOrder"] = (
+            payload.get("prioritize_queue_order")
+        )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
@@ -296,6 +296,7 @@ class WorkspaceInstance(InstanceResource):
 
 
 class WorkspaceContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the WorkspaceContext
@@ -415,7 +416,7 @@ class WorkspaceContext(InstanceContext):
                 "EventCallbackUrl": event_callback_url,
                 "EventsFilter": events_filter,
                 "FriendlyName": friendly_name,
-                "MultiTaskEnabled": multi_task_enabled,
+                "MultiTaskEnabled": serialize.boolean_to_string(multi_task_enabled),
                 "TimeoutActivitySid": timeout_activity_sid,
                 "PrioritizeQueueOrder": prioritize_queue_order,
             }
@@ -460,7 +461,7 @@ class WorkspaceContext(InstanceContext):
                 "EventCallbackUrl": event_callback_url,
                 "EventsFilter": events_filter,
                 "FriendlyName": friendly_name,
-                "MultiTaskEnabled": multi_task_enabled,
+                "MultiTaskEnabled": serialize.boolean_to_string(multi_task_enabled),
                 "TimeoutActivitySid": timeout_activity_sid,
                 "PrioritizeQueueOrder": prioritize_queue_order,
             }
@@ -605,6 +606,7 @@ class WorkspaceContext(InstanceContext):
 
 
 class WorkspacePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> WorkspaceInstance:
         """
         Build an instance of WorkspaceInstance
@@ -623,6 +625,7 @@ class WorkspacePage(Page):
 
 
 class WorkspaceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the WorkspaceList
@@ -657,12 +660,13 @@ class WorkspaceList(ListResource):
 
         :returns: The created WorkspaceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "EventCallbackUrl": event_callback_url,
                 "EventsFilter": events_filter,
-                "MultiTaskEnabled": multi_task_enabled,
+                "MultiTaskEnabled": serialize.boolean_to_string(multi_task_enabled),
                 "Template": template,
                 "PrioritizeQueueOrder": prioritize_queue_order,
             }
@@ -699,12 +703,13 @@ class WorkspaceList(ListResource):
 
         :returns: The created WorkspaceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "EventCallbackUrl": event_callback_url,
                 "EventsFilter": events_filter,
-                "MultiTaskEnabled": multi_task_enabled,
+                "MultiTaskEnabled": serialize.boolean_to_string(multi_task_enabled),
                 "Template": template,
                 "PrioritizeQueueOrder": prioritize_queue_order,
             }

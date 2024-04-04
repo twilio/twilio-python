@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,6 +22,7 @@ from twilio.base.version import Version
 
 
 class AccessTokenInstance(InstanceResource):
+
     class FactorTypes(object):
         PUSH = "push"
 
@@ -114,6 +114,7 @@ class AccessTokenInstance(InstanceResource):
 
 
 class AccessTokenContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the AccessTokenContext
@@ -184,6 +185,7 @@ class AccessTokenContext(InstanceContext):
 
 
 class AccessTokenList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the AccessTokenList
@@ -217,6 +219,7 @@ class AccessTokenList(ListResource):
 
         :returns: The created AccessTokenInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,
@@ -253,6 +256,7 @@ class AccessTokenList(ListResource):
 
         :returns: The created AccessTokenInstance
         """
+
         data = values.of(
             {
                 "Identity": identity,

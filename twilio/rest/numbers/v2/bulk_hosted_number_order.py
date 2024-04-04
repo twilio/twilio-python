@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
@@ -23,6 +22,7 @@ from twilio.base.version import Version
 
 
 class BulkHostedNumberOrderInstance(InstanceResource):
+
     class RequestStatus(object):
         QUEUED = "QUEUED"
         IN_PROGRESS = "IN_PROGRESS"
@@ -49,9 +49,9 @@ class BulkHostedNumberOrderInstance(InstanceResource):
         super().__init__(version)
 
         self.bulk_hosting_sid: Optional[str] = payload.get("bulk_hosting_sid")
-        self.request_status: Optional[
-            "BulkHostedNumberOrderInstance.RequestStatus"
-        ] = payload.get("request_status")
+        self.request_status: Optional["BulkHostedNumberOrderInstance.RequestStatus"] = (
+            payload.get("request_status")
+        )
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.notification_email: Optional[str] = payload.get("notification_email")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
@@ -64,7 +64,7 @@ class BulkHostedNumberOrderInstance(InstanceResource):
         self.total_count: Optional[int] = deserialize.integer(
             payload.get("total_count")
         )
-        self.results: Optional[List[object]] = payload.get("results")
+        self.results: Optional[List[Dict[str, object]]] = payload.get("results")
 
         self._solution = {
             "bulk_hosting_sid": bulk_hosting_sid or self.bulk_hosting_sid,
@@ -125,6 +125,7 @@ class BulkHostedNumberOrderInstance(InstanceResource):
 
 
 class BulkHostedNumberOrderContext(InstanceContext):
+
     def __init__(self, version: Version, bulk_hosting_sid: str):
         """
         Initialize the BulkHostedNumberOrderContext
@@ -205,6 +206,7 @@ class BulkHostedNumberOrderContext(InstanceContext):
 
 
 class BulkHostedNumberOrderList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the BulkHostedNumberOrderList
@@ -213,6 +215,48 @@ class BulkHostedNumberOrderList(ListResource):
 
         """
         super().__init__(version)
+
+        self._uri = "/HostedNumber/Orders/Bulk"
+
+    def create(
+        self, body: Union[object, object] = values.unset
+    ) -> BulkHostedNumberOrderInstance:
+        """
+        Create the BulkHostedNumberOrderInstance
+
+        :param body:
+
+        :returns: The created BulkHostedNumberOrderInstance
+        """
+        data = body.to_dict()
+
+        headers = {"Content-Type": "application/json"}
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return BulkHostedNumberOrderInstance(self._version, payload)
+
+    async def create_async(
+        self, body: Union[object, object] = values.unset
+    ) -> BulkHostedNumberOrderInstance:
+        """
+        Asynchronously create the BulkHostedNumberOrderInstance
+
+        :param body:
+
+        :returns: The created BulkHostedNumberOrderInstance
+        """
+        data = body.to_dict()
+
+        headers = {"Content-Type": "application/json"}
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return BulkHostedNumberOrderInstance(self._version, payload)
 
     def get(self, bulk_hosting_sid: str) -> BulkHostedNumberOrderContext:
         """

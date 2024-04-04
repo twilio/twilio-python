@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class AddressConfigurationInstance(InstanceResource):
+
     class AutoCreationType(object):
         WEBHOOK = "webhook"
         STUDIO = "studio"
@@ -228,6 +228,7 @@ class AddressConfigurationInstance(InstanceResource):
 
 
 class AddressConfigurationContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the AddressConfigurationContext
@@ -339,7 +340,9 @@ class AddressConfigurationContext(InstanceContext):
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "AutoCreation.Enabled": auto_creation_enabled,
+                "AutoCreation.Enabled": serialize.boolean_to_string(
+                    auto_creation_enabled
+                ),
                 "AutoCreation.Type": auto_creation_type,
                 "AutoCreation.ConversationServiceSid": auto_creation_conversation_service_sid,
                 "AutoCreation.WebhookUrl": auto_creation_webhook_url,
@@ -396,7 +399,9 @@ class AddressConfigurationContext(InstanceContext):
         data = values.of(
             {
                 "FriendlyName": friendly_name,
-                "AutoCreation.Enabled": auto_creation_enabled,
+                "AutoCreation.Enabled": serialize.boolean_to_string(
+                    auto_creation_enabled
+                ),
                 "AutoCreation.Type": auto_creation_type,
                 "AutoCreation.ConversationServiceSid": auto_creation_conversation_service_sid,
                 "AutoCreation.WebhookUrl": auto_creation_webhook_url,
@@ -432,6 +437,7 @@ class AddressConfigurationContext(InstanceContext):
 
 
 class AddressConfigurationPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AddressConfigurationInstance:
         """
         Build an instance of AddressConfigurationInstance
@@ -450,6 +456,7 @@ class AddressConfigurationPage(Page):
 
 
 class AddressConfigurationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AddressConfigurationList
@@ -498,12 +505,15 @@ class AddressConfigurationList(ListResource):
 
         :returns: The created AddressConfigurationInstance
         """
+
         data = values.of(
             {
                 "Type": type,
                 "Address": address,
                 "FriendlyName": friendly_name,
-                "AutoCreation.Enabled": auto_creation_enabled,
+                "AutoCreation.Enabled": serialize.boolean_to_string(
+                    auto_creation_enabled
+                ),
                 "AutoCreation.Type": auto_creation_type,
                 "AutoCreation.ConversationServiceSid": auto_creation_conversation_service_sid,
                 "AutoCreation.WebhookUrl": auto_creation_webhook_url,
@@ -562,12 +572,15 @@ class AddressConfigurationList(ListResource):
 
         :returns: The created AddressConfigurationInstance
         """
+
         data = values.of(
             {
                 "Type": type,
                 "Address": address,
                 "FriendlyName": friendly_name,
-                "AutoCreation.Enabled": auto_creation_enabled,
+                "AutoCreation.Enabled": serialize.boolean_to_string(
+                    auto_creation_enabled
+                ),
                 "AutoCreation.Type": auto_creation_type,
                 "AutoCreation.ConversationServiceSid": auto_creation_conversation_service_sid,
                 "AutoCreation.WebhookUrl": auto_creation_webhook_url,

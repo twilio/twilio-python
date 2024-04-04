@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class ConferenceParticipantInstance(InstanceResource):
+
     class CallDirection(object):
         INBOUND = "inbound"
         OUTBOUND = "outbound"
@@ -107,14 +107,14 @@ class ConferenceParticipantInstance(InstanceResource):
         self.conference_sid: Optional[str] = payload.get("conference_sid")
         self.call_sid: Optional[str] = payload.get("call_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.call_direction: Optional[
-            "ConferenceParticipantInstance.CallDirection"
-        ] = payload.get("call_direction")
+        self.call_direction: Optional["ConferenceParticipantInstance.CallDirection"] = (
+            payload.get("call_direction")
+        )
         self._from: Optional[str] = payload.get("from")
         self.to: Optional[str] = payload.get("to")
-        self.call_status: Optional[
-            "ConferenceParticipantInstance.CallStatus"
-        ] = payload.get("call_status")
+        self.call_status: Optional["ConferenceParticipantInstance.CallStatus"] = (
+            payload.get("call_status")
+        )
         self.country_code: Optional[str] = payload.get("country_code")
         self.is_moderator: Optional[bool] = payload.get("is_moderator")
         self.join_time: Optional[datetime] = deserialize.iso8601_datetime(
@@ -139,15 +139,15 @@ class ConferenceParticipantInstance(InstanceResource):
         self.coached_participants: Optional[List[str]] = payload.get(
             "coached_participants"
         )
-        self.participant_region: Optional[
-            "ConferenceParticipantInstance.Region"
-        ] = payload.get("participant_region")
-        self.conference_region: Optional[
-            "ConferenceParticipantInstance.Region"
-        ] = payload.get("conference_region")
-        self.call_type: Optional[
-            "ConferenceParticipantInstance.CallType"
-        ] = payload.get("call_type")
+        self.participant_region: Optional["ConferenceParticipantInstance.Region"] = (
+            payload.get("participant_region")
+        )
+        self.conference_region: Optional["ConferenceParticipantInstance.Region"] = (
+            payload.get("conference_region")
+        )
+        self.call_type: Optional["ConferenceParticipantInstance.CallType"] = (
+            payload.get("call_type")
+        )
         self.processing_state: Optional[
             "ConferenceParticipantInstance.ProcessingState"
         ] = payload.get("processing_state")
@@ -225,6 +225,7 @@ class ConferenceParticipantInstance(InstanceResource):
 
 
 class ConferenceParticipantContext(InstanceContext):
+
     def __init__(self, version: Version, conference_sid: str, participant_sid: str):
         """
         Initialize the ConferenceParticipantContext
@@ -319,6 +320,7 @@ class ConferenceParticipantContext(InstanceContext):
 
 
 class ConferenceParticipantPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ConferenceParticipantInstance:
         """
         Build an instance of ConferenceParticipantInstance
@@ -339,6 +341,7 @@ class ConferenceParticipantPage(Page):
 
 
 class ConferenceParticipantList(ListResource):
+
     def __init__(self, version: Version, conference_sid: str):
         """
         Initialize the ConferenceParticipantList

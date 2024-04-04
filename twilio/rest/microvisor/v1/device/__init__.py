@@ -12,10 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -26,7 +25,6 @@ from twilio.rest.microvisor.v1.device.device_secret import DeviceSecretList
 
 
 class DeviceInstance(InstanceResource):
-
     """
     :ivar sid: A 34-character string that uniquely identifies this Device.
     :ivar unique_name: A developer-defined string that uniquely identifies the Device. This value must be unique for all Devices on this Account. The `unique_name` value may be used as an alternative to the `sid` in the URL path to address the resource.
@@ -169,6 +167,7 @@ class DeviceInstance(InstanceResource):
 
 
 class DeviceContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the DeviceContext
@@ -246,8 +245,8 @@ class DeviceContext(InstanceContext):
             {
                 "UniqueName": unique_name,
                 "TargetApp": target_app,
-                "LoggingEnabled": logging_enabled,
-                "RestartApp": restart_app,
+                "LoggingEnabled": serialize.boolean_to_string(logging_enabled),
+                "RestartApp": serialize.boolean_to_string(restart_app),
             }
         )
 
@@ -280,8 +279,8 @@ class DeviceContext(InstanceContext):
             {
                 "UniqueName": unique_name,
                 "TargetApp": target_app,
-                "LoggingEnabled": logging_enabled,
-                "RestartApp": restart_app,
+                "LoggingEnabled": serialize.boolean_to_string(logging_enabled),
+                "RestartApp": serialize.boolean_to_string(restart_app),
             }
         )
 
@@ -328,6 +327,7 @@ class DeviceContext(InstanceContext):
 
 
 class DevicePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> DeviceInstance:
         """
         Build an instance of DeviceInstance
@@ -346,6 +346,7 @@ class DevicePage(Page):
 
 
 class DeviceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the DeviceList

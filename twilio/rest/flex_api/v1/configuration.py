@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
@@ -23,6 +22,7 @@ from twilio.base.version import Version
 
 
 class ConfigurationInstance(InstanceResource):
+
     class Status(object):
         OK = "ok"
         INPROGRESS = "inprogress"
@@ -46,6 +46,7 @@ class ConfigurationInstance(InstanceResource):
     :ivar messaging_service_instance_sid: The SID of the Messaging service instance.
     :ivar chat_service_instance_sid: The SID of the chat service this user belongs to.
     :ivar flex_service_instance_sid: The SID of the Flex service instance.
+    :ivar flex_instance_sid: The SID of the Flex instance.
     :ivar ui_language: The primary language of the Flex UI.
     :ivar ui_attributes: The object that describes Flex UI characteristics and settings.
     :ivar ui_dependencies: The object that defines the NPM packages and versions to be used in Hosted Flex.
@@ -100,10 +101,10 @@ class ConfigurationInstance(InstanceResource):
         self.taskrouter_target_taskqueue_sid: Optional[str] = payload.get(
             "taskrouter_target_taskqueue_sid"
         )
-        self.taskrouter_taskqueues: Optional[List[object]] = payload.get(
+        self.taskrouter_taskqueues: Optional[List[Dict[str, object]]] = payload.get(
             "taskrouter_taskqueues"
         )
-        self.taskrouter_skills: Optional[List[object]] = payload.get(
+        self.taskrouter_skills: Optional[List[Dict[str, object]]] = payload.get(
             "taskrouter_skills"
         )
         self.taskrouter_worker_channels: Optional[Dict[str, object]] = payload.get(
@@ -125,6 +126,7 @@ class ConfigurationInstance(InstanceResource):
         self.flex_service_instance_sid: Optional[str] = payload.get(
             "flex_service_instance_sid"
         )
+        self.flex_instance_sid: Optional[str] = payload.get("flex_instance_sid")
         self.ui_language: Optional[str] = payload.get("ui_language")
         self.ui_attributes: Optional[Dict[str, object]] = payload.get("ui_attributes")
         self.ui_dependencies: Optional[Dict[str, object]] = payload.get(
@@ -152,7 +154,9 @@ class ConfigurationInstance(InstanceResource):
         self.plugin_service_attributes: Optional[Dict[str, object]] = payload.get(
             "plugin_service_attributes"
         )
-        self.integrations: Optional[List[object]] = payload.get("integrations")
+        self.integrations: Optional[List[Dict[str, object]]] = payload.get(
+            "integrations"
+        )
         self.outbound_call_flows: Optional[Dict[str, object]] = payload.get(
             "outbound_call_flows"
         )
@@ -172,7 +176,9 @@ class ConfigurationInstance(InstanceResource):
             "flex_insights_drilldown"
         )
         self.flex_url: Optional[str] = payload.get("flex_url")
-        self.channel_configs: Optional[List[object]] = payload.get("channel_configs")
+        self.channel_configs: Optional[List[Dict[str, object]]] = payload.get(
+            "channel_configs"
+        )
         self.debugger_integration: Optional[Dict[str, object]] = payload.get(
             "debugger_integration"
         )
@@ -231,6 +237,34 @@ class ConfigurationInstance(InstanceResource):
             ui_version=ui_version,
         )
 
+    def update(
+        self, body: Union[object, object] = values.unset
+    ) -> "ConfigurationInstance":
+        """
+        Update the ConfigurationInstance
+
+        :param body:
+
+        :returns: The updated ConfigurationInstance
+        """
+        return self._proxy.update(
+            body=body,
+        )
+
+    async def update_async(
+        self, body: Union[object, object] = values.unset
+    ) -> "ConfigurationInstance":
+        """
+        Asynchronous coroutine to update the ConfigurationInstance
+
+        :param body:
+
+        :returns: The updated ConfigurationInstance
+        """
+        return await self._proxy.update_async(
+            body=body,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -242,6 +276,7 @@ class ConfigurationInstance(InstanceResource):
 
 
 class ConfigurationContext(InstanceContext):
+
     def __init__(self, version: Version):
         """
         Initialize the ConfigurationContext
@@ -302,6 +337,52 @@ class ConfigurationContext(InstanceContext):
             payload,
         )
 
+    def update(
+        self, body: Union[object, object] = values.unset
+    ) -> ConfigurationInstance:
+        """
+        Update the ConfigurationInstance
+
+        :param body:
+
+        :returns: The updated ConfigurationInstance
+        """
+        data = values.of({})
+        headers = values.of(
+            {
+                "body": body,
+            }
+        )
+
+        payload = self._version.update(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ConfigurationInstance(self._version, payload)
+
+    async def update_async(
+        self, body: Union[object, object] = values.unset
+    ) -> ConfigurationInstance:
+        """
+        Asynchronous coroutine to update the ConfigurationInstance
+
+        :param body:
+
+        :returns: The updated ConfigurationInstance
+        """
+        data = values.of({})
+        headers = values.of(
+            {
+                "body": body,
+            }
+        )
+
+        payload = await self._version.update_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ConfigurationInstance(self._version, payload)
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -313,6 +394,7 @@ class ConfigurationContext(InstanceContext):
 
 
 class ConfigurationList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ConfigurationList

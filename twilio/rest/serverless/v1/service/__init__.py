@@ -12,10 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -28,7 +27,6 @@ from twilio.rest.serverless.v1.service.function import FunctionList
 
 
 class ServiceInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Service resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
@@ -201,6 +199,7 @@ class ServiceInstance(InstanceResource):
 
 
 class ServiceContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ServiceContext
@@ -300,9 +299,9 @@ class ServiceContext(InstanceContext):
         """
         data = values.of(
             {
-                "IncludeCredentials": include_credentials,
+                "IncludeCredentials": serialize.boolean_to_string(include_credentials),
                 "FriendlyName": friendly_name,
-                "UiEditable": ui_editable,
+                "UiEditable": serialize.boolean_to_string(ui_editable),
             }
         )
 
@@ -331,9 +330,9 @@ class ServiceContext(InstanceContext):
         """
         data = values.of(
             {
-                "IncludeCredentials": include_credentials,
+                "IncludeCredentials": serialize.boolean_to_string(include_credentials),
                 "FriendlyName": friendly_name,
-                "UiEditable": ui_editable,
+                "UiEditable": serialize.boolean_to_string(ui_editable),
             }
         )
 
@@ -404,6 +403,7 @@ class ServiceContext(InstanceContext):
 
 
 class ServicePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
@@ -422,6 +422,7 @@ class ServicePage(Page):
 
 
 class ServiceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
@@ -450,12 +451,13 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
                 "FriendlyName": friendly_name,
-                "IncludeCredentials": include_credentials,
-                "UiEditable": ui_editable,
+                "IncludeCredentials": serialize.boolean_to_string(include_credentials),
+                "UiEditable": serialize.boolean_to_string(ui_editable),
             }
         )
 
@@ -484,12 +486,13 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
                 "FriendlyName": friendly_name,
-                "IncludeCredentials": include_credentials,
-                "UiEditable": ui_editable,
+                "IncludeCredentials": serialize.boolean_to_string(include_credentials),
+                "UiEditable": serialize.boolean_to_string(ui_editable),
             }
         )
 

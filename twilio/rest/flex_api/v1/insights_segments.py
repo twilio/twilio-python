@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
 
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class InsightsSegmentsInstance(InstanceResource):
-
     """
     :ivar segment_id: To unique id of the segment
     :ivar external_id: The unique id for the conversation.
@@ -96,6 +94,7 @@ class InsightsSegmentsInstance(InstanceResource):
 
 
 class InsightsSegmentsPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> InsightsSegmentsInstance:
         """
         Build an instance of InsightsSegmentsInstance
@@ -114,6 +113,7 @@ class InsightsSegmentsPage(Page):
 
 
 class InsightsSegmentsList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the InsightsSegmentsList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -26,6 +25,7 @@ from twilio.rest.proxy.v1.service.session.participant import ParticipantList
 
 
 class SessionInstance(InstanceResource):
+
     class Mode(object):
         MESSAGE_ONLY = "message-only"
         VOICE_ONLY = "voice-only"
@@ -220,6 +220,7 @@ class SessionInstance(InstanceResource):
 
 
 class SessionContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the SessionContext
@@ -413,6 +414,7 @@ class SessionContext(InstanceContext):
 
 
 class SessionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SessionInstance:
         """
         Build an instance of SessionInstance
@@ -433,6 +435,7 @@ class SessionPage(Page):
 
 
 class SessionList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the SessionList
@@ -470,6 +473,7 @@ class SessionList(ListResource):
 
         :returns: The created SessionInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -514,6 +518,7 @@ class SessionList(ListResource):
 
         :returns: The created SessionInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

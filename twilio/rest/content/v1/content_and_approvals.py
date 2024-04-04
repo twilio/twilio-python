@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class ContentAndApprovalsInstance(InstanceResource):
-
     """
     :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
@@ -33,7 +31,7 @@ class ContentAndApprovalsInstance(InstanceResource):
     :ivar friendly_name: A string name used to describe the Content resource. Not visible to the end recipient.
     :ivar language: Two-letter (ISO 639-1) language code (e.g., en) identifying the language the Content resource is in.
     :ivar variables: Defines the default placeholder values for variables included in the Content resource. e.g. {\"1\": \"Customer_Name\"}.
-    :ivar types: The [Content types](https://www.twilio.com/docs/content/content-types-overview) (e.g. twilio/text) for this Content resource.
+    :ivar types: The [Content types](https://www.twilio.com/docs/content-api/content-types-overview) (e.g. twilio/text) for this Content resource.
     :ivar approval_requests: The submitted information and approval request status of the Content resource.
     """
 
@@ -67,6 +65,7 @@ class ContentAndApprovalsInstance(InstanceResource):
 
 
 class ContentAndApprovalsPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ContentAndApprovalsInstance:
         """
         Build an instance of ContentAndApprovalsInstance
@@ -85,6 +84,7 @@ class ContentAndApprovalsPage(Page):
 
 
 class ContentAndApprovalsList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ContentAndApprovalsList

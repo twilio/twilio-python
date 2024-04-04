@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class RoleInstance(InstanceResource):
+
     class RoleType(object):
         CONVERSATION = "conversation"
         SERVICE = "service"
@@ -156,6 +156,7 @@ class RoleInstance(InstanceResource):
 
 
 class RoleContext(InstanceContext):
+
     def __init__(self, version: Version, chat_service_sid: str, sid: str):
         """
         Initialize the RoleContext
@@ -302,6 +303,7 @@ class RoleContext(InstanceContext):
 
 
 class RolePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> RoleInstance:
         """
         Build an instance of RoleInstance
@@ -322,6 +324,7 @@ class RolePage(Page):
 
 
 class RoleList(ListResource):
+
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the RoleList
@@ -350,6 +353,7 @@ class RoleList(ListResource):
 
         :returns: The created RoleInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -380,6 +384,7 @@ class RoleList(ListResource):
 
         :returns: The created RoleInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

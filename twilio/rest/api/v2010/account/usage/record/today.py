@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import date
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class TodayInstance(InstanceResource):
+
     class Category(object):
         A2P_REGISTRATION_FEES = "a2p-registration-fees"
         AGENT_CONFERENCE = "agent-conference"
@@ -405,6 +405,7 @@ class TodayInstance(InstanceResource):
 
 
 class TodayPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> TodayInstance:
         """
         Build an instance of TodayInstance
@@ -425,6 +426,7 @@ class TodayPage(Page):
 
 
 class TodayList(ListResource):
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the TodayList
@@ -627,7 +629,7 @@ class TodayList(ListResource):
                 "Category": category,
                 "StartDate": serialize.iso8601_date(start_date),
                 "EndDate": serialize.iso8601_date(end_date),
-                "IncludeSubaccounts": include_subaccounts,
+                "IncludeSubaccounts": serialize.boolean_to_string(include_subaccounts),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -666,7 +668,7 @@ class TodayList(ListResource):
                 "Category": category,
                 "StartDate": serialize.iso8601_date(start_date),
                 "EndDate": serialize.iso8601_date(end_date),
-                "IncludeSubaccounts": include_subaccounts,
+                "IncludeSubaccounts": serialize.boolean_to_string(include_subaccounts),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -25,7 +24,6 @@ from twilio.rest.content.v1.content.approval_fetch import ApprovalFetchList
 
 
 class ContentInstance(InstanceResource):
-
     """
     :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
@@ -133,6 +131,7 @@ class ContentInstance(InstanceResource):
 
 
 class ContentContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ContentContext
@@ -235,6 +234,7 @@ class ContentContext(InstanceContext):
 
 
 class ContentPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ContentInstance:
         """
         Build an instance of ContentInstance
@@ -253,6 +253,7 @@ class ContentPage(Page):
 
 
 class ContentList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ContentList

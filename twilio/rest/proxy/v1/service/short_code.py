@@ -12,10 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class ShortCodeInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the ShortCode resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ShortCode resource.
@@ -159,6 +157,7 @@ class ShortCodeInstance(InstanceResource):
 
 
 class ShortCodeContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the ShortCodeContext
@@ -252,7 +251,7 @@ class ShortCodeContext(InstanceContext):
         """
         data = values.of(
             {
-                "IsReserved": is_reserved,
+                "IsReserved": serialize.boolean_to_string(is_reserved),
             }
         )
 
@@ -281,7 +280,7 @@ class ShortCodeContext(InstanceContext):
         """
         data = values.of(
             {
-                "IsReserved": is_reserved,
+                "IsReserved": serialize.boolean_to_string(is_reserved),
             }
         )
 
@@ -309,6 +308,7 @@ class ShortCodeContext(InstanceContext):
 
 
 class ShortCodePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ShortCodeInstance:
         """
         Build an instance of ShortCodeInstance
@@ -329,6 +329,7 @@ class ShortCodePage(Page):
 
 
 class ShortCodeList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the ShortCodeList
@@ -353,6 +354,7 @@ class ShortCodeList(ListResource):
 
         :returns: The created ShortCodeInstance
         """
+
         data = values.of(
             {
                 "Sid": sid,
@@ -377,6 +379,7 @@ class ShortCodeList(ListResource):
 
         :returns: The created ShortCodeInstance
         """
+
         data = values.of(
             {
                 "Sid": sid,

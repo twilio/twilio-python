@@ -12,10 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class EsimProfileInstance(InstanceResource):
+
     class Status(object):
         NEW = "new"
         RESERVING = "reserving"
@@ -122,6 +122,7 @@ class EsimProfileInstance(InstanceResource):
 
 
 class EsimProfileContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the EsimProfileContext
@@ -186,6 +187,7 @@ class EsimProfileContext(InstanceContext):
 
 
 class EsimProfilePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EsimProfileInstance:
         """
         Build an instance of EsimProfileInstance
@@ -204,6 +206,7 @@ class EsimProfilePage(Page):
 
 
 class EsimProfileList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the EsimProfileList
@@ -232,11 +235,12 @@ class EsimProfileList(ListResource):
 
         :returns: The created EsimProfileInstance
         """
+
         data = values.of(
             {
                 "CallbackUrl": callback_url,
                 "CallbackMethod": callback_method,
-                "GenerateMatchingId": generate_matching_id,
+                "GenerateMatchingId": serialize.boolean_to_string(generate_matching_id),
                 "Eid": eid,
             }
         )
@@ -266,11 +270,12 @@ class EsimProfileList(ListResource):
 
         :returns: The created EsimProfileInstance
         """
+
         data = values.of(
             {
                 "CallbackUrl": callback_url,
                 "CallbackMethod": callback_method,
-                "GenerateMatchingId": generate_matching_id,
+                "GenerateMatchingId": serialize.boolean_to_string(generate_matching_id),
                 "Eid": eid,
             }
         )

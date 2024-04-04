@@ -12,10 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class CallSummariesInstance(InstanceResource):
+
     class AnsweredBy(object):
         UNKNOWN = "unknown"
         MACHINE_START = "machine_start"
@@ -103,9 +103,9 @@ class CallSummariesInstance(InstanceResource):
         self.call_state: Optional["CallSummariesInstance.CallState"] = payload.get(
             "call_state"
         )
-        self.processing_state: Optional[
-            "CallSummariesInstance.ProcessingState"
-        ] = payload.get("processing_state")
+        self.processing_state: Optional["CallSummariesInstance.ProcessingState"] = (
+            payload.get("processing_state")
+        )
         self.created_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("created_time")
         )
@@ -143,6 +143,7 @@ class CallSummariesInstance(InstanceResource):
 
 
 class CallSummariesPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CallSummariesInstance:
         """
         Build an instance of CallSummariesInstance
@@ -161,6 +162,7 @@ class CallSummariesPage(Page):
 
 
 class CallSummariesList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CallSummariesList
@@ -649,9 +651,9 @@ class CallSummariesList(ListResource):
                 "ToCarrier": to_carrier,
                 "FromCountryCode": from_country_code,
                 "ToCountryCode": to_country_code,
-                "Branded": branded,
-                "VerifiedCaller": verified_caller,
-                "HasTag": has_tag,
+                "Branded": serialize.boolean_to_string(branded),
+                "VerifiedCaller": serialize.boolean_to_string(verified_caller),
+                "HasTag": serialize.boolean_to_string(has_tag),
                 "StartTime": start_time,
                 "EndTime": end_time,
                 "CallType": call_type,
@@ -660,12 +662,12 @@ class CallSummariesList(ListResource):
                 "ProcessingState": processing_state,
                 "SortBy": sort_by,
                 "Subaccount": subaccount,
-                "AbnormalSession": abnormal_session,
+                "AbnormalSession": serialize.boolean_to_string(abnormal_session),
                 "AnsweredBy": answered_by,
                 "AnsweredByAnnotation": answered_by_annotation,
                 "ConnectivityIssueAnnotation": connectivity_issue_annotation,
                 "QualityIssueAnnotation": quality_issue_annotation,
-                "SpamAnnotation": spam_annotation,
+                "SpamAnnotation": serialize.boolean_to_string(spam_annotation),
                 "CallScoreAnnotation": call_score_annotation,
                 "PageToken": page_token,
                 "Page": page_number,
@@ -750,9 +752,9 @@ class CallSummariesList(ListResource):
                 "ToCarrier": to_carrier,
                 "FromCountryCode": from_country_code,
                 "ToCountryCode": to_country_code,
-                "Branded": branded,
-                "VerifiedCaller": verified_caller,
-                "HasTag": has_tag,
+                "Branded": serialize.boolean_to_string(branded),
+                "VerifiedCaller": serialize.boolean_to_string(verified_caller),
+                "HasTag": serialize.boolean_to_string(has_tag),
                 "StartTime": start_time,
                 "EndTime": end_time,
                 "CallType": call_type,
@@ -761,12 +763,12 @@ class CallSummariesList(ListResource):
                 "ProcessingState": processing_state,
                 "SortBy": sort_by,
                 "Subaccount": subaccount,
-                "AbnormalSession": abnormal_session,
+                "AbnormalSession": serialize.boolean_to_string(abnormal_session),
                 "AnsweredBy": answered_by,
                 "AnsweredByAnnotation": answered_by_annotation,
                 "ConnectivityIssueAnnotation": connectivity_issue_annotation,
                 "QualityIssueAnnotation": quality_issue_annotation,
-                "SpamAnnotation": spam_annotation,
+                "SpamAnnotation": serialize.boolean_to_string(spam_annotation),
                 "CallScoreAnnotation": call_score_annotation,
                 "PageToken": page_token,
                 "Page": page_number,

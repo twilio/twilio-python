@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, serialize, values
@@ -23,6 +22,7 @@ from twilio.base.version import Version
 
 
 class PortingBulkPortabilityInstance(InstanceResource):
+
     class Status(object):
         IN_PROGRESS = "in-progress"
         COMPLETED = "completed"
@@ -48,7 +48,9 @@ class PortingBulkPortabilityInstance(InstanceResource):
         self.datetime_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("datetime_created")
         )
-        self.phone_numbers: Optional[List[object]] = payload.get("phone_numbers")
+        self.phone_numbers: Optional[List[Dict[str, object]]] = payload.get(
+            "phone_numbers"
+        )
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {
@@ -100,6 +102,7 @@ class PortingBulkPortabilityInstance(InstanceResource):
 
 
 class PortingBulkPortabilityContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the PortingBulkPortabilityContext
@@ -164,6 +167,7 @@ class PortingBulkPortabilityContext(InstanceContext):
 
 
 class PortingBulkPortabilityList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the PortingBulkPortabilityList
@@ -183,6 +187,7 @@ class PortingBulkPortabilityList(ListResource):
 
         :returns: The created PortingBulkPortabilityInstance
         """
+
         data = values.of(
             {
                 "PhoneNumbers": serialize.map(phone_numbers, lambda e: e),
@@ -207,6 +212,7 @@ class PortingBulkPortabilityList(ListResource):
 
         :returns: The created PortingBulkPortabilityInstance
         """
+
         data = values.of(
             {
                 "PhoneNumbers": serialize.map(phone_numbers, lambda e: e),

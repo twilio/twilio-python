@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class AssetVersionInstance(InstanceResource):
+
     class Visibility(object):
         PUBLIC = "public"
         PRIVATE = "private"
@@ -116,6 +116,7 @@ class AssetVersionInstance(InstanceResource):
 
 
 class AssetVersionContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, asset_sid: str, sid: str):
         """
         Initialize the AssetVersionContext
@@ -190,6 +191,7 @@ class AssetVersionContext(InstanceContext):
 
 
 class AssetVersionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AssetVersionInstance:
         """
         Build an instance of AssetVersionInstance
@@ -213,6 +215,7 @@ class AssetVersionPage(Page):
 
 
 class AssetVersionList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, asset_sid: str):
         """
         Initialize the AssetVersionList

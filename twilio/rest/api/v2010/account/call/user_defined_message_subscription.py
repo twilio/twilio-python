@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
@@ -23,7 +22,6 @@ from twilio.base.version import Version
 
 
 class UserDefinedMessageSubscriptionInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that subscribed to the User Defined Messages.
     :ivar call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the User Defined Message Subscription is associated with. This refers to the Call SID that is producing the User Defined Messages.
@@ -105,6 +103,7 @@ class UserDefinedMessageSubscriptionInstance(InstanceResource):
 
 
 class UserDefinedMessageSubscriptionContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
         """
         Initialize the UserDefinedMessageSubscriptionContext
@@ -163,6 +162,7 @@ class UserDefinedMessageSubscriptionContext(InstanceContext):
 
 
 class UserDefinedMessageSubscriptionList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
         Initialize the UserDefinedMessageSubscriptionList
@@ -198,6 +198,7 @@ class UserDefinedMessageSubscriptionList(ListResource):
 
         :returns: The created UserDefinedMessageSubscriptionInstance
         """
+
         data = values.of(
             {
                 "Callback": callback,
@@ -234,6 +235,7 @@ class UserDefinedMessageSubscriptionList(ListResource):
 
         :returns: The created UserDefinedMessageSubscriptionInstance
         """
+
         data = values.of(
             {
                 "Callback": callback,

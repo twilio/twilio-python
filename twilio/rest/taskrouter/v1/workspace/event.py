@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class EventInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Event resource.
     :ivar actor_sid: The SID of the resource that triggered the event.
@@ -125,6 +123,7 @@ class EventInstance(InstanceResource):
 
 
 class EventContext(InstanceContext):
+
     def __init__(self, version: Version, workspace_sid: str, sid: str):
         """
         Initialize the EventContext
@@ -193,6 +192,7 @@ class EventContext(InstanceContext):
 
 
 class EventPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> EventInstance:
         """
         Build an instance of EventInstance
@@ -213,6 +213,7 @@ class EventPage(Page):
 
 
 class EventList(ListResource):
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the EventList

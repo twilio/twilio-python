@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class InsightsQuestionnairesInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
     :ivar questionnaire_sid: The sid of this questionnaire
@@ -47,7 +45,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
         self.name: Optional[str] = payload.get("name")
         self.description: Optional[str] = payload.get("description")
         self.active: Optional[bool] = payload.get("active")
-        self.questions: Optional[List[object]] = payload.get("questions")
+        self.questions: Optional[List[Dict[str, object]]] = payload.get("questions")
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {
@@ -189,6 +187,7 @@ class InsightsQuestionnairesInstance(InstanceResource):
 
 
 class InsightsQuestionnairesContext(InstanceContext):
+
     def __init__(self, version: Version, questionnaire_sid: str):
         """
         Initialize the InsightsQuestionnairesContext
@@ -317,7 +316,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         """
         data = values.of(
             {
-                "Active": active,
+                "Active": serialize.boolean_to_string(active),
                 "Name": name,
                 "Description": description,
                 "QuestionSids": serialize.map(question_sids, lambda e: e),
@@ -360,7 +359,7 @@ class InsightsQuestionnairesContext(InstanceContext):
         """
         data = values.of(
             {
-                "Active": active,
+                "Active": serialize.boolean_to_string(active),
                 "Name": name,
                 "Description": description,
                 "QuestionSids": serialize.map(question_sids, lambda e: e),
@@ -393,6 +392,7 @@ class InsightsQuestionnairesContext(InstanceContext):
 
 
 class InsightsQuestionnairesPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> InsightsQuestionnairesInstance:
         """
         Build an instance of InsightsQuestionnairesInstance
@@ -411,6 +411,7 @@ class InsightsQuestionnairesPage(Page):
 
 
 class InsightsQuestionnairesList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the InsightsQuestionnairesList
@@ -441,11 +442,12 @@ class InsightsQuestionnairesList(ListResource):
 
         :returns: The created InsightsQuestionnairesInstance
         """
+
         data = values.of(
             {
                 "Name": name,
                 "Description": description,
-                "Active": active,
+                "Active": serialize.boolean_to_string(active),
                 "QuestionSids": serialize.map(question_sids, lambda e: e),
             }
         )
@@ -480,11 +482,12 @@ class InsightsQuestionnairesList(ListResource):
 
         :returns: The created InsightsQuestionnairesInstance
         """
+
         data = values.of(
             {
                 "Name": name,
                 "Description": description,
-                "Active": active,
+                "Active": serialize.boolean_to_string(active),
                 "QuestionSids": serialize.map(question_sids, lambda e: e),
             }
         )
@@ -654,7 +657,7 @@ class InsightsQuestionnairesList(ListResource):
         data = values.of(
             {
                 "Authorization": authorization,
-                "IncludeInactive": include_inactive,
+                "IncludeInactive": serialize.boolean_to_string(include_inactive),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -687,7 +690,7 @@ class InsightsQuestionnairesList(ListResource):
         data = values.of(
             {
                 "Authorization": authorization,
-                "IncludeInactive": include_inactive,
+                "IncludeInactive": serialize.boolean_to_string(include_inactive),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

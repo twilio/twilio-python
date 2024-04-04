@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class MessageInstance(InstanceResource):
+
     class OrderType(object):
         ASC = "asc"
         DESC = "desc"
@@ -179,6 +179,7 @@ class MessageInstance(InstanceResource):
 
 
 class MessageContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, channel_sid: str, sid: str):
         """
         Initialize the MessageContext
@@ -347,6 +348,7 @@ class MessageContext(InstanceContext):
 
 
 class MessagePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MessageInstance:
         """
         Build an instance of MessageInstance
@@ -370,6 +372,7 @@ class MessagePage(Page):
 
 
 class MessageList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, channel_sid: str):
         """
         Initialize the MessageList
@@ -405,6 +408,7 @@ class MessageList(ListResource):
 
         :returns: The created MessageInstance
         """
+
         data = values.of(
             {
                 "Body": body,
@@ -441,6 +445,7 @@ class MessageList(ListResource):
 
         :returns: The created MessageInstance
         """
+
         data = values.of(
             {
                 "Body": body,

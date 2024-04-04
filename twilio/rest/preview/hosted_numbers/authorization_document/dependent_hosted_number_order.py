@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class DependentHostedNumberOrderInstance(InstanceResource):
+
     class Status(object):
         RECEIVED = "received"
         PENDING_VERIFICATION = "pending-verification"
@@ -80,9 +80,9 @@ class DependentHostedNumberOrderInstance(InstanceResource):
         self.capabilities: Optional[str] = payload.get("capabilities")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.unique_name: Optional[str] = payload.get("unique_name")
-        self.status: Optional[
-            "DependentHostedNumberOrderInstance.Status"
-        ] = payload.get("status")
+        self.status: Optional["DependentHostedNumberOrderInstance.Status"] = (
+            payload.get("status")
+        )
         self.failure_reason: Optional[str] = payload.get("failure_reason")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
@@ -125,6 +125,7 @@ class DependentHostedNumberOrderInstance(InstanceResource):
 
 
 class DependentHostedNumberOrderPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> DependentHostedNumberOrderInstance:
@@ -149,6 +150,7 @@ class DependentHostedNumberOrderPage(Page):
 
 
 class DependentHostedNumberOrderList(ListResource):
+
     def __init__(self, version: Version, signing_document_sid: str):
         """
         Initialize the DependentHostedNumberOrderList

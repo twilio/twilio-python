@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -25,7 +24,6 @@ from twilio.rest.sync.v1.service.sync_stream.stream_message import StreamMessage
 
 
 class SyncStreamInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Sync Stream resource.
     :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
@@ -167,6 +165,7 @@ class SyncStreamInstance(InstanceResource):
 
 
 class SyncStreamContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the SyncStreamContext
@@ -330,6 +329,7 @@ class SyncStreamContext(InstanceContext):
 
 
 class SyncStreamPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SyncStreamInstance:
         """
         Build an instance of SyncStreamInstance
@@ -350,6 +350,7 @@ class SyncStreamPage(Page):
 
 
 class SyncStreamList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the SyncStreamList
@@ -379,6 +380,7 @@ class SyncStreamList(ListResource):
 
         :returns: The created SyncStreamInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -409,6 +411,7 @@ class SyncStreamList(ListResource):
 
         :returns: The created SyncStreamInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

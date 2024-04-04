@@ -12,10 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class CommandInstance(InstanceResource):
+
     class CommandMode(object):
         TEXT = "text"
         BINARY = "binary"
@@ -151,6 +151,7 @@ class CommandInstance(InstanceResource):
 
 
 class CommandContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the CommandContext
@@ -239,6 +240,7 @@ class CommandContext(InstanceContext):
 
 
 class CommandPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> CommandInstance:
         """
         Build an instance of CommandInstance
@@ -257,6 +259,7 @@ class CommandPage(Page):
 
 
 class CommandList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the CommandList
@@ -291,6 +294,7 @@ class CommandList(ListResource):
 
         :returns: The created CommandInstance
         """
+
         data = values.of(
             {
                 "Command": command,
@@ -299,7 +303,9 @@ class CommandList(ListResource):
                 "CallbackUrl": callback_url,
                 "CommandMode": command_mode,
                 "IncludeSid": include_sid,
-                "DeliveryReceiptRequested": delivery_receipt_requested,
+                "DeliveryReceiptRequested": serialize.boolean_to_string(
+                    delivery_receipt_requested
+                ),
             }
         )
 
@@ -334,6 +340,7 @@ class CommandList(ListResource):
 
         :returns: The created CommandInstance
         """
+
         data = values.of(
             {
                 "Command": command,
@@ -342,7 +349,9 @@ class CommandList(ListResource):
                 "CallbackUrl": callback_url,
                 "CommandMode": command_mode,
                 "IncludeSid": include_sid,
-                "DeliveryReceiptRequested": delivery_receipt_requested,
+                "DeliveryReceiptRequested": serialize.boolean_to_string(
+                    delivery_receipt_requested
+                ),
             }
         )
 

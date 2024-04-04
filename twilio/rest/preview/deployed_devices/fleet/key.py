@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class KeyInstance(InstanceResource):
-
     """
     :ivar sid: Contains a 34 character string that uniquely identifies this Key credential resource.
     :ivar url: Contains an absolute URL for this Key credential resource.
@@ -165,6 +163,7 @@ class KeyInstance(InstanceResource):
 
 
 class KeyContext(InstanceContext):
+
     def __init__(self, version: Version, fleet_sid: str, sid: str):
         """
         Initialize the KeyContext
@@ -323,6 +322,7 @@ class KeyContext(InstanceContext):
 
 
 class KeyPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> KeyInstance:
         """
         Build an instance of KeyInstance
@@ -343,6 +343,7 @@ class KeyPage(Page):
 
 
 class KeyList(ListResource):
+
     def __init__(self, version: Version, fleet_sid: str):
         """
         Initialize the KeyList
@@ -372,6 +373,7 @@ class KeyList(ListResource):
 
         :returns: The created KeyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -402,6 +404,7 @@ class KeyList(ListResource):
 
         :returns: The created KeyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

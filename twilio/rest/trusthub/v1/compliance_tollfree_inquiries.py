@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import serialize, values
 
@@ -22,6 +21,7 @@ from twilio.base.version import Version
 
 
 class ComplianceTollfreeInquiriesInstance(InstanceResource):
+
     class OptInType(object):
         VERBAL = "VERBAL"
         WEB_FORM = "WEB_FORM"
@@ -55,6 +55,7 @@ class ComplianceTollfreeInquiriesInstance(InstanceResource):
 
 
 class ComplianceTollfreeInquiriesList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ComplianceTollfreeInquiriesList
@@ -119,6 +120,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
 
         :returns: The created ComplianceTollfreeInquiriesInstance
         """
+
         data = values.of(
             {
                 "TollfreePhoneNumber": tollfree_phone_number,
@@ -206,6 +208,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
 
         :returns: The created ComplianceTollfreeInquiriesInstance
         """
+
         data = values.of(
             {
                 "TollfreePhoneNumber": tollfree_phone_number,

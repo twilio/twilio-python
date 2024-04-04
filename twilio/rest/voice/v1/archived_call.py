@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import date
 from twilio.base.instance_context import InstanceContext
 
@@ -21,6 +20,7 @@ from twilio.base.version import Version
 
 
 class ArchivedCallContext(InstanceContext):
+
     def __init__(self, version: Version, date: date, sid: str):
         """
         Initialize the ArchivedCallContext
@@ -73,6 +73,7 @@ class ArchivedCallContext(InstanceContext):
 
 
 class ArchivedCallList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ArchivedCallList

@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class AvailableAddOnExtensionInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the AvailableAddOnExtension resource.
     :ivar available_add_on_sid: The SID of the AvailableAddOn resource to which this extension applies.
@@ -102,6 +100,7 @@ class AvailableAddOnExtensionInstance(InstanceResource):
 
 
 class AvailableAddOnExtensionContext(InstanceContext):
+
     def __init__(self, version: Version, available_add_on_sid: str, sid: str):
         """
         Initialize the AvailableAddOnExtensionContext
@@ -174,6 +173,7 @@ class AvailableAddOnExtensionContext(InstanceContext):
 
 
 class AvailableAddOnExtensionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AvailableAddOnExtensionInstance:
         """
         Build an instance of AvailableAddOnExtensionInstance
@@ -196,6 +196,7 @@ class AvailableAddOnExtensionPage(Page):
 
 
 class AvailableAddOnExtensionList(ListResource):
+
     def __init__(self, version: Version, available_add_on_sid: str):
         """
         Initialize the AvailableAddOnExtensionList

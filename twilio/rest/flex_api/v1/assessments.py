@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -23,7 +22,6 @@ from twilio.base.page import Page
 
 
 class AssessmentsInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique SID identifier of the Account.
     :ivar assessment_sid: The SID of the assessment
@@ -143,6 +141,7 @@ class AssessmentsInstance(InstanceResource):
 
 
 class AssessmentsContext(InstanceContext):
+
     def __init__(self, version: Version, assessment_sid: str):
         """
         Initialize the AssessmentsContext
@@ -247,6 +246,7 @@ class AssessmentsContext(InstanceContext):
 
 
 class AssessmentsPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> AssessmentsInstance:
         """
         Build an instance of AssessmentsInstance
@@ -265,6 +265,7 @@ class AssessmentsPage(Page):
 
 
 class AssessmentsList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the AssessmentsList
@@ -307,6 +308,7 @@ class AssessmentsList(ListResource):
 
         :returns: The created AssessmentsInstance
         """
+
         data = values.of(
             {
                 "CategorySid": category_sid,
@@ -364,6 +366,7 @@ class AssessmentsList(ListResource):
 
         :returns: The created AssessmentsInstance
         """
+
         data = values.of(
             {
                 "CategorySid": category_sid,

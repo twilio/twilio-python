@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class SupportingDocumentInstance(InstanceResource):
+
     class Status(object):
         DRAFT = "draft"
         PENDING_REVIEW = "pending-review"
@@ -172,6 +172,7 @@ class SupportingDocumentInstance(InstanceResource):
 
 
 class SupportingDocumentContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the SupportingDocumentContext
@@ -322,6 +323,7 @@ class SupportingDocumentContext(InstanceContext):
 
 
 class SupportingDocumentPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> SupportingDocumentInstance:
         """
         Build an instance of SupportingDocumentInstance
@@ -340,6 +342,7 @@ class SupportingDocumentPage(Page):
 
 
 class SupportingDocumentList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the SupportingDocumentList
@@ -366,6 +369,7 @@ class SupportingDocumentList(ListResource):
 
         :returns: The created SupportingDocumentInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -397,6 +401,7 @@ class SupportingDocumentList(ListResource):
 
         :returns: The created SupportingDocumentInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,

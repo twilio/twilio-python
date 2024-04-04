@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
@@ -23,6 +22,7 @@ from twilio.base.version import Version
 
 
 class NotificationInstance(InstanceResource):
+
     class Priority(object):
         HIGH = "high"
         LOW = "low"
@@ -95,6 +95,7 @@ class NotificationInstance(InstanceResource):
 
 
 class NotificationList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the NotificationList
@@ -156,6 +157,7 @@ class NotificationList(ListResource):
 
         :returns: The created NotificationInstance
         """
+
         data = values.of(
             {
                 "Body": body,
@@ -234,6 +236,7 @@ class NotificationList(ListResource):
 
         :returns: The created NotificationInstance
         """
+
         data = values.of(
             {
                 "Body": body,

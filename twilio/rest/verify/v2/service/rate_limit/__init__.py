@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -25,7 +24,6 @@ from twilio.rest.verify.v2.service.rate_limit.bucket import BucketList
 
 
 class RateLimitInstance(InstanceResource):
-
     """
     :ivar sid: A 34 character string that uniquely identifies this Rate Limit.
     :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
@@ -165,6 +163,7 @@ class RateLimitInstance(InstanceResource):
 
 
 class RateLimitContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, sid: str):
         """
         Initialize the RateLimitContext
@@ -330,6 +329,7 @@ class RateLimitContext(InstanceContext):
 
 
 class RateLimitPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> RateLimitInstance:
         """
         Build an instance of RateLimitInstance
@@ -350,6 +350,7 @@ class RateLimitPage(Page):
 
 
 class RateLimitList(ListResource):
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the RateLimitList
@@ -377,6 +378,7 @@ class RateLimitList(ListResource):
 
         :returns: The created RateLimitInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -405,6 +407,7 @@ class RateLimitList(ListResource):
 
         :returns: The created RateLimitInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,

@@ -17,6 +17,7 @@ from twilio.rest.notify.v1 import V1
 
 
 class NotifyBase(Domain):
+
     def __init__(self, twilio: Client):
         """
         Initialize the Notify Domain

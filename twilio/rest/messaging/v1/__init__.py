@@ -35,6 +35,7 @@ from twilio.rest.messaging.v1.usecase import UsecaseList
 
 
 class V1(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V1 version of Messaging

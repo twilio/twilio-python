@@ -12,10 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class ServiceInstance(InstanceResource):
+
     class HttpMethod(object):
         GET = "GET"
         POST = "POST"
@@ -225,6 +225,7 @@ class ServiceInstance(InstanceResource):
 
 
 class ServiceContext(InstanceContext):
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ServiceContext
@@ -333,13 +334,13 @@ class ServiceContext(InstanceContext):
         """
         data = values.of(
             {
-                "AutoTranscribe": auto_transcribe,
-                "DataLogging": data_logging,
+                "AutoTranscribe": serialize.boolean_to_string(auto_transcribe),
+                "DataLogging": serialize.boolean_to_string(data_logging),
                 "FriendlyName": friendly_name,
                 "LanguageCode": language_code,
                 "UniqueName": unique_name,
-                "AutoRedaction": auto_redaction,
-                "MediaRedaction": media_redaction,
+                "AutoRedaction": serialize.boolean_to_string(auto_redaction),
+                "MediaRedaction": serialize.boolean_to_string(media_redaction),
                 "WebhookUrl": webhook_url,
                 "WebhookHttpMethod": webhook_http_method,
             }
@@ -387,13 +388,13 @@ class ServiceContext(InstanceContext):
         """
         data = values.of(
             {
-                "AutoTranscribe": auto_transcribe,
-                "DataLogging": data_logging,
+                "AutoTranscribe": serialize.boolean_to_string(auto_transcribe),
+                "DataLogging": serialize.boolean_to_string(data_logging),
                 "FriendlyName": friendly_name,
                 "LanguageCode": language_code,
                 "UniqueName": unique_name,
-                "AutoRedaction": auto_redaction,
-                "MediaRedaction": media_redaction,
+                "AutoRedaction": serialize.boolean_to_string(auto_redaction),
+                "MediaRedaction": serialize.boolean_to_string(media_redaction),
                 "WebhookUrl": webhook_url,
                 "WebhookHttpMethod": webhook_http_method,
             }
@@ -421,6 +422,7 @@ class ServiceContext(InstanceContext):
 
 
 class ServicePage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> ServiceInstance:
         """
         Build an instance of ServiceInstance
@@ -439,6 +441,7 @@ class ServicePage(Page):
 
 
 class ServiceList(ListResource):
+
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
@@ -477,15 +480,16 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
-                "AutoTranscribe": auto_transcribe,
-                "DataLogging": data_logging,
+                "AutoTranscribe": serialize.boolean_to_string(auto_transcribe),
+                "DataLogging": serialize.boolean_to_string(data_logging),
                 "FriendlyName": friendly_name,
                 "LanguageCode": language_code,
-                "AutoRedaction": auto_redaction,
-                "MediaRedaction": media_redaction,
+                "AutoRedaction": serialize.boolean_to_string(auto_redaction),
+                "MediaRedaction": serialize.boolean_to_string(media_redaction),
                 "WebhookUrl": webhook_url,
                 "WebhookHttpMethod": webhook_http_method,
             }
@@ -526,15 +530,16 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
-                "AutoTranscribe": auto_transcribe,
-                "DataLogging": data_logging,
+                "AutoTranscribe": serialize.boolean_to_string(auto_transcribe),
+                "DataLogging": serialize.boolean_to_string(data_logging),
                 "FriendlyName": friendly_name,
                 "LanguageCode": language_code,
-                "AutoRedaction": auto_redaction,
-                "MediaRedaction": media_redaction,
+                "AutoRedaction": serialize.boolean_to_string(auto_redaction),
+                "MediaRedaction": serialize.boolean_to_string(media_redaction),
                 "WebhookUrl": webhook_url,
                 "WebhookHttpMethod": webhook_http_method,
             }

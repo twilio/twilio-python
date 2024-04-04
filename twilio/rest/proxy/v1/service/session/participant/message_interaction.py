@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class MessageInteractionInstance(InstanceResource):
+
     class ResourceStatus(object):
         ACCEPTED = "accepted"
         ANSWERED = "answered"
@@ -176,6 +176,7 @@ class MessageInteractionInstance(InstanceResource):
 
 
 class MessageInteractionContext(InstanceContext):
+
     def __init__(
         self,
         version: Version,
@@ -261,6 +262,7 @@ class MessageInteractionContext(InstanceContext):
 
 
 class MessageInteractionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> MessageInteractionInstance:
         """
         Build an instance of MessageInteractionInstance
@@ -285,6 +287,7 @@ class MessageInteractionPage(Page):
 
 
 class MessageInteractionList(ListResource):
+
     def __init__(
         self, version: Version, service_sid: str, session_sid: str, participant_sid: str
     ):
@@ -322,6 +325,7 @@ class MessageInteractionList(ListResource):
 
         :returns: The created MessageInteractionInstance
         """
+
         data = values.of(
             {
                 "Body": body,
@@ -356,6 +360,7 @@ class MessageInteractionList(ListResource):
 
         :returns: The created MessageInteractionInstance
         """
+
         data = values.of(
             {
                 "Body": body,

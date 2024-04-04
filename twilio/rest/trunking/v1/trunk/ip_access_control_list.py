@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class IpAccessControlListInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IpAccessControlList resource.
     :ivar sid: The unique string that we created to identify the IpAccessControlList resource.
@@ -125,6 +123,7 @@ class IpAccessControlListInstance(InstanceResource):
 
 
 class IpAccessControlListContext(InstanceContext):
+
     def __init__(self, version: Version, trunk_sid: str, sid: str):
         """
         Initialize the IpAccessControlListContext
@@ -219,6 +218,7 @@ class IpAccessControlListContext(InstanceContext):
 
 
 class IpAccessControlListPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> IpAccessControlListInstance:
         """
         Build an instance of IpAccessControlListInstance
@@ -239,6 +239,7 @@ class IpAccessControlListPage(Page):
 
 
 class IpAccessControlListList(ListResource):
+
     def __init__(self, version: Version, trunk_sid: str):
         """
         Initialize the IpAccessControlListList
@@ -263,6 +264,7 @@ class IpAccessControlListList(ListResource):
 
         :returns: The created IpAccessControlListInstance
         """
+
         data = values.of(
             {
                 "IpAccessControlListSid": ip_access_control_list_sid,
@@ -289,6 +291,7 @@ class IpAccessControlListList(ListResource):
 
         :returns: The created IpAccessControlListInstance
         """
+
         data = values.of(
             {
                 "IpAccessControlListSid": ip_access_control_list_sid,

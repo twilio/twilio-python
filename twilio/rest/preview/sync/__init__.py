@@ -19,6 +19,7 @@ from twilio.rest.preview.sync.service import ServiceList
 
 
 class Sync(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the Sync version of Preview

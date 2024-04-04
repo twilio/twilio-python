@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,7 +23,6 @@ from twilio.base.page import Page
 
 
 class IpAccessControlListMappingInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique id of the Account that is responsible for this resource.
     :ivar date_created: The date that this resource was created, given as GMT in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format.
@@ -130,6 +128,7 @@ class IpAccessControlListMappingInstance(InstanceResource):
 
 
 class IpAccessControlListMappingContext(InstanceContext):
+
     def __init__(self, version: Version, account_sid: str, domain_sid: str, sid: str):
         """
         Initialize the IpAccessControlListMappingContext
@@ -228,6 +227,7 @@ class IpAccessControlListMappingContext(InstanceContext):
 
 
 class IpAccessControlListMappingPage(Page):
+
     def get_instance(
         self, payload: Dict[str, Any]
     ) -> IpAccessControlListMappingInstance:
@@ -253,6 +253,7 @@ class IpAccessControlListMappingPage(Page):
 
 
 class IpAccessControlListMappingList(ListResource):
+
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
         Initialize the IpAccessControlListMappingList
@@ -283,6 +284,7 @@ class IpAccessControlListMappingList(ListResource):
 
         :returns: The created IpAccessControlListMappingInstance
         """
+
         data = values.of(
             {
                 "IpAccessControlListSid": ip_access_control_list_sid,
@@ -312,6 +314,7 @@ class IpAccessControlListMappingList(ListResource):
 
         :returns: The created IpAccessControlListMappingInstance
         """
+
         data = values.of(
             {
                 "IpAccessControlListSid": ip_access_control_list_sid,

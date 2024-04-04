@@ -12,7 +12,6 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
@@ -24,6 +23,7 @@ from twilio.base.page import Page
 
 
 class InteractionInstance(InstanceResource):
+
     class ResourceStatus(object):
         ACCEPTED = "accepted"
         ANSWERED = "answered"
@@ -94,9 +94,9 @@ class InteractionInstance(InstanceResource):
             "inbound_participant_sid"
         )
         self.inbound_resource_sid: Optional[str] = payload.get("inbound_resource_sid")
-        self.inbound_resource_status: Optional[
-            "InteractionInstance.ResourceStatus"
-        ] = payload.get("inbound_resource_status")
+        self.inbound_resource_status: Optional["InteractionInstance.ResourceStatus"] = (
+            payload.get("inbound_resource_status")
+        )
         self.inbound_resource_type: Optional[str] = payload.get("inbound_resource_type")
         self.inbound_resource_url: Optional[str] = payload.get("inbound_resource_url")
         self.outbound_participant_sid: Optional[str] = payload.get(
@@ -189,6 +189,7 @@ class InteractionInstance(InstanceResource):
 
 
 class InteractionContext(InstanceContext):
+
     def __init__(self, version: Version, service_sid: str, session_sid: str, sid: str):
         """
         Initialize the InteractionContext
@@ -289,6 +290,7 @@ class InteractionContext(InstanceContext):
 
 
 class InteractionPage(Page):
+
     def get_instance(self, payload: Dict[str, Any]) -> InteractionInstance:
         """
         Build an instance of InteractionInstance
@@ -312,6 +314,7 @@ class InteractionPage(Page):
 
 
 class InteractionList(ListResource):
+
     def __init__(self, version: Version, service_sid: str, session_sid: str):
         """
         Initialize the InteractionList

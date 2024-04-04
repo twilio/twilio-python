@@ -21,6 +21,7 @@ from twilio.rest.routes.v2.trunk import TrunkList
 
 
 class V2(Version):
+
     def __init__(self, domain: Domain):
         """
         Initialize the V2 version of Routes
