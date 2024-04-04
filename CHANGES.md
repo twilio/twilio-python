@@ -3,6 +3,31 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-04-04] Version 9.0.4
+--------------------------
+**Api**
+- Correct conference filtering by date_created and date_updated documentation, clarifying that times are UTC.
+
+**Flex**
+- Remove optional parameter from `plugins` and it to `plugin_versions`
+
+**Lookups**
+- Add new `pre_fill` package to the lookup response
+
+**Messaging**
+- Cleanup api.messaging.next-gen from Messaging Services endpoints
+- Readd Sending-Window after fixing test failure
+
+**Verify**
+- Add `whatsapp.msg_service_sid` and `whatsapp.from` parameters to create, update, get and list of services endpoints
+
+**Voice**
+- Correct conference filtering by date_created and date_updated documentation, clarifying that times are UTC.
+
+**Twiml**
+- Add new `token_type` value `payment-method` for `Pay` verb
+
+
 [2024-04-01] Version 9.0.3
 --------------------------
 **Api**

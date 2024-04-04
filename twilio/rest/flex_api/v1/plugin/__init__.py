@@ -359,8 +359,6 @@ class PluginList(ListResource):
         flex_metadata: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
-        cli_version: Union[str, object] = values.unset,
-        validate_status: Union[str, object] = values.unset,
     ) -> PluginInstance:
         """
         Create the PluginInstance
@@ -369,8 +367,6 @@ class PluginList(ListResource):
         :param flex_metadata: The Flex-Metadata HTTP request header
         :param friendly_name: The Flex Plugin's friendly name.
         :param description: A descriptive string that you create to describe the plugin resource. It can be up to 500 characters long
-        :param cli_version: The version of Flex Plugins CLI used to create this plugin
-        :param validate_status: The validation status of the plugin, indicating whether it has been validated
 
         :returns: The created PluginInstance
         """
@@ -380,8 +376,6 @@ class PluginList(ListResource):
                 "UniqueName": unique_name,
                 "FriendlyName": friendly_name,
                 "Description": description,
-                "CliVersion": cli_version,
-                "ValidateStatus": validate_status,
             }
         )
         headers = values.of(
@@ -402,8 +396,6 @@ class PluginList(ListResource):
         flex_metadata: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
-        cli_version: Union[str, object] = values.unset,
-        validate_status: Union[str, object] = values.unset,
     ) -> PluginInstance:
         """
         Asynchronously create the PluginInstance
@@ -412,8 +404,6 @@ class PluginList(ListResource):
         :param flex_metadata: The Flex-Metadata HTTP request header
         :param friendly_name: The Flex Plugin's friendly name.
         :param description: A descriptive string that you create to describe the plugin resource. It can be up to 500 characters long
-        :param cli_version: The version of Flex Plugins CLI used to create this plugin
-        :param validate_status: The validation status of the plugin, indicating whether it has been validated
 
         :returns: The created PluginInstance
         """
@@ -423,8 +413,6 @@ class PluginList(ListResource):
                 "UniqueName": unique_name,
                 "FriendlyName": friendly_name,
                 "Description": description,
-                "CliVersion": cli_version,
-                "ValidateStatus": validate_status,
             }
         )
         headers = values.of(
