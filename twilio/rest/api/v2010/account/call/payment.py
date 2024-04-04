@@ -47,6 +47,7 @@ class PaymentInstance(InstanceResource):
     class TokenType(object):
         ONE_TIME = "one-time"
         REUSABLE = "reusable"
+        PAYMENT_METHOD = "payment-method"
 
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource.

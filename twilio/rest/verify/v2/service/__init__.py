@@ -47,6 +47,7 @@ class ServiceInstance(InstanceResource):
     :ivar push: Configurations for the Push factors (channel) created under this Service.
     :ivar totp: Configurations for the TOTP factors (channel) created under this Service.
     :ivar default_template_sid:
+    :ivar whatsapp:
     :ivar verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
     :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
@@ -79,6 +80,7 @@ class ServiceInstance(InstanceResource):
         self.push: Optional[Dict[str, object]] = payload.get("push")
         self.totp: Optional[Dict[str, object]] = payload.get("totp")
         self.default_template_sid: Optional[str] = payload.get("default_template_sid")
+        self.whatsapp: Optional[Dict[str, object]] = payload.get("whatsapp")
         self.verify_event_subscription_enabled: Optional[bool] = payload.get(
             "verify_event_subscription_enabled"
         )
@@ -166,6 +168,8 @@ class ServiceInstance(InstanceResource):
         totp_code_length: Union[int, object] = values.unset,
         totp_skew: Union[int, object] = values.unset,
         default_template_sid: Union[str, object] = values.unset,
+        whatsapp_msg_service_sid: Union[str, object] = values.unset,
+        whatsapp_from: Union[str, object] = values.unset,
         verify_event_subscription_enabled: Union[bool, object] = values.unset,
     ) -> "ServiceInstance":
         """
@@ -188,6 +192,8 @@ class ServiceInstance(InstanceResource):
         :param totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
         :param totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
         :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+        :param whatsapp_msg_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service.
+        :param whatsapp_from: The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service.
         :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
 
         :returns: The updated ServiceInstance
@@ -210,6 +216,8 @@ class ServiceInstance(InstanceResource):
             totp_code_length=totp_code_length,
             totp_skew=totp_skew,
             default_template_sid=default_template_sid,
+            whatsapp_msg_service_sid=whatsapp_msg_service_sid,
+            whatsapp_from=whatsapp_from,
             verify_event_subscription_enabled=verify_event_subscription_enabled,
         )
 
@@ -232,6 +240,8 @@ class ServiceInstance(InstanceResource):
         totp_code_length: Union[int, object] = values.unset,
         totp_skew: Union[int, object] = values.unset,
         default_template_sid: Union[str, object] = values.unset,
+        whatsapp_msg_service_sid: Union[str, object] = values.unset,
+        whatsapp_from: Union[str, object] = values.unset,
         verify_event_subscription_enabled: Union[bool, object] = values.unset,
     ) -> "ServiceInstance":
         """
@@ -254,6 +264,8 @@ class ServiceInstance(InstanceResource):
         :param totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
         :param totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
         :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+        :param whatsapp_msg_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service.
+        :param whatsapp_from: The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service.
         :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
 
         :returns: The updated ServiceInstance
@@ -276,6 +288,8 @@ class ServiceInstance(InstanceResource):
             totp_code_length=totp_code_length,
             totp_skew=totp_skew,
             default_template_sid=default_template_sid,
+            whatsapp_msg_service_sid=whatsapp_msg_service_sid,
+            whatsapp_from=whatsapp_from,
             verify_event_subscription_enabled=verify_event_subscription_enabled,
         )
 
@@ -444,6 +458,8 @@ class ServiceContext(InstanceContext):
         totp_code_length: Union[int, object] = values.unset,
         totp_skew: Union[int, object] = values.unset,
         default_template_sid: Union[str, object] = values.unset,
+        whatsapp_msg_service_sid: Union[str, object] = values.unset,
+        whatsapp_from: Union[str, object] = values.unset,
         verify_event_subscription_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
@@ -466,6 +482,8 @@ class ServiceContext(InstanceContext):
         :param totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
         :param totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
         :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+        :param whatsapp_msg_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service.
+        :param whatsapp_from: The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service.
         :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
 
         :returns: The updated ServiceInstance
@@ -493,6 +511,8 @@ class ServiceContext(InstanceContext):
                 "Totp.CodeLength": totp_code_length,
                 "Totp.Skew": totp_skew,
                 "DefaultTemplateSid": default_template_sid,
+                "Whatsapp.MsgServiceSid": whatsapp_msg_service_sid,
+                "Whatsapp.From": whatsapp_from,
                 "VerifyEventSubscriptionEnabled": serialize.boolean_to_string(
                     verify_event_subscription_enabled
                 ),
@@ -526,6 +546,8 @@ class ServiceContext(InstanceContext):
         totp_code_length: Union[int, object] = values.unset,
         totp_skew: Union[int, object] = values.unset,
         default_template_sid: Union[str, object] = values.unset,
+        whatsapp_msg_service_sid: Union[str, object] = values.unset,
+        whatsapp_from: Union[str, object] = values.unset,
         verify_event_subscription_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
@@ -548,6 +570,8 @@ class ServiceContext(InstanceContext):
         :param totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
         :param totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
         :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+        :param whatsapp_msg_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service.
+        :param whatsapp_from: The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service.
         :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
 
         :returns: The updated ServiceInstance
@@ -575,6 +599,8 @@ class ServiceContext(InstanceContext):
                 "Totp.CodeLength": totp_code_length,
                 "Totp.Skew": totp_skew,
                 "DefaultTemplateSid": default_template_sid,
+                "Whatsapp.MsgServiceSid": whatsapp_msg_service_sid,
+                "Whatsapp.From": whatsapp_from,
                 "VerifyEventSubscriptionEnabled": serialize.boolean_to_string(
                     verify_event_subscription_enabled
                 ),
@@ -734,6 +760,8 @@ class ServiceList(ListResource):
         totp_code_length: Union[int, object] = values.unset,
         totp_skew: Union[int, object] = values.unset,
         default_template_sid: Union[str, object] = values.unset,
+        whatsapp_msg_service_sid: Union[str, object] = values.unset,
+        whatsapp_from: Union[str, object] = values.unset,
         verify_event_subscription_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
@@ -756,6 +784,8 @@ class ServiceList(ListResource):
         :param totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
         :param totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
         :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+        :param whatsapp_msg_service_sid: The SID of the Messaging Service containing WhatsApp Sender(s) that Verify will use to send WhatsApp messages to your users.
+        :param whatsapp_from: The number to use as the WhatsApp Sender that Verify will use to send WhatsApp messages to your users.This WhatsApp Sender must be associated with a Messaging Service SID.
         :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
 
         :returns: The created ServiceInstance
@@ -784,6 +814,8 @@ class ServiceList(ListResource):
                 "Totp.CodeLength": totp_code_length,
                 "Totp.Skew": totp_skew,
                 "DefaultTemplateSid": default_template_sid,
+                "Whatsapp.MsgServiceSid": whatsapp_msg_service_sid,
+                "Whatsapp.From": whatsapp_from,
                 "VerifyEventSubscriptionEnabled": serialize.boolean_to_string(
                     verify_event_subscription_enabled
                 ),
@@ -817,6 +849,8 @@ class ServiceList(ListResource):
         totp_code_length: Union[int, object] = values.unset,
         totp_skew: Union[int, object] = values.unset,
         default_template_sid: Union[str, object] = values.unset,
+        whatsapp_msg_service_sid: Union[str, object] = values.unset,
+        whatsapp_from: Union[str, object] = values.unset,
         verify_event_subscription_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
@@ -839,6 +873,8 @@ class ServiceList(ListResource):
         :param totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
         :param totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
         :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+        :param whatsapp_msg_service_sid: The SID of the Messaging Service containing WhatsApp Sender(s) that Verify will use to send WhatsApp messages to your users.
+        :param whatsapp_from: The number to use as the WhatsApp Sender that Verify will use to send WhatsApp messages to your users.This WhatsApp Sender must be associated with a Messaging Service SID.
         :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
 
         :returns: The created ServiceInstance
@@ -867,6 +903,8 @@ class ServiceList(ListResource):
                 "Totp.CodeLength": totp_code_length,
                 "Totp.Skew": totp_skew,
                 "DefaultTemplateSid": default_template_sid,
+                "Whatsapp.MsgServiceSid": whatsapp_msg_service_sid,
+                "Whatsapp.From": whatsapp_from,
                 "VerifyEventSubscriptionEnabled": serialize.boolean_to_string(
                     verify_event_subscription_enabled
                 ),
