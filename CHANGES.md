@@ -3,6 +3,21 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-04-18] Version 9.0.5
+--------------------------
+**Library - Chore**
+- [PR #742](https://github.com/twilio/twilio-python/pull/742): [Snyk] Fix for 3 vulnerabilities. Thanks to [@twilio-product-security](https://github.com/twilio-product-security)!
+
+**Flex**
+- Add header `ui_version` to `web_channels` API
+
+**Messaging**
+- Redeploy after failed pipeline
+
+**Numbers**
+- Add Delete Port In request phone number api and Add Delete Port In request api
+
+
 [2024-04-04] Version 9.0.4
 --------------------------
 **Api**

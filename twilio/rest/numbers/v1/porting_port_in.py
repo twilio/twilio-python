@@ -14,7 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
-
+from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -26,11 +26,54 @@ class PortingPortInInstance(InstanceResource):
     :ivar url:
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any]):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        port_in_request_sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
         self.port_in_request_sid: Optional[str] = payload.get("port_in_request_sid")
         self.url: Optional[str] = payload.get("url")
+
+        self._solution = {
+            "port_in_request_sid": port_in_request_sid or self.port_in_request_sid,
+        }
+        self._context: Optional[PortingPortInContext] = None
+
+    @property
+    def _proxy(self) -> "PortingPortInContext":
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: PortingPortInContext for this PortingPortInInstance
+        """
+        if self._context is None:
+            self._context = PortingPortInContext(
+                self._version,
+                port_in_request_sid=self._solution["port_in_request_sid"],
+            )
+        return self._context
+
+    def delete(self) -> bool:
+        """
+        Deletes the PortingPortInInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self) -> bool:
+        """
+        Asynchronous coroutine that deletes the PortingPortInInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        return await self._proxy.delete_async()
 
     def __repr__(self) -> str:
         """
@@ -38,8 +81,59 @@ class PortingPortInInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Numbers.V1.PortingPortInInstance {}>".format(context)
 
-        return "<Twilio.Numbers.V1.PortingPortInInstance>"
+
+class PortingPortInContext(InstanceContext):
+
+    def __init__(self, version: Version, port_in_request_sid: str):
+        """
+        Initialize the PortingPortInContext
+
+        :param version: Version that contains the resource
+        :param port_in_request_sid: The SID of the Port In request. This is a unique identifier of the port in request.
+        """
+        super().__init__(version)
+
+        # Path Solution
+        self._solution = {
+            "port_in_request_sid": port_in_request_sid,
+        }
+        self._uri = "/Porting/PortIn/{port_in_request_sid}".format(**self._solution)
+
+    def delete(self) -> bool:
+        """
+        Deletes the PortingPortInInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self) -> bool:
+        """
+        Asynchronous coroutine that deletes the PortingPortInInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Numbers.V1.PortingPortInContext {}>".format(context)
 
 
 class PortingPortInList(ListResource):
@@ -94,6 +188,26 @@ class PortingPortInList(ListResource):
         )
 
         return PortingPortInInstance(self._version, payload)
+
+    def get(self, port_in_request_sid: str) -> PortingPortInContext:
+        """
+        Constructs a PortingPortInContext
+
+        :param port_in_request_sid: The SID of the Port In request. This is a unique identifier of the port in request.
+        """
+        return PortingPortInContext(
+            self._version, port_in_request_sid=port_in_request_sid
+        )
+
+    def __call__(self, port_in_request_sid: str) -> PortingPortInContext:
+        """
+        Constructs a PortingPortInContext
+
+        :param port_in_request_sid: The SID of the Port In request. This is a unique identifier of the port in request.
+        """
+        return PortingPortInContext(
+            self._version, port_in_request_sid=port_in_request_sid
+        )
 
     def __repr__(self) -> str:
         """
