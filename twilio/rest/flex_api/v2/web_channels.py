@@ -58,6 +58,7 @@ class WebChannelsList(ListResource):
     def create(
         self,
         address_sid: str,
+        ui_version: Union[str, object] = values.unset,
         chat_friendly_name: Union[str, object] = values.unset,
         customer_friendly_name: Union[str, object] = values.unset,
         pre_engagement_data: Union[str, object] = values.unset,
@@ -66,6 +67,7 @@ class WebChannelsList(ListResource):
         Create the WebChannelsInstance
 
         :param address_sid: The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
+        :param ui_version: The Ui-Version HTTP request header
         :param chat_friendly_name: The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
         :param customer_friendly_name: The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
         :param pre_engagement_data: The pre-engagement data.
@@ -81,11 +83,14 @@ class WebChannelsList(ListResource):
                 "PreEngagementData": pre_engagement_data,
             }
         )
+        headers = values.of(
+            {
+                "Ui-Version": ui_version,
+            }
+        )
 
         payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return WebChannelsInstance(self._version, payload)
@@ -93,6 +98,7 @@ class WebChannelsList(ListResource):
     async def create_async(
         self,
         address_sid: str,
+        ui_version: Union[str, object] = values.unset,
         chat_friendly_name: Union[str, object] = values.unset,
         customer_friendly_name: Union[str, object] = values.unset,
         pre_engagement_data: Union[str, object] = values.unset,
@@ -101,6 +107,7 @@ class WebChannelsList(ListResource):
         Asynchronously create the WebChannelsInstance
 
         :param address_sid: The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
+        :param ui_version: The Ui-Version HTTP request header
         :param chat_friendly_name: The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
         :param customer_friendly_name: The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
         :param pre_engagement_data: The pre-engagement data.
@@ -116,11 +123,14 @@ class WebChannelsList(ListResource):
                 "PreEngagementData": pre_engagement_data,
             }
         )
+        headers = values.of(
+            {
+                "Ui-Version": ui_version,
+            }
+        )
 
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return WebChannelsInstance(self._version, payload)

@@ -39,7 +39,7 @@ class StreamInstance(InstanceResource):
     :ivar sid: The SID of the Stream resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
     :ivar call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.
-    :ivar name: The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
+    :ivar name: The user-specified name of this Stream, if one was given when the Stream was created. This can be used to stop the Stream.
     :ivar status: 
     :ivar date_updated: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
@@ -134,7 +134,7 @@ class StreamContext(InstanceContext):
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Stream resource.
         :param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Stream resource is associated with.
-        :param sid: The SID of the Stream resource, or the `name` used when creating the resource
+        :param sid: The SID or the `name` of the Stream resource to be stopped
         """
         super().__init__(version)
 
@@ -449,11 +449,11 @@ class StreamList(ListResource):
         """
         Create the StreamInstance
 
-        :param url: Relative or absolute url where WebSocket connection will be established.
-        :param name: The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
+        :param url: Relative or absolute URL where WebSocket connection will be established.
+        :param name: The user-specified name of this Stream, if one was given when the Stream was created. This can be used to stop the Stream.
         :param track:
-        :param status_callback: Absolute URL of the status callback.
-        :param status_callback_method: The http method for the status_callback (one of GET, POST).
+        :param status_callback: Absolute URL to which Twilio sends status callback HTTP requests.
+        :param status_callback_method: The HTTP method Twilio uses when sending `status_callback` requests. Possible values are `GET` and `POST`. Default is `POST`.
         :param parameter1_name: Parameter name
         :param parameter1_value: Parameter value
         :param parameter2_name: Parameter name
@@ -1086,11 +1086,11 @@ class StreamList(ListResource):
         """
         Asynchronously create the StreamInstance
 
-        :param url: Relative or absolute url where WebSocket connection will be established.
-        :param name: The user-specified name of this Stream, if one was given when the Stream was created. This may be used to stop the Stream.
+        :param url: Relative or absolute URL where WebSocket connection will be established.
+        :param name: The user-specified name of this Stream, if one was given when the Stream was created. This can be used to stop the Stream.
         :param track:
-        :param status_callback: Absolute URL of the status callback.
-        :param status_callback_method: The http method for the status_callback (one of GET, POST).
+        :param status_callback: Absolute URL to which Twilio sends status callback HTTP requests.
+        :param status_callback_method: The HTTP method Twilio uses when sending `status_callback` requests. Possible values are `GET` and `POST`. Default is `POST`.
         :param parameter1_name: Parameter name
         :param parameter1_value: Parameter value
         :param parameter2_name: Parameter name
@@ -1518,7 +1518,7 @@ class StreamList(ListResource):
         """
         Constructs a StreamContext
 
-        :param sid: The SID of the Stream resource, or the `name` used when creating the resource
+        :param sid: The SID or the `name` of the Stream resource to be stopped
         """
         return StreamContext(
             self._version,
@@ -1531,7 +1531,7 @@ class StreamList(ListResource):
         """
         Constructs a StreamContext
 
-        :param sid: The SID of the Stream resource, or the `name` used when creating the resource
+        :param sid: The SID or the `name` of the Stream resource to be stopped
         """
         return StreamContext(
             self._version,

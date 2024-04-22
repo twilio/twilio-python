@@ -20,6 +20,9 @@ from twilio.rest.numbers.v1.eligibility import EligibilityList
 from twilio.rest.numbers.v1.porting_bulk_portability import PortingBulkPortabilityList
 from twilio.rest.numbers.v1.porting_port_in import PortingPortInList
 from twilio.rest.numbers.v1.porting_port_in_fetch import PortingPortInFetchList
+from twilio.rest.numbers.v1.porting_port_in_phone_number import (
+    PortingPortInPhoneNumberList,
+)
 from twilio.rest.numbers.v1.porting_portability import PortingPortabilityList
 
 
@@ -37,6 +40,9 @@ class V1(Version):
         self._porting_bulk_portabilities: Optional[PortingBulkPortabilityList] = None
         self._porting_port_ins: Optional[PortingPortInList] = None
         self._porting_port_ins_fetch: Optional[PortingPortInFetchList] = None
+        self._porting_port_in_phone_number: Optional[PortingPortInPhoneNumberList] = (
+            None
+        )
         self._porting_portabilities: Optional[PortingPortabilityList] = None
 
     @property
@@ -68,6 +74,12 @@ class V1(Version):
         if self._porting_port_ins_fetch is None:
             self._porting_port_ins_fetch = PortingPortInFetchList(self)
         return self._porting_port_ins_fetch
+
+    @property
+    def porting_port_in_phone_number(self) -> PortingPortInPhoneNumberList:
+        if self._porting_port_in_phone_number is None:
+            self._porting_port_in_phone_number = PortingPortInPhoneNumberList(self)
+        return self._porting_port_in_phone_number
 
     @property
     def porting_portabilities(self) -> PortingPortabilityList:
