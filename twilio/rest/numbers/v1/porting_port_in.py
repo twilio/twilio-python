@@ -12,8 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, Optional, Union
-from twilio.base import values
+from datetime import date
+from typing import Any, Dict, List, Optional, Union
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,7 +24,16 @@ from twilio.base.version import Version
 class PortingPortInInstance(InstanceResource):
     """
     :ivar port_in_request_sid: The SID of the Port In request. This is a unique identifier of the port in request.
-    :ivar url:
+    :ivar url: The URL of this Port In request
+    :ivar account_sid: The Account SID that the numbers will be added to after they are ported into Twilio.
+    :ivar notification_emails: List of emails for getting notifications about the LOA signing process. Allowed Max 10 emails.
+    :ivar target_port_in_date: Minimum number of days in the future (at least 2 days) needs to be established with the Ops team for validation.
+    :ivar target_port_in_time_range_start: Minimum hour in the future needs to be established with the Ops team for validation.
+    :ivar target_port_in_time_range_end: Maximum hour in the future needs to be established with the Ops team for validation.
+    :ivar port_in_request_status: The status of the port in request. The possible values are: In progress, Completed, Expired, In review, Waiting for Signature, Action Required, and Canceled.
+    :ivar losing_carrier_information: The information for the losing carrier.
+    :ivar phone_numbers: The list of phone numbers to Port in. Phone numbers are in E.164 format (e.g. +16175551212).
+    :ivar documents: The list of documents SID referencing a utility bills
     """
 
     def __init__(
@@ -36,6 +46,29 @@ class PortingPortInInstance(InstanceResource):
 
         self.port_in_request_sid: Optional[str] = payload.get("port_in_request_sid")
         self.url: Optional[str] = payload.get("url")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.notification_emails: Optional[List[str]] = payload.get(
+            "notification_emails"
+        )
+        self.target_port_in_date: Optional[date] = deserialize.iso8601_date(
+            payload.get("target_port_in_date")
+        )
+        self.target_port_in_time_range_start: Optional[str] = payload.get(
+            "target_port_in_time_range_start"
+        )
+        self.target_port_in_time_range_end: Optional[str] = payload.get(
+            "target_port_in_time_range_end"
+        )
+        self.port_in_request_status: Optional[str] = payload.get(
+            "port_in_request_status"
+        )
+        self.losing_carrier_information: Optional[Dict[str, object]] = payload.get(
+            "losing_carrier_information"
+        )
+        self.phone_numbers: Optional[List[Dict[str, object]]] = payload.get(
+            "phone_numbers"
+        )
+        self.documents: Optional[List[str]] = payload.get("documents")
 
         self._solution = {
             "port_in_request_sid": port_in_request_sid or self.port_in_request_sid,
@@ -74,6 +107,24 @@ class PortingPortInInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
+
+    def fetch(self) -> "PortingPortInInstance":
+        """
+        Fetch the PortingPortInInstance
+
+
+        :returns: The fetched PortingPortInInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self) -> "PortingPortInInstance":
+        """
+        Asynchronous coroutine to fetch the PortingPortInInstance
+
+
+        :returns: The fetched PortingPortInInstance
+        """
+        return await self._proxy.fetch_async()
 
     def __repr__(self) -> str:
         """
@@ -124,6 +175,44 @@ class PortingPortInContext(InstanceContext):
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
+        )
+
+    def fetch(self) -> PortingPortInInstance:
+        """
+        Fetch the PortingPortInInstance
+
+
+        :returns: The fetched PortingPortInInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return PortingPortInInstance(
+            self._version,
+            payload,
+            port_in_request_sid=self._solution["port_in_request_sid"],
+        )
+
+    async def fetch_async(self) -> PortingPortInInstance:
+        """
+        Asynchronous coroutine to fetch the PortingPortInInstance
+
+
+        :returns: The fetched PortingPortInInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return PortingPortInInstance(
+            self._version,
+            payload,
+            port_in_request_sid=self._solution["port_in_request_sid"],
         )
 
     def __repr__(self) -> str:

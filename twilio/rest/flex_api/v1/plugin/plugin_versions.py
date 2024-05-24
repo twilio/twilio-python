@@ -30,8 +30,9 @@ class PluginVersionsInstance(InstanceResource):
     :ivar version: The unique version of this Flex Plugin Version.
     :ivar plugin_url: The URL of where the Flex Plugin Version JavaScript bundle is hosted on.
     :ivar changelog: A changelog that describes the changes this Flex Plugin Version brings.
-    :ivar private: Whether to inject credentials while accessing this Plugin Version. The default value is false.
+    :ivar private: Whether the Flex Plugin Version is validated. The default value is false.
     :ivar archived: Whether the Flex Plugin Version is archived. The default value is false.
+    :ivar validated:
     :ivar date_created: The date and time in GMT when the Flex Plugin Version was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar url: The absolute URL of the Flex Plugin Version resource.
     """
@@ -53,6 +54,7 @@ class PluginVersionsInstance(InstanceResource):
         self.changelog: Optional[str] = payload.get("changelog")
         self.private: Optional[bool] = payload.get("private")
         self.archived: Optional[bool] = payload.get("archived")
+        self.validated: Optional[bool] = payload.get("validated")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )

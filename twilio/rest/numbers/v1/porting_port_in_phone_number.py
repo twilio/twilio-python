@@ -12,10 +12,137 @@ r"""
     Do not edit the class manually.
 """
 
+from datetime import datetime
+from typing import Any, Dict, Optional
+from twilio.base import deserialize
 from twilio.base.instance_context import InstanceContext
-
+from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
+
+
+class PortingPortInPhoneNumberInstance(InstanceResource):
+    """
+    :ivar port_in_request_sid: The SID of the Port In request. This is a unique identifier of the port in request.
+    :ivar phone_number_sid: The SID of the Port In request phone number. This is a unique identifier of the phone number.
+    :ivar url:
+    :ivar account_sid: The SID of the account that the phone number belongs to.
+    :ivar phone_number_type: The type of the phone number.
+    :ivar date_created: The date when the phone number was created.
+    :ivar country: The country of the phone number.
+    :ivar missing_required_fields: The phone number is missing required fields.
+    :ivar status_last_time_updated_timestamp: The timestamp when the status was last updated.
+    :ivar phone_number: The phone number.
+    :ivar portable: The phone number is portable.
+    :ivar not_portability_reason: The reason why the phone number is not portable.
+    :ivar not_portability_reason_code: The code of the reason why the phone number is not portable.
+    :ivar port_in_phone_number_status: The status of the phone number in the port in request.
+    """
+
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        port_in_request_sid: Optional[str] = None,
+        phone_number_sid: Optional[str] = None,
+    ):
+        super().__init__(version)
+
+        self.port_in_request_sid: Optional[str] = payload.get("port_in_request_sid")
+        self.phone_number_sid: Optional[str] = payload.get("phone_number_sid")
+        self.url: Optional[str] = payload.get("url")
+        self.account_sid: Optional[str] = payload.get("account_sid")
+        self.phone_number_type: Optional[str] = payload.get("phone_number_type")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.country: Optional[str] = payload.get("country")
+        self.missing_required_fields: Optional[bool] = payload.get(
+            "missing_required_fields"
+        )
+        self.status_last_time_updated_timestamp: Optional[datetime] = (
+            deserialize.iso8601_datetime(
+                payload.get("status_last_time_updated_timestamp")
+            )
+        )
+        self.phone_number: Optional[str] = payload.get("phone_number")
+        self.portable: Optional[bool] = payload.get("portable")
+        self.not_portability_reason: Optional[str] = payload.get(
+            "not_portability_reason"
+        )
+        self.not_portability_reason_code: Optional[str] = payload.get(
+            "not_portability_reason_code"
+        )
+        self.port_in_phone_number_status: Optional[str] = payload.get(
+            "port_in_phone_number_status"
+        )
+
+        self._solution = {
+            "port_in_request_sid": port_in_request_sid or self.port_in_request_sid,
+            "phone_number_sid": phone_number_sid or self.phone_number_sid,
+        }
+        self._context: Optional[PortingPortInPhoneNumberContext] = None
+
+    @property
+    def _proxy(self) -> "PortingPortInPhoneNumberContext":
+        """
+        Generate an instance context for the instance, the context is capable of
+        performing various actions. All instance actions are proxied to the context
+
+        :returns: PortingPortInPhoneNumberContext for this PortingPortInPhoneNumberInstance
+        """
+        if self._context is None:
+            self._context = PortingPortInPhoneNumberContext(
+                self._version,
+                port_in_request_sid=self._solution["port_in_request_sid"],
+                phone_number_sid=self._solution["phone_number_sid"],
+            )
+        return self._context
+
+    def delete(self) -> bool:
+        """
+        Deletes the PortingPortInPhoneNumberInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self) -> bool:
+        """
+        Asynchronous coroutine that deletes the PortingPortInPhoneNumberInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        return await self._proxy.delete_async()
+
+    def fetch(self) -> "PortingPortInPhoneNumberInstance":
+        """
+        Fetch the PortingPortInPhoneNumberInstance
+
+
+        :returns: The fetched PortingPortInPhoneNumberInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self) -> "PortingPortInPhoneNumberInstance":
+        """
+        Asynchronous coroutine to fetch the PortingPortInPhoneNumberInstance
+
+
+        :returns: The fetched PortingPortInPhoneNumberInstance
+        """
+        return await self._proxy.fetch_async()
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Numbers.V1.PortingPortInPhoneNumberInstance {}>".format(context)
 
 
 class PortingPortInPhoneNumberContext(InstanceContext):
@@ -28,7 +155,7 @@ class PortingPortInPhoneNumberContext(InstanceContext):
 
         :param version: Version that contains the resource
         :param port_in_request_sid: The SID of the Port In request. This is a unique identifier of the port in request.
-        :param phone_number_sid: The SID of the Port In request phone number. This is a unique identifier of the phone number.
+        :param phone_number_sid: The SID of the Phone number. This is a unique identifier of the phone number.
         """
         super().__init__(version)
 
@@ -65,6 +192,46 @@ class PortingPortInPhoneNumberContext(InstanceContext):
             uri=self._uri,
         )
 
+    def fetch(self) -> PortingPortInPhoneNumberInstance:
+        """
+        Fetch the PortingPortInPhoneNumberInstance
+
+
+        :returns: The fetched PortingPortInPhoneNumberInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return PortingPortInPhoneNumberInstance(
+            self._version,
+            payload,
+            port_in_request_sid=self._solution["port_in_request_sid"],
+            phone_number_sid=self._solution["phone_number_sid"],
+        )
+
+    async def fetch_async(self) -> PortingPortInPhoneNumberInstance:
+        """
+        Asynchronous coroutine to fetch the PortingPortInPhoneNumberInstance
+
+
+        :returns: The fetched PortingPortInPhoneNumberInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return PortingPortInPhoneNumberInstance(
+            self._version,
+            payload,
+            port_in_request_sid=self._solution["port_in_request_sid"],
+            phone_number_sid=self._solution["phone_number_sid"],
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -93,7 +260,7 @@ class PortingPortInPhoneNumberList(ListResource):
         Constructs a PortingPortInPhoneNumberContext
 
         :param port_in_request_sid: The SID of the Port In request. This is a unique identifier of the port in request.
-        :param phone_number_sid: The SID of the Port In request phone number. This is a unique identifier of the phone number.
+        :param phone_number_sid: The SID of the Phone number. This is a unique identifier of the phone number.
         """
         return PortingPortInPhoneNumberContext(
             self._version,
@@ -108,7 +275,7 @@ class PortingPortInPhoneNumberList(ListResource):
         Constructs a PortingPortInPhoneNumberContext
 
         :param port_in_request_sid: The SID of the Port In request. This is a unique identifier of the port in request.
-        :param phone_number_sid: The SID of the Port In request phone number. This is a unique identifier of the phone number.
+        :param phone_number_sid: The SID of the Phone number. This is a unique identifier of the phone number.
         """
         return PortingPortInPhoneNumberContext(
             self._version,

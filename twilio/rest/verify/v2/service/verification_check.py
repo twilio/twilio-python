@@ -36,7 +36,7 @@ class VerificationCheckInstance(InstanceResource):
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the VerificationCheck resource.
     :ivar to: The phone number or [email](https://www.twilio.com/docs/verify/email) being verified. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
     :ivar channel: 
-    :ivar status: The status of the verification. Can be: `pending`, `approved`, or `canceled`.
+    :ivar status: The status of the verification. Can be: `pending`, `approved`, `canceled`, `max_attempts_reached`, `deleted`, `failed` or `expired`.
     :ivar valid: Use \"status\" instead. Legacy property indicating whether the verification was successful.
     :ivar amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
     :ivar payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.

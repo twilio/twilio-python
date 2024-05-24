@@ -38,12 +38,13 @@ class ServiceInstance(InstanceResource):
     :ivar date_created: The date that this Service was created, given in ISO 8601 format.
     :ivar date_updated: The date that this Service was updated, given in ISO 8601 format.
     :ivar friendly_name: A human readable description of this resource, up to 64 characters.
-    :ivar language_code: The default language code of the audio.
+    :ivar language_code: The language code set during Service creation determines the Transcription language for all call recordings processed by that Service. The default is en-US if no language code is set. A Service can only support one language code, and it cannot be updated once it's set.
     :ivar sid: A 34 character string that uniquely identifies this Service.
     :ivar unique_name: Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.
     :ivar url: The URL of this resource.
     :ivar webhook_url: The URL Twilio will request when executing the Webhook.
     :ivar webhook_http_method: 
+    :ivar read_only_attached_operator_sids: Operator sids attached to this service, read only
     :ivar version: The version number of this Service.
     """
 
@@ -71,6 +72,9 @@ class ServiceInstance(InstanceResource):
         self.webhook_url: Optional[str] = payload.get("webhook_url")
         self.webhook_http_method: Optional["ServiceInstance.HttpMethod"] = payload.get(
             "webhook_http_method"
+        )
+        self.read_only_attached_operator_sids: Optional[List[str]] = payload.get(
+            "read_only_attached_operator_sids"
         )
         self.version: Optional[int] = deserialize.integer(payload.get("version"))
 
@@ -136,7 +140,6 @@ class ServiceInstance(InstanceResource):
         auto_transcribe: Union[bool, object] = values.unset,
         data_logging: Union[bool, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        language_code: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
         auto_redaction: Union[bool, object] = values.unset,
         media_redaction: Union[bool, object] = values.unset,
@@ -150,7 +153,6 @@ class ServiceInstance(InstanceResource):
         :param auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
         :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
         :param friendly_name: A human readable description of this resource, up to 64 characters.
-        :param language_code: The default language code of the audio.
         :param unique_name: Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.
         :param auto_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
@@ -164,7 +166,6 @@ class ServiceInstance(InstanceResource):
             auto_transcribe=auto_transcribe,
             data_logging=data_logging,
             friendly_name=friendly_name,
-            language_code=language_code,
             unique_name=unique_name,
             auto_redaction=auto_redaction,
             media_redaction=media_redaction,
@@ -178,7 +179,6 @@ class ServiceInstance(InstanceResource):
         auto_transcribe: Union[bool, object] = values.unset,
         data_logging: Union[bool, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        language_code: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
         auto_redaction: Union[bool, object] = values.unset,
         media_redaction: Union[bool, object] = values.unset,
@@ -192,7 +192,6 @@ class ServiceInstance(InstanceResource):
         :param auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
         :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
         :param friendly_name: A human readable description of this resource, up to 64 characters.
-        :param language_code: The default language code of the audio.
         :param unique_name: Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.
         :param auto_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
@@ -206,7 +205,6 @@ class ServiceInstance(InstanceResource):
             auto_transcribe=auto_transcribe,
             data_logging=data_logging,
             friendly_name=friendly_name,
-            language_code=language_code,
             unique_name=unique_name,
             auto_redaction=auto_redaction,
             media_redaction=media_redaction,
@@ -309,7 +307,6 @@ class ServiceContext(InstanceContext):
         auto_transcribe: Union[bool, object] = values.unset,
         data_logging: Union[bool, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        language_code: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
         auto_redaction: Union[bool, object] = values.unset,
         media_redaction: Union[bool, object] = values.unset,
@@ -323,7 +320,6 @@ class ServiceContext(InstanceContext):
         :param auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
         :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
         :param friendly_name: A human readable description of this resource, up to 64 characters.
-        :param language_code: The default language code of the audio.
         :param unique_name: Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.
         :param auto_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
@@ -337,7 +333,6 @@ class ServiceContext(InstanceContext):
                 "AutoTranscribe": serialize.boolean_to_string(auto_transcribe),
                 "DataLogging": serialize.boolean_to_string(data_logging),
                 "FriendlyName": friendly_name,
-                "LanguageCode": language_code,
                 "UniqueName": unique_name,
                 "AutoRedaction": serialize.boolean_to_string(auto_redaction),
                 "MediaRedaction": serialize.boolean_to_string(media_redaction),
@@ -363,7 +358,6 @@ class ServiceContext(InstanceContext):
         auto_transcribe: Union[bool, object] = values.unset,
         data_logging: Union[bool, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        language_code: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
         auto_redaction: Union[bool, object] = values.unset,
         media_redaction: Union[bool, object] = values.unset,
@@ -377,7 +371,6 @@ class ServiceContext(InstanceContext):
         :param auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
         :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
         :param friendly_name: A human readable description of this resource, up to 64 characters.
-        :param language_code: The default language code of the audio.
         :param unique_name: Provides a unique and addressable name to be assigned to this Service, assigned by the developer, to be optionally used in addition to SID.
         :param auto_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
@@ -391,7 +384,6 @@ class ServiceContext(InstanceContext):
                 "AutoTranscribe": serialize.boolean_to_string(auto_transcribe),
                 "DataLogging": serialize.boolean_to_string(data_logging),
                 "FriendlyName": friendly_name,
-                "LanguageCode": language_code,
                 "UniqueName": unique_name,
                 "AutoRedaction": serialize.boolean_to_string(auto_redaction),
                 "MediaRedaction": serialize.boolean_to_string(media_redaction),
@@ -472,7 +464,7 @@ class ServiceList(ListResource):
         :param auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
         :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
         :param friendly_name: A human readable description of this resource, up to 64 characters.
-        :param language_code: The default language code of the audio.
+        :param language_code: The language code set during Service creation determines the Transcription language for all call recordings processed by that Service. The default is en-US if no language code is set. A Service can only support one language code, and it cannot be updated once it's set.
         :param auto_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
         :param webhook_url: The URL Twilio will request when executing the Webhook.
@@ -522,7 +514,7 @@ class ServiceList(ListResource):
         :param auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
         :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
         :param friendly_name: A human readable description of this resource, up to 64 characters.
-        :param language_code: The default language code of the audio.
+        :param language_code: The language code set during Service creation determines the Transcription language for all call recordings processed by that Service. The default is en-US if no language code is set. A Service can only support one language code, and it cannot be updated once it's set.
         :param auto_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
         :param webhook_url: The URL Twilio will request when executing the Webhook.

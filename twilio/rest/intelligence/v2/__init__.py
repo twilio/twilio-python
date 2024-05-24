@@ -15,6 +15,12 @@ r"""
 from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
+from twilio.rest.intelligence.v2.custom_operator import CustomOperatorList
+from twilio.rest.intelligence.v2.operator import OperatorList
+from twilio.rest.intelligence.v2.operator_attachment import OperatorAttachmentList
+from twilio.rest.intelligence.v2.operator_attachments import OperatorAttachmentsList
+from twilio.rest.intelligence.v2.operator_type import OperatorTypeList
+from twilio.rest.intelligence.v2.prebuilt_operator import PrebuiltOperatorList
 from twilio.rest.intelligence.v2.service import ServiceList
 from twilio.rest.intelligence.v2.transcript import TranscriptList
 
@@ -28,8 +34,50 @@ class V2(Version):
         :param domain: The Twilio.intelligence domain
         """
         super().__init__(domain, "v2")
+        self._custom_operators: Optional[CustomOperatorList] = None
+        self._operators: Optional[OperatorList] = None
+        self._operator_attachment: Optional[OperatorAttachmentList] = None
+        self._operator_attachments: Optional[OperatorAttachmentsList] = None
+        self._operator_type: Optional[OperatorTypeList] = None
+        self._prebuilt_operators: Optional[PrebuiltOperatorList] = None
         self._services: Optional[ServiceList] = None
         self._transcripts: Optional[TranscriptList] = None
+
+    @property
+    def custom_operators(self) -> CustomOperatorList:
+        if self._custom_operators is None:
+            self._custom_operators = CustomOperatorList(self)
+        return self._custom_operators
+
+    @property
+    def operators(self) -> OperatorList:
+        if self._operators is None:
+            self._operators = OperatorList(self)
+        return self._operators
+
+    @property
+    def operator_attachment(self) -> OperatorAttachmentList:
+        if self._operator_attachment is None:
+            self._operator_attachment = OperatorAttachmentList(self)
+        return self._operator_attachment
+
+    @property
+    def operator_attachments(self) -> OperatorAttachmentsList:
+        if self._operator_attachments is None:
+            self._operator_attachments = OperatorAttachmentsList(self)
+        return self._operator_attachments
+
+    @property
+    def operator_type(self) -> OperatorTypeList:
+        if self._operator_type is None:
+            self._operator_type = OperatorTypeList(self)
+        return self._operator_type
+
+    @property
+    def prebuilt_operators(self) -> PrebuiltOperatorList:
+        if self._prebuilt_operators is None:
+            self._prebuilt_operators = PrebuiltOperatorList(self)
+        return self._prebuilt_operators
 
     @property
     def services(self) -> ServiceList:

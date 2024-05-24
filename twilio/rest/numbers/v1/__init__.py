@@ -17,13 +17,20 @@ from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.numbers.v1.bulk_eligibility import BulkEligibilityList
 from twilio.rest.numbers.v1.eligibility import EligibilityList
-from twilio.rest.numbers.v1.porting_bulk_portability import PortingBulkPortabilityList
 from twilio.rest.numbers.v1.porting_port_in import PortingPortInList
-from twilio.rest.numbers.v1.porting_port_in_fetch import PortingPortInFetchList
 from twilio.rest.numbers.v1.porting_port_in_phone_number import (
     PortingPortInPhoneNumberList,
 )
 from twilio.rest.numbers.v1.porting_portability import PortingPortabilityList
+from twilio.rest.numbers.v1.porting_webhook_configuration import (
+    PortingWebhookConfigurationList,
+)
+from twilio.rest.numbers.v1.porting_webhook_configuration_delete import (
+    PortingWebhookConfigurationDeleteList,
+)
+from twilio.rest.numbers.v1.porting_webhook_configuration_fetch import (
+    PortingWebhookConfigurationFetchList,
+)
 
 
 class V1(Version):
@@ -37,13 +44,20 @@ class V1(Version):
         super().__init__(domain, "v1")
         self._bulk_eligibilities: Optional[BulkEligibilityList] = None
         self._eligibilities: Optional[EligibilityList] = None
-        self._porting_bulk_portabilities: Optional[PortingBulkPortabilityList] = None
         self._porting_port_ins: Optional[PortingPortInList] = None
-        self._porting_port_ins_fetch: Optional[PortingPortInFetchList] = None
         self._porting_port_in_phone_number: Optional[PortingPortInPhoneNumberList] = (
             None
         )
         self._porting_portabilities: Optional[PortingPortabilityList] = None
+        self._porting_webhook_configurations: Optional[
+            PortingWebhookConfigurationList
+        ] = None
+        self._porting_webhook_configurations_delete: Optional[
+            PortingWebhookConfigurationDeleteList
+        ] = None
+        self._porting_webhook_configuration_fetch: Optional[
+            PortingWebhookConfigurationFetchList
+        ] = None
 
     @property
     def bulk_eligibilities(self) -> BulkEligibilityList:
@@ -58,22 +72,10 @@ class V1(Version):
         return self._eligibilities
 
     @property
-    def porting_bulk_portabilities(self) -> PortingBulkPortabilityList:
-        if self._porting_bulk_portabilities is None:
-            self._porting_bulk_portabilities = PortingBulkPortabilityList(self)
-        return self._porting_bulk_portabilities
-
-    @property
     def porting_port_ins(self) -> PortingPortInList:
         if self._porting_port_ins is None:
             self._porting_port_ins = PortingPortInList(self)
         return self._porting_port_ins
-
-    @property
-    def porting_port_ins_fetch(self) -> PortingPortInFetchList:
-        if self._porting_port_ins_fetch is None:
-            self._porting_port_ins_fetch = PortingPortInFetchList(self)
-        return self._porting_port_ins_fetch
 
     @property
     def porting_port_in_phone_number(self) -> PortingPortInPhoneNumberList:
@@ -86,6 +88,32 @@ class V1(Version):
         if self._porting_portabilities is None:
             self._porting_portabilities = PortingPortabilityList(self)
         return self._porting_portabilities
+
+    @property
+    def porting_webhook_configurations(self) -> PortingWebhookConfigurationList:
+        if self._porting_webhook_configurations is None:
+            self._porting_webhook_configurations = PortingWebhookConfigurationList(self)
+        return self._porting_webhook_configurations
+
+    @property
+    def porting_webhook_configurations_delete(
+        self,
+    ) -> PortingWebhookConfigurationDeleteList:
+        if self._porting_webhook_configurations_delete is None:
+            self._porting_webhook_configurations_delete = (
+                PortingWebhookConfigurationDeleteList(self)
+            )
+        return self._porting_webhook_configurations_delete
+
+    @property
+    def porting_webhook_configuration_fetch(
+        self,
+    ) -> PortingWebhookConfigurationFetchList:
+        if self._porting_webhook_configuration_fetch is None:
+            self._porting_webhook_configuration_fetch = (
+                PortingWebhookConfigurationFetchList(self)
+            )
+        return self._porting_webhook_configuration_fetch
 
     def __repr__(self) -> str:
         """

@@ -92,6 +92,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
         business_contact_last_name: Union[str, object] = values.unset,
         business_contact_email: Union[str, object] = values.unset,
         business_contact_phone: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
     ) -> ComplianceTollfreeInquiriesInstance:
         """
         Create the ComplianceTollfreeInquiriesInstance
@@ -117,6 +118,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
         :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param theme_set_id: Theme id for styling the inquiry form.
 
         :returns: The created ComplianceTollfreeInquiriesInstance
         """
@@ -144,6 +146,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
                 "BusinessContactLastName": business_contact_last_name,
                 "BusinessContactEmail": business_contact_email,
                 "BusinessContactPhone": business_contact_phone,
+                "ThemeSetId": theme_set_id,
             }
         )
 
@@ -180,6 +183,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
         business_contact_last_name: Union[str, object] = values.unset,
         business_contact_email: Union[str, object] = values.unset,
         business_contact_phone: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
     ) -> ComplianceTollfreeInquiriesInstance:
         """
         Asynchronously create the ComplianceTollfreeInquiriesInstance
@@ -205,6 +209,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
         :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param theme_set_id: Theme id for styling the inquiry form.
 
         :returns: The created ComplianceTollfreeInquiriesInstance
         """
@@ -232,6 +237,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
                 "BusinessContactLastName": business_contact_last_name,
                 "BusinessContactEmail": business_contact_email,
                 "BusinessContactPhone": business_contact_phone,
+                "ThemeSetId": theme_set_id,
             }
         )
 

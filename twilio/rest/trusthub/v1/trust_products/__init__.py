@@ -53,6 +53,7 @@ class TrustProductsInstance(InstanceResource):
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar url: The absolute URL of the Trust Product resource.
     :ivar links: The URLs of the Assigned Items of the Trust Product resource.
+    :ivar errors: The error codes associated with the rejection of the Trust Product.
     """
 
     def __init__(
@@ -78,6 +79,7 @@ class TrustProductsInstance(InstanceResource):
         )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
+        self.errors: Optional[List[Dict[str, object]]] = payload.get("errors")
 
         self._solution = {
             "sid": sid or self.sid,

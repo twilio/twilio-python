@@ -198,7 +198,7 @@ class InteractionList(ListResource):
     def create(
         self,
         channel: object,
-        routing: object,
+        routing: Union[object, object] = values.unset,
         interaction_context_sid: Union[str, object] = values.unset,
     ) -> InteractionInstance:
         """
@@ -230,7 +230,7 @@ class InteractionList(ListResource):
     async def create_async(
         self,
         channel: object,
-        routing: object,
+        routing: Union[object, object] = values.unset,
         interaction_context_sid: Union[str, object] = values.unset,
     ) -> InteractionInstance:
         """

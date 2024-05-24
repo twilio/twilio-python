@@ -56,6 +56,8 @@ class TaskInstance(InstanceResource):
     :ivar url: The absolute URL of the Task resource.
     :ivar links: The URLs of related resources.
     :ivar virtual_start_time: The date and time in GMT indicating the ordering for routing of the Task specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar ignore_capacity: A boolean indicating if a new task should respect a worker's capacity during assignment
+    :ivar routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
     """
 
     def __init__(
@@ -105,6 +107,8 @@ class TaskInstance(InstanceResource):
         self.virtual_start_time: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("virtual_start_time")
         )
+        self.ignore_capacity: Optional[bool] = payload.get("ignore_capacity")
+        self.routing_target: Optional[str] = payload.get("routing_target")
 
         self._solution = {
             "workspace_sid": workspace_sid,
@@ -518,6 +522,9 @@ class TaskList(ListResource):
         workflow_sid: Union[str, object] = values.unset,
         attributes: Union[str, object] = values.unset,
         virtual_start_time: Union[datetime, object] = values.unset,
+        routing_target: Union[str, object] = values.unset,
+        ignore_capacity: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
     ) -> TaskInstance:
         """
         Create the TaskInstance
@@ -528,6 +535,9 @@ class TaskList(ListResource):
         :param workflow_sid: The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
         :param attributes: A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
         :param virtual_start_time: The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can't be in the future.
+        :param routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
+        :param ignore_capacity: A boolean indicating if a new task should respect a worker's capacity during assignment
+        :param task_queue_sid: The SID of the TaskQueue in which the Task belongs
 
         :returns: The created TaskInstance
         """
@@ -540,6 +550,9 @@ class TaskList(ListResource):
                 "WorkflowSid": workflow_sid,
                 "Attributes": attributes,
                 "VirtualStartTime": serialize.iso8601_datetime(virtual_start_time),
+                "RoutingTarget": routing_target,
+                "IgnoreCapacity": ignore_capacity,
+                "TaskQueueSid": task_queue_sid,
             }
         )
 
@@ -561,6 +574,9 @@ class TaskList(ListResource):
         workflow_sid: Union[str, object] = values.unset,
         attributes: Union[str, object] = values.unset,
         virtual_start_time: Union[datetime, object] = values.unset,
+        routing_target: Union[str, object] = values.unset,
+        ignore_capacity: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
     ) -> TaskInstance:
         """
         Asynchronously create the TaskInstance
@@ -571,6 +587,9 @@ class TaskList(ListResource):
         :param workflow_sid: The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
         :param attributes: A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
         :param virtual_start_time: The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can't be in the future.
+        :param routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
+        :param ignore_capacity: A boolean indicating if a new task should respect a worker's capacity during assignment
+        :param task_queue_sid: The SID of the TaskQueue in which the Task belongs
 
         :returns: The created TaskInstance
         """
@@ -583,6 +602,9 @@ class TaskList(ListResource):
                 "WorkflowSid": workflow_sid,
                 "Attributes": attributes,
                 "VirtualStartTime": serialize.iso8601_datetime(virtual_start_time),
+                "RoutingTarget": routing_target,
+                "IgnoreCapacity": ignore_capacity,
+                "TaskQueueSid": task_queue_sid,
             }
         )
 
@@ -605,6 +627,7 @@ class TaskList(ListResource):
         task_queue_sid: Union[str, object] = values.unset,
         task_queue_name: Union[str, object] = values.unset,
         evaluate_task_attributes: Union[str, object] = values.unset,
+        routing_target: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
         has_addons: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
@@ -623,6 +646,7 @@ class TaskList(ListResource):
         :param str task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
         :param str task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
+        :param str routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
         :param str ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
         :param bool has_addons: Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons.
         :param limit: Upper limit for the number of records to return. stream()
@@ -643,6 +667,7 @@ class TaskList(ListResource):
             task_queue_sid=task_queue_sid,
             task_queue_name=task_queue_name,
             evaluate_task_attributes=evaluate_task_attributes,
+            routing_target=routing_target,
             ordering=ordering,
             has_addons=has_addons,
             page_size=limits["page_size"],
@@ -659,6 +684,7 @@ class TaskList(ListResource):
         task_queue_sid: Union[str, object] = values.unset,
         task_queue_name: Union[str, object] = values.unset,
         evaluate_task_attributes: Union[str, object] = values.unset,
+        routing_target: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
         has_addons: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
@@ -677,6 +703,7 @@ class TaskList(ListResource):
         :param str task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
         :param str task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
+        :param str routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
         :param str ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
         :param bool has_addons: Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons.
         :param limit: Upper limit for the number of records to return. stream()
@@ -697,6 +724,7 @@ class TaskList(ListResource):
             task_queue_sid=task_queue_sid,
             task_queue_name=task_queue_name,
             evaluate_task_attributes=evaluate_task_attributes,
+            routing_target=routing_target,
             ordering=ordering,
             has_addons=has_addons,
             page_size=limits["page_size"],
@@ -713,6 +741,7 @@ class TaskList(ListResource):
         task_queue_sid: Union[str, object] = values.unset,
         task_queue_name: Union[str, object] = values.unset,
         evaluate_task_attributes: Union[str, object] = values.unset,
+        routing_target: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
         has_addons: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
@@ -730,6 +759,7 @@ class TaskList(ListResource):
         :param str task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
         :param str task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
+        :param str routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
         :param str ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
         :param bool has_addons: Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -750,6 +780,7 @@ class TaskList(ListResource):
                 task_queue_sid=task_queue_sid,
                 task_queue_name=task_queue_name,
                 evaluate_task_attributes=evaluate_task_attributes,
+                routing_target=routing_target,
                 ordering=ordering,
                 has_addons=has_addons,
                 limit=limit,
@@ -766,6 +797,7 @@ class TaskList(ListResource):
         task_queue_sid: Union[str, object] = values.unset,
         task_queue_name: Union[str, object] = values.unset,
         evaluate_task_attributes: Union[str, object] = values.unset,
+        routing_target: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
         has_addons: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
@@ -783,6 +815,7 @@ class TaskList(ListResource):
         :param str task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
         :param str task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param str evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
+        :param str routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
         :param str ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
         :param bool has_addons: Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -804,6 +837,7 @@ class TaskList(ListResource):
                 task_queue_sid=task_queue_sid,
                 task_queue_name=task_queue_name,
                 evaluate_task_attributes=evaluate_task_attributes,
+                routing_target=routing_target,
                 ordering=ordering,
                 has_addons=has_addons,
                 limit=limit,
@@ -820,6 +854,7 @@ class TaskList(ListResource):
         task_queue_sid: Union[str, object] = values.unset,
         task_queue_name: Union[str, object] = values.unset,
         evaluate_task_attributes: Union[str, object] = values.unset,
+        routing_target: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
         has_addons: Union[bool, object] = values.unset,
         page_token: Union[str, object] = values.unset,
@@ -837,6 +872,7 @@ class TaskList(ListResource):
         :param task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
         :param task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
+        :param routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
         :param ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
         :param has_addons: Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons.
         :param page_token: PageToken provided by the API
@@ -854,6 +890,7 @@ class TaskList(ListResource):
                 "TaskQueueSid": task_queue_sid,
                 "TaskQueueName": task_queue_name,
                 "EvaluateTaskAttributes": evaluate_task_attributes,
+                "RoutingTarget": routing_target,
                 "Ordering": ordering,
                 "HasAddons": serialize.boolean_to_string(has_addons),
                 "PageToken": page_token,
@@ -874,6 +911,7 @@ class TaskList(ListResource):
         task_queue_sid: Union[str, object] = values.unset,
         task_queue_name: Union[str, object] = values.unset,
         evaluate_task_attributes: Union[str, object] = values.unset,
+        routing_target: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
         has_addons: Union[bool, object] = values.unset,
         page_token: Union[str, object] = values.unset,
@@ -891,6 +929,7 @@ class TaskList(ListResource):
         :param task_queue_sid: The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this SID.
         :param task_queue_name: The `friendly_name` of the TaskQueue with the Tasks to read. Returns the Tasks waiting in the TaskQueue identified by this friendly name.
         :param evaluate_task_attributes: The attributes of the Tasks to read. Returns the Tasks that match the attributes specified in this parameter.
+        :param routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
         :param ordering: How to order the returned Task resources. By default, Tasks are sorted by ascending DateCreated. This value is specified as: `Attribute:Order`, where `Attribute` can be either `DateCreated`, `Priority`, or `VirtualStartTime` and `Order` can be either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in descending order of their Priority. Pairings of sort orders can be specified in a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns the Tasks in descending Priority order and ascending DateCreated Order. The only ordering pairing not allowed is DateCreated and VirtualStartTime.
         :param has_addons: Whether to read Tasks with Add-ons. If `true`, returns only Tasks with Add-ons. If `false`, returns only Tasks without Add-ons.
         :param page_token: PageToken provided by the API
@@ -908,6 +947,7 @@ class TaskList(ListResource):
                 "TaskQueueSid": task_queue_sid,
                 "TaskQueueName": task_queue_name,
                 "EvaluateTaskAttributes": evaluate_task_attributes,
+                "RoutingTarget": routing_target,
                 "Ordering": ordering,
                 "HasAddons": serialize.boolean_to_string(has_addons),
                 "PageToken": page_token,
