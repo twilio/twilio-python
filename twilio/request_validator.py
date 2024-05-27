@@ -6,10 +6,10 @@ from urllib.parse import urlparse, parse_qs
 
 
 def compare(string1, string2):
-    """Compare two strings while protecting against timing attack
+    """Compare two strings while protecting against timing attacks
 
     :param str string1: the first string
-    :param str string2: the second strin
+    :param str string2: the second string
 
     :returns: True if the strings are equal, False if not
     :rtype: :obj:`bool`
