@@ -12,3 +12,4 @@ multidict
 pyngrok
 black
 autoflake
+pyright
