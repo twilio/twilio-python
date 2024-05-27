@@ -58,7 +58,7 @@ nopyc:
 
 
 prettier:
-	pyright --createstub .
+	. venv/bin/activate; pyright --createstub .
 	. venv/bin/activate; autoflake --remove-all-unused-imports -i -r --exclude venv .
 	. venv/bin/activate; black .
 
