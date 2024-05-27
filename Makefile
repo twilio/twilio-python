@@ -56,10 +56,10 @@ clean:
 nopyc:
 	find . -name \*.pyc -delete
 
+pystub:
+	. venv/bin/activate; pyright --createstub twilio/rest
 
 prettier:
-	pwd
-	. venv/bin/activate; pyright --createstub twilio/rest
 	. venv/bin/activate; autoflake --remove-all-unused-imports -i -r --exclude venv .
 	. venv/bin/activate; black .
 
