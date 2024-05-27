@@ -56,6 +56,9 @@ clean:
 nopyc:
 	find . -name \*.pyc -delete
 
+pystub:
+	. venv/bin/activate; pyright --createstub .
+
 prettier:
 	. venv/bin/activate; autoflake --remove-all-unused-imports -i -r --exclude venv .
 	. venv/bin/activate; black .
