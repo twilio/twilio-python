@@ -32,7 +32,6 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install virtualenv --upgrade
-          make pystub
           make install test-install
           make prettier
 
