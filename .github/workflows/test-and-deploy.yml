@@ -35,6 +35,7 @@ jobs:
           make pystub
           make install test-install
           make prettier
+          tree
 
       - name: Run the tests
         run: make test-with-coverage
