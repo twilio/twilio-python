@@ -57,7 +57,7 @@ nopyc:
 	find . -name \*.pyc -delete
 
 pystub:
-	. venv/bin/activate; pyright --createstub twilio/rest
+	pip install pyright; pyright --createstub twilio/rest
 
 prettier:
 	. venv/bin/activate; autoflake --remove-all-unused-imports -i -r --exclude venv .
