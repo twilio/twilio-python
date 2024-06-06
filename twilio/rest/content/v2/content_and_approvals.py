@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -98,6 +98,15 @@ class ContentAndApprovalsList(ListResource):
 
     def stream(
         self,
+        sort_by_date: Union[str, object] = values.unset,
+        sort_by_content_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        content_name: Union[str, object] = values.unset,
+        content: Union[str, object] = values.unset,
+        language: Union[List[str], object] = values.unset,
+        content_type: Union[List[str], object] = values.unset,
+        channel_eligibility: Union[List[str], object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ContentAndApprovalsInstance]:
@@ -107,6 +116,15 @@ class ContentAndApprovalsList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param str sort_by_date: Whether to sort by ascending or descending date updated
+        :param str sort_by_content_name: Whether to sort by ascending or descending content name
+        :param datetime date_created_after: Filter by >=[date-time]
+        :param datetime date_created_before: Filter by <=[date-time]
+        :param str content_name: Filter by Regex Pattern in content name
+        :param str content: Filter by Regex Pattern in template content
+        :param List[str] language: Filter by array of valid language(s)
+        :param List[str] content_type: Filter by array of contentType(s)
+        :param List[str] channel_eligibility: Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status>
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -117,12 +135,32 @@ class ContentAndApprovalsList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            sort_by_date=sort_by_date,
+            sort_by_content_name=sort_by_content_name,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            content_name=content_name,
+            content=content,
+            language=language,
+            content_type=content_type,
+            channel_eligibility=channel_eligibility,
+            page_size=limits["page_size"],
+        )
 
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
         self,
+        sort_by_date: Union[str, object] = values.unset,
+        sort_by_content_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        content_name: Union[str, object] = values.unset,
+        content: Union[str, object] = values.unset,
+        language: Union[List[str], object] = values.unset,
+        content_type: Union[List[str], object] = values.unset,
+        channel_eligibility: Union[List[str], object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ContentAndApprovalsInstance]:
@@ -132,6 +170,15 @@ class ContentAndApprovalsList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param str sort_by_date: Whether to sort by ascending or descending date updated
+        :param str sort_by_content_name: Whether to sort by ascending or descending content name
+        :param datetime date_created_after: Filter by >=[date-time]
+        :param datetime date_created_before: Filter by <=[date-time]
+        :param str content_name: Filter by Regex Pattern in content name
+        :param str content: Filter by Regex Pattern in template content
+        :param List[str] language: Filter by array of valid language(s)
+        :param List[str] content_type: Filter by array of contentType(s)
+        :param List[str] channel_eligibility: Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status>
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -142,12 +189,32 @@ class ContentAndApprovalsList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            sort_by_date=sort_by_date,
+            sort_by_content_name=sort_by_content_name,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            content_name=content_name,
+            content=content,
+            language=language,
+            content_type=content_type,
+            channel_eligibility=channel_eligibility,
+            page_size=limits["page_size"],
+        )
 
         return self._version.stream_async(page, limits["limit"])
 
     def list(
         self,
+        sort_by_date: Union[str, object] = values.unset,
+        sort_by_content_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        content_name: Union[str, object] = values.unset,
+        content: Union[str, object] = values.unset,
+        language: Union[List[str], object] = values.unset,
+        content_type: Union[List[str], object] = values.unset,
+        channel_eligibility: Union[List[str], object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ContentAndApprovalsInstance]:
@@ -156,6 +223,15 @@ class ContentAndApprovalsList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param str sort_by_date: Whether to sort by ascending or descending date updated
+        :param str sort_by_content_name: Whether to sort by ascending or descending content name
+        :param datetime date_created_after: Filter by >=[date-time]
+        :param datetime date_created_before: Filter by <=[date-time]
+        :param str content_name: Filter by Regex Pattern in content name
+        :param str content: Filter by Regex Pattern in template content
+        :param List[str] language: Filter by array of valid language(s)
+        :param List[str] content_type: Filter by array of contentType(s)
+        :param List[str] channel_eligibility: Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status>
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -167,6 +243,15 @@ class ContentAndApprovalsList(ListResource):
         """
         return list(
             self.stream(
+                sort_by_date=sort_by_date,
+                sort_by_content_name=sort_by_content_name,
+                date_created_after=date_created_after,
+                date_created_before=date_created_before,
+                content_name=content_name,
+                content=content,
+                language=language,
+                content_type=content_type,
+                channel_eligibility=channel_eligibility,
                 limit=limit,
                 page_size=page_size,
             )
@@ -174,6 +259,15 @@ class ContentAndApprovalsList(ListResource):
 
     async def list_async(
         self,
+        sort_by_date: Union[str, object] = values.unset,
+        sort_by_content_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        content_name: Union[str, object] = values.unset,
+        content: Union[str, object] = values.unset,
+        language: Union[List[str], object] = values.unset,
+        content_type: Union[List[str], object] = values.unset,
+        channel_eligibility: Union[List[str], object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ContentAndApprovalsInstance]:
@@ -182,6 +276,15 @@ class ContentAndApprovalsList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param str sort_by_date: Whether to sort by ascending or descending date updated
+        :param str sort_by_content_name: Whether to sort by ascending or descending content name
+        :param datetime date_created_after: Filter by >=[date-time]
+        :param datetime date_created_before: Filter by <=[date-time]
+        :param str content_name: Filter by Regex Pattern in content name
+        :param str content: Filter by Regex Pattern in template content
+        :param List[str] language: Filter by array of valid language(s)
+        :param List[str] content_type: Filter by array of contentType(s)
+        :param List[str] channel_eligibility: Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status>
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -194,6 +297,15 @@ class ContentAndApprovalsList(ListResource):
         return [
             record
             async for record in await self.stream_async(
+                sort_by_date=sort_by_date,
+                sort_by_content_name=sort_by_content_name,
+                date_created_after=date_created_after,
+                date_created_before=date_created_before,
+                content_name=content_name,
+                content=content,
+                language=language,
+                content_type=content_type,
+                channel_eligibility=channel_eligibility,
                 limit=limit,
                 page_size=page_size,
             )
@@ -201,6 +313,15 @@ class ContentAndApprovalsList(ListResource):
 
     def page(
         self,
+        sort_by_date: Union[str, object] = values.unset,
+        sort_by_content_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        content_name: Union[str, object] = values.unset,
+        content: Union[str, object] = values.unset,
+        language: Union[List[str], object] = values.unset,
+        content_type: Union[List[str], object] = values.unset,
+        channel_eligibility: Union[List[str], object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -209,6 +330,15 @@ class ContentAndApprovalsList(ListResource):
         Retrieve a single page of ContentAndApprovalsInstance records from the API.
         Request is executed immediately
 
+        :param sort_by_date: Whether to sort by ascending or descending date updated
+        :param sort_by_content_name: Whether to sort by ascending or descending content name
+        :param date_created_after: Filter by >=[date-time]
+        :param date_created_before: Filter by <=[date-time]
+        :param content_name: Filter by Regex Pattern in content name
+        :param content: Filter by Regex Pattern in template content
+        :param language: Filter by array of valid language(s)
+        :param content_type: Filter by array of contentType(s)
+        :param channel_eligibility: Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status>
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -217,6 +347,15 @@ class ContentAndApprovalsList(ListResource):
         """
         data = values.of(
             {
+                "SortByDate": sort_by_date,
+                "SortByContentName": sort_by_content_name,
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "ContentName": content_name,
+                "Content": content,
+                "Language": serialize.map(language, lambda e: e),
+                "ContentType": serialize.map(content_type, lambda e: e),
+                "ChannelEligibility": serialize.map(channel_eligibility, lambda e: e),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -228,6 +367,15 @@ class ContentAndApprovalsList(ListResource):
 
     async def page_async(
         self,
+        sort_by_date: Union[str, object] = values.unset,
+        sort_by_content_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        content_name: Union[str, object] = values.unset,
+        content: Union[str, object] = values.unset,
+        language: Union[List[str], object] = values.unset,
+        content_type: Union[List[str], object] = values.unset,
+        channel_eligibility: Union[List[str], object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -236,6 +384,15 @@ class ContentAndApprovalsList(ListResource):
         Asynchronously retrieve a single page of ContentAndApprovalsInstance records from the API.
         Request is executed immediately
 
+        :param sort_by_date: Whether to sort by ascending or descending date updated
+        :param sort_by_content_name: Whether to sort by ascending or descending content name
+        :param date_created_after: Filter by >=[date-time]
+        :param date_created_before: Filter by <=[date-time]
+        :param content_name: Filter by Regex Pattern in content name
+        :param content: Filter by Regex Pattern in template content
+        :param language: Filter by array of valid language(s)
+        :param content_type: Filter by array of contentType(s)
+        :param channel_eligibility: Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status>
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -244,6 +401,15 @@ class ContentAndApprovalsList(ListResource):
         """
         data = values.of(
             {
+                "SortByDate": sort_by_date,
+                "SortByContentName": sort_by_content_name,
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "ContentName": content_name,
+                "Content": content,
+                "Language": serialize.map(language, lambda e: e),
+                "ContentType": serialize.map(content_type, lambda e: e),
+                "ChannelEligibility": serialize.map(channel_eligibility, lambda e: e),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

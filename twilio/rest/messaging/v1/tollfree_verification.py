@@ -30,6 +30,7 @@ class TollfreeVerificationInstance(InstanceResource):
         PAPER_FORM = "PAPER_FORM"
         VIA_TEXT = "VIA_TEXT"
         MOBILE_QR_CODE = "MOBILE_QR_CODE"
+        IMPORT = "IMPORT"
 
     class Status(object):
         PENDING_REVIEW = "PENDING_REVIEW"
@@ -861,6 +862,8 @@ class TollfreeVerificationList(ListResource):
         self,
         tollfree_phone_number_sid: Union[str, object] = values.unset,
         status: Union["TollfreeVerificationInstance.Status", object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        include_sub_accounts: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[TollfreeVerificationInstance]:
@@ -872,6 +875,8 @@ class TollfreeVerificationList(ListResource):
 
         :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
         :param &quot;TollfreeVerificationInstance.Status&quot; status: The compliance status of the Tollfree Verification record.
+        :param str external_reference_id: Customer supplied reference id for the Tollfree Verification record.
+        :param bool include_sub_accounts: Whether to include Tollfree Verifications from sub accounts in list response.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -885,6 +890,8 @@ class TollfreeVerificationList(ListResource):
         page = self.page(
             tollfree_phone_number_sid=tollfree_phone_number_sid,
             status=status,
+            external_reference_id=external_reference_id,
+            include_sub_accounts=include_sub_accounts,
             page_size=limits["page_size"],
         )
 
@@ -894,6 +901,8 @@ class TollfreeVerificationList(ListResource):
         self,
         tollfree_phone_number_sid: Union[str, object] = values.unset,
         status: Union["TollfreeVerificationInstance.Status", object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        include_sub_accounts: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[TollfreeVerificationInstance]:
@@ -905,6 +914,8 @@ class TollfreeVerificationList(ListResource):
 
         :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
         :param &quot;TollfreeVerificationInstance.Status&quot; status: The compliance status of the Tollfree Verification record.
+        :param str external_reference_id: Customer supplied reference id for the Tollfree Verification record.
+        :param bool include_sub_accounts: Whether to include Tollfree Verifications from sub accounts in list response.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -918,6 +929,8 @@ class TollfreeVerificationList(ListResource):
         page = await self.page_async(
             tollfree_phone_number_sid=tollfree_phone_number_sid,
             status=status,
+            external_reference_id=external_reference_id,
+            include_sub_accounts=include_sub_accounts,
             page_size=limits["page_size"],
         )
 
@@ -927,6 +940,8 @@ class TollfreeVerificationList(ListResource):
         self,
         tollfree_phone_number_sid: Union[str, object] = values.unset,
         status: Union["TollfreeVerificationInstance.Status", object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        include_sub_accounts: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[TollfreeVerificationInstance]:
@@ -937,6 +952,8 @@ class TollfreeVerificationList(ListResource):
 
         :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
         :param &quot;TollfreeVerificationInstance.Status&quot; status: The compliance status of the Tollfree Verification record.
+        :param str external_reference_id: Customer supplied reference id for the Tollfree Verification record.
+        :param bool include_sub_accounts: Whether to include Tollfree Verifications from sub accounts in list response.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -950,6 +967,8 @@ class TollfreeVerificationList(ListResource):
             self.stream(
                 tollfree_phone_number_sid=tollfree_phone_number_sid,
                 status=status,
+                external_reference_id=external_reference_id,
+                include_sub_accounts=include_sub_accounts,
                 limit=limit,
                 page_size=page_size,
             )
@@ -959,6 +978,8 @@ class TollfreeVerificationList(ListResource):
         self,
         tollfree_phone_number_sid: Union[str, object] = values.unset,
         status: Union["TollfreeVerificationInstance.Status", object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        include_sub_accounts: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[TollfreeVerificationInstance]:
@@ -969,6 +990,8 @@ class TollfreeVerificationList(ListResource):
 
         :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
         :param &quot;TollfreeVerificationInstance.Status&quot; status: The compliance status of the Tollfree Verification record.
+        :param str external_reference_id: Customer supplied reference id for the Tollfree Verification record.
+        :param bool include_sub_accounts: Whether to include Tollfree Verifications from sub accounts in list response.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -983,6 +1006,8 @@ class TollfreeVerificationList(ListResource):
             async for record in await self.stream_async(
                 tollfree_phone_number_sid=tollfree_phone_number_sid,
                 status=status,
+                external_reference_id=external_reference_id,
+                include_sub_accounts=include_sub_accounts,
                 limit=limit,
                 page_size=page_size,
             )
@@ -992,6 +1017,8 @@ class TollfreeVerificationList(ListResource):
         self,
         tollfree_phone_number_sid: Union[str, object] = values.unset,
         status: Union["TollfreeVerificationInstance.Status", object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        include_sub_accounts: Union[bool, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1002,6 +1029,8 @@ class TollfreeVerificationList(ListResource):
 
         :param tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
         :param status: The compliance status of the Tollfree Verification record.
+        :param external_reference_id: Customer supplied reference id for the Tollfree Verification record.
+        :param include_sub_accounts: Whether to include Tollfree Verifications from sub accounts in list response.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -1012,6 +1041,8 @@ class TollfreeVerificationList(ListResource):
             {
                 "TollfreePhoneNumberSid": tollfree_phone_number_sid,
                 "Status": status,
+                "ExternalReferenceId": external_reference_id,
+                "IncludeSubAccounts": serialize.boolean_to_string(include_sub_accounts),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -1025,6 +1056,8 @@ class TollfreeVerificationList(ListResource):
         self,
         tollfree_phone_number_sid: Union[str, object] = values.unset,
         status: Union["TollfreeVerificationInstance.Status", object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        include_sub_accounts: Union[bool, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1035,6 +1068,8 @@ class TollfreeVerificationList(ListResource):
 
         :param tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
         :param status: The compliance status of the Tollfree Verification record.
+        :param external_reference_id: Customer supplied reference id for the Tollfree Verification record.
+        :param include_sub_accounts: Whether to include Tollfree Verifications from sub accounts in list response.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -1045,6 +1080,8 @@ class TollfreeVerificationList(ListResource):
             {
                 "TollfreePhoneNumberSid": tollfree_phone_number_sid,
                 "Status": status,
+                "ExternalReferenceId": external_reference_id,
+                "IncludeSubAccounts": serialize.boolean_to_string(include_sub_accounts),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

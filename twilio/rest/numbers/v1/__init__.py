@@ -31,6 +31,9 @@ from twilio.rest.numbers.v1.porting_webhook_configuration_delete import (
 from twilio.rest.numbers.v1.porting_webhook_configuration_fetch import (
     PortingWebhookConfigurationFetchList,
 )
+from twilio.rest.numbers.v1.signing_request_configuration import (
+    SigningRequestConfigurationList,
+)
 
 
 class V1(Version):
@@ -57,6 +60,9 @@ class V1(Version):
         ] = None
         self._porting_webhook_configuration_fetch: Optional[
             PortingWebhookConfigurationFetchList
+        ] = None
+        self._signing_request_configurations: Optional[
+            SigningRequestConfigurationList
         ] = None
 
     @property
@@ -114,6 +120,12 @@ class V1(Version):
                 PortingWebhookConfigurationFetchList(self)
             )
         return self._porting_webhook_configuration_fetch
+
+    @property
+    def signing_request_configurations(self) -> SigningRequestConfigurationList:
+        if self._signing_request_configurations is None:
+            self._signing_request_configurations = SigningRequestConfigurationList(self)
+        return self._signing_request_configurations
 
     def __repr__(self) -> str:
         """

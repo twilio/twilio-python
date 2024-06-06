@@ -27,6 +27,7 @@ if TYPE_CHECKING:
     from twilio.rest.intelligence import Intelligence
     from twilio.rest.ip_messaging import IpMessaging
     from twilio.rest.lookups import Lookups
+    from twilio.rest.marketplace import Marketplace
     from twilio.rest.messaging import Messaging
     from twilio.rest.microvisor import Microvisor
     from twilio.rest.monitor import Monitor
@@ -134,6 +135,7 @@ class Client(ClientBase):
         self._intelligence: Optional["Intelligence"] = None
         self._ip_messaging: Optional["IpMessaging"] = None
         self._lookups: Optional["Lookups"] = None
+        self._marketplace: Optional["Marketplace"] = None
         self._messaging: Optional["Messaging"] = None
         self._microvisor: Optional["Microvisor"] = None
         self._monitor: Optional["Monitor"] = None
@@ -324,6 +326,19 @@ class Client(ClientBase):
 
             self._lookups = Lookups(self)
         return self._lookups
+
+    @property
+    def marketplace(self) -> "Marketplace":
+        """
+        Access the Marketplace Twilio Domain
+
+        :returns: Marketplace Twilio Domain
+        """
+        if self._marketplace is None:
+            from twilio.rest.marketplace import Marketplace
+
+            self._marketplace = Marketplace(self)
+        return self._marketplace
 
     @property
     def messaging(self) -> "Messaging":
