@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional
-from twilio.base import deserialize
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -75,8 +75,9 @@ class PortingWebhookConfigurationFetchList(ListResource):
 
         :returns: The fetched PortingWebhookConfigurationFetchInstance
         """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-        payload = self._version.fetch(method="GET", uri=self._uri)
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return PortingWebhookConfigurationFetchInstance(self._version, payload)
 
@@ -87,8 +88,11 @@ class PortingWebhookConfigurationFetchList(ListResource):
 
         :returns: The fetched PortingWebhookConfigurationFetchInstance
         """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-        payload = await self._version.fetch_async(method="GET", uri=self._uri)
+        payload = await self._version.fetch_async(
+            method="GET", uri=self._uri, headers=headers
+        )
 
         return PortingWebhookConfigurationFetchInstance(self._version, payload)
 

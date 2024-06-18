@@ -13,6 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, Optional
+from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -72,8 +73,9 @@ class BalanceList(ListResource):
 
         :returns: The fetched BalanceInstance
         """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-        payload = self._version.fetch(method="GET", uri=self._uri)
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return BalanceInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
@@ -86,8 +88,11 @@ class BalanceList(ListResource):
 
         :returns: The fetched BalanceInstance
         """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-        payload = await self._version.fetch_async(method="GET", uri=self._uri)
+        payload = await self._version.fetch_async(
+            method="GET", uri=self._uri, headers=headers
+        )
 
         return BalanceInstance(
             self._version, payload, account_sid=self._solution["account_sid"]

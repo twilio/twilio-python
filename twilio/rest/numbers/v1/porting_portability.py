@@ -37,8 +37,6 @@ class PortingPortabilityInstance(InstanceResource):
     :ivar not_portable_reason_code: The Portability Reason Code for the phone number if it cannot be ported into Twilio, `null` otherwise. One of `22131`, `22132`, `22130`, `22133`, `22102` or `22135`.
     :ivar number_type: 
     :ivar country: Country the phone number belongs to.
-    :ivar messaging_carrier: Current messaging carrier of the phone number
-    :ivar voice_carrier: Current voice carrier of the phone number
     :ivar url: This is the url of the request that you're trying to reach out to locate the resource.
     """
 
@@ -64,8 +62,6 @@ class PortingPortabilityInstance(InstanceResource):
             payload.get("number_type")
         )
         self.country: Optional[str] = payload.get("country")
-        self.messaging_carrier: Optional[str] = payload.get("messaging_carrier")
-        self.voice_carrier: Optional[str] = payload.get("voice_carrier")
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {

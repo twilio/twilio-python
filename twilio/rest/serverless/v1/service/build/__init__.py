@@ -313,10 +313,12 @@ class BuildList(ListResource):
             'Dependencies': dependencies,
             'Runtime': runtime,
         })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
         
         
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data,)
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
         return BuildInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
@@ -338,10 +340,12 @@ class BuildList(ListResource):
             'Dependencies': dependencies,
             'Runtime': runtime,
         })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
         
         
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return BuildInstance(self._version, payload, service_sid=self._solution['service_sid'])
     

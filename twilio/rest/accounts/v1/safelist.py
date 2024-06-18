@@ -69,11 +69,10 @@ class SafelistList(ListResource):
                 "PhoneNumber": phone_number,
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return SafelistInstance(self._version, payload)
@@ -92,11 +91,10 @@ class SafelistList(ListResource):
                 "PhoneNumber": phone_number,
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return SafelistInstance(self._version, payload)
@@ -108,13 +106,16 @@ class SafelistList(ListResource):
         :param phone_number: The phone number to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         :returns: True if delete succeeds, False otherwise
         """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         params = values.of(
             {
                 "PhoneNumber": phone_number,
             }
         )
-        return self._version.delete(method="DELETE", uri=self._uri, params=params)
+        return self._version.delete(
+            method="DELETE", uri=self._uri, headers=headers, params=params
+        )
 
     async def delete_async(
         self, phone_number: Union[str, object] = values.unset
@@ -125,6 +126,7 @@ class SafelistList(ListResource):
         :param phone_number: The phone number to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         :returns: True if delete succeeds, False otherwise
         """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         params = values.of(
             {
@@ -132,7 +134,7 @@ class SafelistList(ListResource):
             }
         )
         return await self._version.delete_async(
-            method="DELETE", uri=self._uri, params=params
+            method="DELETE", uri=self._uri, headers=headers, params=params
         )
 
     def fetch(
@@ -144,6 +146,7 @@ class SafelistList(ListResource):
         :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         :returns: The fetched SafelistInstance
         """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         params = values.of(
             {
@@ -151,7 +154,9 @@ class SafelistList(ListResource):
             }
         )
 
-        payload = self._version.fetch(method="GET", uri=self._uri, params=params)
+        payload = self._version.fetch(
+            method="GET", uri=self._uri, headers=headers, params=params
+        )
 
         return SafelistInstance(self._version, payload)
 
@@ -164,6 +169,7 @@ class SafelistList(ListResource):
         :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         :returns: The fetched SafelistInstance
         """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         params = values.of(
             {
@@ -172,7 +178,7 @@ class SafelistList(ListResource):
         )
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params
+            method="GET", uri=self._uri, headers=headers, params=params
         )
 
         return SafelistInstance(self._version, payload)

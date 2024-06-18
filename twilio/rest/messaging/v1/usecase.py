@@ -13,6 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, List, Optional
+from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -59,8 +60,9 @@ class UsecaseList(ListResource):
 
         :returns: The fetched UsecaseInstance
         """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-        payload = self._version.fetch(method="GET", uri=self._uri)
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return UsecaseInstance(self._version, payload)
 
@@ -71,8 +73,11 @@ class UsecaseList(ListResource):
 
         :returns: The fetched UsecaseInstance
         """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-        payload = await self._version.fetch_async(method="GET", uri=self._uri)
+        payload = await self._version.fetch_async(
+            method="GET", uri=self._uri, headers=headers
+        )
 
         return UsecaseInstance(self._version, payload)
 

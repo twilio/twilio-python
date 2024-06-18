@@ -134,6 +134,7 @@ class InsightsAssessmentsCommentList(ListResource):
         headers = values.of(
             {
                 "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         )
 
@@ -180,6 +181,7 @@ class InsightsAssessmentsCommentList(ListResource):
         headers = values.of(
             {
                 "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         )
 

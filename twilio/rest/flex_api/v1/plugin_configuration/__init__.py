@@ -271,6 +271,7 @@ class PluginConfigurationList(ListResource):
         headers = values.of(
             {
                 "Flex-Metadata": flex_metadata,
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         )
 
@@ -308,6 +309,7 @@ class PluginConfigurationList(ListResource):
         headers = values.of(
             {
                 "Flex-Metadata": flex_metadata,
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         )
 

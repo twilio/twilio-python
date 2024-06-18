@@ -485,11 +485,10 @@ class WebhookList(ListResource):
                 "Configuration.RetryCount": configuration_retry_count,
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return WebhookInstance(
@@ -538,11 +537,10 @@ class WebhookList(ListResource):
                 "Configuration.RetryCount": configuration_retry_count,
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return WebhookInstance(

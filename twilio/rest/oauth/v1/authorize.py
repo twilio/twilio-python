@@ -67,6 +67,7 @@ class AuthorizeList(ListResource):
         :param response_type: Response Type:param client_id: The Client Identifier:param redirect_uri: The url to which response will be redirected to:param scope: The scope of the access request:param state: An opaque value which can be used to maintain state between the request and callback
         :returns: The fetched AuthorizeInstance
         """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         params = values.of(
             {
@@ -78,7 +79,9 @@ class AuthorizeList(ListResource):
             }
         )
 
-        payload = self._version.fetch(method="GET", uri=self._uri, params=params)
+        payload = self._version.fetch(
+            method="GET", uri=self._uri, headers=headers, params=params
+        )
 
         return AuthorizeInstance(self._version, payload)
 
@@ -96,6 +99,7 @@ class AuthorizeList(ListResource):
         :param response_type: Response Type:param client_id: The Client Identifier:param redirect_uri: The url to which response will be redirected to:param scope: The scope of the access request:param state: An opaque value which can be used to maintain state between the request and callback
         :returns: The fetched AuthorizeInstance
         """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         params = values.of(
             {
@@ -108,7 +112,7 @@ class AuthorizeList(ListResource):
         )
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params
+            method="GET", uri=self._uri, headers=headers, params=params
         )
 
         return AuthorizeInstance(self._version, payload)

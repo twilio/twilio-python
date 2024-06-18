@@ -93,6 +93,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
         business_contact_email: Union[str, object] = values.unset,
         business_contact_phone: Union[str, object] = values.unset,
         theme_set_id: Union[str, object] = values.unset,
+        skip_messaging_use_case: Union[bool, object] = values.unset,
     ) -> ComplianceTollfreeInquiriesInstance:
         """
         Create the ComplianceTollfreeInquiriesInstance
@@ -119,6 +120,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
         :param theme_set_id: Theme id for styling the inquiry form.
+        :param skip_messaging_use_case: Skip the messaging use case screen of the inquiry form.
 
         :returns: The created ComplianceTollfreeInquiriesInstance
         """
@@ -147,13 +149,15 @@ class ComplianceTollfreeInquiriesList(ListResource):
                 "BusinessContactEmail": business_contact_email,
                 "BusinessContactPhone": business_contact_phone,
                 "ThemeSetId": theme_set_id,
+                "SkipMessagingUseCase": serialize.boolean_to_string(
+                    skip_messaging_use_case
+                ),
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ComplianceTollfreeInquiriesInstance(self._version, payload)
@@ -184,6 +188,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
         business_contact_email: Union[str, object] = values.unset,
         business_contact_phone: Union[str, object] = values.unset,
         theme_set_id: Union[str, object] = values.unset,
+        skip_messaging_use_case: Union[bool, object] = values.unset,
     ) -> ComplianceTollfreeInquiriesInstance:
         """
         Asynchronously create the ComplianceTollfreeInquiriesInstance
@@ -210,6 +215,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
         :param theme_set_id: Theme id for styling the inquiry form.
+        :param skip_messaging_use_case: Skip the messaging use case screen of the inquiry form.
 
         :returns: The created ComplianceTollfreeInquiriesInstance
         """
@@ -238,13 +244,15 @@ class ComplianceTollfreeInquiriesList(ListResource):
                 "BusinessContactEmail": business_contact_email,
                 "BusinessContactPhone": business_contact_phone,
                 "ThemeSetId": theme_set_id,
+                "SkipMessagingUseCase": serialize.boolean_to_string(
+                    skip_messaging_use_case
+                ),
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ComplianceTollfreeInquiriesInstance(self._version, payload)

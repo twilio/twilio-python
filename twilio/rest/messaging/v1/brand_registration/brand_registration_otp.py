@@ -13,6 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, Optional
+from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -77,10 +78,9 @@ class BrandRegistrationOtpList(ListResource):
         :returns: The created BrandRegistrationOtpInstance
         """
 
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(method="POST", uri=self._uri, headers=headers)
 
         return BrandRegistrationOtpInstance(
             self._version,
@@ -96,9 +96,10 @@ class BrandRegistrationOtpList(ListResource):
         :returns: The created BrandRegistrationOtpInstance
         """
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
+            method="POST", uri=self._uri, headers=headers
         )
 
         return BrandRegistrationOtpInstance(
