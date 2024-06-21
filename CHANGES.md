@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-06-21] Version 9.2.1
+--------------------------
+**Api**
+- Add beta feature request managed cert
+
+
 [2024-06-18] Version 9.2.0
 --------------------------
 **Library - Chore**
