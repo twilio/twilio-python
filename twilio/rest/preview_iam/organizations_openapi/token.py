@@ -17,6 +17,7 @@ from datetime import date, datetime
 from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+import json
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -62,14 +63,13 @@ class TokenInstance(InstanceResource):
 
 class TokenList(ListResource):
     
-    def __init__(self, version: Version):
+    def __init__(self):
         """
         Initialize the TokenList
 
         :param version: Version that contains the resource
         
         """
-        super().__init__(version)
 
         
         self._uri = '/token'
@@ -109,14 +109,13 @@ class TokenList(ListResource):
             try:
                 response = twilioHttpClient.request(
                     'POST',
-                    'https://preview-iam.twilio.com',
-                    data=data,
-                    headers= {'content-type': 'json'},
+                    'https://preview-iam.twilio.com/v1/token',
+                    data=data
                 )
-                if response.status_code >= 400 or response.status_code < 500:
+                if response.status_code == 401:
                     retries += 1
                     continue
-                return response.status_code['data']
+                return json.loads(response.content)['access_token']
             except Exception as e:
                 if retries == 5:
                     raise e

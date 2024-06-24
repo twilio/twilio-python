@@ -11,11 +11,8 @@ class BearerTokenHTTPClient:
 
     def get_headers(self):
         headers = {}
-        if TwilioBearerTokenAuth.get_access_token() is None:
-            access_token = OrgTokenManager.fetch_access_token()
-            TwilioBearerTokenAuth.init(access_token)
-        elif TwilioBearerTokenAuth.get_access_token() is not None and self.is_token_expired(TwilioBearerTokenAuth.get_access_token()):
-            access_token = OrgTokenManager.fetch_access_token()
+        if TwilioBearerTokenAuth.get_access_token() is None or self.is_token_expired(TwilioBearerTokenAuth.get_access_token()):
+            access_token = self.orgs_token_manager.fetch_access_token()
             TwilioBearerTokenAuth.init(access_token)
         else:
             access_token = TwilioBearerTokenAuth.get_access_token()

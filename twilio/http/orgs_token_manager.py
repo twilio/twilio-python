@@ -22,7 +22,7 @@ class OrgTokenManager:
 
     def fetch_access_token(self):
         token_list = TokenList()
-        token_list.create(
+        return token_list.create(
             grant_type=self.grant_type,
             client_id=self.client_id,
             client_secret=self.client_secret,
