@@ -454,6 +454,7 @@ class InsightsQuestionnairesList(ListResource):
         headers = values.of(
             {
                 "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         )
 
@@ -494,6 +495,7 @@ class InsightsQuestionnairesList(ListResource):
         headers = values.of(
             {
                 "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         )
 

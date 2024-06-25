@@ -362,11 +362,10 @@ class PaymentList(ListResource):
                 "ValidCardTypes": valid_card_types,
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return PaymentInstance(
@@ -440,11 +439,10 @@ class PaymentList(ListResource):
                 "ValidCardTypes": valid_card_types,
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return PaymentInstance(

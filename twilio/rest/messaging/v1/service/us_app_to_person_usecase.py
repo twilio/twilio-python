@@ -79,6 +79,7 @@ class UsAppToPersonUsecaseList(ListResource):
         :param brand_registration_sid: The unique string to identify the A2P brand.
         :returns: The fetched UsAppToPersonUsecaseInstance
         """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         params = values.of(
             {
@@ -86,7 +87,9 @@ class UsAppToPersonUsecaseList(ListResource):
             }
         )
 
-        payload = self._version.fetch(method="GET", uri=self._uri, params=params)
+        payload = self._version.fetch(
+            method="GET", uri=self._uri, headers=headers, params=params
+        )
 
         return UsAppToPersonUsecaseInstance(
             self._version,
@@ -103,6 +106,7 @@ class UsAppToPersonUsecaseList(ListResource):
         :param brand_registration_sid: The unique string to identify the A2P brand.
         :returns: The fetched UsAppToPersonUsecaseInstance
         """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         params = values.of(
             {
@@ -111,7 +115,7 @@ class UsAppToPersonUsecaseList(ListResource):
         )
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params
+            method="GET", uri=self._uri, headers=headers, params=params
         )
 
         return UsAppToPersonUsecaseInstance(

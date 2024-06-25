@@ -34,6 +34,7 @@ class PortingPortInInstance(InstanceResource):
     :ivar losing_carrier_information: The information for the losing carrier.
     :ivar phone_numbers: The list of phone numbers to Port in. Phone numbers are in E.164 format (e.g. +16175551212).
     :ivar documents: The list of documents SID referencing a utility bills
+    :ivar date_created:
     """
 
     def __init__(
@@ -69,6 +70,9 @@ class PortingPortInInstance(InstanceResource):
             "phone_numbers"
         )
         self.documents: Optional[List[str]] = payload.get("documents")
+        self.date_created: Optional[date] = deserialize.iso8601_date(
+            payload.get("date_created")
+        )
 
         self._solution = {
             "port_in_request_sid": port_in_request_sid or self.port_in_request_sid,
@@ -250,7 +254,8 @@ class PortingPortInList(ListResource):
         """
         data = body.to_dict()
 
-        headers = {"Content-Type": "application/json"}
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers["Content-Type"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -270,7 +275,8 @@ class PortingPortInList(ListResource):
         """
         data = body.to_dict()
 
-        headers = {"Content-Type": "application/json"}
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers["Content-Type"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers

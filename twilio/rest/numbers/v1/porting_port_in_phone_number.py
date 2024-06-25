@@ -31,12 +31,15 @@ class PortingPortInPhoneNumberInstance(InstanceResource):
     :ivar date_created: The date when the phone number was created.
     :ivar country: The country of the phone number.
     :ivar missing_required_fields: The phone number is missing required fields.
-    :ivar status_last_time_updated_timestamp: The timestamp when the status was last updated.
+    :ivar last_updated: The timestamp when the status was last updated.
     :ivar phone_number: The phone number.
     :ivar portable: The phone number is portable.
     :ivar not_portability_reason: The reason why the phone number is not portable.
     :ivar not_portability_reason_code: The code of the reason why the phone number is not portable.
     :ivar port_in_phone_number_status: The status of the phone number in the port in request.
+    :ivar port_out_pin: The pin required for the losing carrier to port out the phone number.
+    :ivar rejection_reason: The rejection reason returned by the vendor.
+    :ivar rejection_reason_code: The rejection reason code returned by the vendor.
     """
 
     def __init__(
@@ -60,21 +63,26 @@ class PortingPortInPhoneNumberInstance(InstanceResource):
         self.missing_required_fields: Optional[bool] = payload.get(
             "missing_required_fields"
         )
-        self.status_last_time_updated_timestamp: Optional[datetime] = (
-            deserialize.iso8601_datetime(
-                payload.get("status_last_time_updated_timestamp")
-            )
+        self.last_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("last_updated")
         )
         self.phone_number: Optional[str] = payload.get("phone_number")
         self.portable: Optional[bool] = payload.get("portable")
         self.not_portability_reason: Optional[str] = payload.get(
             "not_portability_reason"
         )
-        self.not_portability_reason_code: Optional[str] = payload.get(
-            "not_portability_reason_code"
+        self.not_portability_reason_code: Optional[int] = deserialize.integer(
+            payload.get("not_portability_reason_code")
         )
         self.port_in_phone_number_status: Optional[str] = payload.get(
             "port_in_phone_number_status"
+        )
+        self.port_out_pin: Optional[int] = deserialize.integer(
+            payload.get("port_out_pin")
+        )
+        self.rejection_reason: Optional[str] = payload.get("rejection_reason")
+        self.rejection_reason_code: Optional[int] = deserialize.integer(
+            payload.get("rejection_reason_code")
         )
 
         self._solution = {

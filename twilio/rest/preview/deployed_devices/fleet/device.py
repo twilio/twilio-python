@@ -421,11 +421,10 @@ class DeviceList(ListResource):
                 "Enabled": serialize.boolean_to_string(enabled),
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return DeviceInstance(
@@ -461,11 +460,10 @@ class DeviceList(ListResource):
                 "Enabled": serialize.boolean_to_string(enabled),
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return DeviceInstance(

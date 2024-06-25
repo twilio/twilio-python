@@ -79,7 +79,8 @@ class SigningRequestConfigurationList(ListResource):
         """
         data = body.to_dict()
 
-        headers = {"Content-Type": "application/json"}
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers["Content-Type"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -99,7 +100,8 @@ class SigningRequestConfigurationList(ListResource):
         """
         data = body.to_dict()
 
-        headers = {"Content-Type": "application/json"}
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers["Content-Type"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers

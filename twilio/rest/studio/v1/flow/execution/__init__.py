@@ -416,11 +416,10 @@ class ExecutionList(ListResource):
                 "Parameters": serialize.object(parameters),
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ExecutionInstance(
@@ -447,11 +446,10 @@ class ExecutionList(ListResource):
                 "Parameters": serialize.object(parameters),
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ExecutionInstance(

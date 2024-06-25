@@ -13,6 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, Optional
+from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -69,10 +70,9 @@ class SinkTestList(ListResource):
         :returns: The created SinkTestInstance
         """
 
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(method="POST", uri=self._uri, headers=headers)
 
         return SinkTestInstance(self._version, payload, sid=self._solution["sid"])
 
@@ -84,9 +84,10 @@ class SinkTestList(ListResource):
         :returns: The created SinkTestInstance
         """
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
+            method="POST", uri=self._uri, headers=headers
         )
 
         return SinkTestInstance(self._version, payload, sid=self._solution["sid"])

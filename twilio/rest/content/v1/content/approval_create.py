@@ -13,6 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, Optional
+from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -104,7 +105,8 @@ class ApprovalCreateList(ListResource):
         """
         data = content_approval_request.to_dict()
 
-        headers = {"Content-Type": "application/json"}
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers["Content-Type"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -126,7 +128,8 @@ class ApprovalCreateList(ListResource):
         """
         data = content_approval_request.to_dict()
 
-        headers = {"Content-Type": "application/json"}
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers["Content-Type"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers

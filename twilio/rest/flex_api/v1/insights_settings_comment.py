@@ -69,6 +69,7 @@ class InsightsSettingsCommentList(ListResource):
         headers = values.of(
             {
                 "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         )
 
@@ -88,6 +89,7 @@ class InsightsSettingsCommentList(ListResource):
         headers = values.of(
             {
                 "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         )
 

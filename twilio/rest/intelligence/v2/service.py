@@ -486,11 +486,10 @@ class ServiceList(ListResource):
                 "WebhookHttpMethod": webhook_http_method,
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ServiceInstance(self._version, payload)
@@ -536,11 +535,10 @@ class ServiceList(ListResource):
                 "WebhookHttpMethod": webhook_http_method,
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ServiceInstance(self._version, payload)

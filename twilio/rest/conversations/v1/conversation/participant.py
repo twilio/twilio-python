@@ -568,6 +568,7 @@ class ParticipantList(ListResource):
         headers = values.of(
             {
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         )
 
@@ -624,6 +625,7 @@ class ParticipantList(ListResource):
         headers = values.of(
             {
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         )
 

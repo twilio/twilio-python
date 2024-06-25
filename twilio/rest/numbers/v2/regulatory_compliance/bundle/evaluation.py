@@ -231,10 +231,9 @@ class EvaluationList(ListResource):
         :returns: The created EvaluationInstance
         """
 
-        payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(method="POST", uri=self._uri, headers=headers)
 
         return EvaluationInstance(
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
@@ -248,9 +247,10 @@ class EvaluationList(ListResource):
         :returns: The created EvaluationInstance
         """
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
+            method="POST", uri=self._uri, headers=headers
         )
 
         return EvaluationInstance(

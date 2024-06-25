@@ -80,8 +80,9 @@ class RecordingRulesList(ListResource):
 
         :returns: The fetched RecordingRulesInstance
         """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-        payload = self._version.fetch(method="GET", uri=self._uri)
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return RecordingRulesInstance(
             self._version, payload, room_sid=self._solution["room_sid"]
@@ -94,8 +95,11 @@ class RecordingRulesList(ListResource):
 
         :returns: The fetched RecordingRulesInstance
         """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-        payload = await self._version.fetch_async(method="GET", uri=self._uri)
+        payload = await self._version.fetch_async(
+            method="GET", uri=self._uri, headers=headers
+        )
 
         return RecordingRulesInstance(
             self._version, payload, room_sid=self._solution["room_sid"]
@@ -117,11 +121,10 @@ class RecordingRulesList(ListResource):
                 "Rules": serialize.object(rules),
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return RecordingRulesInstance(
@@ -144,11 +147,10 @@ class RecordingRulesList(ListResource):
                 "Rules": serialize.object(rules),
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return RecordingRulesInstance(
