@@ -26,6 +26,7 @@ from twilio.rest.api.v2010.account.call.payment import PaymentList
 from twilio.rest.api.v2010.account.call.recording import RecordingList
 from twilio.rest.api.v2010.account.call.siprec import SiprecList
 from twilio.rest.api.v2010.account.call.stream import StreamList
+from twilio.rest.api.v2010.account.call.transcription import TranscriptionList
 from twilio.rest.api.v2010.account.call.user_defined_message import (
     UserDefinedMessageList,
 )
@@ -304,6 +305,13 @@ class CallInstance(InstanceResource):
         return self._proxy.streams
 
     @property
+    def transcriptions(self) -> TranscriptionList:
+        """
+        Access the transcriptions
+        """
+        return self._proxy.transcriptions
+
+    @property
     def user_defined_messages(self) -> UserDefinedMessageList:
         """
         Access the user_defined_messages
@@ -352,6 +360,7 @@ class CallContext(InstanceContext):
         self._recordings: Optional[RecordingList] = None
         self._siprec: Optional[SiprecList] = None
         self._streams: Optional[StreamList] = None
+        self._transcriptions: Optional[TranscriptionList] = None
         self._user_defined_messages: Optional[UserDefinedMessageList] = None
         self._user_defined_message_subscriptions: Optional[
             UserDefinedMessageSubscriptionList
@@ -606,6 +615,19 @@ class CallContext(InstanceContext):
                 self._solution["sid"],
             )
         return self._streams
+
+    @property
+    def transcriptions(self) -> TranscriptionList:
+        """
+        Access the transcriptions
+        """
+        if self._transcriptions is None:
+            self._transcriptions = TranscriptionList(
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
+            )
+        return self._transcriptions
 
     @property
     def user_defined_messages(self) -> UserDefinedMessageList:
