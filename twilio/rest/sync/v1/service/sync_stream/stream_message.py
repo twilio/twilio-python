@@ -49,8 +49,8 @@ class StreamMessageInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Sync.V1.StreamMessageInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Sync.V1.StreamMessageInstance {context}>"
 
 
 class StreamMessageList(ListResource):

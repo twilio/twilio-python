@@ -89,8 +89,8 @@ class EngagementContextInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V1.EngagementContextInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V1.EngagementContextInstance {context}>"
 
 
 class EngagementContextContext(InstanceContext):
@@ -160,8 +160,8 @@ class EngagementContextContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V1.EngagementContextContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V1.EngagementContextContext {context}>"
 
 
 class EngagementContextList(ListResource):

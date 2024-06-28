@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class AssetVersionInstance(InstanceResource):
 
-    class Visibility(object):
+    class Visibility:
         PUBLIC = "public"
         PRIVATE = "private"
         PROTECTED = "protected"
@@ -111,8 +111,8 @@ class AssetVersionInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.AssetVersionInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Serverless.V1.AssetVersionInstance {context}>"
 
 
 class AssetVersionContext(InstanceContext):
@@ -186,8 +186,8 @@ class AssetVersionContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.AssetVersionContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Serverless.V1.AssetVersionContext {context}>"
 
 
 class AssetVersionPage(Page):

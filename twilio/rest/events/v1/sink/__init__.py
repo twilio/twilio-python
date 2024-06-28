@@ -26,12 +26,12 @@ from twilio.rest.events.v1.sink.sink_validate import SinkValidateList
 
 class SinkInstance(InstanceResource):
 
-    class SinkType(object):
+    class SinkType:
         KINESIS = "kinesis"
         WEBHOOK = "webhook"
         SEGMENT = "segment"
 
-    class Status(object):
+    class Status:
         INITIALIZED = "initialized"
         VALIDATING = "validating"
         ACTIVE = "active"
@@ -170,8 +170,8 @@ class SinkInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.SinkInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Events.V1.SinkInstance {context}>"
 
 
 class SinkContext(InstanceContext):
@@ -330,8 +330,8 @@ class SinkContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.SinkContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Events.V1.SinkContext {context}>"
 
 
 class SinkPage(Page):

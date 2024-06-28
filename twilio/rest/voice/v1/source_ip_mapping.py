@@ -134,8 +134,8 @@ class SourceIpMappingInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.SourceIpMappingInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Voice.V1.SourceIpMappingInstance {context}>"
 
 
 class SourceIpMappingContext(InstanceContext):
@@ -271,8 +271,8 @@ class SourceIpMappingContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.SourceIpMappingContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Voice.V1.SourceIpMappingContext {context}>"
 
 
 class SourceIpMappingPage(Page):

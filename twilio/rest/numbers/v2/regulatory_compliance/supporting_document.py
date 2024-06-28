@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class SupportingDocumentInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         DRAFT = "draft"
         PENDING_REVIEW = "pending-review"
         REJECTED = "rejected"
@@ -167,8 +167,8 @@ class SupportingDocumentInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.SupportingDocumentInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.SupportingDocumentInstance {context}>"
 
 
 class SupportingDocumentContext(InstanceContext):
@@ -318,8 +318,8 @@ class SupportingDocumentContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.SupportingDocumentContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.SupportingDocumentContext {context}>"
 
 
 class SupportingDocumentPage(Page):

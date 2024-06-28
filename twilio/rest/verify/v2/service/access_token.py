@@ -23,7 +23,7 @@ from twilio.base.version import Version
 
 class AccessTokenInstance(InstanceResource):
 
-    class FactorTypes(object):
+    class FactorTypes:
         PUSH = "push"
 
     """
@@ -109,8 +109,8 @@ class AccessTokenInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.AccessTokenInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.AccessTokenInstance {context}>"
 
 
 class AccessTokenContext(InstanceContext):
@@ -180,8 +180,8 @@ class AccessTokenContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.AccessTokenContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.AccessTokenContext {context}>"
 
 
 class AccessTokenList(ListResource):

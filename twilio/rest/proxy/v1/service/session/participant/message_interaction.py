@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class MessageInteractionInstance(InstanceResource):
 
-    class ResourceStatus(object):
+    class ResourceStatus:
         ACCEPTED = "accepted"
         ANSWERED = "answered"
         BUSY = "busy"
@@ -47,7 +47,7 @@ class MessageInteractionInstance(InstanceResource):
         UNDELIVERED = "undelivered"
         UNKNOWN = "unknown"
 
-    class Type(object):
+    class Type:
         MESSAGE = "message"
         VOICE = "voice"
         UNKNOWN = "unknown"
@@ -171,8 +171,8 @@ class MessageInteractionInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Proxy.V1.MessageInteractionInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Proxy.V1.MessageInteractionInstance {context}>"
 
 
 class MessageInteractionContext(InstanceContext):
@@ -257,8 +257,8 @@ class MessageInteractionContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Proxy.V1.MessageInteractionContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Proxy.V1.MessageInteractionContext {context}>"
 
 
 class MessageInteractionPage(Page):

@@ -85,8 +85,8 @@ class EndUserTypeInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.EndUserTypeInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trusthub.V1.EndUserTypeInstance {context}>"
 
 
 class EndUserTypeContext(InstanceContext):
@@ -150,8 +150,8 @@ class EndUserTypeContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.EndUserTypeContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trusthub.V1.EndUserTypeContext {context}>"
 
 
 class EndUserTypePage(Page):

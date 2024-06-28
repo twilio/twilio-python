@@ -25,22 +25,22 @@ from twilio.rest.verify.v2.service.entity.challenge.notification import Notifica
 
 class ChallengeInstance(InstanceResource):
 
-    class ChallengeReasons(object):
+    class ChallengeReasons:
         NONE = "none"
         NOT_NEEDED = "not_needed"
         NOT_REQUESTED = "not_requested"
 
-    class ChallengeStatuses(object):
+    class ChallengeStatuses:
         PENDING = "pending"
         EXPIRED = "expired"
         APPROVED = "approved"
         DENIED = "denied"
 
-    class FactorTypes(object):
+    class FactorTypes:
         PUSH = "push"
         TOTP = "totp"
 
-    class ListOrders(object):
+    class ListOrders:
         ASC = "asc"
         DESC = "desc"
 
@@ -199,8 +199,8 @@ class ChallengeInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.ChallengeInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.ChallengeInstance {context}>"
 
 
 class ChallengeContext(InstanceContext):
@@ -360,8 +360,8 @@ class ChallengeContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.ChallengeContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.ChallengeContext {context}>"
 
 
 class ChallengePage(Page):

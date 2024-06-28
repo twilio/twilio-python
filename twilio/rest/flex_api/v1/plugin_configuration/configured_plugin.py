@@ -128,8 +128,8 @@ class ConfiguredPluginInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.ConfiguredPluginInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.ConfiguredPluginInstance {context}>"
 
 
 class ConfiguredPluginContext(InstanceContext):
@@ -213,8 +213,8 @@ class ConfiguredPluginContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.ConfiguredPluginContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.ConfiguredPluginContext {context}>"
 
 
 class ConfiguredPluginPage(Page):

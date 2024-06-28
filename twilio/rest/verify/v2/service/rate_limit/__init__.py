@@ -158,8 +158,8 @@ class RateLimitInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.RateLimitInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.RateLimitInstance {context}>"
 
 
 class RateLimitContext(InstanceContext):
@@ -324,8 +324,8 @@ class RateLimitContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.RateLimitContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.RateLimitContext {context}>"
 
 
 class RateLimitPage(Page):

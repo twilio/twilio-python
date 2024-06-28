@@ -24,19 +24,19 @@ from twilio.base.page import Page
 
 class OperatorTypeInstance(InstanceResource):
 
-    class Availability(object):
+    class Availability:
         INTERNAL = "internal"
         BETA = "beta"
         PUBLIC = "public"
         RETIRED = "retired"
 
-    class OutputType(object):
+    class OutputType:
         TEXT_CLASSIFICATION = "text-classification"
         TEXT_EXTRACTION = "text-extraction"
         TEXT_EXTRACTION_NORMALIZED = "text-extraction-normalized"
         TEXT_GENERATION = "text-generation"
 
-    class Provider(object):
+    class Provider:
         TWILIO = "twilio"
         AMAZON = "amazon"
         OPENAI = "openai"
@@ -134,8 +134,8 @@ class OperatorTypeInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.OperatorTypeInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Intelligence.V2.OperatorTypeInstance {context}>"
 
 
 class OperatorTypeContext(InstanceContext):
@@ -199,8 +199,8 @@ class OperatorTypeContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.OperatorTypeContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Intelligence.V2.OperatorTypeContext {context}>"
 
 
 class OperatorTypePage(Page):

@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class CompositionHookInstance(InstanceResource):
 
-    class Format(object):
+    class Format:
         MP4 = "mp4"
         WEBM = "webm"
 
@@ -221,8 +221,8 @@ class CompositionHookInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.CompositionHookInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Video.V1.CompositionHookInstance {context}>"
 
 
 class CompositionHookContext(InstanceContext):
@@ -422,8 +422,8 @@ class CompositionHookContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.CompositionHookContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Video.V1.CompositionHookContext {context}>"
 
 
 class CompositionHookPage(Page):

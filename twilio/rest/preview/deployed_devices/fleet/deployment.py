@@ -156,8 +156,8 @@ class DeploymentInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.DeployedDevices.DeploymentInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.DeployedDevices.DeploymentInstance {context}>"
 
 
 class DeploymentContext(InstanceContext):
@@ -315,8 +315,8 @@ class DeploymentContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.DeployedDevices.DeploymentContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.DeployedDevices.DeploymentContext {context}>"
 
 
 class DeploymentPage(Page):

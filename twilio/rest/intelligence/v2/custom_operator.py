@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class CustomOperatorInstance(InstanceResource):
 
-    class Availability(object):
+    class Availability:
         INTERNAL = "internal"
         BETA = "beta"
         PUBLIC = "public"
@@ -173,8 +173,8 @@ class CustomOperatorInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.CustomOperatorInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Intelligence.V2.CustomOperatorInstance {context}>"
 
 
 class CustomOperatorContext(InstanceContext):
@@ -328,8 +328,8 @@ class CustomOperatorContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.CustomOperatorContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Intelligence.V2.CustomOperatorContext {context}>"
 
 
 class CustomOperatorPage(Page):

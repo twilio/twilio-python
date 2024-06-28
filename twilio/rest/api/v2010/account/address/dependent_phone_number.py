@@ -24,13 +24,13 @@ from twilio.base.page import Page
 
 class DependentPhoneNumberInstance(InstanceResource):
 
-    class AddressRequirement(object):
+    class AddressRequirement:
         NONE = "none"
         ANY = "any"
         LOCAL = "local"
         FOREIGN = "foreign"
 
-    class EmergencyStatus(object):
+    class EmergencyStatus:
         ACTIVE = "Active"
         INACTIVE = "Inactive"
 
@@ -122,8 +122,8 @@ class DependentPhoneNumberInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.DependentPhoneNumberInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.DependentPhoneNumberInstance {context}>"
 
 
 class DependentPhoneNumberPage(Page):

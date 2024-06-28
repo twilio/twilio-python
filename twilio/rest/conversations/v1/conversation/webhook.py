@@ -24,11 +24,11 @@ from twilio.base.page import Page
 
 class WebhookInstance(InstanceResource):
 
-    class Method(object):
+    class Method:
         GET = "GET"
         POST = "POST"
 
-    class Target(object):
+    class Target:
         WEBHOOK = "webhook"
         TRIGGER = "trigger"
         STUDIO = "studio"
@@ -184,8 +184,8 @@ class WebhookInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.WebhookInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Conversations.V1.WebhookInstance {context}>"
 
 
 class WebhookContext(InstanceContext):
@@ -371,8 +371,8 @@ class WebhookContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.WebhookContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Conversations.V1.WebhookContext {context}>"
 
 
 class WebhookPage(Page):

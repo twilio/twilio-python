@@ -22,7 +22,7 @@ from twilio.base.version import Version
 
 class PhoneNumberInstance(InstanceResource):
 
-    class ValidationError(object):
+    class ValidationError:
         TOO_SHORT = "TOO_SHORT"
         TOO_LONG = "TOO_LONG"
         INVALID_BUT_POSSIBLE = "INVALID_BUT_POSSIBLE"
@@ -222,8 +222,8 @@ class PhoneNumberInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Lookups.V2.PhoneNumberInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Lookups.V2.PhoneNumberInstance {context}>"
 
 
 class PhoneNumberContext(InstanceContext):
@@ -381,8 +381,8 @@ class PhoneNumberContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Lookups.V2.PhoneNumberContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Lookups.V2.PhoneNumberContext {context}>"
 
 
 class PhoneNumberList(ListResource):

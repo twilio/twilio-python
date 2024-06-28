@@ -134,8 +134,8 @@ class TrunkInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Routes.V2.TrunkInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Routes.V2.TrunkInstance {context}>"
 
 
 class TrunkContext(InstanceContext):
@@ -259,8 +259,8 @@ class TrunkContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Routes.V2.TrunkContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Routes.V2.TrunkContext {context}>"
 
 
 class TrunkList(ListResource):

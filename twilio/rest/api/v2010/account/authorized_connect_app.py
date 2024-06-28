@@ -23,7 +23,7 @@ from twilio.base.page import Page
 
 class AuthorizedConnectAppInstance(InstanceResource):
 
-    class Permission(object):
+    class Permission:
         GET_ALL = "get-all"
         POST_ALL = "post-all"
 
@@ -112,8 +112,8 @@ class AuthorizedConnectAppInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.AuthorizedConnectAppInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.AuthorizedConnectAppInstance {context}>"
 
 
 class AuthorizedConnectAppContext(InstanceContext):
@@ -183,8 +183,8 @@ class AuthorizedConnectAppContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.AuthorizedConnectAppContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.AuthorizedConnectAppContext {context}>"
 
 
 class AuthorizedConnectAppPage(Page):

@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class FlowRevisionInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         DRAFT = "draft"
         PUBLISHED = "published"
 
@@ -115,8 +115,8 @@ class FlowRevisionInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V2.FlowRevisionInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V2.FlowRevisionInstance {context}>"
 
 
 class FlowRevisionContext(InstanceContext):
@@ -184,8 +184,8 @@ class FlowRevisionContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V2.FlowRevisionContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V2.FlowRevisionContext {context}>"
 
 
 class FlowRevisionPage(Page):

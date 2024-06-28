@@ -21,7 +21,7 @@ class ClientValidationJwt(Jwt):
         :param str private_key: The private key used to sign the JWT.
         :param ValidationPayload validation_payload: information from the request to sign
         """
-        super(ClientValidationJwt, self).__init__(
+        super().__init__(
             secret_key=private_key,
             issuer=api_key_sid,
             subject=account_sid,
@@ -45,7 +45,7 @@ class ClientValidationJwt(Jwt):
 
         # Stringify headers, only include headers in signed_headers
         headers_str = [
-            "{}:{}".format(h, all_headers[h])
+            f"{h}:{all_headers[h]}"
             for h in signed_headers
             if h in all_headers
         ]

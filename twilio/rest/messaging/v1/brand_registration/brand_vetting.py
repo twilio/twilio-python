@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class BrandVettingInstance(InstanceResource):
 
-    class VettingProvider(object):
+    class VettingProvider:
         CAMPAIGN_VERIFY = "campaign-verify"
 
     """
@@ -112,8 +112,8 @@ class BrandVettingInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.BrandVettingInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.BrandVettingInstance {context}>"
 
 
 class BrandVettingContext(InstanceContext):
@@ -185,8 +185,8 @@ class BrandVettingContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.BrandVettingContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.BrandVettingContext {context}>"
 
 
 class BrandVettingPage(Page):

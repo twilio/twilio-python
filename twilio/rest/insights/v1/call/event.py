@@ -23,14 +23,14 @@ from twilio.base.page import Page
 
 class EventInstance(InstanceResource):
 
-    class Level(object):
+    class Level:
         UNKNOWN = "UNKNOWN"
         DEBUG = "DEBUG"
         INFO = "INFO"
         WARNING = "WARNING"
         ERROR = "ERROR"
 
-    class TwilioEdge(object):
+    class TwilioEdge:
         UNKNOWN_EDGE = "unknown_edge"
         CARRIER_EDGE = "carrier_edge"
         SIP_EDGE = "sip_edge"
@@ -76,8 +76,8 @@ class EventInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.EventInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Insights.V1.EventInstance {context}>"
 
 
 class EventPage(Page):

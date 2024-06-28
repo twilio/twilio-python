@@ -118,8 +118,8 @@ class CredentialListInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trunking.V1.CredentialListInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trunking.V1.CredentialListInstance {context}>"
 
 
 class CredentialListContext(InstanceContext):
@@ -211,8 +211,8 @@ class CredentialListContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trunking.V1.CredentialListContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trunking.V1.CredentialListContext {context}>"
 
 
 class CredentialListPage(Page):

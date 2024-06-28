@@ -26,10 +26,10 @@ from twilio.rest.wireless.v1.sim.usage_record import UsageRecordList
 
 class SimInstance(InstanceResource):
 
-    class ResetStatus(object):
+    class ResetStatus:
         RESETTING = "resetting"
 
-    class Status(object):
+    class Status:
         NEW = "new"
         READY = "ready"
         ACTIVE = "active"
@@ -312,8 +312,8 @@ class SimInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Wireless.V1.SimInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Wireless.V1.SimInstance {context}>"
 
 
 class SimContext(InstanceContext):
@@ -580,8 +580,8 @@ class SimContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Wireless.V1.SimContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Wireless.V1.SimContext {context}>"
 
 
 class SimPage(Page):

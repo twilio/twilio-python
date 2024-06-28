@@ -24,23 +24,23 @@ from twilio.base.page import Page
 
 class RoomRecordingInstance(InstanceResource):
 
-    class Codec(object):
+    class Codec:
         VP8 = "VP8"
         H264 = "H264"
         OPUS = "OPUS"
         PCMU = "PCMU"
 
-    class Format(object):
+    class Format:
         MKA = "mka"
         MKV = "mkv"
 
-    class Status(object):
+    class Status:
         PROCESSING = "processing"
         COMPLETED = "completed"
         DELETED = "deleted"
         FAILED = "failed"
 
-    class Type(object):
+    class Type:
         AUDIO = "audio"
         VIDEO = "video"
         DATA = "data"
@@ -162,8 +162,8 @@ class RoomRecordingInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.RoomRecordingInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Video.V1.RoomRecordingInstance {context}>"
 
 
 class RoomRecordingContext(InstanceContext):
@@ -255,8 +255,8 @@ class RoomRecordingContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.RoomRecordingContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Video.V1.RoomRecordingContext {context}>"
 
 
 class RoomRecordingPage(Page):

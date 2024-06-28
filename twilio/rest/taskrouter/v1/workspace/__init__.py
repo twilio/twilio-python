@@ -40,7 +40,7 @@ from twilio.rest.taskrouter.v1.workspace.workspace_statistics import (
 
 class WorkspaceInstance(InstanceResource):
 
-    class QueueOrder(object):
+    class QueueOrder:
         FIFO = "FIFO"
         LIFO = "LIFO"
 
@@ -291,8 +291,8 @@ class WorkspaceInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.WorkspaceInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Taskrouter.V1.WorkspaceInstance {context}>"
 
 
 class WorkspaceContext(InstanceContext):
@@ -601,8 +601,8 @@ class WorkspaceContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.WorkspaceContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Taskrouter.V1.WorkspaceContext {context}>"
 
 
 class WorkspacePage(Page):

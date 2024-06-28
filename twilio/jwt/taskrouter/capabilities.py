@@ -19,7 +19,7 @@ class WorkerCapabilityToken(TaskRouterCapabilityToken):
             :param bool allow_update_reservations: shortcut to calling allow_update_reservations,
                                                    defaults to False
         """
-        super(WorkerCapabilityToken, self).__init__(
+        super().__init__(
             account_sid=account_sid,
             auth_token=auth_token,
             workspace_sid=workspace_sid,
@@ -41,7 +41,7 @@ class WorkerCapabilityToken(TaskRouterCapabilityToken):
 
     @property
     def resource_url(self):
-        return "{}/Workers/{}".format(self.workspace_url, self.channel_id)
+        return f"{self.workspace_url}/Workers/{self.channel_id}"
 
     @property
     def channel_prefix(self):
@@ -65,14 +65,14 @@ class WorkerCapabilityToken(TaskRouterCapabilityToken):
         self._make_policy(self.resource_url + "/Reservations/**", "POST", True)
 
     def __str__(self):
-        return "<WorkerCapabilityToken {}>".format(self.to_jwt())
+        return f"<WorkerCapabilityToken {self.to_jwt()}>"
 
 
 class TaskQueueCapabilityToken(TaskRouterCapabilityToken):
     def __init__(
         self, account_sid, auth_token, workspace_sid, task_queue_sid, ttl=3600, **kwargs
     ):
-        super(TaskQueueCapabilityToken, self).__init__(
+        super().__init__(
             account_sid=account_sid,
             auth_token=auth_token,
             workspace_sid=workspace_sid,
@@ -83,19 +83,19 @@ class TaskQueueCapabilityToken(TaskRouterCapabilityToken):
 
     @property
     def resource_url(self):
-        return "{}/TaskQueues/{}".format(self.workspace_url, self.channel_id)
+        return f"{self.workspace_url}/TaskQueues/{self.channel_id}"
 
     @property
     def channel_prefix(self):
         return "WQ"
 
     def __str__(self):
-        return "<TaskQueueCapabilityToken {}>".format(self.to_jwt())
+        return f"<TaskQueueCapabilityToken {self.to_jwt()}>"
 
 
 class WorkspaceCapabilityToken(TaskRouterCapabilityToken):
     def __init__(self, account_sid, auth_token, workspace_sid, ttl=3600, **kwargs):
-        super(WorkspaceCapabilityToken, self).__init__(
+        super().__init__(
             account_sid=account_sid,
             auth_token=auth_token,
             workspace_sid=workspace_sid,
@@ -113,4 +113,4 @@ class WorkspaceCapabilityToken(TaskRouterCapabilityToken):
         return "WS"
 
     def __str__(self):
-        return "<WorkspaceCapabilityToken {}>".format(self.to_jwt())
+        return f"<WorkspaceCapabilityToken {self.to_jwt()}>"

@@ -113,8 +113,8 @@ class PluginVersionArchiveInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.PluginVersionArchiveInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.PluginVersionArchiveInstance {context}>"
 
 
 class PluginVersionArchiveContext(InstanceContext):
@@ -200,8 +200,8 @@ class PluginVersionArchiveContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.PluginVersionArchiveContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.PluginVersionArchiveContext {context}>"
 
 
 class PluginVersionArchiveList(ListResource):

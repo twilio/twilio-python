@@ -46,13 +46,13 @@ class InstalledAddOnUsageInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Marketplace.V1.InstalledAddOnUsageInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Marketplace.V1.InstalledAddOnUsageInstance {context}>"
 
 
 class InstalledAddOnUsageList(ListResource):
 
-    class CreateBillingUsageRequest(object):
+    class CreateBillingUsageRequest:
         """
         :ivar billable_items:
         """
@@ -70,7 +70,7 @@ class InstalledAddOnUsageList(ListResource):
                 ],
             }
 
-    class CreateBillingUsageRequestBillableItems(object):
+    class CreateBillingUsageRequestBillableItems:
         """
         :ivar quantity:
         :ivar sid:

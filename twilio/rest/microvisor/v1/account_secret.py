@@ -126,8 +126,8 @@ class AccountSecretInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Microvisor.V1.AccountSecretInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Microvisor.V1.AccountSecretInstance {context}>"
 
 
 class AccountSecretContext(InstanceContext):
@@ -259,8 +259,8 @@ class AccountSecretContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Microvisor.V1.AccountSecretContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Microvisor.V1.AccountSecretContext {context}>"
 
 
 class AccountSecretPage(Page):

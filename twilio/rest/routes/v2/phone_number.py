@@ -134,8 +134,8 @@ class PhoneNumberInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Routes.V2.PhoneNumberInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Routes.V2.PhoneNumberInstance {context}>"
 
 
 class PhoneNumberContext(InstanceContext):
@@ -259,8 +259,8 @@ class PhoneNumberContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Routes.V2.PhoneNumberContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Routes.V2.PhoneNumberContext {context}>"
 
 
 class PhoneNumberList(ListResource):

@@ -117,8 +117,8 @@ class FlexUserInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V2.FlexUserInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V2.FlexUserInstance {context}>"
 
 
 class FlexUserContext(InstanceContext):
@@ -188,8 +188,8 @@ class FlexUserContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V2.FlexUserContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V2.FlexUserContext {context}>"
 
 
 class FlexUserList(ListResource):

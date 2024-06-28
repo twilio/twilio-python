@@ -9,7 +9,7 @@ class JwtDecodeError(Exception):
     pass
 
 
-class Jwt(object):
+class Jwt:
     """Base class for building a Json Web Token"""
 
     GENERATE = object()
@@ -158,4 +158,4 @@ class Jwt(object):
         return cls._from_jwt(headers, payload, key)
 
     def __str__(self):
-        return "<JWT {}>".format(self.to_jwt())
+        return f"<JWT {self.to_jwt()}>"

@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class UsageRecordInstance(InstanceResource):
 
-    class Granularity(object):
+    class Granularity:
         HOURLY = "hourly"
         DAILY = "daily"
         ALL = "all"
@@ -56,8 +56,8 @@ class UsageRecordInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Wireless.V1.UsageRecordInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Wireless.V1.UsageRecordInstance {context}>"
 
 
 class UsageRecordPage(Page):

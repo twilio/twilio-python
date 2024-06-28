@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class DependentHostedNumberOrderInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         RECEIVED = "received"
         PENDING_VERIFICATION = "pending-verification"
         VERIFIED = "verified"
@@ -35,7 +35,7 @@ class DependentHostedNumberOrderInstance(InstanceResource):
         FAILED = "failed"
         ACTION_REQUIRED = "action-required"
 
-    class VerificationType(object):
+    class VerificationType:
         PHONE_CALL = "phone-call"
         PHONE_BILL = "phone-bill"
 
@@ -118,7 +118,7 @@ class DependentHostedNumberOrderInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Preview.HostedNumbers.DependentHostedNumberOrderInstance {}>".format(
             context
         )

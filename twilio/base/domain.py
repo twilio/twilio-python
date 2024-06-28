@@ -3,7 +3,7 @@ from twilio.http.response import Response
 from twilio.rest import Client
 
 
-class Domain(object):
+class Domain:
     """
     This represents at Twilio API subdomain.
 

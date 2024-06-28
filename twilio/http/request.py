@@ -7,7 +7,7 @@ class Match(Enum):
     ANY = "*"
 
 
-class Request(object):
+class Request:
     """
     An HTTP request.
     """
@@ -58,24 +58,24 @@ class Request(object):
     def __str__(self) -> str:
         auth = ""
         if self.auth and self.auth != Match.ANY:
-            auth = "{} ".format(self.auth)
+            auth = f"{self.auth} "
 
         params = ""
         if self.params and self.params != Match.ANY:
-            params = "?{}".format(urlencode(self.params, doseq=True))
+            params = f"?{urlencode(self.params, doseq=True)}"
 
         data = ""
         if self.data and self.data != Match.ANY:
             if self.method == "GET":
                 data = "\n -G"
             data += "\n{}".format(
-                "\n".join(' -d "{}={}"'.format(k, v) for k, v in self.data.items())
+                "\n".join(f' -d "{k}={v}"' for k, v in self.data.items())
             )
 
         headers = ""
         if self.headers and self.headers != Match.ANY:
             headers = "\n{}".format(
-                "\n".join(' -H "{}: {}"'.format(k, v) for k, v in self.headers.items())
+                "\n".join(f' -H "{k}: {v}"' for k, v in self.headers.items())
             )
 
         return "{auth}{method} {url}{params}{data}{headers}".format(
