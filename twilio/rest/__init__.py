@@ -145,6 +145,7 @@ class Client(ClientBase):
         self._numbers: Optional["Numbers"] = None
         self._oauth: Optional["Oauth"] = None
         self._preview: Optional["Preview"] = None
+        self._preview_iam: Optional["PreviewIam"] = None
         self._pricing: Optional["Pricing"] = None
         self._proxy: Optional["Proxy"] = None
         self._routes: Optional["Routes"] = None
@@ -445,6 +446,19 @@ class Client(ClientBase):
 
             self._preview = Preview(self)
         return self._preview
+
+    @property
+    def preview_iam(self) -> "PreviewIam":
+        """
+        Access the Preview Twilio Domain
+
+        :returns: Preview Twilio Domain
+        """
+        if self._preview_iam is None:
+            from twilio.rest.preview_iam import PreviewIam
+
+            self._preview = PreviewIam(self)
+        return self._preview_iam
 
     @property
     def pricing(self) -> "Pricing":
