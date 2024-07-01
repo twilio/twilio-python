@@ -3,6 +3,24 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-06-27] Version 9.2.2
+--------------------------
+**Api**
+- Add `transcription` resource
+
+**Flex**
+- Changed mount name for flex_team v2 api
+
+**Intelligence**
+- Add `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Config` as Response Headers to Operator resources
+
+**Numbers**
+- Added include_constraints query parameter to the Regulations API
+
+**Twiml**
+- Add support for `<Transcription>` noun
+
+
 [2024-06-21] Version 9.2.1
 --------------------------
 **Api**

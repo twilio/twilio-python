@@ -663,13 +663,81 @@ class Stop(TwiML):
             )
         )
 
+    def transcription(
+        self,
+        name=None,
+        track=None,
+        status_callback_url=None,
+        status_callback_method=None,
+        inbound_track_label=None,
+        outbound_track_label=None,
+        partial_results=None,
+        language_code=None,
+        transcription_engine=None,
+        profanity_filter=None,
+        speech_model=None,
+        hints=None,
+        enable_automatic_punctuation=None,
+        **kwargs
+    ):
+        """
+        Create a <Transcription> element
 
-class Siprec(TwiML):
-    """<Siprec> TwiML Noun"""
+        :param name: Friendly name given to the Transcription
+        :param track: Track to be analyze by the provider
+        :param status_callback_url: Status Callback URL
+        :param status_callback_method: Status Callback URL method
+        :param inbound_track_label: Friendly name given to the Inbound Track
+        :param outbound_track_label: Friendly name given to the Outbound Track Label
+        :param partial_results: Indicates if partial results are going to be send to the customer
+        :param language_code: Language Code used by the transcription engine
+        :param transcription_engine: Transcription Engine to be used
+        :param profanity_filter: Enable Profanity Filter
+        :param speech_model: Speech Model used by the transcription engine
+        :param hints: Hints to be provided to the transcription engine
+        :param enable_automatic_punctuation: Enable Automatic Punctuation
+        :param kwargs: additional attributes
+
+        :returns: <Transcription> element
+        """
+        return self.nest(
+            Transcription(
+                name=name,
+                track=track,
+                status_callback_url=status_callback_url,
+                status_callback_method=status_callback_method,
+                inbound_track_label=inbound_track_label,
+                outbound_track_label=outbound_track_label,
+                partial_results=partial_results,
+                language_code=language_code,
+                transcription_engine=transcription_engine,
+                profanity_filter=profanity_filter,
+                speech_model=speech_model,
+                hints=hints,
+                enable_automatic_punctuation=enable_automatic_punctuation,
+                **kwargs
+            )
+        )
+
+
+class Transcription(TwiML):
+    """<Transcription> TwiML Noun"""
 
     def __init__(self, **kwargs):
-        super(Siprec, self).__init__(**kwargs)
-        self.name = "Siprec"
+        super(Transcription, self).__init__(**kwargs)
+        self.name = "Transcription"
+
+    def config(self, name=None, value=None, **kwargs):
+        """
+        Create a <Config> element
+
+        :param name: The name of the custom config
+        :param value: The value of the custom config
+        :param kwargs: additional attributes
+
+        :returns: <Config> element
+        """
+        return self.nest(Config(name=name, value=value, **kwargs))
 
     def parameter(self, name=None, value=None, **kwargs):
         """
@@ -690,6 +758,34 @@ class Parameter(TwiML):
     def __init__(self, **kwargs):
         super(Parameter, self).__init__(**kwargs)
         self.name = "Parameter"
+
+
+class Config(TwiML):
+    """<Config> TwiML Noun"""
+
+    def __init__(self, **kwargs):
+        super(Config, self).__init__(**kwargs)
+        self.name = "Config"
+
+
+class Siprec(TwiML):
+    """<Siprec> TwiML Noun"""
+
+    def __init__(self, **kwargs):
+        super(Siprec, self).__init__(**kwargs)
+        self.name = "Siprec"
+
+    def parameter(self, name=None, value=None, **kwargs):
+        """
+        Create a <Parameter> element
+
+        :param name: The name of the custom parameter
+        :param value: The value of the custom parameter
+        :param kwargs: additional attributes
+
+        :returns: <Parameter> element
+        """
+        return self.nest(Parameter(name=name, value=value, **kwargs))
 
 
 class Stream(TwiML):
@@ -782,6 +878,62 @@ class Start(TwiML):
                 track=track,
                 status_callback=status_callback,
                 status_callback_method=status_callback_method,
+                **kwargs
+            )
+        )
+
+    def transcription(
+        self,
+        name=None,
+        track=None,
+        status_callback_url=None,
+        status_callback_method=None,
+        inbound_track_label=None,
+        outbound_track_label=None,
+        partial_results=None,
+        language_code=None,
+        transcription_engine=None,
+        profanity_filter=None,
+        speech_model=None,
+        hints=None,
+        enable_automatic_punctuation=None,
+        **kwargs
+    ):
+        """
+        Create a <Transcription> element
+
+        :param name: Friendly name given to the Transcription
+        :param track: Track to be analyze by the provider
+        :param status_callback_url: Status Callback URL
+        :param status_callback_method: Status Callback URL method
+        :param inbound_track_label: Friendly name given to the Inbound Track
+        :param outbound_track_label: Friendly name given to the Outbound Track Label
+        :param partial_results: Indicates if partial results are going to be send to the customer
+        :param language_code: Language Code used by the transcription engine
+        :param transcription_engine: Transcription Engine to be used
+        :param profanity_filter: Enable Profanity Filter
+        :param speech_model: Speech Model used by the transcription engine
+        :param hints: Hints to be provided to the transcription engine
+        :param enable_automatic_punctuation: Enable Automatic Punctuation
+        :param kwargs: additional attributes
+
+        :returns: <Transcription> element
+        """
+        return self.nest(
+            Transcription(
+                name=name,
+                track=track,
+                status_callback_url=status_callback_url,
+                status_callback_method=status_callback_method,
+                inbound_track_label=inbound_track_label,
+                outbound_track_label=outbound_track_label,
+                partial_results=partial_results,
+                language_code=language_code,
+                transcription_engine=transcription_engine,
+                profanity_filter=profanity_filter,
+                speech_model=speech_model,
+                hints=hints,
+                enable_automatic_punctuation=enable_automatic_punctuation,
                 **kwargs
             )
         )
@@ -2612,14 +2764,6 @@ class VirtualAgent(TwiML):
         :returns: <Parameter> element
         """
         return self.nest(Parameter(name=name, value=value, **kwargs))
-
-
-class Config(TwiML):
-    """<Config> TwiML Noun"""
-
-    def __init__(self, **kwargs):
-        super(Config, self).__init__(**kwargs)
-        self.name = "Config"
 
 
 class Autopilot(TwiML):

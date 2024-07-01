@@ -306,7 +306,7 @@ class ContentList(ListResource):
 
         def to_dict(self):
             return {
-                "type": self.type.to_dict(),
+                "type": self.type,
                 "copy_code_text": self.copy_code_text,
             }
 
@@ -331,7 +331,7 @@ class ContentList(ListResource):
 
         def to_dict(self):
             return {
-                "type": self.type.to_dict(),
+                "type": self.type,
                 "title": self.title,
                 "url": self.url,
                 "phone": self.phone,
@@ -357,7 +357,7 @@ class ContentList(ListResource):
 
         def to_dict(self):
             return {
-                "type": self.type.to_dict(),
+                "type": self.type,
                 "title": self.title,
                 "url": self.url,
                 "phone": self.phone,
@@ -453,7 +453,7 @@ class ContentList(ListResource):
 
         def to_dict(self):
             return {
-                "type": self.type.to_dict(),
+                "type": self.type,
                 "title": self.title,
                 "id": self.id,
             }
