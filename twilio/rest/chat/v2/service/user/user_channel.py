@@ -24,16 +24,16 @@ from twilio.base.page import Page
 
 class UserChannelInstance(InstanceResource):
 
-    class ChannelStatus(object):
+    class ChannelStatus:
         JOINED = "joined"
         INVITED = "invited"
         NOT_PARTICIPATING = "not_participating"
 
-    class NotificationLevel(object):
+    class NotificationLevel:
         DEFAULT = "default"
         MUTED = "muted"
 
-    class WebhookEnabledType(object):
+    class WebhookEnabledType:
         TRUE = "true"
         FALSE = "false"
 
@@ -209,8 +209,8 @@ class UserChannelInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Chat.V2.UserChannelInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Chat.V2.UserChannelInstance {context}>"
 
 
 class UserChannelContext(InstanceContext):
@@ -414,8 +414,8 @@ class UserChannelContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Chat.V2.UserChannelContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Chat.V2.UserChannelContext {context}>"
 
 
 class UserChannelPage(Page):

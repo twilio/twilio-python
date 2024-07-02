@@ -32,7 +32,7 @@ from twilio.rest.messaging.v1.service.us_app_to_person_usecase import (
 
 class ServiceInstance(InstanceResource):
 
-    class ScanMessageContent(object):
+    class ScanMessageContent:
         INHERIT = "inherit"
         ENABLE = "enable"
         DISABLE = "disable"
@@ -336,8 +336,8 @@ class ServiceInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.ServiceInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.ServiceInstance {context}>"
 
 
 class ServiceContext(InstanceContext):
@@ -660,8 +660,8 @@ class ServiceContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.ServiceContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.ServiceContext {context}>"
 
 
 class ServicePage(Page):

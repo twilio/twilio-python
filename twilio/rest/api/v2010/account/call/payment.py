@@ -23,12 +23,12 @@ from twilio.base.version import Version
 
 class PaymentInstance(InstanceResource):
 
-    class BankAccountType(object):
+    class BankAccountType:
         CONSUMER_CHECKING = "consumer-checking"
         CONSUMER_SAVINGS = "consumer-savings"
         COMMERCIAL_CHECKING = "commercial-checking"
 
-    class Capture(object):
+    class Capture:
         PAYMENT_CARD_NUMBER = "payment-card-number"
         EXPIRATION_DATE = "expiration-date"
         SECURITY_CODE = "security-code"
@@ -36,15 +36,15 @@ class PaymentInstance(InstanceResource):
         BANK_ROUTING_NUMBER = "bank-routing-number"
         BANK_ACCOUNT_NUMBER = "bank-account-number"
 
-    class PaymentMethod(object):
+    class PaymentMethod:
         CREDIT_CARD = "credit-card"
         ACH_DEBIT = "ach-debit"
 
-    class Status(object):
+    class Status:
         COMPLETE = "complete"
         CANCEL = "cancel"
 
-    class TokenType(object):
+    class TokenType:
         ONE_TIME = "one-time"
         REUSABLE = "reusable"
         PAYMENT_METHOD = "payment-method"
@@ -157,8 +157,8 @@ class PaymentInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.PaymentInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.PaymentInstance {context}>"
 
 
 class PaymentContext(InstanceContext):
@@ -272,8 +272,8 @@ class PaymentContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.PaymentContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.PaymentContext {context}>"
 
 
 class PaymentList(ListResource):

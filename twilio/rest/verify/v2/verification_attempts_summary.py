@@ -23,7 +23,7 @@ from twilio.base.version import Version
 
 class VerificationAttemptsSummaryInstance(InstanceResource):
 
-    class Channels(object):
+    class Channels:
         SMS = "sms"
         CALL = "call"
         EMAIL = "email"

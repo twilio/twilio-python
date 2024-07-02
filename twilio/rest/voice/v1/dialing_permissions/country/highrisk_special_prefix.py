@@ -41,8 +41,8 @@ class HighriskSpecialPrefixInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.HighriskSpecialPrefixInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Voice.V1.HighriskSpecialPrefixInstance {context}>"
 
 
 class HighriskSpecialPrefixPage(Page):

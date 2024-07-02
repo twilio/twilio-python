@@ -120,8 +120,8 @@ class AlertInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Monitor.V1.AlertInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Monitor.V1.AlertInstance {context}>"
 
 
 class AlertContext(InstanceContext):
@@ -185,8 +185,8 @@ class AlertContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Monitor.V1.AlertContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Monitor.V1.AlertContext {context}>"
 
 
 class AlertPage(Page):

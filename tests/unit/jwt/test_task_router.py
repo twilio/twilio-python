@@ -248,7 +248,7 @@ class WorkerCapabilityTokenTest(unittest.TestCase):
         decoded = WorkerCapabilityToken.decode(token, self.auth_token)
         self.assertNotEqual(None, decoded)
 
-        websocket_url = "https://event-bridge.twilio.com/v1/wschannels/{0}/{1}".format(
+        websocket_url = "https://event-bridge.twilio.com/v1/wschannels/{}/{}".format(
             self.account_sid, self.worker_sid
         )
 
@@ -297,7 +297,7 @@ class WorkerCapabilityTokenTest(unittest.TestCase):
         self.assertEqual(len(policies), 7)
         policy = policies[6]
 
-        url = "https://taskrouter.twilio.com/v1/Workspaces/{0}/Workers/{1}".format(
+        url = "https://taskrouter.twilio.com/v1/Workspaces/{}/Workers/{}".format(
             self.workspace_sid, self.worker_sid
         )
 
@@ -322,13 +322,13 @@ class WorkerCapabilityTokenTest(unittest.TestCase):
         self.assertEqual(len(policies), 8)
 
         taskPolicy = policies[6]
-        tasksUrl = "https://taskrouter.twilio.com/v1/Workspaces/{0}/Tasks/**".format(
+        tasksUrl = "https://taskrouter.twilio.com/v1/Workspaces/{}/Tasks/**".format(
             self.workspace_sid
         )
         self.check_policy("POST", tasksUrl, taskPolicy)
 
         workerReservationsPolicy = policies[7]
-        reservationsUrl = "https://taskrouter.twilio.com/v1/Workspaces/{0}/Workers/{1}/Reservations/**".format(
+        reservationsUrl = "https://taskrouter.twilio.com/v1/Workspaces/{}/Workers/{}/Reservations/**".format(
             self.workspace_sid, self.worker_sid
         )
         self.check_policy("POST", reservationsUrl, workerReservationsPolicy)
@@ -353,13 +353,13 @@ class WorkerCapabilityTokenTest(unittest.TestCase):
         self.assertEqual(len(policies), 8)
 
         taskPolicy = policies[6]
-        tasksUrl = "https://taskrouter.twilio.com/v1/Workspaces/{0}/Tasks/**".format(
+        tasksUrl = "https://taskrouter.twilio.com/v1/Workspaces/{}/Tasks/**".format(
             self.workspace_sid
         )
         self.check_policy("POST", tasksUrl, taskPolicy)
 
         workerReservationsPolicy = policies[7]
-        reservationsUrl = "https://taskrouter.twilio.com/v1/Workspaces/{0}/Workers/{1}/Reservations/**".format(
+        reservationsUrl = "https://taskrouter.twilio.com/v1/Workspaces/{}/Workers/{}/Reservations/**".format(
             self.workspace_sid, self.worker_sid
         )
         self.check_policy("POST", reservationsUrl, workerReservationsPolicy)

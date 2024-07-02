@@ -27,7 +27,7 @@ from twilio.rest.insights.v1.conference.conference_participant import (
 
 class ConferenceInstance(InstanceResource):
 
-    class ConferenceEndReason(object):
+    class ConferenceEndReason:
         LAST_PARTICIPANT_LEFT = "last_participant_left"
         CONFERENCE_ENDED_VIA_API = "conference_ended_via_api"
         PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT = (
@@ -38,18 +38,18 @@ class ConferenceInstance(InstanceResource):
             "participant_with_end_conference_on_exit_kicked"
         )
 
-    class ConferenceStatus(object):
+    class ConferenceStatus:
         IN_PROGRESS = "in_progress"
         NOT_STARTED = "not_started"
         COMPLETED = "completed"
         SUMMARY_TIMEOUT = "summary_timeout"
 
-    class ProcessingState(object):
+    class ProcessingState:
         COMPLETE = "complete"
         IN_PROGRESS = "in_progress"
         TIMEOUT = "timeout"
 
-    class Region(object):
+    class Region:
         US1 = "us1"
         AU1 = "au1"
         BR1 = "br1"
@@ -58,7 +58,7 @@ class ConferenceInstance(InstanceResource):
         SG1 = "sg1"
         DE1 = "de1"
 
-    class Tag(object):
+    class Tag:
         INVALID_REQUESTED_REGION = "invalid_requested_region"
         DUPLICATE_IDENTITY = "duplicate_identity"
         START_FAILURE = "start_failure"
@@ -208,8 +208,8 @@ class ConferenceInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.ConferenceInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Insights.V1.ConferenceInstance {context}>"
 
 
 class ConferenceContext(InstanceContext):
@@ -287,8 +287,8 @@ class ConferenceContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.ConferenceContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Insights.V1.ConferenceContext {context}>"
 
 
 class ConferencePage(Page):

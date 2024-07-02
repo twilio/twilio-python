@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class CustomerProfilesEvaluationsInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         COMPLIANT = "compliant"
         NONCOMPLIANT = "noncompliant"
 
@@ -107,7 +107,7 @@ class CustomerProfilesEvaluationsInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.CustomerProfilesEvaluationsInstance {}>".format(
             context
         )
@@ -180,7 +180,7 @@ class CustomerProfilesEvaluationsContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.CustomerProfilesEvaluationsContext {}>".format(
             context
         )

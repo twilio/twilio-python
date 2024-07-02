@@ -24,13 +24,13 @@ from twilio.base.page import Page
 
 class VerificationAttemptInstance(InstanceResource):
 
-    class Channels(object):
+    class Channels:
         SMS = "sms"
         CALL = "call"
         EMAIL = "email"
         WHATSAPP = "whatsapp"
 
-    class ConversionStatus(object):
+    class ConversionStatus:
         CONVERTED = "converted"
         UNCONVERTED = "unconverted"
 
@@ -117,8 +117,8 @@ class VerificationAttemptInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.VerificationAttemptInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.VerificationAttemptInstance {context}>"
 
 
 class VerificationAttemptContext(InstanceContext):
@@ -182,8 +182,8 @@ class VerificationAttemptContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.VerificationAttemptContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.VerificationAttemptContext {context}>"
 
 
 class VerificationAttemptPage(Page):

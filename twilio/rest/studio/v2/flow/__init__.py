@@ -27,7 +27,7 @@ from twilio.rest.studio.v2.flow.flow_test_user import FlowTestUserList
 
 class FlowInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         DRAFT = "draft"
         PUBLISHED = "published"
 
@@ -205,8 +205,8 @@ class FlowInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V2.FlowInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V2.FlowInstance {context}>"
 
 
 class FlowContext(InstanceContext):
@@ -402,8 +402,8 @@ class FlowContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V2.FlowContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V2.FlowContext {context}>"
 
 
 class FlowPage(Page):

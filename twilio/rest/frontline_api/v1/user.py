@@ -22,7 +22,7 @@ from twilio.base.version import Version
 
 class UserInstance(InstanceResource):
 
-    class StateType(object):
+    class StateType:
         ACTIVE = "active"
         DEACTIVATED = "deactivated"
 
@@ -141,8 +141,8 @@ class UserInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FrontlineApi.V1.UserInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FrontlineApi.V1.UserInstance {context}>"
 
 
 class UserContext(InstanceContext):
@@ -274,8 +274,8 @@ class UserContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FrontlineApi.V1.UserContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FrontlineApi.V1.UserContext {context}>"
 
 
 class UserList(ListResource):

@@ -23,11 +23,11 @@ from twilio.base.page import Page
 
 class InteractionChannelParticipantInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         CLOSED = "closed"
         WRAPUP = "wrapup"
 
-    class Type(object):
+    class Type:
         SUPERVISOR = "supervisor"
         CUSTOMER = "customer"
         EXTERNAL = "external"
@@ -122,7 +122,7 @@ class InteractionChannelParticipantInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InteractionChannelParticipantInstance {}>".format(
             context
         )
@@ -219,7 +219,7 @@ class InteractionChannelParticipantContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InteractionChannelParticipantContext {}>".format(
             context
         )

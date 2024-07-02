@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class CredentialInstance(InstanceResource):
 
-    class PushService(object):
+    class PushService:
         GCM = "gcm"
         APN = "apn"
         FCM = "fcm"
@@ -180,8 +180,8 @@ class CredentialInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Notify.V1.CredentialInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Notify.V1.CredentialInstance {context}>"
 
 
 class CredentialContext(InstanceContext):
@@ -349,8 +349,8 @@ class CredentialContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Notify.V1.CredentialContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Notify.V1.CredentialContext {context}>"
 
 
 class CredentialPage(Page):

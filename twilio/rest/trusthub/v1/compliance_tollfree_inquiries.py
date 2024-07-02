@@ -22,7 +22,7 @@ from twilio.base.version import Version
 
 class ComplianceTollfreeInquiriesInstance(InstanceResource):
 
-    class OptInType(object):
+    class OptInType:
         VERBAL = "VERBAL"
         WEB_FORM = "WEB_FORM"
         PAPER_FORM = "PAPER_FORM"

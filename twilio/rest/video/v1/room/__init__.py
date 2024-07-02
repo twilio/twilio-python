@@ -27,18 +27,18 @@ from twilio.rest.video.v1.room.room_recording import RoomRecordingList
 
 class RoomInstance(InstanceResource):
 
-    class RoomStatus(object):
+    class RoomStatus:
         IN_PROGRESS = "in-progress"
         COMPLETED = "completed"
         FAILED = "failed"
 
-    class RoomType(object):
+    class RoomType:
         GO = "go"
         PEER_TO_PEER = "peer-to-peer"
         GROUP = "group"
         GROUP_SMALL = "group-small"
 
-    class VideoCodec(object):
+    class VideoCodec:
         VP8 = "VP8"
         H264 = "H264"
 
@@ -210,8 +210,8 @@ class RoomInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.RoomInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Video.V1.RoomInstance {context}>"
 
 
 class RoomContext(InstanceContext):
@@ -359,8 +359,8 @@ class RoomContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.RoomContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Video.V1.RoomContext {context}>"
 
 
 class RoomPage(Page):

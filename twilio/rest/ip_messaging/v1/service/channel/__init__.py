@@ -27,7 +27,7 @@ from twilio.rest.ip_messaging.v1.service.channel.message import MessageList
 
 class ChannelInstance(InstanceResource):
 
-    class ChannelType(object):
+    class ChannelType:
         PUBLIC = "public"
         PRIVATE = "private"
 
@@ -207,8 +207,8 @@ class ChannelInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V1.ChannelInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.IpMessaging.V1.ChannelInstance {context}>"
 
 
 class ChannelContext(InstanceContext):
@@ -415,8 +415,8 @@ class ChannelContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V1.ChannelContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.IpMessaging.V1.ChannelContext {context}>"
 
 
 class ChannelPage(Page):

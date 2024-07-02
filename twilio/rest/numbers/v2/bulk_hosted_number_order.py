@@ -23,7 +23,7 @@ from twilio.base.version import Version
 
 class BulkHostedNumberOrderInstance(InstanceResource):
 
-    class RequestStatus(object):
+    class RequestStatus:
         QUEUED = "QUEUED"
         IN_PROGRESS = "IN_PROGRESS"
         PROCESSED = "PROCESSED"
@@ -120,8 +120,8 @@ class BulkHostedNumberOrderInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.BulkHostedNumberOrderInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.BulkHostedNumberOrderInstance {context}>"
 
 
 class BulkHostedNumberOrderContext(InstanceContext):
@@ -201,8 +201,8 @@ class BulkHostedNumberOrderContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.BulkHostedNumberOrderContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.BulkHostedNumberOrderContext {context}>"
 
 
 class BulkHostedNumberOrderList(ListResource):

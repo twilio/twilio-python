@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class FlexFlowInstance(InstanceResource):
 
-    class ChannelType(object):
+    class ChannelType:
         WEB = "web"
         SMS = "sms"
         FACEBOOK = "facebook"
@@ -32,7 +32,7 @@ class FlexFlowInstance(InstanceResource):
         LINE = "line"
         CUSTOM = "custom"
 
-    class IntegrationType(object):
+    class IntegrationType:
         STUDIO = "studio"
         EXTERNAL = "external"
         TASK = "task"
@@ -274,8 +274,8 @@ class FlexFlowInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.FlexFlowInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.FlexFlowInstance {context}>"
 
 
 class FlexFlowContext(InstanceContext):
@@ -517,8 +517,8 @@ class FlexFlowContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.FlexFlowContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.FlexFlowContext {context}>"
 
 
 class FlexFlowPage(Page):

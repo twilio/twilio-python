@@ -24,16 +24,16 @@ from twilio.base.page import Page
 
 class AddressConfigurationInstance(InstanceResource):
 
-    class AutoCreationType(object):
+    class AutoCreationType:
         WEBHOOK = "webhook"
         STUDIO = "studio"
         DEFAULT = "default"
 
-    class Method(object):
+    class Method:
         GET = "GET"
         POST = "POST"
 
-    class Type(object):
+    class Type:
         SMS = "sms"
         WHATSAPP = "whatsapp"
         MESSENGER = "messenger"
@@ -221,7 +221,7 @@ class AddressConfigurationInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.AddressConfigurationInstance {}>".format(
             context
         )
@@ -430,7 +430,7 @@ class AddressConfigurationContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Conversations.V1.AddressConfigurationContext {}>".format(
             context
         )

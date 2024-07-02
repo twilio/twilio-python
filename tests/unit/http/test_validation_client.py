@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
-
 import unittest
 
-from mock import patch, Mock
+from unittest.mock import patch, Mock
 from requests import Request
 from requests import Session
 

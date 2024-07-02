@@ -26,7 +26,7 @@ from twilio.rest.studio.v1.flow.execution.execution_step import ExecutionStepLis
 
 class ExecutionInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         ACTIVE = "active"
         ENDED = "ended"
 
@@ -175,8 +175,8 @@ class ExecutionInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V1.ExecutionInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V1.ExecutionInstance {context}>"
 
 
 class ExecutionContext(InstanceContext):
@@ -353,8 +353,8 @@ class ExecutionContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V1.ExecutionContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Studio.V1.ExecutionContext {context}>"
 
 
 class ExecutionPage(Page):

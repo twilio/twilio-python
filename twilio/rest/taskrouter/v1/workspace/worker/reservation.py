@@ -24,13 +24,13 @@ from twilio.base.page import Page
 
 class ReservationInstance(InstanceResource):
 
-    class CallStatus(object):
+    class CallStatus:
         INITIATED = "initiated"
         RINGING = "ringing"
         ANSWERED = "answered"
         COMPLETED = "completed"
 
-    class ConferenceEvent(object):
+    class ConferenceEvent:
         START = "start"
         END = "end"
         JOIN = "join"
@@ -39,7 +39,7 @@ class ReservationInstance(InstanceResource):
         HOLD = "hold"
         SPEAKER = "speaker"
 
-    class Status(object):
+    class Status:
         PENDING = "pending"
         ACCEPTED = "accepted"
         REJECTED = "rejected"
@@ -489,8 +489,8 @@ class ReservationInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.ReservationInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Taskrouter.V1.ReservationInstance {context}>"
 
 
 class ReservationContext(InstanceContext):
@@ -978,8 +978,8 @@ class ReservationContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.ReservationContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Taskrouter.V1.ReservationContext {context}>"
 
 
 class ReservationPage(Page):

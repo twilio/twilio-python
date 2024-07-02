@@ -23,7 +23,7 @@ from twilio.base.version import Version
 
 class VerificationCheckInstance(InstanceResource):
 
-    class Channel(object):
+    class Channel:
         SMS = "sms"
         CALL = "call"
         EMAIL = "email"
@@ -79,8 +79,8 @@ class VerificationCheckInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.VerificationCheckInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.VerificationCheckInstance {context}>"
 
 
 class VerificationCheckList(ListResource):

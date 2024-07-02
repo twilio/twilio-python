@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class OperatorInstance(InstanceResource):
 
-    class Availability(object):
+    class Availability:
         INTERNAL = "internal"
         BETA = "beta"
         PUBLIC = "public"
@@ -113,8 +113,8 @@ class OperatorInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.OperatorInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Intelligence.V2.OperatorInstance {context}>"
 
 
 class OperatorContext(InstanceContext):
@@ -178,8 +178,8 @@ class OperatorContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.OperatorContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Intelligence.V2.OperatorContext {context}>"
 
 
 class OperatorPage(Page):

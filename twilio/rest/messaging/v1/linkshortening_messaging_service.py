@@ -105,7 +105,7 @@ class LinkshorteningMessagingServiceInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.LinkshorteningMessagingServiceInstance {}>".format(
             context
         )
@@ -200,7 +200,7 @@ class LinkshorteningMessagingServiceContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Messaging.V1.LinkshorteningMessagingServiceContext {}>".format(
             context
         )

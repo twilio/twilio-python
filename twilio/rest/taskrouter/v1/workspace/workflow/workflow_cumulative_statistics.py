@@ -197,7 +197,7 @@ class WorkflowCumulativeStatisticsInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkflowCumulativeStatisticsInstance {}>".format(
             context
         )
@@ -310,7 +310,7 @@ class WorkflowCumulativeStatisticsContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Taskrouter.V1.WorkflowCumulativeStatisticsContext {}>".format(
             context
         )

@@ -23,7 +23,7 @@ from twilio.base.version import Version
 
 class ReplaceItemsInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         DRAFT = "draft"
         PENDING_REVIEW = "pending-review"
         IN_REVIEW = "in-review"
@@ -74,8 +74,8 @@ class ReplaceItemsInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.ReplaceItemsInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.ReplaceItemsInstance {context}>"
 
 
 class ReplaceItemsList(ListResource):

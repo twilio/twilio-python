@@ -101,8 +101,8 @@ class AvailableAddOnInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Marketplace.V1.AvailableAddOnInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Marketplace.V1.AvailableAddOnInstance {context}>"
 
 
 class AvailableAddOnContext(InstanceContext):
@@ -180,8 +180,8 @@ class AvailableAddOnContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Marketplace.V1.AvailableAddOnContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Marketplace.V1.AvailableAddOnContext {context}>"
 
 
 class AvailableAddOnPage(Page):

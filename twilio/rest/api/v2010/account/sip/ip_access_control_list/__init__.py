@@ -154,8 +154,8 @@ class IpAccessControlListInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.IpAccessControlListInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.IpAccessControlListInstance {context}>"
 
 
 class IpAccessControlListContext(InstanceContext):
@@ -320,8 +320,8 @@ class IpAccessControlListContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.IpAccessControlListContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.IpAccessControlListContext {context}>"
 
 
 class IpAccessControlListPage(Page):

@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class WebChannelInstance(InstanceResource):
 
-    class ChatStatus(object):
+    class ChatStatus:
         INACTIVE = "inactive"
 
     """
@@ -150,8 +150,8 @@ class WebChannelInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.WebChannelInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.WebChannelInstance {context}>"
 
 
 class WebChannelContext(InstanceContext):
@@ -295,8 +295,8 @@ class WebChannelContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.WebChannelContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.WebChannelContext {context}>"
 
 
 class WebChannelPage(Page):

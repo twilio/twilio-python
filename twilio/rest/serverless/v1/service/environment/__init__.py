@@ -150,8 +150,8 @@ class EnvironmentInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.EnvironmentInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Serverless.V1.EnvironmentInstance {context}>"
 
 
 class EnvironmentContext(InstanceContext):
@@ -288,8 +288,8 @@ class EnvironmentContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.EnvironmentContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Serverless.V1.EnvironmentContext {context}>"
 
 
 class EnvironmentPage(Page):

@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class UsageRecordInstance(InstanceResource):
 
-    class Granularity(object):
+    class Granularity:
         HOURLY = "hourly"
         DAILY = "daily"
         ALL = "all"

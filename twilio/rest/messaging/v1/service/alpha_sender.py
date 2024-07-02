@@ -120,8 +120,8 @@ class AlphaSenderInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.AlphaSenderInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.AlphaSenderInstance {context}>"
 
 
 class AlphaSenderContext(InstanceContext):
@@ -215,8 +215,8 @@ class AlphaSenderContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.AlphaSenderContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.AlphaSenderContext {context}>"
 
 
 class AlphaSenderPage(Page):

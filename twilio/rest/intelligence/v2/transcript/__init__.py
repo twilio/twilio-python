@@ -27,7 +27,7 @@ from twilio.rest.intelligence.v2.transcript.sentence import SentenceList
 
 class TranscriptInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         QUEUED = "queued"
         IN_PROGRESS = "in-progress"
         COMPLETED = "completed"
@@ -162,8 +162,8 @@ class TranscriptInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.TranscriptInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Intelligence.V2.TranscriptInstance {context}>"
 
 
 class TranscriptContext(InstanceContext):
@@ -291,8 +291,8 @@ class TranscriptContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.TranscriptContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Intelligence.V2.TranscriptContext {context}>"
 
 
 class TranscriptPage(Page):

@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class DailyInstance(InstanceResource):
 
-    class Category(object):
+    class Category:
         A2P_REGISTRATION_FEES = "a2p-registration-fees"
         AGENT_CONFERENCE = "agent-conference"
         AMAZON_POLLY = "amazon-polly"
@@ -400,8 +400,8 @@ class DailyInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.DailyInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.DailyInstance {context}>"
 
 
 class DailyPage(Page):

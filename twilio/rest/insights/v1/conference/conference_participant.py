@@ -24,11 +24,11 @@ from twilio.base.page import Page
 
 class ConferenceParticipantInstance(InstanceResource):
 
-    class CallDirection(object):
+    class CallDirection:
         INBOUND = "inbound"
         OUTBOUND = "outbound"
 
-    class CallStatus(object):
+    class CallStatus:
         ANSWERED = "answered"
         COMPLETED = "completed"
         BUSY = "busy"
@@ -37,23 +37,23 @@ class ConferenceParticipantInstance(InstanceResource):
         RINGING = "ringing"
         CANCELED = "canceled"
 
-    class CallType(object):
+    class CallType:
         CARRIER = "carrier"
         CLIENT = "client"
         SIP = "sip"
 
-    class JitterBufferSize(object):
+    class JitterBufferSize:
         LARGE = "large"
         SMALL = "small"
         MEDIUM = "medium"
         OFF = "off"
 
-    class ProcessingState(object):
+    class ProcessingState:
         COMPLETE = "complete"
         IN_PROGRESS = "in_progress"
         TIMEOUT = "timeout"
 
-    class Region(object):
+    class Region:
         US1 = "us1"
         US2 = "us2"
         AU1 = "au1"
@@ -220,8 +220,8 @@ class ConferenceParticipantInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.ConferenceParticipantInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Insights.V1.ConferenceParticipantInstance {context}>"
 
 
 class ConferenceParticipantContext(InstanceContext):
@@ -315,8 +315,8 @@ class ConferenceParticipantContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.ConferenceParticipantContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Insights.V1.ConferenceParticipantContext {context}>"
 
 
 class ConferenceParticipantPage(Page):

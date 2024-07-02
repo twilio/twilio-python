@@ -27,13 +27,13 @@ from twilio.rest.proxy.v1.service.short_code import ShortCodeList
 
 class ServiceInstance(InstanceResource):
 
-    class GeoMatchLevel(object):
+    class GeoMatchLevel:
         AREA_CODE = "area-code"
         OVERLAY = "overlay"
         RADIUS = "radius"
         COUNTRY = "country"
 
-    class NumberSelectionBehavior(object):
+    class NumberSelectionBehavior:
         AVOID_STICKY = "avoid-sticky"
         PREFER_STICKY = "prefer-sticky"
 
@@ -247,8 +247,8 @@ class ServiceInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Proxy.V1.ServiceInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Proxy.V1.ServiceInstance {context}>"
 
 
 class ServiceContext(InstanceContext):
@@ -472,8 +472,8 @@ class ServiceContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Proxy.V1.ServiceContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Proxy.V1.ServiceContext {context}>"
 
 
 class ServicePage(Page):

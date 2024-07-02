@@ -24,13 +24,13 @@ from twilio.base.page import Page
 
 class TollFreeInstance(InstanceResource):
 
-    class AddressRequirement(object):
+    class AddressRequirement:
         NONE = "none"
         ANY = "any"
         LOCAL = "local"
         FOREIGN = "foreign"
 
-    class EmergencyAddressStatus(object):
+    class EmergencyAddressStatus:
         REGISTERED = "registered"
         UNREGISTERED = "unregistered"
         PENDING_REGISTRATION = "pending-registration"
@@ -38,11 +38,11 @@ class TollFreeInstance(InstanceResource):
         PENDING_UNREGISTRATION = "pending-unregistration"
         UNREGISTRATION_FAILURE = "unregistration-failure"
 
-    class EmergencyStatus(object):
+    class EmergencyStatus:
         ACTIVE = "Active"
         INACTIVE = "Inactive"
 
-    class VoiceReceiveMode(object):
+    class VoiceReceiveMode:
         VOICE = "voice"
         FAX = "fax"
 
@@ -147,8 +147,8 @@ class TollFreeInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.TollFreeInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.TollFreeInstance {context}>"
 
 
 class TollFreePage(Page):

@@ -104,8 +104,8 @@ class OperatorAttachmentInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.OperatorAttachmentInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Intelligence.V2.OperatorAttachmentInstance {context}>"
 
 
 class OperatorAttachmentContext(InstanceContext):
@@ -197,8 +197,8 @@ class OperatorAttachmentContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.OperatorAttachmentContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Intelligence.V2.OperatorAttachmentContext {context}>"
 
 
 class OperatorAttachmentList(ListResource):

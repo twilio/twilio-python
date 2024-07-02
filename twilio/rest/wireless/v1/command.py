@@ -24,22 +24,22 @@ from twilio.base.page import Page
 
 class CommandInstance(InstanceResource):
 
-    class CommandMode(object):
+    class CommandMode:
         TEXT = "text"
         BINARY = "binary"
 
-    class Direction(object):
+    class Direction:
         FROM_SIM = "from_sim"
         TO_SIM = "to_sim"
 
-    class Status(object):
+    class Status:
         QUEUED = "queued"
         SENT = "sent"
         DELIVERED = "delivered"
         RECEIVED = "received"
         FAILED = "failed"
 
-    class Transport(object):
+    class Transport:
         SMS = "sms"
         IP = "ip"
 
@@ -146,8 +146,8 @@ class CommandInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Wireless.V1.CommandInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Wireless.V1.CommandInstance {context}>"
 
 
 class CommandContext(InstanceContext):
@@ -235,8 +235,8 @@ class CommandContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Wireless.V1.CommandContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Wireless.V1.CommandContext {context}>"
 
 
 class CommandPage(Page):

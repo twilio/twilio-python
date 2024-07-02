@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class ParticipantConversationInstance(InstanceResource):
 
-    class State(object):
+    class State:
         INACTIVE = "inactive"
         ACTIVE = "active"
         CLOSED = "closed"

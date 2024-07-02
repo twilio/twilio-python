@@ -180,8 +180,8 @@ class OriginationUrlInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trunking.V1.OriginationUrlInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trunking.V1.OriginationUrlInstance {context}>"
 
 
 class OriginationUrlContext(InstanceContext):
@@ -357,8 +357,8 @@ class OriginationUrlContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trunking.V1.OriginationUrlContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trunking.V1.OriginationUrlContext {context}>"
 
 
 class OriginationUrlPage(Page):

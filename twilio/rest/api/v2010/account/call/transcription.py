@@ -23,16 +23,16 @@ from twilio.base.version import Version
 
 class TranscriptionInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         IN_PROGRESS = "in-progress"
         STOPPED = "stopped"
 
-    class Track(object):
+    class Track:
         INBOUND_TRACK = "inbound_track"
         OUTBOUND_TRACK = "outbound_track"
         BOTH_TRACKS = "both_tracks"
 
-    class UpdateStatus(object):
+    class UpdateStatus:
         STOPPED = "stopped"
 
     """
@@ -123,8 +123,8 @@ class TranscriptionInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.TranscriptionInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.TranscriptionInstance {context}>"
 
 
 class TranscriptionContext(InstanceContext):
@@ -218,8 +218,8 @@ class TranscriptionContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.TranscriptionContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.TranscriptionContext {context}>"
 
 
 class TranscriptionList(ListResource):

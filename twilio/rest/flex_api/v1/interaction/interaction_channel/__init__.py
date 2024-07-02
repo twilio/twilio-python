@@ -29,14 +29,14 @@ from twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel
 
 class InteractionChannelInstance(InstanceResource):
 
-    class ChannelStatus(object):
+    class ChannelStatus:
         SETUP = "setup"
         ACTIVE = "active"
         FAILED = "failed"
         CLOSED = "closed"
         INACTIVE = "inactive"
 
-    class Type(object):
+    class Type:
         VOICE = "voice"
         SMS = "sms"
         EMAIL = "email"
@@ -46,7 +46,7 @@ class InteractionChannelInstance(InstanceResource):
         MESSENGER = "messenger"
         GBM = "gbm"
 
-    class UpdateChannelStatus(object):
+    class UpdateChannelStatus:
         CLOSED = "closed"
         INACTIVE = "inactive"
 
@@ -177,8 +177,8 @@ class InteractionChannelInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InteractionChannelInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.InteractionChannelInstance {context}>"
 
 
 class InteractionChannelContext(InstanceContext):
@@ -343,8 +343,8 @@ class InteractionChannelContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InteractionChannelContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.InteractionChannelContext {context}>"
 
 
 class InteractionChannelPage(Page):

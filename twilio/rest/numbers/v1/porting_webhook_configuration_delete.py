@@ -71,7 +71,7 @@ class PortingWebhookConfigurationDeleteContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Numbers.V1.PortingWebhookConfigurationDeleteContext {}>".format(
             context
         )

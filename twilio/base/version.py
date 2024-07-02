@@ -8,7 +8,7 @@ from twilio.base.page import Page
 from twilio.http.response import Response
 
 
-class Version(object):
+class Version:
     """
     Represents an API version.
     """

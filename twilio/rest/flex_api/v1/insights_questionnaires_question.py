@@ -166,7 +166,7 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InsightsQuestionnairesQuestionInstance {}>".format(
             context
         )
@@ -321,7 +321,7 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.FlexApi.V1.InsightsQuestionnairesQuestionContext {}>".format(
             context
         )

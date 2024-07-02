@@ -24,12 +24,12 @@ from twilio.base.page import Page
 
 class ParticipantInstance(InstanceResource):
 
-    class Codec(object):
+    class Codec:
         VP8 = "VP8"
         H264 = "H264"
         VP9 = "VP9"
 
-    class EdgeLocation(object):
+    class EdgeLocation:
         ASHBURN = "ashburn"
         DUBLIN = "dublin"
         FRANKFURT = "frankfurt"
@@ -40,11 +40,11 @@ class ParticipantInstance(InstanceResource):
         UMATILLA = "umatilla"
         TOKYO = "tokyo"
 
-    class RoomStatus(object):
+    class RoomStatus:
         IN_PROGRESS = "in_progress"
         COMPLETED = "completed"
 
-    class TwilioRealm(object):
+    class TwilioRealm:
         US1 = "us1"
         US2 = "us2"
         AU1 = "au1"
@@ -157,8 +157,8 @@ class ParticipantInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.ParticipantInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Insights.V1.ParticipantInstance {context}>"
 
 
 class ParticipantContext(InstanceContext):
@@ -228,8 +228,8 @@ class ParticipantContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.ParticipantContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Insights.V1.ParticipantContext {context}>"
 
 
 class ParticipantPage(Page):

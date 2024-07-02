@@ -117,7 +117,7 @@ class AuthCallsCredentialListMappingInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Api.V2010.AuthCallsCredentialListMappingInstance {}>".format(
             context
         )
@@ -218,7 +218,7 @@ class AuthCallsCredentialListMappingContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Api.V2010.AuthCallsCredentialListMappingContext {}>".format(
             context
         )

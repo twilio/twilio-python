@@ -37,7 +37,7 @@ from twilio.rest.api.v2010.account.call.user_defined_message_subscription import
 
 class CallInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         QUEUED = "queued"
         RINGING = "ringing"
         IN_PROGRESS = "in-progress"
@@ -47,7 +47,7 @@ class CallInstance(InstanceResource):
         NO_ANSWER = "no-answer"
         CANCELED = "canceled"
 
-    class UpdateStatus(object):
+    class UpdateStatus:
         CANCELED = "canceled"
         COMPLETED = "completed"
 
@@ -331,8 +331,8 @@ class CallInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.CallInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.CallInstance {context}>"
 
 
 class CallContext(InstanceContext):
@@ -663,8 +663,8 @@ class CallContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.CallContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.CallContext {context}>"
 
 
 class CallPage(Page):

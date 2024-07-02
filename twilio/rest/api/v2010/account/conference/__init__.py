@@ -26,7 +26,7 @@ from twilio.rest.api.v2010.account.conference.recording import RecordingList
 
 class ConferenceInstance(InstanceResource):
 
-    class ReasonConferenceEnded(object):
+    class ReasonConferenceEnded:
         CONFERENCE_ENDED_VIA_API = "conference-ended-via-api"
         PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT = (
             "participant-with-end-conference-on-exit-left"
@@ -37,12 +37,12 @@ class ConferenceInstance(InstanceResource):
         LAST_PARTICIPANT_KICKED = "last-participant-kicked"
         LAST_PARTICIPANT_LEFT = "last-participant-left"
 
-    class Status(object):
+    class Status:
         INIT = "init"
         IN_PROGRESS = "in-progress"
         COMPLETED = "completed"
 
-    class UpdateStatus(object):
+    class UpdateStatus:
         COMPLETED = "completed"
 
     """
@@ -194,8 +194,8 @@ class ConferenceInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.ConferenceInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.ConferenceInstance {context}>"
 
 
 class ConferenceContext(InstanceContext):
@@ -366,8 +366,8 @@ class ConferenceContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.ConferenceContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.ConferenceContext {context}>"
 
 
 class ConferencePage(Page):
