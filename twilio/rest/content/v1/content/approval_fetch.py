@@ -27,7 +27,7 @@ class ApprovalFetchInstance(InstanceResource):
     :ivar url: The URL of the resource, relative to `https://content.twilio.com`.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], sid: str):
+    def __init__(self, version: Version, payload: Dict[str, Any], content_sid: str):
         super().__init__(version)
 
         self.sid: Optional[str] = payload.get("sid")
@@ -36,7 +36,7 @@ class ApprovalFetchInstance(InstanceResource):
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {
-            "sid": sid,
+            "content_sid": content_sid,
         }
         self._context: Optional[ApprovalFetchContext] = None
 
@@ -51,7 +51,7 @@ class ApprovalFetchInstance(InstanceResource):
         if self._context is None:
             self._context = ApprovalFetchContext(
                 self._version,
-                sid=self._solution["sid"],
+                content_sid=self._solution["content_sid"],
             )
         return self._context
 
@@ -85,20 +85,20 @@ class ApprovalFetchInstance(InstanceResource):
 
 class ApprovalFetchContext(InstanceContext):
 
-    def __init__(self, version: Version, sid: str):
+    def __init__(self, version: Version, content_sid: str):
         """
         Initialize the ApprovalFetchContext
 
         :param version: Version that contains the resource
-        :param sid: The Twilio-provided string that uniquely identifies the Content resource whose approval information to fetch.
+        :param content_sid: The Twilio-provided string that uniquely identifies the Content resource whose approval information to fetch.
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {
-            "sid": sid,
+            "content_sid": content_sid,
         }
-        self._uri = "/Content/{sid}/ApprovalRequests".format(**self._solution)
+        self._uri = "/Content/{content_sid}/ApprovalRequests".format(**self._solution)
 
     def fetch(self) -> ApprovalFetchInstance:
         """
@@ -116,7 +116,7 @@ class ApprovalFetchContext(InstanceContext):
         return ApprovalFetchInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            content_sid=self._solution["content_sid"],
         )
 
     async def fetch_async(self) -> ApprovalFetchInstance:
@@ -135,7 +135,7 @@ class ApprovalFetchContext(InstanceContext):
         return ApprovalFetchInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            content_sid=self._solution["content_sid"],
         )
 
     def __repr__(self) -> str:
@@ -150,19 +150,19 @@ class ApprovalFetchContext(InstanceContext):
 
 class ApprovalFetchList(ListResource):
 
-    def __init__(self, version: Version, sid: str):
+    def __init__(self, version: Version, content_sid: str):
         """
         Initialize the ApprovalFetchList
 
         :param version: Version that contains the resource
-        :param sid: The Twilio-provided string that uniquely identifies the Content resource whose approval information to fetch.
+        :param content_sid: The Twilio-provided string that uniquely identifies the Content resource whose approval information to fetch.
 
         """
         super().__init__(version)
 
         # Path Solution
         self._solution = {
-            "sid": sid,
+            "content_sid": content_sid,
         }
 
     def get(self) -> ApprovalFetchContext:
@@ -170,14 +170,18 @@ class ApprovalFetchList(ListResource):
         Constructs a ApprovalFetchContext
 
         """
-        return ApprovalFetchContext(self._version, sid=self._solution["sid"])
+        return ApprovalFetchContext(
+            self._version, content_sid=self._solution["content_sid"]
+        )
 
     def __call__(self) -> ApprovalFetchContext:
         """
         Constructs a ApprovalFetchContext
 
         """
-        return ApprovalFetchContext(self._version, sid=self._solution["sid"])
+        return ApprovalFetchContext(
+            self._version, content_sid=self._solution["content_sid"]
+        )
 
     def __repr__(self) -> str:
         """

@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-07-02] Version 9.2.3
+--------------------------
+**Intelligence**
+- Deprecate account flag api.twilio-intelligence.v2
+
+
 [2024-06-27] Version 9.2.2
 --------------------------
 **Api**
