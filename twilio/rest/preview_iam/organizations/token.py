@@ -17,12 +17,10 @@ from datetime import date, datetime
 from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
-import json
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-from twilio.http.http_client import TwilioHttpClient
 
 
 
@@ -56,20 +54,21 @@ class TokenInstance(InstanceResource):
         :returns: Machine friendly representation
         """
         
-        return '<Twilio.PreviewIam.Organizations_openapi.TokenInstance>'
+        return '<Twilio.PreviewIam.Organizations.TokenInstance>'
 
 
 
 
 class TokenList(ListResource):
     
-    def __init__(self):
+    def __init__(self, version: Version):
         """
         Initialize the TokenList
 
         :param version: Version that contains the resource
         
         """
+        super().__init__(version)
 
         
         self._uri = '/token'
@@ -102,21 +101,60 @@ class TokenList(ListResource):
             'refresh_token': refresh_token,
             'scope': scope,
         })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
         
-        twilioHttpClient = TwilioHttpClient()
-        retries = 0
-        while retries < 5:
-            try:
-                response = twilioHttpClient.request(
-                    'POST',
-                    'https://preview-iam.twilio.com/v1/token',
-                    data=data
-                )
-                if response.status_code == 401:
-                    retries += 1
-                    continue
-                return json.loads(response.content)['access_token']
-            except Exception as e:
-                if retries == 5:
-                    raise e
-                continue
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return TokenInstance(self._version, payload)
+
+    async def create_async(self, grant_type: str, client_id: str, client_secret: Union[str, object]=values.unset, code: Union[str, object]=values.unset, redirect_uri: Union[str, object]=values.unset, audience: Union[str, object]=values.unset, refresh_token: Union[str, object]=values.unset, scope: Union[str, object]=values.unset) -> TokenInstance:
+        """
+        Asynchronously create the TokenInstance
+
+        :param grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
+        :param client_id: A 34 character string that uniquely identifies this OAuth App.
+        :param client_secret: The credential for confidential OAuth App.
+        :param code: JWT token related to the authorization code grant type.
+        :param redirect_uri: The redirect uri
+        :param audience: The targeted audience uri
+        :param refresh_token: JWT token related to refresh access token.
+        :param scope: The scope of token
+        
+        :returns: The created TokenInstance
+        """
+        
+        data = values.of({ 
+            'grant_type': grant_type,
+            'client_id': client_id,
+            'client_secret': client_secret,
+            'code': code,
+            'redirect_uri': redirect_uri,
+            'audience': audience,
+            'refresh_token': refresh_token,
+            'scope': scope,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return TokenInstance(self._version, payload)
+    
+
+
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+
+        :returns: Machine friendly representation
+        """
+        return '<Twilio.PreviewIam.Organizations.TokenList>'
+
