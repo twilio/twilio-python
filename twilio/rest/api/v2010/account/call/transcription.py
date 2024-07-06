@@ -14,14 +14,14 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class SiprecInstance(InstanceResource):
+class TranscriptionInstance(InstanceResource):
 
     class Status(object):
         IN_PROGRESS = "in-progress"
@@ -36,13 +36,13 @@ class SiprecInstance(InstanceResource):
         STOPPED = "stopped"
 
     """
-    :ivar sid: The SID of the Siprec resource.
-    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
-    :ivar call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.
-    :ivar name: The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec.
+    :ivar sid: The SID of the Transcription resource.
+    :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Transcription resource.
+    :ivar call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Transcription resource is associated with.
+    :ivar name: The user-specified name of this Transcription, if one was given when the Transcription was created. This may be used to stop the Transcription.
     :ivar status: 
     :ivar date_updated: The date and time in GMT that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
-    :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
+    :ivar uri: 
     """
 
     def __init__(
@@ -59,7 +59,7 @@ class SiprecInstance(InstanceResource):
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.call_sid: Optional[str] = payload.get("call_sid")
         self.name: Optional[str] = payload.get("name")
-        self.status: Optional["SiprecInstance.Status"] = payload.get("status")
+        self.status: Optional["TranscriptionInstance.Status"] = payload.get("status")
         self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
@@ -70,18 +70,18 @@ class SiprecInstance(InstanceResource):
             "call_sid": call_sid,
             "sid": sid or self.sid,
         }
-        self._context: Optional[SiprecContext] = None
+        self._context: Optional[TranscriptionContext] = None
 
     @property
-    def _proxy(self) -> "SiprecContext":
+    def _proxy(self) -> "TranscriptionContext":
         """
         Generate an instance context for the instance, the context is capable of
         performing various actions. All instance actions are proxied to the context
 
-        :returns: SiprecContext for this SiprecInstance
+        :returns: TranscriptionContext for this TranscriptionInstance
         """
         if self._context is None:
-            self._context = SiprecContext(
+            self._context = TranscriptionContext(
                 self._version,
                 account_sid=self._solution["account_sid"],
                 call_sid=self._solution["call_sid"],
@@ -89,27 +89,29 @@ class SiprecInstance(InstanceResource):
             )
         return self._context
 
-    def update(self, status: "SiprecInstance.UpdateStatus") -> "SiprecInstance":
+    def update(
+        self, status: "TranscriptionInstance.UpdateStatus"
+    ) -> "TranscriptionInstance":
         """
-        Update the SiprecInstance
+        Update the TranscriptionInstance
 
         :param status:
 
-        :returns: The updated SiprecInstance
+        :returns: The updated TranscriptionInstance
         """
         return self._proxy.update(
             status=status,
         )
 
     async def update_async(
-        self, status: "SiprecInstance.UpdateStatus"
-    ) -> "SiprecInstance":
+        self, status: "TranscriptionInstance.UpdateStatus"
+    ) -> "TranscriptionInstance":
         """
-        Asynchronous coroutine to update the SiprecInstance
+        Asynchronous coroutine to update the TranscriptionInstance
 
         :param status:
 
-        :returns: The updated SiprecInstance
+        :returns: The updated TranscriptionInstance
         """
         return await self._proxy.update_async(
             status=status,
@@ -122,19 +124,19 @@ class SiprecInstance(InstanceResource):
         :returns: Machine friendly representation
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.SiprecInstance {}>".format(context)
+        return "<Twilio.Api.V2010.TranscriptionInstance {}>".format(context)
 
 
-class SiprecContext(InstanceContext):
+class TranscriptionContext(InstanceContext):
 
     def __init__(self, version: Version, account_sid: str, call_sid: str, sid: str):
         """
-        Initialize the SiprecContext
+        Initialize the TranscriptionContext
 
         :param version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
-        :param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.
-        :param sid: The SID of the Siprec resource, or the `name` used when creating the resource
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Transcription resource.
+        :param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Transcription resource is associated with.
+        :param sid: The SID of the Transcription resource, or the `name` used when creating the resource
         """
         super().__init__(version)
 
@@ -144,17 +146,21 @@ class SiprecContext(InstanceContext):
             "call_sid": call_sid,
             "sid": sid,
         }
-        self._uri = "/Accounts/{account_sid}/Calls/{call_sid}/Siprec/{sid}.json".format(
-            **self._solution
+        self._uri = (
+            "/Accounts/{account_sid}/Calls/{call_sid}/Transcriptions/{sid}.json".format(
+                **self._solution
+            )
         )
 
-    def update(self, status: "SiprecInstance.UpdateStatus") -> SiprecInstance:
+    def update(
+        self, status: "TranscriptionInstance.UpdateStatus"
+    ) -> TranscriptionInstance:
         """
-        Update the SiprecInstance
+        Update the TranscriptionInstance
 
         :param status:
 
-        :returns: The updated SiprecInstance
+        :returns: The updated TranscriptionInstance
         """
         data = values.of(
             {
@@ -168,7 +174,7 @@ class SiprecContext(InstanceContext):
             data=data,
         )
 
-        return SiprecInstance(
+        return TranscriptionInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
@@ -177,14 +183,14 @@ class SiprecContext(InstanceContext):
         )
 
     async def update_async(
-        self, status: "SiprecInstance.UpdateStatus"
-    ) -> SiprecInstance:
+        self, status: "TranscriptionInstance.UpdateStatus"
+    ) -> TranscriptionInstance:
         """
-        Asynchronous coroutine to update the SiprecInstance
+        Asynchronous coroutine to update the TranscriptionInstance
 
         :param status:
 
-        :returns: The updated SiprecInstance
+        :returns: The updated TranscriptionInstance
         """
         data = values.of(
             {
@@ -198,7 +204,7 @@ class SiprecContext(InstanceContext):
             data=data,
         )
 
-        return SiprecInstance(
+        return TranscriptionInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
@@ -213,18 +219,18 @@ class SiprecContext(InstanceContext):
         :returns: Machine friendly representation
         """
         context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.SiprecContext {}>".format(context)
+        return "<Twilio.Api.V2010.TranscriptionContext {}>".format(context)
 
 
-class SiprecList(ListResource):
+class TranscriptionList(ListResource):
 
     def __init__(self, version: Version, account_sid: str, call_sid: str):
         """
-        Initialize the SiprecList
+        Initialize the TranscriptionList
 
         :param version: Version that contains the resource
-        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Siprec resource.
-        :param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Siprec resource is associated with.
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created this Transcription resource.
+        :param call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Transcription resource is associated with.
 
         """
         super().__init__(version)
@@ -234,17 +240,27 @@ class SiprecList(ListResource):
             "account_sid": account_sid,
             "call_sid": call_sid,
         }
-        self._uri = "/Accounts/{account_sid}/Calls/{call_sid}/Siprec.json".format(
-            **self._solution
+        self._uri = (
+            "/Accounts/{account_sid}/Calls/{call_sid}/Transcriptions.json".format(
+                **self._solution
+            )
         )
 
     def create(
         self,
         name: Union[str, object] = values.unset,
-        connector_name: Union[str, object] = values.unset,
-        track: Union["SiprecInstance.Track", object] = values.unset,
-        status_callback: Union[str, object] = values.unset,
+        track: Union["TranscriptionInstance.Track", object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
         status_callback_method: Union[str, object] = values.unset,
+        inbound_track_label: Union[str, object] = values.unset,
+        outbound_track_label: Union[str, object] = values.unset,
+        partial_results: Union[bool, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        transcription_engine: Union[str, object] = values.unset,
+        profanity_filter: Union[bool, object] = values.unset,
+        speech_model: Union[str, object] = values.unset,
+        hints: Union[str, object] = values.unset,
+        enable_automatic_punctuation: Union[bool, object] = values.unset,
         parameter1_name: Union[str, object] = values.unset,
         parameter1_value: Union[str, object] = values.unset,
         parameter2_name: Union[str, object] = values.unset,
@@ -443,15 +459,23 @@ class SiprecList(ListResource):
         parameter98_value: Union[str, object] = values.unset,
         parameter99_name: Union[str, object] = values.unset,
         parameter99_value: Union[str, object] = values.unset,
-    ) -> SiprecInstance:
+    ) -> TranscriptionInstance:
         """
-        Create the SiprecInstance
+        Create the TranscriptionInstance
 
-        :param name: The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec.
-        :param connector_name: Unique name used when configuring the connector via Marketplace Add-on.
+        :param name: The user-specified name of this Transcription, if one was given when the Transcription was created. This may be used to stop the Transcription.
         :param track:
-        :param status_callback: Absolute URL of the status callback.
+        :param status_callback_url: Absolute URL of the status callback.
         :param status_callback_method: The http method for the status_callback (one of GET, POST).
+        :param inbound_track_label: Friendly name given to the Inbound Track
+        :param outbound_track_label: Friendly name given to the Outbound Track
+        :param partial_results: Indicates if partial results are going to be send to the customer
+        :param language_code: Language code used by the transcription engine, specified in [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) format
+        :param transcription_engine: Definition of the transcription engine to be used, between those supported by Twilio
+        :param profanity_filter: indicates if the server will attempt to filter out profanities, replacing all but the initial character in each filtered word with asterisks
+        :param speech_model: Recognition model used by the transcription engine, between those supported by the provider
+        :param hints: A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
+        :param enable_automatic_punctuation: The provider will adds punctuation to recognition result hypotheses
         :param parameter1_name: Parameter name
         :param parameter1_value: Parameter value
         :param parameter2_name: Parameter name
@@ -651,16 +675,26 @@ class SiprecList(ListResource):
         :param parameter99_name: Parameter name
         :param parameter99_value: Parameter value
 
-        :returns: The created SiprecInstance
+        :returns: The created TranscriptionInstance
         """
 
         data = values.of(
             {
                 "Name": name,
-                "ConnectorName": connector_name,
                 "Track": track,
-                "StatusCallback": status_callback,
+                "StatusCallbackUrl": status_callback_url,
                 "StatusCallbackMethod": status_callback_method,
+                "InboundTrackLabel": inbound_track_label,
+                "OutboundTrackLabel": outbound_track_label,
+                "PartialResults": serialize.boolean_to_string(partial_results),
+                "LanguageCode": language_code,
+                "TranscriptionEngine": transcription_engine,
+                "ProfanityFilter": serialize.boolean_to_string(profanity_filter),
+                "SpeechModel": speech_model,
+                "Hints": hints,
+                "EnableAutomaticPunctuation": serialize.boolean_to_string(
+                    enable_automatic_punctuation
+                ),
                 "Parameter1.Name": parameter1_name,
                 "Parameter1.Value": parameter1_value,
                 "Parameter2.Name": parameter2_name,
@@ -867,7 +901,7 @@ class SiprecList(ListResource):
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
-        return SiprecInstance(
+        return TranscriptionInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
@@ -877,10 +911,18 @@ class SiprecList(ListResource):
     async def create_async(
         self,
         name: Union[str, object] = values.unset,
-        connector_name: Union[str, object] = values.unset,
-        track: Union["SiprecInstance.Track", object] = values.unset,
-        status_callback: Union[str, object] = values.unset,
+        track: Union["TranscriptionInstance.Track", object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
         status_callback_method: Union[str, object] = values.unset,
+        inbound_track_label: Union[str, object] = values.unset,
+        outbound_track_label: Union[str, object] = values.unset,
+        partial_results: Union[bool, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        transcription_engine: Union[str, object] = values.unset,
+        profanity_filter: Union[bool, object] = values.unset,
+        speech_model: Union[str, object] = values.unset,
+        hints: Union[str, object] = values.unset,
+        enable_automatic_punctuation: Union[bool, object] = values.unset,
         parameter1_name: Union[str, object] = values.unset,
         parameter1_value: Union[str, object] = values.unset,
         parameter2_name: Union[str, object] = values.unset,
@@ -1079,15 +1121,23 @@ class SiprecList(ListResource):
         parameter98_value: Union[str, object] = values.unset,
         parameter99_name: Union[str, object] = values.unset,
         parameter99_value: Union[str, object] = values.unset,
-    ) -> SiprecInstance:
+    ) -> TranscriptionInstance:
         """
-        Asynchronously create the SiprecInstance
+        Asynchronously create the TranscriptionInstance
 
-        :param name: The user-specified name of this Siprec, if one was given when the Siprec was created. This may be used to stop the Siprec.
-        :param connector_name: Unique name used when configuring the connector via Marketplace Add-on.
+        :param name: The user-specified name of this Transcription, if one was given when the Transcription was created. This may be used to stop the Transcription.
         :param track:
-        :param status_callback: Absolute URL of the status callback.
+        :param status_callback_url: Absolute URL of the status callback.
         :param status_callback_method: The http method for the status_callback (one of GET, POST).
+        :param inbound_track_label: Friendly name given to the Inbound Track
+        :param outbound_track_label: Friendly name given to the Outbound Track
+        :param partial_results: Indicates if partial results are going to be send to the customer
+        :param language_code: Language code used by the transcription engine, specified in [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) format
+        :param transcription_engine: Definition of the transcription engine to be used, between those supported by Twilio
+        :param profanity_filter: indicates if the server will attempt to filter out profanities, replacing all but the initial character in each filtered word with asterisks
+        :param speech_model: Recognition model used by the transcription engine, between those supported by the provider
+        :param hints: A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
+        :param enable_automatic_punctuation: The provider will adds punctuation to recognition result hypotheses
         :param parameter1_name: Parameter name
         :param parameter1_value: Parameter value
         :param parameter2_name: Parameter name
@@ -1287,16 +1337,26 @@ class SiprecList(ListResource):
         :param parameter99_name: Parameter name
         :param parameter99_value: Parameter value
 
-        :returns: The created SiprecInstance
+        :returns: The created TranscriptionInstance
         """
 
         data = values.of(
             {
                 "Name": name,
-                "ConnectorName": connector_name,
                 "Track": track,
-                "StatusCallback": status_callback,
+                "StatusCallbackUrl": status_callback_url,
                 "StatusCallbackMethod": status_callback_method,
+                "InboundTrackLabel": inbound_track_label,
+                "OutboundTrackLabel": outbound_track_label,
+                "PartialResults": serialize.boolean_to_string(partial_results),
+                "LanguageCode": language_code,
+                "TranscriptionEngine": transcription_engine,
+                "ProfanityFilter": serialize.boolean_to_string(profanity_filter),
+                "SpeechModel": speech_model,
+                "Hints": hints,
+                "EnableAutomaticPunctuation": serialize.boolean_to_string(
+                    enable_automatic_punctuation
+                ),
                 "Parameter1.Name": parameter1_name,
                 "Parameter1.Value": parameter1_value,
                 "Parameter2.Name": parameter2_name,
@@ -1503,33 +1563,33 @@ class SiprecList(ListResource):
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
-        return SiprecInstance(
+        return TranscriptionInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             call_sid=self._solution["call_sid"],
         )
 
-    def get(self, sid: str) -> SiprecContext:
+    def get(self, sid: str) -> TranscriptionContext:
         """
-        Constructs a SiprecContext
+        Constructs a TranscriptionContext
 
-        :param sid: The SID of the Siprec resource, or the `name` used when creating the resource
+        :param sid: The SID of the Transcription resource, or the `name` used when creating the resource
         """
-        return SiprecContext(
+        return TranscriptionContext(
             self._version,
             account_sid=self._solution["account_sid"],
             call_sid=self._solution["call_sid"],
             sid=sid,
         )
 
-    def __call__(self, sid: str) -> SiprecContext:
+    def __call__(self, sid: str) -> TranscriptionContext:
         """
-        Constructs a SiprecContext
+        Constructs a TranscriptionContext
 
-        :param sid: The SID of the Siprec resource, or the `name` used when creating the resource
+        :param sid: The SID of the Transcription resource, or the `name` used when creating the resource
         """
-        return SiprecContext(
+        return TranscriptionContext(
             self._version,
             account_sid=self._solution["account_sid"],
             call_sid=self._solution["call_sid"],
@@ -1542,4 +1602,4 @@ class SiprecList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Api.V2010.SiprecList>"
+        return "<Twilio.Api.V2010.TranscriptionList>"

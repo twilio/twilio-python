@@ -3,6 +3,60 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-07-02] Version 9.2.3
+--------------------------
+**Intelligence**
+- Deprecate account flag api.twilio-intelligence.v2
+
+
+[2024-06-27] Version 9.2.2
+--------------------------
+**Api**
+- Add `transcription` resource
+
+**Flex**
+- Changed mount name for flex_team v2 api
+
+**Intelligence**
+- Add `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Config` as Response Headers to Operator resources
+
+**Numbers**
+- Added include_constraints query parameter to the Regulations API
+
+**Twiml**
+- Add support for `<Transcription>` noun
+
+
+[2024-06-21] Version 9.2.1
+--------------------------
+**Api**
+- Add beta feature request managed cert
+
+
+[2024-06-18] Version 9.2.0
+--------------------------
+**Library - Chore**
+- [PR #796](https://github.com/twilio/twilio-python/pull/796): adding contentType in post and put. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Events**
+- Add `status` and `documentation_url` to Event Types
+
+**Lookups**
+- Removed unused `fraud` lookups in V1 only to facilitate rest proxy migration
+
+**Numbers**
+- Add date_created field to the Get Port In Request API
+- Rename the `status_last_time_updated_timestamp` field to `last_updated` in the Get Port In Phone Number API **(breaking change)**
+- Add Rejection reason and rejection reason code to the Get Port In Phone Number API
+- Remove the carrier information from the Portability API
+
+**Proxy**
+- Change property `type` from enum to ienum
+
+**Trusthub**
+- Add skipMessagingUseCase field in compliance_tollfree_inquiry.
+
+
 [2024-06-06] Version 9.1.1
 --------------------------
 **Api**

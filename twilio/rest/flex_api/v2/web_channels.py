@@ -86,6 +86,7 @@ class WebChannelsList(ListResource):
         headers = values.of(
             {
                 "Ui-Version": ui_version,
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         )
 
@@ -126,6 +127,7 @@ class WebChannelsList(ListResource):
         headers = values.of(
             {
                 "Ui-Version": ui_version,
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         )
 

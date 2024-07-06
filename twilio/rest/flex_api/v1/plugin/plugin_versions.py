@@ -283,6 +283,7 @@ class PluginVersionsList(ListResource):
         headers = values.of(
             {
                 "Flex-Metadata": flex_metadata,
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         )
 
@@ -331,6 +332,7 @@ class PluginVersionsList(ListResource):
         headers = values.of(
             {
                 "Flex-Metadata": flex_metadata,
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         )
 

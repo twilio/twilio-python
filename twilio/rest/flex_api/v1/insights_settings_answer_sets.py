@@ -75,6 +75,7 @@ class InsightsSettingsAnswerSetsList(ListResource):
         headers = values.of(
             {
                 "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         )
 
@@ -94,6 +95,7 @@ class InsightsSettingsAnswerSetsList(ListResource):
         headers = values.of(
             {
                 "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
             }
         )
 

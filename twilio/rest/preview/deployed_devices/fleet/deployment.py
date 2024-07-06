@@ -378,11 +378,10 @@ class DeploymentList(ListResource):
                 "SyncServiceSid": sync_service_sid,
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return DeploymentInstance(
@@ -409,11 +408,10 @@ class DeploymentList(ListResource):
                 "SyncServiceSid": sync_service_sid,
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return DeploymentInstance(

@@ -29,6 +29,8 @@ class EventTypeInstance(InstanceResource):
     :ivar date_created: The date that this Event Type was created, given in ISO 8601 format.
     :ivar date_updated: The date that this Event Type was updated, given in ISO 8601 format.
     :ivar description: A human readable description for this Event Type.
+    :ivar status: A string that describes how this Event Type can be used. For example: `available`, `deprecated`, `restricted`, `discontinued`. When the status is `available`, the Event Type can be used normally.
+    :ivar documentation_url: The URL to the documentation or to the most relevant Twilio Changelog entry of this Event Type.
     :ivar url: The URL of this resource.
     :ivar links:
     """
@@ -47,6 +49,8 @@ class EventTypeInstance(InstanceResource):
             payload.get("date_updated")
         )
         self.description: Optional[str] = payload.get("description")
+        self.status: Optional[str] = payload.get("status")
+        self.documentation_url: Optional[str] = payload.get("documentation_url")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 

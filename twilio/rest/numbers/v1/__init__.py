@@ -28,12 +28,10 @@ from twilio.rest.numbers.v1.porting_webhook_configuration import (
 from twilio.rest.numbers.v1.porting_webhook_configuration_delete import (
     PortingWebhookConfigurationDeleteList,
 )
-from twilio.rest.numbers.v1.porting_webhook_configuration_fetch import (
-    PortingWebhookConfigurationFetchList,
-)
 from twilio.rest.numbers.v1.signing_request_configuration import (
     SigningRequestConfigurationList,
 )
+from twilio.rest.numbers.v1.webhook import WebhookList
 
 
 class V1(Version):
@@ -58,12 +56,10 @@ class V1(Version):
         self._porting_webhook_configurations_delete: Optional[
             PortingWebhookConfigurationDeleteList
         ] = None
-        self._porting_webhook_configuration_fetch: Optional[
-            PortingWebhookConfigurationFetchList
-        ] = None
         self._signing_request_configurations: Optional[
             SigningRequestConfigurationList
         ] = None
+        self._webhook: Optional[WebhookList] = None
 
     @property
     def bulk_eligibilities(self) -> BulkEligibilityList:
@@ -112,20 +108,16 @@ class V1(Version):
         return self._porting_webhook_configurations_delete
 
     @property
-    def porting_webhook_configuration_fetch(
-        self,
-    ) -> PortingWebhookConfigurationFetchList:
-        if self._porting_webhook_configuration_fetch is None:
-            self._porting_webhook_configuration_fetch = (
-                PortingWebhookConfigurationFetchList(self)
-            )
-        return self._porting_webhook_configuration_fetch
-
-    @property
     def signing_request_configurations(self) -> SigningRequestConfigurationList:
         if self._signing_request_configurations is None:
             self._signing_request_configurations = SigningRequestConfigurationList(self)
         return self._signing_request_configurations
+
+    @property
+    def webhook(self) -> WebhookList:
+        if self._webhook is None:
+            self._webhook = WebhookList(self)
+        return self._webhook
 
     def __repr__(self) -> str:
         """

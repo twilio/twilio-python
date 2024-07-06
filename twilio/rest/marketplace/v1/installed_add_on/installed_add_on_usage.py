@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, List, Optional
-from twilio.base import deserialize
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -52,7 +52,7 @@ class InstalledAddOnUsageInstance(InstanceResource):
 
 class InstalledAddOnUsageList(ListResource):
 
-    class CreateMarketplaceBillingUsageRequest(object):
+    class CreateBillingUsageRequest(object):
         """
         :ivar billable_items:
         """
@@ -60,9 +60,7 @@ class InstalledAddOnUsageList(ListResource):
         def __init__(self, payload: Dict[str, Any], installed_add_on_sid: str):
 
             self.billable_items: Optional[
-                List[
-                    InstalledAddOnUsageList.CreateMarketplaceBillingUsageRequestBillableItems
-                ]
+                List[InstalledAddOnUsageList.CreateBillingUsageRequestBillableItems]
             ] = payload.get("billable_items")
 
         def to_dict(self):
@@ -72,7 +70,7 @@ class InstalledAddOnUsageList(ListResource):
                 ],
             }
 
-    class CreateMarketplaceBillingUsageRequestBillableItems(object):
+    class CreateBillingUsageRequestBillableItems(object):
         """
         :ivar quantity:
         :ivar sid:
@@ -108,19 +106,19 @@ class InstalledAddOnUsageList(ListResource):
         )
 
     def create(
-        self,
-        create_marketplace_billing_usage_request: CreateMarketplaceBillingUsageRequest,
+        self, create_billing_usage_request: CreateBillingUsageRequest
     ) -> InstalledAddOnUsageInstance:
         """
         Create the InstalledAddOnUsageInstance
 
-        :param create_marketplace_billing_usage_request:
+        :param create_billing_usage_request:
 
         :returns: The created InstalledAddOnUsageInstance
         """
-        data = create_marketplace_billing_usage_request.to_dict()
+        data = create_billing_usage_request.to_dict()
 
-        headers = {"Content-Type": "application/json"}
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers["Content-Type"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -133,19 +131,19 @@ class InstalledAddOnUsageList(ListResource):
         )
 
     async def create_async(
-        self,
-        create_marketplace_billing_usage_request: CreateMarketplaceBillingUsageRequest,
+        self, create_billing_usage_request: CreateBillingUsageRequest
     ) -> InstalledAddOnUsageInstance:
         """
         Asynchronously create the InstalledAddOnUsageInstance
 
-        :param create_marketplace_billing_usage_request:
+        :param create_billing_usage_request:
 
         :returns: The created InstalledAddOnUsageInstance
         """
-        data = create_marketplace_billing_usage_request.to_dict()
+        data = create_billing_usage_request.to_dict()
 
-        headers = {"Content-Type": "application/json"}
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers["Content-Type"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers

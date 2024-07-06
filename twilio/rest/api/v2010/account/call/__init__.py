@@ -26,6 +26,7 @@ from twilio.rest.api.v2010.account.call.payment import PaymentList
 from twilio.rest.api.v2010.account.call.recording import RecordingList
 from twilio.rest.api.v2010.account.call.siprec import SiprecList
 from twilio.rest.api.v2010.account.call.stream import StreamList
+from twilio.rest.api.v2010.account.call.transcription import TranscriptionList
 from twilio.rest.api.v2010.account.call.user_defined_message import (
     UserDefinedMessageList,
 )
@@ -65,7 +66,7 @@ class CallInstance(InstanceResource):
     :ivar start_time: The start time of the call, given as UTC in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format. Empty if the call has not yet been dialed.
     :ivar end_time: The time the call ended, given as UTC in [RFC 2822](https://www.php.net/manual/en/class.datetime.php#datetime.constants.rfc2822) format. Empty if the call did not complete successfully.
     :ivar duration: The length of the call in seconds. This value is empty for busy, failed, unanswered, or ongoing calls.
-    :ivar price: The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available.
+    :ivar price: The charge for this call, in the currency associated with the account. Populated after the call is completed. May not be immediately available. The price associated with a call only reflects the charge for connectivity.  Charges for other call-related features such as Answering Machine Detection, Text-To-Speech, and SIP REFER are not included in this value.
     :ivar price_unit: The currency in which `Price` is measured, in [ISO 4127](https://www.iso.org/iso/home/standards/currency_codes.htm) format (e.g., `USD`, `EUR`, `JPY`). Always capitalized for calls.
     :ivar direction: A string describing the direction of the call. Can be: `inbound` for inbound calls, `outbound-api` for calls initiated via the REST API or `outbound-dial` for calls initiated by a `<Dial>` verb. Using [Elastic SIP Trunking](https://www.twilio.com/docs/sip-trunking), the values can be [`trunking-terminating`](https://www.twilio.com/docs/sip-trunking#termination) for outgoing calls from your communications infrastructure to the PSTN or [`trunking-originating`](https://www.twilio.com/docs/sip-trunking#origination) for incoming calls to your communications infrastructure from the PSTN.
     :ivar answered_by: Either `human` or `machine` if this call was initiated with answering machine detection. Empty otherwise.
@@ -304,6 +305,13 @@ class CallInstance(InstanceResource):
         return self._proxy.streams
 
     @property
+    def transcriptions(self) -> TranscriptionList:
+        """
+        Access the transcriptions
+        """
+        return self._proxy.transcriptions
+
+    @property
     def user_defined_messages(self) -> UserDefinedMessageList:
         """
         Access the user_defined_messages
@@ -352,6 +360,7 @@ class CallContext(InstanceContext):
         self._recordings: Optional[RecordingList] = None
         self._siprec: Optional[SiprecList] = None
         self._streams: Optional[StreamList] = None
+        self._transcriptions: Optional[TranscriptionList] = None
         self._user_defined_messages: Optional[UserDefinedMessageList] = None
         self._user_defined_message_subscriptions: Optional[
             UserDefinedMessageSubscriptionList
@@ -608,6 +617,19 @@ class CallContext(InstanceContext):
         return self._streams
 
     @property
+    def transcriptions(self) -> TranscriptionList:
+        """
+        Access the transcriptions
+        """
+        if self._transcriptions is None:
+            self._transcriptions = TranscriptionList(
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
+            )
+        return self._transcriptions
+
+    @property
     def user_defined_messages(self) -> UserDefinedMessageList:
         """
         Access the user_defined_messages
@@ -807,11 +829,10 @@ class CallList(ListResource):
                 "ApplicationSid": application_sid,
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = self._version.create(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return CallInstance(
@@ -941,11 +962,10 @@ class CallList(ListResource):
                 "ApplicationSid": application_sid,
             }
         )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         payload = await self._version.create_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return CallInstance(
