@@ -1,13 +1,24 @@
-
 from twilio.base.version import Version
+from twilio.http.token_manager import TokenManager
 from twilio.rest.preview_iam.organizations.token import TokenList
 
-class OrgTokenManager():
+
+class OrgTokenManager(TokenManager):
     """
     Orgs Token Manager
     """
 
-    def __init__(self, grant_type: str, client_id: str, client_secret: str, code: str = None, redirect_uri: str = None, audience: str = None, refreshToken: str = None, scope: str = None):
+    def __init__(
+        self,
+        grant_type: str,
+        client_id: str,
+        client_secret: str,
+        code: str = None,
+        redirect_uri: str = None,
+        audience: str = None,
+        refreshToken: str = None,
+        scope: str = None,
+    ):
         self.grant_type = grant_type
         self.client_id = client_id
         self.client_secret = client_secret
@@ -26,6 +37,6 @@ class OrgTokenManager():
             code=self.code,
             redirect_uri=self.redirect_uri,
             audience=self.audience,
-            scope=self.scope
+            scope=self.scope,
         )
         return token_instance.access_token
