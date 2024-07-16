@@ -39,6 +39,7 @@ class Version(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
+        is_oauth: bool = False,
     ) -> Response:
         """
         Make an HTTP request.
@@ -53,6 +54,7 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
+            is_oauth=is_oauth
         )
 
     async def request_async(
@@ -123,6 +125,7 @@ class Version(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
+        is_oauth: bool = False,
     ) -> Any:
         """
         Fetch a resource instance.
@@ -136,6 +139,7 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
+            is_oauth=is_oauth
         )
 
         return self._parse_fetch(method, uri, response)

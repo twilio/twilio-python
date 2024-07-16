@@ -69,6 +69,8 @@ class ClientBase(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
+        is_oauth: bool = False,
+        domain: Optional[str] = None
     ) -> Response:
         """
         Makes a request to the Twilio API using the configured http client
@@ -85,9 +87,13 @@ class ClientBase(object):
 
         :returns: Response from the Twilio API
         """
-        auth = self.get_auth(auth)
+        if not is_oauth:
+            auth = self.get_auth(auth)
         headers = self.get_headers(method, headers)
         uri = self.get_hostname(uri)
+        if is_oauth:
+            OauthTokenBase = dynamic_import("twilio.base.oauth_token_base", "OauthTokenBase")
+            headers['Authorization'] = f'Bearer {OauthTokenBase().get_oauth_token(domain, "v1", self.username, self.password)}'
 
         return self.http_client.request(
             method,
@@ -232,3 +238,8 @@ class ClientBase(object):
         :returns: Machine friendly representation
         """
         return "<Twilio {}>".format(self.account_sid)
+
+def dynamic_import(module_name, class_name):
+    from importlib import import_module
+    module = import_module(module_name)
+    return getattr(module, class_name)
