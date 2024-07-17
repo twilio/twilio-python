@@ -15,11 +15,10 @@ class OauthTokenBase:
         Client = dynamic_import("twilio.rest", "Client")
         try:
             orgs_token_manager = TokenManagerInitializer.get_token_manager()
-            BearerTokenHTTPClient(orgs_token_manager).get_headers(Version(Domain(Client(username, password), domain), version))
-            return orgs_token_manager.fetch_access_token(version=version)
+            return BearerTokenHTTPClient(orgs_token_manager).get_access_token(Version(Domain(Client(username, password), domain), version))
         except Exception:
             orgs_token_manager = OrgTokenManager(grant_type='client_credentials',
                                                 client_id=username,
                                                 client_secret=password)
-            BearerTokenHTTPClient(orgs_token_manager).get_headers(Version(Domain(Client(username, password), domain), version))
-            return orgs_token_manager.fetch_access_token(version=Version(Domain(Client(username, password), domain), version))
+            TokenManagerInitializer().set_token_manager(orgs_token_manager)
+            return BearerTokenHTTPClient(orgs_token_manager).get_access_token(Version(Domain(Client(username, password), domain), version))

@@ -1,5 +1,4 @@
 from threading import Lock
-from concurrent.futures import ThreadPoolExecutor
 
 
 class BearerTokenTwilioRestClient:
@@ -13,7 +12,7 @@ class TwilioBearerTokenAuth:
     user_agent_extensions = None
     region = None
     edge = None
-    
+
     @classmethod
     def init(cls, access_token):
         with cls._lock:

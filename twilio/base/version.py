@@ -67,6 +67,7 @@ class Version(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
+        is_oauth: bool = False,
     ) -> Response:
         """
         Make an asynchronous HTTP request
@@ -81,6 +82,7 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
+            is_oauth=is_oauth
         )
 
     @classmethod
@@ -154,6 +156,7 @@ class Version(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
+        is_oauth: bool = False,
     ) -> Any:
         """
         Asynchronously fetch a resource instance.
@@ -167,6 +170,7 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
+            is_oauth=is_oauth
         )
 
         return self._parse_fetch(method, uri, response)
@@ -190,6 +194,7 @@ class Version(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
+        is_oauth: bool = False,
     ) -> Any:
         """
         Update a resource instance.
@@ -217,6 +222,7 @@ class Version(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
+        is_oauth: bool = False,
     ) -> Any:
         """
         Asynchronously update a resource instance.
@@ -230,6 +236,7 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
+            is_oauth=is_oauth
         )
 
         return self._parse_update(method, uri, response)
@@ -253,6 +260,7 @@ class Version(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
+        is_oauth: bool = False,
     ) -> bool:
         """
         Delete a resource.
@@ -280,6 +288,7 @@ class Version(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
+        is_oauth: bool = False,
     ) -> bool:
         """
         Asynchronously delete a resource.
@@ -293,6 +302,7 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
+            is_oauth=is_oauth
         )
 
         return self._parse_delete(method, uri, response)
@@ -351,6 +361,7 @@ class Version(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
+        is_oauth: bool = False,
     ) -> Response:
         """
         Makes an asynchronous HTTP request.
@@ -364,6 +375,7 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
+            is_oauth=is_oauth
         )
 
     def stream(
@@ -451,6 +463,7 @@ class Version(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
+        is_oauth: bool = False,
     ) -> Any:
         """
         Create a resource instance.
@@ -478,6 +491,7 @@ class Version(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
+        is_oauth: bool = False,
     ) -> Any:
         """
         Asynchronously create a resource instance.
@@ -491,6 +505,7 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
+            is_oauth=is_oauth
         )
 
         return self._parse_create(method, uri, response)

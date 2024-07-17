@@ -10,7 +10,7 @@ class BearerTokenHTTPClient:
     def __init__(self, orgs_token_manager: TokenManager):
         self.orgs_token_manager = orgs_token_manager
 
-    def get_headers(self, version: Version):
+    def get_access_token(self, version: Version):
         if TwilioBearerTokenAuth.get_access_token() is None or self.is_token_expired(
             TwilioBearerTokenAuth.get_access_token()
         ):

@@ -70,6 +70,7 @@ class Domain(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
+        is_oauth: bool = False,
     ) -> Response:
         """
         Makes an asynchronous HTTP request to this domain.
@@ -93,4 +94,5 @@ class Domain(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
+            is_oauth=is_oauth
         )

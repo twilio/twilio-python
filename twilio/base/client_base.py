@@ -93,7 +93,9 @@ class ClientBase(object):
         uri = self.get_hostname(uri)
         if is_oauth:
             OauthTokenBase = dynamic_import("twilio.base.oauth_token_base", "OauthTokenBase")
-            headers['Authorization'] = f'Bearer {OauthTokenBase().get_oauth_token(domain, "v1", self.username, self.password)}'
+            token = OauthTokenBase().get_oauth_token(domain, "v1", self.username, self.password)
+            headers['Authorization'] = f'Bearer {token}'
+            headers.get('Authorization')
 
         return self.http_client.request(
             method,
@@ -116,6 +118,7 @@ class ClientBase(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
+        is_oauth: bool = False,
     ) -> Response:
         """
         Asynchronously makes a request to the Twilio API  using the configured http client
@@ -137,10 +140,15 @@ class ClientBase(object):
             raise RuntimeError(
                 "http_client must be asynchronous to support async API requests"
             )
-
-        auth = self.get_auth(auth)
+        if not is_oauth:
+            auth = self.get_auth(auth)
         headers = self.get_headers(method, headers)
         uri = self.get_hostname(uri)
+        if is_oauth:
+            OauthTokenBase = dynamic_import("twilio.base.oauth_token_base", "OauthTokenBase")
+            token = OauthTokenBase().get_oauth_token(domain, "v1", self.username, self.password)
+            headers['Authorization'] = f'Bearer {token}'
+            headers.get('Authorization')
 
         return await self.http_client.request(
             method,
