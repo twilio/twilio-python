@@ -57,6 +57,7 @@ class TwilioHttpClient(HttpClient):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
+        is_oauth: bool = False,
     ) -> Response:
         """
         Make an HTTP Request with parameters provided.
