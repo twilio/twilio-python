@@ -12,11 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -47,14 +45,24 @@ class TranscriptionInstance(InstanceResource):
     :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, recording_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        recording_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.api_version: Optional[str] = payload.get("api_version")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
         self.duration: Optional[str] = payload.get("duration")
         self.price: Optional[float] = deserialize.decimal(payload.get("price"))
         self.price_unit: Optional[str] = payload.get("price_unit")
@@ -65,8 +73,7 @@ class TranscriptionInstance(InstanceResource):
         self.type: Optional[str] = payload.get("type")
         self.uri: Optional[str] = payload.get("uri")
 
-        
-        self._solution = { 
+        self._solution = {
             "account_sid": account_sid,
             "recording_sid": recording_sid,
             "sid": sid or self.sid,
@@ -82,32 +89,36 @@ class TranscriptionInstance(InstanceResource):
         :returns: TranscriptionContext for this TranscriptionInstance
         """
         if self._context is None:
-            self._context = TranscriptionContext(self._version, account_sid=self._solution['account_sid'], recording_sid=self._solution['recording_sid'], sid=self._solution['sid'],)
+            self._context = TranscriptionContext(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                recording_sid=self._solution["recording_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the TranscriptionInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the TranscriptionInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "TranscriptionInstance":
         """
         Fetch the TranscriptionInstance
-        
+
 
         :returns: The fetched TranscriptionInstance
         """
@@ -116,24 +127,27 @@ class TranscriptionInstance(InstanceResource):
     async def fetch_async(self) -> "TranscriptionInstance":
         """
         Asynchronous coroutine to fetch the TranscriptionInstance
-        
+
 
         :returns: The fetched TranscriptionInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.TranscriptionInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.TranscriptionInstance {}>".format(context)
+
 
 class TranscriptionContext(InstanceContext):
 
-    def __init__(self, version: Version, account_sid: str, recording_sid: str, sid: str):
+    def __init__(
+        self, version: Version, account_sid: str, recording_sid: str, sid: str
+    ):
         """
         Initialize the TranscriptionContext
 
@@ -144,88 +158,90 @@ class TranscriptionContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'recording_sid': recording_sid,
-            'sid': sid,
+        self._solution = {
+            "account_sid": account_sid,
+            "recording_sid": recording_sid,
+            "sid": sid,
         }
-        self._uri = '/Accounts/{account_sid}/Recordings/{recording_sid}/Transcriptions/{sid}.json'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Accounts/{account_sid}/Recordings/{recording_sid}/Transcriptions/{sid}.json".format(
+            **self._solution
+        )
+
     def delete(self) -> bool:
         """
         Deletes the TranscriptionInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the TranscriptionInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> TranscriptionInstance:
         """
         Fetch the TranscriptionInstance
-        
+
 
         :returns: The fetched TranscriptionInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return TranscriptionInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            recording_sid=self._solution['recording_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            recording_sid=self._solution["recording_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> TranscriptionInstance:
         """
         Asynchronous coroutine to fetch the TranscriptionInstance
-        
+
 
         :returns: The fetched TranscriptionInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return TranscriptionInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            recording_sid=self._solution['recording_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            recording_sid=self._solution["recording_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.TranscriptionContext {}>'.format(context)
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.TranscriptionContext {}>".format(context)
 
 
 class TranscriptionPage(Page):
@@ -236,7 +252,12 @@ class TranscriptionPage(Page):
 
         :param payload: Payload response from the API
         """
-        return TranscriptionInstance(self._version, payload, account_sid=self._solution["account_sid"], recording_sid=self._solution["recording_sid"])
+        return TranscriptionInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            recording_sid=self._solution["recording_sid"],
+        )
 
     def __repr__(self) -> str:
         """
@@ -247,11 +268,8 @@ class TranscriptionPage(Page):
         return "<Twilio.Api.V2010.TranscriptionPage>"
 
 
-
-
-
 class TranscriptionList(ListResource):
-    
+
     def __init__(self, version: Version, account_sid: str, recording_sid: str):
         """
         Initialize the TranscriptionList
@@ -259,21 +277,21 @@ class TranscriptionList(ListResource):
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Transcription resources to read.
         :param recording_sid: The SID of the [Recording](https://www.twilio.com/docs/voice/api/recording) that created the transcriptions to read.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'account_sid': account_sid, 'recording_sid': recording_sid,  }
-        self._uri = '/Accounts/{account_sid}/Recordings/{recording_sid}/Transcriptions.json'.format(**self._solution)
-        
-        
-    
-    
-    
-    def stream(self, 
-        
+        self._solution = {
+            "account_sid": account_sid,
+            "recording_sid": recording_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Recordings/{recording_sid}/Transcriptions.json".format(
+            **self._solution
+        )
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[TranscriptionInstance]:
@@ -282,7 +300,7 @@ class TranscriptionList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -293,14 +311,12 @@ class TranscriptionList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[TranscriptionInstance]:
@@ -309,7 +325,7 @@ class TranscriptionList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -320,14 +336,12 @@ class TranscriptionList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[TranscriptionInstance]:
@@ -335,7 +349,7 @@ class TranscriptionList(ListResource):
         Lists TranscriptionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -345,13 +359,15 @@ class TranscriptionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[TranscriptionInstance]:
@@ -359,7 +375,7 @@ class TranscriptionList(ListResource):
         Asynchronously lists TranscriptionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -369,13 +385,16 @@ class TranscriptionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -383,24 +402,26 @@ class TranscriptionList(ListResource):
         """
         Retrieve a single page of TranscriptionInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TranscriptionInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return TranscriptionPage(self._version, response, self._solution)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -408,20 +429,24 @@ class TranscriptionList(ListResource):
         """
         Asynchronously retrieve a single page of TranscriptionInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of TranscriptionInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return TranscriptionPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> TranscriptionPage:
@@ -433,10 +458,7 @@ class TranscriptionList(ListResource):
 
         :returns: Page of TranscriptionInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return TranscriptionPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> TranscriptionPage:
@@ -448,29 +470,34 @@ class TranscriptionList(ListResource):
 
         :returns: Page of TranscriptionInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return TranscriptionPage(self._version, response, self._solution)
-
-
 
     def get(self, sid: str) -> TranscriptionContext:
         """
         Constructs a TranscriptionContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Transcription resource to fetch.
         """
-        return TranscriptionContext(self._version, account_sid=self._solution['account_sid'], recording_sid=self._solution['recording_sid'], sid=sid)
+        return TranscriptionContext(
+            self._version,
+            account_sid=self._solution["account_sid"],
+            recording_sid=self._solution["recording_sid"],
+            sid=sid,
+        )
 
     def __call__(self, sid: str) -> TranscriptionContext:
         """
         Constructs a TranscriptionContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Transcription resource to fetch.
         """
-        return TranscriptionContext(self._version, account_sid=self._solution['account_sid'], recording_sid=self._solution['recording_sid'], sid=sid)
+        return TranscriptionContext(
+            self._version,
+            account_sid=self._solution["account_sid"],
+            recording_sid=self._solution["recording_sid"],
+            sid=sid,
+        )
 
     def __repr__(self) -> str:
         """
@@ -478,5 +505,4 @@ class TranscriptionList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Api.V2010.TranscriptionList>'
-
+        return "<Twilio.Api.V2010.TranscriptionList>"

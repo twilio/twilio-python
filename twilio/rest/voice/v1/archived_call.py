@@ -12,17 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from datetime import date
 from twilio.base.instance_context import InstanceContext
 
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
-
 
 
 class ArchivedCallContext(InstanceContext):
@@ -37,66 +31,62 @@ class ArchivedCallContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'date': date,
-            'sid': sid,
+        self._solution = {
+            "date": date,
+            "sid": sid,
         }
-        self._uri = '/Archives/{date}/Calls/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Archives/{date}/Calls/{sid}".format(**self._solution)
+
     def delete(self) -> bool:
         """
         Deletes the ArchivedCallInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ArchivedCallInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Voice.V1.ArchivedCallContext {}>'.format(context)
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Voice.V1.ArchivedCallContext {}>".format(context)
 
 
 class ArchivedCallList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the ArchivedCallList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
-
-        
-        
-        
-        
 
     def get(self, date: date, sid: str) -> ArchivedCallContext:
         """
         Constructs a ArchivedCallContext
-        
+
         :param date: The date of the Call in UTC.
         :param sid: The Twilio-provided Call SID that uniquely identifies the Call resource to delete
         """
@@ -105,7 +95,7 @@ class ArchivedCallList(ListResource):
     def __call__(self, date: date, sid: str) -> ArchivedCallContext:
         """
         Constructs a ArchivedCallContext
-        
+
         :param date: The date of the Call in UTC.
         :param sid: The Twilio-provided Call SID that uniquely identifies the Call resource to delete
         """
@@ -117,5 +107,4 @@ class ArchivedCallList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Voice.V1.ArchivedCallList>'
-
+        return "<Twilio.Voice.V1.ArchivedCallList>"

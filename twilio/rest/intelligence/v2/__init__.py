@@ -42,7 +42,7 @@ class V2(Version):
         self._prebuilt_operators: Optional[PrebuiltOperatorList] = None
         self._services: Optional[ServiceList] = None
         self._transcripts: Optional[TranscriptList] = None
-        
+
     @property
     def custom_operators(self) -> CustomOperatorList:
         if self._custom_operators is None:

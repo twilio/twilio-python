@@ -12,117 +12,109 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Any, Dict, Optional, Union
+from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class ApprovalCreateInstance(InstanceResource):
-
     """
-    :ivar name: 
-    :ivar category: 
-    :ivar content_type: 
-    :ivar status: 
-    :ivar rejection_reason: 
-    :ivar allow_category_change: 
+    :ivar name:
+    :ivar category:
+    :ivar content_type:
+    :ivar status:
+    :ivar rejection_reason:
+    :ivar allow_category_change:
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any], sid: str):
         super().__init__(version)
 
-        
         self.name: Optional[str] = payload.get("name")
         self.category: Optional[str] = payload.get("category")
         self.content_type: Optional[str] = payload.get("content_type")
         self.status: Optional[str] = payload.get("status")
         self.rejection_reason: Optional[str] = payload.get("rejection_reason")
-        self.allow_category_change: Optional[bool] = payload.get("allow_category_change")
+        self.allow_category_change: Optional[bool] = payload.get(
+            "allow_category_change"
+        )
 
-        
-        self._solution = { 
+        self._solution = {
             "sid": sid,
         }
-        
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Content.V1.ApprovalCreateInstance {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Content.V1.ApprovalCreateInstance {}>".format(context)
 
 
 class ApprovalCreateList(ListResource):
-    
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ApprovalCreateList
 
         :param version: Version that contains the resource
-        :param sid: 
-        
+        :param sid:
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'sid': sid,  }
-        self._uri = '/Content/{sid}/ApprovalRequests/whatsapp'.format(**self._solution)
-        
-        
-    
-    def create(self, body: Union[object, object]=values.unset) -> ApprovalCreateInstance:
+        self._solution = {
+            "sid": sid,
+        }
+        self._uri = "/Content/{sid}/ApprovalRequests/whatsapp".format(**self._solution)
+
+    def create(
+        self, body: Union[object, object] = values.unset
+    ) -> ApprovalCreateInstance:
         """
         Create the ApprovalCreateInstance
 
-        :param body: 
-        
+        :param body:
+
         :returns: The created ApprovalCreateInstance
         """
         data = body.to_dict()
-        
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        headers['Content-Type'] = 'application/json'
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return ApprovalCreateInstance(self._version, payload, sid=self._solution['sid'])
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers["Content-Type"] = "application/json"
 
-    async def create_async(self, body: Union[object, object]=values.unset) -> ApprovalCreateInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ApprovalCreateInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def create_async(
+        self, body: Union[object, object] = values.unset
+    ) -> ApprovalCreateInstance:
         """
         Asynchronously create the ApprovalCreateInstance
 
-        :param body: 
-        
+        :param body:
+
         :returns: The created ApprovalCreateInstance
         """
         data = body.to_dict()
-        
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        headers['Content-Type'] = 'application/json'
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return ApprovalCreateInstance(self._version, payload, sid=self._solution['sid'])
-    
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers["Content-Type"] = "application/json"
 
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
+        return ApprovalCreateInstance(self._version, payload, sid=self._solution["sid"])
 
     def __repr__(self) -> str:
         """
@@ -130,5 +122,4 @@ class ApprovalCreateList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Content.V1.ApprovalCreateList>'
-
+        return "<Twilio.Content.V1.ApprovalCreateList>"

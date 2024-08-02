@@ -12,36 +12,34 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Any, Dict, Optional
+from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class SafelistInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the SafeList resource.
     :ivar phone_number: The phone number in SafeList.
     :ivar url: The absolute URL of the SafeList resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], phone_number: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        phone_number: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.phone_number: Optional[str] = payload.get("phone_number")
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "phone_number": phone_number or self.phone_number,
         }
         self._context: Optional[SafelistContext] = None
@@ -55,32 +53,34 @@ class SafelistInstance(InstanceResource):
         :returns: SafelistContext for this SafelistInstance
         """
         if self._context is None:
-            self._context = SafelistContext(self._version, phone_number=self._solution['phone_number'],)
+            self._context = SafelistContext(
+                self._version,
+                phone_number=self._solution["phone_number"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the SafelistInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SafelistInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "SafelistInstance":
         """
         Fetch the SafelistInstance
-        
+
 
         :returns: The fetched SafelistInstance
         """
@@ -89,20 +89,21 @@ class SafelistInstance(InstanceResource):
     async def fetch_async(self) -> "SafelistInstance":
         """
         Asynchronous coroutine to fetch the SafelistInstance
-        
+
 
         :returns: The fetched SafelistInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.SafelistInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Verify.V2.SafelistInstance {}>".format(context)
+
 
 class SafelistContext(InstanceContext):
 
@@ -115,116 +116,116 @@ class SafelistContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'phone_number': phone_number,
+        self._solution = {
+            "phone_number": phone_number,
         }
-        self._uri = '/SafeList/Numbers/{phone_number}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/SafeList/Numbers/{phone_number}".format(**self._solution)
+
     def delete(self) -> bool:
         """
         Deletes the SafelistInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SafelistInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> SafelistInstance:
         """
         Fetch the SafelistInstance
-        
+
 
         :returns: The fetched SafelistInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return SafelistInstance(
             self._version,
             payload,
-            phone_number=self._solution['phone_number'],
-            
+            phone_number=self._solution["phone_number"],
         )
 
     async def fetch_async(self) -> SafelistInstance:
         """
         Asynchronous coroutine to fetch the SafelistInstance
-        
+
 
         :returns: The fetched SafelistInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return SafelistInstance(
             self._version,
             payload,
-            phone_number=self._solution['phone_number'],
-            
+            phone_number=self._solution["phone_number"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.SafelistContext {}>'.format(context)
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Verify.V2.SafelistContext {}>".format(context)
 
 
 class SafelistList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the SafelistList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/SafeList/Numbers'
-        
-        
-    
-    
-    
+        self._uri = "/SafeList/Numbers"
+
     def create(self, phone_number: str) -> SafelistInstance:
         """
         Create the SafelistInstance
 
         :param phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-        
+
         :returns: The created SafelistInstance
         """
-        
-        data = values.of({ 
-            'PhoneNumber': phone_number,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "PhoneNumber": phone_number,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return SafelistInstance(self._version, payload)
 
@@ -233,28 +234,27 @@ class SafelistList(ListResource):
         Asynchronously create the SafelistInstance
 
         :param phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
-        
+
         :returns: The created SafelistInstance
         """
-        
-        data = values.of({ 
-            'PhoneNumber': phone_number,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "PhoneNumber": phone_number,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return SafelistInstance(self._version, payload)
-    
-
 
     def get(self, phone_number: str) -> SafelistContext:
         """
         Constructs a SafelistContext
-        
+
         :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         """
         return SafelistContext(self._version, phone_number=phone_number)
@@ -262,7 +262,7 @@ class SafelistList(ListResource):
     def __call__(self, phone_number: str) -> SafelistContext:
         """
         Constructs a SafelistContext
-        
+
         :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         """
         return SafelistContext(self._version, phone_number=phone_number)
@@ -273,5 +273,4 @@ class SafelistList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Verify.V2.SafelistList>'
-
+        return "<Twilio.Verify.V2.SafelistList>"

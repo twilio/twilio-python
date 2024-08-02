@@ -12,11 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -25,7 +23,6 @@ from twilio.base.page import Page
 
 
 class PayloadInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that that we created to identify the Recording AddOnResult Payload resource.
     :ivar add_on_result_sid: The SID of the AddOnResult to which the payload belongs.
@@ -40,24 +37,38 @@ class PayloadInstance(InstanceResource):
     :ivar subresource_uris: A list of related resources identified by their relative URIs.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, reference_sid: str, add_on_result_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        reference_sid: str,
+        add_on_result_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.add_on_result_sid: Optional[str] = payload.get("add_on_result_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.label: Optional[str] = payload.get("label")
         self.add_on_sid: Optional[str] = payload.get("add_on_sid")
-        self.add_on_configuration_sid: Optional[str] = payload.get("add_on_configuration_sid")
+        self.add_on_configuration_sid: Optional[str] = payload.get(
+            "add_on_configuration_sid"
+        )
         self.content_type: Optional[str] = payload.get("content_type")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
         self.reference_sid: Optional[str] = payload.get("reference_sid")
-        self.subresource_uris: Optional[Dict[str, object]] = payload.get("subresource_uris")
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
 
-        
-        self._solution = { 
+        self._solution = {
             "account_sid": account_sid,
             "reference_sid": reference_sid,
             "add_on_result_sid": add_on_result_sid,
@@ -74,32 +85,37 @@ class PayloadInstance(InstanceResource):
         :returns: PayloadContext for this PayloadInstance
         """
         if self._context is None:
-            self._context = PayloadContext(self._version, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], add_on_result_sid=self._solution['add_on_result_sid'], sid=self._solution['sid'],)
+            self._context = PayloadContext(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                reference_sid=self._solution["reference_sid"],
+                add_on_result_sid=self._solution["add_on_result_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the PayloadInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the PayloadInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "PayloadInstance":
         """
         Fetch the PayloadInstance
-        
+
 
         :returns: The fetched PayloadInstance
         """
@@ -108,24 +124,32 @@ class PayloadInstance(InstanceResource):
     async def fetch_async(self) -> "PayloadInstance":
         """
         Asynchronous coroutine to fetch the PayloadInstance
-        
+
 
         :returns: The fetched PayloadInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.PayloadInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.PayloadInstance {}>".format(context)
+
 
 class PayloadContext(InstanceContext):
 
-    def __init__(self, version: Version, account_sid: str, reference_sid: str, add_on_result_sid: str, sid: str):
+    def __init__(
+        self,
+        version: Version,
+        account_sid: str,
+        reference_sid: str,
+        add_on_result_sid: str,
+        sid: str,
+    ):
         """
         Initialize the PayloadContext
 
@@ -137,91 +161,93 @@ class PayloadContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'reference_sid': reference_sid,
-            'add_on_result_sid': add_on_result_sid,
-            'sid': sid,
+        self._solution = {
+            "account_sid": account_sid,
+            "reference_sid": reference_sid,
+            "add_on_result_sid": add_on_result_sid,
+            "sid": sid,
         }
-        self._uri = '/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{add_on_result_sid}/Payloads/{sid}.json'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{add_on_result_sid}/Payloads/{sid}.json".format(
+            **self._solution
+        )
+
     def delete(self) -> bool:
         """
         Deletes the PayloadInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the PayloadInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> PayloadInstance:
         """
         Fetch the PayloadInstance
-        
+
 
         :returns: The fetched PayloadInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return PayloadInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            reference_sid=self._solution['reference_sid'],
-            add_on_result_sid=self._solution['add_on_result_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            reference_sid=self._solution["reference_sid"],
+            add_on_result_sid=self._solution["add_on_result_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> PayloadInstance:
         """
         Asynchronous coroutine to fetch the PayloadInstance
-        
+
 
         :returns: The fetched PayloadInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return PayloadInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            reference_sid=self._solution['reference_sid'],
-            add_on_result_sid=self._solution['add_on_result_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            reference_sid=self._solution["reference_sid"],
+            add_on_result_sid=self._solution["add_on_result_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.PayloadContext {}>'.format(context)
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.PayloadContext {}>".format(context)
 
 
 class PayloadPage(Page):
@@ -232,7 +258,13 @@ class PayloadPage(Page):
 
         :param payload: Payload response from the API
         """
-        return PayloadInstance(self._version, payload, account_sid=self._solution["account_sid"], reference_sid=self._solution["reference_sid"], add_on_result_sid=self._solution["add_on_result_sid"])
+        return PayloadInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            reference_sid=self._solution["reference_sid"],
+            add_on_result_sid=self._solution["add_on_result_sid"],
+        )
 
     def __repr__(self) -> str:
         """
@@ -243,12 +275,15 @@ class PayloadPage(Page):
         return "<Twilio.Api.V2010.PayloadPage>"
 
 
-
-
-
 class PayloadList(ListResource):
-    
-    def __init__(self, version: Version, account_sid: str, reference_sid: str, add_on_result_sid: str):
+
+    def __init__(
+        self,
+        version: Version,
+        account_sid: str,
+        reference_sid: str,
+        add_on_result_sid: str,
+    ):
         """
         Initialize the PayloadList
 
@@ -256,21 +291,22 @@ class PayloadList(ListResource):
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording AddOnResult Payload resources to read.
         :param reference_sid: The SID of the recording to which the AddOnResult resource that contains the payloads to read belongs.
         :param add_on_result_sid: The SID of the AddOnResult to which the payloads to read belongs.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'account_sid': account_sid, 'reference_sid': reference_sid, 'add_on_result_sid': add_on_result_sid,  }
-        self._uri = '/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{add_on_result_sid}/Payloads.json'.format(**self._solution)
-        
-        
-    
-    
-    
-    def stream(self, 
-        
+        self._solution = {
+            "account_sid": account_sid,
+            "reference_sid": reference_sid,
+            "add_on_result_sid": add_on_result_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{add_on_result_sid}/Payloads.json".format(
+            **self._solution
+        )
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[PayloadInstance]:
@@ -279,7 +315,7 @@ class PayloadList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -290,14 +326,12 @@ class PayloadList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[PayloadInstance]:
@@ -306,7 +340,7 @@ class PayloadList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -317,14 +351,12 @@ class PayloadList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[PayloadInstance]:
@@ -332,7 +364,7 @@ class PayloadList(ListResource):
         Lists PayloadInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -342,13 +374,15 @@ class PayloadList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[PayloadInstance]:
@@ -356,7 +390,7 @@ class PayloadList(ListResource):
         Asynchronously lists PayloadInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -366,13 +400,16 @@ class PayloadList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -380,24 +417,26 @@ class PayloadList(ListResource):
         """
         Retrieve a single page of PayloadInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of PayloadInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return PayloadPage(self._version, response, self._solution)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -405,20 +444,24 @@ class PayloadList(ListResource):
         """
         Asynchronously retrieve a single page of PayloadInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of PayloadInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return PayloadPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> PayloadPage:
@@ -430,10 +473,7 @@ class PayloadList(ListResource):
 
         :returns: Page of PayloadInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return PayloadPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> PayloadPage:
@@ -445,29 +485,36 @@ class PayloadList(ListResource):
 
         :returns: Page of PayloadInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return PayloadPage(self._version, response, self._solution)
-
-
 
     def get(self, sid: str) -> PayloadContext:
         """
         Constructs a PayloadContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch.
         """
-        return PayloadContext(self._version, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], add_on_result_sid=self._solution['add_on_result_sid'], sid=sid)
+        return PayloadContext(
+            self._version,
+            account_sid=self._solution["account_sid"],
+            reference_sid=self._solution["reference_sid"],
+            add_on_result_sid=self._solution["add_on_result_sid"],
+            sid=sid,
+        )
 
     def __call__(self, sid: str) -> PayloadContext:
         """
         Constructs a PayloadContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Recording AddOnResult Payload resource to fetch.
         """
-        return PayloadContext(self._version, account_sid=self._solution['account_sid'], reference_sid=self._solution['reference_sid'], add_on_result_sid=self._solution['add_on_result_sid'], sid=sid)
+        return PayloadContext(
+            self._version,
+            account_sid=self._solution["account_sid"],
+            reference_sid=self._solution["reference_sid"],
+            add_on_result_sid=self._solution["add_on_result_sid"],
+            sid=sid,
+        )
 
     def __repr__(self) -> str:
         """
@@ -475,5 +522,4 @@ class PayloadList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Api.V2010.PayloadList>'
-
+        return "<Twilio.Api.V2010.PayloadList>"

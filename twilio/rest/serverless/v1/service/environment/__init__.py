@@ -12,11 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -28,7 +26,6 @@ from twilio.rest.serverless.v1.service.environment.variable import VariableList
 
 
 class EnvironmentInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Environment resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Environment resource.
@@ -43,10 +40,15 @@ class EnvironmentInstance(InstanceResource):
     :ivar links: The URLs of the Environment resource's nested resources.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
@@ -54,13 +56,16 @@ class EnvironmentInstance(InstanceResource):
         self.unique_name: Optional[str] = payload.get("unique_name")
         self.domain_suffix: Optional[str] = payload.get("domain_suffix")
         self.domain_name: Optional[str] = payload.get("domain_name")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        
-        self._solution = { 
+        self._solution = {
             "service_sid": service_sid,
             "sid": sid or self.sid,
         }
@@ -75,32 +80,35 @@ class EnvironmentInstance(InstanceResource):
         :returns: EnvironmentContext for this EnvironmentInstance
         """
         if self._context is None:
-            self._context = EnvironmentContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'],)
+            self._context = EnvironmentContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the EnvironmentInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the EnvironmentInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "EnvironmentInstance":
         """
         Fetch the EnvironmentInstance
-        
+
 
         :returns: The fetched EnvironmentInstance
         """
@@ -109,41 +117,42 @@ class EnvironmentInstance(InstanceResource):
     async def fetch_async(self) -> "EnvironmentInstance":
         """
         Asynchronous coroutine to fetch the EnvironmentInstance
-        
+
 
         :returns: The fetched EnvironmentInstance
         """
         return await self._proxy.fetch_async()
-    
+
     @property
     def deployments(self) -> DeploymentList:
         """
         Access the deployments
         """
         return self._proxy.deployments
-    
+
     @property
     def logs(self) -> LogList:
         """
         Access the logs
         """
         return self._proxy.logs
-    
+
     @property
     def variables(self) -> VariableList:
         """
         Access the variables
         """
         return self._proxy.variables
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.EnvironmentInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Serverless.V1.EnvironmentInstance {}>".format(context)
+
 
 class EnvironmentContext(InstanceContext):
 
@@ -157,75 +166,83 @@ class EnvironmentContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
+        self._solution = {
+            "service_sid": service_sid,
+            "sid": sid,
         }
-        self._uri = '/Services/{service_sid}/Environments/{sid}'.format(**self._solution)
-        
+        self._uri = "/Services/{service_sid}/Environments/{sid}".format(
+            **self._solution
+        )
+
         self._deployments: Optional[DeploymentList] = None
         self._logs: Optional[LogList] = None
         self._variables: Optional[VariableList] = None
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the EnvironmentInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the EnvironmentInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> EnvironmentInstance:
         """
         Fetch the EnvironmentInstance
-        
+
 
         :returns: The fetched EnvironmentInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return EnvironmentInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> EnvironmentInstance:
         """
         Asynchronous coroutine to fetch the EnvironmentInstance
-        
+
 
         :returns: The fetched EnvironmentInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return EnvironmentInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     @property
     def deployments(self) -> DeploymentList:
         """
@@ -233,12 +250,12 @@ class EnvironmentContext(InstanceContext):
         """
         if self._deployments is None:
             self._deployments = DeploymentList(
-                self._version, 
-                self._solution['service_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["service_sid"],
+                self._solution["sid"],
             )
         return self._deployments
-    
+
     @property
     def logs(self) -> LogList:
         """
@@ -246,12 +263,12 @@ class EnvironmentContext(InstanceContext):
         """
         if self._logs is None:
             self._logs = LogList(
-                self._version, 
-                self._solution['service_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["service_sid"],
+                self._solution["sid"],
             )
         return self._logs
-    
+
     @property
     def variables(self) -> VariableList:
         """
@@ -259,27 +276,20 @@ class EnvironmentContext(InstanceContext):
         """
         if self._variables is None:
             self._variables = VariableList(
-                self._version, 
-                self._solution['service_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["service_sid"],
+                self._solution["sid"],
             )
         return self._variables
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.EnvironmentContext {}>'.format(context)
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Serverless.V1.EnvironmentContext {}>".format(context)
 
 
 class EnvironmentPage(Page):
@@ -290,7 +300,9 @@ class EnvironmentPage(Page):
 
         :param payload: Payload response from the API
         """
-        return EnvironmentInstance(self._version, payload, service_sid=self._solution["service_sid"])
+        return EnvironmentInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -301,79 +313,82 @@ class EnvironmentPage(Page):
         return "<Twilio.Serverless.V1.EnvironmentPage>"
 
 
-
-
-
 class EnvironmentList(ListResource):
-    
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the EnvironmentList
 
         :param version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Environment resources from.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/{service_sid}/Environments'.format(**self._solution)
-        
-        
-    
-    
-    
-    def create(self, unique_name: str, domain_suffix: Union[str, object]=values.unset) -> EnvironmentInstance:
+        self._solution = {
+            "service_sid": service_sid,
+        }
+        self._uri = "/Services/{service_sid}/Environments".format(**self._solution)
+
+    def create(
+        self, unique_name: str, domain_suffix: Union[str, object] = values.unset
+    ) -> EnvironmentInstance:
         """
         Create the EnvironmentInstance
 
         :param unique_name: A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters.
         :param domain_suffix: A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
-        
+
         :returns: The created EnvironmentInstance
         """
-        
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'DomainSuffix': domain_suffix,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return EnvironmentInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "DomainSuffix": domain_suffix,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, unique_name: str, domain_suffix: Union[str, object]=values.unset) -> EnvironmentInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return EnvironmentInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    async def create_async(
+        self, unique_name: str, domain_suffix: Union[str, object] = values.unset
+    ) -> EnvironmentInstance:
         """
         Asynchronously create the EnvironmentInstance
 
         :param unique_name: A user-defined string that uniquely identifies the Environment resource. It can be a maximum of 100 characters.
         :param domain_suffix: A URL-friendly name that represents the environment and forms part of the domain name. It can be a maximum of 16 characters.
-        
+
         :returns: The created EnvironmentInstance
         """
-        
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'DomainSuffix': domain_suffix,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return EnvironmentInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
-    
-    def stream(self, 
-        
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "DomainSuffix": domain_suffix,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return EnvironmentInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[EnvironmentInstance]:
@@ -382,7 +397,7 @@ class EnvironmentList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -393,14 +408,12 @@ class EnvironmentList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[EnvironmentInstance]:
@@ -409,7 +422,7 @@ class EnvironmentList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -420,14 +433,12 @@ class EnvironmentList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[EnvironmentInstance]:
@@ -435,7 +446,7 @@ class EnvironmentList(ListResource):
         Lists EnvironmentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -445,13 +456,15 @@ class EnvironmentList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[EnvironmentInstance]:
@@ -459,7 +472,7 @@ class EnvironmentList(ListResource):
         Asynchronously lists EnvironmentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -469,13 +482,16 @@ class EnvironmentList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -483,24 +499,26 @@ class EnvironmentList(ListResource):
         """
         Retrieve a single page of EnvironmentInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of EnvironmentInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return EnvironmentPage(self._version, response, self._solution)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -508,20 +526,24 @@ class EnvironmentList(ListResource):
         """
         Asynchronously retrieve a single page of EnvironmentInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of EnvironmentInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return EnvironmentPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> EnvironmentPage:
@@ -533,10 +555,7 @@ class EnvironmentList(ListResource):
 
         :returns: Page of EnvironmentInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return EnvironmentPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> EnvironmentPage:
@@ -548,35 +567,28 @@ class EnvironmentList(ListResource):
 
         :returns: Page of EnvironmentInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return EnvironmentPage(self._version, response, self._solution)
-
-
-
-
-
-
-
-
 
     def get(self, sid: str) -> EnvironmentContext:
         """
         Constructs a EnvironmentContext
-        
+
         :param sid: The SID of the Environment resource to fetch.
         """
-        return EnvironmentContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return EnvironmentContext(
+            self._version, service_sid=self._solution["service_sid"], sid=sid
+        )
 
     def __call__(self, sid: str) -> EnvironmentContext:
         """
         Constructs a EnvironmentContext
-        
+
         :param sid: The SID of the Environment resource to fetch.
         """
-        return EnvironmentContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return EnvironmentContext(
+            self._version, service_sid=self._solution["service_sid"], sid=sid
+        )
 
     def __repr__(self) -> str:
         """
@@ -584,5 +596,4 @@ class EnvironmentList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Serverless.V1.EnvironmentList>'
-
+        return "<Twilio.Serverless.V1.EnvironmentList>"

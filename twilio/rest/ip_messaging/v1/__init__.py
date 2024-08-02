@@ -30,7 +30,7 @@ class V1(Version):
         super().__init__(domain, "v1")
         self._credentials: Optional[CredentialList] = None
         self._services: Optional[ServiceList] = None
-        
+
     @property
     def credentials(self) -> CredentialList:
         if self._credentials is None:

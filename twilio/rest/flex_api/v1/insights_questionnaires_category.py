@@ -12,11 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -25,25 +22,27 @@ from twilio.base.page import Page
 
 
 class InsightsQuestionnairesCategoryInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
     :ivar category_sid: The SID of the category
     :ivar name: The name of this category.
-    :ivar url: 
+    :ivar url:
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], category_sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        category_sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.category_sid: Optional[str] = payload.get("category_sid")
         self.name: Optional[str] = payload.get("name")
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "category_sid": category_sid or self.category_sid,
         }
         self._context: Optional[InsightsQuestionnairesCategoryContext] = None
@@ -57,60 +56,81 @@ class InsightsQuestionnairesCategoryInstance(InstanceResource):
         :returns: InsightsQuestionnairesCategoryContext for this InsightsQuestionnairesCategoryInstance
         """
         if self._context is None:
-            self._context = InsightsQuestionnairesCategoryContext(self._version, category_sid=self._solution['category_sid'],)
+            self._context = InsightsQuestionnairesCategoryContext(
+                self._version,
+                category_sid=self._solution["category_sid"],
+            )
         return self._context
-    
-    
-    def delete(self, authorization: Union[str, object]=values.unset) -> bool:
+
+    def delete(self, authorization: Union[str, object] = values.unset) -> bool:
         """
         Deletes the InsightsQuestionnairesCategoryInstance
-        
+
         :param authorization: The Authorization HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._proxy.delete(authorization=authorization, )
-    async def delete_async(self, authorization: Union[str, object]=values.unset) -> bool:
+        return self._proxy.delete(
+            authorization=authorization,
+        )
+
+    async def delete_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> bool:
         """
         Asynchronous coroutine that deletes the InsightsQuestionnairesCategoryInstance
-        
+
         :param authorization: The Authorization HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._proxy.delete_async(authorization=authorization, )
-    
-    
-    def update(self, name: str, authorization: Union[str, object]=values.unset) -> "InsightsQuestionnairesCategoryInstance":
+        return await self._proxy.delete_async(
+            authorization=authorization,
+        )
+
+    def update(
+        self, name: str, authorization: Union[str, object] = values.unset
+    ) -> "InsightsQuestionnairesCategoryInstance":
         """
         Update the InsightsQuestionnairesCategoryInstance
-        
+
         :param name: The name of this category.
         :param authorization: The Authorization HTTP request header
 
         :returns: The updated InsightsQuestionnairesCategoryInstance
         """
-        return self._proxy.update(name=name, authorization=authorization, )
+        return self._proxy.update(
+            name=name,
+            authorization=authorization,
+        )
 
-    async def update_async(self, name: str, authorization: Union[str, object]=values.unset) -> "InsightsQuestionnairesCategoryInstance":
+    async def update_async(
+        self, name: str, authorization: Union[str, object] = values.unset
+    ) -> "InsightsQuestionnairesCategoryInstance":
         """
         Asynchronous coroutine to update the InsightsQuestionnairesCategoryInstance
-        
+
         :param name: The name of this category.
         :param authorization: The Authorization HTTP request header
 
         :returns: The updated InsightsQuestionnairesCategoryInstance
         """
-        return await self._proxy.update_async(name=name, authorization=authorization, )
-    
+        return await self._proxy.update_async(
+            name=name,
+            authorization=authorization,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryInstance {}>".format(
+            context
+        )
+
 
 class InsightsQuestionnairesCategoryContext(InstanceContext):
 
@@ -123,105 +143,127 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'category_sid': category_sid,
+        self._solution = {
+            "category_sid": category_sid,
         }
-        self._uri = '/Insights/QualityManagement/Categories/{category_sid}'.format(**self._solution)
-        
-    
-    
-    def delete(self, authorization: Union[str, object]=values.unset) -> bool:
+        self._uri = "/Insights/QualityManagement/Categories/{category_sid}".format(
+            **self._solution
+        )
+
+    def delete(self, authorization: Union[str, object] = values.unset) -> bool:
         """
         Deletes the InsightsQuestionnairesCategoryInstance
 
         :param authorization: The Authorization HTTP request header
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        headers = values.of({'Authorization': authorization, })
-        
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        headers = values.of(
+            {
+                "Authorization": authorization,
+            }
+        )
 
-    async def delete_async(self, authorization: Union[str, object]=values.unset) -> bool:
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+
+    async def delete_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> bool:
         """
         Asynchronous coroutine that deletes the InsightsQuestionnairesCategoryInstance
 
         :param authorization: The Authorization HTTP request header
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        headers = values.of({'Authorization': authorization, })
-        
-        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
-    
-    
-    def update(self, name: str, authorization: Union[str, object]=values.unset) -> InsightsQuestionnairesCategoryInstance:
+        headers = values.of(
+            {
+                "Authorization": authorization,
+            }
+        )
+
+        return await self._version.delete_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
+    def update(
+        self, name: str, authorization: Union[str, object] = values.unset
+    ) -> InsightsQuestionnairesCategoryInstance:
         """
         Update the InsightsQuestionnairesCategoryInstance
-        
+
         :param name: The name of this category.
         :param authorization: The Authorization HTTP request header
 
         :returns: The updated InsightsQuestionnairesCategoryInstance
         """
-        data = values.of({ 
-            'Name': name,
-        })
-        headers = values.of({'Authorization': authorization, })
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return InsightsQuestionnairesCategoryInstance(
-            self._version,
-            payload,
-            category_sid=self._solution['category_sid']
+        data = values.of(
+            {
+                "Name": name,
+            }
+        )
+        headers = values.of(
+            {
+                "Authorization": authorization,
+            }
         )
 
-    async def update_async(self, name: str, authorization: Union[str, object]=values.unset) -> InsightsQuestionnairesCategoryInstance:
+        payload = self._version.update(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return InsightsQuestionnairesCategoryInstance(
+            self._version, payload, category_sid=self._solution["category_sid"]
+        )
+
+    async def update_async(
+        self, name: str, authorization: Union[str, object] = values.unset
+    ) -> InsightsQuestionnairesCategoryInstance:
         """
         Asynchronous coroutine to update the InsightsQuestionnairesCategoryInstance
-        
+
         :param name: The name of this category.
         :param authorization: The Authorization HTTP request header
 
         :returns: The updated InsightsQuestionnairesCategoryInstance
         """
-        data = values.of({ 
-            'Name': name,
-        })
-        headers = values.of({'Authorization': authorization, })
+        data = values.of(
+            {
+                "Name": name,
+            }
+        )
+        headers = values.of(
+            {
+                "Authorization": authorization,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
+        payload = await self._version.update_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return InsightsQuestionnairesCategoryInstance(
-            self._version,
-            payload,
-            category_sid=self._solution['category_sid']
+            self._version, payload, category_sid=self._solution["category_sid"]
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryContext {}>'.format(context)
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryContext {}>".format(
+            context
+        )
 
 
 class InsightsQuestionnairesCategoryPage(Page):
 
-    def get_instance(self, payload: Dict[str, Any]) -> InsightsQuestionnairesCategoryInstance:
+    def get_instance(
+        self, payload: Dict[str, Any]
+    ) -> InsightsQuestionnairesCategoryInstance:
         """
         Build an instance of InsightsQuestionnairesCategoryInstance
 
@@ -238,77 +280,82 @@ class InsightsQuestionnairesCategoryPage(Page):
         return "<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryPage>"
 
 
-
-
-
 class InsightsQuestionnairesCategoryList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the InsightsQuestionnairesCategoryList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/Insights/QualityManagement/Categories'
-        
-        
-    
-    
-    
-    def create(self, name: str, authorization: Union[str, object]=values.unset) -> InsightsQuestionnairesCategoryInstance:
+        self._uri = "/Insights/QualityManagement/Categories"
+
+    def create(
+        self, name: str, authorization: Union[str, object] = values.unset
+    ) -> InsightsQuestionnairesCategoryInstance:
         """
         Create the InsightsQuestionnairesCategoryInstance
 
         :param name: The name of this category.
         :param authorization: The Authorization HTTP request header
-        
+
         :returns: The created InsightsQuestionnairesCategoryInstance
         """
-        
-        data = values.of({ 
-            'Name': name,
-        })
-        headers = values.of({
-                'Authorization': authorization,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "Name": name,
+            }
+        )
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return InsightsQuestionnairesCategoryInstance(self._version, payload)
 
-    async def create_async(self, name: str, authorization: Union[str, object]=values.unset) -> InsightsQuestionnairesCategoryInstance:
+    async def create_async(
+        self, name: str, authorization: Union[str, object] = values.unset
+    ) -> InsightsQuestionnairesCategoryInstance:
         """
         Asynchronously create the InsightsQuestionnairesCategoryInstance
 
         :param name: The name of this category.
         :param authorization: The Authorization HTTP request header
-        
+
         :returns: The created InsightsQuestionnairesCategoryInstance
         """
-        
-        data = values.of({ 
-            'Name': name,
-        })
-        headers = values.of({
-                'Authorization': authorization,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "Name": name,
+            }
+        )
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return InsightsQuestionnairesCategoryInstance(self._version, payload)
-    
-    
-    def stream(self, 
+
+    def stream(
+        self,
         authorization: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[InsightsQuestionnairesCategoryInstance]:
@@ -317,7 +364,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str authorization: The Authorization HTTP request header
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -329,16 +376,13 @@ class InsightsQuestionnairesCategoryList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            authorization=authorization,
-            page_size=limits['page_size']
-        )
+        page = self.page(authorization=authorization, page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         authorization: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[InsightsQuestionnairesCategoryInstance]:
@@ -347,7 +391,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str authorization: The Authorization HTTP request header
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -360,15 +404,14 @@ class InsightsQuestionnairesCategoryList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            authorization=authorization,
-            page_size=limits['page_size']
+            authorization=authorization, page_size=limits["page_size"]
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         authorization: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[InsightsQuestionnairesCategoryInstance]:
@@ -376,7 +419,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
         Lists InsightsQuestionnairesCategoryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str authorization: The Authorization HTTP request header
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -387,15 +430,17 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            authorization=authorization,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                authorization=authorization,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         authorization: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[InsightsQuestionnairesCategoryInstance]:
@@ -403,7 +448,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
         Asynchronously lists InsightsQuestionnairesCategoryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str authorization: The Authorization HTTP request header
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -414,15 +459,18 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            authorization=authorization,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                authorization=authorization,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         authorization: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -430,7 +478,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
         """
         Retrieve a single page of InsightsQuestionnairesCategoryInstance records from the API.
         Request is executed immediately
-        
+
         :param authorization: The Authorization HTTP request header
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -438,19 +486,21 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         :returns: Page of InsightsQuestionnairesCategoryInstance
         """
-        data = values.of({ 
-            'Authorization': authorization,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Authorization": authorization,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return InsightsQuestionnairesCategoryPage(self._version, response)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         authorization: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -458,7 +508,7 @@ class InsightsQuestionnairesCategoryList(ListResource):
         """
         Asynchronously retrieve a single page of InsightsQuestionnairesCategoryInstance records from the API.
         Request is executed immediately
-        
+
         :param authorization: The Authorization HTTP request header
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -466,14 +516,18 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         :returns: Page of InsightsQuestionnairesCategoryInstance
         """
-        data = values.of({ 
-            'Authorization': authorization,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Authorization": authorization,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return InsightsQuestionnairesCategoryPage(self._version, response)
 
     def get_page(self, target_url: str) -> InsightsQuestionnairesCategoryPage:
@@ -485,13 +539,12 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         :returns: Page of InsightsQuestionnairesCategoryInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return InsightsQuestionnairesCategoryPage(self._version, response)
 
-    async def get_page_async(self, target_url: str) -> InsightsQuestionnairesCategoryPage:
+    async def get_page_async(
+        self, target_url: str
+    ) -> InsightsQuestionnairesCategoryPage:
         """
         Asynchronously retrieve a specific page of InsightsQuestionnairesCategoryInstance records from the API.
         Request is executed immediately
@@ -500,29 +553,28 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         :returns: Page of InsightsQuestionnairesCategoryInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return InsightsQuestionnairesCategoryPage(self._version, response)
-
-
 
     def get(self, category_sid: str) -> InsightsQuestionnairesCategoryContext:
         """
         Constructs a InsightsQuestionnairesCategoryContext
-        
+
         :param category_sid: The SID of the category to be updated
         """
-        return InsightsQuestionnairesCategoryContext(self._version, category_sid=category_sid)
+        return InsightsQuestionnairesCategoryContext(
+            self._version, category_sid=category_sid
+        )
 
     def __call__(self, category_sid: str) -> InsightsQuestionnairesCategoryContext:
         """
         Constructs a InsightsQuestionnairesCategoryContext
-        
+
         :param category_sid: The SID of the category to be updated
         """
-        return InsightsQuestionnairesCategoryContext(self._version, category_sid=category_sid)
+        return InsightsQuestionnairesCategoryContext(
+            self._version, category_sid=category_sid
+        )
 
     def __repr__(self) -> str:
         """
@@ -530,5 +582,4 @@ class InsightsQuestionnairesCategoryList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryList>'
-
+        return "<Twilio.FlexApi.V1.InsightsQuestionnairesCategoryList>"

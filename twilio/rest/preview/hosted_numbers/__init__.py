@@ -15,7 +15,9 @@ r"""
 from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.preview.hosted_numbers.authorization_document import AuthorizationDocumentList
+from twilio.rest.preview.hosted_numbers.authorization_document import (
+    AuthorizationDocumentList,
+)
 from twilio.rest.preview.hosted_numbers.hosted_number_order import HostedNumberOrderList
 
 
@@ -30,7 +32,7 @@ class HostedNumbers(Version):
         super().__init__(domain, "HostedNumbers")
         self._authorization_documents: Optional[AuthorizationDocumentList] = None
         self._hosted_number_orders: Optional[HostedNumberOrderList] = None
-        
+
     @property
     def authorization_documents(self) -> AuthorizationDocumentList:
         if self._authorization_documents is None:

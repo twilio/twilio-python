@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -27,7 +25,9 @@ from twilio.rest.messaging.v1.service.channel_sender import ChannelSenderList
 from twilio.rest.messaging.v1.service.phone_number import PhoneNumberList
 from twilio.rest.messaging.v1.service.short_code import ShortCodeList
 from twilio.rest.messaging.v1.service.us_app_to_person import UsAppToPersonList
-from twilio.rest.messaging.v1.service.us_app_to_person_usecase import UsAppToPersonUsecaseList
+from twilio.rest.messaging.v1.service.us_app_to_person_usecase import (
+    UsAppToPersonUsecaseList,
+)
 
 
 class ServiceInstance(InstanceResource):
@@ -63,15 +63,20 @@ class ServiceInstance(InstanceResource):
     :ivar use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.inbound_request_url: Optional[str] = payload.get("inbound_request_url")
         self.inbound_method: Optional[str] = payload.get("inbound_method")
         self.fallback_url: Optional[str] = payload.get("fallback_url")
@@ -80,19 +85,30 @@ class ServiceInstance(InstanceResource):
         self.sticky_sender: Optional[bool] = payload.get("sticky_sender")
         self.mms_converter: Optional[bool] = payload.get("mms_converter")
         self.smart_encoding: Optional[bool] = payload.get("smart_encoding")
-        self.scan_message_content: Optional["ServiceInstance.ScanMessageContent"] = payload.get("scan_message_content")
-        self.fallback_to_long_code: Optional[bool] = payload.get("fallback_to_long_code")
+        self.scan_message_content: Optional["ServiceInstance.ScanMessageContent"] = (
+            payload.get("scan_message_content")
+        )
+        self.fallback_to_long_code: Optional[bool] = payload.get(
+            "fallback_to_long_code"
+        )
         self.area_code_geomatch: Optional[bool] = payload.get("area_code_geomatch")
-        self.synchronous_validation: Optional[bool] = payload.get("synchronous_validation")
-        self.validity_period: Optional[int] = deserialize.integer(payload.get("validity_period"))
+        self.synchronous_validation: Optional[bool] = payload.get(
+            "synchronous_validation"
+        )
+        self.validity_period: Optional[int] = deserialize.integer(
+            payload.get("validity_period")
+        )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
         self.usecase: Optional[str] = payload.get("usecase")
-        self.us_app_to_person_registered: Optional[bool] = payload.get("us_app_to_person_registered")
-        self.use_inbound_webhook_on_number: Optional[bool] = payload.get("use_inbound_webhook_on_number")
+        self.us_app_to_person_registered: Optional[bool] = payload.get(
+            "us_app_to_person_registered"
+        )
+        self.use_inbound_webhook_on_number: Optional[bool] = payload.get(
+            "use_inbound_webhook_on_number"
+        )
 
-        
-        self._solution = { 
+        self._solution = {
             "sid": sid or self.sid,
         }
         self._context: Optional[ServiceContext] = None
@@ -106,32 +122,34 @@ class ServiceInstance(InstanceResource):
         :returns: ServiceContext for this ServiceInstance
         """
         if self._context is None:
-            self._context = ServiceContext(self._version, sid=self._solution['sid'],)
+            self._context = ServiceContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the ServiceInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "ServiceInstance":
         """
         Fetch the ServiceInstance
-        
+
 
         :returns: The fetched ServiceInstance
         """
@@ -140,17 +158,36 @@ class ServiceInstance(InstanceResource):
     async def fetch_async(self) -> "ServiceInstance":
         """
         Asynchronous coroutine to fetch the ServiceInstance
-        
+
 
         :returns: The fetched ServiceInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, inbound_request_url: Union[str, object]=values.unset, inbound_method: Union[str, object]=values.unset, fallback_url: Union[str, object]=values.unset, fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, sticky_sender: Union[bool, object]=values.unset, mms_converter: Union[bool, object]=values.unset, smart_encoding: Union[bool, object]=values.unset, scan_message_content: Union["ServiceInstance.ScanMessageContent", object]=values.unset, fallback_to_long_code: Union[bool, object]=values.unset, area_code_geomatch: Union[bool, object]=values.unset, validity_period: Union[int, object]=values.unset, synchronous_validation: Union[bool, object]=values.unset, usecase: Union[str, object]=values.unset, use_inbound_webhook_on_number: Union[bool, object]=values.unset) -> "ServiceInstance":
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        inbound_request_url: Union[str, object] = values.unset,
+        inbound_method: Union[str, object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        sticky_sender: Union[bool, object] = values.unset,
+        mms_converter: Union[bool, object] = values.unset,
+        smart_encoding: Union[bool, object] = values.unset,
+        scan_message_content: Union[
+            "ServiceInstance.ScanMessageContent", object
+        ] = values.unset,
+        fallback_to_long_code: Union[bool, object] = values.unset,
+        area_code_geomatch: Union[bool, object] = values.unset,
+        validity_period: Union[int, object] = values.unset,
+        synchronous_validation: Union[bool, object] = values.unset,
+        usecase: Union[str, object] = values.unset,
+        use_inbound_webhook_on_number: Union[bool, object] = values.unset,
+    ) -> "ServiceInstance":
         """
         Update the ServiceInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param inbound_request_url: The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
         :param inbound_method: The HTTP method we should use to call `inbound_request_url`. Can be `GET` or `POST` and the default is `POST`.
@@ -160,7 +197,7 @@ class ServiceInstance(InstanceResource):
         :param sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance.
         :param mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
         :param smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
-        :param scan_message_content: 
+        :param scan_message_content:
         :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
         :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
@@ -170,12 +207,49 @@ class ServiceInstance(InstanceResource):
 
         :returns: The updated ServiceInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, inbound_request_url=inbound_request_url, inbound_method=inbound_method, fallback_url=fallback_url, fallback_method=fallback_method, status_callback=status_callback, sticky_sender=sticky_sender, mms_converter=mms_converter, smart_encoding=smart_encoding, scan_message_content=scan_message_content, fallback_to_long_code=fallback_to_long_code, area_code_geomatch=area_code_geomatch, validity_period=validity_period, synchronous_validation=synchronous_validation, usecase=usecase, use_inbound_webhook_on_number=use_inbound_webhook_on_number, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            inbound_request_url=inbound_request_url,
+            inbound_method=inbound_method,
+            fallback_url=fallback_url,
+            fallback_method=fallback_method,
+            status_callback=status_callback,
+            sticky_sender=sticky_sender,
+            mms_converter=mms_converter,
+            smart_encoding=smart_encoding,
+            scan_message_content=scan_message_content,
+            fallback_to_long_code=fallback_to_long_code,
+            area_code_geomatch=area_code_geomatch,
+            validity_period=validity_period,
+            synchronous_validation=synchronous_validation,
+            usecase=usecase,
+            use_inbound_webhook_on_number=use_inbound_webhook_on_number,
+        )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, inbound_request_url: Union[str, object]=values.unset, inbound_method: Union[str, object]=values.unset, fallback_url: Union[str, object]=values.unset, fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, sticky_sender: Union[bool, object]=values.unset, mms_converter: Union[bool, object]=values.unset, smart_encoding: Union[bool, object]=values.unset, scan_message_content: Union["ServiceInstance.ScanMessageContent", object]=values.unset, fallback_to_long_code: Union[bool, object]=values.unset, area_code_geomatch: Union[bool, object]=values.unset, validity_period: Union[int, object]=values.unset, synchronous_validation: Union[bool, object]=values.unset, usecase: Union[str, object]=values.unset, use_inbound_webhook_on_number: Union[bool, object]=values.unset) -> "ServiceInstance":
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        inbound_request_url: Union[str, object] = values.unset,
+        inbound_method: Union[str, object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        sticky_sender: Union[bool, object] = values.unset,
+        mms_converter: Union[bool, object] = values.unset,
+        smart_encoding: Union[bool, object] = values.unset,
+        scan_message_content: Union[
+            "ServiceInstance.ScanMessageContent", object
+        ] = values.unset,
+        fallback_to_long_code: Union[bool, object] = values.unset,
+        area_code_geomatch: Union[bool, object] = values.unset,
+        validity_period: Union[int, object] = values.unset,
+        synchronous_validation: Union[bool, object] = values.unset,
+        usecase: Union[str, object] = values.unset,
+        use_inbound_webhook_on_number: Union[bool, object] = values.unset,
+    ) -> "ServiceInstance":
         """
         Asynchronous coroutine to update the ServiceInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param inbound_request_url: The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
         :param inbound_method: The HTTP method we should use to call `inbound_request_url`. Can be `GET` or `POST` and the default is `POST`.
@@ -185,7 +259,7 @@ class ServiceInstance(InstanceResource):
         :param sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance.
         :param mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
         :param smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
-        :param scan_message_content: 
+        :param scan_message_content:
         :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
         :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
@@ -195,58 +269,76 @@ class ServiceInstance(InstanceResource):
 
         :returns: The updated ServiceInstance
         """
-        return await self._proxy.update_async(friendly_name=friendly_name, inbound_request_url=inbound_request_url, inbound_method=inbound_method, fallback_url=fallback_url, fallback_method=fallback_method, status_callback=status_callback, sticky_sender=sticky_sender, mms_converter=mms_converter, smart_encoding=smart_encoding, scan_message_content=scan_message_content, fallback_to_long_code=fallback_to_long_code, area_code_geomatch=area_code_geomatch, validity_period=validity_period, synchronous_validation=synchronous_validation, usecase=usecase, use_inbound_webhook_on_number=use_inbound_webhook_on_number, )
-    
+        return await self._proxy.update_async(
+            friendly_name=friendly_name,
+            inbound_request_url=inbound_request_url,
+            inbound_method=inbound_method,
+            fallback_url=fallback_url,
+            fallback_method=fallback_method,
+            status_callback=status_callback,
+            sticky_sender=sticky_sender,
+            mms_converter=mms_converter,
+            smart_encoding=smart_encoding,
+            scan_message_content=scan_message_content,
+            fallback_to_long_code=fallback_to_long_code,
+            area_code_geomatch=area_code_geomatch,
+            validity_period=validity_period,
+            synchronous_validation=synchronous_validation,
+            usecase=usecase,
+            use_inbound_webhook_on_number=use_inbound_webhook_on_number,
+        )
+
     @property
     def alpha_senders(self) -> AlphaSenderList:
         """
         Access the alpha_senders
         """
         return self._proxy.alpha_senders
-    
+
     @property
     def channel_senders(self) -> ChannelSenderList:
         """
         Access the channel_senders
         """
         return self._proxy.channel_senders
-    
+
     @property
     def phone_numbers(self) -> PhoneNumberList:
         """
         Access the phone_numbers
         """
         return self._proxy.phone_numbers
-    
+
     @property
     def short_codes(self) -> ShortCodeList:
         """
         Access the short_codes
         """
         return self._proxy.short_codes
-    
+
     @property
     def us_app_to_person(self) -> UsAppToPersonList:
         """
         Access the us_app_to_person
         """
         return self._proxy.us_app_to_person
-    
+
     @property
     def us_app_to_person_usecases(self) -> UsAppToPersonUsecaseList:
         """
         Access the us_app_to_person_usecases
         """
         return self._proxy.us_app_to_person_usecases
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.ServiceInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Messaging.V1.ServiceInstance {}>".format(context)
+
 
 class ServiceContext(InstanceContext):
 
@@ -259,79 +351,105 @@ class ServiceContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/Services/{sid}'.format(**self._solution)
-        
+        self._uri = "/Services/{sid}".format(**self._solution)
+
         self._alpha_senders: Optional[AlphaSenderList] = None
         self._channel_senders: Optional[ChannelSenderList] = None
         self._phone_numbers: Optional[PhoneNumberList] = None
         self._short_codes: Optional[ShortCodeList] = None
         self._us_app_to_person: Optional[UsAppToPersonList] = None
         self._us_app_to_person_usecases: Optional[UsAppToPersonUsecaseList] = None
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> ServiceInstance:
         """
         Fetch the ServiceInstance
-        
+
 
         :returns: The fetched ServiceInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ServiceInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> ServiceInstance:
         """
         Asynchronous coroutine to fetch the ServiceInstance
-        
+
 
         :returns: The fetched ServiceInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ServiceInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, inbound_request_url: Union[str, object]=values.unset, inbound_method: Union[str, object]=values.unset, fallback_url: Union[str, object]=values.unset, fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, sticky_sender: Union[bool, object]=values.unset, mms_converter: Union[bool, object]=values.unset, smart_encoding: Union[bool, object]=values.unset, scan_message_content: Union["ServiceInstance.ScanMessageContent", object]=values.unset, fallback_to_long_code: Union[bool, object]=values.unset, area_code_geomatch: Union[bool, object]=values.unset, validity_period: Union[int, object]=values.unset, synchronous_validation: Union[bool, object]=values.unset, usecase: Union[str, object]=values.unset, use_inbound_webhook_on_number: Union[bool, object]=values.unset) -> ServiceInstance:
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        inbound_request_url: Union[str, object] = values.unset,
+        inbound_method: Union[str, object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        sticky_sender: Union[bool, object] = values.unset,
+        mms_converter: Union[bool, object] = values.unset,
+        smart_encoding: Union[bool, object] = values.unset,
+        scan_message_content: Union[
+            "ServiceInstance.ScanMessageContent", object
+        ] = values.unset,
+        fallback_to_long_code: Union[bool, object] = values.unset,
+        area_code_geomatch: Union[bool, object] = values.unset,
+        validity_period: Union[int, object] = values.unset,
+        synchronous_validation: Union[bool, object] = values.unset,
+        usecase: Union[str, object] = values.unset,
+        use_inbound_webhook_on_number: Union[bool, object] = values.unset,
+    ) -> ServiceInstance:
         """
         Update the ServiceInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param inbound_request_url: The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
         :param inbound_method: The HTTP method we should use to call `inbound_request_url`. Can be `GET` or `POST` and the default is `POST`.
@@ -341,7 +459,7 @@ class ServiceContext(InstanceContext):
         :param sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance.
         :param mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
         :param smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
-        :param scan_message_content: 
+        :param scan_message_content:
         :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
         :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
@@ -351,38 +469,65 @@ class ServiceContext(InstanceContext):
 
         :returns: The updated ServiceInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'InboundRequestUrl': inbound_request_url,
-            'InboundMethod': inbound_method,
-            'FallbackUrl': fallback_url,
-            'FallbackMethod': fallback_method,
-            'StatusCallback': status_callback,
-            'StickySender': serialize.boolean_to_string(sticky_sender),
-            'MmsConverter': serialize.boolean_to_string(mms_converter),
-            'SmartEncoding': serialize.boolean_to_string(smart_encoding),
-            'ScanMessageContent': scan_message_content,
-            'FallbackToLongCode': serialize.boolean_to_string(fallback_to_long_code),
-            'AreaCodeGeomatch': serialize.boolean_to_string(area_code_geomatch),
-            'ValidityPeriod': validity_period,
-            'SynchronousValidation': serialize.boolean_to_string(synchronous_validation),
-            'Usecase': usecase,
-            'UseInboundWebhookOnNumber': serialize.boolean_to_string(use_inbound_webhook_on_number),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "InboundRequestUrl": inbound_request_url,
+                "InboundMethod": inbound_method,
+                "FallbackUrl": fallback_url,
+                "FallbackMethod": fallback_method,
+                "StatusCallback": status_callback,
+                "StickySender": serialize.boolean_to_string(sticky_sender),
+                "MmsConverter": serialize.boolean_to_string(mms_converter),
+                "SmartEncoding": serialize.boolean_to_string(smart_encoding),
+                "ScanMessageContent": scan_message_content,
+                "FallbackToLongCode": serialize.boolean_to_string(
+                    fallback_to_long_code
+                ),
+                "AreaCodeGeomatch": serialize.boolean_to_string(area_code_geomatch),
+                "ValidityPeriod": validity_period,
+                "SynchronousValidation": serialize.boolean_to_string(
+                    synchronous_validation
+                ),
+                "Usecase": usecase,
+                "UseInboundWebhookOnNumber": serialize.boolean_to_string(
+                    use_inbound_webhook_on_number
+                ),
+            }
         )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, inbound_request_url: Union[str, object]=values.unset, inbound_method: Union[str, object]=values.unset, fallback_url: Union[str, object]=values.unset, fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, sticky_sender: Union[bool, object]=values.unset, mms_converter: Union[bool, object]=values.unset, smart_encoding: Union[bool, object]=values.unset, scan_message_content: Union["ServiceInstance.ScanMessageContent", object]=values.unset, fallback_to_long_code: Union[bool, object]=values.unset, area_code_geomatch: Union[bool, object]=values.unset, validity_period: Union[int, object]=values.unset, synchronous_validation: Union[bool, object]=values.unset, usecase: Union[str, object]=values.unset, use_inbound_webhook_on_number: Union[bool, object]=values.unset) -> ServiceInstance:
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ServiceInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        inbound_request_url: Union[str, object] = values.unset,
+        inbound_method: Union[str, object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        sticky_sender: Union[bool, object] = values.unset,
+        mms_converter: Union[bool, object] = values.unset,
+        smart_encoding: Union[bool, object] = values.unset,
+        scan_message_content: Union[
+            "ServiceInstance.ScanMessageContent", object
+        ] = values.unset,
+        fallback_to_long_code: Union[bool, object] = values.unset,
+        area_code_geomatch: Union[bool, object] = values.unset,
+        validity_period: Union[int, object] = values.unset,
+        synchronous_validation: Union[bool, object] = values.unset,
+        usecase: Union[str, object] = values.unset,
+        use_inbound_webhook_on_number: Union[bool, object] = values.unset,
+    ) -> ServiceInstance:
         """
         Asynchronous coroutine to update the ServiceInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param inbound_request_url: The URL we call using `inbound_method` when a message is received by any phone number or short code in the Service. When this property is `null`, receiving inbound messages is disabled. All messages sent to the Twilio phone number or short code will not be logged and received on the Account. If the `use_inbound_webhook_on_number` field is enabled then the webhook url defined on the phone number will override the `inbound_request_url` defined for the Messaging Service.
         :param inbound_method: The HTTP method we should use to call `inbound_request_url`. Can be `GET` or `POST` and the default is `POST`.
@@ -392,7 +537,7 @@ class ServiceContext(InstanceContext):
         :param sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance.
         :param mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
         :param smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
-        :param scan_message_content: 
+        :param scan_message_content:
         :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
         :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
@@ -402,35 +547,41 @@ class ServiceContext(InstanceContext):
 
         :returns: The updated ServiceInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'InboundRequestUrl': inbound_request_url,
-            'InboundMethod': inbound_method,
-            'FallbackUrl': fallback_url,
-            'FallbackMethod': fallback_method,
-            'StatusCallback': status_callback,
-            'StickySender': serialize.boolean_to_string(sticky_sender),
-            'MmsConverter': serialize.boolean_to_string(mms_converter),
-            'SmartEncoding': serialize.boolean_to_string(smart_encoding),
-            'ScanMessageContent': scan_message_content,
-            'FallbackToLongCode': serialize.boolean_to_string(fallback_to_long_code),
-            'AreaCodeGeomatch': serialize.boolean_to_string(area_code_geomatch),
-            'ValidityPeriod': validity_period,
-            'SynchronousValidation': serialize.boolean_to_string(synchronous_validation),
-            'Usecase': usecase,
-            'UseInboundWebhookOnNumber': serialize.boolean_to_string(use_inbound_webhook_on_number),
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "InboundRequestUrl": inbound_request_url,
+                "InboundMethod": inbound_method,
+                "FallbackUrl": fallback_url,
+                "FallbackMethod": fallback_method,
+                "StatusCallback": status_callback,
+                "StickySender": serialize.boolean_to_string(sticky_sender),
+                "MmsConverter": serialize.boolean_to_string(mms_converter),
+                "SmartEncoding": serialize.boolean_to_string(smart_encoding),
+                "ScanMessageContent": scan_message_content,
+                "FallbackToLongCode": serialize.boolean_to_string(
+                    fallback_to_long_code
+                ),
+                "AreaCodeGeomatch": serialize.boolean_to_string(area_code_geomatch),
+                "ValidityPeriod": validity_period,
+                "SynchronousValidation": serialize.boolean_to_string(
+                    synchronous_validation
+                ),
+                "Usecase": usecase,
+                "UseInboundWebhookOnNumber": serialize.boolean_to_string(
+                    use_inbound_webhook_on_number
+                ),
+            }
         )
-    
-    
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ServiceInstance(self._version, payload, sid=self._solution["sid"])
+
     @property
     def alpha_senders(self) -> AlphaSenderList:
         """
@@ -438,11 +589,11 @@ class ServiceContext(InstanceContext):
         """
         if self._alpha_senders is None:
             self._alpha_senders = AlphaSenderList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._alpha_senders
-    
+
     @property
     def channel_senders(self) -> ChannelSenderList:
         """
@@ -450,11 +601,11 @@ class ServiceContext(InstanceContext):
         """
         if self._channel_senders is None:
             self._channel_senders = ChannelSenderList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._channel_senders
-    
+
     @property
     def phone_numbers(self) -> PhoneNumberList:
         """
@@ -462,11 +613,11 @@ class ServiceContext(InstanceContext):
         """
         if self._phone_numbers is None:
             self._phone_numbers = PhoneNumberList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._phone_numbers
-    
+
     @property
     def short_codes(self) -> ShortCodeList:
         """
@@ -474,11 +625,11 @@ class ServiceContext(InstanceContext):
         """
         if self._short_codes is None:
             self._short_codes = ShortCodeList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._short_codes
-    
+
     @property
     def us_app_to_person(self) -> UsAppToPersonList:
         """
@@ -486,11 +637,11 @@ class ServiceContext(InstanceContext):
         """
         if self._us_app_to_person is None:
             self._us_app_to_person = UsAppToPersonList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._us_app_to_person
-    
+
     @property
     def us_app_to_person_usecases(self) -> UsAppToPersonUsecaseList:
         """
@@ -498,28 +649,19 @@ class ServiceContext(InstanceContext):
         """
         if self._us_app_to_person_usecases is None:
             self._us_app_to_person_usecases = UsAppToPersonUsecaseList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._us_app_to_person_usecases
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.ServiceContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Messaging.V1.ServiceContext {}>".format(context)
 
 
 class ServicePage(Page):
@@ -541,29 +683,40 @@ class ServicePage(Page):
         return "<Twilio.Messaging.V1.ServicePage>"
 
 
-
-
-
 class ServiceList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/Services'
-        
-        
-    
-    
-    
-    
-    def create(self, friendly_name: str, inbound_request_url: Union[str, object]=values.unset, inbound_method: Union[str, object]=values.unset, fallback_url: Union[str, object]=values.unset, fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, sticky_sender: Union[bool, object]=values.unset, mms_converter: Union[bool, object]=values.unset, smart_encoding: Union[bool, object]=values.unset, scan_message_content: Union["ServiceInstance.ScanMessageContent", object]=values.unset, fallback_to_long_code: Union[bool, object]=values.unset, area_code_geomatch: Union[bool, object]=values.unset, validity_period: Union[int, object]=values.unset, synchronous_validation: Union[bool, object]=values.unset, usecase: Union[str, object]=values.unset, use_inbound_webhook_on_number: Union[bool, object]=values.unset) -> ServiceInstance:
+        self._uri = "/Services"
+
+    def create(
+        self,
+        friendly_name: str,
+        inbound_request_url: Union[str, object] = values.unset,
+        inbound_method: Union[str, object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        sticky_sender: Union[bool, object] = values.unset,
+        mms_converter: Union[bool, object] = values.unset,
+        smart_encoding: Union[bool, object] = values.unset,
+        scan_message_content: Union[
+            "ServiceInstance.ScanMessageContent", object
+        ] = values.unset,
+        fallback_to_long_code: Union[bool, object] = values.unset,
+        area_code_geomatch: Union[bool, object] = values.unset,
+        validity_period: Union[int, object] = values.unset,
+        synchronous_validation: Union[bool, object] = values.unset,
+        usecase: Union[str, object] = values.unset,
+        use_inbound_webhook_on_number: Union[bool, object] = values.unset,
+    ) -> ServiceInstance:
         """
         Create the ServiceInstance
 
@@ -576,45 +729,72 @@ class ServiceList(ListResource):
         :param sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance.
         :param mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
         :param smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
-        :param scan_message_content: 
+        :param scan_message_content:
         :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
         :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
         :param synchronous_validation: Reserved.
         :param usecase: A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`.
         :param use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
-        
+
         :returns: The created ServiceInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'InboundRequestUrl': inbound_request_url,
-            'InboundMethod': inbound_method,
-            'FallbackUrl': fallback_url,
-            'FallbackMethod': fallback_method,
-            'StatusCallback': status_callback,
-            'StickySender': serialize.boolean_to_string(sticky_sender),
-            'MmsConverter': serialize.boolean_to_string(mms_converter),
-            'SmartEncoding': serialize.boolean_to_string(smart_encoding),
-            'ScanMessageContent': scan_message_content,
-            'FallbackToLongCode': serialize.boolean_to_string(fallback_to_long_code),
-            'AreaCodeGeomatch': serialize.boolean_to_string(area_code_geomatch),
-            'ValidityPeriod': validity_period,
-            'SynchronousValidation': serialize.boolean_to_string(synchronous_validation),
-            'Usecase': usecase,
-            'UseInboundWebhookOnNumber': serialize.boolean_to_string(use_inbound_webhook_on_number),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "InboundRequestUrl": inbound_request_url,
+                "InboundMethod": inbound_method,
+                "FallbackUrl": fallback_url,
+                "FallbackMethod": fallback_method,
+                "StatusCallback": status_callback,
+                "StickySender": serialize.boolean_to_string(sticky_sender),
+                "MmsConverter": serialize.boolean_to_string(mms_converter),
+                "SmartEncoding": serialize.boolean_to_string(smart_encoding),
+                "ScanMessageContent": scan_message_content,
+                "FallbackToLongCode": serialize.boolean_to_string(
+                    fallback_to_long_code
+                ),
+                "AreaCodeGeomatch": serialize.boolean_to_string(area_code_geomatch),
+                "ValidityPeriod": validity_period,
+                "SynchronousValidation": serialize.boolean_to_string(
+                    synchronous_validation
+                ),
+                "Usecase": usecase,
+                "UseInboundWebhookOnNumber": serialize.boolean_to_string(
+                    use_inbound_webhook_on_number
+                ),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return ServiceInstance(self._version, payload)
 
-    async def create_async(self, friendly_name: str, inbound_request_url: Union[str, object]=values.unset, inbound_method: Union[str, object]=values.unset, fallback_url: Union[str, object]=values.unset, fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, sticky_sender: Union[bool, object]=values.unset, mms_converter: Union[bool, object]=values.unset, smart_encoding: Union[bool, object]=values.unset, scan_message_content: Union["ServiceInstance.ScanMessageContent", object]=values.unset, fallback_to_long_code: Union[bool, object]=values.unset, area_code_geomatch: Union[bool, object]=values.unset, validity_period: Union[int, object]=values.unset, synchronous_validation: Union[bool, object]=values.unset, usecase: Union[str, object]=values.unset, use_inbound_webhook_on_number: Union[bool, object]=values.unset) -> ServiceInstance:
+    async def create_async(
+        self,
+        friendly_name: str,
+        inbound_request_url: Union[str, object] = values.unset,
+        inbound_method: Union[str, object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        sticky_sender: Union[bool, object] = values.unset,
+        mms_converter: Union[bool, object] = values.unset,
+        smart_encoding: Union[bool, object] = values.unset,
+        scan_message_content: Union[
+            "ServiceInstance.ScanMessageContent", object
+        ] = values.unset,
+        fallback_to_long_code: Union[bool, object] = values.unset,
+        area_code_geomatch: Union[bool, object] = values.unset,
+        validity_period: Union[int, object] = values.unset,
+        synchronous_validation: Union[bool, object] = values.unset,
+        usecase: Union[str, object] = values.unset,
+        use_inbound_webhook_on_number: Union[bool, object] = values.unset,
+    ) -> ServiceInstance:
         """
         Asynchronously create the ServiceInstance
 
@@ -627,47 +807,53 @@ class ServiceList(ListResource):
         :param sticky_sender: Whether to enable [Sticky Sender](https://www.twilio.com/docs/messaging/services#sticky-sender) on the Service instance.
         :param mms_converter: Whether to enable the [MMS Converter](https://www.twilio.com/docs/messaging/services#mms-converter) for messages sent through the Service instance.
         :param smart_encoding: Whether to enable [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) for messages sent through the Service instance.
-        :param scan_message_content: 
+        :param scan_message_content:
         :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
         :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
         :param synchronous_validation: Reserved.
         :param usecase: A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`.
         :param use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
-        
+
         :returns: The created ServiceInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'InboundRequestUrl': inbound_request_url,
-            'InboundMethod': inbound_method,
-            'FallbackUrl': fallback_url,
-            'FallbackMethod': fallback_method,
-            'StatusCallback': status_callback,
-            'StickySender': serialize.boolean_to_string(sticky_sender),
-            'MmsConverter': serialize.boolean_to_string(mms_converter),
-            'SmartEncoding': serialize.boolean_to_string(smart_encoding),
-            'ScanMessageContent': scan_message_content,
-            'FallbackToLongCode': serialize.boolean_to_string(fallback_to_long_code),
-            'AreaCodeGeomatch': serialize.boolean_to_string(area_code_geomatch),
-            'ValidityPeriod': validity_period,
-            'SynchronousValidation': serialize.boolean_to_string(synchronous_validation),
-            'Usecase': usecase,
-            'UseInboundWebhookOnNumber': serialize.boolean_to_string(use_inbound_webhook_on_number),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "InboundRequestUrl": inbound_request_url,
+                "InboundMethod": inbound_method,
+                "FallbackUrl": fallback_url,
+                "FallbackMethod": fallback_method,
+                "StatusCallback": status_callback,
+                "StickySender": serialize.boolean_to_string(sticky_sender),
+                "MmsConverter": serialize.boolean_to_string(mms_converter),
+                "SmartEncoding": serialize.boolean_to_string(smart_encoding),
+                "ScanMessageContent": scan_message_content,
+                "FallbackToLongCode": serialize.boolean_to_string(
+                    fallback_to_long_code
+                ),
+                "AreaCodeGeomatch": serialize.boolean_to_string(area_code_geomatch),
+                "ValidityPeriod": validity_period,
+                "SynchronousValidation": serialize.boolean_to_string(
+                    synchronous_validation
+                ),
+                "Usecase": usecase,
+                "UseInboundWebhookOnNumber": serialize.boolean_to_string(
+                    use_inbound_webhook_on_number
+                ),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return ServiceInstance(self._version, payload)
-    
-    
-    def stream(self, 
-        
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ServiceInstance]:
@@ -676,7 +862,7 @@ class ServiceList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -687,14 +873,12 @@ class ServiceList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ServiceInstance]:
@@ -703,7 +887,7 @@ class ServiceList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -714,14 +898,12 @@ class ServiceList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ServiceInstance]:
@@ -729,7 +911,7 @@ class ServiceList(ListResource):
         Lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -739,13 +921,15 @@ class ServiceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ServiceInstance]:
@@ -753,7 +937,7 @@ class ServiceList(ListResource):
         Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -763,13 +947,16 @@ class ServiceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -777,24 +964,26 @@ class ServiceList(ListResource):
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return ServicePage(self._version, response)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -802,20 +991,24 @@ class ServiceList(ListResource):
         """
         Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return ServicePage(self._version, response)
 
     def get_page(self, target_url: str) -> ServicePage:
@@ -827,10 +1020,7 @@ class ServiceList(ListResource):
 
         :returns: Page of ServiceInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return ServicePage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> ServicePage:
@@ -842,30 +1032,13 @@ class ServiceList(ListResource):
 
         :returns: Page of ServiceInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return ServicePage(self._version, response)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     def get(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
-        
+
         :param sid: The SID of the Service resource to update.
         """
         return ServiceContext(self._version, sid=sid)
@@ -873,7 +1046,7 @@ class ServiceList(ListResource):
     def __call__(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
-        
+
         :param sid: The SID of the Service resource to update.
         """
         return ServiceContext(self._version, sid=sid)
@@ -884,5 +1057,4 @@ class ServiceList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Messaging.V1.ServiceList>'
-
+        return "<Twilio.Messaging.V1.ServiceList>"

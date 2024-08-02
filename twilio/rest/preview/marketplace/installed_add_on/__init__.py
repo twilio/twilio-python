@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -22,11 +20,12 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension import InstalledAddOnExtensionList
+from twilio.rest.preview.marketplace.installed_add_on.installed_add_on_extension import (
+    InstalledAddOnExtensionList,
+)
 
 
 class InstalledAddOnInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the InstalledAddOn resource. This Sid can also be found in the Console on that specific Add-ons page as the 'Available Add-on Sid'.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the InstalledAddOn resource.
@@ -40,23 +39,27 @@ class InstalledAddOnInstance(InstanceResource):
     :ivar links: The URLs of related resources.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.description: Optional[str] = payload.get("description")
         self.configuration: Optional[Dict[str, object]] = payload.get("configuration")
         self.unique_name: Optional[str] = payload.get("unique_name")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        
-        self._solution = { 
+        self._solution = {
             "sid": sid or self.sid,
         }
         self._context: Optional[InstalledAddOnContext] = None
@@ -70,32 +73,34 @@ class InstalledAddOnInstance(InstanceResource):
         :returns: InstalledAddOnContext for this InstalledAddOnInstance
         """
         if self._context is None:
-            self._context = InstalledAddOnContext(self._version, sid=self._solution['sid'],)
+            self._context = InstalledAddOnContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the InstalledAddOnInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the InstalledAddOnInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "InstalledAddOnInstance":
         """
         Fetch the InstalledAddOnInstance
-        
+
 
         :returns: The fetched InstalledAddOnInstance
         """
@@ -104,50 +109,64 @@ class InstalledAddOnInstance(InstanceResource):
     async def fetch_async(self) -> "InstalledAddOnInstance":
         """
         Asynchronous coroutine to fetch the InstalledAddOnInstance
-        
+
 
         :returns: The fetched InstalledAddOnInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, configuration: Union[object, object]=values.unset, unique_name: Union[str, object]=values.unset) -> "InstalledAddOnInstance":
+
+    def update(
+        self,
+        configuration: Union[object, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+    ) -> "InstalledAddOnInstance":
         """
         Update the InstalledAddOnInstance
-        
+
         :param configuration: Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured
         :param unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
 
         :returns: The updated InstalledAddOnInstance
         """
-        return self._proxy.update(configuration=configuration, unique_name=unique_name, )
+        return self._proxy.update(
+            configuration=configuration,
+            unique_name=unique_name,
+        )
 
-    async def update_async(self, configuration: Union[object, object]=values.unset, unique_name: Union[str, object]=values.unset) -> "InstalledAddOnInstance":
+    async def update_async(
+        self,
+        configuration: Union[object, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+    ) -> "InstalledAddOnInstance":
         """
         Asynchronous coroutine to update the InstalledAddOnInstance
-        
+
         :param configuration: Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured
         :param unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
 
         :returns: The updated InstalledAddOnInstance
         """
-        return await self._proxy.update_async(configuration=configuration, unique_name=unique_name, )
-    
+        return await self._proxy.update_async(
+            configuration=configuration,
+            unique_name=unique_name,
+        )
+
     @property
     def extensions(self) -> InstalledAddOnExtensionList:
         """
         Access the extensions
         """
         return self._proxy.extensions
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Marketplace.InstalledAddOnInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.Marketplace.InstalledAddOnInstance {}>".format(context)
+
 
 class InstalledAddOnContext(InstanceContext):
 
@@ -160,117 +179,132 @@ class InstalledAddOnContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/InstalledAddOns/{sid}'.format(**self._solution)
-        
+        self._uri = "/InstalledAddOns/{sid}".format(**self._solution)
+
         self._extensions: Optional[InstalledAddOnExtensionList] = None
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the InstalledAddOnInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the InstalledAddOnInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> InstalledAddOnInstance:
         """
         Fetch the InstalledAddOnInstance
-        
+
 
         :returns: The fetched InstalledAddOnInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return InstalledAddOnInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> InstalledAddOnInstance:
         """
         Asynchronous coroutine to fetch the InstalledAddOnInstance
-        
+
 
         :returns: The fetched InstalledAddOnInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return InstalledAddOnInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, configuration: Union[object, object]=values.unset, unique_name: Union[str, object]=values.unset) -> InstalledAddOnInstance:
+
+    def update(
+        self,
+        configuration: Union[object, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+    ) -> InstalledAddOnInstance:
         """
         Update the InstalledAddOnInstance
-        
+
         :param configuration: Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured
         :param unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
 
         :returns: The updated InstalledAddOnInstance
         """
-        data = values.of({ 
-            'Configuration': serialize.object(configuration),
-            'UniqueName': unique_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return InstalledAddOnInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "Configuration": serialize.object(configuration),
+                "UniqueName": unique_name,
+            }
         )
 
-    async def update_async(self, configuration: Union[object, object]=values.unset, unique_name: Union[str, object]=values.unset) -> InstalledAddOnInstance:
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return InstalledAddOnInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_async(
+        self,
+        configuration: Union[object, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+    ) -> InstalledAddOnInstance:
         """
         Asynchronous coroutine to update the InstalledAddOnInstance
-        
+
         :param configuration: Valid JSON object that conform to the configuration schema exposed by the associated AvailableAddOn resource. This is only required by Add-ons that need to be configured
         :param unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
 
         :returns: The updated InstalledAddOnInstance
         """
-        data = values.of({ 
-            'Configuration': serialize.object(configuration),
-            'UniqueName': unique_name,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return InstalledAddOnInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "Configuration": serialize.object(configuration),
+                "UniqueName": unique_name,
+            }
         )
-    
-    
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return InstalledAddOnInstance(self._version, payload, sid=self._solution["sid"])
+
     @property
     def extensions(self) -> InstalledAddOnExtensionList:
         """
@@ -278,28 +312,19 @@ class InstalledAddOnContext(InstanceContext):
         """
         if self._extensions is None:
             self._extensions = InstalledAddOnExtensionList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._extensions
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.Marketplace.InstalledAddOnContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.Marketplace.InstalledAddOnContext {}>".format(context)
 
 
 class InstalledAddOnPage(Page):
@@ -321,29 +346,26 @@ class InstalledAddOnPage(Page):
         return "<Twilio.Preview.Marketplace.InstalledAddOnPage>"
 
 
-
-
-
 class InstalledAddOnList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the InstalledAddOnList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/InstalledAddOns'
-        
-        
-    
-    
-    
-    
-    def create(self, available_add_on_sid: str, accept_terms_of_service: bool, configuration: Union[object, object]=values.unset, unique_name: Union[str, object]=values.unset) -> InstalledAddOnInstance:
+        self._uri = "/InstalledAddOns"
+
+    def create(
+        self,
+        available_add_on_sid: str,
+        accept_terms_of_service: bool,
+        configuration: Union[object, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+    ) -> InstalledAddOnInstance:
         """
         Create the InstalledAddOnInstance
 
@@ -351,26 +373,35 @@ class InstalledAddOnList(ListResource):
         :param accept_terms_of_service: Whether the Terms of Service were accepted.
         :param configuration: The JSON object that represents the configuration of the new Add-on being installed.
         :param unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
-        
+
         :returns: The created InstalledAddOnInstance
         """
-        
-        data = values.of({ 
-            'AvailableAddOnSid': available_add_on_sid,
-            'AcceptTermsOfService': serialize.boolean_to_string(accept_terms_of_service),
-            'Configuration': serialize.object(configuration),
-            'UniqueName': unique_name,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "AvailableAddOnSid": available_add_on_sid,
+                "AcceptTermsOfService": serialize.boolean_to_string(
+                    accept_terms_of_service
+                ),
+                "Configuration": serialize.object(configuration),
+                "UniqueName": unique_name,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return InstalledAddOnInstance(self._version, payload)
 
-    async def create_async(self, available_add_on_sid: str, accept_terms_of_service: bool, configuration: Union[object, object]=values.unset, unique_name: Union[str, object]=values.unset) -> InstalledAddOnInstance:
+    async def create_async(
+        self,
+        available_add_on_sid: str,
+        accept_terms_of_service: bool,
+        configuration: Union[object, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+    ) -> InstalledAddOnInstance:
         """
         Asynchronously create the InstalledAddOnInstance
 
@@ -378,28 +409,30 @@ class InstalledAddOnList(ListResource):
         :param accept_terms_of_service: Whether the Terms of Service were accepted.
         :param configuration: The JSON object that represents the configuration of the new Add-on being installed.
         :param unique_name: An application-defined string that uniquely identifies the resource. This value must be unique within the Account.
-        
+
         :returns: The created InstalledAddOnInstance
         """
-        
-        data = values.of({ 
-            'AvailableAddOnSid': available_add_on_sid,
-            'AcceptTermsOfService': serialize.boolean_to_string(accept_terms_of_service),
-            'Configuration': serialize.object(configuration),
-            'UniqueName': unique_name,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "AvailableAddOnSid": available_add_on_sid,
+                "AcceptTermsOfService": serialize.boolean_to_string(
+                    accept_terms_of_service
+                ),
+                "Configuration": serialize.object(configuration),
+                "UniqueName": unique_name,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return InstalledAddOnInstance(self._version, payload)
-    
-    
-    def stream(self, 
-        
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[InstalledAddOnInstance]:
@@ -408,7 +441,7 @@ class InstalledAddOnList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -419,14 +452,12 @@ class InstalledAddOnList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[InstalledAddOnInstance]:
@@ -435,7 +466,7 @@ class InstalledAddOnList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -446,14 +477,12 @@ class InstalledAddOnList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[InstalledAddOnInstance]:
@@ -461,7 +490,7 @@ class InstalledAddOnList(ListResource):
         Lists InstalledAddOnInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -471,13 +500,15 @@ class InstalledAddOnList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[InstalledAddOnInstance]:
@@ -485,7 +516,7 @@ class InstalledAddOnList(ListResource):
         Asynchronously lists InstalledAddOnInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -495,13 +526,16 @@ class InstalledAddOnList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -509,24 +543,26 @@ class InstalledAddOnList(ListResource):
         """
         Retrieve a single page of InstalledAddOnInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InstalledAddOnInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return InstalledAddOnPage(self._version, response)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -534,20 +570,24 @@ class InstalledAddOnList(ListResource):
         """
         Asynchronously retrieve a single page of InstalledAddOnInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InstalledAddOnInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return InstalledAddOnPage(self._version, response)
 
     def get_page(self, target_url: str) -> InstalledAddOnPage:
@@ -559,10 +599,7 @@ class InstalledAddOnList(ListResource):
 
         :returns: Page of InstalledAddOnInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return InstalledAddOnPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> InstalledAddOnPage:
@@ -574,20 +611,13 @@ class InstalledAddOnList(ListResource):
 
         :returns: Page of InstalledAddOnInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return InstalledAddOnPage(self._version, response)
-
-
-
-
 
     def get(self, sid: str) -> InstalledAddOnContext:
         """
         Constructs a InstalledAddOnContext
-        
+
         :param sid: The SID of the InstalledAddOn resource to update.
         """
         return InstalledAddOnContext(self._version, sid=sid)
@@ -595,7 +625,7 @@ class InstalledAddOnList(ListResource):
     def __call__(self, sid: str) -> InstalledAddOnContext:
         """
         Constructs a InstalledAddOnContext
-        
+
         :param sid: The SID of the InstalledAddOn resource to update.
         """
         return InstalledAddOnContext(self._version, sid=sid)
@@ -606,5 +636,4 @@ class InstalledAddOnList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Preview.Marketplace.InstalledAddOnList>'
-
+        return "<Twilio.Preview.Marketplace.InstalledAddOnList>"

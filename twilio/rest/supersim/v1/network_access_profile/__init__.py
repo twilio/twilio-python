@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -22,11 +20,12 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.supersim.v1.network_access_profile.network_access_profile_network import NetworkAccessProfileNetworkList
+from twilio.rest.supersim.v1.network_access_profile.network_access_profile_network import (
+    NetworkAccessProfileNetworkList,
+)
 
 
 class NetworkAccessProfileInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that identifies the Network Access Profile resource.
     :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
@@ -34,23 +33,27 @@ class NetworkAccessProfileInstance(InstanceResource):
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar url: The absolute URL of the Network Access Profile resource.
-    :ivar links: 
+    :ivar links:
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.unique_name: Optional[str] = payload.get("unique_name")
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        
-        self._solution = { 
+        self._solution = {
             "sid": sid or self.sid,
         }
         self._context: Optional[NetworkAccessProfileContext] = None
@@ -64,14 +67,16 @@ class NetworkAccessProfileInstance(InstanceResource):
         :returns: NetworkAccessProfileContext for this NetworkAccessProfileInstance
         """
         if self._context is None:
-            self._context = NetworkAccessProfileContext(self._version, sid=self._solution['sid'],)
+            self._context = NetworkAccessProfileContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "NetworkAccessProfileInstance":
         """
         Fetch the NetworkAccessProfileInstance
-        
+
 
         :returns: The fetched NetworkAccessProfileInstance
         """
@@ -80,48 +85,56 @@ class NetworkAccessProfileInstance(InstanceResource):
     async def fetch_async(self) -> "NetworkAccessProfileInstance":
         """
         Asynchronous coroutine to fetch the NetworkAccessProfileInstance
-        
+
 
         :returns: The fetched NetworkAccessProfileInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, unique_name: Union[str, object]=values.unset) -> "NetworkAccessProfileInstance":
+
+    def update(
+        self, unique_name: Union[str, object] = values.unset
+    ) -> "NetworkAccessProfileInstance":
         """
         Update the NetworkAccessProfileInstance
-        
+
         :param unique_name: The new unique name of the Network Access Profile.
 
         :returns: The updated NetworkAccessProfileInstance
         """
-        return self._proxy.update(unique_name=unique_name, )
+        return self._proxy.update(
+            unique_name=unique_name,
+        )
 
-    async def update_async(self, unique_name: Union[str, object]=values.unset) -> "NetworkAccessProfileInstance":
+    async def update_async(
+        self, unique_name: Union[str, object] = values.unset
+    ) -> "NetworkAccessProfileInstance":
         """
         Asynchronous coroutine to update the NetworkAccessProfileInstance
-        
+
         :param unique_name: The new unique name of the Network Access Profile.
 
         :returns: The updated NetworkAccessProfileInstance
         """
-        return await self._proxy.update_async(unique_name=unique_name, )
-    
+        return await self._proxy.update_async(
+            unique_name=unique_name,
+        )
+
     @property
     def networks(self) -> NetworkAccessProfileNetworkList:
         """
         Access the networks
         """
         return self._proxy.networks
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Supersim.V1.NetworkAccessProfileInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.NetworkAccessProfileInstance {}>".format(context)
+
 
 class NetworkAccessProfileContext(InstanceContext):
 
@@ -134,94 +147,104 @@ class NetworkAccessProfileContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/NetworkAccessProfiles/{sid}'.format(**self._solution)
-        
+        self._uri = "/NetworkAccessProfiles/{sid}".format(**self._solution)
+
         self._networks: Optional[NetworkAccessProfileNetworkList] = None
-    
-    
+
     def fetch(self) -> NetworkAccessProfileInstance:
         """
         Fetch the NetworkAccessProfileInstance
-        
+
 
         :returns: The fetched NetworkAccessProfileInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return NetworkAccessProfileInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> NetworkAccessProfileInstance:
         """
         Asynchronous coroutine to fetch the NetworkAccessProfileInstance
-        
+
 
         :returns: The fetched NetworkAccessProfileInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return NetworkAccessProfileInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, unique_name: Union[str, object]=values.unset) -> NetworkAccessProfileInstance:
+
+    def update(
+        self, unique_name: Union[str, object] = values.unset
+    ) -> NetworkAccessProfileInstance:
         """
         Update the NetworkAccessProfileInstance
-        
+
         :param unique_name: The new unique name of the Network Access Profile.
 
         :returns: The updated NetworkAccessProfileInstance
         """
-        data = values.of({ 
-            'UniqueName': unique_name,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return NetworkAccessProfileInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+            }
         )
 
-    async def update_async(self, unique_name: Union[str, object]=values.unset) -> NetworkAccessProfileInstance:
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return NetworkAccessProfileInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+
+    async def update_async(
+        self, unique_name: Union[str, object] = values.unset
+    ) -> NetworkAccessProfileInstance:
         """
         Asynchronous coroutine to update the NetworkAccessProfileInstance
-        
+
         :param unique_name: The new unique name of the Network Access Profile.
 
         :returns: The updated NetworkAccessProfileInstance
         """
-        data = values.of({ 
-            'UniqueName': unique_name,
-        })
-        
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return NetworkAccessProfileInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+            self._version, payload, sid=self._solution["sid"]
         )
-    
-    
+
     @property
     def networks(self) -> NetworkAccessProfileNetworkList:
         """
@@ -229,26 +252,19 @@ class NetworkAccessProfileContext(InstanceContext):
         """
         if self._networks is None:
             self._networks = NetworkAccessProfileNetworkList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._networks
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Supersim.V1.NetworkAccessProfileContext {}>'.format(context)
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.NetworkAccessProfileContext {}>".format(context)
 
 
 class NetworkAccessProfilePage(Page):
@@ -270,76 +286,77 @@ class NetworkAccessProfilePage(Page):
         return "<Twilio.Supersim.V1.NetworkAccessProfilePage>"
 
 
-
-
-
 class NetworkAccessProfileList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the NetworkAccessProfileList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/NetworkAccessProfiles'
-        
-        
-    
-    
-    
-    def create(self, unique_name: Union[str, object]=values.unset, networks: Union[List[str], object]=values.unset) -> NetworkAccessProfileInstance:
+        self._uri = "/NetworkAccessProfiles"
+
+    def create(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        networks: Union[List[str], object] = values.unset,
+    ) -> NetworkAccessProfileInstance:
         """
         Create the NetworkAccessProfileInstance
 
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         :param networks: List of Network SIDs that this Network Access Profile will allow connections to.
-        
+
         :returns: The created NetworkAccessProfileInstance
         """
-        
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'Networks': serialize.map(networks, lambda e: e),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "Networks": serialize.map(networks, lambda e: e),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return NetworkAccessProfileInstance(self._version, payload)
 
-    async def create_async(self, unique_name: Union[str, object]=values.unset, networks: Union[List[str], object]=values.unset) -> NetworkAccessProfileInstance:
+    async def create_async(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        networks: Union[List[str], object] = values.unset,
+    ) -> NetworkAccessProfileInstance:
         """
         Asynchronously create the NetworkAccessProfileInstance
 
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
         :param networks: List of Network SIDs that this Network Access Profile will allow connections to.
-        
+
         :returns: The created NetworkAccessProfileInstance
         """
-        
-        data = values.of({ 
-            'UniqueName': unique_name,
-            'Networks': serialize.map(networks, lambda e: e),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "Networks": serialize.map(networks, lambda e: e),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return NetworkAccessProfileInstance(self._version, payload)
-    
-    
-    def stream(self, 
-        
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[NetworkAccessProfileInstance]:
@@ -348,7 +365,7 @@ class NetworkAccessProfileList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -359,14 +376,12 @@ class NetworkAccessProfileList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[NetworkAccessProfileInstance]:
@@ -375,7 +390,7 @@ class NetworkAccessProfileList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -386,14 +401,12 @@ class NetworkAccessProfileList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[NetworkAccessProfileInstance]:
@@ -401,7 +414,7 @@ class NetworkAccessProfileList(ListResource):
         Lists NetworkAccessProfileInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -411,13 +424,15 @@ class NetworkAccessProfileList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[NetworkAccessProfileInstance]:
@@ -425,7 +440,7 @@ class NetworkAccessProfileList(ListResource):
         Asynchronously lists NetworkAccessProfileInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -435,13 +450,16 @@ class NetworkAccessProfileList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -449,24 +467,26 @@ class NetworkAccessProfileList(ListResource):
         """
         Retrieve a single page of NetworkAccessProfileInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of NetworkAccessProfileInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return NetworkAccessProfilePage(self._version, response)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -474,20 +494,24 @@ class NetworkAccessProfileList(ListResource):
         """
         Asynchronously retrieve a single page of NetworkAccessProfileInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of NetworkAccessProfileInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return NetworkAccessProfilePage(self._version, response)
 
     def get_page(self, target_url: str) -> NetworkAccessProfilePage:
@@ -499,10 +523,7 @@ class NetworkAccessProfileList(ListResource):
 
         :returns: Page of NetworkAccessProfileInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return NetworkAccessProfilePage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> NetworkAccessProfilePage:
@@ -514,20 +535,13 @@ class NetworkAccessProfileList(ListResource):
 
         :returns: Page of NetworkAccessProfileInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return NetworkAccessProfilePage(self._version, response)
-
-
-
-
 
     def get(self, sid: str) -> NetworkAccessProfileContext:
         """
         Constructs a NetworkAccessProfileContext
-        
+
         :param sid: The SID of the Network Access Profile to update.
         """
         return NetworkAccessProfileContext(self._version, sid=sid)
@@ -535,7 +549,7 @@ class NetworkAccessProfileList(ListResource):
     def __call__(self, sid: str) -> NetworkAccessProfileContext:
         """
         Constructs a NetworkAccessProfileContext
-        
+
         :param sid: The SID of the Network Access Profile to update.
         """
         return NetworkAccessProfileContext(self._version, sid=sid)
@@ -546,5 +560,4 @@ class NetworkAccessProfileList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Supersim.V1.NetworkAccessProfileList>'
-
+        return "<Twilio.Supersim.V1.NetworkAccessProfileList>"

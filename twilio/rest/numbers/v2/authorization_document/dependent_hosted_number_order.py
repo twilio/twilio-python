@@ -12,11 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -56,56 +54,71 @@ class DependentHostedNumberOrderInstance(InstanceResource):
     :ivar contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], signing_document_sid: str):
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], signing_document_sid: str
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
-        self.bulk_hosting_request_sid: Optional[str] = payload.get("bulk_hosting_request_sid")
+        self.bulk_hosting_request_sid: Optional[str] = payload.get(
+            "bulk_hosting_request_sid"
+        )
         self.next_step: Optional[str] = payload.get("next_step")
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.incoming_phone_number_sid: Optional[str] = payload.get("incoming_phone_number_sid")
+        self.incoming_phone_number_sid: Optional[str] = payload.get(
+            "incoming_phone_number_sid"
+        )
         self.address_sid: Optional[str] = payload.get("address_sid")
         self.signing_document_sid: Optional[str] = payload.get("signing_document_sid")
         self.phone_number: Optional[str] = payload.get("phone_number")
         self.capabilities: Optional[str] = payload.get("capabilities")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
-        self.status: Optional["DependentHostedNumberOrderInstance.Status"] = payload.get("status")
+        self.status: Optional["DependentHostedNumberOrderInstance.Status"] = (
+            payload.get("status")
+        )
         self.failure_reason: Optional[str] = payload.get("failure_reason")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.email: Optional[str] = payload.get("email")
         self.cc_emails: Optional[List[str]] = payload.get("cc_emails")
         self.contact_title: Optional[str] = payload.get("contact_title")
         self.contact_phone_number: Optional[str] = payload.get("contact_phone_number")
 
-        
-        self._solution = { 
+        self._solution = {
             "signing_document_sid": signing_document_sid,
         }
-        
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Numbers.V2.DependentHostedNumberOrderInstance {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Numbers.V2.DependentHostedNumberOrderInstance {}>".format(
+            context
+        )
 
 
 class DependentHostedNumberOrderPage(Page):
 
-    def get_instance(self, payload: Dict[str, Any]) -> DependentHostedNumberOrderInstance:
+    def get_instance(
+        self, payload: Dict[str, Any]
+    ) -> DependentHostedNumberOrderInstance:
         """
         Build an instance of DependentHostedNumberOrderInstance
 
         :param payload: Payload response from the API
         """
-        return DependentHostedNumberOrderInstance(self._version, payload, signing_document_sid=self._solution["signing_document_sid"])
+        return DependentHostedNumberOrderInstance(
+            self._version,
+            payload,
+            signing_document_sid=self._solution["signing_document_sid"],
+        )
 
     def __repr__(self) -> str:
         """
@@ -116,34 +129,34 @@ class DependentHostedNumberOrderPage(Page):
         return "<Twilio.Numbers.V2.DependentHostedNumberOrderPage>"
 
 
-
-
-
 class DependentHostedNumberOrderList(ListResource):
-    
+
     def __init__(self, version: Version, signing_document_sid: str):
         """
         Initialize the DependentHostedNumberOrderList
 
         :param version: Version that contains the resource
         :param signing_document_sid: A 34 character string that uniquely identifies the LOA document associated with this HostedNumberOrder.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'signing_document_sid': signing_document_sid,  }
-        self._uri = '/HostedNumber/AuthorizationDocuments/{signing_document_sid}/DependentHostedNumberOrders'.format(**self._solution)
-        
-        
-    
-    def stream(self, 
-        status: Union["DependentHostedNumberOrderInstance.Status", object] = values.unset,
+        self._solution = {
+            "signing_document_sid": signing_document_sid,
+        }
+        self._uri = "/HostedNumber/AuthorizationDocuments/{signing_document_sid}/DependentHostedNumberOrders".format(
+            **self._solution
+        )
+
+    def stream(
+        self,
+        status: Union[
+            "DependentHostedNumberOrderInstance.Status", object
+        ] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[DependentHostedNumberOrderInstance]:
@@ -152,7 +165,7 @@ class DependentHostedNumberOrderList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
@@ -172,17 +185,19 @@ class DependentHostedNumberOrderList(ListResource):
             phone_number=phone_number,
             incoming_phone_number_sid=incoming_phone_number_sid,
             friendly_name=friendly_name,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        status: Union["DependentHostedNumberOrderInstance.Status", object] = values.unset,
+    async def stream_async(
+        self,
+        status: Union[
+            "DependentHostedNumberOrderInstance.Status", object
+        ] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[DependentHostedNumberOrderInstance]:
@@ -191,7 +206,7 @@ class DependentHostedNumberOrderList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
@@ -211,17 +226,19 @@ class DependentHostedNumberOrderList(ListResource):
             phone_number=phone_number,
             incoming_phone_number_sid=incoming_phone_number_sid,
             friendly_name=friendly_name,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        status: Union["DependentHostedNumberOrderInstance.Status", object] = values.unset,
+    def list(
+        self,
+        status: Union[
+            "DependentHostedNumberOrderInstance.Status", object
+        ] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DependentHostedNumberOrderInstance]:
@@ -229,7 +246,7 @@ class DependentHostedNumberOrderList(ListResource):
         Lists DependentHostedNumberOrderInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
@@ -243,21 +260,25 @@ class DependentHostedNumberOrderList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            status=status,
-            phone_number=phone_number,
-            incoming_phone_number_sid=incoming_phone_number_sid,
-            friendly_name=friendly_name,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                status=status,
+                phone_number=phone_number,
+                incoming_phone_number_sid=incoming_phone_number_sid,
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        status: Union["DependentHostedNumberOrderInstance.Status", object] = values.unset,
+    async def list_async(
+        self,
+        status: Union[
+            "DependentHostedNumberOrderInstance.Status", object
+        ] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DependentHostedNumberOrderInstance]:
@@ -265,7 +286,7 @@ class DependentHostedNumberOrderList(ListResource):
         Asynchronously lists DependentHostedNumberOrderInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param &quot;DependentHostedNumberOrderInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
@@ -279,21 +300,26 @@ class DependentHostedNumberOrderList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            status=status,
-            phone_number=phone_number,
-            incoming_phone_number_sid=incoming_phone_number_sid,
-            friendly_name=friendly_name,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                status=status,
+                phone_number=phone_number,
+                incoming_phone_number_sid=incoming_phone_number_sid,
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        status: Union["DependentHostedNumberOrderInstance.Status", object] = values.unset,
+    def page(
+        self,
+        status: Union[
+            "DependentHostedNumberOrderInstance.Status", object
+        ] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -301,7 +327,7 @@ class DependentHostedNumberOrderList(ListResource):
         """
         Retrieve a single page of DependentHostedNumberOrderInstance records from the API.
         Request is executed immediately
-        
+
         :param status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
         :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
@@ -312,25 +338,29 @@ class DependentHostedNumberOrderList(ListResource):
 
         :returns: Page of DependentHostedNumberOrderInstance
         """
-        data = values.of({ 
-            'Status': status,
-            'PhoneNumber': phone_number,
-            'IncomingPhoneNumberSid': incoming_phone_number_sid,
-            'FriendlyName': friendly_name,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Status": status,
+                "PhoneNumber": phone_number,
+                "IncomingPhoneNumberSid": incoming_phone_number_sid,
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return DependentHostedNumberOrderPage(self._version, response, self._solution)
 
-    async def page_async(self, 
-        status: Union["DependentHostedNumberOrderInstance.Status", object] = values.unset,
+    async def page_async(
+        self,
+        status: Union[
+            "DependentHostedNumberOrderInstance.Status", object
+        ] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -338,7 +368,7 @@ class DependentHostedNumberOrderList(ListResource):
         """
         Asynchronously retrieve a single page of DependentHostedNumberOrderInstance records from the API.
         Request is executed immediately
-        
+
         :param status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
         :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
@@ -349,17 +379,21 @@ class DependentHostedNumberOrderList(ListResource):
 
         :returns: Page of DependentHostedNumberOrderInstance
         """
-        data = values.of({ 
-            'Status': status,
-            'PhoneNumber': phone_number,
-            'IncomingPhoneNumberSid': incoming_phone_number_sid,
-            'FriendlyName': friendly_name,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Status": status,
+                "PhoneNumber": phone_number,
+                "IncomingPhoneNumberSid": incoming_phone_number_sid,
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return DependentHostedNumberOrderPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> DependentHostedNumberOrderPage:
@@ -371,10 +405,7 @@ class DependentHostedNumberOrderList(ListResource):
 
         :returns: Page of DependentHostedNumberOrderInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return DependentHostedNumberOrderPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> DependentHostedNumberOrderPage:
@@ -386,14 +417,8 @@ class DependentHostedNumberOrderList(ListResource):
 
         :returns: Page of DependentHostedNumberOrderInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return DependentHostedNumberOrderPage(self._version, response, self._solution)
-
-
-
 
     def __repr__(self) -> str:
         """
@@ -401,5 +426,4 @@ class DependentHostedNumberOrderList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Numbers.V2.DependentHostedNumberOrderList>'
-
+        return "<Twilio.Numbers.V2.DependentHostedNumberOrderList>"

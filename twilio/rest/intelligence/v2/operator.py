@@ -12,11 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -47,10 +45,11 @@ class OperatorInstance(InstanceResource):
     :ivar url: The URL of this resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.sid: Optional[str] = payload.get("sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
@@ -58,14 +57,19 @@ class OperatorInstance(InstanceResource):
         self.author: Optional[str] = payload.get("author")
         self.operator_type: Optional[str] = payload.get("operator_type")
         self.version: Optional[int] = deserialize.integer(payload.get("version"))
-        self.availability: Optional["OperatorInstance.Availability"] = payload.get("availability")
+        self.availability: Optional["OperatorInstance.Availability"] = payload.get(
+            "availability"
+        )
         self.config: Optional[Dict[str, object]] = payload.get("config")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "sid": sid or self.sid,
         }
         self._context: Optional[OperatorContext] = None
@@ -79,14 +83,16 @@ class OperatorInstance(InstanceResource):
         :returns: OperatorContext for this OperatorInstance
         """
         if self._context is None:
-            self._context = OperatorContext(self._version, sid=self._solution['sid'],)
+            self._context = OperatorContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "OperatorInstance":
         """
         Fetch the OperatorInstance
-        
+
 
         :returns: The fetched OperatorInstance
         """
@@ -95,20 +101,21 @@ class OperatorInstance(InstanceResource):
     async def fetch_async(self) -> "OperatorInstance":
         """
         Asynchronous coroutine to fetch the OperatorInstance
-        
+
 
         :returns: The fetched OperatorInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Intelligence.V2.OperatorInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Intelligence.V2.OperatorInstance {}>".format(context)
+
 
 class OperatorContext(InstanceContext):
 
@@ -121,61 +128,58 @@ class OperatorContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/Operators/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Operators/{sid}".format(**self._solution)
+
     def fetch(self) -> OperatorInstance:
         """
         Fetch the OperatorInstance
-        
+
 
         :returns: The fetched OperatorInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return OperatorInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> OperatorInstance:
         """
         Asynchronous coroutine to fetch the OperatorInstance
-        
+
 
         :returns: The fetched OperatorInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return OperatorInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Intelligence.V2.OperatorContext {}>'.format(context)
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Intelligence.V2.OperatorContext {}>".format(context)
 
 
 class OperatorPage(Page):
@@ -197,30 +201,23 @@ class OperatorPage(Page):
         return "<Twilio.Intelligence.V2.OperatorPage>"
 
 
-
-
-
 class OperatorList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the OperatorList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/Operators'
-        
-        
-    
-    
-    def stream(self, 
+        self._uri = "/Operators"
+
+    def stream(
+        self,
         availability: Union["OperatorInstance.Availability", object] = values.unset,
         language_code: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[OperatorInstance]:
@@ -229,7 +226,7 @@ class OperatorList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param &quot;OperatorInstance.Availability&quot; availability: Returns Operators with the provided availability type. Possible values: internal, beta, public, retired.
         :param str language_code: Returns Operators that support the provided language code.
         :param limit: Upper limit for the number of records to return. stream()
@@ -245,15 +242,15 @@ class OperatorList(ListResource):
         page = self.page(
             availability=availability,
             language_code=language_code,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         availability: Union["OperatorInstance.Availability", object] = values.unset,
         language_code: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[OperatorInstance]:
@@ -262,7 +259,7 @@ class OperatorList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param &quot;OperatorInstance.Availability&quot; availability: Returns Operators with the provided availability type. Possible values: internal, beta, public, retired.
         :param str language_code: Returns Operators that support the provided language code.
         :param limit: Upper limit for the number of records to return. stream()
@@ -278,15 +275,15 @@ class OperatorList(ListResource):
         page = await self.page_async(
             availability=availability,
             language_code=language_code,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         availability: Union["OperatorInstance.Availability", object] = values.unset,
         language_code: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[OperatorInstance]:
@@ -294,7 +291,7 @@ class OperatorList(ListResource):
         Lists OperatorInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param &quot;OperatorInstance.Availability&quot; availability: Returns Operators with the provided availability type. Possible values: internal, beta, public, retired.
         :param str language_code: Returns Operators that support the provided language code.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -306,17 +303,19 @@ class OperatorList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            availability=availability,
-            language_code=language_code,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                availability=availability,
+                language_code=language_code,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         availability: Union["OperatorInstance.Availability", object] = values.unset,
         language_code: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[OperatorInstance]:
@@ -324,7 +323,7 @@ class OperatorList(ListResource):
         Asynchronously lists OperatorInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param &quot;OperatorInstance.Availability&quot; availability: Returns Operators with the provided availability type. Possible values: internal, beta, public, retired.
         :param str language_code: Returns Operators that support the provided language code.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -336,17 +335,20 @@ class OperatorList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            availability=availability,
-            language_code=language_code,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                availability=availability,
+                language_code=language_code,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         availability: Union["OperatorInstance.Availability", object] = values.unset,
         language_code: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -354,7 +356,7 @@ class OperatorList(ListResource):
         """
         Retrieve a single page of OperatorInstance records from the API.
         Request is executed immediately
-        
+
         :param availability: Returns Operators with the provided availability type. Possible values: internal, beta, public, retired.
         :param language_code: Returns Operators that support the provided language code.
         :param page_token: PageToken provided by the API
@@ -363,21 +365,23 @@ class OperatorList(ListResource):
 
         :returns: Page of OperatorInstance
         """
-        data = values.of({ 
-            'Availability': availability,
-            'LanguageCode': language_code,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Availability": availability,
+                "LanguageCode": language_code,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return OperatorPage(self._version, response)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         availability: Union["OperatorInstance.Availability", object] = values.unset,
         language_code: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -385,7 +389,7 @@ class OperatorList(ListResource):
         """
         Asynchronously retrieve a single page of OperatorInstance records from the API.
         Request is executed immediately
-        
+
         :param availability: Returns Operators with the provided availability type. Possible values: internal, beta, public, retired.
         :param language_code: Returns Operators that support the provided language code.
         :param page_token: PageToken provided by the API
@@ -394,15 +398,19 @@ class OperatorList(ListResource):
 
         :returns: Page of OperatorInstance
         """
-        data = values.of({ 
-            'Availability': availability,
-            'LanguageCode': language_code,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Availability": availability,
+                "LanguageCode": language_code,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return OperatorPage(self._version, response)
 
     def get_page(self, target_url: str) -> OperatorPage:
@@ -414,10 +422,7 @@ class OperatorList(ListResource):
 
         :returns: Page of OperatorInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return OperatorPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> OperatorPage:
@@ -429,18 +434,13 @@ class OperatorList(ListResource):
 
         :returns: Page of OperatorInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return OperatorPage(self._version, response)
-
-
 
     def get(self, sid: str) -> OperatorContext:
         """
         Constructs a OperatorContext
-        
+
         :param sid: A 34 character string that uniquely identifies this Operator.
         """
         return OperatorContext(self._version, sid=sid)
@@ -448,7 +448,7 @@ class OperatorList(ListResource):
     def __call__(self, sid: str) -> OperatorContext:
         """
         Constructs a OperatorContext
-        
+
         :param sid: A 34 character string that uniquely identifies this Operator.
         """
         return OperatorContext(self._version, sid=sid)
@@ -459,5 +459,4 @@ class OperatorList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Intelligence.V2.OperatorList>'
-
+        return "<Twilio.Intelligence.V2.OperatorList>"

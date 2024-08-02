@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -56,27 +54,35 @@ class FlexFlowInstance(InstanceResource):
     :ivar url: The absolute URL of the Flex Flow resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.sid: Optional[str] = payload.get("sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.chat_service_sid: Optional[str] = payload.get("chat_service_sid")
-        self.channel_type: Optional["FlexFlowInstance.ChannelType"] = payload.get("channel_type")
+        self.channel_type: Optional["FlexFlowInstance.ChannelType"] = payload.get(
+            "channel_type"
+        )
         self.contact_identity: Optional[str] = payload.get("contact_identity")
         self.enabled: Optional[bool] = payload.get("enabled")
-        self.integration_type: Optional["FlexFlowInstance.IntegrationType"] = payload.get("integration_type")
+        self.integration_type: Optional["FlexFlowInstance.IntegrationType"] = (
+            payload.get("integration_type")
+        )
         self.integration: Optional[Dict[str, object]] = payload.get("integration")
         self.long_lived: Optional[bool] = payload.get("long_lived")
         self.janitor_enabled: Optional[bool] = payload.get("janitor_enabled")
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "sid": sid or self.sid,
         }
         self._context: Optional[FlexFlowContext] = None
@@ -90,32 +96,34 @@ class FlexFlowInstance(InstanceResource):
         :returns: FlexFlowContext for this FlexFlowInstance
         """
         if self._context is None:
-            self._context = FlexFlowContext(self._version, sid=self._solution['sid'],)
+            self._context = FlexFlowContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the FlexFlowInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the FlexFlowInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "FlexFlowInstance":
         """
         Fetch the FlexFlowInstance
-        
+
 
         :returns: The fetched FlexFlowInstance
         """
@@ -124,23 +132,43 @@ class FlexFlowInstance(InstanceResource):
     async def fetch_async(self) -> "FlexFlowInstance":
         """
         Asynchronous coroutine to fetch the FlexFlowInstance
-        
+
 
         :returns: The fetched FlexFlowInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, chat_service_sid: Union[str, object]=values.unset, channel_type: Union["FlexFlowInstance.ChannelType", object]=values.unset, contact_identity: Union[str, object]=values.unset, enabled: Union[bool, object]=values.unset, integration_type: Union["FlexFlowInstance.IntegrationType", object]=values.unset, integration_flow_sid: Union[str, object]=values.unset, integration_url: Union[str, object]=values.unset, integration_workspace_sid: Union[str, object]=values.unset, integration_workflow_sid: Union[str, object]=values.unset, integration_channel: Union[str, object]=values.unset, integration_timeout: Union[int, object]=values.unset, integration_priority: Union[int, object]=values.unset, integration_creation_on_message: Union[bool, object]=values.unset, long_lived: Union[bool, object]=values.unset, janitor_enabled: Union[bool, object]=values.unset, integration_retry_count: Union[int, object]=values.unset) -> "FlexFlowInstance":
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        chat_service_sid: Union[str, object] = values.unset,
+        channel_type: Union["FlexFlowInstance.ChannelType", object] = values.unset,
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
+    ) -> "FlexFlowInstance":
         """
         Update the FlexFlowInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :param chat_service_sid: The SID of the chat service.
-        :param channel_type: 
+        :param channel_type:
         :param contact_identity: The channel contact's Identity.
         :param enabled: Whether the new Flex Flow is enabled.
-        :param integration_type: 
+        :param integration_type:
         :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
         :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
         :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
@@ -155,18 +183,57 @@ class FlexFlowInstance(InstanceResource):
 
         :returns: The updated FlexFlowInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, chat_service_sid=chat_service_sid, channel_type=channel_type, contact_identity=contact_identity, enabled=enabled, integration_type=integration_type, integration_flow_sid=integration_flow_sid, integration_url=integration_url, integration_workspace_sid=integration_workspace_sid, integration_workflow_sid=integration_workflow_sid, integration_channel=integration_channel, integration_timeout=integration_timeout, integration_priority=integration_priority, integration_creation_on_message=integration_creation_on_message, long_lived=long_lived, janitor_enabled=janitor_enabled, integration_retry_count=integration_retry_count, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            chat_service_sid=chat_service_sid,
+            channel_type=channel_type,
+            contact_identity=contact_identity,
+            enabled=enabled,
+            integration_type=integration_type,
+            integration_flow_sid=integration_flow_sid,
+            integration_url=integration_url,
+            integration_workspace_sid=integration_workspace_sid,
+            integration_workflow_sid=integration_workflow_sid,
+            integration_channel=integration_channel,
+            integration_timeout=integration_timeout,
+            integration_priority=integration_priority,
+            integration_creation_on_message=integration_creation_on_message,
+            long_lived=long_lived,
+            janitor_enabled=janitor_enabled,
+            integration_retry_count=integration_retry_count,
+        )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, chat_service_sid: Union[str, object]=values.unset, channel_type: Union["FlexFlowInstance.ChannelType", object]=values.unset, contact_identity: Union[str, object]=values.unset, enabled: Union[bool, object]=values.unset, integration_type: Union["FlexFlowInstance.IntegrationType", object]=values.unset, integration_flow_sid: Union[str, object]=values.unset, integration_url: Union[str, object]=values.unset, integration_workspace_sid: Union[str, object]=values.unset, integration_workflow_sid: Union[str, object]=values.unset, integration_channel: Union[str, object]=values.unset, integration_timeout: Union[int, object]=values.unset, integration_priority: Union[int, object]=values.unset, integration_creation_on_message: Union[bool, object]=values.unset, long_lived: Union[bool, object]=values.unset, janitor_enabled: Union[bool, object]=values.unset, integration_retry_count: Union[int, object]=values.unset) -> "FlexFlowInstance":
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        chat_service_sid: Union[str, object] = values.unset,
+        channel_type: Union["FlexFlowInstance.ChannelType", object] = values.unset,
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
+    ) -> "FlexFlowInstance":
         """
         Asynchronous coroutine to update the FlexFlowInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :param chat_service_sid: The SID of the chat service.
-        :param channel_type: 
+        :param channel_type:
         :param contact_identity: The channel contact's Identity.
         :param enabled: Whether the new Flex Flow is enabled.
-        :param integration_type: 
+        :param integration_type:
         :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
         :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
         :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
@@ -181,16 +248,35 @@ class FlexFlowInstance(InstanceResource):
 
         :returns: The updated FlexFlowInstance
         """
-        return await self._proxy.update_async(friendly_name=friendly_name, chat_service_sid=chat_service_sid, channel_type=channel_type, contact_identity=contact_identity, enabled=enabled, integration_type=integration_type, integration_flow_sid=integration_flow_sid, integration_url=integration_url, integration_workspace_sid=integration_workspace_sid, integration_workflow_sid=integration_workflow_sid, integration_channel=integration_channel, integration_timeout=integration_timeout, integration_priority=integration_priority, integration_creation_on_message=integration_creation_on_message, long_lived=long_lived, janitor_enabled=janitor_enabled, integration_retry_count=integration_retry_count, )
-    
+        return await self._proxy.update_async(
+            friendly_name=friendly_name,
+            chat_service_sid=chat_service_sid,
+            channel_type=channel_type,
+            contact_identity=contact_identity,
+            enabled=enabled,
+            integration_type=integration_type,
+            integration_flow_sid=integration_flow_sid,
+            integration_url=integration_url,
+            integration_workspace_sid=integration_workspace_sid,
+            integration_workflow_sid=integration_workflow_sid,
+            integration_channel=integration_channel,
+            integration_timeout=integration_timeout,
+            integration_priority=integration_priority,
+            integration_creation_on_message=integration_creation_on_message,
+            long_lived=long_lived,
+            janitor_enabled=janitor_enabled,
+            integration_retry_count=integration_retry_count,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.FlexFlowInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.FlexApi.V1.FlexFlowInstance {}>".format(context)
+
 
 class FlexFlowContext(InstanceContext):
 
@@ -203,79 +289,105 @@ class FlexFlowContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/FlexFlows/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/FlexFlows/{sid}".format(**self._solution)
+
     def delete(self) -> bool:
         """
         Deletes the FlexFlowInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the FlexFlowInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> FlexFlowInstance:
         """
         Fetch the FlexFlowInstance
-        
+
 
         :returns: The fetched FlexFlowInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return FlexFlowInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> FlexFlowInstance:
         """
         Asynchronous coroutine to fetch the FlexFlowInstance
-        
+
 
         :returns: The fetched FlexFlowInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return FlexFlowInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, chat_service_sid: Union[str, object]=values.unset, channel_type: Union["FlexFlowInstance.ChannelType", object]=values.unset, contact_identity: Union[str, object]=values.unset, enabled: Union[bool, object]=values.unset, integration_type: Union["FlexFlowInstance.IntegrationType", object]=values.unset, integration_flow_sid: Union[str, object]=values.unset, integration_url: Union[str, object]=values.unset, integration_workspace_sid: Union[str, object]=values.unset, integration_workflow_sid: Union[str, object]=values.unset, integration_channel: Union[str, object]=values.unset, integration_timeout: Union[int, object]=values.unset, integration_priority: Union[int, object]=values.unset, integration_creation_on_message: Union[bool, object]=values.unset, long_lived: Union[bool, object]=values.unset, janitor_enabled: Union[bool, object]=values.unset, integration_retry_count: Union[int, object]=values.unset) -> FlexFlowInstance:
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        chat_service_sid: Union[str, object] = values.unset,
+        channel_type: Union["FlexFlowInstance.ChannelType", object] = values.unset,
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
+    ) -> FlexFlowInstance:
         """
         Update the FlexFlowInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :param chat_service_sid: The SID of the chat service.
-        :param channel_type: 
+        :param channel_type:
         :param contact_identity: The channel contact's Identity.
         :param enabled: Whether the new Flex Flow is enabled.
-        :param integration_type: 
+        :param integration_type:
         :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
         :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
         :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
@@ -290,45 +402,69 @@ class FlexFlowContext(InstanceContext):
 
         :returns: The updated FlexFlowInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ChatServiceSid': chat_service_sid,
-            'ChannelType': channel_type,
-            'ContactIdentity': contact_identity,
-            'Enabled': serialize.boolean_to_string(enabled),
-            'IntegrationType': integration_type,
-            'Integration.FlowSid': integration_flow_sid,
-            'Integration.Url': integration_url,
-            'Integration.WorkspaceSid': integration_workspace_sid,
-            'Integration.WorkflowSid': integration_workflow_sid,
-            'Integration.Channel': integration_channel,
-            'Integration.Timeout': integration_timeout,
-            'Integration.Priority': integration_priority,
-            'Integration.CreationOnMessage': serialize.boolean_to_string(integration_creation_on_message),
-            'LongLived': serialize.boolean_to_string(long_lived),
-            'JanitorEnabled': serialize.boolean_to_string(janitor_enabled),
-            'Integration.RetryCount': integration_retry_count,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return FlexFlowInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ChatServiceSid": chat_service_sid,
+                "ChannelType": channel_type,
+                "ContactIdentity": contact_identity,
+                "Enabled": serialize.boolean_to_string(enabled),
+                "IntegrationType": integration_type,
+                "Integration.FlowSid": integration_flow_sid,
+                "Integration.Url": integration_url,
+                "Integration.WorkspaceSid": integration_workspace_sid,
+                "Integration.WorkflowSid": integration_workflow_sid,
+                "Integration.Channel": integration_channel,
+                "Integration.Timeout": integration_timeout,
+                "Integration.Priority": integration_priority,
+                "Integration.CreationOnMessage": serialize.boolean_to_string(
+                    integration_creation_on_message
+                ),
+                "LongLived": serialize.boolean_to_string(long_lived),
+                "JanitorEnabled": serialize.boolean_to_string(janitor_enabled),
+                "Integration.RetryCount": integration_retry_count,
+            }
         )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, chat_service_sid: Union[str, object]=values.unset, channel_type: Union["FlexFlowInstance.ChannelType", object]=values.unset, contact_identity: Union[str, object]=values.unset, enabled: Union[bool, object]=values.unset, integration_type: Union["FlexFlowInstance.IntegrationType", object]=values.unset, integration_flow_sid: Union[str, object]=values.unset, integration_url: Union[str, object]=values.unset, integration_workspace_sid: Union[str, object]=values.unset, integration_workflow_sid: Union[str, object]=values.unset, integration_channel: Union[str, object]=values.unset, integration_timeout: Union[int, object]=values.unset, integration_priority: Union[int, object]=values.unset, integration_creation_on_message: Union[bool, object]=values.unset, long_lived: Union[bool, object]=values.unset, janitor_enabled: Union[bool, object]=values.unset, integration_retry_count: Union[int, object]=values.unset) -> FlexFlowInstance:
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return FlexFlowInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        chat_service_sid: Union[str, object] = values.unset,
+        channel_type: Union["FlexFlowInstance.ChannelType", object] = values.unset,
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
+    ) -> FlexFlowInstance:
         """
         Asynchronous coroutine to update the FlexFlowInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :param chat_service_sid: The SID of the chat service.
-        :param channel_type: 
+        :param channel_type:
         :param contact_identity: The channel contact's Identity.
         :param enabled: Whether the new Flex Flow is enabled.
-        :param integration_type: 
+        :param integration_type:
         :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
         :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
         :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
@@ -343,53 +479,46 @@ class FlexFlowContext(InstanceContext):
 
         :returns: The updated FlexFlowInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ChatServiceSid': chat_service_sid,
-            'ChannelType': channel_type,
-            'ContactIdentity': contact_identity,
-            'Enabled': serialize.boolean_to_string(enabled),
-            'IntegrationType': integration_type,
-            'Integration.FlowSid': integration_flow_sid,
-            'Integration.Url': integration_url,
-            'Integration.WorkspaceSid': integration_workspace_sid,
-            'Integration.WorkflowSid': integration_workflow_sid,
-            'Integration.Channel': integration_channel,
-            'Integration.Timeout': integration_timeout,
-            'Integration.Priority': integration_priority,
-            'Integration.CreationOnMessage': serialize.boolean_to_string(integration_creation_on_message),
-            'LongLived': serialize.boolean_to_string(long_lived),
-            'JanitorEnabled': serialize.boolean_to_string(janitor_enabled),
-            'Integration.RetryCount': integration_retry_count,
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return FlexFlowInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ChatServiceSid": chat_service_sid,
+                "ChannelType": channel_type,
+                "ContactIdentity": contact_identity,
+                "Enabled": serialize.boolean_to_string(enabled),
+                "IntegrationType": integration_type,
+                "Integration.FlowSid": integration_flow_sid,
+                "Integration.Url": integration_url,
+                "Integration.WorkspaceSid": integration_workspace_sid,
+                "Integration.WorkflowSid": integration_workflow_sid,
+                "Integration.Channel": integration_channel,
+                "Integration.Timeout": integration_timeout,
+                "Integration.Priority": integration_priority,
+                "Integration.CreationOnMessage": serialize.boolean_to_string(
+                    integration_creation_on_message
+                ),
+                "LongLived": serialize.boolean_to_string(long_lived),
+                "JanitorEnabled": serialize.boolean_to_string(janitor_enabled),
+                "Integration.RetryCount": integration_retry_count,
+            }
         )
-    
-    
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return FlexFlowInstance(self._version, payload, sid=self._solution["sid"])
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.FlexFlowContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.FlexApi.V1.FlexFlowContext {}>".format(context)
 
 
 class FlexFlowPage(Page):
@@ -411,38 +540,50 @@ class FlexFlowPage(Page):
         return "<Twilio.FlexApi.V1.FlexFlowPage>"
 
 
-
-
-
 class FlexFlowList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the FlexFlowList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/FlexFlows'
-        
-        
-    
-    
-    
-    
-    def create(self, friendly_name: str, chat_service_sid: str, channel_type: "FlexFlowInstance.ChannelType", contact_identity: Union[str, object]=values.unset, enabled: Union[bool, object]=values.unset, integration_type: Union["FlexFlowInstance.IntegrationType", object]=values.unset, integration_flow_sid: Union[str, object]=values.unset, integration_url: Union[str, object]=values.unset, integration_workspace_sid: Union[str, object]=values.unset, integration_workflow_sid: Union[str, object]=values.unset, integration_channel: Union[str, object]=values.unset, integration_timeout: Union[int, object]=values.unset, integration_priority: Union[int, object]=values.unset, integration_creation_on_message: Union[bool, object]=values.unset, long_lived: Union[bool, object]=values.unset, janitor_enabled: Union[bool, object]=values.unset, integration_retry_count: Union[int, object]=values.unset) -> FlexFlowInstance:
+        self._uri = "/FlexFlows"
+
+    def create(
+        self,
+        friendly_name: str,
+        chat_service_sid: str,
+        channel_type: "FlexFlowInstance.ChannelType",
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
+    ) -> FlexFlowInstance:
         """
         Create the FlexFlowInstance
 
         :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :param chat_service_sid: The SID of the chat service.
-        :param channel_type: 
+        :param channel_type:
         :param contact_identity: The channel contact's Identity.
         :param enabled: Whether the new Flex Flow is enabled.
-        :param integration_type: 
+        :param integration_type:
         :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
         :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
         :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
@@ -454,48 +595,72 @@ class FlexFlowList(ListResource):
         :param long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
         :param janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
         :param integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
-        
+
         :returns: The created FlexFlowInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ChatServiceSid': chat_service_sid,
-            'ChannelType': channel_type,
-            'ContactIdentity': contact_identity,
-            'Enabled': serialize.boolean_to_string(enabled),
-            'IntegrationType': integration_type,
-            'Integration.FlowSid': integration_flow_sid,
-            'Integration.Url': integration_url,
-            'Integration.WorkspaceSid': integration_workspace_sid,
-            'Integration.WorkflowSid': integration_workflow_sid,
-            'Integration.Channel': integration_channel,
-            'Integration.Timeout': integration_timeout,
-            'Integration.Priority': integration_priority,
-            'Integration.CreationOnMessage': serialize.boolean_to_string(integration_creation_on_message),
-            'LongLived': serialize.boolean_to_string(long_lived),
-            'JanitorEnabled': serialize.boolean_to_string(janitor_enabled),
-            'Integration.RetryCount': integration_retry_count,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ChatServiceSid": chat_service_sid,
+                "ChannelType": channel_type,
+                "ContactIdentity": contact_identity,
+                "Enabled": serialize.boolean_to_string(enabled),
+                "IntegrationType": integration_type,
+                "Integration.FlowSid": integration_flow_sid,
+                "Integration.Url": integration_url,
+                "Integration.WorkspaceSid": integration_workspace_sid,
+                "Integration.WorkflowSid": integration_workflow_sid,
+                "Integration.Channel": integration_channel,
+                "Integration.Timeout": integration_timeout,
+                "Integration.Priority": integration_priority,
+                "Integration.CreationOnMessage": serialize.boolean_to_string(
+                    integration_creation_on_message
+                ),
+                "LongLived": serialize.boolean_to_string(long_lived),
+                "JanitorEnabled": serialize.boolean_to_string(janitor_enabled),
+                "Integration.RetryCount": integration_retry_count,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return FlexFlowInstance(self._version, payload)
 
-    async def create_async(self, friendly_name: str, chat_service_sid: str, channel_type: "FlexFlowInstance.ChannelType", contact_identity: Union[str, object]=values.unset, enabled: Union[bool, object]=values.unset, integration_type: Union["FlexFlowInstance.IntegrationType", object]=values.unset, integration_flow_sid: Union[str, object]=values.unset, integration_url: Union[str, object]=values.unset, integration_workspace_sid: Union[str, object]=values.unset, integration_workflow_sid: Union[str, object]=values.unset, integration_channel: Union[str, object]=values.unset, integration_timeout: Union[int, object]=values.unset, integration_priority: Union[int, object]=values.unset, integration_creation_on_message: Union[bool, object]=values.unset, long_lived: Union[bool, object]=values.unset, janitor_enabled: Union[bool, object]=values.unset, integration_retry_count: Union[int, object]=values.unset) -> FlexFlowInstance:
+    async def create_async(
+        self,
+        friendly_name: str,
+        chat_service_sid: str,
+        channel_type: "FlexFlowInstance.ChannelType",
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
+    ) -> FlexFlowInstance:
         """
         Asynchronously create the FlexFlowInstance
 
         :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
         :param chat_service_sid: The SID of the chat service.
-        :param channel_type: 
+        :param channel_type:
         :param contact_identity: The channel contact's Identity.
         :param enabled: Whether the new Flex Flow is enabled.
-        :param integration_type: 
+        :param integration_type:
         :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
         :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
         :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
@@ -507,42 +672,44 @@ class FlexFlowList(ListResource):
         :param long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
         :param janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
         :param integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
-        
+
         :returns: The created FlexFlowInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ChatServiceSid': chat_service_sid,
-            'ChannelType': channel_type,
-            'ContactIdentity': contact_identity,
-            'Enabled': serialize.boolean_to_string(enabled),
-            'IntegrationType': integration_type,
-            'Integration.FlowSid': integration_flow_sid,
-            'Integration.Url': integration_url,
-            'Integration.WorkspaceSid': integration_workspace_sid,
-            'Integration.WorkflowSid': integration_workflow_sid,
-            'Integration.Channel': integration_channel,
-            'Integration.Timeout': integration_timeout,
-            'Integration.Priority': integration_priority,
-            'Integration.CreationOnMessage': serialize.boolean_to_string(integration_creation_on_message),
-            'LongLived': serialize.boolean_to_string(long_lived),
-            'JanitorEnabled': serialize.boolean_to_string(janitor_enabled),
-            'Integration.RetryCount': integration_retry_count,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ChatServiceSid": chat_service_sid,
+                "ChannelType": channel_type,
+                "ContactIdentity": contact_identity,
+                "Enabled": serialize.boolean_to_string(enabled),
+                "IntegrationType": integration_type,
+                "Integration.FlowSid": integration_flow_sid,
+                "Integration.Url": integration_url,
+                "Integration.WorkspaceSid": integration_workspace_sid,
+                "Integration.WorkflowSid": integration_workflow_sid,
+                "Integration.Channel": integration_channel,
+                "Integration.Timeout": integration_timeout,
+                "Integration.Priority": integration_priority,
+                "Integration.CreationOnMessage": serialize.boolean_to_string(
+                    integration_creation_on_message
+                ),
+                "LongLived": serialize.boolean_to_string(long_lived),
+                "JanitorEnabled": serialize.boolean_to_string(janitor_enabled),
+                "Integration.RetryCount": integration_retry_count,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return FlexFlowInstance(self._version, payload)
-    
-    
-    def stream(self, 
+
+    def stream(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[FlexFlowInstance]:
@@ -551,7 +718,7 @@ class FlexFlowList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -563,16 +730,13 @@ class FlexFlowList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            friendly_name=friendly_name,
-            page_size=limits['page_size']
-        )
+        page = self.page(friendly_name=friendly_name, page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[FlexFlowInstance]:
@@ -581,7 +745,7 @@ class FlexFlowList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -594,15 +758,14 @@ class FlexFlowList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            friendly_name=friendly_name,
-            page_size=limits['page_size']
+            friendly_name=friendly_name, page_size=limits["page_size"]
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[FlexFlowInstance]:
@@ -610,7 +773,7 @@ class FlexFlowList(ListResource):
         Lists FlexFlowInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -621,15 +784,17 @@ class FlexFlowList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            friendly_name=friendly_name,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[FlexFlowInstance]:
@@ -637,7 +802,7 @@ class FlexFlowList(ListResource):
         Asynchronously lists FlexFlowInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -648,15 +813,18 @@ class FlexFlowList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            friendly_name=friendly_name,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -664,7 +832,7 @@ class FlexFlowList(ListResource):
         """
         Retrieve a single page of FlexFlowInstance records from the API.
         Request is executed immediately
-        
+
         :param friendly_name: The `friendly_name` of the Flex Flow resources to read.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -672,19 +840,21 @@ class FlexFlowList(ListResource):
 
         :returns: Page of FlexFlowInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return FlexFlowPage(self._version, response)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -692,7 +862,7 @@ class FlexFlowList(ListResource):
         """
         Asynchronously retrieve a single page of FlexFlowInstance records from the API.
         Request is executed immediately
-        
+
         :param friendly_name: The `friendly_name` of the Flex Flow resources to read.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -700,14 +870,18 @@ class FlexFlowList(ListResource):
 
         :returns: Page of FlexFlowInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return FlexFlowPage(self._version, response)
 
     def get_page(self, target_url: str) -> FlexFlowPage:
@@ -719,10 +893,7 @@ class FlexFlowList(ListResource):
 
         :returns: Page of FlexFlowInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return FlexFlowPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> FlexFlowPage:
@@ -734,18 +905,13 @@ class FlexFlowList(ListResource):
 
         :returns: Page of FlexFlowInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return FlexFlowPage(self._version, response)
-
-
 
     def get(self, sid: str) -> FlexFlowContext:
         """
         Constructs a FlexFlowContext
-        
+
         :param sid: The SID of the Flex Flow resource to update.
         """
         return FlexFlowContext(self._version, sid=sid)
@@ -753,7 +919,7 @@ class FlexFlowList(ListResource):
     def __call__(self, sid: str) -> FlexFlowContext:
         """
         Constructs a FlexFlowContext
-        
+
         :param sid: The SID of the Flex Flow resource to update.
         """
         return FlexFlowContext(self._version, sid=sid)
@@ -764,5 +930,4 @@ class FlexFlowList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.FlexApi.V1.FlexFlowList>'
-
+        return "<Twilio.FlexApi.V1.FlexFlowList>"

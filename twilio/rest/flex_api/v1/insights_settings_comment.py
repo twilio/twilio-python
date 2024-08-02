@@ -12,100 +12,92 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Any, Dict, Optional, Union
+from twilio.base import values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class InsightsSettingsCommentInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
-    :ivar comments: 
-    :ivar url: 
+    :ivar comments:
+    :ivar url:
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.comments: Optional[Dict[str, object]] = payload.get("comments")
         self.url: Optional[str] = payload.get("url")
 
-        
-        
-    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        
-        return '<Twilio.FlexApi.V1.InsightsSettingsCommentInstance>'
 
-
+        return "<Twilio.FlexApi.V1.InsightsSettingsCommentInstance>"
 
 
 class InsightsSettingsCommentList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the InsightsSettingsCommentList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/Insights/QualityManagement/Settings/CommentTags'
-        
-        
-    
-    def fetch(self, authorization: Union[str, object]=values.unset) -> InsightsSettingsCommentInstance:
+        self._uri = "/Insights/QualityManagement/Settings/CommentTags"
+
+    def fetch(
+        self, authorization: Union[str, object] = values.unset
+    ) -> InsightsSettingsCommentInstance:
         """
         Asynchronously fetch the InsightsSettingsCommentInstance
 
         :param authorization: The Authorization HTTP request header
         :returns: The fetched InsightsSettingsCommentInstance
         """
-        headers = values.of({
-                'Authorization': authorization,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, headers=headers)
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return InsightsSettingsCommentInstance(self._version, payload)
 
-    async def fetch_async(self, authorization: Union[str, object]=values.unset) -> InsightsSettingsCommentInstance:
+    async def fetch_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> InsightsSettingsCommentInstance:
         """
         Asynchronously fetch the InsightsSettingsCommentInstance
 
         :param authorization: The Authorization HTTP request header
         :returns: The fetched InsightsSettingsCommentInstance
         """
-        headers = values.of({
-                'Authorization': authorization,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, headers=headers)
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        payload = await self._version.fetch_async(
+            method="GET", uri=self._uri, headers=headers
+        )
 
         return InsightsSettingsCommentInstance(self._version, payload)
-
-
 
     def __repr__(self) -> str:
         """
@@ -113,5 +105,4 @@ class InsightsSettingsCommentList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.FlexApi.V1.InsightsSettingsCommentList>'
-
+        return "<Twilio.FlexApi.V1.InsightsSettingsCommentList>"

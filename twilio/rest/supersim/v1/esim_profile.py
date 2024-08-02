@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -51,10 +49,11 @@ class EsimProfileInstance(InstanceResource):
     :ivar url: The absolute URL of the eSIM Profile resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.iccid: Optional[str] = payload.get("iccid")
@@ -66,12 +65,15 @@ class EsimProfileInstance(InstanceResource):
         self.activation_code: Optional[str] = payload.get("activation_code")
         self.error_code: Optional[str] = payload.get("error_code")
         self.error_message: Optional[str] = payload.get("error_message")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "sid": sid or self.sid,
         }
         self._context: Optional[EsimProfileContext] = None
@@ -85,14 +87,16 @@ class EsimProfileInstance(InstanceResource):
         :returns: EsimProfileContext for this EsimProfileInstance
         """
         if self._context is None:
-            self._context = EsimProfileContext(self._version, sid=self._solution['sid'],)
+            self._context = EsimProfileContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "EsimProfileInstance":
         """
         Fetch the EsimProfileInstance
-        
+
 
         :returns: The fetched EsimProfileInstance
         """
@@ -101,20 +105,21 @@ class EsimProfileInstance(InstanceResource):
     async def fetch_async(self) -> "EsimProfileInstance":
         """
         Asynchronous coroutine to fetch the EsimProfileInstance
-        
+
 
         :returns: The fetched EsimProfileInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Supersim.V1.EsimProfileInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.EsimProfileInstance {}>".format(context)
+
 
 class EsimProfileContext(InstanceContext):
 
@@ -127,63 +132,58 @@ class EsimProfileContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/ESimProfiles/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/ESimProfiles/{sid}".format(**self._solution)
+
     def fetch(self) -> EsimProfileInstance:
         """
         Fetch the EsimProfileInstance
-        
+
 
         :returns: The fetched EsimProfileInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return EsimProfileInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> EsimProfileInstance:
         """
         Asynchronous coroutine to fetch the EsimProfileInstance
-        
+
 
         :returns: The fetched EsimProfileInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return EsimProfileInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Supersim.V1.EsimProfileContext {}>'.format(context)
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Supersim.V1.EsimProfileContext {}>".format(context)
 
 
 class EsimProfilePage(Page):
@@ -205,27 +205,26 @@ class EsimProfilePage(Page):
         return "<Twilio.Supersim.V1.EsimProfilePage>"
 
 
-
-
-
 class EsimProfileList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the EsimProfileList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/ESimProfiles'
-        
-        
-    
-    
-    def create(self, callback_url: Union[str, object]=values.unset, callback_method: Union[str, object]=values.unset, generate_matching_id: Union[bool, object]=values.unset, eid: Union[str, object]=values.unset) -> EsimProfileInstance:
+        self._uri = "/ESimProfiles"
+
+    def create(
+        self,
+        callback_url: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        generate_matching_id: Union[bool, object] = values.unset,
+        eid: Union[str, object] = values.unset,
+    ) -> EsimProfileInstance:
         """
         Create the EsimProfileInstance
 
@@ -233,26 +232,33 @@ class EsimProfileList(ListResource):
         :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
         :param generate_matching_id: When set to `true`, a value for `Eid` does not need to be provided. Instead, when the eSIM profile is reserved, a matching ID will be generated and returned via the `matching_id` property. This identifies the specific eSIM profile that can be used by any capable device to claim and download the profile.
         :param eid: Identifier of the eUICC that will claim the eSIM Profile.
-        
+
         :returns: The created EsimProfileInstance
         """
-        
-        data = values.of({ 
-            'CallbackUrl': callback_url,
-            'CallbackMethod': callback_method,
-            'GenerateMatchingId': serialize.boolean_to_string(generate_matching_id),
-            'Eid': eid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "CallbackUrl": callback_url,
+                "CallbackMethod": callback_method,
+                "GenerateMatchingId": serialize.boolean_to_string(generate_matching_id),
+                "Eid": eid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return EsimProfileInstance(self._version, payload)
 
-    async def create_async(self, callback_url: Union[str, object]=values.unset, callback_method: Union[str, object]=values.unset, generate_matching_id: Union[bool, object]=values.unset, eid: Union[str, object]=values.unset) -> EsimProfileInstance:
+    async def create_async(
+        self,
+        callback_url: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        generate_matching_id: Union[bool, object] = values.unset,
+        eid: Union[str, object] = values.unset,
+    ) -> EsimProfileInstance:
         """
         Asynchronously create the EsimProfileInstance
 
@@ -260,31 +266,31 @@ class EsimProfileList(ListResource):
         :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is POST.
         :param generate_matching_id: When set to `true`, a value for `Eid` does not need to be provided. Instead, when the eSIM profile is reserved, a matching ID will be generated and returned via the `matching_id` property. This identifies the specific eSIM profile that can be used by any capable device to claim and download the profile.
         :param eid: Identifier of the eUICC that will claim the eSIM Profile.
-        
+
         :returns: The created EsimProfileInstance
         """
-        
-        data = values.of({ 
-            'CallbackUrl': callback_url,
-            'CallbackMethod': callback_method,
-            'GenerateMatchingId': serialize.boolean_to_string(generate_matching_id),
-            'Eid': eid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "CallbackUrl": callback_url,
+                "CallbackMethod": callback_method,
+                "GenerateMatchingId": serialize.boolean_to_string(generate_matching_id),
+                "Eid": eid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return EsimProfileInstance(self._version, payload)
-    
-    
-    def stream(self, 
+
+    def stream(
+        self,
         eid: Union[str, object] = values.unset,
         sim_sid: Union[str, object] = values.unset,
         status: Union["EsimProfileInstance.Status", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[EsimProfileInstance]:
@@ -293,7 +299,7 @@ class EsimProfileList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str eid: List the eSIM Profiles that have been associated with an EId.
         :param str sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
         :param &quot;EsimProfileInstance.Status&quot; status: List the eSIM Profiles that are in a given status.
@@ -308,19 +314,16 @@ class EsimProfileList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
-            eid=eid,
-            sim_sid=sim_sid,
-            status=status,
-            page_size=limits['page_size']
+            eid=eid, sim_sid=sim_sid, status=status, page_size=limits["page_size"]
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         eid: Union[str, object] = values.unset,
         sim_sid: Union[str, object] = values.unset,
         status: Union["EsimProfileInstance.Status", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[EsimProfileInstance]:
@@ -329,7 +332,7 @@ class EsimProfileList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str eid: List the eSIM Profiles that have been associated with an EId.
         :param str sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
         :param &quot;EsimProfileInstance.Status&quot; status: List the eSIM Profiles that are in a given status.
@@ -344,19 +347,16 @@ class EsimProfileList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            eid=eid,
-            sim_sid=sim_sid,
-            status=status,
-            page_size=limits['page_size']
+            eid=eid, sim_sid=sim_sid, status=status, page_size=limits["page_size"]
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         eid: Union[str, object] = values.unset,
         sim_sid: Union[str, object] = values.unset,
         status: Union["EsimProfileInstance.Status", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[EsimProfileInstance]:
@@ -364,7 +364,7 @@ class EsimProfileList(ListResource):
         Lists EsimProfileInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str eid: List the eSIM Profiles that have been associated with an EId.
         :param str sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
         :param &quot;EsimProfileInstance.Status&quot; status: List the eSIM Profiles that are in a given status.
@@ -377,19 +377,21 @@ class EsimProfileList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            eid=eid,
-            sim_sid=sim_sid,
-            status=status,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                eid=eid,
+                sim_sid=sim_sid,
+                status=status,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         eid: Union[str, object] = values.unset,
         sim_sid: Union[str, object] = values.unset,
         status: Union["EsimProfileInstance.Status", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[EsimProfileInstance]:
@@ -397,7 +399,7 @@ class EsimProfileList(ListResource):
         Asynchronously lists EsimProfileInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str eid: List the eSIM Profiles that have been associated with an EId.
         :param str sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
         :param &quot;EsimProfileInstance.Status&quot; status: List the eSIM Profiles that are in a given status.
@@ -410,19 +412,22 @@ class EsimProfileList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            eid=eid,
-            sim_sid=sim_sid,
-            status=status,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                eid=eid,
+                sim_sid=sim_sid,
+                status=status,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         eid: Union[str, object] = values.unset,
         sim_sid: Union[str, object] = values.unset,
         status: Union["EsimProfileInstance.Status", object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -430,7 +435,7 @@ class EsimProfileList(ListResource):
         """
         Retrieve a single page of EsimProfileInstance records from the API.
         Request is executed immediately
-        
+
         :param eid: List the eSIM Profiles that have been associated with an EId.
         :param sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
         :param status: List the eSIM Profiles that are in a given status.
@@ -440,23 +445,25 @@ class EsimProfileList(ListResource):
 
         :returns: Page of EsimProfileInstance
         """
-        data = values.of({ 
-            'Eid': eid,
-            'SimSid': sim_sid,
-            'Status': status,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Eid": eid,
+                "SimSid": sim_sid,
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return EsimProfilePage(self._version, response)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         eid: Union[str, object] = values.unset,
         sim_sid: Union[str, object] = values.unset,
         status: Union["EsimProfileInstance.Status", object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -464,7 +471,7 @@ class EsimProfileList(ListResource):
         """
         Asynchronously retrieve a single page of EsimProfileInstance records from the API.
         Request is executed immediately
-        
+
         :param eid: List the eSIM Profiles that have been associated with an EId.
         :param sim_sid: Find the eSIM Profile resource related to a [Sim](https://www.twilio.com/docs/iot/supersim/api/sim-resource) resource by providing the SIM SID. Will always return an array with either 1 or 0 records.
         :param status: List the eSIM Profiles that are in a given status.
@@ -474,16 +481,20 @@ class EsimProfileList(ListResource):
 
         :returns: Page of EsimProfileInstance
         """
-        data = values.of({ 
-            'Eid': eid,
-            'SimSid': sim_sid,
-            'Status': status,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Eid": eid,
+                "SimSid": sim_sid,
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return EsimProfilePage(self._version, response)
 
     def get_page(self, target_url: str) -> EsimProfilePage:
@@ -495,10 +506,7 @@ class EsimProfileList(ListResource):
 
         :returns: Page of EsimProfileInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return EsimProfilePage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> EsimProfilePage:
@@ -510,18 +518,13 @@ class EsimProfileList(ListResource):
 
         :returns: Page of EsimProfileInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return EsimProfilePage(self._version, response)
-
-
 
     def get(self, sid: str) -> EsimProfileContext:
         """
         Constructs a EsimProfileContext
-        
+
         :param sid: The SID of the eSIM Profile resource to fetch.
         """
         return EsimProfileContext(self._version, sid=sid)
@@ -529,7 +532,7 @@ class EsimProfileList(ListResource):
     def __call__(self, sid: str) -> EsimProfileContext:
         """
         Constructs a EsimProfileContext
-        
+
         :param sid: The SID of the eSIM Profile resource to fetch.
         """
         return EsimProfileContext(self._version, sid=sid)
@@ -540,5 +543,4 @@ class EsimProfileList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Supersim.V1.EsimProfileList>'
-
+        return "<Twilio.Supersim.V1.EsimProfileList>"

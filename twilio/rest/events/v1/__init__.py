@@ -34,7 +34,7 @@ class V1(Version):
         self._schemas: Optional[SchemaList] = None
         self._sinks: Optional[SinkList] = None
         self._subscriptions: Optional[SubscriptionList] = None
-        
+
     @property
     def event_types(self) -> EventTypeList:
         if self._event_types is None:

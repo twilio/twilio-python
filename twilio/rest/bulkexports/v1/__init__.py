@@ -30,7 +30,7 @@ class V1(Version):
         super().__init__(domain, "v1")
         self._exports: Optional[ExportList] = None
         self._export_configuration: Optional[ExportConfigurationList] = None
-        
+
     @property
     def exports(self) -> ExportList:
         if self._exports is None:

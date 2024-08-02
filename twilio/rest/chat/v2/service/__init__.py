@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -29,7 +27,6 @@ from twilio.rest.chat.v2.service.user import UserList
 
 
 class ServiceInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Service resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
@@ -56,36 +53,54 @@ class ServiceInstance(InstanceResource):
     :ivar links: The absolute URLs of the Service's [Channels](https://www.twilio.com/docs/chat/channels), [Roles](https://www.twilio.com/docs/chat/rest/role-resource), [Bindings](https://www.twilio.com/docs/chat/rest/binding-resource), and [Users](https://www.twilio.com/docs/chat/rest/user-resource).
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
-        self.default_service_role_sid: Optional[str] = payload.get("default_service_role_sid")
-        self.default_channel_role_sid: Optional[str] = payload.get("default_channel_role_sid")
-        self.default_channel_creator_role_sid: Optional[str] = payload.get("default_channel_creator_role_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.default_service_role_sid: Optional[str] = payload.get(
+            "default_service_role_sid"
+        )
+        self.default_channel_role_sid: Optional[str] = payload.get(
+            "default_channel_role_sid"
+        )
+        self.default_channel_creator_role_sid: Optional[str] = payload.get(
+            "default_channel_creator_role_sid"
+        )
         self.read_status_enabled: Optional[bool] = payload.get("read_status_enabled")
         self.reachability_enabled: Optional[bool] = payload.get("reachability_enabled")
-        self.typing_indicator_timeout: Optional[int] = deserialize.integer(payload.get("typing_indicator_timeout"))
-        self.consumption_report_interval: Optional[int] = deserialize.integer(payload.get("consumption_report_interval"))
+        self.typing_indicator_timeout: Optional[int] = deserialize.integer(
+            payload.get("typing_indicator_timeout")
+        )
+        self.consumption_report_interval: Optional[int] = deserialize.integer(
+            payload.get("consumption_report_interval")
+        )
         self.limits: Optional[Dict[str, object]] = payload.get("limits")
         self.pre_webhook_url: Optional[str] = payload.get("pre_webhook_url")
         self.post_webhook_url: Optional[str] = payload.get("post_webhook_url")
         self.webhook_method: Optional[str] = payload.get("webhook_method")
         self.webhook_filters: Optional[List[str]] = payload.get("webhook_filters")
-        self.pre_webhook_retry_count: Optional[int] = deserialize.integer(payload.get("pre_webhook_retry_count"))
-        self.post_webhook_retry_count: Optional[int] = deserialize.integer(payload.get("post_webhook_retry_count"))
+        self.pre_webhook_retry_count: Optional[int] = deserialize.integer(
+            payload.get("pre_webhook_retry_count")
+        )
+        self.post_webhook_retry_count: Optional[int] = deserialize.integer(
+            payload.get("post_webhook_retry_count")
+        )
         self.notifications: Optional[Dict[str, object]] = payload.get("notifications")
         self.media: Optional[Dict[str, object]] = payload.get("media")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        
-        self._solution = { 
+        self._solution = {
             "sid": sid or self.sid,
         }
         self._context: Optional[ServiceContext] = None
@@ -99,32 +114,34 @@ class ServiceInstance(InstanceResource):
         :returns: ServiceContext for this ServiceInstance
         """
         if self._context is None:
-            self._context = ServiceContext(self._version, sid=self._solution['sid'],)
+            self._context = ServiceContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the ServiceInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "ServiceInstance":
         """
         Fetch the ServiceInstance
-        
+
 
         :returns: The fetched ServiceInstance
         """
@@ -133,17 +150,51 @@ class ServiceInstance(InstanceResource):
     async def fetch_async(self) -> "ServiceInstance":
         """
         Asynchronous coroutine to fetch the ServiceInstance
-        
+
 
         :returns: The fetched ServiceInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, default_service_role_sid: Union[str, object]=values.unset, default_channel_role_sid: Union[str, object]=values.unset, default_channel_creator_role_sid: Union[str, object]=values.unset, read_status_enabled: Union[bool, object]=values.unset, reachability_enabled: Union[bool, object]=values.unset, typing_indicator_timeout: Union[int, object]=values.unset, consumption_report_interval: Union[int, object]=values.unset, notifications_new_message_enabled: Union[bool, object]=values.unset, notifications_new_message_template: Union[str, object]=values.unset, notifications_new_message_sound: Union[str, object]=values.unset, notifications_new_message_badge_count_enabled: Union[bool, object]=values.unset, notifications_added_to_channel_enabled: Union[bool, object]=values.unset, notifications_added_to_channel_template: Union[str, object]=values.unset, notifications_added_to_channel_sound: Union[str, object]=values.unset, notifications_removed_from_channel_enabled: Union[bool, object]=values.unset, notifications_removed_from_channel_template: Union[str, object]=values.unset, notifications_removed_from_channel_sound: Union[str, object]=values.unset, notifications_invited_to_channel_enabled: Union[bool, object]=values.unset, notifications_invited_to_channel_template: Union[str, object]=values.unset, notifications_invited_to_channel_sound: Union[str, object]=values.unset, pre_webhook_url: Union[str, object]=values.unset, post_webhook_url: Union[str, object]=values.unset, webhook_method: Union[str, object]=values.unset, webhook_filters: Union[List[str], object]=values.unset, limits_channel_members: Union[int, object]=values.unset, limits_user_channels: Union[int, object]=values.unset, media_compatibility_message: Union[str, object]=values.unset, pre_webhook_retry_count: Union[int, object]=values.unset, post_webhook_retry_count: Union[int, object]=values.unset, notifications_log_enabled: Union[bool, object]=values.unset) -> "ServiceInstance":
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        default_service_role_sid: Union[str, object] = values.unset,
+        default_channel_role_sid: Union[str, object] = values.unset,
+        default_channel_creator_role_sid: Union[str, object] = values.unset,
+        read_status_enabled: Union[bool, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+        typing_indicator_timeout: Union[int, object] = values.unset,
+        consumption_report_interval: Union[int, object] = values.unset,
+        notifications_new_message_enabled: Union[bool, object] = values.unset,
+        notifications_new_message_template: Union[str, object] = values.unset,
+        notifications_new_message_sound: Union[str, object] = values.unset,
+        notifications_new_message_badge_count_enabled: Union[
+            bool, object
+        ] = values.unset,
+        notifications_added_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_added_to_channel_template: Union[str, object] = values.unset,
+        notifications_added_to_channel_sound: Union[str, object] = values.unset,
+        notifications_removed_from_channel_enabled: Union[bool, object] = values.unset,
+        notifications_removed_from_channel_template: Union[str, object] = values.unset,
+        notifications_removed_from_channel_sound: Union[str, object] = values.unset,
+        notifications_invited_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_invited_to_channel_template: Union[str, object] = values.unset,
+        notifications_invited_to_channel_sound: Union[str, object] = values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        webhook_filters: Union[List[str], object] = values.unset,
+        limits_channel_members: Union[int, object] = values.unset,
+        limits_user_channels: Union[int, object] = values.unset,
+        media_compatibility_message: Union[str, object] = values.unset,
+        pre_webhook_retry_count: Union[int, object] = values.unset,
+        post_webhook_retry_count: Union[int, object] = values.unset,
+        notifications_log_enabled: Union[bool, object] = values.unset,
+    ) -> "ServiceInstance":
         """
         Update the ServiceInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource.
         :param default_service_role_sid: The service role assigned to users when they are added to the service. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
         :param default_channel_role_sid: The channel role assigned to users when they are added to a channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
@@ -178,12 +229,79 @@ class ServiceInstance(InstanceResource):
 
         :returns: The updated ServiceInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, default_service_role_sid=default_service_role_sid, default_channel_role_sid=default_channel_role_sid, default_channel_creator_role_sid=default_channel_creator_role_sid, read_status_enabled=read_status_enabled, reachability_enabled=reachability_enabled, typing_indicator_timeout=typing_indicator_timeout, consumption_report_interval=consumption_report_interval, notifications_new_message_enabled=notifications_new_message_enabled, notifications_new_message_template=notifications_new_message_template, notifications_new_message_sound=notifications_new_message_sound, notifications_new_message_badge_count_enabled=notifications_new_message_badge_count_enabled, notifications_added_to_channel_enabled=notifications_added_to_channel_enabled, notifications_added_to_channel_template=notifications_added_to_channel_template, notifications_added_to_channel_sound=notifications_added_to_channel_sound, notifications_removed_from_channel_enabled=notifications_removed_from_channel_enabled, notifications_removed_from_channel_template=notifications_removed_from_channel_template, notifications_removed_from_channel_sound=notifications_removed_from_channel_sound, notifications_invited_to_channel_enabled=notifications_invited_to_channel_enabled, notifications_invited_to_channel_template=notifications_invited_to_channel_template, notifications_invited_to_channel_sound=notifications_invited_to_channel_sound, pre_webhook_url=pre_webhook_url, post_webhook_url=post_webhook_url, webhook_method=webhook_method, webhook_filters=webhook_filters, limits_channel_members=limits_channel_members, limits_user_channels=limits_user_channels, media_compatibility_message=media_compatibility_message, pre_webhook_retry_count=pre_webhook_retry_count, post_webhook_retry_count=post_webhook_retry_count, notifications_log_enabled=notifications_log_enabled, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            default_service_role_sid=default_service_role_sid,
+            default_channel_role_sid=default_channel_role_sid,
+            default_channel_creator_role_sid=default_channel_creator_role_sid,
+            read_status_enabled=read_status_enabled,
+            reachability_enabled=reachability_enabled,
+            typing_indicator_timeout=typing_indicator_timeout,
+            consumption_report_interval=consumption_report_interval,
+            notifications_new_message_enabled=notifications_new_message_enabled,
+            notifications_new_message_template=notifications_new_message_template,
+            notifications_new_message_sound=notifications_new_message_sound,
+            notifications_new_message_badge_count_enabled=notifications_new_message_badge_count_enabled,
+            notifications_added_to_channel_enabled=notifications_added_to_channel_enabled,
+            notifications_added_to_channel_template=notifications_added_to_channel_template,
+            notifications_added_to_channel_sound=notifications_added_to_channel_sound,
+            notifications_removed_from_channel_enabled=notifications_removed_from_channel_enabled,
+            notifications_removed_from_channel_template=notifications_removed_from_channel_template,
+            notifications_removed_from_channel_sound=notifications_removed_from_channel_sound,
+            notifications_invited_to_channel_enabled=notifications_invited_to_channel_enabled,
+            notifications_invited_to_channel_template=notifications_invited_to_channel_template,
+            notifications_invited_to_channel_sound=notifications_invited_to_channel_sound,
+            pre_webhook_url=pre_webhook_url,
+            post_webhook_url=post_webhook_url,
+            webhook_method=webhook_method,
+            webhook_filters=webhook_filters,
+            limits_channel_members=limits_channel_members,
+            limits_user_channels=limits_user_channels,
+            media_compatibility_message=media_compatibility_message,
+            pre_webhook_retry_count=pre_webhook_retry_count,
+            post_webhook_retry_count=post_webhook_retry_count,
+            notifications_log_enabled=notifications_log_enabled,
+        )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, default_service_role_sid: Union[str, object]=values.unset, default_channel_role_sid: Union[str, object]=values.unset, default_channel_creator_role_sid: Union[str, object]=values.unset, read_status_enabled: Union[bool, object]=values.unset, reachability_enabled: Union[bool, object]=values.unset, typing_indicator_timeout: Union[int, object]=values.unset, consumption_report_interval: Union[int, object]=values.unset, notifications_new_message_enabled: Union[bool, object]=values.unset, notifications_new_message_template: Union[str, object]=values.unset, notifications_new_message_sound: Union[str, object]=values.unset, notifications_new_message_badge_count_enabled: Union[bool, object]=values.unset, notifications_added_to_channel_enabled: Union[bool, object]=values.unset, notifications_added_to_channel_template: Union[str, object]=values.unset, notifications_added_to_channel_sound: Union[str, object]=values.unset, notifications_removed_from_channel_enabled: Union[bool, object]=values.unset, notifications_removed_from_channel_template: Union[str, object]=values.unset, notifications_removed_from_channel_sound: Union[str, object]=values.unset, notifications_invited_to_channel_enabled: Union[bool, object]=values.unset, notifications_invited_to_channel_template: Union[str, object]=values.unset, notifications_invited_to_channel_sound: Union[str, object]=values.unset, pre_webhook_url: Union[str, object]=values.unset, post_webhook_url: Union[str, object]=values.unset, webhook_method: Union[str, object]=values.unset, webhook_filters: Union[List[str], object]=values.unset, limits_channel_members: Union[int, object]=values.unset, limits_user_channels: Union[int, object]=values.unset, media_compatibility_message: Union[str, object]=values.unset, pre_webhook_retry_count: Union[int, object]=values.unset, post_webhook_retry_count: Union[int, object]=values.unset, notifications_log_enabled: Union[bool, object]=values.unset) -> "ServiceInstance":
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        default_service_role_sid: Union[str, object] = values.unset,
+        default_channel_role_sid: Union[str, object] = values.unset,
+        default_channel_creator_role_sid: Union[str, object] = values.unset,
+        read_status_enabled: Union[bool, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+        typing_indicator_timeout: Union[int, object] = values.unset,
+        consumption_report_interval: Union[int, object] = values.unset,
+        notifications_new_message_enabled: Union[bool, object] = values.unset,
+        notifications_new_message_template: Union[str, object] = values.unset,
+        notifications_new_message_sound: Union[str, object] = values.unset,
+        notifications_new_message_badge_count_enabled: Union[
+            bool, object
+        ] = values.unset,
+        notifications_added_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_added_to_channel_template: Union[str, object] = values.unset,
+        notifications_added_to_channel_sound: Union[str, object] = values.unset,
+        notifications_removed_from_channel_enabled: Union[bool, object] = values.unset,
+        notifications_removed_from_channel_template: Union[str, object] = values.unset,
+        notifications_removed_from_channel_sound: Union[str, object] = values.unset,
+        notifications_invited_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_invited_to_channel_template: Union[str, object] = values.unset,
+        notifications_invited_to_channel_sound: Union[str, object] = values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        webhook_filters: Union[List[str], object] = values.unset,
+        limits_channel_members: Union[int, object] = values.unset,
+        limits_user_channels: Union[int, object] = values.unset,
+        media_compatibility_message: Union[str, object] = values.unset,
+        pre_webhook_retry_count: Union[int, object] = values.unset,
+        post_webhook_retry_count: Union[int, object] = values.unset,
+        notifications_log_enabled: Union[bool, object] = values.unset,
+    ) -> "ServiceInstance":
         """
         Asynchronous coroutine to update the ServiceInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource.
         :param default_service_role_sid: The service role assigned to users when they are added to the service. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
         :param default_channel_role_sid: The channel role assigned to users when they are added to a channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
@@ -218,44 +336,77 @@ class ServiceInstance(InstanceResource):
 
         :returns: The updated ServiceInstance
         """
-        return await self._proxy.update_async(friendly_name=friendly_name, default_service_role_sid=default_service_role_sid, default_channel_role_sid=default_channel_role_sid, default_channel_creator_role_sid=default_channel_creator_role_sid, read_status_enabled=read_status_enabled, reachability_enabled=reachability_enabled, typing_indicator_timeout=typing_indicator_timeout, consumption_report_interval=consumption_report_interval, notifications_new_message_enabled=notifications_new_message_enabled, notifications_new_message_template=notifications_new_message_template, notifications_new_message_sound=notifications_new_message_sound, notifications_new_message_badge_count_enabled=notifications_new_message_badge_count_enabled, notifications_added_to_channel_enabled=notifications_added_to_channel_enabled, notifications_added_to_channel_template=notifications_added_to_channel_template, notifications_added_to_channel_sound=notifications_added_to_channel_sound, notifications_removed_from_channel_enabled=notifications_removed_from_channel_enabled, notifications_removed_from_channel_template=notifications_removed_from_channel_template, notifications_removed_from_channel_sound=notifications_removed_from_channel_sound, notifications_invited_to_channel_enabled=notifications_invited_to_channel_enabled, notifications_invited_to_channel_template=notifications_invited_to_channel_template, notifications_invited_to_channel_sound=notifications_invited_to_channel_sound, pre_webhook_url=pre_webhook_url, post_webhook_url=post_webhook_url, webhook_method=webhook_method, webhook_filters=webhook_filters, limits_channel_members=limits_channel_members, limits_user_channels=limits_user_channels, media_compatibility_message=media_compatibility_message, pre_webhook_retry_count=pre_webhook_retry_count, post_webhook_retry_count=post_webhook_retry_count, notifications_log_enabled=notifications_log_enabled, )
-    
+        return await self._proxy.update_async(
+            friendly_name=friendly_name,
+            default_service_role_sid=default_service_role_sid,
+            default_channel_role_sid=default_channel_role_sid,
+            default_channel_creator_role_sid=default_channel_creator_role_sid,
+            read_status_enabled=read_status_enabled,
+            reachability_enabled=reachability_enabled,
+            typing_indicator_timeout=typing_indicator_timeout,
+            consumption_report_interval=consumption_report_interval,
+            notifications_new_message_enabled=notifications_new_message_enabled,
+            notifications_new_message_template=notifications_new_message_template,
+            notifications_new_message_sound=notifications_new_message_sound,
+            notifications_new_message_badge_count_enabled=notifications_new_message_badge_count_enabled,
+            notifications_added_to_channel_enabled=notifications_added_to_channel_enabled,
+            notifications_added_to_channel_template=notifications_added_to_channel_template,
+            notifications_added_to_channel_sound=notifications_added_to_channel_sound,
+            notifications_removed_from_channel_enabled=notifications_removed_from_channel_enabled,
+            notifications_removed_from_channel_template=notifications_removed_from_channel_template,
+            notifications_removed_from_channel_sound=notifications_removed_from_channel_sound,
+            notifications_invited_to_channel_enabled=notifications_invited_to_channel_enabled,
+            notifications_invited_to_channel_template=notifications_invited_to_channel_template,
+            notifications_invited_to_channel_sound=notifications_invited_to_channel_sound,
+            pre_webhook_url=pre_webhook_url,
+            post_webhook_url=post_webhook_url,
+            webhook_method=webhook_method,
+            webhook_filters=webhook_filters,
+            limits_channel_members=limits_channel_members,
+            limits_user_channels=limits_user_channels,
+            media_compatibility_message=media_compatibility_message,
+            pre_webhook_retry_count=pre_webhook_retry_count,
+            post_webhook_retry_count=post_webhook_retry_count,
+            notifications_log_enabled=notifications_log_enabled,
+        )
+
     @property
     def bindings(self) -> BindingList:
         """
         Access the bindings
         """
         return self._proxy.bindings
-    
+
     @property
     def channels(self) -> ChannelList:
         """
         Access the channels
         """
         return self._proxy.channels
-    
+
     @property
     def roles(self) -> RoleList:
         """
         Access the roles
         """
         return self._proxy.roles
-    
+
     @property
     def users(self) -> UserList:
         """
         Access the users
         """
         return self._proxy.users
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Chat.V2.ServiceInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Chat.V2.ServiceInstance {}>".format(context)
+
 
 class ServiceContext(InstanceContext):
 
@@ -268,77 +419,118 @@ class ServiceContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/Services/{sid}'.format(**self._solution)
-        
+        self._uri = "/Services/{sid}".format(**self._solution)
+
         self._bindings: Optional[BindingList] = None
         self._channels: Optional[ChannelList] = None
         self._roles: Optional[RoleList] = None
         self._users: Optional[UserList] = None
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> ServiceInstance:
         """
         Fetch the ServiceInstance
-        
+
 
         :returns: The fetched ServiceInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ServiceInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> ServiceInstance:
         """
         Asynchronous coroutine to fetch the ServiceInstance
-        
+
 
         :returns: The fetched ServiceInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ServiceInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, default_service_role_sid: Union[str, object]=values.unset, default_channel_role_sid: Union[str, object]=values.unset, default_channel_creator_role_sid: Union[str, object]=values.unset, read_status_enabled: Union[bool, object]=values.unset, reachability_enabled: Union[bool, object]=values.unset, typing_indicator_timeout: Union[int, object]=values.unset, consumption_report_interval: Union[int, object]=values.unset, notifications_new_message_enabled: Union[bool, object]=values.unset, notifications_new_message_template: Union[str, object]=values.unset, notifications_new_message_sound: Union[str, object]=values.unset, notifications_new_message_badge_count_enabled: Union[bool, object]=values.unset, notifications_added_to_channel_enabled: Union[bool, object]=values.unset, notifications_added_to_channel_template: Union[str, object]=values.unset, notifications_added_to_channel_sound: Union[str, object]=values.unset, notifications_removed_from_channel_enabled: Union[bool, object]=values.unset, notifications_removed_from_channel_template: Union[str, object]=values.unset, notifications_removed_from_channel_sound: Union[str, object]=values.unset, notifications_invited_to_channel_enabled: Union[bool, object]=values.unset, notifications_invited_to_channel_template: Union[str, object]=values.unset, notifications_invited_to_channel_sound: Union[str, object]=values.unset, pre_webhook_url: Union[str, object]=values.unset, post_webhook_url: Union[str, object]=values.unset, webhook_method: Union[str, object]=values.unset, webhook_filters: Union[List[str], object]=values.unset, limits_channel_members: Union[int, object]=values.unset, limits_user_channels: Union[int, object]=values.unset, media_compatibility_message: Union[str, object]=values.unset, pre_webhook_retry_count: Union[int, object]=values.unset, post_webhook_retry_count: Union[int, object]=values.unset, notifications_log_enabled: Union[bool, object]=values.unset) -> ServiceInstance:
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        default_service_role_sid: Union[str, object] = values.unset,
+        default_channel_role_sid: Union[str, object] = values.unset,
+        default_channel_creator_role_sid: Union[str, object] = values.unset,
+        read_status_enabled: Union[bool, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+        typing_indicator_timeout: Union[int, object] = values.unset,
+        consumption_report_interval: Union[int, object] = values.unset,
+        notifications_new_message_enabled: Union[bool, object] = values.unset,
+        notifications_new_message_template: Union[str, object] = values.unset,
+        notifications_new_message_sound: Union[str, object] = values.unset,
+        notifications_new_message_badge_count_enabled: Union[
+            bool, object
+        ] = values.unset,
+        notifications_added_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_added_to_channel_template: Union[str, object] = values.unset,
+        notifications_added_to_channel_sound: Union[str, object] = values.unset,
+        notifications_removed_from_channel_enabled: Union[bool, object] = values.unset,
+        notifications_removed_from_channel_template: Union[str, object] = values.unset,
+        notifications_removed_from_channel_sound: Union[str, object] = values.unset,
+        notifications_invited_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_invited_to_channel_template: Union[str, object] = values.unset,
+        notifications_invited_to_channel_sound: Union[str, object] = values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        webhook_filters: Union[List[str], object] = values.unset,
+        limits_channel_members: Union[int, object] = values.unset,
+        limits_user_channels: Union[int, object] = values.unset,
+        media_compatibility_message: Union[str, object] = values.unset,
+        pre_webhook_retry_count: Union[int, object] = values.unset,
+        post_webhook_retry_count: Union[int, object] = values.unset,
+        notifications_log_enabled: Union[bool, object] = values.unset,
+    ) -> ServiceInstance:
         """
         Update the ServiceInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource.
         :param default_service_role_sid: The service role assigned to users when they are added to the service. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
         :param default_channel_role_sid: The channel role assigned to users when they are added to a channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
@@ -373,53 +565,103 @@ class ServiceContext(InstanceContext):
 
         :returns: The updated ServiceInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DefaultServiceRoleSid': default_service_role_sid,
-            'DefaultChannelRoleSid': default_channel_role_sid,
-            'DefaultChannelCreatorRoleSid': default_channel_creator_role_sid,
-            'ReadStatusEnabled': serialize.boolean_to_string(read_status_enabled),
-            'ReachabilityEnabled': serialize.boolean_to_string(reachability_enabled),
-            'TypingIndicatorTimeout': typing_indicator_timeout,
-            'ConsumptionReportInterval': consumption_report_interval,
-            'Notifications.NewMessage.Enabled': serialize.boolean_to_string(notifications_new_message_enabled),
-            'Notifications.NewMessage.Template': notifications_new_message_template,
-            'Notifications.NewMessage.Sound': notifications_new_message_sound,
-            'Notifications.NewMessage.BadgeCountEnabled': serialize.boolean_to_string(notifications_new_message_badge_count_enabled),
-            'Notifications.AddedToChannel.Enabled': serialize.boolean_to_string(notifications_added_to_channel_enabled),
-            'Notifications.AddedToChannel.Template': notifications_added_to_channel_template,
-            'Notifications.AddedToChannel.Sound': notifications_added_to_channel_sound,
-            'Notifications.RemovedFromChannel.Enabled': serialize.boolean_to_string(notifications_removed_from_channel_enabled),
-            'Notifications.RemovedFromChannel.Template': notifications_removed_from_channel_template,
-            'Notifications.RemovedFromChannel.Sound': notifications_removed_from_channel_sound,
-            'Notifications.InvitedToChannel.Enabled': serialize.boolean_to_string(notifications_invited_to_channel_enabled),
-            'Notifications.InvitedToChannel.Template': notifications_invited_to_channel_template,
-            'Notifications.InvitedToChannel.Sound': notifications_invited_to_channel_sound,
-            'PreWebhookUrl': pre_webhook_url,
-            'PostWebhookUrl': post_webhook_url,
-            'WebhookMethod': webhook_method,
-            'WebhookFilters': serialize.map(webhook_filters, lambda e: e),
-            'Limits.ChannelMembers': limits_channel_members,
-            'Limits.UserChannels': limits_user_channels,
-            'Media.CompatibilityMessage': media_compatibility_message,
-            'PreWebhookRetryCount': pre_webhook_retry_count,
-            'PostWebhookRetryCount': post_webhook_retry_count,
-            'Notifications.LogEnabled': serialize.boolean_to_string(notifications_log_enabled),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "DefaultServiceRoleSid": default_service_role_sid,
+                "DefaultChannelRoleSid": default_channel_role_sid,
+                "DefaultChannelCreatorRoleSid": default_channel_creator_role_sid,
+                "ReadStatusEnabled": serialize.boolean_to_string(read_status_enabled),
+                "ReachabilityEnabled": serialize.boolean_to_string(
+                    reachability_enabled
+                ),
+                "TypingIndicatorTimeout": typing_indicator_timeout,
+                "ConsumptionReportInterval": consumption_report_interval,
+                "Notifications.NewMessage.Enabled": serialize.boolean_to_string(
+                    notifications_new_message_enabled
+                ),
+                "Notifications.NewMessage.Template": notifications_new_message_template,
+                "Notifications.NewMessage.Sound": notifications_new_message_sound,
+                "Notifications.NewMessage.BadgeCountEnabled": serialize.boolean_to_string(
+                    notifications_new_message_badge_count_enabled
+                ),
+                "Notifications.AddedToChannel.Enabled": serialize.boolean_to_string(
+                    notifications_added_to_channel_enabled
+                ),
+                "Notifications.AddedToChannel.Template": notifications_added_to_channel_template,
+                "Notifications.AddedToChannel.Sound": notifications_added_to_channel_sound,
+                "Notifications.RemovedFromChannel.Enabled": serialize.boolean_to_string(
+                    notifications_removed_from_channel_enabled
+                ),
+                "Notifications.RemovedFromChannel.Template": notifications_removed_from_channel_template,
+                "Notifications.RemovedFromChannel.Sound": notifications_removed_from_channel_sound,
+                "Notifications.InvitedToChannel.Enabled": serialize.boolean_to_string(
+                    notifications_invited_to_channel_enabled
+                ),
+                "Notifications.InvitedToChannel.Template": notifications_invited_to_channel_template,
+                "Notifications.InvitedToChannel.Sound": notifications_invited_to_channel_sound,
+                "PreWebhookUrl": pre_webhook_url,
+                "PostWebhookUrl": post_webhook_url,
+                "WebhookMethod": webhook_method,
+                "WebhookFilters": serialize.map(webhook_filters, lambda e: e),
+                "Limits.ChannelMembers": limits_channel_members,
+                "Limits.UserChannels": limits_user_channels,
+                "Media.CompatibilityMessage": media_compatibility_message,
+                "PreWebhookRetryCount": pre_webhook_retry_count,
+                "PostWebhookRetryCount": post_webhook_retry_count,
+                "Notifications.LogEnabled": serialize.boolean_to_string(
+                    notifications_log_enabled
+                ),
+            }
         )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, default_service_role_sid: Union[str, object]=values.unset, default_channel_role_sid: Union[str, object]=values.unset, default_channel_creator_role_sid: Union[str, object]=values.unset, read_status_enabled: Union[bool, object]=values.unset, reachability_enabled: Union[bool, object]=values.unset, typing_indicator_timeout: Union[int, object]=values.unset, consumption_report_interval: Union[int, object]=values.unset, notifications_new_message_enabled: Union[bool, object]=values.unset, notifications_new_message_template: Union[str, object]=values.unset, notifications_new_message_sound: Union[str, object]=values.unset, notifications_new_message_badge_count_enabled: Union[bool, object]=values.unset, notifications_added_to_channel_enabled: Union[bool, object]=values.unset, notifications_added_to_channel_template: Union[str, object]=values.unset, notifications_added_to_channel_sound: Union[str, object]=values.unset, notifications_removed_from_channel_enabled: Union[bool, object]=values.unset, notifications_removed_from_channel_template: Union[str, object]=values.unset, notifications_removed_from_channel_sound: Union[str, object]=values.unset, notifications_invited_to_channel_enabled: Union[bool, object]=values.unset, notifications_invited_to_channel_template: Union[str, object]=values.unset, notifications_invited_to_channel_sound: Union[str, object]=values.unset, pre_webhook_url: Union[str, object]=values.unset, post_webhook_url: Union[str, object]=values.unset, webhook_method: Union[str, object]=values.unset, webhook_filters: Union[List[str], object]=values.unset, limits_channel_members: Union[int, object]=values.unset, limits_user_channels: Union[int, object]=values.unset, media_compatibility_message: Union[str, object]=values.unset, pre_webhook_retry_count: Union[int, object]=values.unset, post_webhook_retry_count: Union[int, object]=values.unset, notifications_log_enabled: Union[bool, object]=values.unset) -> ServiceInstance:
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ServiceInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        default_service_role_sid: Union[str, object] = values.unset,
+        default_channel_role_sid: Union[str, object] = values.unset,
+        default_channel_creator_role_sid: Union[str, object] = values.unset,
+        read_status_enabled: Union[bool, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+        typing_indicator_timeout: Union[int, object] = values.unset,
+        consumption_report_interval: Union[int, object] = values.unset,
+        notifications_new_message_enabled: Union[bool, object] = values.unset,
+        notifications_new_message_template: Union[str, object] = values.unset,
+        notifications_new_message_sound: Union[str, object] = values.unset,
+        notifications_new_message_badge_count_enabled: Union[
+            bool, object
+        ] = values.unset,
+        notifications_added_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_added_to_channel_template: Union[str, object] = values.unset,
+        notifications_added_to_channel_sound: Union[str, object] = values.unset,
+        notifications_removed_from_channel_enabled: Union[bool, object] = values.unset,
+        notifications_removed_from_channel_template: Union[str, object] = values.unset,
+        notifications_removed_from_channel_sound: Union[str, object] = values.unset,
+        notifications_invited_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_invited_to_channel_template: Union[str, object] = values.unset,
+        notifications_invited_to_channel_sound: Union[str, object] = values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        webhook_filters: Union[List[str], object] = values.unset,
+        limits_channel_members: Union[int, object] = values.unset,
+        limits_user_channels: Union[int, object] = values.unset,
+        media_compatibility_message: Union[str, object] = values.unset,
+        pre_webhook_retry_count: Union[int, object] = values.unset,
+        post_webhook_retry_count: Union[int, object] = values.unset,
+        notifications_log_enabled: Union[bool, object] = values.unset,
+    ) -> ServiceInstance:
         """
         Asynchronous coroutine to update the ServiceInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource.
         :param default_service_role_sid: The service role assigned to users when they are added to the service. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
         :param default_channel_role_sid: The channel role assigned to users when they are added to a channel. See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info about roles.
@@ -454,50 +696,64 @@ class ServiceContext(InstanceContext):
 
         :returns: The updated ServiceInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DefaultServiceRoleSid': default_service_role_sid,
-            'DefaultChannelRoleSid': default_channel_role_sid,
-            'DefaultChannelCreatorRoleSid': default_channel_creator_role_sid,
-            'ReadStatusEnabled': serialize.boolean_to_string(read_status_enabled),
-            'ReachabilityEnabled': serialize.boolean_to_string(reachability_enabled),
-            'TypingIndicatorTimeout': typing_indicator_timeout,
-            'ConsumptionReportInterval': consumption_report_interval,
-            'Notifications.NewMessage.Enabled': serialize.boolean_to_string(notifications_new_message_enabled),
-            'Notifications.NewMessage.Template': notifications_new_message_template,
-            'Notifications.NewMessage.Sound': notifications_new_message_sound,
-            'Notifications.NewMessage.BadgeCountEnabled': serialize.boolean_to_string(notifications_new_message_badge_count_enabled),
-            'Notifications.AddedToChannel.Enabled': serialize.boolean_to_string(notifications_added_to_channel_enabled),
-            'Notifications.AddedToChannel.Template': notifications_added_to_channel_template,
-            'Notifications.AddedToChannel.Sound': notifications_added_to_channel_sound,
-            'Notifications.RemovedFromChannel.Enabled': serialize.boolean_to_string(notifications_removed_from_channel_enabled),
-            'Notifications.RemovedFromChannel.Template': notifications_removed_from_channel_template,
-            'Notifications.RemovedFromChannel.Sound': notifications_removed_from_channel_sound,
-            'Notifications.InvitedToChannel.Enabled': serialize.boolean_to_string(notifications_invited_to_channel_enabled),
-            'Notifications.InvitedToChannel.Template': notifications_invited_to_channel_template,
-            'Notifications.InvitedToChannel.Sound': notifications_invited_to_channel_sound,
-            'PreWebhookUrl': pre_webhook_url,
-            'PostWebhookUrl': post_webhook_url,
-            'WebhookMethod': webhook_method,
-            'WebhookFilters': serialize.map(webhook_filters, lambda e: e),
-            'Limits.ChannelMembers': limits_channel_members,
-            'Limits.UserChannels': limits_user_channels,
-            'Media.CompatibilityMessage': media_compatibility_message,
-            'PreWebhookRetryCount': pre_webhook_retry_count,
-            'PostWebhookRetryCount': post_webhook_retry_count,
-            'Notifications.LogEnabled': serialize.boolean_to_string(notifications_log_enabled),
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "DefaultServiceRoleSid": default_service_role_sid,
+                "DefaultChannelRoleSid": default_channel_role_sid,
+                "DefaultChannelCreatorRoleSid": default_channel_creator_role_sid,
+                "ReadStatusEnabled": serialize.boolean_to_string(read_status_enabled),
+                "ReachabilityEnabled": serialize.boolean_to_string(
+                    reachability_enabled
+                ),
+                "TypingIndicatorTimeout": typing_indicator_timeout,
+                "ConsumptionReportInterval": consumption_report_interval,
+                "Notifications.NewMessage.Enabled": serialize.boolean_to_string(
+                    notifications_new_message_enabled
+                ),
+                "Notifications.NewMessage.Template": notifications_new_message_template,
+                "Notifications.NewMessage.Sound": notifications_new_message_sound,
+                "Notifications.NewMessage.BadgeCountEnabled": serialize.boolean_to_string(
+                    notifications_new_message_badge_count_enabled
+                ),
+                "Notifications.AddedToChannel.Enabled": serialize.boolean_to_string(
+                    notifications_added_to_channel_enabled
+                ),
+                "Notifications.AddedToChannel.Template": notifications_added_to_channel_template,
+                "Notifications.AddedToChannel.Sound": notifications_added_to_channel_sound,
+                "Notifications.RemovedFromChannel.Enabled": serialize.boolean_to_string(
+                    notifications_removed_from_channel_enabled
+                ),
+                "Notifications.RemovedFromChannel.Template": notifications_removed_from_channel_template,
+                "Notifications.RemovedFromChannel.Sound": notifications_removed_from_channel_sound,
+                "Notifications.InvitedToChannel.Enabled": serialize.boolean_to_string(
+                    notifications_invited_to_channel_enabled
+                ),
+                "Notifications.InvitedToChannel.Template": notifications_invited_to_channel_template,
+                "Notifications.InvitedToChannel.Sound": notifications_invited_to_channel_sound,
+                "PreWebhookUrl": pre_webhook_url,
+                "PostWebhookUrl": post_webhook_url,
+                "WebhookMethod": webhook_method,
+                "WebhookFilters": serialize.map(webhook_filters, lambda e: e),
+                "Limits.ChannelMembers": limits_channel_members,
+                "Limits.UserChannels": limits_user_channels,
+                "Media.CompatibilityMessage": media_compatibility_message,
+                "PreWebhookRetryCount": pre_webhook_retry_count,
+                "PostWebhookRetryCount": post_webhook_retry_count,
+                "Notifications.LogEnabled": serialize.boolean_to_string(
+                    notifications_log_enabled
+                ),
+            }
         )
-    
-    
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ServiceInstance(self._version, payload, sid=self._solution["sid"])
+
     @property
     def bindings(self) -> BindingList:
         """
@@ -505,11 +761,11 @@ class ServiceContext(InstanceContext):
         """
         if self._bindings is None:
             self._bindings = BindingList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._bindings
-    
+
     @property
     def channels(self) -> ChannelList:
         """
@@ -517,11 +773,11 @@ class ServiceContext(InstanceContext):
         """
         if self._channels is None:
             self._channels = ChannelList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._channels
-    
+
     @property
     def roles(self) -> RoleList:
         """
@@ -529,11 +785,11 @@ class ServiceContext(InstanceContext):
         """
         if self._roles is None:
             self._roles = RoleList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._roles
-    
+
     @property
     def users(self) -> UserList:
         """
@@ -541,28 +797,19 @@ class ServiceContext(InstanceContext):
         """
         if self._users is None:
             self._users = UserList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._users
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Chat.V2.ServiceContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Chat.V2.ServiceContext {}>".format(context)
 
 
 class ServicePage(Page):
@@ -584,46 +831,38 @@ class ServicePage(Page):
         return "<Twilio.Chat.V2.ServicePage>"
 
 
-
-
-
 class ServiceList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/Services'
-        
-        
-    
-    
-    
-    
+        self._uri = "/Services"
+
     def create(self, friendly_name: str) -> ServiceInstance:
         """
         Create the ServiceInstance
 
         :param friendly_name: A descriptive string that you create to describe the new resource.
-        
+
         :returns: The created ServiceInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return ServiceInstance(self._version, payload)
 
@@ -632,25 +871,25 @@ class ServiceList(ListResource):
         Asynchronously create the ServiceInstance
 
         :param friendly_name: A descriptive string that you create to describe the new resource.
-        
+
         :returns: The created ServiceInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return ServiceInstance(self._version, payload)
-    
-    
-    def stream(self, 
-        
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ServiceInstance]:
@@ -659,7 +898,7 @@ class ServiceList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -670,14 +909,12 @@ class ServiceList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ServiceInstance]:
@@ -686,7 +923,7 @@ class ServiceList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -697,14 +934,12 @@ class ServiceList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ServiceInstance]:
@@ -712,7 +947,7 @@ class ServiceList(ListResource):
         Lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -722,13 +957,15 @@ class ServiceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ServiceInstance]:
@@ -736,7 +973,7 @@ class ServiceList(ListResource):
         Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -746,13 +983,16 @@ class ServiceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -760,24 +1000,26 @@ class ServiceList(ListResource):
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return ServicePage(self._version, response)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -785,20 +1027,24 @@ class ServiceList(ListResource):
         """
         Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return ServicePage(self._version, response)
 
     def get_page(self, target_url: str) -> ServicePage:
@@ -810,10 +1056,7 @@ class ServiceList(ListResource):
 
         :returns: Page of ServiceInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return ServicePage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> ServicePage:
@@ -825,26 +1068,13 @@ class ServiceList(ListResource):
 
         :returns: Page of ServiceInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return ServicePage(self._version, response)
-
-
-
-
-
-
-
-
-
-
 
     def get(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
-        
+
         :param sid: The SID of the Service resource to update.
         """
         return ServiceContext(self._version, sid=sid)
@@ -852,7 +1082,7 @@ class ServiceList(ListResource):
     def __call__(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
-        
+
         :param sid: The SID of the Service resource to update.
         """
         return ServiceContext(self._version, sid=sid)
@@ -863,5 +1093,4 @@ class ServiceList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Chat.V2.ServiceList>'
-
+        return "<Twilio.Chat.V2.ServiceList>"

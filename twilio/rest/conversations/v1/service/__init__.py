@@ -12,11 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -25,13 +23,14 @@ from twilio.base.page import Page
 from twilio.rest.conversations.v1.service.binding import BindingList
 from twilio.rest.conversations.v1.service.configuration import ConfigurationList
 from twilio.rest.conversations.v1.service.conversation import ConversationList
-from twilio.rest.conversations.v1.service.participant_conversation import ParticipantConversationList
+from twilio.rest.conversations.v1.service.participant_conversation import (
+    ParticipantConversationList,
+)
 from twilio.rest.conversations.v1.service.role import RoleList
 from twilio.rest.conversations.v1.service.user import UserList
 
 
 class ServiceInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this service.
     :ivar sid: A 34 character string that uniquely identifies this resource.
@@ -42,20 +41,24 @@ class ServiceInstance(InstanceResource):
     :ivar links: Contains absolute API resource URLs to access conversations, users, roles, bindings and configuration of this service.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.sid: Optional[str] = payload.get("sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        
-        self._solution = { 
+        self._solution = {
             "sid": sid or self.sid,
         }
         self._context: Optional[ServiceContext] = None
@@ -69,32 +72,34 @@ class ServiceInstance(InstanceResource):
         :returns: ServiceContext for this ServiceInstance
         """
         if self._context is None:
-            self._context = ServiceContext(self._version, sid=self._solution['sid'],)
+            self._context = ServiceContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the ServiceInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "ServiceInstance":
         """
         Fetch the ServiceInstance
-        
+
 
         :returns: The fetched ServiceInstance
         """
@@ -103,62 +108,63 @@ class ServiceInstance(InstanceResource):
     async def fetch_async(self) -> "ServiceInstance":
         """
         Asynchronous coroutine to fetch the ServiceInstance
-        
+
 
         :returns: The fetched ServiceInstance
         """
         return await self._proxy.fetch_async()
-    
+
     @property
     def bindings(self) -> BindingList:
         """
         Access the bindings
         """
         return self._proxy.bindings
-    
+
     @property
     def configuration(self) -> ConfigurationList:
         """
         Access the configuration
         """
         return self._proxy.configuration
-    
+
     @property
     def conversations(self) -> ConversationList:
         """
         Access the conversations
         """
         return self._proxy.conversations
-    
+
     @property
     def participant_conversations(self) -> ParticipantConversationList:
         """
         Access the participant_conversations
         """
         return self._proxy.participant_conversations
-    
+
     @property
     def roles(self) -> RoleList:
         """
         Access the roles
         """
         return self._proxy.roles
-    
+
     @property
     def users(self) -> UserList:
         """
         Access the users
         """
         return self._proxy.users
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V1.ServiceInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Conversations.V1.ServiceInstance {}>".format(context)
+
 
 class ServiceContext(InstanceContext):
 
@@ -171,75 +177,81 @@ class ServiceContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/Services/{sid}'.format(**self._solution)
-        
+        self._uri = "/Services/{sid}".format(**self._solution)
+
         self._bindings: Optional[BindingList] = None
         self._configuration: Optional[ConfigurationList] = None
         self._conversations: Optional[ConversationList] = None
         self._participant_conversations: Optional[ParticipantConversationList] = None
         self._roles: Optional[RoleList] = None
         self._users: Optional[UserList] = None
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> ServiceInstance:
         """
         Fetch the ServiceInstance
-        
+
 
         :returns: The fetched ServiceInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ServiceInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> ServiceInstance:
         """
         Asynchronous coroutine to fetch the ServiceInstance
-        
+
 
         :returns: The fetched ServiceInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ServiceInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
+
     @property
     def bindings(self) -> BindingList:
         """
@@ -247,11 +259,11 @@ class ServiceContext(InstanceContext):
         """
         if self._bindings is None:
             self._bindings = BindingList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._bindings
-    
+
     @property
     def configuration(self) -> ConfigurationList:
         """
@@ -259,11 +271,11 @@ class ServiceContext(InstanceContext):
         """
         if self._configuration is None:
             self._configuration = ConfigurationList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._configuration
-    
+
     @property
     def conversations(self) -> ConversationList:
         """
@@ -271,11 +283,11 @@ class ServiceContext(InstanceContext):
         """
         if self._conversations is None:
             self._conversations = ConversationList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._conversations
-    
+
     @property
     def participant_conversations(self) -> ParticipantConversationList:
         """
@@ -283,11 +295,11 @@ class ServiceContext(InstanceContext):
         """
         if self._participant_conversations is None:
             self._participant_conversations = ParticipantConversationList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._participant_conversations
-    
+
     @property
     def roles(self) -> RoleList:
         """
@@ -295,11 +307,11 @@ class ServiceContext(InstanceContext):
         """
         if self._roles is None:
             self._roles = RoleList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._roles
-    
+
     @property
     def users(self) -> UserList:
         """
@@ -307,26 +319,19 @@ class ServiceContext(InstanceContext):
         """
         if self._users is None:
             self._users = UserList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._users
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V1.ServiceContext {}>'.format(context)
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Conversations.V1.ServiceContext {}>".format(context)
 
 
 class ServicePage(Page):
@@ -348,45 +353,38 @@ class ServicePage(Page):
         return "<Twilio.Conversations.V1.ServicePage>"
 
 
-
-
-
 class ServiceList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/Services'
-        
-        
-    
-    
-    
+        self._uri = "/Services"
+
     def create(self, friendly_name: str) -> ServiceInstance:
         """
         Create the ServiceInstance
 
         :param friendly_name: The human-readable name of this service, limited to 256 characters. Optional.
-        
+
         :returns: The created ServiceInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return ServiceInstance(self._version, payload)
 
@@ -395,25 +393,25 @@ class ServiceList(ListResource):
         Asynchronously create the ServiceInstance
 
         :param friendly_name: The human-readable name of this service, limited to 256 characters. Optional.
-        
+
         :returns: The created ServiceInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return ServiceInstance(self._version, payload)
-    
-    
-    def stream(self, 
-        
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ServiceInstance]:
@@ -422,7 +420,7 @@ class ServiceList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -433,14 +431,12 @@ class ServiceList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ServiceInstance]:
@@ -449,7 +445,7 @@ class ServiceList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -460,14 +456,12 @@ class ServiceList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ServiceInstance]:
@@ -475,7 +469,7 @@ class ServiceList(ListResource):
         Lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -485,13 +479,15 @@ class ServiceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ServiceInstance]:
@@ -499,7 +495,7 @@ class ServiceList(ListResource):
         Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -509,13 +505,16 @@ class ServiceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -523,24 +522,26 @@ class ServiceList(ListResource):
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return ServicePage(self._version, response)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -548,20 +549,24 @@ class ServiceList(ListResource):
         """
         Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return ServicePage(self._version, response)
 
     def get_page(self, target_url: str) -> ServicePage:
@@ -573,10 +578,7 @@ class ServiceList(ListResource):
 
         :returns: Page of ServiceInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return ServicePage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> ServicePage:
@@ -588,30 +590,13 @@ class ServiceList(ListResource):
 
         :returns: Page of ServiceInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return ServicePage(self._version, response)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     def get(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
-        
+
         :param sid: A 34 character string that uniquely identifies this resource.
         """
         return ServiceContext(self._version, sid=sid)
@@ -619,7 +604,7 @@ class ServiceList(ListResource):
     def __call__(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
-        
+
         :param sid: A 34 character string that uniquely identifies this resource.
         """
         return ServiceContext(self._version, sid=sid)
@@ -630,5 +615,4 @@ class ServiceList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Conversations.V1.ServiceList>'
-
+        return "<Twilio.Conversations.V1.ServiceList>"

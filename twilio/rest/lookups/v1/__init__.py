@@ -28,7 +28,7 @@ class V1(Version):
         """
         super().__init__(domain, "v1")
         self._phone_numbers: Optional[PhoneNumberList] = None
-        
+
     @property
     def phone_numbers(self) -> PhoneNumberList:
         if self._phone_numbers is None:

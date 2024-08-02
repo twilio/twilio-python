@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -25,7 +23,6 @@ from twilio.base.page import Page
 
 
 class EventInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Event resource.
     :ivar actor_sid: The SID of the actor that caused the event, if available. Can be `null`.
@@ -43,16 +40,19 @@ class EventInstance(InstanceResource):
     :ivar links: The absolute URLs of related resources.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.actor_sid: Optional[str] = payload.get("actor_sid")
         self.actor_type: Optional[str] = payload.get("actor_type")
         self.description: Optional[str] = payload.get("description")
         self.event_data: Optional[Dict[str, object]] = payload.get("event_data")
-        self.event_date: Optional[datetime] = deserialize.iso8601_datetime(payload.get("event_date"))
+        self.event_date: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("event_date")
+        )
         self.event_type: Optional[str] = payload.get("event_type")
         self.resource_sid: Optional[str] = payload.get("resource_sid")
         self.resource_type: Optional[str] = payload.get("resource_type")
@@ -62,8 +62,7 @@ class EventInstance(InstanceResource):
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        
-        self._solution = { 
+        self._solution = {
             "sid": sid or self.sid,
         }
         self._context: Optional[EventContext] = None
@@ -77,14 +76,16 @@ class EventInstance(InstanceResource):
         :returns: EventContext for this EventInstance
         """
         if self._context is None:
-            self._context = EventContext(self._version, sid=self._solution['sid'],)
+            self._context = EventContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "EventInstance":
         """
         Fetch the EventInstance
-        
+
 
         :returns: The fetched EventInstance
         """
@@ -93,20 +94,21 @@ class EventInstance(InstanceResource):
     async def fetch_async(self) -> "EventInstance":
         """
         Asynchronous coroutine to fetch the EventInstance
-        
+
 
         :returns: The fetched EventInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Monitor.V1.EventInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Monitor.V1.EventInstance {}>".format(context)
+
 
 class EventContext(InstanceContext):
 
@@ -119,61 +121,58 @@ class EventContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/Events/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Events/{sid}".format(**self._solution)
+
     def fetch(self) -> EventInstance:
         """
         Fetch the EventInstance
-        
+
 
         :returns: The fetched EventInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return EventInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> EventInstance:
         """
         Asynchronous coroutine to fetch the EventInstance
-        
+
 
         :returns: The fetched EventInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return EventInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Monitor.V1.EventContext {}>'.format(context)
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Monitor.V1.EventContext {}>".format(context)
 
 
 class EventPage(Page):
@@ -195,34 +194,27 @@ class EventPage(Page):
         return "<Twilio.Monitor.V1.EventPage>"
 
 
-
-
-
 class EventList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the EventList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/Events'
-        
-        
-    
-    
-    def stream(self, 
+        self._uri = "/Events"
+
+    def stream(
+        self,
         actor_sid: Union[str, object] = values.unset,
         event_type: Union[str, object] = values.unset,
         resource_sid: Union[str, object] = values.unset,
         source_ip_address: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[EventInstance]:
@@ -231,7 +223,7 @@ class EventList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str actor_sid: Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
         :param str event_type: Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
         :param str resource_sid: Only include events that refer to this resource. Useful for discovering the history of a specific resource.
@@ -255,19 +247,19 @@ class EventList(ListResource):
             source_ip_address=source_ip_address,
             start_date=start_date,
             end_date=end_date,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         actor_sid: Union[str, object] = values.unset,
         event_type: Union[str, object] = values.unset,
         resource_sid: Union[str, object] = values.unset,
         source_ip_address: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[EventInstance]:
@@ -276,7 +268,7 @@ class EventList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str actor_sid: Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
         :param str event_type: Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
         :param str resource_sid: Only include events that refer to this resource. Useful for discovering the history of a specific resource.
@@ -300,19 +292,19 @@ class EventList(ListResource):
             source_ip_address=source_ip_address,
             start_date=start_date,
             end_date=end_date,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         actor_sid: Union[str, object] = values.unset,
         event_type: Union[str, object] = values.unset,
         resource_sid: Union[str, object] = values.unset,
         source_ip_address: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[EventInstance]:
@@ -320,7 +312,7 @@ class EventList(ListResource):
         Lists EventInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str actor_sid: Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
         :param str event_type: Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
         :param str resource_sid: Only include events that refer to this resource. Useful for discovering the history of a specific resource.
@@ -336,25 +328,27 @@ class EventList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            actor_sid=actor_sid,
-            event_type=event_type,
-            resource_sid=resource_sid,
-            source_ip_address=source_ip_address,
-            start_date=start_date,
-            end_date=end_date,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                actor_sid=actor_sid,
+                event_type=event_type,
+                resource_sid=resource_sid,
+                source_ip_address=source_ip_address,
+                start_date=start_date,
+                end_date=end_date,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         actor_sid: Union[str, object] = values.unset,
         event_type: Union[str, object] = values.unset,
         resource_sid: Union[str, object] = values.unset,
         source_ip_address: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[EventInstance]:
@@ -362,7 +356,7 @@ class EventList(ListResource):
         Asynchronously lists EventInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str actor_sid: Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
         :param str event_type: Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
         :param str resource_sid: Only include events that refer to this resource. Useful for discovering the history of a specific resource.
@@ -378,25 +372,28 @@ class EventList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            actor_sid=actor_sid,
-            event_type=event_type,
-            resource_sid=resource_sid,
-            source_ip_address=source_ip_address,
-            start_date=start_date,
-            end_date=end_date,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                actor_sid=actor_sid,
+                event_type=event_type,
+                resource_sid=resource_sid,
+                source_ip_address=source_ip_address,
+                start_date=start_date,
+                end_date=end_date,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         actor_sid: Union[str, object] = values.unset,
         event_type: Union[str, object] = values.unset,
         resource_sid: Union[str, object] = values.unset,
         source_ip_address: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -404,7 +401,7 @@ class EventList(ListResource):
         """
         Retrieve a single page of EventInstance records from the API.
         Request is executed immediately
-        
+
         :param actor_sid: Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
         :param event_type: Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
         :param resource_sid: Only include events that refer to this resource. Useful for discovering the history of a specific resource.
@@ -417,29 +414,31 @@ class EventList(ListResource):
 
         :returns: Page of EventInstance
         """
-        data = values.of({ 
-            'ActorSid': actor_sid,
-            'EventType': event_type,
-            'ResourceSid': resource_sid,
-            'SourceIpAddress': source_ip_address,
-            'StartDate': serialize.iso8601_datetime(start_date),
-            'EndDate': serialize.iso8601_datetime(end_date),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "ActorSid": actor_sid,
+                "EventType": event_type,
+                "ResourceSid": resource_sid,
+                "SourceIpAddress": source_ip_address,
+                "StartDate": serialize.iso8601_datetime(start_date),
+                "EndDate": serialize.iso8601_datetime(end_date),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return EventPage(self._version, response)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         actor_sid: Union[str, object] = values.unset,
         event_type: Union[str, object] = values.unset,
         resource_sid: Union[str, object] = values.unset,
         source_ip_address: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -447,7 +446,7 @@ class EventList(ListResource):
         """
         Asynchronously retrieve a single page of EventInstance records from the API.
         Request is executed immediately
-        
+
         :param actor_sid: Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
         :param event_type: Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
         :param resource_sid: Only include events that refer to this resource. Useful for discovering the history of a specific resource.
@@ -460,19 +459,23 @@ class EventList(ListResource):
 
         :returns: Page of EventInstance
         """
-        data = values.of({ 
-            'ActorSid': actor_sid,
-            'EventType': event_type,
-            'ResourceSid': resource_sid,
-            'SourceIpAddress': source_ip_address,
-            'StartDate': serialize.iso8601_datetime(start_date),
-            'EndDate': serialize.iso8601_datetime(end_date),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "ActorSid": actor_sid,
+                "EventType": event_type,
+                "ResourceSid": resource_sid,
+                "SourceIpAddress": source_ip_address,
+                "StartDate": serialize.iso8601_datetime(start_date),
+                "EndDate": serialize.iso8601_datetime(end_date),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return EventPage(self._version, response)
 
     def get_page(self, target_url: str) -> EventPage:
@@ -484,10 +487,7 @@ class EventList(ListResource):
 
         :returns: Page of EventInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return EventPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> EventPage:
@@ -499,18 +499,13 @@ class EventList(ListResource):
 
         :returns: Page of EventInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return EventPage(self._version, response)
-
-
 
     def get(self, sid: str) -> EventContext:
         """
         Constructs a EventContext
-        
+
         :param sid: The SID of the Event resource to fetch.
         """
         return EventContext(self._version, sid=sid)
@@ -518,7 +513,7 @@ class EventList(ListResource):
     def __call__(self, sid: str) -> EventContext:
         """
         Constructs a EventContext
-        
+
         :param sid: The SID of the Event resource to fetch.
         """
         return EventContext(self._version, sid=sid)
@@ -529,5 +524,4 @@ class EventList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Monitor.V1.EventList>'
-
+        return "<Twilio.Monitor.V1.EventList>"

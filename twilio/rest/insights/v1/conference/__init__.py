@@ -12,17 +12,17 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.insights.v1.conference.conference_participant import ConferenceParticipantList
+from twilio.rest.insights.v1.conference.conference_participant import (
+    ConferenceParticipantList,
+)
 
 
 class ConferenceInstance(InstanceResource):
@@ -30,9 +30,13 @@ class ConferenceInstance(InstanceResource):
     class ConferenceEndReason(object):
         LAST_PARTICIPANT_LEFT = "last_participant_left"
         CONFERENCE_ENDED_VIA_API = "conference_ended_via_api"
-        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT = "participant_with_end_conference_on_exit_left"
+        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT = (
+            "participant_with_end_conference_on_exit_left"
+        )
         LAST_PARTICIPANT_KICKED = "last_participant_kicked"
-        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_KICKED = "participant_with_end_conference_on_exit_kicked"
+        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_KICKED = (
+            "participant_with_end_conference_on_exit_kicked"
+        )
 
     class ConferenceStatus(object):
         IN_PROGRESS = "in_progress"
@@ -93,36 +97,67 @@ class ConferenceInstance(InstanceResource):
     :ivar links: Contains a dictionary of URL links to nested resources of this Conference.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], conference_sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        conference_sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.conference_sid: Optional[str] = payload.get("conference_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
-        self.create_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("create_time"))
-        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("start_time"))
-        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("end_time"))
-        self.duration_seconds: Optional[int] = deserialize.integer(payload.get("duration_seconds"))
-        self.connect_duration_seconds: Optional[int] = deserialize.integer(payload.get("connect_duration_seconds"))
-        self.status: Optional["ConferenceInstance.ConferenceStatus"] = payload.get("status")
-        self.max_participants: Optional[int] = deserialize.integer(payload.get("max_participants"))
-        self.max_concurrent_participants: Optional[int] = deserialize.integer(payload.get("max_concurrent_participants"))
-        self.unique_participants: Optional[int] = deserialize.integer(payload.get("unique_participants"))
-        self.end_reason: Optional["ConferenceInstance.ConferenceEndReason"] = payload.get("end_reason")
+        self.create_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("create_time")
+        )
+        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("start_time")
+        )
+        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("end_time")
+        )
+        self.duration_seconds: Optional[int] = deserialize.integer(
+            payload.get("duration_seconds")
+        )
+        self.connect_duration_seconds: Optional[int] = deserialize.integer(
+            payload.get("connect_duration_seconds")
+        )
+        self.status: Optional["ConferenceInstance.ConferenceStatus"] = payload.get(
+            "status"
+        )
+        self.max_participants: Optional[int] = deserialize.integer(
+            payload.get("max_participants")
+        )
+        self.max_concurrent_participants: Optional[int] = deserialize.integer(
+            payload.get("max_concurrent_participants")
+        )
+        self.unique_participants: Optional[int] = deserialize.integer(
+            payload.get("unique_participants")
+        )
+        self.end_reason: Optional["ConferenceInstance.ConferenceEndReason"] = (
+            payload.get("end_reason")
+        )
         self.ended_by: Optional[str] = payload.get("ended_by")
-        self.mixer_region: Optional["ConferenceInstance.Region"] = payload.get("mixer_region")
-        self.mixer_region_requested: Optional["ConferenceInstance.Region"] = payload.get("mixer_region_requested")
+        self.mixer_region: Optional["ConferenceInstance.Region"] = payload.get(
+            "mixer_region"
+        )
+        self.mixer_region_requested: Optional["ConferenceInstance.Region"] = (
+            payload.get("mixer_region_requested")
+        )
         self.recording_enabled: Optional[bool] = payload.get("recording_enabled")
-        self.detected_issues: Optional[Dict[str, object]] = payload.get("detected_issues")
+        self.detected_issues: Optional[Dict[str, object]] = payload.get(
+            "detected_issues"
+        )
         self.tags: Optional[List["ConferenceInstance.Tag"]] = payload.get("tags")
         self.tag_info: Optional[Dict[str, object]] = payload.get("tag_info")
-        self.processing_state: Optional["ConferenceInstance.ProcessingState"] = payload.get("processing_state")
+        self.processing_state: Optional["ConferenceInstance.ProcessingState"] = (
+            payload.get("processing_state")
+        )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        
-        self._solution = { 
+        self._solution = {
             "conference_sid": conference_sid or self.conference_sid,
         }
         self._context: Optional[ConferenceContext] = None
@@ -136,14 +171,16 @@ class ConferenceInstance(InstanceResource):
         :returns: ConferenceContext for this ConferenceInstance
         """
         if self._context is None:
-            self._context = ConferenceContext(self._version, conference_sid=self._solution['conference_sid'],)
+            self._context = ConferenceContext(
+                self._version,
+                conference_sid=self._solution["conference_sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "ConferenceInstance":
         """
         Fetch the ConferenceInstance
-        
+
 
         :returns: The fetched ConferenceInstance
         """
@@ -152,27 +189,28 @@ class ConferenceInstance(InstanceResource):
     async def fetch_async(self) -> "ConferenceInstance":
         """
         Asynchronous coroutine to fetch the ConferenceInstance
-        
+
 
         :returns: The fetched ConferenceInstance
         """
         return await self._proxy.fetch_async()
-    
+
     @property
     def conference_participants(self) -> ConferenceParticipantList:
         """
         Access the conference_participants
         """
         return self._proxy.conference_participants
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Insights.V1.ConferenceInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Insights.V1.ConferenceInstance {}>".format(context)
+
 
 class ConferenceContext(InstanceContext):
 
@@ -185,51 +223,52 @@ class ConferenceContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'conference_sid': conference_sid,
+        self._solution = {
+            "conference_sid": conference_sid,
         }
-        self._uri = '/Conferences/{conference_sid}'.format(**self._solution)
-        
+        self._uri = "/Conferences/{conference_sid}".format(**self._solution)
+
         self._conference_participants: Optional[ConferenceParticipantList] = None
-    
-    
+
     def fetch(self) -> ConferenceInstance:
         """
         Fetch the ConferenceInstance
-        
+
 
         :returns: The fetched ConferenceInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ConferenceInstance(
             self._version,
             payload,
-            conference_sid=self._solution['conference_sid'],
-            
+            conference_sid=self._solution["conference_sid"],
         )
 
     async def fetch_async(self) -> ConferenceInstance:
         """
         Asynchronous coroutine to fetch the ConferenceInstance
-        
+
 
         :returns: The fetched ConferenceInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ConferenceInstance(
             self._version,
             payload,
-            conference_sid=self._solution['conference_sid'],
-            
+            conference_sid=self._solution["conference_sid"],
         )
-    
-    
+
     @property
     def conference_participants(self) -> ConferenceParticipantList:
         """
@@ -237,22 +276,19 @@ class ConferenceContext(InstanceContext):
         """
         if self._conference_participants is None:
             self._conference_participants = ConferenceParticipantList(
-                self._version, 
-                self._solution['conference_sid'],
+                self._version,
+                self._solution["conference_sid"],
             )
         return self._conference_participants
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Insights.V1.ConferenceContext {}>'.format(context)
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Insights.V1.ConferenceContext {}>".format(context)
 
 
 class ConferencePage(Page):
@@ -274,27 +310,21 @@ class ConferencePage(Page):
         return "<Twilio.Insights.V1.ConferencePage>"
 
 
-
-
-
 class ConferenceList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the ConferenceList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/Conferences'
-        
-        
-    
-    
-    def stream(self, 
+        self._uri = "/Conferences"
+
+    def stream(
+        self,
         conference_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union[str, object] = values.unset,
@@ -305,7 +335,6 @@ class ConferenceList(ListResource):
         subaccount: Union[str, object] = values.unset,
         detected_issues: Union[str, object] = values.unset,
         end_reason: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ConferenceInstance]:
@@ -314,7 +343,7 @@ class ConferenceList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str conference_sid: The SID of the conference.
         :param str friendly_name: Custom label for the conference resource, up to 64 characters.
         :param str status: Conference status.
@@ -346,12 +375,13 @@ class ConferenceList(ListResource):
             subaccount=subaccount,
             detected_issues=detected_issues,
             end_reason=end_reason,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         conference_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union[str, object] = values.unset,
@@ -362,7 +392,6 @@ class ConferenceList(ListResource):
         subaccount: Union[str, object] = values.unset,
         detected_issues: Union[str, object] = values.unset,
         end_reason: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ConferenceInstance]:
@@ -371,7 +400,7 @@ class ConferenceList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str conference_sid: The SID of the conference.
         :param str friendly_name: Custom label for the conference resource, up to 64 characters.
         :param str status: Conference status.
@@ -403,12 +432,13 @@ class ConferenceList(ListResource):
             subaccount=subaccount,
             detected_issues=detected_issues,
             end_reason=end_reason,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         conference_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union[str, object] = values.unset,
@@ -419,7 +449,6 @@ class ConferenceList(ListResource):
         subaccount: Union[str, object] = values.unset,
         detected_issues: Union[str, object] = values.unset,
         end_reason: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ConferenceInstance]:
@@ -427,7 +456,7 @@ class ConferenceList(ListResource):
         Lists ConferenceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str conference_sid: The SID of the conference.
         :param str friendly_name: Custom label for the conference resource, up to 64 characters.
         :param str status: Conference status.
@@ -447,22 +476,25 @@ class ConferenceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            conference_sid=conference_sid,
-            friendly_name=friendly_name,
-            status=status,
-            created_after=created_after,
-            created_before=created_before,
-            mixer_region=mixer_region,
-            tags=tags,
-            subaccount=subaccount,
-            detected_issues=detected_issues,
-            end_reason=end_reason,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                conference_sid=conference_sid,
+                friendly_name=friendly_name,
+                status=status,
+                created_after=created_after,
+                created_before=created_before,
+                mixer_region=mixer_region,
+                tags=tags,
+                subaccount=subaccount,
+                detected_issues=detected_issues,
+                end_reason=end_reason,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         conference_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union[str, object] = values.unset,
@@ -473,7 +505,6 @@ class ConferenceList(ListResource):
         subaccount: Union[str, object] = values.unset,
         detected_issues: Union[str, object] = values.unset,
         end_reason: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ConferenceInstance]:
@@ -481,7 +512,7 @@ class ConferenceList(ListResource):
         Asynchronously lists ConferenceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str conference_sid: The SID of the conference.
         :param str friendly_name: Custom label for the conference resource, up to 64 characters.
         :param str status: Conference status.
@@ -501,22 +532,26 @@ class ConferenceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            conference_sid=conference_sid,
-            friendly_name=friendly_name,
-            status=status,
-            created_after=created_after,
-            created_before=created_before,
-            mixer_region=mixer_region,
-            tags=tags,
-            subaccount=subaccount,
-            detected_issues=detected_issues,
-            end_reason=end_reason,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                conference_sid=conference_sid,
+                friendly_name=friendly_name,
+                status=status,
+                created_after=created_after,
+                created_before=created_before,
+                mixer_region=mixer_region,
+                tags=tags,
+                subaccount=subaccount,
+                detected_issues=detected_issues,
+                end_reason=end_reason,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         conference_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union[str, object] = values.unset,
@@ -527,7 +562,6 @@ class ConferenceList(ListResource):
         subaccount: Union[str, object] = values.unset,
         detected_issues: Union[str, object] = values.unset,
         end_reason: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -535,7 +569,7 @@ class ConferenceList(ListResource):
         """
         Retrieve a single page of ConferenceInstance records from the API.
         Request is executed immediately
-        
+
         :param conference_sid: The SID of the conference.
         :param friendly_name: Custom label for the conference resource, up to 64 characters.
         :param status: Conference status.
@@ -552,26 +586,29 @@ class ConferenceList(ListResource):
 
         :returns: Page of ConferenceInstance
         """
-        data = values.of({ 
-            'ConferenceSid': conference_sid,
-            'FriendlyName': friendly_name,
-            'Status': status,
-            'CreatedAfter': created_after,
-            'CreatedBefore': created_before,
-            'MixerRegion': mixer_region,
-            'Tags': tags,
-            'Subaccount': subaccount,
-            'DetectedIssues': detected_issues,
-            'EndReason': end_reason,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "ConferenceSid": conference_sid,
+                "FriendlyName": friendly_name,
+                "Status": status,
+                "CreatedAfter": created_after,
+                "CreatedBefore": created_before,
+                "MixerRegion": mixer_region,
+                "Tags": tags,
+                "Subaccount": subaccount,
+                "DetectedIssues": detected_issues,
+                "EndReason": end_reason,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return ConferencePage(self._version, response)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         conference_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union[str, object] = values.unset,
@@ -582,7 +619,6 @@ class ConferenceList(ListResource):
         subaccount: Union[str, object] = values.unset,
         detected_issues: Union[str, object] = values.unset,
         end_reason: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -590,7 +626,7 @@ class ConferenceList(ListResource):
         """
         Asynchronously retrieve a single page of ConferenceInstance records from the API.
         Request is executed immediately
-        
+
         :param conference_sid: The SID of the conference.
         :param friendly_name: Custom label for the conference resource, up to 64 characters.
         :param status: Conference status.
@@ -607,23 +643,27 @@ class ConferenceList(ListResource):
 
         :returns: Page of ConferenceInstance
         """
-        data = values.of({ 
-            'ConferenceSid': conference_sid,
-            'FriendlyName': friendly_name,
-            'Status': status,
-            'CreatedAfter': created_after,
-            'CreatedBefore': created_before,
-            'MixerRegion': mixer_region,
-            'Tags': tags,
-            'Subaccount': subaccount,
-            'DetectedIssues': detected_issues,
-            'EndReason': end_reason,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "ConferenceSid": conference_sid,
+                "FriendlyName": friendly_name,
+                "Status": status,
+                "CreatedAfter": created_after,
+                "CreatedBefore": created_before,
+                "MixerRegion": mixer_region,
+                "Tags": tags,
+                "Subaccount": subaccount,
+                "DetectedIssues": detected_issues,
+                "EndReason": end_reason,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return ConferencePage(self._version, response)
 
     def get_page(self, target_url: str) -> ConferencePage:
@@ -635,10 +675,7 @@ class ConferenceList(ListResource):
 
         :returns: Page of ConferenceInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return ConferencePage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> ConferencePage:
@@ -650,20 +687,13 @@ class ConferenceList(ListResource):
 
         :returns: Page of ConferenceInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return ConferencePage(self._version, response)
-
-
-
-
 
     def get(self, conference_sid: str) -> ConferenceContext:
         """
         Constructs a ConferenceContext
-        
+
         :param conference_sid: The unique SID identifier of the Conference.
         """
         return ConferenceContext(self._version, conference_sid=conference_sid)
@@ -671,7 +701,7 @@ class ConferenceList(ListResource):
     def __call__(self, conference_sid: str) -> ConferenceContext:
         """
         Constructs a ConferenceContext
-        
+
         :param conference_sid: The unique SID identifier of the Conference.
         """
         return ConferenceContext(self._version, conference_sid=conference_sid)
@@ -682,5 +712,4 @@ class ConferenceList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Insights.V1.ConferenceList>'
-
+        return "<Twilio.Insights.V1.ConferenceList>"

@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -62,37 +60,57 @@ class TaskInstance(InstanceResource):
     :ivar routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], workspace_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        workspace_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.age: Optional[int] = deserialize.integer(payload.get("age"))
-        self.assignment_status: Optional["TaskInstance.Status"] = payload.get("assignment_status")
+        self.assignment_status: Optional["TaskInstance.Status"] = payload.get(
+            "assignment_status"
+        )
         self.attributes: Optional[str] = payload.get("attributes")
         self.addons: Optional[str] = payload.get("addons")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
-        self.task_queue_entered_date: Optional[datetime] = deserialize.iso8601_datetime(payload.get("task_queue_entered_date"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.task_queue_entered_date: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("task_queue_entered_date")
+        )
         self.priority: Optional[int] = deserialize.integer(payload.get("priority"))
         self.reason: Optional[str] = payload.get("reason")
         self.sid: Optional[str] = payload.get("sid")
         self.task_queue_sid: Optional[str] = payload.get("task_queue_sid")
-        self.task_queue_friendly_name: Optional[str] = payload.get("task_queue_friendly_name")
+        self.task_queue_friendly_name: Optional[str] = payload.get(
+            "task_queue_friendly_name"
+        )
         self.task_channel_sid: Optional[str] = payload.get("task_channel_sid")
-        self.task_channel_unique_name: Optional[str] = payload.get("task_channel_unique_name")
+        self.task_channel_unique_name: Optional[str] = payload.get(
+            "task_channel_unique_name"
+        )
         self.timeout: Optional[int] = deserialize.integer(payload.get("timeout"))
         self.workflow_sid: Optional[str] = payload.get("workflow_sid")
-        self.workflow_friendly_name: Optional[str] = payload.get("workflow_friendly_name")
+        self.workflow_friendly_name: Optional[str] = payload.get(
+            "workflow_friendly_name"
+        )
         self.workspace_sid: Optional[str] = payload.get("workspace_sid")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
-        self.virtual_start_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("virtual_start_time"))
+        self.virtual_start_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("virtual_start_time")
+        )
         self.ignore_capacity: Optional[bool] = payload.get("ignore_capacity")
         self.routing_target: Optional[str] = payload.get("routing_target")
 
-        
-        self._solution = { 
+        self._solution = {
             "workspace_sid": workspace_sid,
             "sid": sid or self.sid,
         }
@@ -107,34 +125,41 @@ class TaskInstance(InstanceResource):
         :returns: TaskContext for this TaskInstance
         """
         if self._context is None:
-            self._context = TaskContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=self._solution['sid'],)
+            self._context = TaskContext(
+                self._version,
+                workspace_sid=self._solution["workspace_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
-    def delete(self, if_match: Union[str, object]=values.unset) -> bool:
+
+    def delete(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Deletes the TaskInstance
-        
+
         :param if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._proxy.delete(if_match=if_match, )
-    async def delete_async(self, if_match: Union[str, object]=values.unset) -> bool:
+        return self._proxy.delete(
+            if_match=if_match,
+        )
+
+    async def delete_async(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the TaskInstance
-        
+
         :param if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
 
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._proxy.delete_async(if_match=if_match, )
-    
-    
+        return await self._proxy.delete_async(
+            if_match=if_match,
+        )
+
     def fetch(self) -> "TaskInstance":
         """
         Fetch the TaskInstance
-        
+
 
         :returns: The fetched TaskInstance
         """
@@ -143,20 +168,28 @@ class TaskInstance(InstanceResource):
     async def fetch_async(self) -> "TaskInstance":
         """
         Asynchronous coroutine to fetch the TaskInstance
-        
+
 
         :returns: The fetched TaskInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, if_match: Union[str, object]=values.unset, attributes: Union[str, object]=values.unset, assignment_status: Union["TaskInstance.Status", object]=values.unset, reason: Union[str, object]=values.unset, priority: Union[int, object]=values.unset, task_channel: Union[str, object]=values.unset, virtual_start_time: Union[datetime, object]=values.unset) -> "TaskInstance":
+
+    def update(
+        self,
+        if_match: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        assignment_status: Union["TaskInstance.Status", object] = values.unset,
+        reason: Union[str, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        virtual_start_time: Union[datetime, object] = values.unset,
+    ) -> "TaskInstance":
         """
         Update the TaskInstance
-        
+
         :param if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
         :param attributes: The JSON string that describes the custom attributes of the task.
-        :param assignment_status: 
+        :param assignment_status:
         :param reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
@@ -164,15 +197,32 @@ class TaskInstance(InstanceResource):
 
         :returns: The updated TaskInstance
         """
-        return self._proxy.update(if_match=if_match, attributes=attributes, assignment_status=assignment_status, reason=reason, priority=priority, task_channel=task_channel, virtual_start_time=virtual_start_time, )
+        return self._proxy.update(
+            if_match=if_match,
+            attributes=attributes,
+            assignment_status=assignment_status,
+            reason=reason,
+            priority=priority,
+            task_channel=task_channel,
+            virtual_start_time=virtual_start_time,
+        )
 
-    async def update_async(self, if_match: Union[str, object]=values.unset, attributes: Union[str, object]=values.unset, assignment_status: Union["TaskInstance.Status", object]=values.unset, reason: Union[str, object]=values.unset, priority: Union[int, object]=values.unset, task_channel: Union[str, object]=values.unset, virtual_start_time: Union[datetime, object]=values.unset) -> "TaskInstance":
+    async def update_async(
+        self,
+        if_match: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        assignment_status: Union["TaskInstance.Status", object] = values.unset,
+        reason: Union[str, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        virtual_start_time: Union[datetime, object] = values.unset,
+    ) -> "TaskInstance":
         """
         Asynchronous coroutine to update the TaskInstance
-        
+
         :param if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
         :param attributes: The JSON string that describes the custom attributes of the task.
-        :param assignment_status: 
+        :param assignment_status:
         :param reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
@@ -180,23 +230,32 @@ class TaskInstance(InstanceResource):
 
         :returns: The updated TaskInstance
         """
-        return await self._proxy.update_async(if_match=if_match, attributes=attributes, assignment_status=assignment_status, reason=reason, priority=priority, task_channel=task_channel, virtual_start_time=virtual_start_time, )
-    
+        return await self._proxy.update_async(
+            if_match=if_match,
+            attributes=attributes,
+            assignment_status=assignment_status,
+            reason=reason,
+            priority=priority,
+            task_channel=task_channel,
+            virtual_start_time=virtual_start_time,
+        )
+
     @property
     def reservations(self) -> ReservationList:
         """
         Access the reservations
         """
         return self._proxy.reservations
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.TaskInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Taskrouter.V1.TaskInstance {}>".format(context)
+
 
 class TaskContext(InstanceContext):
 
@@ -210,86 +269,105 @@ class TaskContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'workspace_sid': workspace_sid,
-            'sid': sid,
+        self._solution = {
+            "workspace_sid": workspace_sid,
+            "sid": sid,
         }
-        self._uri = '/Workspaces/{workspace_sid}/Tasks/{sid}'.format(**self._solution)
-        
+        self._uri = "/Workspaces/{workspace_sid}/Tasks/{sid}".format(**self._solution)
+
         self._reservations: Optional[ReservationList] = None
-    
-    
-    def delete(self, if_match: Union[str, object]=values.unset) -> bool:
+
+    def delete(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Deletes the TaskInstance
 
         :param if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        headers = values.of({'If-Match': if_match, })
-        
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        headers = values.of(
+            {
+                "If-Match": if_match,
+            }
+        )
 
-    async def delete_async(self, if_match: Union[str, object]=values.unset) -> bool:
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+
+    async def delete_async(self, if_match: Union[str, object] = values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the TaskInstance
 
         :param if_match: If provided, deletes this Task if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        headers = values.of({'If-Match': if_match, })
-        
-        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
-    
-    
+        headers = values.of(
+            {
+                "If-Match": if_match,
+            }
+        )
+
+        return await self._version.delete_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> TaskInstance:
         """
         Fetch the TaskInstance
-        
+
 
         :returns: The fetched TaskInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return TaskInstance(
             self._version,
             payload,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=self._solution['sid'],
-            
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> TaskInstance:
         """
         Asynchronous coroutine to fetch the TaskInstance
-        
+
 
         :returns: The fetched TaskInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return TaskInstance(
             self._version,
             payload,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=self._solution['sid'],
-            
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, if_match: Union[str, object]=values.unset, attributes: Union[str, object]=values.unset, assignment_status: Union["TaskInstance.Status", object]=values.unset, reason: Union[str, object]=values.unset, priority: Union[int, object]=values.unset, task_channel: Union[str, object]=values.unset, virtual_start_time: Union[datetime, object]=values.unset) -> TaskInstance:
+
+    def update(
+        self,
+        if_match: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        assignment_status: Union["TaskInstance.Status", object] = values.unset,
+        reason: Union[str, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        virtual_start_time: Union[datetime, object] = values.unset,
+    ) -> TaskInstance:
         """
         Update the TaskInstance
-        
+
         :param if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
         :param attributes: The JSON string that describes the custom attributes of the task.
-        :param assignment_status: 
+        :param assignment_status:
         :param reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
@@ -297,32 +375,49 @@ class TaskContext(InstanceContext):
 
         :returns: The updated TaskInstance
         """
-        data = values.of({ 
-            'Attributes': attributes,
-            'AssignmentStatus': assignment_status,
-            'Reason': reason,
-            'Priority': priority,
-            'TaskChannel': task_channel,
-            'VirtualStartTime': serialize.iso8601_datetime(virtual_start_time),
-        })
-        headers = values.of({'If-Match': if_match, })
+        data = values.of(
+            {
+                "Attributes": attributes,
+                "AssignmentStatus": assignment_status,
+                "Reason": reason,
+                "Priority": priority,
+                "TaskChannel": task_channel,
+                "VirtualStartTime": serialize.iso8601_datetime(virtual_start_time),
+            }
+        )
+        headers = values.of(
+            {
+                "If-Match": if_match,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+        payload = self._version.update(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return TaskInstance(
             self._version,
             payload,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=self._solution['sid']
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
         )
 
-    async def update_async(self, if_match: Union[str, object]=values.unset, attributes: Union[str, object]=values.unset, assignment_status: Union["TaskInstance.Status", object]=values.unset, reason: Union[str, object]=values.unset, priority: Union[int, object]=values.unset, task_channel: Union[str, object]=values.unset, virtual_start_time: Union[datetime, object]=values.unset) -> TaskInstance:
+    async def update_async(
+        self,
+        if_match: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        assignment_status: Union["TaskInstance.Status", object] = values.unset,
+        reason: Union[str, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        virtual_start_time: Union[datetime, object] = values.unset,
+    ) -> TaskInstance:
         """
         Asynchronous coroutine to update the TaskInstance
-        
+
         :param if_match: If provided, applies this mutation if (and only if) the [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) header of the Task matches the provided value. This matches the semantics of (and is implemented with) the HTTP [If-Match header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match).
         :param attributes: The JSON string that describes the custom attributes of the task.
-        :param assignment_status: 
+        :param assignment_status:
         :param reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
@@ -330,26 +425,33 @@ class TaskContext(InstanceContext):
 
         :returns: The updated TaskInstance
         """
-        data = values.of({ 
-            'Attributes': attributes,
-            'AssignmentStatus': assignment_status,
-            'Reason': reason,
-            'Priority': priority,
-            'TaskChannel': task_channel,
-            'VirtualStartTime': serialize.iso8601_datetime(virtual_start_time),
-        })
-        headers = values.of({'If-Match': if_match, })
+        data = values.of(
+            {
+                "Attributes": attributes,
+                "AssignmentStatus": assignment_status,
+                "Reason": reason,
+                "Priority": priority,
+                "TaskChannel": task_channel,
+                "VirtualStartTime": serialize.iso8601_datetime(virtual_start_time),
+            }
+        )
+        headers = values.of(
+            {
+                "If-Match": if_match,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
+        payload = await self._version.update_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return TaskInstance(
             self._version,
             payload,
-            workspace_sid=self._solution['workspace_sid'],
-            sid=self._solution['sid']
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     @property
     def reservations(self) -> ReservationList:
         """
@@ -357,29 +459,20 @@ class TaskContext(InstanceContext):
         """
         if self._reservations is None:
             self._reservations = ReservationList(
-                self._version, 
-                self._solution['workspace_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["workspace_sid"],
+                self._solution["sid"],
             )
         return self._reservations
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.TaskContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Taskrouter.V1.TaskContext {}>".format(context)
 
 
 class TaskPage(Page):
@@ -390,7 +483,9 @@ class TaskPage(Page):
 
         :param payload: Payload response from the API
         """
-        return TaskInstance(self._version, payload, workspace_sid=self._solution["workspace_sid"])
+        return TaskInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -401,32 +496,36 @@ class TaskPage(Page):
         return "<Twilio.Taskrouter.V1.TaskPage>"
 
 
-
-
-
 class TaskList(ListResource):
-    
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskList
 
         :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the Tasks to read.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'workspace_sid': workspace_sid,  }
-        self._uri = '/Workspaces/{workspace_sid}/Tasks'.format(**self._solution)
-        
-        
-    
-    
-    
-    
-    def create(self, timeout: Union[int, object]=values.unset, priority: Union[int, object]=values.unset, task_channel: Union[str, object]=values.unset, workflow_sid: Union[str, object]=values.unset, attributes: Union[str, object]=values.unset, virtual_start_time: Union[datetime, object]=values.unset, routing_target: Union[str, object]=values.unset, ignore_capacity: Union[str, object]=values.unset, task_queue_sid: Union[str, object]=values.unset) -> TaskInstance:
+        self._solution = {
+            "workspace_sid": workspace_sid,
+        }
+        self._uri = "/Workspaces/{workspace_sid}/Tasks".format(**self._solution)
+
+    def create(
+        self,
+        timeout: Union[int, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        virtual_start_time: Union[datetime, object] = values.unset,
+        routing_target: Union[str, object] = values.unset,
+        ignore_capacity: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+    ) -> TaskInstance:
         """
         Create the TaskInstance
 
@@ -439,31 +538,45 @@ class TaskList(ListResource):
         :param routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
         :param ignore_capacity: A boolean indicating if a new task should respect a worker's capacity during assignment
         :param task_queue_sid: The SID of the TaskQueue in which the Task belongs
-        
+
         :returns: The created TaskInstance
         """
-        
-        data = values.of({ 
-            'Timeout': timeout,
-            'Priority': priority,
-            'TaskChannel': task_channel,
-            'WorkflowSid': workflow_sid,
-            'Attributes': attributes,
-            'VirtualStartTime': serialize.iso8601_datetime(virtual_start_time),
-            'RoutingTarget': routing_target,
-            'IgnoreCapacity': ignore_capacity,
-            'TaskQueueSid': task_queue_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return TaskInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
+        data = values.of(
+            {
+                "Timeout": timeout,
+                "Priority": priority,
+                "TaskChannel": task_channel,
+                "WorkflowSid": workflow_sid,
+                "Attributes": attributes,
+                "VirtualStartTime": serialize.iso8601_datetime(virtual_start_time),
+                "RoutingTarget": routing_target,
+                "IgnoreCapacity": ignore_capacity,
+                "TaskQueueSid": task_queue_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, timeout: Union[int, object]=values.unset, priority: Union[int, object]=values.unset, task_channel: Union[str, object]=values.unset, workflow_sid: Union[str, object]=values.unset, attributes: Union[str, object]=values.unset, virtual_start_time: Union[datetime, object]=values.unset, routing_target: Union[str, object]=values.unset, ignore_capacity: Union[str, object]=values.unset, task_queue_sid: Union[str, object]=values.unset) -> TaskInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return TaskInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    async def create_async(
+        self,
+        timeout: Union[int, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        virtual_start_time: Union[datetime, object] = values.unset,
+        routing_target: Union[str, object] = values.unset,
+        ignore_capacity: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+    ) -> TaskInstance:
         """
         Asynchronously create the TaskInstance
 
@@ -476,32 +589,35 @@ class TaskList(ListResource):
         :param routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
         :param ignore_capacity: A boolean indicating if a new task should respect a worker's capacity during assignment
         :param task_queue_sid: The SID of the TaskQueue in which the Task belongs
-        
+
         :returns: The created TaskInstance
         """
-        
-        data = values.of({ 
-            'Timeout': timeout,
-            'Priority': priority,
-            'TaskChannel': task_channel,
-            'WorkflowSid': workflow_sid,
-            'Attributes': attributes,
-            'VirtualStartTime': serialize.iso8601_datetime(virtual_start_time),
-            'RoutingTarget': routing_target,
-            'IgnoreCapacity': ignore_capacity,
-            'TaskQueueSid': task_queue_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return TaskInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
-    
-    
-    def stream(self, 
+        data = values.of(
+            {
+                "Timeout": timeout,
+                "Priority": priority,
+                "TaskChannel": task_channel,
+                "WorkflowSid": workflow_sid,
+                "Attributes": attributes,
+                "VirtualStartTime": serialize.iso8601_datetime(virtual_start_time),
+                "RoutingTarget": routing_target,
+                "IgnoreCapacity": ignore_capacity,
+                "TaskQueueSid": task_queue_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return TaskInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def stream(
+        self,
         priority: Union[int, object] = values.unset,
         assignment_status: Union[List[str], object] = values.unset,
         workflow_sid: Union[str, object] = values.unset,
@@ -512,7 +628,6 @@ class TaskList(ListResource):
         routing_target: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
         has_addons: Union[bool, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[TaskInstance]:
@@ -521,7 +636,7 @@ class TaskList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int priority: The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
         :param List[str] assignment_status: The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
         :param str workflow_sid: The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
@@ -553,12 +668,13 @@ class TaskList(ListResource):
             routing_target=routing_target,
             ordering=ordering,
             has_addons=has_addons,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         priority: Union[int, object] = values.unset,
         assignment_status: Union[List[str], object] = values.unset,
         workflow_sid: Union[str, object] = values.unset,
@@ -569,7 +685,6 @@ class TaskList(ListResource):
         routing_target: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
         has_addons: Union[bool, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[TaskInstance]:
@@ -578,7 +693,7 @@ class TaskList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param int priority: The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
         :param List[str] assignment_status: The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
         :param str workflow_sid: The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
@@ -610,12 +725,13 @@ class TaskList(ListResource):
             routing_target=routing_target,
             ordering=ordering,
             has_addons=has_addons,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         priority: Union[int, object] = values.unset,
         assignment_status: Union[List[str], object] = values.unset,
         workflow_sid: Union[str, object] = values.unset,
@@ -626,7 +742,6 @@ class TaskList(ListResource):
         routing_target: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
         has_addons: Union[bool, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[TaskInstance]:
@@ -634,7 +749,7 @@ class TaskList(ListResource):
         Lists TaskInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int priority: The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
         :param List[str] assignment_status: The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
         :param str workflow_sid: The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
@@ -654,22 +769,25 @@ class TaskList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            priority=priority,
-            assignment_status=assignment_status,
-            workflow_sid=workflow_sid,
-            workflow_name=workflow_name,
-            task_queue_sid=task_queue_sid,
-            task_queue_name=task_queue_name,
-            evaluate_task_attributes=evaluate_task_attributes,
-            routing_target=routing_target,
-            ordering=ordering,
-            has_addons=has_addons,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                priority=priority,
+                assignment_status=assignment_status,
+                workflow_sid=workflow_sid,
+                workflow_name=workflow_name,
+                task_queue_sid=task_queue_sid,
+                task_queue_name=task_queue_name,
+                evaluate_task_attributes=evaluate_task_attributes,
+                routing_target=routing_target,
+                ordering=ordering,
+                has_addons=has_addons,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         priority: Union[int, object] = values.unset,
         assignment_status: Union[List[str], object] = values.unset,
         workflow_sid: Union[str, object] = values.unset,
@@ -680,7 +798,6 @@ class TaskList(ListResource):
         routing_target: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
         has_addons: Union[bool, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[TaskInstance]:
@@ -688,7 +805,7 @@ class TaskList(ListResource):
         Asynchronously lists TaskInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param int priority: The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
         :param List[str] assignment_status: The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
         :param str workflow_sid: The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
@@ -708,22 +825,26 @@ class TaskList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            priority=priority,
-            assignment_status=assignment_status,
-            workflow_sid=workflow_sid,
-            workflow_name=workflow_name,
-            task_queue_sid=task_queue_sid,
-            task_queue_name=task_queue_name,
-            evaluate_task_attributes=evaluate_task_attributes,
-            routing_target=routing_target,
-            ordering=ordering,
-            has_addons=has_addons,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                priority=priority,
+                assignment_status=assignment_status,
+                workflow_sid=workflow_sid,
+                workflow_name=workflow_name,
+                task_queue_sid=task_queue_sid,
+                task_queue_name=task_queue_name,
+                evaluate_task_attributes=evaluate_task_attributes,
+                routing_target=routing_target,
+                ordering=ordering,
+                has_addons=has_addons,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         priority: Union[int, object] = values.unset,
         assignment_status: Union[List[str], object] = values.unset,
         workflow_sid: Union[str, object] = values.unset,
@@ -734,7 +855,6 @@ class TaskList(ListResource):
         routing_target: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
         has_addons: Union[bool, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -742,7 +862,7 @@ class TaskList(ListResource):
         """
         Retrieve a single page of TaskInstance records from the API.
         Request is executed immediately
-        
+
         :param priority: The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
         :param assignment_status: The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
         :param workflow_sid: The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
@@ -759,26 +879,29 @@ class TaskList(ListResource):
 
         :returns: Page of TaskInstance
         """
-        data = values.of({ 
-            'Priority': priority,
-            'AssignmentStatus': serialize.map(assignment_status, lambda e: e),
-            'WorkflowSid': workflow_sid,
-            'WorkflowName': workflow_name,
-            'TaskQueueSid': task_queue_sid,
-            'TaskQueueName': task_queue_name,
-            'EvaluateTaskAttributes': evaluate_task_attributes,
-            'RoutingTarget': routing_target,
-            'Ordering': ordering,
-            'HasAddons': serialize.boolean_to_string(has_addons),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Priority": priority,
+                "AssignmentStatus": serialize.map(assignment_status, lambda e: e),
+                "WorkflowSid": workflow_sid,
+                "WorkflowName": workflow_name,
+                "TaskQueueSid": task_queue_sid,
+                "TaskQueueName": task_queue_name,
+                "EvaluateTaskAttributes": evaluate_task_attributes,
+                "RoutingTarget": routing_target,
+                "Ordering": ordering,
+                "HasAddons": serialize.boolean_to_string(has_addons),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return TaskPage(self._version, response, self._solution)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         priority: Union[int, object] = values.unset,
         assignment_status: Union[List[str], object] = values.unset,
         workflow_sid: Union[str, object] = values.unset,
@@ -789,7 +912,6 @@ class TaskList(ListResource):
         routing_target: Union[str, object] = values.unset,
         ordering: Union[str, object] = values.unset,
         has_addons: Union[bool, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -797,7 +919,7 @@ class TaskList(ListResource):
         """
         Asynchronously retrieve a single page of TaskInstance records from the API.
         Request is executed immediately
-        
+
         :param priority: The priority value of the Tasks to read. Returns the list of all Tasks in the Workspace with the specified priority.
         :param assignment_status: The `assignment_status` of the Tasks you want to read. Can be: `pending`, `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all Tasks in the Workspace with the specified `assignment_status`.
         :param workflow_sid: The SID of the Workflow with the Tasks to read. Returns the Tasks controlled by the Workflow identified by this SID.
@@ -814,23 +936,27 @@ class TaskList(ListResource):
 
         :returns: Page of TaskInstance
         """
-        data = values.of({ 
-            'Priority': priority,
-            'AssignmentStatus': serialize.map(assignment_status, lambda e: e),
-            'WorkflowSid': workflow_sid,
-            'WorkflowName': workflow_name,
-            'TaskQueueSid': task_queue_sid,
-            'TaskQueueName': task_queue_name,
-            'EvaluateTaskAttributes': evaluate_task_attributes,
-            'RoutingTarget': routing_target,
-            'Ordering': ordering,
-            'HasAddons': serialize.boolean_to_string(has_addons),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Priority": priority,
+                "AssignmentStatus": serialize.map(assignment_status, lambda e: e),
+                "WorkflowSid": workflow_sid,
+                "WorkflowName": workflow_name,
+                "TaskQueueSid": task_queue_sid,
+                "TaskQueueName": task_queue_name,
+                "EvaluateTaskAttributes": evaluate_task_attributes,
+                "RoutingTarget": routing_target,
+                "Ordering": ordering,
+                "HasAddons": serialize.boolean_to_string(has_addons),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return TaskPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> TaskPage:
@@ -842,10 +968,7 @@ class TaskList(ListResource):
 
         :returns: Page of TaskInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return TaskPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> TaskPage:
@@ -857,31 +980,28 @@ class TaskList(ListResource):
 
         :returns: Page of TaskInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return TaskPage(self._version, response, self._solution)
-
-
-
-
 
     def get(self, sid: str) -> TaskContext:
         """
         Constructs a TaskContext
-        
+
         :param sid: The SID of the Task resource to update.
         """
-        return TaskContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
+        return TaskContext(
+            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
+        )
 
     def __call__(self, sid: str) -> TaskContext:
         """
         Constructs a TaskContext
-        
+
         :param sid: The SID of the Task resource to update.
         """
-        return TaskContext(self._version, workspace_sid=self._solution['workspace_sid'], sid=sid)
+        return TaskContext(
+            self._version, workspace_sid=self._solution["workspace_sid"], sid=sid
+        )
 
     def __repr__(self) -> str:
         """
@@ -889,5 +1009,4 @@ class TaskList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Taskrouter.V1.TaskList>'
-
+        return "<Twilio.Taskrouter.V1.TaskList>"

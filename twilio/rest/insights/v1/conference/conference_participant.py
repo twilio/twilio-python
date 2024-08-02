@@ -12,11 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -95,40 +93,70 @@ class ConferenceParticipantInstance(InstanceResource):
     :ivar url: The URL of this resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], conference_sid: str, participant_sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        conference_sid: str,
+        participant_sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.participant_sid: Optional[str] = payload.get("participant_sid")
         self.label: Optional[str] = payload.get("label")
         self.conference_sid: Optional[str] = payload.get("conference_sid")
         self.call_sid: Optional[str] = payload.get("call_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.call_direction: Optional["ConferenceParticipantInstance.CallDirection"] = payload.get("call_direction")
+        self.call_direction: Optional["ConferenceParticipantInstance.CallDirection"] = (
+            payload.get("call_direction")
+        )
         self._from: Optional[str] = payload.get("from")
         self.to: Optional[str] = payload.get("to")
-        self.call_status: Optional["ConferenceParticipantInstance.CallStatus"] = payload.get("call_status")
+        self.call_status: Optional["ConferenceParticipantInstance.CallStatus"] = (
+            payload.get("call_status")
+        )
         self.country_code: Optional[str] = payload.get("country_code")
         self.is_moderator: Optional[bool] = payload.get("is_moderator")
-        self.join_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("join_time"))
-        self.leave_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("leave_time"))
-        self.duration_seconds: Optional[int] = deserialize.integer(payload.get("duration_seconds"))
-        self.outbound_queue_length: Optional[int] = deserialize.integer(payload.get("outbound_queue_length"))
-        self.outbound_time_in_queue: Optional[int] = deserialize.integer(payload.get("outbound_time_in_queue"))
-        self.jitter_buffer_size: Optional["ConferenceParticipantInstance.JitterBufferSize"] = payload.get("jitter_buffer_size")
+        self.join_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("join_time")
+        )
+        self.leave_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("leave_time")
+        )
+        self.duration_seconds: Optional[int] = deserialize.integer(
+            payload.get("duration_seconds")
+        )
+        self.outbound_queue_length: Optional[int] = deserialize.integer(
+            payload.get("outbound_queue_length")
+        )
+        self.outbound_time_in_queue: Optional[int] = deserialize.integer(
+            payload.get("outbound_time_in_queue")
+        )
+        self.jitter_buffer_size: Optional[
+            "ConferenceParticipantInstance.JitterBufferSize"
+        ] = payload.get("jitter_buffer_size")
         self.is_coach: Optional[bool] = payload.get("is_coach")
-        self.coached_participants: Optional[List[str]] = payload.get("coached_participants")
-        self.participant_region: Optional["ConferenceParticipantInstance.Region"] = payload.get("participant_region")
-        self.conference_region: Optional["ConferenceParticipantInstance.Region"] = payload.get("conference_region")
-        self.call_type: Optional["ConferenceParticipantInstance.CallType"] = payload.get("call_type")
-        self.processing_state: Optional["ConferenceParticipantInstance.ProcessingState"] = payload.get("processing_state")
+        self.coached_participants: Optional[List[str]] = payload.get(
+            "coached_participants"
+        )
+        self.participant_region: Optional["ConferenceParticipantInstance.Region"] = (
+            payload.get("participant_region")
+        )
+        self.conference_region: Optional["ConferenceParticipantInstance.Region"] = (
+            payload.get("conference_region")
+        )
+        self.call_type: Optional["ConferenceParticipantInstance.CallType"] = (
+            payload.get("call_type")
+        )
+        self.processing_state: Optional[
+            "ConferenceParticipantInstance.ProcessingState"
+        ] = payload.get("processing_state")
         self.properties: Optional[Dict[str, object]] = payload.get("properties")
         self.events: Optional[Dict[str, object]] = payload.get("events")
         self.metrics: Optional[Dict[str, object]] = payload.get("metrics")
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "conference_sid": conference_sid,
             "participant_sid": participant_sid or self.participant_sid,
         }
@@ -143,40 +171,58 @@ class ConferenceParticipantInstance(InstanceResource):
         :returns: ConferenceParticipantContext for this ConferenceParticipantInstance
         """
         if self._context is None:
-            self._context = ConferenceParticipantContext(self._version, conference_sid=self._solution['conference_sid'], participant_sid=self._solution['participant_sid'],)
+            self._context = ConferenceParticipantContext(
+                self._version,
+                conference_sid=self._solution["conference_sid"],
+                participant_sid=self._solution["participant_sid"],
+            )
         return self._context
-    
-    
-    def fetch(self, events: Union[str, object]=values.unset, metrics: Union[str, object]=values.unset) -> "ConferenceParticipantInstance":
+
+    def fetch(
+        self,
+        events: Union[str, object] = values.unset,
+        metrics: Union[str, object] = values.unset,
+    ) -> "ConferenceParticipantInstance":
         """
         Fetch the ConferenceParticipantInstance
-        
+
         :param events: Conference events generated by application or participant activity; e.g. `hold`, `mute`, etc.
         :param metrics: Object. Contains participant call quality metrics.
 
         :returns: The fetched ConferenceParticipantInstance
         """
-        return self._proxy.fetch(events=events, metrics=metrics, )
+        return self._proxy.fetch(
+            events=events,
+            metrics=metrics,
+        )
 
-    async def fetch_async(self, events: Union[str, object]=values.unset, metrics: Union[str, object]=values.unset) -> "ConferenceParticipantInstance":
+    async def fetch_async(
+        self,
+        events: Union[str, object] = values.unset,
+        metrics: Union[str, object] = values.unset,
+    ) -> "ConferenceParticipantInstance":
         """
         Asynchronous coroutine to fetch the ConferenceParticipantInstance
-        
+
         :param events: Conference events generated by application or participant activity; e.g. `hold`, `mute`, etc.
         :param metrics: Object. Contains participant call quality metrics.
 
         :returns: The fetched ConferenceParticipantInstance
         """
-        return await self._proxy.fetch_async(events=events, metrics=metrics, )
-    
+        return await self._proxy.fetch_async(
+            events=events,
+            metrics=metrics,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Insights.V1.ConferenceParticipantInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Insights.V1.ConferenceParticipantInstance {}>".format(context)
+
 
 class ConferenceParticipantContext(InstanceContext):
 
@@ -190,78 +236,87 @@ class ConferenceParticipantContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'conference_sid': conference_sid,
-            'participant_sid': participant_sid,
+        self._solution = {
+            "conference_sid": conference_sid,
+            "participant_sid": participant_sid,
         }
-        self._uri = '/Conferences/{conference_sid}/Participants/{participant_sid}'.format(**self._solution)
-        
-    
-    
-    def fetch(self, events: Union[str, object]=values.unset, metrics: Union[str, object]=values.unset) -> ConferenceParticipantInstance:
+        self._uri = (
+            "/Conferences/{conference_sid}/Participants/{participant_sid}".format(
+                **self._solution
+            )
+        )
+
+    def fetch(
+        self,
+        events: Union[str, object] = values.unset,
+        metrics: Union[str, object] = values.unset,
+    ) -> ConferenceParticipantInstance:
         """
         Fetch the ConferenceParticipantInstance
-        
+
         :param events: Conference events generated by application or participant activity; e.g. `hold`, `mute`, etc.
         :param metrics: Object. Contains participant call quality metrics.
 
         :returns: The fetched ConferenceParticipantInstance
         """
-        
-        data = values.of({ 
-            'Events': events,
-            'Metrics': metrics,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        data = values.of(
+            {
+                "Events": events,
+                "Metrics": metrics,
+            }
+        )
+
+        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
 
         return ConferenceParticipantInstance(
             self._version,
             payload,
-            conference_sid=self._solution['conference_sid'],
-            participant_sid=self._solution['participant_sid'],
-            
+            conference_sid=self._solution["conference_sid"],
+            participant_sid=self._solution["participant_sid"],
         )
 
-    async def fetch_async(self, events: Union[str, object]=values.unset, metrics: Union[str, object]=values.unset) -> ConferenceParticipantInstance:
+    async def fetch_async(
+        self,
+        events: Union[str, object] = values.unset,
+        metrics: Union[str, object] = values.unset,
+    ) -> ConferenceParticipantInstance:
         """
         Asynchronous coroutine to fetch the ConferenceParticipantInstance
-        
+
         :param events: Conference events generated by application or participant activity; e.g. `hold`, `mute`, etc.
         :param metrics: Object. Contains participant call quality metrics.
 
         :returns: The fetched ConferenceParticipantInstance
         """
-        
-        data = values.of({ 
-            'Events': events,
-            'Metrics': metrics,
-        })
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        data = values.of(
+            {
+                "Events": events,
+                "Metrics": metrics,
+            }
+        )
+
+        payload = await self._version.fetch_async(
+            method="GET", uri=self._uri, params=data
+        )
 
         return ConferenceParticipantInstance(
             self._version,
             payload,
-            conference_sid=self._solution['conference_sid'],
-            participant_sid=self._solution['participant_sid'],
-            
+            conference_sid=self._solution["conference_sid"],
+            participant_sid=self._solution["participant_sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Insights.V1.ConferenceParticipantContext {}>'.format(context)
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Insights.V1.ConferenceParticipantContext {}>".format(context)
 
 
 class ConferenceParticipantPage(Page):
@@ -272,7 +327,9 @@ class ConferenceParticipantPage(Page):
 
         :param payload: Payload response from the API
         """
-        return ConferenceParticipantInstance(self._version, payload, conference_sid=self._solution["conference_sid"])
+        return ConferenceParticipantInstance(
+            self._version, payload, conference_sid=self._solution["conference_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -283,34 +340,31 @@ class ConferenceParticipantPage(Page):
         return "<Twilio.Insights.V1.ConferenceParticipantPage>"
 
 
-
-
-
 class ConferenceParticipantList(ListResource):
-    
+
     def __init__(self, version: Version, conference_sid: str):
         """
         Initialize the ConferenceParticipantList
 
         :param version: Version that contains the resource
         :param conference_sid: The unique SID identifier of the Conference.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'conference_sid': conference_sid,  }
-        self._uri = '/Conferences/{conference_sid}/Participants'.format(**self._solution)
-        
-        
-    
-    
-    def stream(self, 
+        self._solution = {
+            "conference_sid": conference_sid,
+        }
+        self._uri = "/Conferences/{conference_sid}/Participants".format(
+            **self._solution
+        )
+
+    def stream(
+        self,
         participant_sid: Union[str, object] = values.unset,
         label: Union[str, object] = values.unset,
         events: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ConferenceParticipantInstance]:
@@ -319,7 +373,7 @@ class ConferenceParticipantList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str participant_sid: The unique SID identifier of the Participant.
         :param str label: User-specified label for a participant.
         :param str events: Conference events generated by application or participant activity; e.g. `hold`, `mute`, etc.
@@ -337,16 +391,16 @@ class ConferenceParticipantList(ListResource):
             participant_sid=participant_sid,
             label=label,
             events=events,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         participant_sid: Union[str, object] = values.unset,
         label: Union[str, object] = values.unset,
         events: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ConferenceParticipantInstance]:
@@ -355,7 +409,7 @@ class ConferenceParticipantList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str participant_sid: The unique SID identifier of the Participant.
         :param str label: User-specified label for a participant.
         :param str events: Conference events generated by application or participant activity; e.g. `hold`, `mute`, etc.
@@ -373,16 +427,16 @@ class ConferenceParticipantList(ListResource):
             participant_sid=participant_sid,
             label=label,
             events=events,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         participant_sid: Union[str, object] = values.unset,
         label: Union[str, object] = values.unset,
         events: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ConferenceParticipantInstance]:
@@ -390,7 +444,7 @@ class ConferenceParticipantList(ListResource):
         Lists ConferenceParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str participant_sid: The unique SID identifier of the Participant.
         :param str label: User-specified label for a participant.
         :param str events: Conference events generated by application or participant activity; e.g. `hold`, `mute`, etc.
@@ -403,19 +457,21 @@ class ConferenceParticipantList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            participant_sid=participant_sid,
-            label=label,
-            events=events,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                participant_sid=participant_sid,
+                label=label,
+                events=events,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         participant_sid: Union[str, object] = values.unset,
         label: Union[str, object] = values.unset,
         events: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ConferenceParticipantInstance]:
@@ -423,7 +479,7 @@ class ConferenceParticipantList(ListResource):
         Asynchronously lists ConferenceParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str participant_sid: The unique SID identifier of the Participant.
         :param str label: User-specified label for a participant.
         :param str events: Conference events generated by application or participant activity; e.g. `hold`, `mute`, etc.
@@ -436,19 +492,22 @@ class ConferenceParticipantList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            participant_sid=participant_sid,
-            label=label,
-            events=events,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                participant_sid=participant_sid,
+                label=label,
+                events=events,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         participant_sid: Union[str, object] = values.unset,
         label: Union[str, object] = values.unset,
         events: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -456,7 +515,7 @@ class ConferenceParticipantList(ListResource):
         """
         Retrieve a single page of ConferenceParticipantInstance records from the API.
         Request is executed immediately
-        
+
         :param participant_sid: The unique SID identifier of the Participant.
         :param label: User-specified label for a participant.
         :param events: Conference events generated by application or participant activity; e.g. `hold`, `mute`, etc.
@@ -466,23 +525,25 @@ class ConferenceParticipantList(ListResource):
 
         :returns: Page of ConferenceParticipantInstance
         """
-        data = values.of({ 
-            'ParticipantSid': participant_sid,
-            'Label': label,
-            'Events': events,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "ParticipantSid": participant_sid,
+                "Label": label,
+                "Events": events,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return ConferenceParticipantPage(self._version, response, self._solution)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         participant_sid: Union[str, object] = values.unset,
         label: Union[str, object] = values.unset,
         events: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -490,7 +551,7 @@ class ConferenceParticipantList(ListResource):
         """
         Asynchronously retrieve a single page of ConferenceParticipantInstance records from the API.
         Request is executed immediately
-        
+
         :param participant_sid: The unique SID identifier of the Participant.
         :param label: User-specified label for a participant.
         :param events: Conference events generated by application or participant activity; e.g. `hold`, `mute`, etc.
@@ -500,16 +561,20 @@ class ConferenceParticipantList(ListResource):
 
         :returns: Page of ConferenceParticipantInstance
         """
-        data = values.of({ 
-            'ParticipantSid': participant_sid,
-            'Label': label,
-            'Events': events,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "ParticipantSid": participant_sid,
+                "Label": label,
+                "Events": events,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return ConferenceParticipantPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> ConferenceParticipantPage:
@@ -521,10 +586,7 @@ class ConferenceParticipantList(ListResource):
 
         :returns: Page of ConferenceParticipantInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return ConferenceParticipantPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> ConferenceParticipantPage:
@@ -536,29 +598,32 @@ class ConferenceParticipantList(ListResource):
 
         :returns: Page of ConferenceParticipantInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return ConferenceParticipantPage(self._version, response, self._solution)
-
-
 
     def get(self, participant_sid: str) -> ConferenceParticipantContext:
         """
         Constructs a ConferenceParticipantContext
-        
+
         :param participant_sid: The unique SID identifier of the Participant.
         """
-        return ConferenceParticipantContext(self._version, conference_sid=self._solution['conference_sid'], participant_sid=participant_sid)
+        return ConferenceParticipantContext(
+            self._version,
+            conference_sid=self._solution["conference_sid"],
+            participant_sid=participant_sid,
+        )
 
     def __call__(self, participant_sid: str) -> ConferenceParticipantContext:
         """
         Constructs a ConferenceParticipantContext
-        
+
         :param participant_sid: The unique SID identifier of the Participant.
         """
-        return ConferenceParticipantContext(self._version, conference_sid=self._solution['conference_sid'], participant_sid=participant_sid)
+        return ConferenceParticipantContext(
+            self._version,
+            conference_sid=self._solution["conference_sid"],
+            participant_sid=participant_sid,
+        )
 
     def __repr__(self) -> str:
         """
@@ -566,5 +631,4 @@ class ConferenceParticipantList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Insights.V1.ConferenceParticipantList>'
-
+        return "<Twilio.Insights.V1.ConferenceParticipantList>"

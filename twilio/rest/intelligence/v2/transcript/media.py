@@ -12,20 +12,15 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Any, Dict, Optional, Union
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class MediaInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique SID identifier of the Account.
     :ivar media_url: Downloadable URL for media, if stored in Twilio AI.
@@ -37,15 +32,13 @@ class MediaInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any], sid: str):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.media_url: Optional[str] = payload.get("media_url")
         self.service_sid: Optional[str] = payload.get("service_sid")
         self.sid: Optional[str] = payload.get("sid")
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "sid": sid,
         }
         self._context: Optional[MediaContext] = None
@@ -59,38 +52,47 @@ class MediaInstance(InstanceResource):
         :returns: MediaContext for this MediaInstance
         """
         if self._context is None:
-            self._context = MediaContext(self._version, sid=self._solution['sid'],)
+            self._context = MediaContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
-    def fetch(self, redacted: Union[bool, object]=values.unset) -> "MediaInstance":
+
+    def fetch(self, redacted: Union[bool, object] = values.unset) -> "MediaInstance":
         """
         Fetch the MediaInstance
-        
+
         :param redacted: Grant access to PII Redacted/Unredacted Media. If redaction is enabled, the default is `true` to access redacted media.
 
         :returns: The fetched MediaInstance
         """
-        return self._proxy.fetch(redacted=redacted, )
+        return self._proxy.fetch(
+            redacted=redacted,
+        )
 
-    async def fetch_async(self, redacted: Union[bool, object]=values.unset) -> "MediaInstance":
+    async def fetch_async(
+        self, redacted: Union[bool, object] = values.unset
+    ) -> "MediaInstance":
         """
         Asynchronous coroutine to fetch the MediaInstance
-        
+
         :param redacted: Grant access to PII Redacted/Unredacted Media. If redaction is enabled, the default is `true` to access redacted media.
 
         :returns: The fetched MediaInstance
         """
-        return await self._proxy.fetch_async(redacted=redacted, )
-    
+        return await self._proxy.fetch_async(
+            redacted=redacted,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Intelligence.V2.MediaInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Intelligence.V2.MediaInstance {}>".format(context)
+
 
 class MediaContext(InstanceContext):
 
@@ -103,103 +105,102 @@ class MediaContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/Transcripts/{sid}/Media'.format(**self._solution)
-        
-    
-    
-    def fetch(self, redacted: Union[bool, object]=values.unset) -> MediaInstance:
+        self._uri = "/Transcripts/{sid}/Media".format(**self._solution)
+
+    def fetch(self, redacted: Union[bool, object] = values.unset) -> MediaInstance:
         """
         Fetch the MediaInstance
-        
+
         :param redacted: Grant access to PII Redacted/Unredacted Media. If redaction is enabled, the default is `true` to access redacted media.
 
         :returns: The fetched MediaInstance
         """
-        
-        data = values.of({ 
-            'Redacted': serialize.boolean_to_string(redacted),
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        data = values.of(
+            {
+                "Redacted": serialize.boolean_to_string(redacted),
+            }
+        )
+
+        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
 
         return MediaInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
-    async def fetch_async(self, redacted: Union[bool, object]=values.unset) -> MediaInstance:
+    async def fetch_async(
+        self, redacted: Union[bool, object] = values.unset
+    ) -> MediaInstance:
         """
         Asynchronous coroutine to fetch the MediaInstance
-        
+
         :param redacted: Grant access to PII Redacted/Unredacted Media. If redaction is enabled, the default is `true` to access redacted media.
 
         :returns: The fetched MediaInstance
         """
-        
-        data = values.of({ 
-            'Redacted': serialize.boolean_to_string(redacted),
-        })
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        data = values.of(
+            {
+                "Redacted": serialize.boolean_to_string(redacted),
+            }
+        )
+
+        payload = await self._version.fetch_async(
+            method="GET", uri=self._uri, params=data
+        )
 
         return MediaInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Intelligence.V2.MediaContext {}>'.format(context)
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Intelligence.V2.MediaContext {}>".format(context)
 
 
 class MediaList(ListResource):
-    
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the MediaList
 
         :param version: Version that contains the resource
         :param sid: The unique SID identifier of the Transcript.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'sid': sid,  }
-        
-        
-        
+        self._solution = {
+            "sid": sid,
+        }
 
     def get(self) -> MediaContext:
         """
         Constructs a MediaContext
-        
+
         """
-        return MediaContext(self._version, sid=self._solution['sid'])
+        return MediaContext(self._version, sid=self._solution["sid"])
 
     def __call__(self) -> MediaContext:
         """
         Constructs a MediaContext
-        
+
         """
-        return MediaContext(self._version, sid=self._solution['sid'])
+        return MediaContext(self._version, sid=self._solution["sid"])
 
     def __repr__(self) -> str:
         """
@@ -207,5 +208,4 @@ class MediaList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Intelligence.V2.MediaList>'
-
+        return "<Twilio.Intelligence.V2.MediaList>"

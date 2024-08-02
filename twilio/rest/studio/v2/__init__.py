@@ -30,7 +30,7 @@ class V2(Version):
         super().__init__(domain, "v2")
         self._flows: Optional[FlowList] = None
         self._flow_validate: Optional[FlowValidateList] = None
-        
+
     @property
     def flows(self) -> FlowList:
         if self._flows is None:

@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
 from datetime import date, datetime
-from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -30,8 +28,12 @@ class ConferenceInstance(InstanceResource):
 
     class ReasonConferenceEnded(object):
         CONFERENCE_ENDED_VIA_API = "conference-ended-via-api"
-        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT = "participant-with-end-conference-on-exit-left"
-        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_KICKED = "participant-with-end-conference-on-exit-kicked"
+        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT = (
+            "participant-with-end-conference-on-exit-left"
+        )
+        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_KICKED = (
+            "participant-with-end-conference-on-exit-kicked"
+        )
         LAST_PARTICIPANT_KICKED = "last-participant-kicked"
         LAST_PARTICIPANT_LEFT = "last-participant-left"
 
@@ -58,25 +60,39 @@ class ConferenceInstance(InstanceResource):
     :ivar call_sid_ending_conference: The call SID that caused the conference to end.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
         self.api_version: Optional[str] = payload.get("api_version")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.region: Optional[str] = payload.get("region")
         self.sid: Optional[str] = payload.get("sid")
         self.status: Optional["ConferenceInstance.Status"] = payload.get("status")
         self.uri: Optional[str] = payload.get("uri")
-        self.subresource_uris: Optional[Dict[str, object]] = payload.get("subresource_uris")
-        self.reason_conference_ended: Optional["ConferenceInstance.ReasonConferenceEnded"] = payload.get("reason_conference_ended")
-        self.call_sid_ending_conference: Optional[str] = payload.get("call_sid_ending_conference")
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
+        self.reason_conference_ended: Optional[
+            "ConferenceInstance.ReasonConferenceEnded"
+        ] = payload.get("reason_conference_ended")
+        self.call_sid_ending_conference: Optional[str] = payload.get(
+            "call_sid_ending_conference"
+        )
 
-        
-        self._solution = { 
+        self._solution = {
             "account_sid": account_sid,
             "sid": sid or self.sid,
         }
@@ -91,14 +107,17 @@ class ConferenceInstance(InstanceResource):
         :returns: ConferenceContext for this ConferenceInstance
         """
         if self._context is None:
-            self._context = ConferenceContext(self._version, account_sid=self._solution['account_sid'], sid=self._solution['sid'],)
+            self._context = ConferenceContext(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "ConferenceInstance":
         """
         Fetch the ConferenceInstance
-        
+
 
         :returns: The fetched ConferenceInstance
         """
@@ -107,59 +126,77 @@ class ConferenceInstance(InstanceResource):
     async def fetch_async(self) -> "ConferenceInstance":
         """
         Asynchronous coroutine to fetch the ConferenceInstance
-        
+
 
         :returns: The fetched ConferenceInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, status: Union["ConferenceInstance.UpdateStatus", object]=values.unset, announce_url: Union[str, object]=values.unset, announce_method: Union[str, object]=values.unset) -> "ConferenceInstance":
+
+    def update(
+        self,
+        status: Union["ConferenceInstance.UpdateStatus", object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+    ) -> "ConferenceInstance":
         """
         Update the ConferenceInstance
-        
-        :param status: 
+
+        :param status:
         :param announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
         :param announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
 
         :returns: The updated ConferenceInstance
         """
-        return self._proxy.update(status=status, announce_url=announce_url, announce_method=announce_method, )
+        return self._proxy.update(
+            status=status,
+            announce_url=announce_url,
+            announce_method=announce_method,
+        )
 
-    async def update_async(self, status: Union["ConferenceInstance.UpdateStatus", object]=values.unset, announce_url: Union[str, object]=values.unset, announce_method: Union[str, object]=values.unset) -> "ConferenceInstance":
+    async def update_async(
+        self,
+        status: Union["ConferenceInstance.UpdateStatus", object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+    ) -> "ConferenceInstance":
         """
         Asynchronous coroutine to update the ConferenceInstance
-        
-        :param status: 
+
+        :param status:
         :param announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
         :param announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
 
         :returns: The updated ConferenceInstance
         """
-        return await self._proxy.update_async(status=status, announce_url=announce_url, announce_method=announce_method, )
-    
+        return await self._proxy.update_async(
+            status=status,
+            announce_url=announce_url,
+            announce_method=announce_method,
+        )
+
     @property
     def participants(self) -> ParticipantList:
         """
         Access the participants
         """
         return self._proxy.participants
-    
+
     @property
     def recordings(self) -> RecordingList:
         """
         Access the recordings
         """
         return self._proxy.recordings
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.ConferenceInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.ConferenceInstance {}>".format(context)
+
 
 class ConferenceContext(InstanceContext):
 
@@ -173,108 +210,130 @@ class ConferenceContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
+        self._solution = {
+            "account_sid": account_sid,
+            "sid": sid,
         }
-        self._uri = '/Accounts/{account_sid}/Conferences/{sid}.json'.format(**self._solution)
-        
+        self._uri = "/Accounts/{account_sid}/Conferences/{sid}.json".format(
+            **self._solution
+        )
+
         self._participants: Optional[ParticipantList] = None
         self._recordings: Optional[RecordingList] = None
-    
-    
+
     def fetch(self) -> ConferenceInstance:
         """
         Fetch the ConferenceInstance
-        
+
 
         :returns: The fetched ConferenceInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ConferenceInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> ConferenceInstance:
         """
         Asynchronous coroutine to fetch the ConferenceInstance
-        
+
 
         :returns: The fetched ConferenceInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ConferenceInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, status: Union["ConferenceInstance.UpdateStatus", object]=values.unset, announce_url: Union[str, object]=values.unset, announce_method: Union[str, object]=values.unset) -> ConferenceInstance:
+
+    def update(
+        self,
+        status: Union["ConferenceInstance.UpdateStatus", object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+    ) -> ConferenceInstance:
         """
         Update the ConferenceInstance
-        
-        :param status: 
+
+        :param status:
         :param announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
         :param announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
 
         :returns: The updated ConferenceInstance
         """
-        data = values.of({ 
-            'Status': status,
-            'AnnounceUrl': announce_url,
-            'AnnounceMethod': announce_method,
-        })
-        
+        data = values.of(
+            {
+                "Status": status,
+                "AnnounceUrl": announce_url,
+                "AnnounceMethod": announce_method,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return ConferenceInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
 
-    async def update_async(self, status: Union["ConferenceInstance.UpdateStatus", object]=values.unset, announce_url: Union[str, object]=values.unset, announce_method: Union[str, object]=values.unset) -> ConferenceInstance:
+    async def update_async(
+        self,
+        status: Union["ConferenceInstance.UpdateStatus", object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+    ) -> ConferenceInstance:
         """
         Asynchronous coroutine to update the ConferenceInstance
-        
-        :param status: 
+
+        :param status:
         :param announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
         :param announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
 
         :returns: The updated ConferenceInstance
         """
-        data = values.of({ 
-            'Status': status,
-            'AnnounceUrl': announce_url,
-            'AnnounceMethod': announce_method,
-        })
-        
+        data = values.of(
+            {
+                "Status": status,
+                "AnnounceUrl": announce_url,
+                "AnnounceMethod": announce_method,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return ConferenceInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     @property
     def participants(self) -> ParticipantList:
         """
@@ -282,12 +341,12 @@ class ConferenceContext(InstanceContext):
         """
         if self._participants is None:
             self._participants = ParticipantList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
             )
         return self._participants
-    
+
     @property
     def recordings(self) -> RecordingList:
         """
@@ -295,25 +354,20 @@ class ConferenceContext(InstanceContext):
         """
         if self._recordings is None:
             self._recordings = RecordingList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
             )
         return self._recordings
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.ConferenceContext {}>'.format(context)
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.ConferenceContext {}>".format(context)
 
 
 class ConferencePage(Page):
@@ -324,7 +378,9 @@ class ConferencePage(Page):
 
         :param payload: Payload response from the API
         """
-        return ConferenceInstance(self._version, payload, account_sid=self._solution["account_sid"])
+        return ConferenceInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -335,31 +391,26 @@ class ConferencePage(Page):
         return "<Twilio.Api.V2010.ConferencePage>"
 
 
-
-
-
 class ConferenceList(ListResource):
-    
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ConferenceList
 
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Conference resource(s) to read.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/{account_sid}/Conferences.json'.format(**self._solution)
-        
-        
-    
-    
-    
-    def stream(self, 
+        self._solution = {
+            "account_sid": account_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Conferences.json".format(**self._solution)
+
+    def stream(
+        self,
         date_created: Union[date, object] = values.unset,
         date_created_before: Union[date, object] = values.unset,
         date_created_after: Union[date, object] = values.unset,
@@ -368,7 +419,6 @@ class ConferenceList(ListResource):
         date_updated_after: Union[date, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union["ConferenceInstance.Status", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ConferenceInstance]:
@@ -377,7 +427,7 @@ class ConferenceList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param date date_created: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
         :param date date_created_before: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
         :param date date_created_after: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
@@ -405,12 +455,13 @@ class ConferenceList(ListResource):
             date_updated_after=date_updated_after,
             friendly_name=friendly_name,
             status=status,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         date_created: Union[date, object] = values.unset,
         date_created_before: Union[date, object] = values.unset,
         date_created_after: Union[date, object] = values.unset,
@@ -419,7 +470,6 @@ class ConferenceList(ListResource):
         date_updated_after: Union[date, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union["ConferenceInstance.Status", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ConferenceInstance]:
@@ -428,7 +478,7 @@ class ConferenceList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param date date_created: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
         :param date date_created_before: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
         :param date date_created_after: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
@@ -456,12 +506,13 @@ class ConferenceList(ListResource):
             date_updated_after=date_updated_after,
             friendly_name=friendly_name,
             status=status,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         date_created: Union[date, object] = values.unset,
         date_created_before: Union[date, object] = values.unset,
         date_created_after: Union[date, object] = values.unset,
@@ -470,7 +521,6 @@ class ConferenceList(ListResource):
         date_updated_after: Union[date, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union["ConferenceInstance.Status", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ConferenceInstance]:
@@ -478,7 +528,7 @@ class ConferenceList(ListResource):
         Lists ConferenceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param date date_created: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
         :param date date_created_before: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
         :param date date_created_after: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
@@ -496,20 +546,23 @@ class ConferenceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            date_created=date_created,
-            date_created_before=date_created_before,
-            date_created_after=date_created_after,
-            date_updated=date_updated,
-            date_updated_before=date_updated_before,
-            date_updated_after=date_updated_after,
-            friendly_name=friendly_name,
-            status=status,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                date_created=date_created,
+                date_created_before=date_created_before,
+                date_created_after=date_created_after,
+                date_updated=date_updated,
+                date_updated_before=date_updated_before,
+                date_updated_after=date_updated_after,
+                friendly_name=friendly_name,
+                status=status,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         date_created: Union[date, object] = values.unset,
         date_created_before: Union[date, object] = values.unset,
         date_created_after: Union[date, object] = values.unset,
@@ -518,7 +571,6 @@ class ConferenceList(ListResource):
         date_updated_after: Union[date, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union["ConferenceInstance.Status", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ConferenceInstance]:
@@ -526,7 +578,7 @@ class ConferenceList(ListResource):
         Asynchronously lists ConferenceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param date date_created: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
         :param date date_created_before: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
         :param date date_created_after: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
@@ -544,20 +596,24 @@ class ConferenceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            date_created=date_created,
-            date_created_before=date_created_before,
-            date_created_after=date_created_after,
-            date_updated=date_updated,
-            date_updated_before=date_updated_before,
-            date_updated_after=date_updated_after,
-            friendly_name=friendly_name,
-            status=status,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                date_created=date_created,
+                date_created_before=date_created_before,
+                date_created_after=date_created_after,
+                date_updated=date_updated,
+                date_updated_before=date_updated_before,
+                date_updated_after=date_updated_after,
+                friendly_name=friendly_name,
+                status=status,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         date_created: Union[date, object] = values.unset,
         date_created_before: Union[date, object] = values.unset,
         date_created_after: Union[date, object] = values.unset,
@@ -566,7 +622,6 @@ class ConferenceList(ListResource):
         date_updated_after: Union[date, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union["ConferenceInstance.Status", object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -574,7 +629,7 @@ class ConferenceList(ListResource):
         """
         Retrieve a single page of ConferenceInstance records from the API.
         Request is executed immediately
-        
+
         :param date_created: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
         :param date_created_before: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
         :param date_created_after: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
@@ -589,24 +644,27 @@ class ConferenceList(ListResource):
 
         :returns: Page of ConferenceInstance
         """
-        data = values.of({ 
-            'DateCreated': serialize.iso8601_date(date_created),
-            'DateCreated<': serialize.iso8601_date(date_created_before),
-            'DateCreated>': serialize.iso8601_date(date_created_after),
-            'DateUpdated': serialize.iso8601_date(date_updated),
-            'DateUpdated<': serialize.iso8601_date(date_updated_before),
-            'DateUpdated>': serialize.iso8601_date(date_updated_after),
-            'FriendlyName': friendly_name,
-            'Status': status,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "DateCreated": serialize.iso8601_date(date_created),
+                "DateCreated<": serialize.iso8601_date(date_created_before),
+                "DateCreated>": serialize.iso8601_date(date_created_after),
+                "DateUpdated": serialize.iso8601_date(date_updated),
+                "DateUpdated<": serialize.iso8601_date(date_updated_before),
+                "DateUpdated>": serialize.iso8601_date(date_updated_after),
+                "FriendlyName": friendly_name,
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return ConferencePage(self._version, response, self._solution)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         date_created: Union[date, object] = values.unset,
         date_created_before: Union[date, object] = values.unset,
         date_created_after: Union[date, object] = values.unset,
@@ -615,7 +673,6 @@ class ConferenceList(ListResource):
         date_updated_after: Union[date, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         status: Union["ConferenceInstance.Status", object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -623,7 +680,7 @@ class ConferenceList(ListResource):
         """
         Asynchronously retrieve a single page of ConferenceInstance records from the API.
         Request is executed immediately
-        
+
         :param date_created: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
         :param date_created_before: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
         :param date_created_after: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
@@ -638,21 +695,25 @@ class ConferenceList(ListResource):
 
         :returns: Page of ConferenceInstance
         """
-        data = values.of({ 
-            'DateCreated': serialize.iso8601_date(date_created),
-            'DateCreated<': serialize.iso8601_date(date_created_before),
-            'DateCreated>': serialize.iso8601_date(date_created_after),
-            'DateUpdated': serialize.iso8601_date(date_updated),
-            'DateUpdated<': serialize.iso8601_date(date_updated_before),
-            'DateUpdated>': serialize.iso8601_date(date_updated_after),
-            'FriendlyName': friendly_name,
-            'Status': status,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "DateCreated": serialize.iso8601_date(date_created),
+                "DateCreated<": serialize.iso8601_date(date_created_before),
+                "DateCreated>": serialize.iso8601_date(date_created_after),
+                "DateUpdated": serialize.iso8601_date(date_updated),
+                "DateUpdated<": serialize.iso8601_date(date_updated_before),
+                "DateUpdated>": serialize.iso8601_date(date_updated_after),
+                "FriendlyName": friendly_name,
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return ConferencePage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> ConferencePage:
@@ -664,10 +725,7 @@ class ConferenceList(ListResource):
 
         :returns: Page of ConferenceInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return ConferencePage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> ConferencePage:
@@ -679,33 +737,28 @@ class ConferenceList(ListResource):
 
         :returns: Page of ConferenceInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return ConferencePage(self._version, response, self._solution)
-
-
-
-
-
-
 
     def get(self, sid: str) -> ConferenceContext:
         """
         Constructs a ConferenceContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Conference resource to update
         """
-        return ConferenceContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return ConferenceContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
 
     def __call__(self, sid: str) -> ConferenceContext:
         """
         Constructs a ConferenceContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Conference resource to update
         """
-        return ConferenceContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return ConferenceContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
 
     def __repr__(self) -> str:
         """
@@ -713,5 +766,4 @@ class ConferenceList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Api.V2010.ConferenceList>'
-
+        return "<Twilio.Api.V2010.ConferenceList>"

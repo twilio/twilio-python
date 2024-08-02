@@ -34,7 +34,7 @@ class V1(Version):
         self._credentials: Optional[CredentialList] = None
         self._safelist: Optional[SafelistList] = None
         self._secondary_auth_token: Optional[SecondaryAuthTokenList] = None
-        
+
     @property
     def auth_token_promotion(self) -> AuthTokenPromotionList:
         if self._auth_token_promotion is None:

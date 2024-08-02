@@ -12,36 +12,35 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Any, Dict, Optional
+from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class OperatorAttachmentInstance(InstanceResource):
-
     """
     :ivar service_sid: The unique SID identifier of the Service.
     :ivar operator_sid: The unique SID identifier of the Operator.
     :ivar url: The URL of this resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: Optional[str] = None, operator_sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: Optional[str] = None,
+        operator_sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.service_sid: Optional[str] = payload.get("service_sid")
         self.operator_sid: Optional[str] = payload.get("operator_sid")
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "service_sid": service_sid or self.service_sid,
             "operator_sid": operator_sid or self.operator_sid,
         }
@@ -56,53 +55,58 @@ class OperatorAttachmentInstance(InstanceResource):
         :returns: OperatorAttachmentContext for this OperatorAttachmentInstance
         """
         if self._context is None:
-            self._context = OperatorAttachmentContext(self._version, service_sid=self._solution['service_sid'], operator_sid=self._solution['operator_sid'],)
+            self._context = OperatorAttachmentContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                operator_sid=self._solution["operator_sid"],
+            )
         return self._context
-    
-    
+
     def create(self) -> "OperatorAttachmentInstance":
         """
         Create the OperatorAttachmentInstance
-        
+
 
         :returns: The created OperatorAttachmentInstance
         """
         return self._proxy.create()
+
     async def create_async(self) -> "OperatorAttachmentInstance":
         """
         Asynchronous coroutine to create the OperatorAttachmentInstance
-        
+
 
         :returns: The created OperatorAttachmentInstance
         """
         return await self._proxy.create_async()
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the OperatorAttachmentInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the OperatorAttachmentInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Intelligence.V2.OperatorAttachmentInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Intelligence.V2.OperatorAttachmentInstance {}>".format(context)
+
 
 class OperatorAttachmentContext(InstanceContext):
 
@@ -116,118 +120,121 @@ class OperatorAttachmentContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'operator_sid': operator_sid,
+        self._solution = {
+            "service_sid": service_sid,
+            "operator_sid": operator_sid,
         }
-        self._uri = '/Services/{service_sid}/Operators/{operator_sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Services/{service_sid}/Operators/{operator_sid}".format(
+            **self._solution
+        )
+
     def create(self) -> OperatorAttachmentInstance:
         """
         Create the OperatorAttachmentInstance
-        
+
 
         :returns: The created OperatorAttachmentInstance
         """
-        data = values.of({ 
-        })
+        data = values.of({})
 
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
+        payload = self._version.create(method="POST", uri=self._uri, data=data)
 
         return OperatorAttachmentInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            operator_sid=self._solution['operator_sid']
+            service_sid=self._solution["service_sid"],
+            operator_sid=self._solution["operator_sid"],
         )
 
     async def create_async(self) -> OperatorAttachmentInstance:
         """
         Asynchronous coroutine to create the OperatorAttachmentInstance
-        
+
 
         :returns: The created OperatorAttachmentInstance
         """
-        data = values.of({ 
-        })
+        data = values.of({})
 
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data)
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data
+        )
 
         return OperatorAttachmentInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            operator_sid=self._solution['operator_sid']
+            service_sid=self._solution["service_sid"],
+            operator_sid=self._solution["operator_sid"],
         )
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the OperatorAttachmentInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the OperatorAttachmentInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Intelligence.V2.OperatorAttachmentContext {}>'.format(context)
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Intelligence.V2.OperatorAttachmentContext {}>".format(context)
 
 
 class OperatorAttachmentList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the OperatorAttachmentList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
-
-        
-        
-        
-        
 
     def get(self, service_sid: str, operator_sid: str) -> OperatorAttachmentContext:
         """
         Constructs a OperatorAttachmentContext
-        
+
         :param service_sid: The unique SID identifier of the Service.
         :param operator_sid: The unique SID identifier of the Operator. Allows both Custom and Pre-built Operators.
         """
-        return OperatorAttachmentContext(self._version, service_sid=service_sid, operator_sid=operator_sid)
+        return OperatorAttachmentContext(
+            self._version, service_sid=service_sid, operator_sid=operator_sid
+        )
 
-    def __call__(self, service_sid: str, operator_sid: str) -> OperatorAttachmentContext:
+    def __call__(
+        self, service_sid: str, operator_sid: str
+    ) -> OperatorAttachmentContext:
         """
         Constructs a OperatorAttachmentContext
-        
+
         :param service_sid: The unique SID identifier of the Service.
         :param operator_sid: The unique SID identifier of the Operator. Allows both Custom and Pre-built Operators.
         """
-        return OperatorAttachmentContext(self._version, service_sid=service_sid, operator_sid=operator_sid)
+        return OperatorAttachmentContext(
+            self._version, service_sid=service_sid, operator_sid=operator_sid
+        )
 
     def __repr__(self) -> str:
         """
@@ -235,5 +242,4 @@ class OperatorAttachmentList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Intelligence.V2.OperatorAttachmentList>'
-
+        return "<Twilio.Intelligence.V2.OperatorAttachmentList>"

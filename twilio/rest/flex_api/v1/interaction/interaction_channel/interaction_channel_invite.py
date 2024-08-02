@@ -12,11 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -25,44 +22,42 @@ from twilio.base.page import Page
 
 
 class InteractionChannelInviteInstance(InstanceResource):
-
     """
     :ivar sid: The unique string created by Twilio to identify an Interaction Channel Invite resource.
     :ivar interaction_sid: The Interaction SID for this Channel.
     :ivar channel_sid: The Channel SID for this Invite.
     :ivar routing: A JSON object representing the routing rules for the Interaction Channel. See [Outbound SMS Example](https://www.twilio.com/docs/flex/developer/conversations/interactions-api/interactions#agent-initiated-outbound-interactions) for an example Routing object. The Interactions resource uses TaskRouter for all routing functionality.   All attributes in the Routing object on your Interaction request body are added “as is” to the task. For a list of known attributes consumed by the Flex UI and/or Flex Insights, see [Known Task Attributes](https://www.twilio.com/docs/flex/developer/conversations/interactions-api#task-attributes).
-    :ivar url: 
+    :ivar url:
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], interaction_sid: str, channel_sid: str):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        interaction_sid: str,
+        channel_sid: str,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.interaction_sid: Optional[str] = payload.get("interaction_sid")
         self.channel_sid: Optional[str] = payload.get("channel_sid")
         self.routing: Optional[Dict[str, object]] = payload.get("routing")
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "interaction_sid": interaction_sid,
             "channel_sid": channel_sid,
         }
-        
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.InteractionChannelInviteInstance {}>'.format(context)
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.FlexApi.V1.InteractionChannelInviteInstance {}>".format(context)
 
 
 class InteractionChannelInvitePage(Page):
@@ -73,7 +68,12 @@ class InteractionChannelInvitePage(Page):
 
         :param payload: Payload response from the API
         """
-        return InteractionChannelInviteInstance(self._version, payload, interaction_sid=self._solution["interaction_sid"], channel_sid=self._solution["channel_sid"])
+        return InteractionChannelInviteInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution["interaction_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
 
     def __repr__(self) -> str:
         """
@@ -84,11 +84,8 @@ class InteractionChannelInvitePage(Page):
         return "<Twilio.FlexApi.V1.InteractionChannelInvitePage>"
 
 
-
-
-
 class InteractionChannelInviteList(ListResource):
-    
+
     def __init__(self, version: Version, interaction_sid: str, channel_sid: str):
         """
         Initialize the InteractionChannelInviteList
@@ -96,62 +93,77 @@ class InteractionChannelInviteList(ListResource):
         :param version: Version that contains the resource
         :param interaction_sid: The Interaction SID for this Channel.
         :param channel_sid: The Channel SID for this Participant.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'interaction_sid': interaction_sid, 'channel_sid': channel_sid,  }
-        self._uri = '/Interactions/{interaction_sid}/Channels/{channel_sid}/Invites'.format(**self._solution)
-        
-        
-    
+        self._solution = {
+            "interaction_sid": interaction_sid,
+            "channel_sid": channel_sid,
+        }
+        self._uri = (
+            "/Interactions/{interaction_sid}/Channels/{channel_sid}/Invites".format(
+                **self._solution
+            )
+        )
+
     def create(self, routing: object) -> InteractionChannelInviteInstance:
         """
         Create the InteractionChannelInviteInstance
 
         :param routing: The Interaction's routing logic.
-        
+
         :returns: The created InteractionChannelInviteInstance
         """
-        
-        data = values.of({ 
-            'Routing': serialize.object(routing),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return InteractionChannelInviteInstance(self._version, payload, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'])
+        data = values.of(
+            {
+                "Routing": serialize.object(routing),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return InteractionChannelInviteInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution["interaction_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
 
     async def create_async(self, routing: object) -> InteractionChannelInviteInstance:
         """
         Asynchronously create the InteractionChannelInviteInstance
 
         :param routing: The Interaction's routing logic.
-        
+
         :returns: The created InteractionChannelInviteInstance
         """
-        
-        data = values.of({ 
-            'Routing': serialize.object(routing),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return InteractionChannelInviteInstance(self._version, payload, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'])
-    
-    
-    def stream(self, 
-        
+        data = values.of(
+            {
+                "Routing": serialize.object(routing),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return InteractionChannelInviteInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution["interaction_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[InteractionChannelInviteInstance]:
@@ -160,7 +172,7 @@ class InteractionChannelInviteList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -171,14 +183,12 @@ class InteractionChannelInviteList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[InteractionChannelInviteInstance]:
@@ -187,7 +197,7 @@ class InteractionChannelInviteList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -198,14 +208,12 @@ class InteractionChannelInviteList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[InteractionChannelInviteInstance]:
@@ -213,7 +221,7 @@ class InteractionChannelInviteList(ListResource):
         Lists InteractionChannelInviteInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -223,13 +231,15 @@ class InteractionChannelInviteList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[InteractionChannelInviteInstance]:
@@ -237,7 +247,7 @@ class InteractionChannelInviteList(ListResource):
         Asynchronously lists InteractionChannelInviteInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -247,13 +257,16 @@ class InteractionChannelInviteList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -261,24 +274,26 @@ class InteractionChannelInviteList(ListResource):
         """
         Retrieve a single page of InteractionChannelInviteInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InteractionChannelInviteInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return InteractionChannelInvitePage(self._version, response, self._solution)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -286,20 +301,24 @@ class InteractionChannelInviteList(ListResource):
         """
         Asynchronously retrieve a single page of InteractionChannelInviteInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InteractionChannelInviteInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return InteractionChannelInvitePage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> InteractionChannelInvitePage:
@@ -311,10 +330,7 @@ class InteractionChannelInviteList(ListResource):
 
         :returns: Page of InteractionChannelInviteInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return InteractionChannelInvitePage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> InteractionChannelInvitePage:
@@ -326,14 +342,8 @@ class InteractionChannelInviteList(ListResource):
 
         :returns: Page of InteractionChannelInviteInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return InteractionChannelInvitePage(self._version, response, self._solution)
-
-
-
 
     def __repr__(self) -> str:
         """
@@ -341,5 +351,4 @@ class InteractionChannelInviteList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.FlexApi.V1.InteractionChannelInviteList>'
-
+        return "<Twilio.FlexApi.V1.InteractionChannelInviteList>"

@@ -30,7 +30,7 @@ class V2010(Version):
         super().__init__(domain, "2010-04-01")
         self._accounts: Optional[AccountList] = None
         self._account: Optional[AccountContext] = None
-        
+
     @property
     def accounts(self) -> AccountList:
         if self._accounts is None:

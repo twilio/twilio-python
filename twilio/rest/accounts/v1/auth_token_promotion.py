@@ -12,20 +12,16 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from datetime import datetime
+from typing import Any, Dict, Optional
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class AuthTokenPromotionInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the secondary Auth Token was created for.
     :ivar auth_token: The promoted Auth Token that must be used to authenticate future API requests.
@@ -37,14 +33,16 @@ class AuthTokenPromotionInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.auth_token: Optional[str] = payload.get("auth_token")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.url: Optional[str] = payload.get("url")
 
-        
         self._context: Optional[AuthTokenPromotionContext] = None
 
     @property
@@ -56,14 +54,15 @@ class AuthTokenPromotionInstance(InstanceResource):
         :returns: AuthTokenPromotionContext for this AuthTokenPromotionInstance
         """
         if self._context is None:
-            self._context = AuthTokenPromotionContext(self._version,)
+            self._context = AuthTokenPromotionContext(
+                self._version,
+            )
         return self._context
-    
-    
+
     def update(self) -> "AuthTokenPromotionInstance":
         """
         Update the AuthTokenPromotionInstance
-        
+
 
         :returns: The updated AuthTokenPromotionInstance
         """
@@ -72,20 +71,21 @@ class AuthTokenPromotionInstance(InstanceResource):
     async def update_async(self) -> "AuthTokenPromotionInstance":
         """
         Asynchronous coroutine to update the AuthTokenPromotionInstance
-        
+
 
         :returns: The updated AuthTokenPromotionInstance
         """
         return await self._proxy.update_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        
-        return '<Twilio.Accounts.V1.AuthTokenPromotionInstance>'
+
+        return "<Twilio.Accounts.V1.AuthTokenPromotionInstance>"
+
 
 class AuthTokenPromotionContext(InstanceContext):
 
@@ -97,86 +97,74 @@ class AuthTokenPromotionContext(InstanceContext):
         """
         super().__init__(version)
 
-        
-        self._uri = '/AuthTokens/Promote'
-        
-    
-    
+        self._uri = "/AuthTokens/Promote"
+
     def update(self) -> AuthTokenPromotionInstance:
         """
         Update the AuthTokenPromotionInstance
-        
+
 
         :returns: The updated AuthTokenPromotionInstance
         """
-        data = values.of({ 
-        })
-        
+        data = values.of({})
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return AuthTokenPromotionInstance(
-            self._version,
-            payload
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
         )
+
+        return AuthTokenPromotionInstance(self._version, payload)
 
     async def update_async(self) -> AuthTokenPromotionInstance:
         """
         Asynchronous coroutine to update the AuthTokenPromotionInstance
-        
+
 
         :returns: The updated AuthTokenPromotionInstance
         """
-        data = values.of({ 
-        })
-        
+        data = values.of({})
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return AuthTokenPromotionInstance(
-            self._version,
-            payload
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
         )
-    
-    
+
+        return AuthTokenPromotionInstance(self._version, payload)
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        
-        return '<Twilio.Accounts.V1.AuthTokenPromotionContext>'
 
+        return "<Twilio.Accounts.V1.AuthTokenPromotionContext>"
 
 
 class AuthTokenPromotionList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the AuthTokenPromotionList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
-
-        
-        
-        
-        
 
     def get(self) -> AuthTokenPromotionContext:
         """
         Constructs a AuthTokenPromotionContext
-        
+
         """
         return AuthTokenPromotionContext(self._version)
 
     def __call__(self) -> AuthTokenPromotionContext:
         """
         Constructs a AuthTokenPromotionContext
-        
+
         """
         return AuthTokenPromotionContext(self._version)
 
@@ -186,5 +174,4 @@ class AuthTokenPromotionList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Accounts.V1.AuthTokenPromotionList>'
-
+        return "<Twilio.Accounts.V1.AuthTokenPromotionList>"

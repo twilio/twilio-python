@@ -12,11 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -25,7 +23,6 @@ from twilio.base.page import Page
 
 
 class KeyInstance(InstanceResource):
-
     """
     :ivar sid: Contains a 34 character string that uniquely identifies this Key credential resource.
     :ivar url: Contains an absolute URL for this Key credential resource.
@@ -38,10 +35,15 @@ class KeyInstance(InstanceResource):
     :ivar date_updated: Specifies the date this Key credential was last updated, given in UTC ISO 8601 format.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], fleet_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        fleet_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.url: Optional[str] = payload.get("url")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
@@ -49,11 +51,14 @@ class KeyInstance(InstanceResource):
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.device_sid: Optional[str] = payload.get("device_sid")
         self.secret: Optional[str] = payload.get("secret")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
 
-        
-        self._solution = { 
+        self._solution = {
             "fleet_sid": fleet_sid,
             "sid": sid or self.sid,
         }
@@ -68,32 +73,35 @@ class KeyInstance(InstanceResource):
         :returns: KeyContext for this KeyInstance
         """
         if self._context is None:
-            self._context = KeyContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=self._solution['sid'],)
+            self._context = KeyContext(
+                self._version,
+                fleet_sid=self._solution["fleet_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the KeyInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the KeyInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "KeyInstance":
         """
         Fetch the KeyInstance
-        
+
 
         :returns: The fetched KeyInstance
         """
@@ -102,43 +110,57 @@ class KeyInstance(InstanceResource):
     async def fetch_async(self) -> "KeyInstance":
         """
         Asynchronous coroutine to fetch the KeyInstance
-        
+
 
         :returns: The fetched KeyInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, device_sid: Union[str, object]=values.unset) -> "KeyInstance":
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        device_sid: Union[str, object] = values.unset,
+    ) -> "KeyInstance":
         """
         Update the KeyInstance
-        
+
         :param friendly_name: Provides a human readable descriptive text for this Key credential, up to 256 characters long.
         :param device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
 
         :returns: The updated KeyInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, device_sid=device_sid, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            device_sid=device_sid,
+        )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, device_sid: Union[str, object]=values.unset) -> "KeyInstance":
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        device_sid: Union[str, object] = values.unset,
+    ) -> "KeyInstance":
         """
         Asynchronous coroutine to update the KeyInstance
-        
+
         :param friendly_name: Provides a human readable descriptive text for this Key credential, up to 256 characters long.
         :param device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
 
         :returns: The updated KeyInstance
         """
-        return await self._proxy.update_async(friendly_name=friendly_name, device_sid=device_sid, )
-    
+        return await self._proxy.update_async(
+            friendly_name=friendly_name,
+            device_sid=device_sid,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.DeployedDevices.KeyInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.DeployedDevices.KeyInstance {}>".format(context)
+
 
 class KeyContext(InstanceContext):
 
@@ -147,143 +169,156 @@ class KeyContext(InstanceContext):
         Initialize the KeyContext
 
         :param version: Version that contains the resource
-        :param fleet_sid: 
+        :param fleet_sid:
         :param sid: Provides a 34 character string that uniquely identifies the requested Key credential resource.
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'fleet_sid': fleet_sid,
-            'sid': sid,
+        self._solution = {
+            "fleet_sid": fleet_sid,
+            "sid": sid,
         }
-        self._uri = '/Fleets/{fleet_sid}/Keys/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Fleets/{fleet_sid}/Keys/{sid}".format(**self._solution)
+
     def delete(self) -> bool:
         """
         Deletes the KeyInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the KeyInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> KeyInstance:
         """
         Fetch the KeyInstance
-        
+
 
         :returns: The fetched KeyInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return KeyInstance(
             self._version,
             payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid'],
-            
+            fleet_sid=self._solution["fleet_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> KeyInstance:
         """
         Asynchronous coroutine to fetch the KeyInstance
-        
+
 
         :returns: The fetched KeyInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return KeyInstance(
             self._version,
             payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid'],
-            
+            fleet_sid=self._solution["fleet_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, device_sid: Union[str, object]=values.unset) -> KeyInstance:
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        device_sid: Union[str, object] = values.unset,
+    ) -> KeyInstance:
         """
         Update the KeyInstance
-        
+
         :param friendly_name: Provides a human readable descriptive text for this Key credential, up to 256 characters long.
         :param device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
 
         :returns: The updated KeyInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DeviceSid': device_sid,
-        })
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "DeviceSid": device_sid,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return KeyInstance(
             self._version,
             payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid']
+            fleet_sid=self._solution["fleet_sid"],
+            sid=self._solution["sid"],
         )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, device_sid: Union[str, object]=values.unset) -> KeyInstance:
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        device_sid: Union[str, object] = values.unset,
+    ) -> KeyInstance:
         """
         Asynchronous coroutine to update the KeyInstance
-        
+
         :param friendly_name: Provides a human readable descriptive text for this Key credential, up to 256 characters long.
         :param device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
 
         :returns: The updated KeyInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DeviceSid': device_sid,
-        })
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "DeviceSid": device_sid,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return KeyInstance(
             self._version,
             payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid']
+            fleet_sid=self._solution["fleet_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.DeployedDevices.KeyContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.DeployedDevices.KeyContext {}>".format(context)
 
 
 class KeyPage(Page):
@@ -294,7 +329,9 @@ class KeyPage(Page):
 
         :param payload: Payload response from the API
         """
-        return KeyInstance(self._version, payload, fleet_sid=self._solution["fleet_sid"])
+        return KeyInstance(
+            self._version, payload, fleet_sid=self._solution["fleet_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -305,81 +342,87 @@ class KeyPage(Page):
         return "<Twilio.Preview.DeployedDevices.KeyPage>"
 
 
-
-
-
 class KeyList(ListResource):
-    
+
     def __init__(self, version: Version, fleet_sid: str):
         """
         Initialize the KeyList
 
         :param version: Version that contains the resource
-        :param fleet_sid: 
-        
+        :param fleet_sid:
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'fleet_sid': fleet_sid,  }
-        self._uri = '/Fleets/{fleet_sid}/Keys'.format(**self._solution)
-        
-        
-    
-    
-    
-    
-    def create(self, friendly_name: Union[str, object]=values.unset, device_sid: Union[str, object]=values.unset) -> KeyInstance:
+        self._solution = {
+            "fleet_sid": fleet_sid,
+        }
+        self._uri = "/Fleets/{fleet_sid}/Keys".format(**self._solution)
+
+    def create(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        device_sid: Union[str, object] = values.unset,
+    ) -> KeyInstance:
         """
         Create the KeyInstance
 
         :param friendly_name: Provides a human readable descriptive text for this Key credential, up to 256 characters long.
         :param device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
-        
+
         :returns: The created KeyInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DeviceSid': device_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return KeyInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "DeviceSid": device_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, friendly_name: Union[str, object]=values.unset, device_sid: Union[str, object]=values.unset) -> KeyInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return KeyInstance(
+            self._version, payload, fleet_sid=self._solution["fleet_sid"]
+        )
+
+    async def create_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        device_sid: Union[str, object] = values.unset,
+    ) -> KeyInstance:
         """
         Asynchronously create the KeyInstance
 
         :param friendly_name: Provides a human readable descriptive text for this Key credential, up to 256 characters long.
         :param device_sid: Provides the unique string identifier of an existing Device to become authenticated with this Key credential.
-        
+
         :returns: The created KeyInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'DeviceSid': device_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return KeyInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
-    
-    
-    def stream(self, 
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "DeviceSid": device_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return KeyInstance(
+            self._version, payload, fleet_sid=self._solution["fleet_sid"]
+        )
+
+    def stream(
+        self,
         device_sid: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[KeyInstance]:
@@ -388,7 +431,7 @@ class KeyList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -400,16 +443,13 @@ class KeyList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            device_sid=device_sid,
-            page_size=limits['page_size']
-        )
+        page = self.page(device_sid=device_sid, page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         device_sid: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[KeyInstance]:
@@ -418,7 +458,7 @@ class KeyList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -431,15 +471,14 @@ class KeyList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            device_sid=device_sid,
-            page_size=limits['page_size']
+            device_sid=device_sid, page_size=limits["page_size"]
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         device_sid: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[KeyInstance]:
@@ -447,7 +486,7 @@ class KeyList(ListResource):
         Lists KeyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -458,15 +497,17 @@ class KeyList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            device_sid=device_sid,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                device_sid=device_sid,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         device_sid: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[KeyInstance]:
@@ -474,7 +515,7 @@ class KeyList(ListResource):
         Asynchronously lists KeyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -485,15 +526,18 @@ class KeyList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            device_sid=device_sid,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                device_sid=device_sid,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         device_sid: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -501,7 +545,7 @@ class KeyList(ListResource):
         """
         Retrieve a single page of KeyInstance records from the API.
         Request is executed immediately
-        
+
         :param device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -509,19 +553,21 @@ class KeyList(ListResource):
 
         :returns: Page of KeyInstance
         """
-        data = values.of({ 
-            'DeviceSid': device_sid,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "DeviceSid": device_sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return KeyPage(self._version, response, self._solution)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         device_sid: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -529,7 +575,7 @@ class KeyList(ListResource):
         """
         Asynchronously retrieve a single page of KeyInstance records from the API.
         Request is executed immediately
-        
+
         :param device_sid: Filters the resulting list of Keys by a unique string identifier of an authenticated Device.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -537,14 +583,18 @@ class KeyList(ListResource):
 
         :returns: Page of KeyInstance
         """
-        data = values.of({ 
-            'DeviceSid': device_sid,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "DeviceSid": device_sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return KeyPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> KeyPage:
@@ -556,10 +606,7 @@ class KeyList(ListResource):
 
         :returns: Page of KeyInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return KeyPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> KeyPage:
@@ -571,29 +618,24 @@ class KeyList(ListResource):
 
         :returns: Page of KeyInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return KeyPage(self._version, response, self._solution)
-
-
 
     def get(self, sid: str) -> KeyContext:
         """
         Constructs a KeyContext
-        
+
         :param sid: Provides a 34 character string that uniquely identifies the requested Key credential resource.
         """
-        return KeyContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
+        return KeyContext(self._version, fleet_sid=self._solution["fleet_sid"], sid=sid)
 
     def __call__(self, sid: str) -> KeyContext:
         """
         Constructs a KeyContext
-        
+
         :param sid: Provides a 34 character string that uniquely identifies the requested Key credential resource.
         """
-        return KeyContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
+        return KeyContext(self._version, fleet_sid=self._solution["fleet_sid"], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -601,5 +643,4 @@ class KeyList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Preview.DeployedDevices.KeyList>'
-
+        return "<Twilio.Preview.DeployedDevices.KeyList>"

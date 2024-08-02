@@ -32,7 +32,7 @@ class Wireless(Version):
         self._commands: Optional[CommandList] = None
         self._rate_plans: Optional[RatePlanList] = None
         self._sims: Optional[SimList] = None
-        
+
     @property
     def commands(self) -> CommandList:
         if self._commands is None:

@@ -12,11 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Optional
 
 
 from twilio.base.list_resource import ListResource
@@ -24,36 +20,32 @@ from twilio.base.version import Version
 
 from twilio.rest.api.v2010.account.sip.credential_list import CredentialListList
 from twilio.rest.api.v2010.account.sip.domain import DomainList
-from twilio.rest.api.v2010.account.sip.ip_access_control_list import IpAccessControlListList
-
-
-
-
+from twilio.rest.api.v2010.account.sip.ip_access_control_list import (
+    IpAccessControlListList,
+)
 
 
 class SipList(ListResource):
-    
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the SipList
 
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to read.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/{account_sid}/SIP.json'.format(**self._solution)
-        
+        self._solution = {
+            "account_sid": account_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/SIP.json".format(**self._solution)
+
         self._credential_lists: Optional[CredentialListList] = None
         self._domains: Optional[DomainList] = None
         self._ip_access_control_lists: Optional[IpAccessControlListList] = None
-        
-
-
 
     @property
     def credential_lists(self) -> CredentialListList:
@@ -61,10 +53,10 @@ class SipList(ListResource):
         Access the credential_lists
         """
         if self._credential_lists is None:
-            self._credential_lists = CredentialListList(self._version, account_sid=self._solution['account_sid'])
+            self._credential_lists = CredentialListList(
+                self._version, account_sid=self._solution["account_sid"]
+            )
         return self._credential_lists
-
-
 
     @property
     def domains(self) -> DomainList:
@@ -72,10 +64,10 @@ class SipList(ListResource):
         Access the domains
         """
         if self._domains is None:
-            self._domains = DomainList(self._version, account_sid=self._solution['account_sid'])
+            self._domains = DomainList(
+                self._version, account_sid=self._solution["account_sid"]
+            )
         return self._domains
-
-
 
     @property
     def ip_access_control_lists(self) -> IpAccessControlListList:
@@ -83,10 +75,10 @@ class SipList(ListResource):
         Access the ip_access_control_lists
         """
         if self._ip_access_control_lists is None:
-            self._ip_access_control_lists = IpAccessControlListList(self._version, account_sid=self._solution['account_sid'])
+            self._ip_access_control_lists = IpAccessControlListList(
+                self._version, account_sid=self._solution["account_sid"]
+            )
         return self._ip_access_control_lists
-
-
 
     def __repr__(self) -> str:
         """
@@ -94,5 +86,4 @@ class SipList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Api.V2010.SipList>'
-
+        return "<Twilio.Api.V2010.SipList>"

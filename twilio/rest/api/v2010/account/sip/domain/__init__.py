@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -23,12 +21,15 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.api.v2010.account.sip.domain.auth_types import AuthTypesList
-from twilio.rest.api.v2010.account.sip.domain.credential_list_mapping import CredentialListMappingList
-from twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping import IpAccessControlListMappingList
+from twilio.rest.api.v2010.account.sip.domain.credential_list_mapping import (
+    CredentialListMappingList,
+)
+from twilio.rest.api.v2010.account.sip.domain.ip_access_control_list_mapping import (
+    IpAccessControlListMappingList,
+)
 
 
 class DomainInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resource.
     :ivar api_version: The API version used to process the call.
@@ -53,15 +54,24 @@ class DomainInstance(InstanceResource):
     :ivar emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.api_version: Optional[str] = payload.get("api_version")
         self.auth_type: Optional[str] = payload.get("auth_type")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
         self.domain_name: Optional[str] = payload.get("domain_name")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.sid: Optional[str] = payload.get("sid")
@@ -69,18 +79,25 @@ class DomainInstance(InstanceResource):
         self.voice_fallback_method: Optional[str] = payload.get("voice_fallback_method")
         self.voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
         self.voice_method: Optional[str] = payload.get("voice_method")
-        self.voice_status_callback_method: Optional[str] = payload.get("voice_status_callback_method")
-        self.voice_status_callback_url: Optional[str] = payload.get("voice_status_callback_url")
+        self.voice_status_callback_method: Optional[str] = payload.get(
+            "voice_status_callback_method"
+        )
+        self.voice_status_callback_url: Optional[str] = payload.get(
+            "voice_status_callback_url"
+        )
         self.voice_url: Optional[str] = payload.get("voice_url")
-        self.subresource_uris: Optional[Dict[str, object]] = payload.get("subresource_uris")
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
         self.sip_registration: Optional[bool] = payload.get("sip_registration")
-        self.emergency_calling_enabled: Optional[bool] = payload.get("emergency_calling_enabled")
+        self.emergency_calling_enabled: Optional[bool] = payload.get(
+            "emergency_calling_enabled"
+        )
         self.secure: Optional[bool] = payload.get("secure")
         self.byoc_trunk_sid: Optional[str] = payload.get("byoc_trunk_sid")
         self.emergency_caller_sid: Optional[str] = payload.get("emergency_caller_sid")
 
-        
-        self._solution = { 
+        self._solution = {
             "account_sid": account_sid,
             "sid": sid or self.sid,
         }
@@ -95,32 +112,35 @@ class DomainInstance(InstanceResource):
         :returns: DomainContext for this DomainInstance
         """
         if self._context is None:
-            self._context = DomainContext(self._version, account_sid=self._solution['account_sid'], sid=self._solution['sid'],)
+            self._context = DomainContext(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the DomainInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the DomainInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "DomainInstance":
         """
         Fetch the DomainInstance
-        
+
 
         :returns: The fetched DomainInstance
         """
@@ -129,17 +149,31 @@ class DomainInstance(InstanceResource):
     async def fetch_async(self) -> "DomainInstance":
         """
         Asynchronous coroutine to fetch the DomainInstance
-        
+
 
         :returns: The fetched DomainInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_status_callback_method: Union[str, object]=values.unset, voice_status_callback_url: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, sip_registration: Union[bool, object]=values.unset, domain_name: Union[str, object]=values.unset, emergency_calling_enabled: Union[bool, object]=values.unset, secure: Union[bool, object]=values.unset, byoc_trunk_sid: Union[str, object]=values.unset, emergency_caller_sid: Union[str, object]=values.unset) -> "DomainInstance":
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_status_callback_method: Union[str, object] = values.unset,
+        voice_status_callback_url: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        sip_registration: Union[bool, object] = values.unset,
+        domain_name: Union[str, object] = values.unset,
+        emergency_calling_enabled: Union[bool, object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        byoc_trunk_sid: Union[str, object] = values.unset,
+        emergency_caller_sid: Union[str, object] = values.unset,
+    ) -> "DomainInstance":
         """
         Update the DomainInstance
-        
+
         :param friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
         :param voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
         :param voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
@@ -156,12 +190,41 @@ class DomainInstance(InstanceResource):
 
         :returns: The updated DomainInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, voice_fallback_method=voice_fallback_method, voice_fallback_url=voice_fallback_url, voice_method=voice_method, voice_status_callback_method=voice_status_callback_method, voice_status_callback_url=voice_status_callback_url, voice_url=voice_url, sip_registration=sip_registration, domain_name=domain_name, emergency_calling_enabled=emergency_calling_enabled, secure=secure, byoc_trunk_sid=byoc_trunk_sid, emergency_caller_sid=emergency_caller_sid, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            voice_fallback_method=voice_fallback_method,
+            voice_fallback_url=voice_fallback_url,
+            voice_method=voice_method,
+            voice_status_callback_method=voice_status_callback_method,
+            voice_status_callback_url=voice_status_callback_url,
+            voice_url=voice_url,
+            sip_registration=sip_registration,
+            domain_name=domain_name,
+            emergency_calling_enabled=emergency_calling_enabled,
+            secure=secure,
+            byoc_trunk_sid=byoc_trunk_sid,
+            emergency_caller_sid=emergency_caller_sid,
+        )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_status_callback_method: Union[str, object]=values.unset, voice_status_callback_url: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, sip_registration: Union[bool, object]=values.unset, domain_name: Union[str, object]=values.unset, emergency_calling_enabled: Union[bool, object]=values.unset, secure: Union[bool, object]=values.unset, byoc_trunk_sid: Union[str, object]=values.unset, emergency_caller_sid: Union[str, object]=values.unset) -> "DomainInstance":
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_status_callback_method: Union[str, object] = values.unset,
+        voice_status_callback_url: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        sip_registration: Union[bool, object] = values.unset,
+        domain_name: Union[str, object] = values.unset,
+        emergency_calling_enabled: Union[bool, object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        byoc_trunk_sid: Union[str, object] = values.unset,
+        emergency_caller_sid: Union[str, object] = values.unset,
+    ) -> "DomainInstance":
         """
         Asynchronous coroutine to update the DomainInstance
-        
+
         :param friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
         :param voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
         :param voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
@@ -178,37 +241,52 @@ class DomainInstance(InstanceResource):
 
         :returns: The updated DomainInstance
         """
-        return await self._proxy.update_async(friendly_name=friendly_name, voice_fallback_method=voice_fallback_method, voice_fallback_url=voice_fallback_url, voice_method=voice_method, voice_status_callback_method=voice_status_callback_method, voice_status_callback_url=voice_status_callback_url, voice_url=voice_url, sip_registration=sip_registration, domain_name=domain_name, emergency_calling_enabled=emergency_calling_enabled, secure=secure, byoc_trunk_sid=byoc_trunk_sid, emergency_caller_sid=emergency_caller_sid, )
-    
+        return await self._proxy.update_async(
+            friendly_name=friendly_name,
+            voice_fallback_method=voice_fallback_method,
+            voice_fallback_url=voice_fallback_url,
+            voice_method=voice_method,
+            voice_status_callback_method=voice_status_callback_method,
+            voice_status_callback_url=voice_status_callback_url,
+            voice_url=voice_url,
+            sip_registration=sip_registration,
+            domain_name=domain_name,
+            emergency_calling_enabled=emergency_calling_enabled,
+            secure=secure,
+            byoc_trunk_sid=byoc_trunk_sid,
+            emergency_caller_sid=emergency_caller_sid,
+        )
+
     @property
     def auth(self) -> AuthTypesList:
         """
         Access the auth
         """
         return self._proxy.auth
-    
+
     @property
     def credential_list_mappings(self) -> CredentialListMappingList:
         """
         Access the credential_list_mappings
         """
         return self._proxy.credential_list_mappings
-    
+
     @property
     def ip_access_control_list_mappings(self) -> IpAccessControlListMappingList:
         """
         Access the ip_access_control_list_mappings
         """
         return self._proxy.ip_access_control_list_mappings
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.DomainInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.DomainInstance {}>".format(context)
+
 
 class DomainContext(InstanceContext):
 
@@ -222,79 +300,104 @@ class DomainContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
+        self._solution = {
+            "account_sid": account_sid,
+            "sid": sid,
         }
-        self._uri = '/Accounts/{account_sid}/SIP/Domains/{sid}.json'.format(**self._solution)
-        
+        self._uri = "/Accounts/{account_sid}/SIP/Domains/{sid}.json".format(
+            **self._solution
+        )
+
         self._auth: Optional[AuthTypesList] = None
         self._credential_list_mappings: Optional[CredentialListMappingList] = None
-        self._ip_access_control_list_mappings: Optional[IpAccessControlListMappingList] = None
-    
-    
+        self._ip_access_control_list_mappings: Optional[
+            IpAccessControlListMappingList
+        ] = None
+
     def delete(self) -> bool:
         """
         Deletes the DomainInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the DomainInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> DomainInstance:
         """
         Fetch the DomainInstance
-        
+
 
         :returns: The fetched DomainInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return DomainInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> DomainInstance:
         """
         Asynchronous coroutine to fetch the DomainInstance
-        
+
 
         :returns: The fetched DomainInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return DomainInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_status_callback_method: Union[str, object]=values.unset, voice_status_callback_url: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, sip_registration: Union[bool, object]=values.unset, domain_name: Union[str, object]=values.unset, emergency_calling_enabled: Union[bool, object]=values.unset, secure: Union[bool, object]=values.unset, byoc_trunk_sid: Union[str, object]=values.unset, emergency_caller_sid: Union[str, object]=values.unset) -> DomainInstance:
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_status_callback_method: Union[str, object] = values.unset,
+        voice_status_callback_url: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        sip_registration: Union[bool, object] = values.unset,
+        domain_name: Union[str, object] = values.unset,
+        emergency_calling_enabled: Union[bool, object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        byoc_trunk_sid: Union[str, object] = values.unset,
+        emergency_caller_sid: Union[str, object] = values.unset,
+    ) -> DomainInstance:
         """
         Update the DomainInstance
-        
+
         :param friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
         :param voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
         :param voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
@@ -311,36 +414,58 @@ class DomainContext(InstanceContext):
 
         :returns: The updated DomainInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'VoiceFallbackMethod': voice_fallback_method,
-            'VoiceFallbackUrl': voice_fallback_url,
-            'VoiceMethod': voice_method,
-            'VoiceStatusCallbackMethod': voice_status_callback_method,
-            'VoiceStatusCallbackUrl': voice_status_callback_url,
-            'VoiceUrl': voice_url,
-            'SipRegistration': serialize.boolean_to_string(sip_registration),
-            'DomainName': domain_name,
-            'EmergencyCallingEnabled': serialize.boolean_to_string(emergency_calling_enabled),
-            'Secure': serialize.boolean_to_string(secure),
-            'ByocTrunkSid': byoc_trunk_sid,
-            'EmergencyCallerSid': emergency_caller_sid,
-        })
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "VoiceFallbackMethod": voice_fallback_method,
+                "VoiceFallbackUrl": voice_fallback_url,
+                "VoiceMethod": voice_method,
+                "VoiceStatusCallbackMethod": voice_status_callback_method,
+                "VoiceStatusCallbackUrl": voice_status_callback_url,
+                "VoiceUrl": voice_url,
+                "SipRegistration": serialize.boolean_to_string(sip_registration),
+                "DomainName": domain_name,
+                "EmergencyCallingEnabled": serialize.boolean_to_string(
+                    emergency_calling_enabled
+                ),
+                "Secure": serialize.boolean_to_string(secure),
+                "ByocTrunkSid": byoc_trunk_sid,
+                "EmergencyCallerSid": emergency_caller_sid,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return DomainInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_status_callback_method: Union[str, object]=values.unset, voice_status_callback_url: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, sip_registration: Union[bool, object]=values.unset, domain_name: Union[str, object]=values.unset, emergency_calling_enabled: Union[bool, object]=values.unset, secure: Union[bool, object]=values.unset, byoc_trunk_sid: Union[str, object]=values.unset, emergency_caller_sid: Union[str, object]=values.unset) -> DomainInstance:
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_status_callback_method: Union[str, object] = values.unset,
+        voice_status_callback_url: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        sip_registration: Union[bool, object] = values.unset,
+        domain_name: Union[str, object] = values.unset,
+        emergency_calling_enabled: Union[bool, object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        byoc_trunk_sid: Union[str, object] = values.unset,
+        emergency_caller_sid: Union[str, object] = values.unset,
+    ) -> DomainInstance:
         """
         Asynchronous coroutine to update the DomainInstance
-        
+
         :param friendly_name: A descriptive string that you created to describe the resource. It can be up to 64 characters long.
         :param voice_fallback_method: The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or `POST`.
         :param voice_fallback_url: The URL that we should call when an error occurs while retrieving or executing the TwiML requested by `voice_url`.
@@ -357,33 +482,39 @@ class DomainContext(InstanceContext):
 
         :returns: The updated DomainInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'VoiceFallbackMethod': voice_fallback_method,
-            'VoiceFallbackUrl': voice_fallback_url,
-            'VoiceMethod': voice_method,
-            'VoiceStatusCallbackMethod': voice_status_callback_method,
-            'VoiceStatusCallbackUrl': voice_status_callback_url,
-            'VoiceUrl': voice_url,
-            'SipRegistration': serialize.boolean_to_string(sip_registration),
-            'DomainName': domain_name,
-            'EmergencyCallingEnabled': serialize.boolean_to_string(emergency_calling_enabled),
-            'Secure': serialize.boolean_to_string(secure),
-            'ByocTrunkSid': byoc_trunk_sid,
-            'EmergencyCallerSid': emergency_caller_sid,
-        })
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "VoiceFallbackMethod": voice_fallback_method,
+                "VoiceFallbackUrl": voice_fallback_url,
+                "VoiceMethod": voice_method,
+                "VoiceStatusCallbackMethod": voice_status_callback_method,
+                "VoiceStatusCallbackUrl": voice_status_callback_url,
+                "VoiceUrl": voice_url,
+                "SipRegistration": serialize.boolean_to_string(sip_registration),
+                "DomainName": domain_name,
+                "EmergencyCallingEnabled": serialize.boolean_to_string(
+                    emergency_calling_enabled
+                ),
+                "Secure": serialize.boolean_to_string(secure),
+                "ByocTrunkSid": byoc_trunk_sid,
+                "EmergencyCallerSid": emergency_caller_sid,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return DomainInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     @property
     def auth(self) -> AuthTypesList:
         """
@@ -391,12 +522,12 @@ class DomainContext(InstanceContext):
         """
         if self._auth is None:
             self._auth = AuthTypesList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
             )
         return self._auth
-    
+
     @property
     def credential_list_mappings(self) -> CredentialListMappingList:
         """
@@ -404,12 +535,12 @@ class DomainContext(InstanceContext):
         """
         if self._credential_list_mappings is None:
             self._credential_list_mappings = CredentialListMappingList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
             )
         return self._credential_list_mappings
-    
+
     @property
     def ip_access_control_list_mappings(self) -> IpAccessControlListMappingList:
         """
@@ -417,29 +548,20 @@ class DomainContext(InstanceContext):
         """
         if self._ip_access_control_list_mappings is None:
             self._ip_access_control_list_mappings = IpAccessControlListMappingList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
             )
         return self._ip_access_control_list_mappings
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.DomainContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.DomainContext {}>".format(context)
 
 
 class DomainPage(Page):
@@ -450,7 +572,9 @@ class DomainPage(Page):
 
         :param payload: Payload response from the API
         """
-        return DomainInstance(self._version, payload, account_sid=self._solution["account_sid"])
+        return DomainInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -461,32 +585,40 @@ class DomainPage(Page):
         return "<Twilio.Api.V2010.DomainPage>"
 
 
-
-
-
 class DomainList(ListResource):
-    
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the DomainList
 
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the SipDomain resources to read.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/{account_sid}/SIP/Domains.json'.format(**self._solution)
-        
-        
-    
-    
-    
-    
-    def create(self, domain_name: str, friendly_name: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, voice_status_callback_url: Union[str, object]=values.unset, voice_status_callback_method: Union[str, object]=values.unset, sip_registration: Union[bool, object]=values.unset, emergency_calling_enabled: Union[bool, object]=values.unset, secure: Union[bool, object]=values.unset, byoc_trunk_sid: Union[str, object]=values.unset, emergency_caller_sid: Union[str, object]=values.unset) -> DomainInstance:
+        self._solution = {
+            "account_sid": account_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/SIP/Domains.json".format(**self._solution)
+
+    def create(
+        self,
+        domain_name: str,
+        friendly_name: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_status_callback_url: Union[str, object] = values.unset,
+        voice_status_callback_method: Union[str, object] = values.unset,
+        sip_registration: Union[bool, object] = values.unset,
+        emergency_calling_enabled: Union[bool, object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        byoc_trunk_sid: Union[str, object] = values.unset,
+        emergency_caller_sid: Union[str, object] = values.unset,
+    ) -> DomainInstance:
         """
         Create the DomainInstance
 
@@ -503,35 +635,55 @@ class DomainList(ListResource):
         :param secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
         :param byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
         :param emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
-        
+
         :returns: The created DomainInstance
         """
-        
-        data = values.of({ 
-            'DomainName': domain_name,
-            'FriendlyName': friendly_name,
-            'VoiceUrl': voice_url,
-            'VoiceMethod': voice_method,
-            'VoiceFallbackUrl': voice_fallback_url,
-            'VoiceFallbackMethod': voice_fallback_method,
-            'VoiceStatusCallbackUrl': voice_status_callback_url,
-            'VoiceStatusCallbackMethod': voice_status_callback_method,
-            'SipRegistration': serialize.boolean_to_string(sip_registration),
-            'EmergencyCallingEnabled': serialize.boolean_to_string(emergency_calling_enabled),
-            'Secure': serialize.boolean_to_string(secure),
-            'ByocTrunkSid': byoc_trunk_sid,
-            'EmergencyCallerSid': emergency_caller_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return DomainInstance(self._version, payload, account_sid=self._solution['account_sid'])
+        data = values.of(
+            {
+                "DomainName": domain_name,
+                "FriendlyName": friendly_name,
+                "VoiceUrl": voice_url,
+                "VoiceMethod": voice_method,
+                "VoiceFallbackUrl": voice_fallback_url,
+                "VoiceFallbackMethod": voice_fallback_method,
+                "VoiceStatusCallbackUrl": voice_status_callback_url,
+                "VoiceStatusCallbackMethod": voice_status_callback_method,
+                "SipRegistration": serialize.boolean_to_string(sip_registration),
+                "EmergencyCallingEnabled": serialize.boolean_to_string(
+                    emergency_calling_enabled
+                ),
+                "Secure": serialize.boolean_to_string(secure),
+                "ByocTrunkSid": byoc_trunk_sid,
+                "EmergencyCallerSid": emergency_caller_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, domain_name: str, friendly_name: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, voice_status_callback_url: Union[str, object]=values.unset, voice_status_callback_method: Union[str, object]=values.unset, sip_registration: Union[bool, object]=values.unset, emergency_calling_enabled: Union[bool, object]=values.unset, secure: Union[bool, object]=values.unset, byoc_trunk_sid: Union[str, object]=values.unset, emergency_caller_sid: Union[str, object]=values.unset) -> DomainInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return DomainInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    async def create_async(
+        self,
+        domain_name: str,
+        friendly_name: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_status_callback_url: Union[str, object] = values.unset,
+        voice_status_callback_method: Union[str, object] = values.unset,
+        sip_registration: Union[bool, object] = values.unset,
+        emergency_calling_enabled: Union[bool, object] = values.unset,
+        secure: Union[bool, object] = values.unset,
+        byoc_trunk_sid: Union[str, object] = values.unset,
+        emergency_caller_sid: Union[str, object] = values.unset,
+    ) -> DomainInstance:
         """
         Asynchronously create the DomainInstance
 
@@ -548,37 +700,41 @@ class DomainList(ListResource):
         :param secure: Whether secure SIP is enabled for the domain. If enabled, TLS will be enforced and SRTP will be negotiated on all incoming calls to this sip domain.
         :param byoc_trunk_sid: The SID of the BYOC Trunk(Bring Your Own Carrier) resource that the Sip Domain will be associated with.
         :param emergency_caller_sid: Whether an emergency caller sid is configured for the domain. If present, this phone number will be used as the callback for the emergency call.
-        
+
         :returns: The created DomainInstance
         """
-        
-        data = values.of({ 
-            'DomainName': domain_name,
-            'FriendlyName': friendly_name,
-            'VoiceUrl': voice_url,
-            'VoiceMethod': voice_method,
-            'VoiceFallbackUrl': voice_fallback_url,
-            'VoiceFallbackMethod': voice_fallback_method,
-            'VoiceStatusCallbackUrl': voice_status_callback_url,
-            'VoiceStatusCallbackMethod': voice_status_callback_method,
-            'SipRegistration': serialize.boolean_to_string(sip_registration),
-            'EmergencyCallingEnabled': serialize.boolean_to_string(emergency_calling_enabled),
-            'Secure': serialize.boolean_to_string(secure),
-            'ByocTrunkSid': byoc_trunk_sid,
-            'EmergencyCallerSid': emergency_caller_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return DomainInstance(self._version, payload, account_sid=self._solution['account_sid'])
-    
-    
-    def stream(self, 
-        
+        data = values.of(
+            {
+                "DomainName": domain_name,
+                "FriendlyName": friendly_name,
+                "VoiceUrl": voice_url,
+                "VoiceMethod": voice_method,
+                "VoiceFallbackUrl": voice_fallback_url,
+                "VoiceFallbackMethod": voice_fallback_method,
+                "VoiceStatusCallbackUrl": voice_status_callback_url,
+                "VoiceStatusCallbackMethod": voice_status_callback_method,
+                "SipRegistration": serialize.boolean_to_string(sip_registration),
+                "EmergencyCallingEnabled": serialize.boolean_to_string(
+                    emergency_calling_enabled
+                ),
+                "Secure": serialize.boolean_to_string(secure),
+                "ByocTrunkSid": byoc_trunk_sid,
+                "EmergencyCallerSid": emergency_caller_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return DomainInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[DomainInstance]:
@@ -587,7 +743,7 @@ class DomainList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -598,14 +754,12 @@ class DomainList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[DomainInstance]:
@@ -614,7 +768,7 @@ class DomainList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -625,14 +779,12 @@ class DomainList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DomainInstance]:
@@ -640,7 +792,7 @@ class DomainList(ListResource):
         Lists DomainInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -650,13 +802,15 @@ class DomainList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DomainInstance]:
@@ -664,7 +818,7 @@ class DomainList(ListResource):
         Asynchronously lists DomainInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -674,13 +828,16 @@ class DomainList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -688,24 +845,26 @@ class DomainList(ListResource):
         """
         Retrieve a single page of DomainInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DomainInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return DomainPage(self._version, response, self._solution)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -713,20 +872,24 @@ class DomainList(ListResource):
         """
         Asynchronously retrieve a single page of DomainInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DomainInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return DomainPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> DomainPage:
@@ -738,10 +901,7 @@ class DomainList(ListResource):
 
         :returns: Page of DomainInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return DomainPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> DomainPage:
@@ -753,35 +913,28 @@ class DomainList(ListResource):
 
         :returns: Page of DomainInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return DomainPage(self._version, response, self._solution)
-
-
-
-
-
-
-
-
 
     def get(self, sid: str) -> DomainContext:
         """
         Constructs a DomainContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the SipDomain resource to update.
         """
-        return DomainContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return DomainContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
 
     def __call__(self, sid: str) -> DomainContext:
         """
         Constructs a DomainContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the SipDomain resource to update.
         """
-        return DomainContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return DomainContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
 
     def __repr__(self) -> str:
         """
@@ -789,5 +942,4 @@ class DomainList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Api.V2010.DomainList>'
-
+        return "<Twilio.Api.V2010.DomainList>"

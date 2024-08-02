@@ -12,11 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -25,7 +22,6 @@ from twilio.base.page import Page
 
 
 class AvailableAddOnExtensionInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the AvailableAddOnExtension resource.
     :ivar available_add_on_sid: The SID of the AvailableAddOn resource to which this extension applies.
@@ -35,10 +31,15 @@ class AvailableAddOnExtensionInstance(InstanceResource):
     :ivar url: The absolute URL of the resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], available_add_on_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        available_add_on_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.available_add_on_sid: Optional[str] = payload.get("available_add_on_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
@@ -46,8 +47,7 @@ class AvailableAddOnExtensionInstance(InstanceResource):
         self.unique_name: Optional[str] = payload.get("unique_name")
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "available_add_on_sid": available_add_on_sid,
             "sid": sid or self.sid,
         }
@@ -62,14 +62,17 @@ class AvailableAddOnExtensionInstance(InstanceResource):
         :returns: AvailableAddOnExtensionContext for this AvailableAddOnExtensionInstance
         """
         if self._context is None:
-            self._context = AvailableAddOnExtensionContext(self._version, available_add_on_sid=self._solution['available_add_on_sid'], sid=self._solution['sid'],)
+            self._context = AvailableAddOnExtensionContext(
+                self._version,
+                available_add_on_sid=self._solution["available_add_on_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "AvailableAddOnExtensionInstance":
         """
         Fetch the AvailableAddOnExtensionInstance
-        
+
 
         :returns: The fetched AvailableAddOnExtensionInstance
         """
@@ -78,20 +81,23 @@ class AvailableAddOnExtensionInstance(InstanceResource):
     async def fetch_async(self) -> "AvailableAddOnExtensionInstance":
         """
         Asynchronous coroutine to fetch the AvailableAddOnExtensionInstance
-        
+
 
         :returns: The fetched AvailableAddOnExtensionInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Marketplace.V1.AvailableAddOnExtensionInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Marketplace.V1.AvailableAddOnExtensionInstance {}>".format(
+            context
+        )
+
 
 class AvailableAddOnExtensionContext(InstanceContext):
 
@@ -105,64 +111,65 @@ class AvailableAddOnExtensionContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'available_add_on_sid': available_add_on_sid,
-            'sid': sid,
+        self._solution = {
+            "available_add_on_sid": available_add_on_sid,
+            "sid": sid,
         }
-        self._uri = '/AvailableAddOns/{available_add_on_sid}/Extensions/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/AvailableAddOns/{available_add_on_sid}/Extensions/{sid}".format(
+            **self._solution
+        )
+
     def fetch(self) -> AvailableAddOnExtensionInstance:
         """
         Fetch the AvailableAddOnExtensionInstance
-        
+
 
         :returns: The fetched AvailableAddOnExtensionInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return AvailableAddOnExtensionInstance(
             self._version,
             payload,
-            available_add_on_sid=self._solution['available_add_on_sid'],
-            sid=self._solution['sid'],
-            
+            available_add_on_sid=self._solution["available_add_on_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> AvailableAddOnExtensionInstance:
         """
         Asynchronous coroutine to fetch the AvailableAddOnExtensionInstance
-        
+
 
         :returns: The fetched AvailableAddOnExtensionInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return AvailableAddOnExtensionInstance(
             self._version,
             payload,
-            available_add_on_sid=self._solution['available_add_on_sid'],
-            sid=self._solution['sid'],
-            
+            available_add_on_sid=self._solution["available_add_on_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Marketplace.V1.AvailableAddOnExtensionContext {}>'.format(context)
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Marketplace.V1.AvailableAddOnExtensionContext {}>".format(
+            context
+        )
 
 
 class AvailableAddOnExtensionPage(Page):
@@ -173,7 +180,11 @@ class AvailableAddOnExtensionPage(Page):
 
         :param payload: Payload response from the API
         """
-        return AvailableAddOnExtensionInstance(self._version, payload, available_add_on_sid=self._solution["available_add_on_sid"])
+        return AvailableAddOnExtensionInstance(
+            self._version,
+            payload,
+            available_add_on_sid=self._solution["available_add_on_sid"],
+        )
 
     def __repr__(self) -> str:
         """
@@ -184,31 +195,28 @@ class AvailableAddOnExtensionPage(Page):
         return "<Twilio.Marketplace.V1.AvailableAddOnExtensionPage>"
 
 
-
-
-
 class AvailableAddOnExtensionList(ListResource):
-    
+
     def __init__(self, version: Version, available_add_on_sid: str):
         """
         Initialize the AvailableAddOnExtensionList
 
         :param version: Version that contains the resource
         :param available_add_on_sid: The SID of the AvailableAddOn resource with the extensions to read.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'available_add_on_sid': available_add_on_sid,  }
-        self._uri = '/AvailableAddOns/{available_add_on_sid}/Extensions'.format(**self._solution)
-        
-        
-    
-    
-    def stream(self, 
-        
+        self._solution = {
+            "available_add_on_sid": available_add_on_sid,
+        }
+        self._uri = "/AvailableAddOns/{available_add_on_sid}/Extensions".format(
+            **self._solution
+        )
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[AvailableAddOnExtensionInstance]:
@@ -217,7 +225,7 @@ class AvailableAddOnExtensionList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -228,14 +236,12 @@ class AvailableAddOnExtensionList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[AvailableAddOnExtensionInstance]:
@@ -244,7 +250,7 @@ class AvailableAddOnExtensionList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -255,14 +261,12 @@ class AvailableAddOnExtensionList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[AvailableAddOnExtensionInstance]:
@@ -270,7 +274,7 @@ class AvailableAddOnExtensionList(ListResource):
         Lists AvailableAddOnExtensionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -280,13 +284,15 @@ class AvailableAddOnExtensionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[AvailableAddOnExtensionInstance]:
@@ -294,7 +300,7 @@ class AvailableAddOnExtensionList(ListResource):
         Asynchronously lists AvailableAddOnExtensionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -304,13 +310,16 @@ class AvailableAddOnExtensionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -318,24 +327,26 @@ class AvailableAddOnExtensionList(ListResource):
         """
         Retrieve a single page of AvailableAddOnExtensionInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AvailableAddOnExtensionInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return AvailableAddOnExtensionPage(self._version, response, self._solution)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -343,20 +354,24 @@ class AvailableAddOnExtensionList(ListResource):
         """
         Asynchronously retrieve a single page of AvailableAddOnExtensionInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AvailableAddOnExtensionInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return AvailableAddOnExtensionPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> AvailableAddOnExtensionPage:
@@ -368,10 +383,7 @@ class AvailableAddOnExtensionList(ListResource):
 
         :returns: Page of AvailableAddOnExtensionInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return AvailableAddOnExtensionPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> AvailableAddOnExtensionPage:
@@ -383,29 +395,32 @@ class AvailableAddOnExtensionList(ListResource):
 
         :returns: Page of AvailableAddOnExtensionInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return AvailableAddOnExtensionPage(self._version, response, self._solution)
-
-
 
     def get(self, sid: str) -> AvailableAddOnExtensionContext:
         """
         Constructs a AvailableAddOnExtensionContext
-        
+
         :param sid: The SID of the AvailableAddOn Extension resource to fetch.
         """
-        return AvailableAddOnExtensionContext(self._version, available_add_on_sid=self._solution['available_add_on_sid'], sid=sid)
+        return AvailableAddOnExtensionContext(
+            self._version,
+            available_add_on_sid=self._solution["available_add_on_sid"],
+            sid=sid,
+        )
 
     def __call__(self, sid: str) -> AvailableAddOnExtensionContext:
         """
         Constructs a AvailableAddOnExtensionContext
-        
+
         :param sid: The SID of the AvailableAddOn Extension resource to fetch.
         """
-        return AvailableAddOnExtensionContext(self._version, available_add_on_sid=self._solution['available_add_on_sid'], sid=sid)
+        return AvailableAddOnExtensionContext(
+            self._version,
+            available_add_on_sid=self._solution["available_add_on_sid"],
+            sid=sid,
+        )
 
     def __repr__(self) -> str:
         """
@@ -413,5 +428,4 @@ class AvailableAddOnExtensionList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Marketplace.V1.AvailableAddOnExtensionList>'
-
+        return "<Twilio.Marketplace.V1.AvailableAddOnExtensionList>"

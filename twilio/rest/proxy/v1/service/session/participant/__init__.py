@@ -12,21 +12,20 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.proxy.v1.service.session.participant.message_interaction import MessageInteractionList
+from twilio.rest.proxy.v1.service.session.participant.message_interaction import (
+    MessageInteractionList,
+)
 
 
 class ParticipantInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Participant resource.
     :ivar session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) resource.
@@ -43,10 +42,16 @@ class ParticipantInstance(InstanceResource):
     :ivar links: The URLs to resources related the participant.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, session_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        session_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.session_sid: Optional[str] = payload.get("session_sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
@@ -55,14 +60,19 @@ class ParticipantInstance(InstanceResource):
         self.identifier: Optional[str] = payload.get("identifier")
         self.proxy_identifier: Optional[str] = payload.get("proxy_identifier")
         self.proxy_identifier_sid: Optional[str] = payload.get("proxy_identifier_sid")
-        self.date_deleted: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_deleted"))
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_deleted: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_deleted")
+        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        
-        self._solution = { 
+        self._solution = {
             "service_sid": service_sid,
             "session_sid": session_sid,
             "sid": sid or self.sid,
@@ -78,32 +88,36 @@ class ParticipantInstance(InstanceResource):
         :returns: ParticipantContext for this ParticipantInstance
         """
         if self._context is None:
-            self._context = ParticipantContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], sid=self._solution['sid'],)
+            self._context = ParticipantContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                session_sid=self._solution["session_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the ParticipantInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ParticipantInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "ParticipantInstance":
         """
         Fetch the ParticipantInstance
-        
+
 
         :returns: The fetched ParticipantInstance
         """
@@ -112,27 +126,28 @@ class ParticipantInstance(InstanceResource):
     async def fetch_async(self) -> "ParticipantInstance":
         """
         Asynchronous coroutine to fetch the ParticipantInstance
-        
+
 
         :returns: The fetched ParticipantInstance
         """
         return await self._proxy.fetch_async()
-    
+
     @property
     def message_interactions(self) -> MessageInteractionList:
         """
         Access the message_interactions
         """
         return self._proxy.message_interactions
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Proxy.V1.ParticipantInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Proxy.V1.ParticipantInstance {}>".format(context)
+
 
 class ParticipantContext(InstanceContext):
 
@@ -147,76 +162,86 @@ class ParticipantContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'session_sid': session_sid,
-            'sid': sid,
+        self._solution = {
+            "service_sid": service_sid,
+            "session_sid": session_sid,
+            "sid": sid,
         }
-        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants/{sid}'.format(**self._solution)
-        
+        self._uri = (
+            "/Services/{service_sid}/Sessions/{session_sid}/Participants/{sid}".format(
+                **self._solution
+            )
+        )
+
         self._message_interactions: Optional[MessageInteractionList] = None
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the ParticipantInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ParticipantInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> ParticipantInstance:
         """
         Fetch the ParticipantInstance
-        
+
 
         :returns: The fetched ParticipantInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ParticipantInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            session_sid=self._solution['session_sid'],
-            sid=self._solution['sid'],
-            
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> ParticipantInstance:
         """
         Asynchronous coroutine to fetch the ParticipantInstance
-        
+
 
         :returns: The fetched ParticipantInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ParticipantInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            session_sid=self._solution['session_sid'],
-            sid=self._solution['sid'],
-            
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     @property
     def message_interactions(self) -> MessageInteractionList:
         """
@@ -224,28 +249,21 @@ class ParticipantContext(InstanceContext):
         """
         if self._message_interactions is None:
             self._message_interactions = MessageInteractionList(
-                self._version, 
-                self._solution['service_sid'],
-                self._solution['session_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["service_sid"],
+                self._solution["session_sid"],
+                self._solution["sid"],
             )
         return self._message_interactions
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Proxy.V1.ParticipantContext {}>'.format(context)
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Proxy.V1.ParticipantContext {}>".format(context)
 
 
 class ParticipantPage(Page):
@@ -256,7 +274,12 @@ class ParticipantPage(Page):
 
         :param payload: Payload response from the API
         """
-        return ParticipantInstance(self._version, payload, service_sid=self._solution["service_sid"], session_sid=self._solution["session_sid"])
+        return ParticipantInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+        )
 
     def __repr__(self) -> str:
         """
@@ -267,11 +290,8 @@ class ParticipantPage(Page):
         return "<Twilio.Proxy.V1.ParticipantPage>"
 
 
-
-
-
 class ParticipantList(ListResource):
-    
+
     def __init__(self, version: Version, service_sid: str, session_sid: str):
         """
         Initialize the ParticipantList
@@ -279,20 +299,28 @@ class ParticipantList(ListResource):
         :param version: Version that contains the resource
         :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) of the resources to read.
         :param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) of the resources to read.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'service_sid': service_sid, 'session_sid': session_sid,  }
-        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants'.format(**self._solution)
-        
-        
-    
-    
-    
-    def create(self, identifier: str, friendly_name: Union[str, object]=values.unset, proxy_identifier: Union[str, object]=values.unset, proxy_identifier_sid: Union[str, object]=values.unset) -> ParticipantInstance:
+        self._solution = {
+            "service_sid": service_sid,
+            "session_sid": session_sid,
+        }
+        self._uri = (
+            "/Services/{service_sid}/Sessions/{session_sid}/Participants".format(
+                **self._solution
+            )
+        )
+
+    def create(
+        self,
+        identifier: str,
+        friendly_name: Union[str, object] = values.unset,
+        proxy_identifier: Union[str, object] = values.unset,
+        proxy_identifier_sid: Union[str, object] = values.unset,
+    ) -> ParticipantInstance:
         """
         Create the ParticipantInstance
 
@@ -300,26 +328,38 @@ class ParticipantList(ListResource):
         :param friendly_name: The string that you assigned to describe the participant. This value must be 255 characters or fewer. **This value should not have PII.**
         :param proxy_identifier: The proxy phone number to use for the Participant. If not specified, Proxy will select a number from the pool.
         :param proxy_identifier_sid: The SID of the Proxy Identifier to assign to the Participant.
-        
+
         :returns: The created ParticipantInstance
         """
-        
-        data = values.of({ 
-            'Identifier': identifier,
-            'FriendlyName': friendly_name,
-            'ProxyIdentifier': proxy_identifier,
-            'ProxyIdentifierSid': proxy_identifier_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return ParticipantInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'])
+        data = values.of(
+            {
+                "Identifier": identifier,
+                "FriendlyName": friendly_name,
+                "ProxyIdentifier": proxy_identifier,
+                "ProxyIdentifierSid": proxy_identifier_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, identifier: str, friendly_name: Union[str, object]=values.unset, proxy_identifier: Union[str, object]=values.unset, proxy_identifier_sid: Union[str, object]=values.unset) -> ParticipantInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ParticipantInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+        )
+
+    async def create_async(
+        self,
+        identifier: str,
+        friendly_name: Union[str, object] = values.unset,
+        proxy_identifier: Union[str, object] = values.unset,
+        proxy_identifier_sid: Union[str, object] = values.unset,
+    ) -> ParticipantInstance:
         """
         Asynchronously create the ParticipantInstance
 
@@ -327,28 +367,33 @@ class ParticipantList(ListResource):
         :param friendly_name: The string that you assigned to describe the participant. This value must be 255 characters or fewer. **This value should not have PII.**
         :param proxy_identifier: The proxy phone number to use for the Participant. If not specified, Proxy will select a number from the pool.
         :param proxy_identifier_sid: The SID of the Proxy Identifier to assign to the Participant.
-        
+
         :returns: The created ParticipantInstance
         """
-        
-        data = values.of({ 
-            'Identifier': identifier,
-            'FriendlyName': friendly_name,
-            'ProxyIdentifier': proxy_identifier,
-            'ProxyIdentifierSid': proxy_identifier_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return ParticipantInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'])
-    
-    
-    def stream(self, 
-        
+        data = values.of(
+            {
+                "Identifier": identifier,
+                "FriendlyName": friendly_name,
+                "ProxyIdentifier": proxy_identifier,
+                "ProxyIdentifierSid": proxy_identifier_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ParticipantInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+        )
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ParticipantInstance]:
@@ -357,7 +402,7 @@ class ParticipantList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -368,14 +413,12 @@ class ParticipantList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ParticipantInstance]:
@@ -384,7 +427,7 @@ class ParticipantList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -395,14 +438,12 @@ class ParticipantList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ParticipantInstance]:
@@ -410,7 +451,7 @@ class ParticipantList(ListResource):
         Lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -420,13 +461,15 @@ class ParticipantList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ParticipantInstance]:
@@ -434,7 +477,7 @@ class ParticipantList(ListResource):
         Asynchronously lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -444,13 +487,16 @@ class ParticipantList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -458,24 +504,26 @@ class ParticipantList(ListResource):
         """
         Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return ParticipantPage(self._version, response, self._solution)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -483,20 +531,24 @@ class ParticipantList(ListResource):
         """
         Asynchronously retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ParticipantInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return ParticipantPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> ParticipantPage:
@@ -508,10 +560,7 @@ class ParticipantList(ListResource):
 
         :returns: Page of ParticipantInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> ParticipantPage:
@@ -523,31 +572,34 @@ class ParticipantList(ListResource):
 
         :returns: Page of ParticipantInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
-
-
-
-
 
     def get(self, sid: str) -> ParticipantContext:
         """
         Constructs a ParticipantContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Participant resource to fetch.
         """
-        return ParticipantContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], sid=sid)
+        return ParticipantContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+            sid=sid,
+        )
 
     def __call__(self, sid: str) -> ParticipantContext:
         """
         Constructs a ParticipantContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Participant resource to fetch.
         """
-        return ParticipantContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], sid=sid)
+        return ParticipantContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+            sid=sid,
+        )
 
     def __repr__(self) -> str:
         """
@@ -555,5 +607,4 @@ class ParticipantList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Proxy.V1.ParticipantList>'
-
+        return "<Twilio.Proxy.V1.ParticipantList>"

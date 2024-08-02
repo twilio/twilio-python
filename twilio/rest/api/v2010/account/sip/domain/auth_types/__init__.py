@@ -12,26 +12,22 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Optional
 
 
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls import AuthTypeCallsList
-from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations import AuthTypeRegistrationsList
-
-
-
-
+from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_calls import (
+    AuthTypeCallsList,
+)
+from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations import (
+    AuthTypeRegistrationsList,
+)
 
 
 class AuthTypesList(ListResource):
-    
+
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
         Initialize the AuthTypesList
@@ -39,20 +35,21 @@ class AuthTypesList(ListResource):
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch.
         :param domain_sid: The SID of the SIP domain that contains the resource to fetch.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'account_sid': account_sid, 'domain_sid': domain_sid,  }
-        self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/Auth.json'.format(**self._solution)
-        
+        self._solution = {
+            "account_sid": account_sid,
+            "domain_sid": domain_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/SIP/Domains/{domain_sid}/Auth.json".format(
+            **self._solution
+        )
+
         self._calls: Optional[AuthTypeCallsList] = None
         self._registrations: Optional[AuthTypeRegistrationsList] = None
-        
-
-
 
     @property
     def calls(self) -> AuthTypeCallsList:
@@ -60,10 +57,12 @@ class AuthTypesList(ListResource):
         Access the calls
         """
         if self._calls is None:
-            self._calls = AuthTypeCallsList(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
+            self._calls = AuthTypeCallsList(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                domain_sid=self._solution["domain_sid"],
+            )
         return self._calls
-
-
 
     @property
     def registrations(self) -> AuthTypeRegistrationsList:
@@ -71,10 +70,12 @@ class AuthTypesList(ListResource):
         Access the registrations
         """
         if self._registrations is None:
-            self._registrations = AuthTypeRegistrationsList(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
+            self._registrations = AuthTypeRegistrationsList(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                domain_sid=self._solution["domain_sid"],
+            )
         return self._registrations
-
-
 
     def __repr__(self) -> str:
         """
@@ -82,5 +83,4 @@ class AuthTypesList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Api.V2010.AuthTypesList>'
-
+        return "<Twilio.Api.V2010.AuthTypesList>"

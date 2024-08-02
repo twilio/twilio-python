@@ -12,25 +12,19 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Optional
 
 
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping import AuthRegistrationsCredentialListMappingList
-
-
-
-
+from twilio.rest.api.v2010.account.sip.domain.auth_types.auth_type_registrations.auth_registrations_credential_list_mapping import (
+    AuthRegistrationsCredentialListMappingList,
+)
 
 
 class AuthTypeRegistrationsList(ListResource):
-    
+
     def __init__(self, version: Version, account_sid: str, domain_sid: str):
         """
         Initialize the AuthTypeRegistrationsList
@@ -38,19 +32,22 @@ class AuthTypeRegistrationsList(ListResource):
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the CredentialListMapping resource to fetch.
         :param domain_sid: The SID of the SIP domain that contains the resource to fetch.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'account_sid': account_sid, 'domain_sid': domain_sid,  }
-        self._uri = '/Accounts/{account_sid}/SIP/Domains/{domain_sid}/Auth/Registrations.json'.format(**self._solution)
-        
-        self._credential_list_mappings: Optional[AuthRegistrationsCredentialListMappingList] = None
-        
+        self._solution = {
+            "account_sid": account_sid,
+            "domain_sid": domain_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/SIP/Domains/{domain_sid}/Auth/Registrations.json".format(
+            **self._solution
+        )
 
-
+        self._credential_list_mappings: Optional[
+            AuthRegistrationsCredentialListMappingList
+        ] = None
 
     @property
     def credential_list_mappings(self) -> AuthRegistrationsCredentialListMappingList:
@@ -58,10 +55,12 @@ class AuthTypeRegistrationsList(ListResource):
         Access the credential_list_mappings
         """
         if self._credential_list_mappings is None:
-            self._credential_list_mappings = AuthRegistrationsCredentialListMappingList(self._version, account_sid=self._solution['account_sid'], domain_sid=self._solution['domain_sid'])
+            self._credential_list_mappings = AuthRegistrationsCredentialListMappingList(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                domain_sid=self._solution["domain_sid"],
+            )
         return self._credential_list_mappings
-
-
 
     def __repr__(self) -> str:
         """
@@ -69,5 +68,4 @@ class AuthTypeRegistrationsList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Api.V2010.AuthTypeRegistrationsList>'
-
+        return "<Twilio.Api.V2010.AuthTypeRegistrationsList>"

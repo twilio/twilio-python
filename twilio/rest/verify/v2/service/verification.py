@@ -12,16 +12,13 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from datetime import datetime
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
 
 
 class VerificationInstance(InstanceResource):
@@ -59,10 +56,15 @@ class VerificationInstance(InstanceResource):
     :ivar url: The absolute URL of the Verification resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
@@ -73,14 +75,19 @@ class VerificationInstance(InstanceResource):
         self.lookup: Optional[Dict[str, object]] = payload.get("lookup")
         self.amount: Optional[str] = payload.get("amount")
         self.payee: Optional[str] = payload.get("payee")
-        self.send_code_attempts: Optional[List[Dict[str, object]]] = payload.get("send_code_attempts")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.send_code_attempts: Optional[List[Dict[str, object]]] = payload.get(
+            "send_code_attempts"
+        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.sna: Optional[Dict[str, object]] = payload.get("sna")
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "service_sid": service_sid,
             "sid": sid or self.sid,
         }
@@ -95,14 +102,17 @@ class VerificationInstance(InstanceResource):
         :returns: VerificationContext for this VerificationInstance
         """
         if self._context is None:
-            self._context = VerificationContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'],)
+            self._context = VerificationContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "VerificationInstance":
         """
         Fetch the VerificationInstance
-        
+
 
         :returns: The fetched VerificationInstance
         """
@@ -111,41 +121,47 @@ class VerificationInstance(InstanceResource):
     async def fetch_async(self) -> "VerificationInstance":
         """
         Asynchronous coroutine to fetch the VerificationInstance
-        
+
 
         :returns: The fetched VerificationInstance
         """
         return await self._proxy.fetch_async()
-    
-    
+
     def update(self, status: "VerificationInstance.Status") -> "VerificationInstance":
         """
         Update the VerificationInstance
-        
-        :param status: 
+
+        :param status:
 
         :returns: The updated VerificationInstance
         """
-        return self._proxy.update(status=status, )
+        return self._proxy.update(
+            status=status,
+        )
 
-    async def update_async(self, status: "VerificationInstance.Status") -> "VerificationInstance":
+    async def update_async(
+        self, status: "VerificationInstance.Status"
+    ) -> "VerificationInstance":
         """
         Asynchronous coroutine to update the VerificationInstance
-        
-        :param status: 
+
+        :param status:
 
         :returns: The updated VerificationInstance
         """
-        return await self._proxy.update_async(status=status, )
-    
+        return await self._proxy.update_async(
+            status=status,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.VerificationInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Verify.V2.VerificationInstance {}>".format(context)
+
 
 class VerificationContext(InstanceContext):
 
@@ -159,131 +175,159 @@ class VerificationContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'sid': sid,
+        self._solution = {
+            "service_sid": service_sid,
+            "sid": sid,
         }
-        self._uri = '/Services/{service_sid}/Verifications/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Services/{service_sid}/Verifications/{sid}".format(
+            **self._solution
+        )
+
     def fetch(self) -> VerificationInstance:
         """
         Fetch the VerificationInstance
-        
+
 
         :returns: The fetched VerificationInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return VerificationInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> VerificationInstance:
         """
         Asynchronous coroutine to fetch the VerificationInstance
-        
+
 
         :returns: The fetched VerificationInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return VerificationInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid'],
-            
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def update(self, status: "VerificationInstance.Status") -> VerificationInstance:
         """
         Update the VerificationInstance
-        
-        :param status: 
+
+        :param status:
 
         :returns: The updated VerificationInstance
         """
-        data = values.of({ 
-            'Status': status,
-        })
-        
+        data = values.of(
+            {
+                "Status": status,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return VerificationInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
         )
 
-    async def update_async(self, status: "VerificationInstance.Status") -> VerificationInstance:
+    async def update_async(
+        self, status: "VerificationInstance.Status"
+    ) -> VerificationInstance:
         """
         Asynchronous coroutine to update the VerificationInstance
-        
-        :param status: 
+
+        :param status:
 
         :returns: The updated VerificationInstance
         """
-        data = values.of({ 
-            'Status': status,
-        })
-        
+        data = values.of(
+            {
+                "Status": status,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return VerificationInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            sid=self._solution['sid']
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.VerificationContext {}>'.format(context)
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Verify.V2.VerificationContext {}>".format(context)
 
 
 class VerificationList(ListResource):
-    
+
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the VerificationList
 
         :param version: Version that contains the resource
         :param service_sid: The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to create the resource under.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'service_sid': service_sid,  }
-        self._uri = '/Services/{service_sid}/Verifications'.format(**self._solution)
-        
-        
-    
-    
-    
-    def create(self, to: str, channel: str, custom_friendly_name: Union[str, object]=values.unset, custom_message: Union[str, object]=values.unset, send_digits: Union[str, object]=values.unset, locale: Union[str, object]=values.unset, custom_code: Union[str, object]=values.unset, amount: Union[str, object]=values.unset, payee: Union[str, object]=values.unset, rate_limits: Union[object, object]=values.unset, channel_configuration: Union[object, object]=values.unset, app_hash: Union[str, object]=values.unset, template_sid: Union[str, object]=values.unset, template_custom_substitutions: Union[str, object]=values.unset, device_ip: Union[str, object]=values.unset, risk_check: Union["VerificationInstance.RiskCheck", object]=values.unset, tags: Union[str, object]=values.unset) -> VerificationInstance:
+        self._solution = {
+            "service_sid": service_sid,
+        }
+        self._uri = "/Services/{service_sid}/Verifications".format(**self._solution)
+
+    def create(
+        self,
+        to: str,
+        channel: str,
+        custom_friendly_name: Union[str, object] = values.unset,
+        custom_message: Union[str, object] = values.unset,
+        send_digits: Union[str, object] = values.unset,
+        locale: Union[str, object] = values.unset,
+        custom_code: Union[str, object] = values.unset,
+        amount: Union[str, object] = values.unset,
+        payee: Union[str, object] = values.unset,
+        rate_limits: Union[object, object] = values.unset,
+        channel_configuration: Union[object, object] = values.unset,
+        app_hash: Union[str, object] = values.unset,
+        template_sid: Union[str, object] = values.unset,
+        template_custom_substitutions: Union[str, object] = values.unset,
+        device_ip: Union[str, object] = values.unset,
+        risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
+        tags: Union[str, object] = values.unset,
+    ) -> VerificationInstance:
         """
         Create the VerificationInstance
 
@@ -302,41 +346,63 @@ class VerificationList(ListResource):
         :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
         :param template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
         :param device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
-        :param risk_check: 
+        :param risk_check:
         :param tags: A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
-        
+
         :returns: The created VerificationInstance
         """
-        
-        data = values.of({ 
-            'To': to,
-            'Channel': channel,
-            'CustomFriendlyName': custom_friendly_name,
-            'CustomMessage': custom_message,
-            'SendDigits': send_digits,
-            'Locale': locale,
-            'CustomCode': custom_code,
-            'Amount': amount,
-            'Payee': payee,
-            'RateLimits': serialize.object(rate_limits),
-            'ChannelConfiguration': serialize.object(channel_configuration),
-            'AppHash': app_hash,
-            'TemplateSid': template_sid,
-            'TemplateCustomSubstitutions': template_custom_substitutions,
-            'DeviceIp': device_ip,
-            'RiskCheck': risk_check,
-            'Tags': tags,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return VerificationInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        data = values.of(
+            {
+                "To": to,
+                "Channel": channel,
+                "CustomFriendlyName": custom_friendly_name,
+                "CustomMessage": custom_message,
+                "SendDigits": send_digits,
+                "Locale": locale,
+                "CustomCode": custom_code,
+                "Amount": amount,
+                "Payee": payee,
+                "RateLimits": serialize.object(rate_limits),
+                "ChannelConfiguration": serialize.object(channel_configuration),
+                "AppHash": app_hash,
+                "TemplateSid": template_sid,
+                "TemplateCustomSubstitutions": template_custom_substitutions,
+                "DeviceIp": device_ip,
+                "RiskCheck": risk_check,
+                "Tags": tags,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, to: str, channel: str, custom_friendly_name: Union[str, object]=values.unset, custom_message: Union[str, object]=values.unset, send_digits: Union[str, object]=values.unset, locale: Union[str, object]=values.unset, custom_code: Union[str, object]=values.unset, amount: Union[str, object]=values.unset, payee: Union[str, object]=values.unset, rate_limits: Union[object, object]=values.unset, channel_configuration: Union[object, object]=values.unset, app_hash: Union[str, object]=values.unset, template_sid: Union[str, object]=values.unset, template_custom_substitutions: Union[str, object]=values.unset, device_ip: Union[str, object]=values.unset, risk_check: Union["VerificationInstance.RiskCheck", object]=values.unset, tags: Union[str, object]=values.unset) -> VerificationInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return VerificationInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    async def create_async(
+        self,
+        to: str,
+        channel: str,
+        custom_friendly_name: Union[str, object] = values.unset,
+        custom_message: Union[str, object] = values.unset,
+        send_digits: Union[str, object] = values.unset,
+        locale: Union[str, object] = values.unset,
+        custom_code: Union[str, object] = values.unset,
+        amount: Union[str, object] = values.unset,
+        payee: Union[str, object] = values.unset,
+        rate_limits: Union[object, object] = values.unset,
+        channel_configuration: Union[object, object] = values.unset,
+        app_hash: Union[str, object] = values.unset,
+        template_sid: Union[str, object] = values.unset,
+        template_custom_substitutions: Union[str, object] = values.unset,
+        device_ip: Union[str, object] = values.unset,
+        risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
+        tags: Union[str, object] = values.unset,
+    ) -> VerificationInstance:
         """
         Asynchronously create the VerificationInstance
 
@@ -355,57 +421,62 @@ class VerificationList(ListResource):
         :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
         :param template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
         :param device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
-        :param risk_check: 
+        :param risk_check:
         :param tags: A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
-        
+
         :returns: The created VerificationInstance
         """
-        
-        data = values.of({ 
-            'To': to,
-            'Channel': channel,
-            'CustomFriendlyName': custom_friendly_name,
-            'CustomMessage': custom_message,
-            'SendDigits': send_digits,
-            'Locale': locale,
-            'CustomCode': custom_code,
-            'Amount': amount,
-            'Payee': payee,
-            'RateLimits': serialize.object(rate_limits),
-            'ChannelConfiguration': serialize.object(channel_configuration),
-            'AppHash': app_hash,
-            'TemplateSid': template_sid,
-            'TemplateCustomSubstitutions': template_custom_substitutions,
-            'DeviceIp': device_ip,
-            'RiskCheck': risk_check,
-            'Tags': tags,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return VerificationInstance(self._version, payload, service_sid=self._solution['service_sid'])
-    
+        data = values.of(
+            {
+                "To": to,
+                "Channel": channel,
+                "CustomFriendlyName": custom_friendly_name,
+                "CustomMessage": custom_message,
+                "SendDigits": send_digits,
+                "Locale": locale,
+                "CustomCode": custom_code,
+                "Amount": amount,
+                "Payee": payee,
+                "RateLimits": serialize.object(rate_limits),
+                "ChannelConfiguration": serialize.object(channel_configuration),
+                "AppHash": app_hash,
+                "TemplateSid": template_sid,
+                "TemplateCustomSubstitutions": template_custom_substitutions,
+                "DeviceIp": device_ip,
+                "RiskCheck": risk_check,
+                "Tags": tags,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return VerificationInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
 
     def get(self, sid: str) -> VerificationContext:
         """
         Constructs a VerificationContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Verification resource to update.
         """
-        return VerificationContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return VerificationContext(
+            self._version, service_sid=self._solution["service_sid"], sid=sid
+        )
 
     def __call__(self, sid: str) -> VerificationContext:
         """
         Constructs a VerificationContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Verification resource to update.
         """
-        return VerificationContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
+        return VerificationContext(
+            self._version, service_sid=self._solution["service_sid"], sid=sid
+        )
 
     def __repr__(self) -> str:
         """
@@ -413,5 +484,4 @@ class VerificationList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Verify.V2.VerificationList>'
-
+        return "<Twilio.Verify.V2.VerificationList>"

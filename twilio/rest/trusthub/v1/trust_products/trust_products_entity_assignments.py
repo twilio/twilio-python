@@ -12,11 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -25,7 +23,6 @@ from twilio.base.page import Page
 
 
 class TrustProductsEntityAssignmentsInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Item Assignment resource.
     :ivar trust_product_sid: The unique string that we created to identify the TrustProduct resource.
@@ -35,19 +32,25 @@ class TrustProductsEntityAssignmentsInstance(InstanceResource):
     :ivar url: The absolute URL of the Identity resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], trust_product_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        trust_product_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.trust_product_sid: Optional[str] = payload.get("trust_product_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.object_sid: Optional[str] = payload.get("object_sid")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "trust_product_sid": trust_product_sid,
             "sid": sid or self.sid,
         }
@@ -62,32 +65,35 @@ class TrustProductsEntityAssignmentsInstance(InstanceResource):
         :returns: TrustProductsEntityAssignmentsContext for this TrustProductsEntityAssignmentsInstance
         """
         if self._context is None:
-            self._context = TrustProductsEntityAssignmentsContext(self._version, trust_product_sid=self._solution['trust_product_sid'], sid=self._solution['sid'],)
+            self._context = TrustProductsEntityAssignmentsContext(
+                self._version,
+                trust_product_sid=self._solution["trust_product_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the TrustProductsEntityAssignmentsInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the TrustProductsEntityAssignmentsInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "TrustProductsEntityAssignmentsInstance":
         """
         Fetch the TrustProductsEntityAssignmentsInstance
-        
+
 
         :returns: The fetched TrustProductsEntityAssignmentsInstance
         """
@@ -96,20 +102,23 @@ class TrustProductsEntityAssignmentsInstance(InstanceResource):
     async def fetch_async(self) -> "TrustProductsEntityAssignmentsInstance":
         """
         Asynchronous coroutine to fetch the TrustProductsEntityAssignmentsInstance
-        
+
 
         :returns: The fetched TrustProductsEntityAssignmentsInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trusthub.V1.TrustProductsEntityAssignmentsInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Trusthub.V1.TrustProductsEntityAssignmentsInstance {}>".format(
+            context
+        )
+
 
 class TrustProductsEntityAssignmentsContext(InstanceContext):
 
@@ -123,98 +132,106 @@ class TrustProductsEntityAssignmentsContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'trust_product_sid': trust_product_sid,
-            'sid': sid,
+        self._solution = {
+            "trust_product_sid": trust_product_sid,
+            "sid": sid,
         }
-        self._uri = '/TrustProducts/{trust_product_sid}/EntityAssignments/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/TrustProducts/{trust_product_sid}/EntityAssignments/{sid}".format(
+            **self._solution
+        )
+
     def delete(self) -> bool:
         """
         Deletes the TrustProductsEntityAssignmentsInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the TrustProductsEntityAssignmentsInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> TrustProductsEntityAssignmentsInstance:
         """
         Fetch the TrustProductsEntityAssignmentsInstance
-        
+
 
         :returns: The fetched TrustProductsEntityAssignmentsInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return TrustProductsEntityAssignmentsInstance(
             self._version,
             payload,
-            trust_product_sid=self._solution['trust_product_sid'],
-            sid=self._solution['sid'],
-            
+            trust_product_sid=self._solution["trust_product_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> TrustProductsEntityAssignmentsInstance:
         """
         Asynchronous coroutine to fetch the TrustProductsEntityAssignmentsInstance
-        
+
 
         :returns: The fetched TrustProductsEntityAssignmentsInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return TrustProductsEntityAssignmentsInstance(
             self._version,
             payload,
-            trust_product_sid=self._solution['trust_product_sid'],
-            sid=self._solution['sid'],
-            
+            trust_product_sid=self._solution["trust_product_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Trusthub.V1.TrustProductsEntityAssignmentsContext {}>'.format(context)
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Trusthub.V1.TrustProductsEntityAssignmentsContext {}>".format(
+            context
+        )
 
 
 class TrustProductsEntityAssignmentsPage(Page):
 
-    def get_instance(self, payload: Dict[str, Any]) -> TrustProductsEntityAssignmentsInstance:
+    def get_instance(
+        self, payload: Dict[str, Any]
+    ) -> TrustProductsEntityAssignmentsInstance:
         """
         Build an instance of TrustProductsEntityAssignmentsInstance
 
         :param payload: Payload response from the API
         """
-        return TrustProductsEntityAssignmentsInstance(self._version, payload, trust_product_sid=self._solution["trust_product_sid"])
+        return TrustProductsEntityAssignmentsInstance(
+            self._version,
+            payload,
+            trust_product_sid=self._solution["trust_product_sid"],
+        )
 
     def __repr__(self) -> str:
         """
@@ -225,76 +242,83 @@ class TrustProductsEntityAssignmentsPage(Page):
         return "<Twilio.Trusthub.V1.TrustProductsEntityAssignmentsPage>"
 
 
-
-
-
 class TrustProductsEntityAssignmentsList(ListResource):
-    
+
     def __init__(self, version: Version, trust_product_sid: str):
         """
         Initialize the TrustProductsEntityAssignmentsList
 
         :param version: Version that contains the resource
         :param trust_product_sid: The unique string that we created to identify the TrustProduct resource.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'trust_product_sid': trust_product_sid,  }
-        self._uri = '/TrustProducts/{trust_product_sid}/EntityAssignments'.format(**self._solution)
-        
-        
-    
-    
-    
+        self._solution = {
+            "trust_product_sid": trust_product_sid,
+        }
+        self._uri = "/TrustProducts/{trust_product_sid}/EntityAssignments".format(
+            **self._solution
+        )
+
     def create(self, object_sid: str) -> TrustProductsEntityAssignmentsInstance:
         """
         Create the TrustProductsEntityAssignmentsInstance
 
         :param object_sid: The SID of an object bag that holds information of the different items.
-        
+
         :returns: The created TrustProductsEntityAssignmentsInstance
         """
-        
-        data = values.of({ 
-            'ObjectSid': object_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return TrustProductsEntityAssignmentsInstance(self._version, payload, trust_product_sid=self._solution['trust_product_sid'])
+        data = values.of(
+            {
+                "ObjectSid": object_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, object_sid: str) -> TrustProductsEntityAssignmentsInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return TrustProductsEntityAssignmentsInstance(
+            self._version,
+            payload,
+            trust_product_sid=self._solution["trust_product_sid"],
+        )
+
+    async def create_async(
+        self, object_sid: str
+    ) -> TrustProductsEntityAssignmentsInstance:
         """
         Asynchronously create the TrustProductsEntityAssignmentsInstance
 
         :param object_sid: The SID of an object bag that holds information of the different items.
-        
+
         :returns: The created TrustProductsEntityAssignmentsInstance
         """
-        
-        data = values.of({ 
-            'ObjectSid': object_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return TrustProductsEntityAssignmentsInstance(self._version, payload, trust_product_sid=self._solution['trust_product_sid'])
-    
-    
-    def stream(self, 
+        data = values.of(
+            {
+                "ObjectSid": object_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return TrustProductsEntityAssignmentsInstance(
+            self._version,
+            payload,
+            trust_product_sid=self._solution["trust_product_sid"],
+        )
+
+    def stream(
+        self,
         object_type: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[TrustProductsEntityAssignmentsInstance]:
@@ -303,7 +327,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -315,16 +339,13 @@ class TrustProductsEntityAssignmentsList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            object_type=object_type,
-            page_size=limits['page_size']
-        )
+        page = self.page(object_type=object_type, page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         object_type: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[TrustProductsEntityAssignmentsInstance]:
@@ -333,7 +354,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -346,15 +367,14 @@ class TrustProductsEntityAssignmentsList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            object_type=object_type,
-            page_size=limits['page_size']
+            object_type=object_type, page_size=limits["page_size"]
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         object_type: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[TrustProductsEntityAssignmentsInstance]:
@@ -362,7 +382,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         Lists TrustProductsEntityAssignmentsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -373,15 +393,17 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            object_type=object_type,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                object_type=object_type,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         object_type: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[TrustProductsEntityAssignmentsInstance]:
@@ -389,7 +411,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         Asynchronously lists TrustProductsEntityAssignmentsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -400,15 +422,18 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            object_type=object_type,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                object_type=object_type,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         object_type: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -416,7 +441,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         """
         Retrieve a single page of TrustProductsEntityAssignmentsInstance records from the API.
         Request is executed immediately
-        
+
         :param object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -424,19 +449,23 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
         :returns: Page of TrustProductsEntityAssignmentsInstance
         """
-        data = values.of({ 
-            'ObjectType': object_type,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "ObjectType": object_type,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
-        return TrustProductsEntityAssignmentsPage(self._version, response, self._solution)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
+        return TrustProductsEntityAssignmentsPage(
+            self._version, response, self._solution
+        )
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         object_type: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -444,7 +473,7 @@ class TrustProductsEntityAssignmentsList(ListResource):
         """
         Asynchronously retrieve a single page of TrustProductsEntityAssignmentsInstance records from the API.
         Request is executed immediately
-        
+
         :param object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -452,15 +481,21 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
         :returns: Page of TrustProductsEntityAssignmentsInstance
         """
-        data = values.of({ 
-            'ObjectType': object_type,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "ObjectType": object_type,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
-        return TrustProductsEntityAssignmentsPage(self._version, response, self._solution)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
+        return TrustProductsEntityAssignmentsPage(
+            self._version, response, self._solution
+        )
 
     def get_page(self, target_url: str) -> TrustProductsEntityAssignmentsPage:
         """
@@ -471,13 +506,14 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
         :returns: Page of TrustProductsEntityAssignmentsInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
+        response = self._version.domain.twilio.request("GET", target_url)
+        return TrustProductsEntityAssignmentsPage(
+            self._version, response, self._solution
         )
-        return TrustProductsEntityAssignmentsPage(self._version, response, self._solution)
 
-    async def get_page_async(self, target_url: str) -> TrustProductsEntityAssignmentsPage:
+    async def get_page_async(
+        self, target_url: str
+    ) -> TrustProductsEntityAssignmentsPage:
         """
         Asynchronously retrieve a specific page of TrustProductsEntityAssignmentsInstance records from the API.
         Request is executed immediately
@@ -486,29 +522,34 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
         :returns: Page of TrustProductsEntityAssignmentsInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
+        response = await self._version.domain.twilio.request_async("GET", target_url)
+        return TrustProductsEntityAssignmentsPage(
+            self._version, response, self._solution
         )
-        return TrustProductsEntityAssignmentsPage(self._version, response, self._solution)
-
-
 
     def get(self, sid: str) -> TrustProductsEntityAssignmentsContext:
         """
         Constructs a TrustProductsEntityAssignmentsContext
-        
+
         :param sid: The unique string that we created to identify the Identity resource.
         """
-        return TrustProductsEntityAssignmentsContext(self._version, trust_product_sid=self._solution['trust_product_sid'], sid=sid)
+        return TrustProductsEntityAssignmentsContext(
+            self._version,
+            trust_product_sid=self._solution["trust_product_sid"],
+            sid=sid,
+        )
 
     def __call__(self, sid: str) -> TrustProductsEntityAssignmentsContext:
         """
         Constructs a TrustProductsEntityAssignmentsContext
-        
+
         :param sid: The unique string that we created to identify the Identity resource.
         """
-        return TrustProductsEntityAssignmentsContext(self._version, trust_product_sid=self._solution['trust_product_sid'], sid=sid)
+        return TrustProductsEntityAssignmentsContext(
+            self._version,
+            trust_product_sid=self._solution["trust_product_sid"],
+            sid=sid,
+        )
 
     def __repr__(self) -> str:
         """
@@ -516,5 +557,4 @@ class TrustProductsEntityAssignmentsList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Trusthub.V1.TrustProductsEntityAssignmentsList>'
-
+        return "<Twilio.Trusthub.V1.TrustProductsEntityAssignmentsList>"

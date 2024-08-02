@@ -12,11 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -87,45 +85,89 @@ class TriggerInstance(InstanceResource):
         IMP_V1_USAGE = "imp-v1-usage"
         LOOKUPS = "lookups"
         MARKETPLACE = "marketplace"
-        MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION = "marketplace-algorithmia-named-entity-recognition"
+        MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION = (
+            "marketplace-algorithmia-named-entity-recognition"
+        )
         MARKETPLACE_CADENCE_TRANSCRIPTION = "marketplace-cadence-transcription"
         MARKETPLACE_CADENCE_TRANSLATION = "marketplace-cadence-translation"
         MARKETPLACE_CAPIO_SPEECH_TO_TEXT = "marketplace-capio-speech-to-text"
         MARKETPLACE_CONVRIZA_ABABA = "marketplace-convriza-ababa"
         MARKETPLACE_DEEPGRAM_PHRASE_DETECTOR = "marketplace-deepgram-phrase-detector"
-        MARKETPLACE_DIGITAL_SEGMENT_BUSINESS_INFO = "marketplace-digital-segment-business-info"
-        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS = "marketplace-facebook-offline-conversions"
+        MARKETPLACE_DIGITAL_SEGMENT_BUSINESS_INFO = (
+            "marketplace-digital-segment-business-info"
+        )
+        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS = (
+            "marketplace-facebook-offline-conversions"
+        )
         MARKETPLACE_GOOGLE_SPEECH_TO_TEXT = "marketplace-google-speech-to-text"
-        MARKETPLACE_IBM_WATSON_MESSAGE_INSIGHTS = "marketplace-ibm-watson-message-insights"
-        MARKETPLACE_IBM_WATSON_MESSAGE_SENTIMENT = "marketplace-ibm-watson-message-sentiment"
-        MARKETPLACE_IBM_WATSON_RECORDING_ANALYSIS = "marketplace-ibm-watson-recording-analysis"
+        MARKETPLACE_IBM_WATSON_MESSAGE_INSIGHTS = (
+            "marketplace-ibm-watson-message-insights"
+        )
+        MARKETPLACE_IBM_WATSON_MESSAGE_SENTIMENT = (
+            "marketplace-ibm-watson-message-sentiment"
+        )
+        MARKETPLACE_IBM_WATSON_RECORDING_ANALYSIS = (
+            "marketplace-ibm-watson-recording-analysis"
+        )
         MARKETPLACE_IBM_WATSON_TONE_ANALYZER = "marketplace-ibm-watson-tone-analyzer"
         MARKETPLACE_ICEHOOK_SYSTEMS_SCOUT = "marketplace-icehook-systems-scout"
-        MARKETPLACE_INFOGROUP_DATAAXLE_BIZINFO = "marketplace-infogroup-dataaxle-bizinfo"
-        MARKETPLACE_KEEN_IO_CONTACT_CENTER_ANALYTICS = "marketplace-keen-io-contact-center-analytics"
+        MARKETPLACE_INFOGROUP_DATAAXLE_BIZINFO = (
+            "marketplace-infogroup-dataaxle-bizinfo"
+        )
+        MARKETPLACE_KEEN_IO_CONTACT_CENTER_ANALYTICS = (
+            "marketplace-keen-io-contact-center-analytics"
+        )
         MARKETPLACE_MARCHEX_CLEANCALL = "marketplace-marchex-cleancall"
-        MARKETPLACE_MARCHEX_SENTIMENT_ANALYSIS_FOR_SMS = "marketplace-marchex-sentiment-analysis-for-sms"
-        MARKETPLACE_MARKETPLACE_NEXTCALLER_SOCIAL_ID = "marketplace-marketplace-nextcaller-social-id"
-        MARKETPLACE_MOBILE_COMMONS_OPT_OUT_CLASSIFIER = "marketplace-mobile-commons-opt-out-classifier"
-        MARKETPLACE_NEXIWAVE_VOICEMAIL_TO_TEXT = "marketplace-nexiwave-voicemail-to-text"
-        MARKETPLACE_NEXTCALLER_ADVANCED_CALLER_IDENTIFICATION = "marketplace-nextcaller-advanced-caller-identification"
+        MARKETPLACE_MARCHEX_SENTIMENT_ANALYSIS_FOR_SMS = (
+            "marketplace-marchex-sentiment-analysis-for-sms"
+        )
+        MARKETPLACE_MARKETPLACE_NEXTCALLER_SOCIAL_ID = (
+            "marketplace-marketplace-nextcaller-social-id"
+        )
+        MARKETPLACE_MOBILE_COMMONS_OPT_OUT_CLASSIFIER = (
+            "marketplace-mobile-commons-opt-out-classifier"
+        )
+        MARKETPLACE_NEXIWAVE_VOICEMAIL_TO_TEXT = (
+            "marketplace-nexiwave-voicemail-to-text"
+        )
+        MARKETPLACE_NEXTCALLER_ADVANCED_CALLER_IDENTIFICATION = (
+            "marketplace-nextcaller-advanced-caller-identification"
+        )
         MARKETPLACE_NOMOROBO_SPAM_SCORE = "marketplace-nomorobo-spam-score"
         MARKETPLACE_PAYFONE_TCPA_COMPLIANCE = "marketplace-payfone-tcpa-compliance"
-        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION = "marketplace-remeeting-automatic-speech-recognition"
-        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED = "marketplace-tcpa-defense-solutions-blacklist-feed"
+        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION = (
+            "marketplace-remeeting-automatic-speech-recognition"
+        )
+        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED = (
+            "marketplace-tcpa-defense-solutions-blacklist-feed"
+        )
         MARKETPLACE_TELO_OPENCNAM = "marketplace-telo-opencnam"
         MARKETPLACE_TRUECNAM_TRUE_SPAM = "marketplace-truecnam-true-spam"
-        MARKETPLACE_TWILIO_CALLER_NAME_LOOKUP_US = "marketplace-twilio-caller-name-lookup-us"
-        MARKETPLACE_TWILIO_CARRIER_INFORMATION_LOOKUP = "marketplace-twilio-carrier-information-lookup"
+        MARKETPLACE_TWILIO_CALLER_NAME_LOOKUP_US = (
+            "marketplace-twilio-caller-name-lookup-us"
+        )
+        MARKETPLACE_TWILIO_CARRIER_INFORMATION_LOOKUP = (
+            "marketplace-twilio-carrier-information-lookup"
+        )
         MARKETPLACE_VOICEBASE_PCI = "marketplace-voicebase-pci"
         MARKETPLACE_VOICEBASE_TRANSCRIPTION = "marketplace-voicebase-transcription"
-        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY = "marketplace-voicebase-transcription-custom-vocabulary"
-        MARKETPLACE_WHITEPAGES_PRO_CALLER_IDENTIFICATION = "marketplace-whitepages-pro-caller-identification"
-        MARKETPLACE_WHITEPAGES_PRO_PHONE_INTELLIGENCE = "marketplace-whitepages-pro-phone-intelligence"
-        MARKETPLACE_WHITEPAGES_PRO_PHONE_REPUTATION = "marketplace-whitepages-pro-phone-reputation"
+        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY = (
+            "marketplace-voicebase-transcription-custom-vocabulary"
+        )
+        MARKETPLACE_WHITEPAGES_PRO_CALLER_IDENTIFICATION = (
+            "marketplace-whitepages-pro-caller-identification"
+        )
+        MARKETPLACE_WHITEPAGES_PRO_PHONE_INTELLIGENCE = (
+            "marketplace-whitepages-pro-phone-intelligence"
+        )
+        MARKETPLACE_WHITEPAGES_PRO_PHONE_REPUTATION = (
+            "marketplace-whitepages-pro-phone-reputation"
+        )
         MARKETPLACE_WOLFARM_SPOKEN_RESULTS = "marketplace-wolfarm-spoken-results"
         MARKETPLACE_WOLFRAM_SHORT_ANSWER = "marketplace-wolfram-short-answer"
-        MARKETPLACE_YTICA_CONTACT_CENTER_REPORTING_ANALYTICS = "marketplace-ytica-contact-center-reporting-analytics"
+        MARKETPLACE_YTICA_CONTACT_CENTER_REPORTING_ANALYTICS = (
+            "marketplace-ytica-contact-center-reporting-analytics"
+        )
         MEDIASTORAGE = "mediastorage"
         MMS = "mms"
         MMS_INBOUND = "mms-inbound"
@@ -144,7 +186,9 @@ class TriggerInstance(InstanceResource):
         NUMBER_FORMAT_LOOKUPS = "number-format-lookups"
         PCHAT = "pchat"
         PCHAT_USERS = "pchat-users"
-        PEER_TO_PEER_ROOMS_PARTICIPANT_MINUTES = "peer-to-peer-rooms-participant-minutes"
+        PEER_TO_PEER_ROOMS_PARTICIPANT_MINUTES = (
+            "peer-to-peer-rooms-participant-minutes"
+        )
         PFAX = "pfax"
         PFAX_MINUTES = "pfax-minutes"
         PFAX_MINUTES_INBOUND = "pfax-minutes-inbound"
@@ -235,14 +279,24 @@ class TriggerInstance(InstanceResource):
         TWILIO_INTERCONNECT = "twilio-interconnect"
         VERIFY_PUSH = "verify-push"
         VERIFY_TOTP = "verify-totp"
-        VERIFY_WHATSAPP_CONVERSATIONS_BUSINESS_INITIATED = "verify-whatsapp-conversations-business-initiated"
+        VERIFY_WHATSAPP_CONVERSATIONS_BUSINESS_INITIATED = (
+            "verify-whatsapp-conversations-business-initiated"
+        )
         VIDEO_RECORDINGS = "video-recordings"
         VIRTUAL_AGENT = "virtual-agent"
         VOICE_INSIGHTS = "voice-insights"
-        VOICE_INSIGHTS_CLIENT_INSIGHTS_ON_DEMAND_MINUTE = "voice-insights-client-insights-on-demand-minute"
-        VOICE_INSIGHTS_PTSN_INSIGHTS_ON_DEMAND_MINUTE = "voice-insights-ptsn-insights-on-demand-minute"
-        VOICE_INSIGHTS_SIP_INTERFACE_INSIGHTS_ON_DEMAND_MINUTE = "voice-insights-sip-interface-insights-on-demand-minute"
-        VOICE_INSIGHTS_SIP_TRUNKING_INSIGHTS_ON_DEMAND_MINUTE = "voice-insights-sip-trunking-insights-on-demand-minute"
+        VOICE_INSIGHTS_CLIENT_INSIGHTS_ON_DEMAND_MINUTE = (
+            "voice-insights-client-insights-on-demand-minute"
+        )
+        VOICE_INSIGHTS_PTSN_INSIGHTS_ON_DEMAND_MINUTE = (
+            "voice-insights-ptsn-insights-on-demand-minute"
+        )
+        VOICE_INSIGHTS_SIP_INTERFACE_INSIGHTS_ON_DEMAND_MINUTE = (
+            "voice-insights-sip-interface-insights-on-demand-minute"
+        )
+        VOICE_INSIGHTS_SIP_TRUNKING_INSIGHTS_ON_DEMAND_MINUTE = (
+            "voice-insights-sip-trunking-insights-on-demand-minute"
+        )
         VOICE_INTELLIGENCE = "voice-intelligence"
         VOICE_INTELLIGENCE_TRANSCRIPTION = "voice-intelligence-transcription"
         VOICE_INTELLIGENCE_OPERATORS = "voice-intelligence-operators"
@@ -256,7 +310,9 @@ class TriggerInstance(InstanceResource):
         WIRELESS_USAGE_COMMANDS = "wireless-usage-commands"
         WIRELESS_USAGE_COMMANDS_AFRICA = "wireless-usage-commands-africa"
         WIRELESS_USAGE_COMMANDS_ASIA = "wireless-usage-commands-asia"
-        WIRELESS_USAGE_COMMANDS_CENTRALANDSOUTHAMERICA = "wireless-usage-commands-centralandsouthamerica"
+        WIRELESS_USAGE_COMMANDS_CENTRALANDSOUTHAMERICA = (
+            "wireless-usage-commands-centralandsouthamerica"
+        )
         WIRELESS_USAGE_COMMANDS_EUROPE = "wireless-usage-commands-europe"
         WIRELESS_USAGE_COMMANDS_HOME = "wireless-usage-commands-home"
         WIRELESS_USAGE_COMMANDS_NORTHAMERICA = "wireless-usage-commands-northamerica"
@@ -265,16 +321,30 @@ class TriggerInstance(InstanceResource):
         WIRELESS_USAGE_DATA = "wireless-usage-data"
         WIRELESS_USAGE_DATA_AFRICA = "wireless-usage-data-africa"
         WIRELESS_USAGE_DATA_ASIA = "wireless-usage-data-asia"
-        WIRELESS_USAGE_DATA_CENTRALANDSOUTHAMERICA = "wireless-usage-data-centralandsouthamerica"
-        WIRELESS_USAGE_DATA_CUSTOM_ADDITIONALMB = "wireless-usage-data-custom-additionalmb"
+        WIRELESS_USAGE_DATA_CENTRALANDSOUTHAMERICA = (
+            "wireless-usage-data-centralandsouthamerica"
+        )
+        WIRELESS_USAGE_DATA_CUSTOM_ADDITIONALMB = (
+            "wireless-usage-data-custom-additionalmb"
+        )
         WIRELESS_USAGE_DATA_CUSTOM_FIRST5MB = "wireless-usage-data-custom-first5mb"
         WIRELESS_USAGE_DATA_DOMESTIC_ROAMING = "wireless-usage-data-domestic-roaming"
         WIRELESS_USAGE_DATA_EUROPE = "wireless-usage-data-europe"
-        WIRELESS_USAGE_DATA_INDIVIDUAL_ADDITIONALGB = "wireless-usage-data-individual-additionalgb"
-        WIRELESS_USAGE_DATA_INDIVIDUAL_FIRSTGB = "wireless-usage-data-individual-firstgb"
-        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_CANADA = "wireless-usage-data-international-roaming-canada"
-        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_INDIA = "wireless-usage-data-international-roaming-india"
-        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_MEXICO = "wireless-usage-data-international-roaming-mexico"
+        WIRELESS_USAGE_DATA_INDIVIDUAL_ADDITIONALGB = (
+            "wireless-usage-data-individual-additionalgb"
+        )
+        WIRELESS_USAGE_DATA_INDIVIDUAL_FIRSTGB = (
+            "wireless-usage-data-individual-firstgb"
+        )
+        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_CANADA = (
+            "wireless-usage-data-international-roaming-canada"
+        )
+        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_INDIA = (
+            "wireless-usage-data-international-roaming-india"
+        )
+        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_MEXICO = (
+            "wireless-usage-data-international-roaming-mexico"
+        )
         WIRELESS_USAGE_DATA_NORTHAMERICA = "wireless-usage-data-northamerica"
         WIRELESS_USAGE_DATA_OCEANIA = "wireless-usage-data-oceania"
         WIRELESS_USAGE_DATA_POOLED = "wireless-usage-data-pooled"
@@ -307,29 +377,43 @@ class TriggerInstance(InstanceResource):
     :ivar usage_record_uri: The URI of the [UsageRecord](https://www.twilio.com/docs/usage/api/usage-record) resource this trigger watches, relative to `https://api.twilio.com`.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.api_version: Optional[str] = payload.get("api_version")
         self.callback_method: Optional[str] = payload.get("callback_method")
         self.callback_url: Optional[str] = payload.get("callback_url")
         self.current_value: Optional[str] = payload.get("current_value")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
-        self.date_fired: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_fired"))
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_fired: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_fired")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.recurring: Optional["TriggerInstance.Recurring"] = payload.get("recurring")
         self.sid: Optional[str] = payload.get("sid")
-        self.trigger_by: Optional["TriggerInstance.TriggerField"] = payload.get("trigger_by")
+        self.trigger_by: Optional["TriggerInstance.TriggerField"] = payload.get(
+            "trigger_by"
+        )
         self.trigger_value: Optional[str] = payload.get("trigger_value")
         self.uri: Optional[str] = payload.get("uri")
-        self.usage_category: Optional["TriggerInstance.UsageCategory"] = payload.get("usage_category")
+        self.usage_category: Optional["TriggerInstance.UsageCategory"] = payload.get(
+            "usage_category"
+        )
         self.usage_record_uri: Optional[str] = payload.get("usage_record_uri")
 
-        
-        self._solution = { 
+        self._solution = {
             "account_sid": account_sid,
             "sid": sid or self.sid,
         }
@@ -344,32 +428,35 @@ class TriggerInstance(InstanceResource):
         :returns: TriggerContext for this TriggerInstance
         """
         if self._context is None:
-            self._context = TriggerContext(self._version, account_sid=self._solution['account_sid'], sid=self._solution['sid'],)
+            self._context = TriggerContext(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the TriggerInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the TriggerInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "TriggerInstance":
         """
         Fetch the TriggerInstance
-        
+
 
         :returns: The fetched TriggerInstance
         """
@@ -378,45 +465,63 @@ class TriggerInstance(InstanceResource):
     async def fetch_async(self) -> "TriggerInstance":
         """
         Asynchronous coroutine to fetch the TriggerInstance
-        
+
 
         :returns: The fetched TriggerInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, callback_method: Union[str, object]=values.unset, callback_url: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset) -> "TriggerInstance":
+
+    def update(
+        self,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+    ) -> "TriggerInstance":
         """
         Update the TriggerInstance
-        
+
         :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
         :param callback_url: The URL we should call using `callback_method` when the trigger fires.
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated TriggerInstance
         """
-        return self._proxy.update(callback_method=callback_method, callback_url=callback_url, friendly_name=friendly_name, )
+        return self._proxy.update(
+            callback_method=callback_method,
+            callback_url=callback_url,
+            friendly_name=friendly_name,
+        )
 
-    async def update_async(self, callback_method: Union[str, object]=values.unset, callback_url: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset) -> "TriggerInstance":
+    async def update_async(
+        self,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+    ) -> "TriggerInstance":
         """
         Asynchronous coroutine to update the TriggerInstance
-        
+
         :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
         :param callback_url: The URL we should call using `callback_method` when the trigger fires.
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated TriggerInstance
         """
-        return await self._proxy.update_async(callback_method=callback_method, callback_url=callback_url, friendly_name=friendly_name, )
-    
+        return await self._proxy.update_async(
+            callback_method=callback_method,
+            callback_url=callback_url,
+            friendly_name=friendly_name,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.TriggerInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.TriggerInstance {}>".format(context)
+
 
 class TriggerContext(InstanceContext):
 
@@ -430,142 +535,159 @@ class TriggerContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
+        self._solution = {
+            "account_sid": account_sid,
+            "sid": sid,
         }
-        self._uri = '/Accounts/{account_sid}/Usage/Triggers/{sid}.json'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Accounts/{account_sid}/Usage/Triggers/{sid}.json".format(
+            **self._solution
+        )
+
     def delete(self) -> bool:
         """
         Deletes the TriggerInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the TriggerInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> TriggerInstance:
         """
         Fetch the TriggerInstance
-        
+
 
         :returns: The fetched TriggerInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return TriggerInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> TriggerInstance:
         """
         Asynchronous coroutine to fetch the TriggerInstance
-        
+
 
         :returns: The fetched TriggerInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return TriggerInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, callback_method: Union[str, object]=values.unset, callback_url: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset) -> TriggerInstance:
+
+    def update(
+        self,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+    ) -> TriggerInstance:
         """
         Update the TriggerInstance
-        
+
         :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
         :param callback_url: The URL we should call using `callback_method` when the trigger fires.
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated TriggerInstance
         """
-        data = values.of({ 
-            'CallbackMethod': callback_method,
-            'CallbackUrl': callback_url,
-            'FriendlyName': friendly_name,
-        })
-        
+        data = values.of(
+            {
+                "CallbackMethod": callback_method,
+                "CallbackUrl": callback_url,
+                "FriendlyName": friendly_name,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return TriggerInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
 
-    async def update_async(self, callback_method: Union[str, object]=values.unset, callback_url: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset) -> TriggerInstance:
+    async def update_async(
+        self,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+    ) -> TriggerInstance:
         """
         Asynchronous coroutine to update the TriggerInstance
-        
+
         :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
         :param callback_url: The URL we should call using `callback_method` when the trigger fires.
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
 
         :returns: The updated TriggerInstance
         """
-        data = values.of({ 
-            'CallbackMethod': callback_method,
-            'CallbackUrl': callback_url,
-            'FriendlyName': friendly_name,
-        })
-        
+        data = values.of(
+            {
+                "CallbackMethod": callback_method,
+                "CallbackUrl": callback_url,
+                "FriendlyName": friendly_name,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return TriggerInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.TriggerContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.TriggerContext {}>".format(context)
 
 
 class TriggerPage(Page):
@@ -576,7 +698,9 @@ class TriggerPage(Page):
 
         :param payload: Payload response from the API
         """
-        return TriggerInstance(self._version, payload, account_sid=self._solution["account_sid"])
+        return TriggerInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -587,103 +711,121 @@ class TriggerPage(Page):
         return "<Twilio.Api.V2010.TriggerPage>"
 
 
-
-
-
 class TriggerList(ListResource):
-    
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the TriggerList
 
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageTrigger resources to read.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/{account_sid}/Usage/Triggers.json'.format(**self._solution)
-        
-        
-    
-    
-    
-    
-    def create(self, callback_url: str, trigger_value: str, usage_category: "TriggerInstance.UsageCategory", callback_method: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, recurring: Union["TriggerInstance.Recurring", object]=values.unset, trigger_by: Union["TriggerInstance.TriggerField", object]=values.unset) -> TriggerInstance:
+        self._solution = {
+            "account_sid": account_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Usage/Triggers.json".format(
+            **self._solution
+        )
+
+    def create(
+        self,
+        callback_url: str,
+        trigger_value: str,
+        usage_category: "TriggerInstance.UsageCategory",
+        callback_method: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        recurring: Union["TriggerInstance.Recurring", object] = values.unset,
+        trigger_by: Union["TriggerInstance.TriggerField", object] = values.unset,
+    ) -> TriggerInstance:
         """
         Create the TriggerInstance
 
         :param callback_url: The URL we should call using `callback_method` when the trigger fires.
         :param trigger_value: The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
-        :param usage_category: 
+        :param usage_category:
         :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param recurring: 
-        :param trigger_by: 
-        
+        :param recurring:
+        :param trigger_by:
+
         :returns: The created TriggerInstance
         """
-        
-        data = values.of({ 
-            'CallbackUrl': callback_url,
-            'TriggerValue': trigger_value,
-            'UsageCategory': usage_category,
-            'CallbackMethod': callback_method,
-            'FriendlyName': friendly_name,
-            'Recurring': recurring,
-            'TriggerBy': trigger_by,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return TriggerInstance(self._version, payload, account_sid=self._solution['account_sid'])
+        data = values.of(
+            {
+                "CallbackUrl": callback_url,
+                "TriggerValue": trigger_value,
+                "UsageCategory": usage_category,
+                "CallbackMethod": callback_method,
+                "FriendlyName": friendly_name,
+                "Recurring": recurring,
+                "TriggerBy": trigger_by,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, callback_url: str, trigger_value: str, usage_category: "TriggerInstance.UsageCategory", callback_method: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, recurring: Union["TriggerInstance.Recurring", object]=values.unset, trigger_by: Union["TriggerInstance.TriggerField", object]=values.unset) -> TriggerInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return TriggerInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    async def create_async(
+        self,
+        callback_url: str,
+        trigger_value: str,
+        usage_category: "TriggerInstance.UsageCategory",
+        callback_method: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        recurring: Union["TriggerInstance.Recurring", object] = values.unset,
+        trigger_by: Union["TriggerInstance.TriggerField", object] = values.unset,
+    ) -> TriggerInstance:
         """
         Asynchronously create the TriggerInstance
 
         :param callback_url: The URL we should call using `callback_method` when the trigger fires.
         :param trigger_value: The usage value at which the trigger should fire.  For convenience, you can use an offset value such as `+30` to specify a trigger_value that is 30 units more than the current usage value. Be sure to urlencode a `+` as `%2B`.
-        :param usage_category: 
+        :param usage_category:
         :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST` and the default is `POST`.
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-        :param recurring: 
-        :param trigger_by: 
-        
+        :param recurring:
+        :param trigger_by:
+
         :returns: The created TriggerInstance
         """
-        
-        data = values.of({ 
-            'CallbackUrl': callback_url,
-            'TriggerValue': trigger_value,
-            'UsageCategory': usage_category,
-            'CallbackMethod': callback_method,
-            'FriendlyName': friendly_name,
-            'Recurring': recurring,
-            'TriggerBy': trigger_by,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return TriggerInstance(self._version, payload, account_sid=self._solution['account_sid'])
-    
-    
-    def stream(self, 
+        data = values.of(
+            {
+                "CallbackUrl": callback_url,
+                "TriggerValue": trigger_value,
+                "UsageCategory": usage_category,
+                "CallbackMethod": callback_method,
+                "FriendlyName": friendly_name,
+                "Recurring": recurring,
+                "TriggerBy": trigger_by,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return TriggerInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def stream(
+        self,
         recurring: Union["TriggerInstance.Recurring", object] = values.unset,
         trigger_by: Union["TriggerInstance.TriggerField", object] = values.unset,
         usage_category: Union["TriggerInstance.UsageCategory", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[TriggerInstance]:
@@ -692,7 +834,7 @@ class TriggerList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param &quot;TriggerInstance.Recurring&quot; recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
         :param &quot;TriggerInstance.TriggerField&quot; trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
         :param &quot;TriggerInstance.UsageCategory&quot; usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
@@ -710,16 +852,16 @@ class TriggerList(ListResource):
             recurring=recurring,
             trigger_by=trigger_by,
             usage_category=usage_category,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         recurring: Union["TriggerInstance.Recurring", object] = values.unset,
         trigger_by: Union["TriggerInstance.TriggerField", object] = values.unset,
         usage_category: Union["TriggerInstance.UsageCategory", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[TriggerInstance]:
@@ -728,7 +870,7 @@ class TriggerList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param &quot;TriggerInstance.Recurring&quot; recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
         :param &quot;TriggerInstance.TriggerField&quot; trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
         :param &quot;TriggerInstance.UsageCategory&quot; usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
@@ -746,16 +888,16 @@ class TriggerList(ListResource):
             recurring=recurring,
             trigger_by=trigger_by,
             usage_category=usage_category,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         recurring: Union["TriggerInstance.Recurring", object] = values.unset,
         trigger_by: Union["TriggerInstance.TriggerField", object] = values.unset,
         usage_category: Union["TriggerInstance.UsageCategory", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[TriggerInstance]:
@@ -763,7 +905,7 @@ class TriggerList(ListResource):
         Lists TriggerInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param &quot;TriggerInstance.Recurring&quot; recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
         :param &quot;TriggerInstance.TriggerField&quot; trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
         :param &quot;TriggerInstance.UsageCategory&quot; usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
@@ -776,19 +918,21 @@ class TriggerList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            recurring=recurring,
-            trigger_by=trigger_by,
-            usage_category=usage_category,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                recurring=recurring,
+                trigger_by=trigger_by,
+                usage_category=usage_category,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         recurring: Union["TriggerInstance.Recurring", object] = values.unset,
         trigger_by: Union["TriggerInstance.TriggerField", object] = values.unset,
         usage_category: Union["TriggerInstance.UsageCategory", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[TriggerInstance]:
@@ -796,7 +940,7 @@ class TriggerList(ListResource):
         Asynchronously lists TriggerInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param &quot;TriggerInstance.Recurring&quot; recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
         :param &quot;TriggerInstance.TriggerField&quot; trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
         :param &quot;TriggerInstance.UsageCategory&quot; usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
@@ -809,19 +953,22 @@ class TriggerList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            recurring=recurring,
-            trigger_by=trigger_by,
-            usage_category=usage_category,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                recurring=recurring,
+                trigger_by=trigger_by,
+                usage_category=usage_category,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         recurring: Union["TriggerInstance.Recurring", object] = values.unset,
         trigger_by: Union["TriggerInstance.TriggerField", object] = values.unset,
         usage_category: Union["TriggerInstance.UsageCategory", object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -829,7 +976,7 @@ class TriggerList(ListResource):
         """
         Retrieve a single page of TriggerInstance records from the API.
         Request is executed immediately
-        
+
         :param recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
         :param trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
         :param usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
@@ -839,23 +986,25 @@ class TriggerList(ListResource):
 
         :returns: Page of TriggerInstance
         """
-        data = values.of({ 
-            'Recurring': recurring,
-            'TriggerBy': trigger_by,
-            'UsageCategory': usage_category,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Recurring": recurring,
+                "TriggerBy": trigger_by,
+                "UsageCategory": usage_category,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return TriggerPage(self._version, response, self._solution)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         recurring: Union["TriggerInstance.Recurring", object] = values.unset,
         trigger_by: Union["TriggerInstance.TriggerField", object] = values.unset,
         usage_category: Union["TriggerInstance.UsageCategory", object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -863,7 +1012,7 @@ class TriggerList(ListResource):
         """
         Asynchronously retrieve a single page of TriggerInstance records from the API.
         Request is executed immediately
-        
+
         :param recurring: The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a value of `alltime` reads non-recurring UsageTriggers.
         :param trigger_by: The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or `price` as described in the [UsageRecords documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).
         :param usage_category: The usage category of the UsageTriggers to read. Must be a supported [usage categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories).
@@ -873,16 +1022,20 @@ class TriggerList(ListResource):
 
         :returns: Page of TriggerInstance
         """
-        data = values.of({ 
-            'Recurring': recurring,
-            'TriggerBy': trigger_by,
-            'UsageCategory': usage_category,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Recurring": recurring,
+                "TriggerBy": trigger_by,
+                "UsageCategory": usage_category,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return TriggerPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> TriggerPage:
@@ -894,10 +1047,7 @@ class TriggerList(ListResource):
 
         :returns: Page of TriggerInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return TriggerPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> TriggerPage:
@@ -909,29 +1059,28 @@ class TriggerList(ListResource):
 
         :returns: Page of TriggerInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return TriggerPage(self._version, response, self._solution)
-
-
 
     def get(self, sid: str) -> TriggerContext:
         """
         Constructs a TriggerContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the UsageTrigger resource to update.
         """
-        return TriggerContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return TriggerContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
 
     def __call__(self, sid: str) -> TriggerContext:
         """
         Constructs a TriggerContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the UsageTrigger resource to update.
         """
-        return TriggerContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return TriggerContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
 
     def __repr__(self) -> str:
         """
@@ -939,5 +1088,4 @@ class TriggerList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Api.V2010.TriggerList>'
-
+        return "<Twilio.Api.V2010.TriggerList>"

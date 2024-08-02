@@ -12,16 +12,13 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from datetime import datetime
+from typing import Any, Dict, Optional
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
 
 
 class AnonymizeInstance(InstanceResource):
@@ -44,24 +41,32 @@ class AnonymizeInstance(InstanceResource):
     :ivar url: The absolute URL of the resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], room_sid: str, sid: str):
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], room_sid: str, sid: str
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.room_sid: Optional[str] = payload.get("room_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.status: Optional["AnonymizeInstance.Status"] = payload.get("status")
         self.identity: Optional[str] = payload.get("identity")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
-        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("start_time"))
-        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("end_time"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("start_time")
+        )
+        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("end_time")
+        )
         self.duration: Optional[int] = deserialize.integer(payload.get("duration"))
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "room_sid": room_sid,
             "sid": sid,
         }
@@ -76,14 +81,17 @@ class AnonymizeInstance(InstanceResource):
         :returns: AnonymizeContext for this AnonymizeInstance
         """
         if self._context is None:
-            self._context = AnonymizeContext(self._version, room_sid=self._solution['room_sid'], sid=self._solution['sid'],)
+            self._context = AnonymizeContext(
+                self._version,
+                room_sid=self._solution["room_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def update(self) -> "AnonymizeInstance":
         """
         Update the AnonymizeInstance
-        
+
 
         :returns: The updated AnonymizeInstance
         """
@@ -92,20 +100,21 @@ class AnonymizeInstance(InstanceResource):
     async def update_async(self) -> "AnonymizeInstance":
         """
         Asynchronous coroutine to update the AnonymizeInstance
-        
+
 
         :returns: The updated AnonymizeInstance
         """
         return await self._proxy.update_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.AnonymizeInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Video.V1.AnonymizeInstance {}>".format(context)
+
 
 class AnonymizeContext(InstanceContext):
 
@@ -119,70 +128,71 @@ class AnonymizeContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'room_sid': room_sid,
-            'sid': sid,
+        self._solution = {
+            "room_sid": room_sid,
+            "sid": sid,
         }
-        self._uri = '/Rooms/{room_sid}/Participants/{sid}/Anonymize'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Rooms/{room_sid}/Participants/{sid}/Anonymize".format(
+            **self._solution
+        )
+
     def update(self) -> AnonymizeInstance:
         """
         Update the AnonymizeInstance
-        
+
 
         :returns: The updated AnonymizeInstance
         """
-        data = values.of({ 
-        })
-        
+        data = values.of({})
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return AnonymizeInstance(
             self._version,
             payload,
-            room_sid=self._solution['room_sid'],
-            sid=self._solution['sid']
+            room_sid=self._solution["room_sid"],
+            sid=self._solution["sid"],
         )
 
     async def update_async(self) -> AnonymizeInstance:
         """
         Asynchronous coroutine to update the AnonymizeInstance
-        
+
 
         :returns: The updated AnonymizeInstance
         """
-        data = values.of({ 
-        })
-        
+        data = values.of({})
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return AnonymizeInstance(
             self._version,
             payload,
-            room_sid=self._solution['room_sid'],
-            sid=self._solution['sid']
+            room_sid=self._solution["room_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.AnonymizeContext {}>'.format(context)
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Video.V1.AnonymizeContext {}>".format(context)
 
 
 class AnonymizeList(ListResource):
-    
+
     def __init__(self, version: Version, room_sid: str, sid: str):
         """
         Initialize the AnonymizeList
@@ -190,30 +200,37 @@ class AnonymizeList(ListResource):
         :param version: Version that contains the resource
         :param room_sid: The SID of the room with the participant to update.
         :param sid: The SID of the RoomParticipant resource to update.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'room_sid': room_sid, 'sid': sid,  }
-        
-        
-        
+        self._solution = {
+            "room_sid": room_sid,
+            "sid": sid,
+        }
 
     def get(self) -> AnonymizeContext:
         """
         Constructs a AnonymizeContext
-        
+
         """
-        return AnonymizeContext(self._version, room_sid=self._solution['room_sid'], sid=self._solution['sid'])
+        return AnonymizeContext(
+            self._version,
+            room_sid=self._solution["room_sid"],
+            sid=self._solution["sid"],
+        )
 
     def __call__(self) -> AnonymizeContext:
         """
         Constructs a AnonymizeContext
-        
+
         """
-        return AnonymizeContext(self._version, room_sid=self._solution['room_sid'], sid=self._solution['sid'])
+        return AnonymizeContext(
+            self._version,
+            room_sid=self._solution["room_sid"],
+            sid=self._solution["sid"],
+        )
 
     def __repr__(self) -> str:
         """
@@ -221,5 +238,4 @@ class AnonymizeList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Video.V1.AnonymizeList>'
-
+        return "<Twilio.Video.V1.AnonymizeList>"

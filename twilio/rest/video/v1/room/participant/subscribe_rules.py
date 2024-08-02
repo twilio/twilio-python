@@ -12,10 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from datetime import datetime
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -23,9 +21,7 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class SubscribeRulesInstance(InstanceResource):
-
     """
     :ivar participant_sid: The SID of the Participant resource for the Subscribe Rules.
     :ivar room_sid: The SID of the Room resource for the Subscribe Rules
@@ -34,37 +30,42 @@ class SubscribeRulesInstance(InstanceResource):
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], room_sid: str, participant_sid: str):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        room_sid: str,
+        participant_sid: str,
+    ):
         super().__init__(version)
 
-        
         self.participant_sid: Optional[str] = payload.get("participant_sid")
         self.room_sid: Optional[str] = payload.get("room_sid")
         self.rules: Optional[List[str]] = payload.get("rules")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
 
-        
-        self._solution = { 
+        self._solution = {
             "room_sid": room_sid,
             "participant_sid": participant_sid,
         }
-        
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.SubscribeRulesInstance {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Video.V1.SubscribeRulesInstance {}>".format(context)
 
 
 class SubscribeRulesList(ListResource):
-    
+
     def __init__(self, version: Version, room_sid: str, participant_sid: str):
         """
         Initialize the SubscribeRulesList
@@ -72,93 +73,116 @@ class SubscribeRulesList(ListResource):
         :param version: Version that contains the resource
         :param room_sid: The SID of the Room resource where the subscribe rules to update apply.
         :param participant_sid: The SID of the Participant resource to update the Subscribe Rules.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'room_sid': room_sid, 'participant_sid': participant_sid,  }
-        self._uri = '/Rooms/{room_sid}/Participants/{participant_sid}/SubscribeRules'.format(**self._solution)
-        
-        
-    
+        self._solution = {
+            "room_sid": room_sid,
+            "participant_sid": participant_sid,
+        }
+        self._uri = (
+            "/Rooms/{room_sid}/Participants/{participant_sid}/SubscribeRules".format(
+                **self._solution
+            )
+        )
+
     def fetch(self) -> SubscribeRulesInstance:
         """
         Asynchronously fetch the SubscribeRulesInstance
 
-        
+
         :returns: The fetched SubscribeRulesInstance
         """
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, headers=headers)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-        return SubscribeRulesInstance(self._version, payload, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'])
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
+
+        return SubscribeRulesInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            participant_sid=self._solution["participant_sid"],
+        )
 
     async def fetch_async(self) -> SubscribeRulesInstance:
         """
         Asynchronously fetch the SubscribeRulesInstance
 
-        
+
         :returns: The fetched SubscribeRulesInstance
         """
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, headers=headers)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-        return SubscribeRulesInstance(self._version, payload, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'])
-    
+        payload = await self._version.fetch_async(
+            method="GET", uri=self._uri, headers=headers
+        )
 
-    def update(self, rules: Union[object, object]=values.unset) -> SubscribeRulesInstance:
+        return SubscribeRulesInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            participant_sid=self._solution["participant_sid"],
+        )
+
+    def update(
+        self, rules: Union[object, object] = values.unset
+    ) -> SubscribeRulesInstance:
         """
         Update the SubscribeRulesInstance
 
         :param rules: A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
-        
+
         :returns: The created SubscribeRulesInstance
         """
-        
-        data = values.of({ 
-            'Rules': serialize.object(rules),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return SubscribeRulesInstance(self._version, payload, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'])
+        data = values.of(
+            {
+                "Rules": serialize.object(rules),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def update_async(self, rules: Union[object, object]=values.unset) -> SubscribeRulesInstance:
+        payload = self._version.update(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return SubscribeRulesInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            participant_sid=self._solution["participant_sid"],
+        )
+
+    async def update_async(
+        self, rules: Union[object, object] = values.unset
+    ) -> SubscribeRulesInstance:
         """
         Asynchronously update the SubscribeRulesInstance
 
         :param rules: A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
-        
+
         :returns: The created SubscribeRulesInstance
         """
-        
-        data = values.of({ 
-            'Rules': serialize.object(rules),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return SubscribeRulesInstance(self._version, payload, room_sid=self._solution['room_sid'], participant_sid=self._solution['participant_sid'])
+        data = values.of(
+            {
+                "Rules": serialize.object(rules),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        payload = await self._version.update_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
+        return SubscribeRulesInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            participant_sid=self._solution["participant_sid"],
+        )
 
     def __repr__(self) -> str:
         """
@@ -166,5 +190,4 @@ class SubscribeRulesList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Video.V1.SubscribeRulesList>'
-
+        return "<Twilio.Video.V1.SubscribeRulesList>"

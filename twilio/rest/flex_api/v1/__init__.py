@@ -19,21 +19,33 @@ from twilio.rest.flex_api.v1.assessments import AssessmentsList
 from twilio.rest.flex_api.v1.channel import ChannelList
 from twilio.rest.flex_api.v1.configuration import ConfigurationList
 from twilio.rest.flex_api.v1.flex_flow import FlexFlowList
-from twilio.rest.flex_api.v1.insights_assessments_comment import InsightsAssessmentsCommentList
+from twilio.rest.flex_api.v1.insights_assessments_comment import (
+    InsightsAssessmentsCommentList,
+)
 from twilio.rest.flex_api.v1.insights_conversations import InsightsConversationsList
 from twilio.rest.flex_api.v1.insights_questionnaires import InsightsQuestionnairesList
-from twilio.rest.flex_api.v1.insights_questionnaires_category import InsightsQuestionnairesCategoryList
-from twilio.rest.flex_api.v1.insights_questionnaires_question import InsightsQuestionnairesQuestionList
+from twilio.rest.flex_api.v1.insights_questionnaires_category import (
+    InsightsQuestionnairesCategoryList,
+)
+from twilio.rest.flex_api.v1.insights_questionnaires_question import (
+    InsightsQuestionnairesQuestionList,
+)
 from twilio.rest.flex_api.v1.insights_segments import InsightsSegmentsList
 from twilio.rest.flex_api.v1.insights_session import InsightsSessionList
-from twilio.rest.flex_api.v1.insights_settings_answer_sets import InsightsSettingsAnswerSetsList
-from twilio.rest.flex_api.v1.insights_settings_comment import InsightsSettingsCommentList
+from twilio.rest.flex_api.v1.insights_settings_answer_sets import (
+    InsightsSettingsAnswerSetsList,
+)
+from twilio.rest.flex_api.v1.insights_settings_comment import (
+    InsightsSettingsCommentList,
+)
 from twilio.rest.flex_api.v1.insights_user_roles import InsightsUserRolesList
 from twilio.rest.flex_api.v1.interaction import InteractionList
 from twilio.rest.flex_api.v1.plugin import PluginList
 from twilio.rest.flex_api.v1.plugin_archive import PluginArchiveList
 from twilio.rest.flex_api.v1.plugin_configuration import PluginConfigurationList
-from twilio.rest.flex_api.v1.plugin_configuration_archive import PluginConfigurationArchiveList
+from twilio.rest.flex_api.v1.plugin_configuration_archive import (
+    PluginConfigurationArchiveList,
+)
 from twilio.rest.flex_api.v1.plugin_release import PluginReleaseList
 from twilio.rest.flex_api.v1.plugin_version_archive import PluginVersionArchiveList
 from twilio.rest.flex_api.v1.provisioning_status import ProvisioningStatusList
@@ -53,26 +65,36 @@ class V1(Version):
         self._channel: Optional[ChannelList] = None
         self._configuration: Optional[ConfigurationList] = None
         self._flex_flow: Optional[FlexFlowList] = None
-        self._insights_assessments_comment: Optional[InsightsAssessmentsCommentList] = None
+        self._insights_assessments_comment: Optional[InsightsAssessmentsCommentList] = (
+            None
+        )
         self._insights_conversations: Optional[InsightsConversationsList] = None
         self._insights_questionnaires: Optional[InsightsQuestionnairesList] = None
-        self._insights_questionnaires_category: Optional[InsightsQuestionnairesCategoryList] = None
-        self._insights_questionnaires_question: Optional[InsightsQuestionnairesQuestionList] = None
+        self._insights_questionnaires_category: Optional[
+            InsightsQuestionnairesCategoryList
+        ] = None
+        self._insights_questionnaires_question: Optional[
+            InsightsQuestionnairesQuestionList
+        ] = None
         self._insights_segments: Optional[InsightsSegmentsList] = None
         self._insights_session: Optional[InsightsSessionList] = None
-        self._insights_settings_answer_sets: Optional[InsightsSettingsAnswerSetsList] = None
+        self._insights_settings_answer_sets: Optional[
+            InsightsSettingsAnswerSetsList
+        ] = None
         self._insights_settings_comment: Optional[InsightsSettingsCommentList] = None
         self._insights_user_roles: Optional[InsightsUserRolesList] = None
         self._interaction: Optional[InteractionList] = None
         self._plugins: Optional[PluginList] = None
         self._plugin_archive: Optional[PluginArchiveList] = None
         self._plugin_configurations: Optional[PluginConfigurationList] = None
-        self._plugin_configuration_archive: Optional[PluginConfigurationArchiveList] = None
+        self._plugin_configuration_archive: Optional[PluginConfigurationArchiveList] = (
+            None
+        )
         self._plugin_releases: Optional[PluginReleaseList] = None
         self._plugin_version_archive: Optional[PluginVersionArchiveList] = None
         self._provisioning_status: Optional[ProvisioningStatusList] = None
         self._web_channel: Optional[WebChannelList] = None
-        
+
     @property
     def assessments(self) -> AssessmentsList:
         if self._assessments is None:
@@ -118,13 +140,17 @@ class V1(Version):
     @property
     def insights_questionnaires_category(self) -> InsightsQuestionnairesCategoryList:
         if self._insights_questionnaires_category is None:
-            self._insights_questionnaires_category = InsightsQuestionnairesCategoryList(self)
+            self._insights_questionnaires_category = InsightsQuestionnairesCategoryList(
+                self
+            )
         return self._insights_questionnaires_category
 
     @property
     def insights_questionnaires_question(self) -> InsightsQuestionnairesQuestionList:
         if self._insights_questionnaires_question is None:
-            self._insights_questionnaires_question = InsightsQuestionnairesQuestionList(self)
+            self._insights_questionnaires_question = InsightsQuestionnairesQuestionList(
+                self
+            )
         return self._insights_questionnaires_question
 
     @property

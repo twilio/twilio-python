@@ -38,7 +38,7 @@ class V1(Version):
         self._dialing_permissions: Optional[DialingPermissionsList] = None
         self._ip_records: Optional[IpRecordList] = None
         self._source_ip_mappings: Optional[SourceIpMappingList] = None
-        
+
     @property
     def archived_calls(self) -> ArchivedCallList:
         if self._archived_calls is None:

@@ -12,20 +12,15 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Any, Dict, Optional, Union
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class RecordingSettingsInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the RecordingSettings resource.
     :ivar friendly_name: The string that you assigned to describe the resource and show the user in the console
@@ -40,7 +35,6 @@ class RecordingSettingsInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.aws_credentials_sid: Optional[str] = payload.get("aws_credentials_sid")
@@ -50,7 +44,6 @@ class RecordingSettingsInstance(InstanceResource):
         self.encryption_enabled: Optional[bool] = payload.get("encryption_enabled")
         self.url: Optional[str] = payload.get("url")
 
-        
         self._context: Optional[RecordingSettingsContext] = None
 
     @property
@@ -62,14 +55,23 @@ class RecordingSettingsInstance(InstanceResource):
         :returns: RecordingSettingsContext for this RecordingSettingsInstance
         """
         if self._context is None:
-            self._context = RecordingSettingsContext(self._version,)
+            self._context = RecordingSettingsContext(
+                self._version,
+            )
         return self._context
-    
-    
-    def create(self, friendly_name: str, aws_credentials_sid: Union[str, object]=values.unset, encryption_key_sid: Union[str, object]=values.unset, aws_s3_url: Union[str, object]=values.unset, aws_storage_enabled: Union[bool, object]=values.unset, encryption_enabled: Union[bool, object]=values.unset) -> "RecordingSettingsInstance":
+
+    def create(
+        self,
+        friendly_name: str,
+        aws_credentials_sid: Union[str, object] = values.unset,
+        encryption_key_sid: Union[str, object] = values.unset,
+        aws_s3_url: Union[str, object] = values.unset,
+        aws_storage_enabled: Union[bool, object] = values.unset,
+        encryption_enabled: Union[bool, object] = values.unset,
+    ) -> "RecordingSettingsInstance":
         """
         Create the RecordingSettingsInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource and be shown to users in the console
         :param aws_credentials_sid: The SID of the stored Credential resource.
         :param encryption_key_sid: The SID of the Public Key resource to use for encryption.
@@ -79,11 +81,27 @@ class RecordingSettingsInstance(InstanceResource):
 
         :returns: The created RecordingSettingsInstance
         """
-        return self._proxy.create(friendly_name, aws_credentials_sid=aws_credentials_sid, encryption_key_sid=encryption_key_sid, aws_s3_url=aws_s3_url, aws_storage_enabled=aws_storage_enabled, encryption_enabled=encryption_enabled, )
-    async def create_async(self, friendly_name: str, aws_credentials_sid: Union[str, object]=values.unset, encryption_key_sid: Union[str, object]=values.unset, aws_s3_url: Union[str, object]=values.unset, aws_storage_enabled: Union[bool, object]=values.unset, encryption_enabled: Union[bool, object]=values.unset) -> "RecordingSettingsInstance":
+        return self._proxy.create(
+            friendly_name,
+            aws_credentials_sid=aws_credentials_sid,
+            encryption_key_sid=encryption_key_sid,
+            aws_s3_url=aws_s3_url,
+            aws_storage_enabled=aws_storage_enabled,
+            encryption_enabled=encryption_enabled,
+        )
+
+    async def create_async(
+        self,
+        friendly_name: str,
+        aws_credentials_sid: Union[str, object] = values.unset,
+        encryption_key_sid: Union[str, object] = values.unset,
+        aws_s3_url: Union[str, object] = values.unset,
+        aws_storage_enabled: Union[bool, object] = values.unset,
+        encryption_enabled: Union[bool, object] = values.unset,
+    ) -> "RecordingSettingsInstance":
         """
         Asynchronous coroutine to create the RecordingSettingsInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource and be shown to users in the console
         :param aws_credentials_sid: The SID of the stored Credential resource.
         :param encryption_key_sid: The SID of the Public Key resource to use for encryption.
@@ -93,13 +111,19 @@ class RecordingSettingsInstance(InstanceResource):
 
         :returns: The created RecordingSettingsInstance
         """
-        return await self._proxy.create_async(friendly_name, aws_credentials_sid=aws_credentials_sid, encryption_key_sid=encryption_key_sid, aws_s3_url=aws_s3_url, aws_storage_enabled=aws_storage_enabled, encryption_enabled=encryption_enabled, )
-    
-    
+        return await self._proxy.create_async(
+            friendly_name,
+            aws_credentials_sid=aws_credentials_sid,
+            encryption_key_sid=encryption_key_sid,
+            aws_s3_url=aws_s3_url,
+            aws_storage_enabled=aws_storage_enabled,
+            encryption_enabled=encryption_enabled,
+        )
+
     def fetch(self) -> "RecordingSettingsInstance":
         """
         Fetch the RecordingSettingsInstance
-        
+
 
         :returns: The fetched RecordingSettingsInstance
         """
@@ -108,20 +132,21 @@ class RecordingSettingsInstance(InstanceResource):
     async def fetch_async(self) -> "RecordingSettingsInstance":
         """
         Asynchronous coroutine to fetch the RecordingSettingsInstance
-        
+
 
         :returns: The fetched RecordingSettingsInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        
-        return '<Twilio.Video.V1.RecordingSettingsInstance>'
+
+        return "<Twilio.Video.V1.RecordingSettingsInstance>"
+
 
 class RecordingSettingsContext(InstanceContext):
 
@@ -133,15 +158,20 @@ class RecordingSettingsContext(InstanceContext):
         """
         super().__init__(version)
 
-        
-        self._uri = '/RecordingSettings/Default'
-        
-    
-    
-    def create(self, friendly_name: str, aws_credentials_sid: Union[str, object]=values.unset, encryption_key_sid: Union[str, object]=values.unset, aws_s3_url: Union[str, object]=values.unset, aws_storage_enabled: Union[bool, object]=values.unset, encryption_enabled: Union[bool, object]=values.unset) -> RecordingSettingsInstance:
+        self._uri = "/RecordingSettings/Default"
+
+    def create(
+        self,
+        friendly_name: str,
+        aws_credentials_sid: Union[str, object] = values.unset,
+        encryption_key_sid: Union[str, object] = values.unset,
+        aws_s3_url: Union[str, object] = values.unset,
+        aws_storage_enabled: Union[bool, object] = values.unset,
+        encryption_enabled: Union[bool, object] = values.unset,
+    ) -> RecordingSettingsInstance:
         """
         Create the RecordingSettingsInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource and be shown to users in the console
         :param aws_credentials_sid: The SID of the stored Credential resource.
         :param encryption_key_sid: The SID of the Public Key resource to use for encryption.
@@ -151,26 +181,33 @@ class RecordingSettingsContext(InstanceContext):
 
         :returns: The created RecordingSettingsInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'AwsCredentialsSid': aws_credentials_sid,
-            'EncryptionKeySid': encryption_key_sid,
-            'AwsS3Url': aws_s3_url,
-            'AwsStorageEnabled': serialize.boolean_to_string(aws_storage_enabled),
-            'EncryptionEnabled': serialize.boolean_to_string(encryption_enabled),
-        })
-
-        payload = self._version.create(method='POST', uri=self._uri, data=data)
-
-        return RecordingSettingsInstance(
-            self._version,
-            payload
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "AwsCredentialsSid": aws_credentials_sid,
+                "EncryptionKeySid": encryption_key_sid,
+                "AwsS3Url": aws_s3_url,
+                "AwsStorageEnabled": serialize.boolean_to_string(aws_storage_enabled),
+                "EncryptionEnabled": serialize.boolean_to_string(encryption_enabled),
+            }
         )
 
-    async def create_async(self, friendly_name: str, aws_credentials_sid: Union[str, object]=values.unset, encryption_key_sid: Union[str, object]=values.unset, aws_s3_url: Union[str, object]=values.unset, aws_storage_enabled: Union[bool, object]=values.unset, encryption_enabled: Union[bool, object]=values.unset) -> RecordingSettingsInstance:
+        payload = self._version.create(method="POST", uri=self._uri, data=data)
+
+        return RecordingSettingsInstance(self._version, payload)
+
+    async def create_async(
+        self,
+        friendly_name: str,
+        aws_credentials_sid: Union[str, object] = values.unset,
+        encryption_key_sid: Union[str, object] = values.unset,
+        aws_s3_url: Union[str, object] = values.unset,
+        aws_storage_enabled: Union[bool, object] = values.unset,
+        encryption_enabled: Union[bool, object] = values.unset,
+    ) -> RecordingSettingsInstance:
         """
         Asynchronous coroutine to create the RecordingSettingsInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource and be shown to users in the console
         :param aws_credentials_sid: The SID of the stored Credential resource.
         :param encryption_key_sid: The SID of the Public Key resource to use for encryption.
@@ -180,94 +217,91 @@ class RecordingSettingsContext(InstanceContext):
 
         :returns: The created RecordingSettingsInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'AwsCredentialsSid': aws_credentials_sid,
-            'EncryptionKeySid': encryption_key_sid,
-            'AwsS3Url': aws_s3_url,
-            'AwsStorageEnabled': serialize.boolean_to_string(aws_storage_enabled),
-            'EncryptionEnabled': serialize.boolean_to_string(encryption_enabled),
-        })
-
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data)
-
-        return RecordingSettingsInstance(
-            self._version,
-            payload
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "AwsCredentialsSid": aws_credentials_sid,
+                "EncryptionKeySid": encryption_key_sid,
+                "AwsS3Url": aws_s3_url,
+                "AwsStorageEnabled": serialize.boolean_to_string(aws_storage_enabled),
+                "EncryptionEnabled": serialize.boolean_to_string(encryption_enabled),
+            }
         )
-    
-    
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data
+        )
+
+        return RecordingSettingsInstance(self._version, payload)
+
     def fetch(self) -> RecordingSettingsInstance:
         """
         Fetch the RecordingSettingsInstance
-        
+
 
         :returns: The fetched RecordingSettingsInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return RecordingSettingsInstance(
             self._version,
             payload,
-            
         )
 
     async def fetch_async(self) -> RecordingSettingsInstance:
         """
         Asynchronous coroutine to fetch the RecordingSettingsInstance
-        
+
 
         :returns: The fetched RecordingSettingsInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return RecordingSettingsInstance(
             self._version,
             payload,
-            
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        
-        return '<Twilio.Video.V1.RecordingSettingsContext>'
 
+        return "<Twilio.Video.V1.RecordingSettingsContext>"
 
 
 class RecordingSettingsList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the RecordingSettingsList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
-
-        
-        
-        
-        
 
     def get(self) -> RecordingSettingsContext:
         """
         Constructs a RecordingSettingsContext
-        
+
         """
         return RecordingSettingsContext(self._version)
 
     def __call__(self) -> RecordingSettingsContext:
         """
         Constructs a RecordingSettingsContext
-        
+
         """
         return RecordingSettingsContext(self._version)
 
@@ -277,5 +311,4 @@ class RecordingSettingsList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Video.V1.RecordingSettingsList>'
-
+        return "<Twilio.Video.V1.RecordingSettingsList>"

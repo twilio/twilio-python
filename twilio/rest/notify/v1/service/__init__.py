@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -27,7 +25,6 @@ from twilio.rest.notify.v1.service.notification import NotificationList
 
 
 class ServiceInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Service resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
@@ -51,33 +48,49 @@ class ServiceInstance(InstanceResource):
     :ivar delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.apn_credential_sid: Optional[str] = payload.get("apn_credential_sid")
         self.gcm_credential_sid: Optional[str] = payload.get("gcm_credential_sid")
         self.fcm_credential_sid: Optional[str] = payload.get("fcm_credential_sid")
         self.messaging_service_sid: Optional[str] = payload.get("messaging_service_sid")
-        self.facebook_messenger_page_id: Optional[str] = payload.get("facebook_messenger_page_id")
-        self.default_apn_notification_protocol_version: Optional[str] = payload.get("default_apn_notification_protocol_version")
-        self.default_gcm_notification_protocol_version: Optional[str] = payload.get("default_gcm_notification_protocol_version")
-        self.default_fcm_notification_protocol_version: Optional[str] = payload.get("default_fcm_notification_protocol_version")
+        self.facebook_messenger_page_id: Optional[str] = payload.get(
+            "facebook_messenger_page_id"
+        )
+        self.default_apn_notification_protocol_version: Optional[str] = payload.get(
+            "default_apn_notification_protocol_version"
+        )
+        self.default_gcm_notification_protocol_version: Optional[str] = payload.get(
+            "default_gcm_notification_protocol_version"
+        )
+        self.default_fcm_notification_protocol_version: Optional[str] = payload.get(
+            "default_fcm_notification_protocol_version"
+        )
         self.log_enabled: Optional[bool] = payload.get("log_enabled")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
         self.alexa_skill_id: Optional[str] = payload.get("alexa_skill_id")
-        self.default_alexa_notification_protocol_version: Optional[str] = payload.get("default_alexa_notification_protocol_version")
+        self.default_alexa_notification_protocol_version: Optional[str] = payload.get(
+            "default_alexa_notification_protocol_version"
+        )
         self.delivery_callback_url: Optional[str] = payload.get("delivery_callback_url")
-        self.delivery_callback_enabled: Optional[bool] = payload.get("delivery_callback_enabled")
+        self.delivery_callback_enabled: Optional[bool] = payload.get(
+            "delivery_callback_enabled"
+        )
 
-        
-        self._solution = { 
+        self._solution = {
             "sid": sid or self.sid,
         }
         self._context: Optional[ServiceContext] = None
@@ -91,32 +104,34 @@ class ServiceInstance(InstanceResource):
         :returns: ServiceContext for this ServiceInstance
         """
         if self._context is None:
-            self._context = ServiceContext(self._version, sid=self._solution['sid'],)
+            self._context = ServiceContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the ServiceInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "ServiceInstance":
         """
         Fetch the ServiceInstance
-        
+
 
         :returns: The fetched ServiceInstance
         """
@@ -125,17 +140,32 @@ class ServiceInstance(InstanceResource):
     async def fetch_async(self) -> "ServiceInstance":
         """
         Asynchronous coroutine to fetch the ServiceInstance
-        
+
 
         :returns: The fetched ServiceInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, apn_credential_sid: Union[str, object]=values.unset, gcm_credential_sid: Union[str, object]=values.unset, messaging_service_sid: Union[str, object]=values.unset, facebook_messenger_page_id: Union[str, object]=values.unset, default_apn_notification_protocol_version: Union[str, object]=values.unset, default_gcm_notification_protocol_version: Union[str, object]=values.unset, fcm_credential_sid: Union[str, object]=values.unset, default_fcm_notification_protocol_version: Union[str, object]=values.unset, log_enabled: Union[bool, object]=values.unset, alexa_skill_id: Union[str, object]=values.unset, default_alexa_notification_protocol_version: Union[str, object]=values.unset, delivery_callback_url: Union[str, object]=values.unset, delivery_callback_enabled: Union[bool, object]=values.unset) -> "ServiceInstance":
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        apn_credential_sid: Union[str, object] = values.unset,
+        gcm_credential_sid: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        facebook_messenger_page_id: Union[str, object] = values.unset,
+        default_apn_notification_protocol_version: Union[str, object] = values.unset,
+        default_gcm_notification_protocol_version: Union[str, object] = values.unset,
+        fcm_credential_sid: Union[str, object] = values.unset,
+        default_fcm_notification_protocol_version: Union[str, object] = values.unset,
+        log_enabled: Union[bool, object] = values.unset,
+        alexa_skill_id: Union[str, object] = values.unset,
+        default_alexa_notification_protocol_version: Union[str, object] = values.unset,
+        delivery_callback_url: Union[str, object] = values.unset,
+        delivery_callback_enabled: Union[bool, object] = values.unset,
+    ) -> "ServiceInstance":
         """
         Update the ServiceInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
         :param gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
@@ -153,12 +183,43 @@ class ServiceInstance(InstanceResource):
 
         :returns: The updated ServiceInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, apn_credential_sid=apn_credential_sid, gcm_credential_sid=gcm_credential_sid, messaging_service_sid=messaging_service_sid, facebook_messenger_page_id=facebook_messenger_page_id, default_apn_notification_protocol_version=default_apn_notification_protocol_version, default_gcm_notification_protocol_version=default_gcm_notification_protocol_version, fcm_credential_sid=fcm_credential_sid, default_fcm_notification_protocol_version=default_fcm_notification_protocol_version, log_enabled=log_enabled, alexa_skill_id=alexa_skill_id, default_alexa_notification_protocol_version=default_alexa_notification_protocol_version, delivery_callback_url=delivery_callback_url, delivery_callback_enabled=delivery_callback_enabled, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            apn_credential_sid=apn_credential_sid,
+            gcm_credential_sid=gcm_credential_sid,
+            messaging_service_sid=messaging_service_sid,
+            facebook_messenger_page_id=facebook_messenger_page_id,
+            default_apn_notification_protocol_version=default_apn_notification_protocol_version,
+            default_gcm_notification_protocol_version=default_gcm_notification_protocol_version,
+            fcm_credential_sid=fcm_credential_sid,
+            default_fcm_notification_protocol_version=default_fcm_notification_protocol_version,
+            log_enabled=log_enabled,
+            alexa_skill_id=alexa_skill_id,
+            default_alexa_notification_protocol_version=default_alexa_notification_protocol_version,
+            delivery_callback_url=delivery_callback_url,
+            delivery_callback_enabled=delivery_callback_enabled,
+        )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, apn_credential_sid: Union[str, object]=values.unset, gcm_credential_sid: Union[str, object]=values.unset, messaging_service_sid: Union[str, object]=values.unset, facebook_messenger_page_id: Union[str, object]=values.unset, default_apn_notification_protocol_version: Union[str, object]=values.unset, default_gcm_notification_protocol_version: Union[str, object]=values.unset, fcm_credential_sid: Union[str, object]=values.unset, default_fcm_notification_protocol_version: Union[str, object]=values.unset, log_enabled: Union[bool, object]=values.unset, alexa_skill_id: Union[str, object]=values.unset, default_alexa_notification_protocol_version: Union[str, object]=values.unset, delivery_callback_url: Union[str, object]=values.unset, delivery_callback_enabled: Union[bool, object]=values.unset) -> "ServiceInstance":
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        apn_credential_sid: Union[str, object] = values.unset,
+        gcm_credential_sid: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        facebook_messenger_page_id: Union[str, object] = values.unset,
+        default_apn_notification_protocol_version: Union[str, object] = values.unset,
+        default_gcm_notification_protocol_version: Union[str, object] = values.unset,
+        fcm_credential_sid: Union[str, object] = values.unset,
+        default_fcm_notification_protocol_version: Union[str, object] = values.unset,
+        log_enabled: Union[bool, object] = values.unset,
+        alexa_skill_id: Union[str, object] = values.unset,
+        default_alexa_notification_protocol_version: Union[str, object] = values.unset,
+        delivery_callback_url: Union[str, object] = values.unset,
+        delivery_callback_enabled: Union[bool, object] = values.unset,
+    ) -> "ServiceInstance":
         """
         Asynchronous coroutine to update the ServiceInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
         :param gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
@@ -176,30 +237,46 @@ class ServiceInstance(InstanceResource):
 
         :returns: The updated ServiceInstance
         """
-        return await self._proxy.update_async(friendly_name=friendly_name, apn_credential_sid=apn_credential_sid, gcm_credential_sid=gcm_credential_sid, messaging_service_sid=messaging_service_sid, facebook_messenger_page_id=facebook_messenger_page_id, default_apn_notification_protocol_version=default_apn_notification_protocol_version, default_gcm_notification_protocol_version=default_gcm_notification_protocol_version, fcm_credential_sid=fcm_credential_sid, default_fcm_notification_protocol_version=default_fcm_notification_protocol_version, log_enabled=log_enabled, alexa_skill_id=alexa_skill_id, default_alexa_notification_protocol_version=default_alexa_notification_protocol_version, delivery_callback_url=delivery_callback_url, delivery_callback_enabled=delivery_callback_enabled, )
-    
+        return await self._proxy.update_async(
+            friendly_name=friendly_name,
+            apn_credential_sid=apn_credential_sid,
+            gcm_credential_sid=gcm_credential_sid,
+            messaging_service_sid=messaging_service_sid,
+            facebook_messenger_page_id=facebook_messenger_page_id,
+            default_apn_notification_protocol_version=default_apn_notification_protocol_version,
+            default_gcm_notification_protocol_version=default_gcm_notification_protocol_version,
+            fcm_credential_sid=fcm_credential_sid,
+            default_fcm_notification_protocol_version=default_fcm_notification_protocol_version,
+            log_enabled=log_enabled,
+            alexa_skill_id=alexa_skill_id,
+            default_alexa_notification_protocol_version=default_alexa_notification_protocol_version,
+            delivery_callback_url=delivery_callback_url,
+            delivery_callback_enabled=delivery_callback_enabled,
+        )
+
     @property
     def bindings(self) -> BindingList:
         """
         Access the bindings
         """
         return self._proxy.bindings
-    
+
     @property
     def notifications(self) -> NotificationList:
         """
         Access the notifications
         """
         return self._proxy.notifications
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Notify.V1.ServiceInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Notify.V1.ServiceInstance {}>".format(context)
+
 
 class ServiceContext(InstanceContext):
 
@@ -212,75 +289,97 @@ class ServiceContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/Services/{sid}'.format(**self._solution)
-        
+        self._uri = "/Services/{sid}".format(**self._solution)
+
         self._bindings: Optional[BindingList] = None
         self._notifications: Optional[NotificationList] = None
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> ServiceInstance:
         """
         Fetch the ServiceInstance
-        
+
 
         :returns: The fetched ServiceInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ServiceInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> ServiceInstance:
         """
         Asynchronous coroutine to fetch the ServiceInstance
-        
+
 
         :returns: The fetched ServiceInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ServiceInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, apn_credential_sid: Union[str, object]=values.unset, gcm_credential_sid: Union[str, object]=values.unset, messaging_service_sid: Union[str, object]=values.unset, facebook_messenger_page_id: Union[str, object]=values.unset, default_apn_notification_protocol_version: Union[str, object]=values.unset, default_gcm_notification_protocol_version: Union[str, object]=values.unset, fcm_credential_sid: Union[str, object]=values.unset, default_fcm_notification_protocol_version: Union[str, object]=values.unset, log_enabled: Union[bool, object]=values.unset, alexa_skill_id: Union[str, object]=values.unset, default_alexa_notification_protocol_version: Union[str, object]=values.unset, delivery_callback_url: Union[str, object]=values.unset, delivery_callback_enabled: Union[bool, object]=values.unset) -> ServiceInstance:
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        apn_credential_sid: Union[str, object] = values.unset,
+        gcm_credential_sid: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        facebook_messenger_page_id: Union[str, object] = values.unset,
+        default_apn_notification_protocol_version: Union[str, object] = values.unset,
+        default_gcm_notification_protocol_version: Union[str, object] = values.unset,
+        fcm_credential_sid: Union[str, object] = values.unset,
+        default_fcm_notification_protocol_version: Union[str, object] = values.unset,
+        log_enabled: Union[bool, object] = values.unset,
+        alexa_skill_id: Union[str, object] = values.unset,
+        default_alexa_notification_protocol_version: Union[str, object] = values.unset,
+        delivery_callback_url: Union[str, object] = values.unset,
+        delivery_callback_enabled: Union[bool, object] = values.unset,
+    ) -> ServiceInstance:
         """
         Update the ServiceInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
         :param gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
@@ -298,36 +397,55 @@ class ServiceContext(InstanceContext):
 
         :returns: The updated ServiceInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ApnCredentialSid': apn_credential_sid,
-            'GcmCredentialSid': gcm_credential_sid,
-            'MessagingServiceSid': messaging_service_sid,
-            'FacebookMessengerPageId': facebook_messenger_page_id,
-            'DefaultApnNotificationProtocolVersion': default_apn_notification_protocol_version,
-            'DefaultGcmNotificationProtocolVersion': default_gcm_notification_protocol_version,
-            'FcmCredentialSid': fcm_credential_sid,
-            'DefaultFcmNotificationProtocolVersion': default_fcm_notification_protocol_version,
-            'LogEnabled': serialize.boolean_to_string(log_enabled),
-            'AlexaSkillId': alexa_skill_id,
-            'DefaultAlexaNotificationProtocolVersion': default_alexa_notification_protocol_version,
-            'DeliveryCallbackUrl': delivery_callback_url,
-            'DeliveryCallbackEnabled': serialize.boolean_to_string(delivery_callback_enabled),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ApnCredentialSid": apn_credential_sid,
+                "GcmCredentialSid": gcm_credential_sid,
+                "MessagingServiceSid": messaging_service_sid,
+                "FacebookMessengerPageId": facebook_messenger_page_id,
+                "DefaultApnNotificationProtocolVersion": default_apn_notification_protocol_version,
+                "DefaultGcmNotificationProtocolVersion": default_gcm_notification_protocol_version,
+                "FcmCredentialSid": fcm_credential_sid,
+                "DefaultFcmNotificationProtocolVersion": default_fcm_notification_protocol_version,
+                "LogEnabled": serialize.boolean_to_string(log_enabled),
+                "AlexaSkillId": alexa_skill_id,
+                "DefaultAlexaNotificationProtocolVersion": default_alexa_notification_protocol_version,
+                "DeliveryCallbackUrl": delivery_callback_url,
+                "DeliveryCallbackEnabled": serialize.boolean_to_string(
+                    delivery_callback_enabled
+                ),
+            }
         )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, apn_credential_sid: Union[str, object]=values.unset, gcm_credential_sid: Union[str, object]=values.unset, messaging_service_sid: Union[str, object]=values.unset, facebook_messenger_page_id: Union[str, object]=values.unset, default_apn_notification_protocol_version: Union[str, object]=values.unset, default_gcm_notification_protocol_version: Union[str, object]=values.unset, fcm_credential_sid: Union[str, object]=values.unset, default_fcm_notification_protocol_version: Union[str, object]=values.unset, log_enabled: Union[bool, object]=values.unset, alexa_skill_id: Union[str, object]=values.unset, default_alexa_notification_protocol_version: Union[str, object]=values.unset, delivery_callback_url: Union[str, object]=values.unset, delivery_callback_enabled: Union[bool, object]=values.unset) -> ServiceInstance:
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ServiceInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        apn_credential_sid: Union[str, object] = values.unset,
+        gcm_credential_sid: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        facebook_messenger_page_id: Union[str, object] = values.unset,
+        default_apn_notification_protocol_version: Union[str, object] = values.unset,
+        default_gcm_notification_protocol_version: Union[str, object] = values.unset,
+        fcm_credential_sid: Union[str, object] = values.unset,
+        default_fcm_notification_protocol_version: Union[str, object] = values.unset,
+        log_enabled: Union[bool, object] = values.unset,
+        alexa_skill_id: Union[str, object] = values.unset,
+        default_alexa_notification_protocol_version: Union[str, object] = values.unset,
+        delivery_callback_url: Union[str, object] = values.unset,
+        delivery_callback_enabled: Union[bool, object] = values.unset,
+    ) -> ServiceInstance:
         """
         Asynchronous coroutine to update the ServiceInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param apn_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for APN Bindings.
         :param gcm_credential_sid: The SID of the [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to use for GCM Bindings.
@@ -345,33 +463,35 @@ class ServiceContext(InstanceContext):
 
         :returns: The updated ServiceInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ApnCredentialSid': apn_credential_sid,
-            'GcmCredentialSid': gcm_credential_sid,
-            'MessagingServiceSid': messaging_service_sid,
-            'FacebookMessengerPageId': facebook_messenger_page_id,
-            'DefaultApnNotificationProtocolVersion': default_apn_notification_protocol_version,
-            'DefaultGcmNotificationProtocolVersion': default_gcm_notification_protocol_version,
-            'FcmCredentialSid': fcm_credential_sid,
-            'DefaultFcmNotificationProtocolVersion': default_fcm_notification_protocol_version,
-            'LogEnabled': serialize.boolean_to_string(log_enabled),
-            'AlexaSkillId': alexa_skill_id,
-            'DefaultAlexaNotificationProtocolVersion': default_alexa_notification_protocol_version,
-            'DeliveryCallbackUrl': delivery_callback_url,
-            'DeliveryCallbackEnabled': serialize.boolean_to_string(delivery_callback_enabled),
-        })
-        
-
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ApnCredentialSid": apn_credential_sid,
+                "GcmCredentialSid": gcm_credential_sid,
+                "MessagingServiceSid": messaging_service_sid,
+                "FacebookMessengerPageId": facebook_messenger_page_id,
+                "DefaultApnNotificationProtocolVersion": default_apn_notification_protocol_version,
+                "DefaultGcmNotificationProtocolVersion": default_gcm_notification_protocol_version,
+                "FcmCredentialSid": fcm_credential_sid,
+                "DefaultFcmNotificationProtocolVersion": default_fcm_notification_protocol_version,
+                "LogEnabled": serialize.boolean_to_string(log_enabled),
+                "AlexaSkillId": alexa_skill_id,
+                "DefaultAlexaNotificationProtocolVersion": default_alexa_notification_protocol_version,
+                "DeliveryCallbackUrl": delivery_callback_url,
+                "DeliveryCallbackEnabled": serialize.boolean_to_string(
+                    delivery_callback_enabled
+                ),
+            }
         )
-    
-    
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ServiceInstance(self._version, payload, sid=self._solution["sid"])
+
     @property
     def bindings(self) -> BindingList:
         """
@@ -379,11 +499,11 @@ class ServiceContext(InstanceContext):
         """
         if self._bindings is None:
             self._bindings = BindingList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._bindings
-    
+
     @property
     def notifications(self) -> NotificationList:
         """
@@ -391,28 +511,19 @@ class ServiceContext(InstanceContext):
         """
         if self._notifications is None:
             self._notifications = NotificationList(
-                self._version, 
-                self._solution['sid'],
+                self._version,
+                self._solution["sid"],
             )
         return self._notifications
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Notify.V1.ServiceContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Notify.V1.ServiceContext {}>".format(context)
 
 
 class ServicePage(Page):
@@ -434,29 +545,36 @@ class ServicePage(Page):
         return "<Twilio.Notify.V1.ServicePage>"
 
 
-
-
-
 class ServiceList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/Services'
-        
-        
-    
-    
-    
-    
-    def create(self, friendly_name: Union[str, object]=values.unset, apn_credential_sid: Union[str, object]=values.unset, gcm_credential_sid: Union[str, object]=values.unset, messaging_service_sid: Union[str, object]=values.unset, facebook_messenger_page_id: Union[str, object]=values.unset, default_apn_notification_protocol_version: Union[str, object]=values.unset, default_gcm_notification_protocol_version: Union[str, object]=values.unset, fcm_credential_sid: Union[str, object]=values.unset, default_fcm_notification_protocol_version: Union[str, object]=values.unset, log_enabled: Union[bool, object]=values.unset, alexa_skill_id: Union[str, object]=values.unset, default_alexa_notification_protocol_version: Union[str, object]=values.unset, delivery_callback_url: Union[str, object]=values.unset, delivery_callback_enabled: Union[bool, object]=values.unset) -> ServiceInstance:
+        self._uri = "/Services"
+
+    def create(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        apn_credential_sid: Union[str, object] = values.unset,
+        gcm_credential_sid: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        facebook_messenger_page_id: Union[str, object] = values.unset,
+        default_apn_notification_protocol_version: Union[str, object] = values.unset,
+        default_gcm_notification_protocol_version: Union[str, object] = values.unset,
+        fcm_credential_sid: Union[str, object] = values.unset,
+        default_fcm_notification_protocol_version: Union[str, object] = values.unset,
+        log_enabled: Union[bool, object] = values.unset,
+        alexa_skill_id: Union[str, object] = values.unset,
+        default_alexa_notification_protocol_version: Union[str, object] = values.unset,
+        delivery_callback_url: Union[str, object] = values.unset,
+        delivery_callback_enabled: Union[bool, object] = values.unset,
+    ) -> ServiceInstance:
         """
         Create the ServiceInstance
 
@@ -474,36 +592,55 @@ class ServiceList(ListResource):
         :param default_alexa_notification_protocol_version: Deprecated.
         :param delivery_callback_url: URL to send delivery status callback.
         :param delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
-        
+
         :returns: The created ServiceInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ApnCredentialSid': apn_credential_sid,
-            'GcmCredentialSid': gcm_credential_sid,
-            'MessagingServiceSid': messaging_service_sid,
-            'FacebookMessengerPageId': facebook_messenger_page_id,
-            'DefaultApnNotificationProtocolVersion': default_apn_notification_protocol_version,
-            'DefaultGcmNotificationProtocolVersion': default_gcm_notification_protocol_version,
-            'FcmCredentialSid': fcm_credential_sid,
-            'DefaultFcmNotificationProtocolVersion': default_fcm_notification_protocol_version,
-            'LogEnabled': serialize.boolean_to_string(log_enabled),
-            'AlexaSkillId': alexa_skill_id,
-            'DefaultAlexaNotificationProtocolVersion': default_alexa_notification_protocol_version,
-            'DeliveryCallbackUrl': delivery_callback_url,
-            'DeliveryCallbackEnabled': serialize.boolean_to_string(delivery_callback_enabled),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ApnCredentialSid": apn_credential_sid,
+                "GcmCredentialSid": gcm_credential_sid,
+                "MessagingServiceSid": messaging_service_sid,
+                "FacebookMessengerPageId": facebook_messenger_page_id,
+                "DefaultApnNotificationProtocolVersion": default_apn_notification_protocol_version,
+                "DefaultGcmNotificationProtocolVersion": default_gcm_notification_protocol_version,
+                "FcmCredentialSid": fcm_credential_sid,
+                "DefaultFcmNotificationProtocolVersion": default_fcm_notification_protocol_version,
+                "LogEnabled": serialize.boolean_to_string(log_enabled),
+                "AlexaSkillId": alexa_skill_id,
+                "DefaultAlexaNotificationProtocolVersion": default_alexa_notification_protocol_version,
+                "DeliveryCallbackUrl": delivery_callback_url,
+                "DeliveryCallbackEnabled": serialize.boolean_to_string(
+                    delivery_callback_enabled
+                ),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return ServiceInstance(self._version, payload)
 
-    async def create_async(self, friendly_name: Union[str, object]=values.unset, apn_credential_sid: Union[str, object]=values.unset, gcm_credential_sid: Union[str, object]=values.unset, messaging_service_sid: Union[str, object]=values.unset, facebook_messenger_page_id: Union[str, object]=values.unset, default_apn_notification_protocol_version: Union[str, object]=values.unset, default_gcm_notification_protocol_version: Union[str, object]=values.unset, fcm_credential_sid: Union[str, object]=values.unset, default_fcm_notification_protocol_version: Union[str, object]=values.unset, log_enabled: Union[bool, object]=values.unset, alexa_skill_id: Union[str, object]=values.unset, default_alexa_notification_protocol_version: Union[str, object]=values.unset, delivery_callback_url: Union[str, object]=values.unset, delivery_callback_enabled: Union[bool, object]=values.unset) -> ServiceInstance:
+    async def create_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        apn_credential_sid: Union[str, object] = values.unset,
+        gcm_credential_sid: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        facebook_messenger_page_id: Union[str, object] = values.unset,
+        default_apn_notification_protocol_version: Union[str, object] = values.unset,
+        default_gcm_notification_protocol_version: Union[str, object] = values.unset,
+        fcm_credential_sid: Union[str, object] = values.unset,
+        default_fcm_notification_protocol_version: Union[str, object] = values.unset,
+        log_enabled: Union[bool, object] = values.unset,
+        alexa_skill_id: Union[str, object] = values.unset,
+        default_alexa_notification_protocol_version: Union[str, object] = values.unset,
+        delivery_callback_url: Union[str, object] = values.unset,
+        delivery_callback_enabled: Union[bool, object] = values.unset,
+    ) -> ServiceInstance:
         """
         Asynchronously create the ServiceInstance
 
@@ -521,39 +658,41 @@ class ServiceList(ListResource):
         :param default_alexa_notification_protocol_version: Deprecated.
         :param delivery_callback_url: URL to send delivery status callback.
         :param delivery_callback_enabled: Callback configuration that enables delivery callbacks, default false
-        
+
         :returns: The created ServiceInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ApnCredentialSid': apn_credential_sid,
-            'GcmCredentialSid': gcm_credential_sid,
-            'MessagingServiceSid': messaging_service_sid,
-            'FacebookMessengerPageId': facebook_messenger_page_id,
-            'DefaultApnNotificationProtocolVersion': default_apn_notification_protocol_version,
-            'DefaultGcmNotificationProtocolVersion': default_gcm_notification_protocol_version,
-            'FcmCredentialSid': fcm_credential_sid,
-            'DefaultFcmNotificationProtocolVersion': default_fcm_notification_protocol_version,
-            'LogEnabled': serialize.boolean_to_string(log_enabled),
-            'AlexaSkillId': alexa_skill_id,
-            'DefaultAlexaNotificationProtocolVersion': default_alexa_notification_protocol_version,
-            'DeliveryCallbackUrl': delivery_callback_url,
-            'DeliveryCallbackEnabled': serialize.boolean_to_string(delivery_callback_enabled),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ApnCredentialSid": apn_credential_sid,
+                "GcmCredentialSid": gcm_credential_sid,
+                "MessagingServiceSid": messaging_service_sid,
+                "FacebookMessengerPageId": facebook_messenger_page_id,
+                "DefaultApnNotificationProtocolVersion": default_apn_notification_protocol_version,
+                "DefaultGcmNotificationProtocolVersion": default_gcm_notification_protocol_version,
+                "FcmCredentialSid": fcm_credential_sid,
+                "DefaultFcmNotificationProtocolVersion": default_fcm_notification_protocol_version,
+                "LogEnabled": serialize.boolean_to_string(log_enabled),
+                "AlexaSkillId": alexa_skill_id,
+                "DefaultAlexaNotificationProtocolVersion": default_alexa_notification_protocol_version,
+                "DeliveryCallbackUrl": delivery_callback_url,
+                "DeliveryCallbackEnabled": serialize.boolean_to_string(
+                    delivery_callback_enabled
+                ),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return ServiceInstance(self._version, payload)
-    
-    
-    def stream(self, 
+
+    def stream(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ServiceInstance]:
@@ -562,7 +701,7 @@ class ServiceList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str friendly_name: The string that identifies the Service resources to read.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -574,16 +713,13 @@ class ServiceList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            friendly_name=friendly_name,
-            page_size=limits['page_size']
-        )
+        page = self.page(friendly_name=friendly_name, page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ServiceInstance]:
@@ -592,7 +728,7 @@ class ServiceList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str friendly_name: The string that identifies the Service resources to read.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -605,15 +741,14 @@ class ServiceList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            friendly_name=friendly_name,
-            page_size=limits['page_size']
+            friendly_name=friendly_name, page_size=limits["page_size"]
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ServiceInstance]:
@@ -621,7 +756,7 @@ class ServiceList(ListResource):
         Lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str friendly_name: The string that identifies the Service resources to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -632,15 +767,17 @@ class ServiceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            friendly_name=friendly_name,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ServiceInstance]:
@@ -648,7 +785,7 @@ class ServiceList(ListResource):
         Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str friendly_name: The string that identifies the Service resources to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -659,15 +796,18 @@ class ServiceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            friendly_name=friendly_name,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -675,7 +815,7 @@ class ServiceList(ListResource):
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
-        
+
         :param friendly_name: The string that identifies the Service resources to read.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -683,19 +823,21 @@ class ServiceList(ListResource):
 
         :returns: Page of ServiceInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return ServicePage(self._version, response)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -703,7 +845,7 @@ class ServiceList(ListResource):
         """
         Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
-        
+
         :param friendly_name: The string that identifies the Service resources to read.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -711,14 +853,18 @@ class ServiceList(ListResource):
 
         :returns: Page of ServiceInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return ServicePage(self._version, response)
 
     def get_page(self, target_url: str) -> ServicePage:
@@ -730,10 +876,7 @@ class ServiceList(ListResource):
 
         :returns: Page of ServiceInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return ServicePage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> ServicePage:
@@ -745,22 +888,13 @@ class ServiceList(ListResource):
 
         :returns: Page of ServiceInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return ServicePage(self._version, response)
-
-
-
-
-
-
 
     def get(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
         """
         return ServiceContext(self._version, sid=sid)
@@ -768,7 +902,7 @@ class ServiceList(ListResource):
     def __call__(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Service resource to update.
         """
         return ServiceContext(self._version, sid=sid)
@@ -779,5 +913,4 @@ class ServiceList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Notify.V1.ServiceList>'
-
+        return "<Twilio.Notify.V1.ServiceList>"

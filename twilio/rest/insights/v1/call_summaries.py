@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 
@@ -94,18 +92,33 @@ class CallSummariesInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.call_sid: Optional[str] = payload.get("call_sid")
-        self.answered_by: Optional["CallSummariesInstance.AnsweredBy"] = payload.get("answered_by")
-        self.call_type: Optional["CallSummariesInstance.CallType"] = payload.get("call_type")
-        self.call_state: Optional["CallSummariesInstance.CallState"] = payload.get("call_state")
-        self.processing_state: Optional["CallSummariesInstance.ProcessingState"] = payload.get("processing_state")
-        self.created_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("created_time"))
-        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("start_time"))
-        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("end_time"))
+        self.answered_by: Optional["CallSummariesInstance.AnsweredBy"] = payload.get(
+            "answered_by"
+        )
+        self.call_type: Optional["CallSummariesInstance.CallType"] = payload.get(
+            "call_type"
+        )
+        self.call_state: Optional["CallSummariesInstance.CallState"] = payload.get(
+            "call_state"
+        )
+        self.processing_state: Optional["CallSummariesInstance.ProcessingState"] = (
+            payload.get("processing_state")
+        )
+        self.created_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("created_time")
+        )
+        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("start_time")
+        )
+        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("end_time")
+        )
         self.duration: Optional[int] = deserialize.integer(payload.get("duration"))
-        self.connect_duration: Optional[int] = deserialize.integer(payload.get("connect_duration"))
+        self.connect_duration: Optional[int] = deserialize.integer(
+            payload.get("connect_duration")
+        )
         self._from: Optional[Dict[str, object]] = payload.get("from")
         self.to: Optional[Dict[str, object]] = payload.get("to")
         self.carrier_edge: Optional[Dict[str, object]] = payload.get("carrier_edge")
@@ -119,19 +132,14 @@ class CallSummariesInstance(InstanceResource):
         self.trust: Optional[Dict[str, object]] = payload.get("trust")
         self.annotation: Optional[Dict[str, object]] = payload.get("annotation")
 
-        
-        
-    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        
-        return '<Twilio.Insights.V1.CallSummariesInstance>'
 
-
+        return "<Twilio.Insights.V1.CallSummariesInstance>"
 
 
 class CallSummariesPage(Page):
@@ -153,26 +161,21 @@ class CallSummariesPage(Page):
         return "<Twilio.Insights.V1.CallSummariesPage>"
 
 
-
-
-
 class CallSummariesList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the CallSummariesList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/Voice/Summaries'
-        
-        
-    
-    def stream(self, 
+        self._uri = "/Voice/Summaries"
+
+    def stream(
+        self,
         from_: Union[str, object] = values.unset,
         to: Union[str, object] = values.unset,
         from_carrier: Union[str, object] = values.unset,
@@ -187,7 +190,9 @@ class CallSummariesList(ListResource):
         call_type: Union[str, object] = values.unset,
         call_state: Union[str, object] = values.unset,
         direction: Union[str, object] = values.unset,
-        processing_state: Union["CallSummariesInstance.ProcessingStateRequest", object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
         sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
@@ -197,7 +202,6 @@ class CallSummariesList(ListResource):
         quality_issue_annotation: Union[str, object] = values.unset,
         spam_annotation: Union[bool, object] = values.unset,
         call_score_annotation: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[CallSummariesInstance]:
@@ -206,7 +210,7 @@ class CallSummariesList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
         :param str to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
         :param str from_carrier: An origination carrier.
@@ -266,12 +270,13 @@ class CallSummariesList(ListResource):
             quality_issue_annotation=quality_issue_annotation,
             spam_annotation=spam_annotation,
             call_score_annotation=call_score_annotation,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         from_: Union[str, object] = values.unset,
         to: Union[str, object] = values.unset,
         from_carrier: Union[str, object] = values.unset,
@@ -286,7 +291,9 @@ class CallSummariesList(ListResource):
         call_type: Union[str, object] = values.unset,
         call_state: Union[str, object] = values.unset,
         direction: Union[str, object] = values.unset,
-        processing_state: Union["CallSummariesInstance.ProcessingStateRequest", object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
         sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
@@ -296,7 +303,6 @@ class CallSummariesList(ListResource):
         quality_issue_annotation: Union[str, object] = values.unset,
         spam_annotation: Union[bool, object] = values.unset,
         call_score_annotation: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[CallSummariesInstance]:
@@ -305,7 +311,7 @@ class CallSummariesList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
         :param str to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
         :param str from_carrier: An origination carrier.
@@ -365,12 +371,13 @@ class CallSummariesList(ListResource):
             quality_issue_annotation=quality_issue_annotation,
             spam_annotation=spam_annotation,
             call_score_annotation=call_score_annotation,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         from_: Union[str, object] = values.unset,
         to: Union[str, object] = values.unset,
         from_carrier: Union[str, object] = values.unset,
@@ -385,7 +392,9 @@ class CallSummariesList(ListResource):
         call_type: Union[str, object] = values.unset,
         call_state: Union[str, object] = values.unset,
         direction: Union[str, object] = values.unset,
-        processing_state: Union["CallSummariesInstance.ProcessingStateRequest", object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
         sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
@@ -395,7 +404,6 @@ class CallSummariesList(ListResource):
         quality_issue_annotation: Union[str, object] = values.unset,
         spam_annotation: Union[bool, object] = values.unset,
         call_score_annotation: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CallSummariesInstance]:
@@ -403,7 +411,7 @@ class CallSummariesList(ListResource):
         Lists CallSummariesInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
         :param str to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
         :param str from_carrier: An origination carrier.
@@ -437,36 +445,39 @@ class CallSummariesList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            from_=from_,
-            to=to,
-            from_carrier=from_carrier,
-            to_carrier=to_carrier,
-            from_country_code=from_country_code,
-            to_country_code=to_country_code,
-            branded=branded,
-            verified_caller=verified_caller,
-            has_tag=has_tag,
-            start_time=start_time,
-            end_time=end_time,
-            call_type=call_type,
-            call_state=call_state,
-            direction=direction,
-            processing_state=processing_state,
-            sort_by=sort_by,
-            subaccount=subaccount,
-            abnormal_session=abnormal_session,
-            answered_by=answered_by,
-            answered_by_annotation=answered_by_annotation,
-            connectivity_issue_annotation=connectivity_issue_annotation,
-            quality_issue_annotation=quality_issue_annotation,
-            spam_annotation=spam_annotation,
-            call_score_annotation=call_score_annotation,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                from_=from_,
+                to=to,
+                from_carrier=from_carrier,
+                to_carrier=to_carrier,
+                from_country_code=from_country_code,
+                to_country_code=to_country_code,
+                branded=branded,
+                verified_caller=verified_caller,
+                has_tag=has_tag,
+                start_time=start_time,
+                end_time=end_time,
+                call_type=call_type,
+                call_state=call_state,
+                direction=direction,
+                processing_state=processing_state,
+                sort_by=sort_by,
+                subaccount=subaccount,
+                abnormal_session=abnormal_session,
+                answered_by=answered_by,
+                answered_by_annotation=answered_by_annotation,
+                connectivity_issue_annotation=connectivity_issue_annotation,
+                quality_issue_annotation=quality_issue_annotation,
+                spam_annotation=spam_annotation,
+                call_score_annotation=call_score_annotation,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         from_: Union[str, object] = values.unset,
         to: Union[str, object] = values.unset,
         from_carrier: Union[str, object] = values.unset,
@@ -481,7 +492,9 @@ class CallSummariesList(ListResource):
         call_type: Union[str, object] = values.unset,
         call_state: Union[str, object] = values.unset,
         direction: Union[str, object] = values.unset,
-        processing_state: Union["CallSummariesInstance.ProcessingStateRequest", object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
         sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
@@ -491,7 +504,6 @@ class CallSummariesList(ListResource):
         quality_issue_annotation: Union[str, object] = values.unset,
         spam_annotation: Union[bool, object] = values.unset,
         call_score_annotation: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CallSummariesInstance]:
@@ -499,7 +511,7 @@ class CallSummariesList(ListResource):
         Asynchronously lists CallSummariesInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
         :param str to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
         :param str from_carrier: An origination carrier.
@@ -533,36 +545,40 @@ class CallSummariesList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            from_=from_,
-            to=to,
-            from_carrier=from_carrier,
-            to_carrier=to_carrier,
-            from_country_code=from_country_code,
-            to_country_code=to_country_code,
-            branded=branded,
-            verified_caller=verified_caller,
-            has_tag=has_tag,
-            start_time=start_time,
-            end_time=end_time,
-            call_type=call_type,
-            call_state=call_state,
-            direction=direction,
-            processing_state=processing_state,
-            sort_by=sort_by,
-            subaccount=subaccount,
-            abnormal_session=abnormal_session,
-            answered_by=answered_by,
-            answered_by_annotation=answered_by_annotation,
-            connectivity_issue_annotation=connectivity_issue_annotation,
-            quality_issue_annotation=quality_issue_annotation,
-            spam_annotation=spam_annotation,
-            call_score_annotation=call_score_annotation,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                from_=from_,
+                to=to,
+                from_carrier=from_carrier,
+                to_carrier=to_carrier,
+                from_country_code=from_country_code,
+                to_country_code=to_country_code,
+                branded=branded,
+                verified_caller=verified_caller,
+                has_tag=has_tag,
+                start_time=start_time,
+                end_time=end_time,
+                call_type=call_type,
+                call_state=call_state,
+                direction=direction,
+                processing_state=processing_state,
+                sort_by=sort_by,
+                subaccount=subaccount,
+                abnormal_session=abnormal_session,
+                answered_by=answered_by,
+                answered_by_annotation=answered_by_annotation,
+                connectivity_issue_annotation=connectivity_issue_annotation,
+                quality_issue_annotation=quality_issue_annotation,
+                spam_annotation=spam_annotation,
+                call_score_annotation=call_score_annotation,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         from_: Union[str, object] = values.unset,
         to: Union[str, object] = values.unset,
         from_carrier: Union[str, object] = values.unset,
@@ -577,7 +593,9 @@ class CallSummariesList(ListResource):
         call_type: Union[str, object] = values.unset,
         call_state: Union[str, object] = values.unset,
         direction: Union[str, object] = values.unset,
-        processing_state: Union["CallSummariesInstance.ProcessingStateRequest", object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
         sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
@@ -587,7 +605,6 @@ class CallSummariesList(ListResource):
         quality_issue_annotation: Union[str, object] = values.unset,
         spam_annotation: Union[bool, object] = values.unset,
         call_score_annotation: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -595,7 +612,7 @@ class CallSummariesList(ListResource):
         """
         Retrieve a single page of CallSummariesInstance records from the API.
         Request is executed immediately
-        
+
         :param from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
         :param to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
         :param from_carrier: An origination carrier.
@@ -626,40 +643,43 @@ class CallSummariesList(ListResource):
 
         :returns: Page of CallSummariesInstance
         """
-        data = values.of({ 
-            'From': from_,
-            'To': to,
-            'FromCarrier': from_carrier,
-            'ToCarrier': to_carrier,
-            'FromCountryCode': from_country_code,
-            'ToCountryCode': to_country_code,
-            'Branded': serialize.boolean_to_string(branded),
-            'VerifiedCaller': serialize.boolean_to_string(verified_caller),
-            'HasTag': serialize.boolean_to_string(has_tag),
-            'StartTime': start_time,
-            'EndTime': end_time,
-            'CallType': call_type,
-            'CallState': call_state,
-            'Direction': direction,
-            'ProcessingState': processing_state,
-            'SortBy': sort_by,
-            'Subaccount': subaccount,
-            'AbnormalSession': serialize.boolean_to_string(abnormal_session),
-            'AnsweredBy': answered_by,
-            'AnsweredByAnnotation': answered_by_annotation,
-            'ConnectivityIssueAnnotation': connectivity_issue_annotation,
-            'QualityIssueAnnotation': quality_issue_annotation,
-            'SpamAnnotation': serialize.boolean_to_string(spam_annotation),
-            'CallScoreAnnotation': call_score_annotation,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "From": from_,
+                "To": to,
+                "FromCarrier": from_carrier,
+                "ToCarrier": to_carrier,
+                "FromCountryCode": from_country_code,
+                "ToCountryCode": to_country_code,
+                "Branded": serialize.boolean_to_string(branded),
+                "VerifiedCaller": serialize.boolean_to_string(verified_caller),
+                "HasTag": serialize.boolean_to_string(has_tag),
+                "StartTime": start_time,
+                "EndTime": end_time,
+                "CallType": call_type,
+                "CallState": call_state,
+                "Direction": direction,
+                "ProcessingState": processing_state,
+                "SortBy": sort_by,
+                "Subaccount": subaccount,
+                "AbnormalSession": serialize.boolean_to_string(abnormal_session),
+                "AnsweredBy": answered_by,
+                "AnsweredByAnnotation": answered_by_annotation,
+                "ConnectivityIssueAnnotation": connectivity_issue_annotation,
+                "QualityIssueAnnotation": quality_issue_annotation,
+                "SpamAnnotation": serialize.boolean_to_string(spam_annotation),
+                "CallScoreAnnotation": call_score_annotation,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return CallSummariesPage(self._version, response)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         from_: Union[str, object] = values.unset,
         to: Union[str, object] = values.unset,
         from_carrier: Union[str, object] = values.unset,
@@ -674,7 +694,9 @@ class CallSummariesList(ListResource):
         call_type: Union[str, object] = values.unset,
         call_state: Union[str, object] = values.unset,
         direction: Union[str, object] = values.unset,
-        processing_state: Union["CallSummariesInstance.ProcessingStateRequest", object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
         sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
         subaccount: Union[str, object] = values.unset,
         abnormal_session: Union[bool, object] = values.unset,
@@ -684,7 +706,6 @@ class CallSummariesList(ListResource):
         quality_issue_annotation: Union[str, object] = values.unset,
         spam_annotation: Union[bool, object] = values.unset,
         call_score_annotation: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -692,7 +713,7 @@ class CallSummariesList(ListResource):
         """
         Asynchronously retrieve a single page of CallSummariesInstance records from the API.
         Request is executed immediately
-        
+
         :param from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
         :param to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
         :param from_carrier: An origination carrier.
@@ -723,37 +744,41 @@ class CallSummariesList(ListResource):
 
         :returns: Page of CallSummariesInstance
         """
-        data = values.of({ 
-            'From': from_,
-            'To': to,
-            'FromCarrier': from_carrier,
-            'ToCarrier': to_carrier,
-            'FromCountryCode': from_country_code,
-            'ToCountryCode': to_country_code,
-            'Branded': serialize.boolean_to_string(branded),
-            'VerifiedCaller': serialize.boolean_to_string(verified_caller),
-            'HasTag': serialize.boolean_to_string(has_tag),
-            'StartTime': start_time,
-            'EndTime': end_time,
-            'CallType': call_type,
-            'CallState': call_state,
-            'Direction': direction,
-            'ProcessingState': processing_state,
-            'SortBy': sort_by,
-            'Subaccount': subaccount,
-            'AbnormalSession': serialize.boolean_to_string(abnormal_session),
-            'AnsweredBy': answered_by,
-            'AnsweredByAnnotation': answered_by_annotation,
-            'ConnectivityIssueAnnotation': connectivity_issue_annotation,
-            'QualityIssueAnnotation': quality_issue_annotation,
-            'SpamAnnotation': serialize.boolean_to_string(spam_annotation),
-            'CallScoreAnnotation': call_score_annotation,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "From": from_,
+                "To": to,
+                "FromCarrier": from_carrier,
+                "ToCarrier": to_carrier,
+                "FromCountryCode": from_country_code,
+                "ToCountryCode": to_country_code,
+                "Branded": serialize.boolean_to_string(branded),
+                "VerifiedCaller": serialize.boolean_to_string(verified_caller),
+                "HasTag": serialize.boolean_to_string(has_tag),
+                "StartTime": start_time,
+                "EndTime": end_time,
+                "CallType": call_type,
+                "CallState": call_state,
+                "Direction": direction,
+                "ProcessingState": processing_state,
+                "SortBy": sort_by,
+                "Subaccount": subaccount,
+                "AbnormalSession": serialize.boolean_to_string(abnormal_session),
+                "AnsweredBy": answered_by,
+                "AnsweredByAnnotation": answered_by_annotation,
+                "ConnectivityIssueAnnotation": connectivity_issue_annotation,
+                "QualityIssueAnnotation": quality_issue_annotation,
+                "SpamAnnotation": serialize.boolean_to_string(spam_annotation),
+                "CallScoreAnnotation": call_score_annotation,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return CallSummariesPage(self._version, response)
 
     def get_page(self, target_url: str) -> CallSummariesPage:
@@ -765,10 +790,7 @@ class CallSummariesList(ListResource):
 
         :returns: Page of CallSummariesInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return CallSummariesPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> CallSummariesPage:
@@ -780,14 +802,8 @@ class CallSummariesList(ListResource):
 
         :returns: Page of CallSummariesInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return CallSummariesPage(self._version, response)
-
-
-
 
     def __repr__(self) -> str:
         """
@@ -795,5 +811,4 @@ class CallSummariesList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Insights.V1.CallSummariesList>'
-
+        return "<Twilio.Insights.V1.CallSummariesList>"

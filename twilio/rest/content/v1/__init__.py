@@ -32,7 +32,7 @@ class V1(Version):
         self._contents: Optional[ContentList] = None
         self._content_and_approvals: Optional[ContentAndApprovalsList] = None
         self._legacy_contents: Optional[LegacyContentList] = None
-        
+
     @property
     def contents(self) -> ContentList:
         if self._contents is None:

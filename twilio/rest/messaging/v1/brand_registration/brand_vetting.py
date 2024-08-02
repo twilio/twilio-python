@@ -12,11 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -42,23 +40,33 @@ class BrandVettingInstance(InstanceResource):
     :ivar url: The absolute URL of the Brand Vetting resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], brand_sid: str, brand_vetting_sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        brand_sid: str,
+        brand_vetting_sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.brand_sid: Optional[str] = payload.get("brand_sid")
         self.brand_vetting_sid: Optional[str] = payload.get("brand_vetting_sid")
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
         self.vetting_id: Optional[str] = payload.get("vetting_id")
         self.vetting_class: Optional[str] = payload.get("vetting_class")
         self.vetting_status: Optional[str] = payload.get("vetting_status")
-        self.vetting_provider: Optional["BrandVettingInstance.VettingProvider"] = payload.get("vetting_provider")
+        self.vetting_provider: Optional["BrandVettingInstance.VettingProvider"] = (
+            payload.get("vetting_provider")
+        )
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "brand_sid": brand_sid,
             "brand_vetting_sid": brand_vetting_sid or self.brand_vetting_sid,
         }
@@ -73,14 +81,17 @@ class BrandVettingInstance(InstanceResource):
         :returns: BrandVettingContext for this BrandVettingInstance
         """
         if self._context is None:
-            self._context = BrandVettingContext(self._version, brand_sid=self._solution['brand_sid'], brand_vetting_sid=self._solution['brand_vetting_sid'],)
+            self._context = BrandVettingContext(
+                self._version,
+                brand_sid=self._solution["brand_sid"],
+                brand_vetting_sid=self._solution["brand_vetting_sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "BrandVettingInstance":
         """
         Fetch the BrandVettingInstance
-        
+
 
         :returns: The fetched BrandVettingInstance
         """
@@ -89,20 +100,21 @@ class BrandVettingInstance(InstanceResource):
     async def fetch_async(self) -> "BrandVettingInstance":
         """
         Asynchronous coroutine to fetch the BrandVettingInstance
-        
+
 
         :returns: The fetched BrandVettingInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.BrandVettingInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Messaging.V1.BrandVettingInstance {}>".format(context)
+
 
 class BrandVettingContext(InstanceContext):
 
@@ -116,66 +128,65 @@ class BrandVettingContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'brand_sid': brand_sid,
-            'brand_vetting_sid': brand_vetting_sid,
+        self._solution = {
+            "brand_sid": brand_sid,
+            "brand_vetting_sid": brand_vetting_sid,
         }
-        self._uri = '/a2p/BrandRegistrations/{brand_sid}/Vettings/{brand_vetting_sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = (
+            "/a2p/BrandRegistrations/{brand_sid}/Vettings/{brand_vetting_sid}".format(
+                **self._solution
+            )
+        )
+
     def fetch(self) -> BrandVettingInstance:
         """
         Fetch the BrandVettingInstance
-        
+
 
         :returns: The fetched BrandVettingInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return BrandVettingInstance(
             self._version,
             payload,
-            brand_sid=self._solution['brand_sid'],
-            brand_vetting_sid=self._solution['brand_vetting_sid'],
-            
+            brand_sid=self._solution["brand_sid"],
+            brand_vetting_sid=self._solution["brand_vetting_sid"],
         )
 
     async def fetch_async(self) -> BrandVettingInstance:
         """
         Asynchronous coroutine to fetch the BrandVettingInstance
-        
+
 
         :returns: The fetched BrandVettingInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return BrandVettingInstance(
             self._version,
             payload,
-            brand_sid=self._solution['brand_sid'],
-            brand_vetting_sid=self._solution['brand_vetting_sid'],
-            
+            brand_sid=self._solution["brand_sid"],
+            brand_vetting_sid=self._solution["brand_vetting_sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.BrandVettingContext {}>'.format(context)
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Messaging.V1.BrandVettingContext {}>".format(context)
 
 
 class BrandVettingPage(Page):
@@ -186,7 +197,9 @@ class BrandVettingPage(Page):
 
         :param payload: Payload response from the API
         """
-        return BrandVettingInstance(self._version, payload, brand_sid=self._solution["brand_sid"])
+        return BrandVettingInstance(
+            self._version, payload, brand_sid=self._solution["brand_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -197,79 +210,91 @@ class BrandVettingPage(Page):
         return "<Twilio.Messaging.V1.BrandVettingPage>"
 
 
-
-
-
 class BrandVettingList(ListResource):
-    
+
     def __init__(self, version: Version, brand_sid: str):
         """
         Initialize the BrandVettingList
 
         :param version: Version that contains the resource
         :param brand_sid: The SID of the Brand Registration resource of the vettings to read .
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'brand_sid': brand_sid,  }
-        self._uri = '/a2p/BrandRegistrations/{brand_sid}/Vettings'.format(**self._solution)
-        
-        
-    
-    
-    def create(self, vetting_provider: "BrandVettingInstance.VettingProvider", vetting_id: Union[str, object]=values.unset) -> BrandVettingInstance:
+        self._solution = {
+            "brand_sid": brand_sid,
+        }
+        self._uri = "/a2p/BrandRegistrations/{brand_sid}/Vettings".format(
+            **self._solution
+        )
+
+    def create(
+        self,
+        vetting_provider: "BrandVettingInstance.VettingProvider",
+        vetting_id: Union[str, object] = values.unset,
+    ) -> BrandVettingInstance:
         """
         Create the BrandVettingInstance
 
-        :param vetting_provider: 
+        :param vetting_provider:
         :param vetting_id: The unique ID of the vetting
-        
+
         :returns: The created BrandVettingInstance
         """
-        
-        data = values.of({ 
-            'VettingProvider': vetting_provider,
-            'VettingId': vetting_id,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return BrandVettingInstance(self._version, payload, brand_sid=self._solution['brand_sid'])
+        data = values.of(
+            {
+                "VettingProvider": vetting_provider,
+                "VettingId": vetting_id,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, vetting_provider: "BrandVettingInstance.VettingProvider", vetting_id: Union[str, object]=values.unset) -> BrandVettingInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return BrandVettingInstance(
+            self._version, payload, brand_sid=self._solution["brand_sid"]
+        )
+
+    async def create_async(
+        self,
+        vetting_provider: "BrandVettingInstance.VettingProvider",
+        vetting_id: Union[str, object] = values.unset,
+    ) -> BrandVettingInstance:
         """
         Asynchronously create the BrandVettingInstance
 
-        :param vetting_provider: 
+        :param vetting_provider:
         :param vetting_id: The unique ID of the vetting
-        
+
         :returns: The created BrandVettingInstance
         """
-        
-        data = values.of({ 
-            'VettingProvider': vetting_provider,
-            'VettingId': vetting_id,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return BrandVettingInstance(self._version, payload, brand_sid=self._solution['brand_sid'])
-    
-    
-    def stream(self, 
-        vetting_provider: Union["BrandVettingInstance.VettingProvider", object] = values.unset,
-        
+        data = values.of(
+            {
+                "VettingProvider": vetting_provider,
+                "VettingId": vetting_id,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return BrandVettingInstance(
+            self._version, payload, brand_sid=self._solution["brand_sid"]
+        )
+
+    def stream(
+        self,
+        vetting_provider: Union[
+            "BrandVettingInstance.VettingProvider", object
+        ] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[BrandVettingInstance]:
@@ -278,7 +303,7 @@ class BrandVettingList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param &quot;BrandVettingInstance.VettingProvider&quot; vetting_provider: The third-party provider of the vettings to read
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -291,15 +316,16 @@ class BrandVettingList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
-            vetting_provider=vetting_provider,
-            page_size=limits['page_size']
+            vetting_provider=vetting_provider, page_size=limits["page_size"]
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        vetting_provider: Union["BrandVettingInstance.VettingProvider", object] = values.unset,
-        
+    async def stream_async(
+        self,
+        vetting_provider: Union[
+            "BrandVettingInstance.VettingProvider", object
+        ] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[BrandVettingInstance]:
@@ -308,7 +334,7 @@ class BrandVettingList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param &quot;BrandVettingInstance.VettingProvider&quot; vetting_provider: The third-party provider of the vettings to read
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -321,15 +347,16 @@ class BrandVettingList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            vetting_provider=vetting_provider,
-            page_size=limits['page_size']
+            vetting_provider=vetting_provider, page_size=limits["page_size"]
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        vetting_provider: Union["BrandVettingInstance.VettingProvider", object] = values.unset,
-        
+    def list(
+        self,
+        vetting_provider: Union[
+            "BrandVettingInstance.VettingProvider", object
+        ] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[BrandVettingInstance]:
@@ -337,7 +364,7 @@ class BrandVettingList(ListResource):
         Lists BrandVettingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param &quot;BrandVettingInstance.VettingProvider&quot; vetting_provider: The third-party provider of the vettings to read
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -348,15 +375,19 @@ class BrandVettingList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            vetting_provider=vetting_provider,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                vetting_provider=vetting_provider,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        vetting_provider: Union["BrandVettingInstance.VettingProvider", object] = values.unset,
-        
+    async def list_async(
+        self,
+        vetting_provider: Union[
+            "BrandVettingInstance.VettingProvider", object
+        ] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[BrandVettingInstance]:
@@ -364,7 +395,7 @@ class BrandVettingList(ListResource):
         Asynchronously lists BrandVettingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param &quot;BrandVettingInstance.VettingProvider&quot; vetting_provider: The third-party provider of the vettings to read
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -375,15 +406,20 @@ class BrandVettingList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            vetting_provider=vetting_provider,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                vetting_provider=vetting_provider,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        vetting_provider: Union["BrandVettingInstance.VettingProvider", object] = values.unset,
-        
+    def page(
+        self,
+        vetting_provider: Union[
+            "BrandVettingInstance.VettingProvider", object
+        ] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -391,7 +427,7 @@ class BrandVettingList(ListResource):
         """
         Retrieve a single page of BrandVettingInstance records from the API.
         Request is executed immediately
-        
+
         :param vetting_provider: The third-party provider of the vettings to read
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -399,19 +435,23 @@ class BrandVettingList(ListResource):
 
         :returns: Page of BrandVettingInstance
         """
-        data = values.of({ 
-            'VettingProvider': vetting_provider,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "VettingProvider": vetting_provider,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return BrandVettingPage(self._version, response, self._solution)
 
-    async def page_async(self, 
-        vetting_provider: Union["BrandVettingInstance.VettingProvider", object] = values.unset,
-        
+    async def page_async(
+        self,
+        vetting_provider: Union[
+            "BrandVettingInstance.VettingProvider", object
+        ] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -419,7 +459,7 @@ class BrandVettingList(ListResource):
         """
         Asynchronously retrieve a single page of BrandVettingInstance records from the API.
         Request is executed immediately
-        
+
         :param vetting_provider: The third-party provider of the vettings to read
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -427,14 +467,18 @@ class BrandVettingList(ListResource):
 
         :returns: Page of BrandVettingInstance
         """
-        data = values.of({ 
-            'VettingProvider': vetting_provider,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "VettingProvider": vetting_provider,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return BrandVettingPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> BrandVettingPage:
@@ -446,10 +490,7 @@ class BrandVettingList(ListResource):
 
         :returns: Page of BrandVettingInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return BrandVettingPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> BrandVettingPage:
@@ -461,29 +502,32 @@ class BrandVettingList(ListResource):
 
         :returns: Page of BrandVettingInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return BrandVettingPage(self._version, response, self._solution)
-
-
 
     def get(self, brand_vetting_sid: str) -> BrandVettingContext:
         """
         Constructs a BrandVettingContext
-        
+
         :param brand_vetting_sid: The Twilio SID of the third-party vetting record.
         """
-        return BrandVettingContext(self._version, brand_sid=self._solution['brand_sid'], brand_vetting_sid=brand_vetting_sid)
+        return BrandVettingContext(
+            self._version,
+            brand_sid=self._solution["brand_sid"],
+            brand_vetting_sid=brand_vetting_sid,
+        )
 
     def __call__(self, brand_vetting_sid: str) -> BrandVettingContext:
         """
         Constructs a BrandVettingContext
-        
+
         :param brand_vetting_sid: The Twilio SID of the third-party vetting record.
         """
-        return BrandVettingContext(self._version, brand_sid=self._solution['brand_sid'], brand_vetting_sid=brand_vetting_sid)
+        return BrandVettingContext(
+            self._version,
+            brand_sid=self._solution["brand_sid"],
+            brand_vetting_sid=brand_vetting_sid,
+        )
 
     def __repr__(self) -> str:
         """
@@ -491,5 +535,4 @@ class BrandVettingList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Messaging.V1.BrandVettingList>'
-
+        return "<Twilio.Messaging.V1.BrandVettingList>"

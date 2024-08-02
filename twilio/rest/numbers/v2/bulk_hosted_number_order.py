@@ -12,16 +12,13 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from datetime import datetime
+from typing import Any, Dict, List, Optional, Union
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
 
 
 class BulkHostedNumberOrderInstance(InstanceResource):
@@ -43,22 +40,33 @@ class BulkHostedNumberOrderInstance(InstanceResource):
     :ivar results: Contains a list of all the individual hosting orders and their information, for this Bulk request. Each result object is grouped by its order status. To see a complete list of order status, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], bulk_hosting_sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        bulk_hosting_sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.bulk_hosting_sid: Optional[str] = payload.get("bulk_hosting_sid")
-        self.request_status: Optional["BulkHostedNumberOrderInstance.RequestStatus"] = payload.get("request_status")
+        self.request_status: Optional["BulkHostedNumberOrderInstance.RequestStatus"] = (
+            payload.get("request_status")
+        )
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.notification_email: Optional[str] = payload.get("notification_email")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_completed: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_completed"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_completed: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_completed")
+        )
         self.url: Optional[str] = payload.get("url")
-        self.total_count: Optional[int] = deserialize.integer(payload.get("total_count"))
+        self.total_count: Optional[int] = deserialize.integer(
+            payload.get("total_count")
+        )
         self.results: Optional[List[Dict[str, object]]] = payload.get("results")
 
-        
-        self._solution = { 
+        self._solution = {
             "bulk_hosting_sid": bulk_hosting_sid or self.bulk_hosting_sid,
         }
         self._context: Optional[BulkHostedNumberOrderContext] = None
@@ -72,38 +80,49 @@ class BulkHostedNumberOrderInstance(InstanceResource):
         :returns: BulkHostedNumberOrderContext for this BulkHostedNumberOrderInstance
         """
         if self._context is None:
-            self._context = BulkHostedNumberOrderContext(self._version, bulk_hosting_sid=self._solution['bulk_hosting_sid'],)
+            self._context = BulkHostedNumberOrderContext(
+                self._version,
+                bulk_hosting_sid=self._solution["bulk_hosting_sid"],
+            )
         return self._context
-    
-    
-    def fetch(self, order_status: Union[str, object]=values.unset) -> "BulkHostedNumberOrderInstance":
+
+    def fetch(
+        self, order_status: Union[str, object] = values.unset
+    ) -> "BulkHostedNumberOrderInstance":
         """
         Fetch the BulkHostedNumberOrderInstance
-        
+
         :param order_status: Order status can be used for filtering on Hosted Number Order status values. To see a complete list of order statuses, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
 
         :returns: The fetched BulkHostedNumberOrderInstance
         """
-        return self._proxy.fetch(order_status=order_status, )
+        return self._proxy.fetch(
+            order_status=order_status,
+        )
 
-    async def fetch_async(self, order_status: Union[str, object]=values.unset) -> "BulkHostedNumberOrderInstance":
+    async def fetch_async(
+        self, order_status: Union[str, object] = values.unset
+    ) -> "BulkHostedNumberOrderInstance":
         """
         Asynchronous coroutine to fetch the BulkHostedNumberOrderInstance
-        
+
         :param order_status: Order status can be used for filtering on Hosted Number Order status values. To see a complete list of order statuses, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
 
         :returns: The fetched BulkHostedNumberOrderInstance
         """
-        return await self._proxy.fetch_async(order_status=order_status, )
-    
+        return await self._proxy.fetch_async(
+            order_status=order_status,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Numbers.V2.BulkHostedNumberOrderInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Numbers.V2.BulkHostedNumberOrderInstance {}>".format(context)
+
 
 class BulkHostedNumberOrderContext(InstanceContext):
 
@@ -116,143 +135,150 @@ class BulkHostedNumberOrderContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'bulk_hosting_sid': bulk_hosting_sid,
+        self._solution = {
+            "bulk_hosting_sid": bulk_hosting_sid,
         }
-        self._uri = '/HostedNumber/Orders/Bulk/{bulk_hosting_sid}'.format(**self._solution)
-        
-    
-    
-    def fetch(self, order_status: Union[str, object]=values.unset) -> BulkHostedNumberOrderInstance:
+        self._uri = "/HostedNumber/Orders/Bulk/{bulk_hosting_sid}".format(
+            **self._solution
+        )
+
+    def fetch(
+        self, order_status: Union[str, object] = values.unset
+    ) -> BulkHostedNumberOrderInstance:
         """
         Fetch the BulkHostedNumberOrderInstance
-        
+
         :param order_status: Order status can be used for filtering on Hosted Number Order status values. To see a complete list of order statuses, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
 
         :returns: The fetched BulkHostedNumberOrderInstance
         """
-        
-        data = values.of({ 
-            'OrderStatus': order_status,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        data = values.of(
+            {
+                "OrderStatus": order_status,
+            }
+        )
+
+        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
 
         return BulkHostedNumberOrderInstance(
             self._version,
             payload,
-            bulk_hosting_sid=self._solution['bulk_hosting_sid'],
-            
+            bulk_hosting_sid=self._solution["bulk_hosting_sid"],
         )
 
-    async def fetch_async(self, order_status: Union[str, object]=values.unset) -> BulkHostedNumberOrderInstance:
+    async def fetch_async(
+        self, order_status: Union[str, object] = values.unset
+    ) -> BulkHostedNumberOrderInstance:
         """
         Asynchronous coroutine to fetch the BulkHostedNumberOrderInstance
-        
+
         :param order_status: Order status can be used for filtering on Hosted Number Order status values. To see a complete list of order statuses, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
 
         :returns: The fetched BulkHostedNumberOrderInstance
         """
-        
-        data = values.of({ 
-            'OrderStatus': order_status,
-        })
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        data = values.of(
+            {
+                "OrderStatus": order_status,
+            }
+        )
+
+        payload = await self._version.fetch_async(
+            method="GET", uri=self._uri, params=data
+        )
 
         return BulkHostedNumberOrderInstance(
             self._version,
             payload,
-            bulk_hosting_sid=self._solution['bulk_hosting_sid'],
-            
+            bulk_hosting_sid=self._solution["bulk_hosting_sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Numbers.V2.BulkHostedNumberOrderContext {}>'.format(context)
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Numbers.V2.BulkHostedNumberOrderContext {}>".format(context)
 
 
 class BulkHostedNumberOrderList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the BulkHostedNumberOrderList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/HostedNumber/Orders/Bulk'
-        
-        
-    
-    
-    def create(self, body: Union[object, object]=values.unset) -> BulkHostedNumberOrderInstance:
+        self._uri = "/HostedNumber/Orders/Bulk"
+
+    def create(
+        self, body: Union[object, object] = values.unset
+    ) -> BulkHostedNumberOrderInstance:
         """
         Create the BulkHostedNumberOrderInstance
 
-        :param body: 
-        
+        :param body:
+
         :returns: The created BulkHostedNumberOrderInstance
         """
         data = body.to_dict()
-        
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        headers['Content-Type'] = 'application/json'
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers["Content-Type"] = "application/json"
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return BulkHostedNumberOrderInstance(self._version, payload)
 
-    async def create_async(self, body: Union[object, object]=values.unset) -> BulkHostedNumberOrderInstance:
+    async def create_async(
+        self, body: Union[object, object] = values.unset
+    ) -> BulkHostedNumberOrderInstance:
         """
         Asynchronously create the BulkHostedNumberOrderInstance
 
-        :param body: 
-        
+        :param body:
+
         :returns: The created BulkHostedNumberOrderInstance
         """
         data = body.to_dict()
-        
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        headers['Content-Type'] = 'application/json'
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers["Content-Type"] = "application/json"
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return BulkHostedNumberOrderInstance(self._version, payload)
-    
-
 
     def get(self, bulk_hosting_sid: str) -> BulkHostedNumberOrderContext:
         """
         Constructs a BulkHostedNumberOrderContext
-        
+
         :param bulk_hosting_sid: A 34 character string that uniquely identifies this BulkHostedNumberOrder.
         """
-        return BulkHostedNumberOrderContext(self._version, bulk_hosting_sid=bulk_hosting_sid)
+        return BulkHostedNumberOrderContext(
+            self._version, bulk_hosting_sid=bulk_hosting_sid
+        )
 
     def __call__(self, bulk_hosting_sid: str) -> BulkHostedNumberOrderContext:
         """
         Constructs a BulkHostedNumberOrderContext
-        
+
         :param bulk_hosting_sid: A 34 character string that uniquely identifies this BulkHostedNumberOrder.
         """
-        return BulkHostedNumberOrderContext(self._version, bulk_hosting_sid=bulk_hosting_sid)
+        return BulkHostedNumberOrderContext(
+            self._version, bulk_hosting_sid=bulk_hosting_sid
+        )
 
     def __repr__(self) -> str:
         """
@@ -260,5 +286,4 @@ class BulkHostedNumberOrderList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Numbers.V2.BulkHostedNumberOrderList>'
-
+        return "<Twilio.Numbers.V2.BulkHostedNumberOrderList>"

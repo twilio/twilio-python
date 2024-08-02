@@ -12,11 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Optional
 
 
 from twilio.base.list_resource import ListResource
@@ -26,29 +22,21 @@ from twilio.rest.accounts.v1.credential.aws import AwsList
 from twilio.rest.accounts.v1.credential.public_key import PublicKeyList
 
 
-
-
-
-
 class CredentialList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the CredentialList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/Credentials'
-        
+        self._uri = "/Credentials"
+
         self._aws: Optional[AwsList] = None
         self._public_key: Optional[PublicKeyList] = None
-        
-
-
 
     @property
     def aws(self) -> AwsList:
@@ -59,8 +47,6 @@ class CredentialList(ListResource):
             self._aws = AwsList(self._version)
         return self._aws
 
-
-
     @property
     def public_key(self) -> PublicKeyList:
         """
@@ -70,13 +56,10 @@ class CredentialList(ListResource):
             self._public_key = PublicKeyList(self._version)
         return self._public_key
 
-
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Accounts.V1.CredentialList>'
-
+        return "<Twilio.Accounts.V1.CredentialList>"

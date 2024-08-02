@@ -12,21 +12,20 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address import IpAddressList
+from twilio.rest.api.v2010.account.sip.ip_access_control_list.ip_address import (
+    IpAddressList,
+)
 
 
 class IpAccessControlListInstance(InstanceResource):
-
     """
     :ivar sid: A 34 character string that uniquely identifies this resource.
     :ivar account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) that owns this resource.
@@ -37,20 +36,30 @@ class IpAccessControlListInstance(InstanceResource):
     :ivar uri: The URI for this resource, relative to `https://api.twilio.com`
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
-        self.subresource_uris: Optional[Dict[str, object]] = payload.get("subresource_uris")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
         self.uri: Optional[str] = payload.get("uri")
 
-        
-        self._solution = { 
+        self._solution = {
             "account_sid": account_sid,
             "sid": sid or self.sid,
         }
@@ -65,32 +74,35 @@ class IpAccessControlListInstance(InstanceResource):
         :returns: IpAccessControlListContext for this IpAccessControlListInstance
         """
         if self._context is None:
-            self._context = IpAccessControlListContext(self._version, account_sid=self._solution['account_sid'], sid=self._solution['sid'],)
+            self._context = IpAccessControlListContext(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the IpAccessControlListInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the IpAccessControlListInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "IpAccessControlListInstance":
         """
         Fetch the IpAccessControlListInstance
-        
+
 
         :returns: The fetched IpAccessControlListInstance
         """
@@ -99,48 +111,52 @@ class IpAccessControlListInstance(InstanceResource):
     async def fetch_async(self) -> "IpAccessControlListInstance":
         """
         Asynchronous coroutine to fetch the IpAccessControlListInstance
-        
+
 
         :returns: The fetched IpAccessControlListInstance
         """
         return await self._proxy.fetch_async()
-    
-    
+
     def update(self, friendly_name: str) -> "IpAccessControlListInstance":
         """
         Update the IpAccessControlListInstance
-        
+
         :param friendly_name: A human readable descriptive text, up to 255 characters long.
 
         :returns: The updated IpAccessControlListInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+        )
 
     async def update_async(self, friendly_name: str) -> "IpAccessControlListInstance":
         """
         Asynchronous coroutine to update the IpAccessControlListInstance
-        
+
         :param friendly_name: A human readable descriptive text, up to 255 characters long.
 
         :returns: The updated IpAccessControlListInstance
         """
-        return await self._proxy.update_async(friendly_name=friendly_name, )
-    
+        return await self._proxy.update_async(
+            friendly_name=friendly_name,
+        )
+
     @property
     def ip_addresses(self) -> IpAddressList:
         """
         Access the ip_addresses
         """
         return self._proxy.ip_addresses
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.IpAccessControlListInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.IpAccessControlListInstance {}>".format(context)
+
 
 class IpAccessControlListContext(InstanceContext):
 
@@ -154,118 +170,137 @@ class IpAccessControlListContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
+        self._solution = {
+            "account_sid": account_sid,
+            "sid": sid,
         }
-        self._uri = '/Accounts/{account_sid}/SIP/IpAccessControlLists/{sid}.json'.format(**self._solution)
-        
+        self._uri = (
+            "/Accounts/{account_sid}/SIP/IpAccessControlLists/{sid}.json".format(
+                **self._solution
+            )
+        )
+
         self._ip_addresses: Optional[IpAddressList] = None
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the IpAccessControlListInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the IpAccessControlListInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> IpAccessControlListInstance:
         """
         Fetch the IpAccessControlListInstance
-        
+
 
         :returns: The fetched IpAccessControlListInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return IpAccessControlListInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> IpAccessControlListInstance:
         """
         Asynchronous coroutine to fetch the IpAccessControlListInstance
-        
+
 
         :returns: The fetched IpAccessControlListInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return IpAccessControlListInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def update(self, friendly_name: str) -> IpAccessControlListInstance:
         """
         Update the IpAccessControlListInstance
-        
+
         :param friendly_name: A human readable descriptive text, up to 255 characters long.
 
         :returns: The updated IpAccessControlListInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return IpAccessControlListInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
 
     async def update_async(self, friendly_name: str) -> IpAccessControlListInstance:
         """
         Asynchronous coroutine to update the IpAccessControlListInstance
-        
+
         :param friendly_name: A human readable descriptive text, up to 255 characters long.
 
         :returns: The updated IpAccessControlListInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return IpAccessControlListInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     @property
     def ip_addresses(self) -> IpAddressList:
         """
@@ -273,29 +308,20 @@ class IpAccessControlListContext(InstanceContext):
         """
         if self._ip_addresses is None:
             self._ip_addresses = IpAddressList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
             )
         return self._ip_addresses
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.IpAccessControlListContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.IpAccessControlListContext {}>".format(context)
 
 
 class IpAccessControlListPage(Page):
@@ -306,7 +332,9 @@ class IpAccessControlListPage(Page):
 
         :param payload: Payload response from the API
         """
-        return IpAccessControlListInstance(self._version, payload, account_sid=self._solution["account_sid"])
+        return IpAccessControlListInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -317,76 +345,76 @@ class IpAccessControlListPage(Page):
         return "<Twilio.Api.V2010.IpAccessControlListPage>"
 
 
-
-
-
 class IpAccessControlListList(ListResource):
-    
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the IpAccessControlListList
 
         :param version: Version that contains the resource
         :param account_sid: The unique id of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this resource.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/{account_sid}/SIP/IpAccessControlLists.json'.format(**self._solution)
-        
-        
-    
-    
-    
-    
+        self._solution = {
+            "account_sid": account_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/SIP/IpAccessControlLists.json".format(
+            **self._solution
+        )
+
     def create(self, friendly_name: str) -> IpAccessControlListInstance:
         """
         Create the IpAccessControlListInstance
 
         :param friendly_name: A human readable descriptive text that describes the IpAccessControlList, up to 255 characters long.
-        
+
         :returns: The created IpAccessControlListInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return IpAccessControlListInstance(self._version, payload, account_sid=self._solution['account_sid'])
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return IpAccessControlListInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
 
     async def create_async(self, friendly_name: str) -> IpAccessControlListInstance:
         """
         Asynchronously create the IpAccessControlListInstance
 
         :param friendly_name: A human readable descriptive text that describes the IpAccessControlList, up to 255 characters long.
-        
+
         :returns: The created IpAccessControlListInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return IpAccessControlListInstance(self._version, payload, account_sid=self._solution['account_sid'])
-    
-    
-    def stream(self, 
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return IpAccessControlListInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[IpAccessControlListInstance]:
@@ -395,7 +423,7 @@ class IpAccessControlListList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -406,14 +434,12 @@ class IpAccessControlListList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[IpAccessControlListInstance]:
@@ -422,7 +448,7 @@ class IpAccessControlListList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -433,14 +459,12 @@ class IpAccessControlListList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[IpAccessControlListInstance]:
@@ -448,7 +472,7 @@ class IpAccessControlListList(ListResource):
         Lists IpAccessControlListInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -458,13 +482,15 @@ class IpAccessControlListList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[IpAccessControlListInstance]:
@@ -472,7 +498,7 @@ class IpAccessControlListList(ListResource):
         Asynchronously lists IpAccessControlListInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -482,13 +508,16 @@ class IpAccessControlListList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -496,24 +525,26 @@ class IpAccessControlListList(ListResource):
         """
         Retrieve a single page of IpAccessControlListInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of IpAccessControlListInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return IpAccessControlListPage(self._version, response, self._solution)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -521,20 +552,24 @@ class IpAccessControlListList(ListResource):
         """
         Asynchronously retrieve a single page of IpAccessControlListInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of IpAccessControlListInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return IpAccessControlListPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> IpAccessControlListPage:
@@ -546,10 +581,7 @@ class IpAccessControlListList(ListResource):
 
         :returns: Page of IpAccessControlListInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return IpAccessControlListPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> IpAccessControlListPage:
@@ -561,31 +593,28 @@ class IpAccessControlListList(ListResource):
 
         :returns: Page of IpAccessControlListInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return IpAccessControlListPage(self._version, response, self._solution)
-
-
-
-
 
     def get(self, sid: str) -> IpAccessControlListContext:
         """
         Constructs a IpAccessControlListContext
-        
+
         :param sid: A 34 character string that uniquely identifies the resource to udpate.
         """
-        return IpAccessControlListContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return IpAccessControlListContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
 
     def __call__(self, sid: str) -> IpAccessControlListContext:
         """
         Constructs a IpAccessControlListContext
-        
+
         :param sid: A 34 character string that uniquely identifies the resource to udpate.
         """
-        return IpAccessControlListContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return IpAccessControlListContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
 
     def __repr__(self) -> str:
         """
@@ -593,5 +622,4 @@ class IpAccessControlListList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Api.V2010.IpAccessControlListList>'
-
+        return "<Twilio.Api.V2010.IpAccessControlListList>"

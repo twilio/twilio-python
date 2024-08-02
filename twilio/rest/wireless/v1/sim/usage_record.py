@@ -12,11 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -42,29 +40,24 @@ class UsageRecordInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any], sim_sid: str):
         super().__init__(version)
 
-        
         self.sim_sid: Optional[str] = payload.get("sim_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.period: Optional[Dict[str, object]] = payload.get("period")
         self.commands: Optional[Dict[str, object]] = payload.get("commands")
         self.data: Optional[Dict[str, object]] = payload.get("data")
 
-        
-        self._solution = { 
+        self._solution = {
             "sim_sid": sim_sid,
         }
-        
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Wireless.V1.UsageRecordInstance {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Wireless.V1.UsageRecordInstance {}>".format(context)
 
 
 class UsageRecordPage(Page):
@@ -75,7 +68,9 @@ class UsageRecordPage(Page):
 
         :param payload: Payload response from the API
         """
-        return UsageRecordInstance(self._version, payload, sim_sid=self._solution["sim_sid"])
+        return UsageRecordInstance(
+            self._version, payload, sim_sid=self._solution["sim_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -86,33 +81,29 @@ class UsageRecordPage(Page):
         return "<Twilio.Wireless.V1.UsageRecordPage>"
 
 
-
-
-
 class UsageRecordList(ListResource):
-    
+
     def __init__(self, version: Version, sim_sid: str):
         """
         Initialize the UsageRecordList
 
         :param version: Version that contains the resource
         :param sim_sid: The SID of the [Sim resource](https://www.twilio.com/docs/iot/wireless/api/sim-resource)  to read the usage from.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'sim_sid': sim_sid,  }
-        self._uri = '/Sims/{sim_sid}/UsageRecords'.format(**self._solution)
-        
-        
-    
-    def stream(self, 
+        self._solution = {
+            "sim_sid": sim_sid,
+        }
+        self._uri = "/Sims/{sim_sid}/UsageRecords".format(**self._solution)
+
+    def stream(
+        self,
         end: Union[datetime, object] = values.unset,
         start: Union[datetime, object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[UsageRecordInstance]:
@@ -121,7 +112,7 @@ class UsageRecordList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param datetime end: Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
         :param datetime start: Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
         :param &quot;UsageRecordInstance.Granularity&quot; granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
@@ -136,19 +127,16 @@ class UsageRecordList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
-            end=end,
-            start=start,
-            granularity=granularity,
-            page_size=limits['page_size']
+            end=end, start=start, granularity=granularity, page_size=limits["page_size"]
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         end: Union[datetime, object] = values.unset,
         start: Union[datetime, object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[UsageRecordInstance]:
@@ -157,7 +145,7 @@ class UsageRecordList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param datetime end: Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
         :param datetime start: Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
         :param &quot;UsageRecordInstance.Granularity&quot; granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
@@ -172,19 +160,16 @@ class UsageRecordList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            end=end,
-            start=start,
-            granularity=granularity,
-            page_size=limits['page_size']
+            end=end, start=start, granularity=granularity, page_size=limits["page_size"]
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         end: Union[datetime, object] = values.unset,
         start: Union[datetime, object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[UsageRecordInstance]:
@@ -192,7 +177,7 @@ class UsageRecordList(ListResource):
         Lists UsageRecordInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param datetime end: Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
         :param datetime start: Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
         :param &quot;UsageRecordInstance.Granularity&quot; granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
@@ -205,19 +190,21 @@ class UsageRecordList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            end=end,
-            start=start,
-            granularity=granularity,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                end=end,
+                start=start,
+                granularity=granularity,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         end: Union[datetime, object] = values.unset,
         start: Union[datetime, object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[UsageRecordInstance]:
@@ -225,7 +212,7 @@ class UsageRecordList(ListResource):
         Asynchronously lists UsageRecordInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param datetime end: Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
         :param datetime start: Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
         :param &quot;UsageRecordInstance.Granularity&quot; granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
@@ -238,19 +225,22 @@ class UsageRecordList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            end=end,
-            start=start,
-            granularity=granularity,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                end=end,
+                start=start,
+                granularity=granularity,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         end: Union[datetime, object] = values.unset,
         start: Union[datetime, object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -258,7 +248,7 @@ class UsageRecordList(ListResource):
         """
         Retrieve a single page of UsageRecordInstance records from the API.
         Request is executed immediately
-        
+
         :param end: Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
         :param start: Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
         :param granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
@@ -268,23 +258,25 @@ class UsageRecordList(ListResource):
 
         :returns: Page of UsageRecordInstance
         """
-        data = values.of({ 
-            'End': serialize.iso8601_datetime(end),
-            'Start': serialize.iso8601_datetime(start),
-            'Granularity': granularity,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "End": serialize.iso8601_datetime(end),
+                "Start": serialize.iso8601_datetime(start),
+                "Granularity": granularity,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return UsageRecordPage(self._version, response, self._solution)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         end: Union[datetime, object] = values.unset,
         start: Union[datetime, object] = values.unset,
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -292,7 +284,7 @@ class UsageRecordList(ListResource):
         """
         Asynchronously retrieve a single page of UsageRecordInstance records from the API.
         Request is executed immediately
-        
+
         :param end: Only include usage that occurred on or before this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is the current time.
         :param start: Only include usage that has occurred on or after this date, specified in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is one month before the `end` parameter value.
         :param granularity: How to summarize the usage by time. Can be: `daily`, `hourly`, or `all`. The default is `all`. A value of `all` returns one Usage Record that describes the usage for the entire period.
@@ -302,16 +294,20 @@ class UsageRecordList(ListResource):
 
         :returns: Page of UsageRecordInstance
         """
-        data = values.of({ 
-            'End': serialize.iso8601_datetime(end),
-            'Start': serialize.iso8601_datetime(start),
-            'Granularity': granularity,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "End": serialize.iso8601_datetime(end),
+                "Start": serialize.iso8601_datetime(start),
+                "Granularity": granularity,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return UsageRecordPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> UsageRecordPage:
@@ -323,10 +319,7 @@ class UsageRecordList(ListResource):
 
         :returns: Page of UsageRecordInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return UsageRecordPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> UsageRecordPage:
@@ -338,14 +331,8 @@ class UsageRecordList(ListResource):
 
         :returns: Page of UsageRecordInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return UsageRecordPage(self._version, response, self._solution)
-
-
-
 
     def __repr__(self) -> str:
         """
@@ -353,5 +340,4 @@ class UsageRecordList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Wireless.V1.UsageRecordList>'
-
+        return "<Twilio.Wireless.V1.UsageRecordList>"

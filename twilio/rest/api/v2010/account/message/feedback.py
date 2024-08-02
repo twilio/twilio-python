@@ -12,16 +12,13 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from datetime import datetime
+from typing import Any, Dict, Optional, Union
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
 
 
 class FeedbackInstance(InstanceResource):
@@ -39,38 +36,43 @@ class FeedbackInstance(InstanceResource):
     :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, message_sid: str):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        message_sid: str,
+    ):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.message_sid: Optional[str] = payload.get("message_sid")
         self.outcome: Optional["FeedbackInstance.Outcome"] = payload.get("outcome")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
         self.uri: Optional[str] = payload.get("uri")
 
-        
-        self._solution = { 
+        self._solution = {
             "account_sid": account_sid,
             "message_sid": message_sid,
         }
-        
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.FeedbackInstance {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.FeedbackInstance {}>".format(context)
 
 
 class FeedbackList(ListResource):
-    
+
     def __init__(self, version: Version, account_sid: str, message_sid: str):
         """
         Initialize the FeedbackList
@@ -78,61 +80,78 @@ class FeedbackList(ListResource):
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with the Message resource for which to create MessageFeedback.
         :param message_sid: The SID of the Message resource for which to create MessageFeedback.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'account_sid': account_sid, 'message_sid': message_sid,  }
-        self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Feedback.json'.format(**self._solution)
-        
-        
-    
-    def create(self, outcome: Union["FeedbackInstance.Outcome", object]=values.unset) -> FeedbackInstance:
+        self._solution = {
+            "account_sid": account_sid,
+            "message_sid": message_sid,
+        }
+        self._uri = (
+            "/Accounts/{account_sid}/Messages/{message_sid}/Feedback.json".format(
+                **self._solution
+            )
+        )
+
+    def create(
+        self, outcome: Union["FeedbackInstance.Outcome", object] = values.unset
+    ) -> FeedbackInstance:
         """
         Create the FeedbackInstance
 
-        :param outcome: 
-        
+        :param outcome:
+
         :returns: The created FeedbackInstance
         """
-        
-        data = values.of({ 
-            'Outcome': outcome,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return FeedbackInstance(self._version, payload, account_sid=self._solution['account_sid'], message_sid=self._solution['message_sid'])
+        data = values.of(
+            {
+                "Outcome": outcome,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, outcome: Union["FeedbackInstance.Outcome", object]=values.unset) -> FeedbackInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return FeedbackInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            message_sid=self._solution["message_sid"],
+        )
+
+    async def create_async(
+        self, outcome: Union["FeedbackInstance.Outcome", object] = values.unset
+    ) -> FeedbackInstance:
         """
         Asynchronously create the FeedbackInstance
 
-        :param outcome: 
-        
+        :param outcome:
+
         :returns: The created FeedbackInstance
         """
-        
-        data = values.of({ 
-            'Outcome': outcome,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return FeedbackInstance(self._version, payload, account_sid=self._solution['account_sid'], message_sid=self._solution['message_sid'])
-    
+        data = values.of(
+            {
+                "Outcome": outcome,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
+        return FeedbackInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            message_sid=self._solution["message_sid"],
+        )
 
     def __repr__(self) -> str:
         """
@@ -140,5 +159,4 @@ class FeedbackList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Api.V2010.FeedbackList>'
-
+        return "<Twilio.Api.V2010.FeedbackList>"

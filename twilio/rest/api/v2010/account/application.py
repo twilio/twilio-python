@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -25,7 +23,6 @@ from twilio.base.page import Page
 
 
 class ApplicationInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resource.
     :ivar api_version: The API version used to start a new TwiML session.
@@ -50,16 +47,27 @@ class ApplicationInstance(InstanceResource):
     :ivar public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.api_version: Optional[str] = payload.get("api_version")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
         self.friendly_name: Optional[str] = payload.get("friendly_name")
-        self.message_status_callback: Optional[str] = payload.get("message_status_callback")
+        self.message_status_callback: Optional[str] = payload.get(
+            "message_status_callback"
+        )
         self.sid: Optional[str] = payload.get("sid")
         self.sms_fallback_method: Optional[str] = payload.get("sms_fallback_method")
         self.sms_fallback_url: Optional[str] = payload.get("sms_fallback_url")
@@ -67,17 +75,22 @@ class ApplicationInstance(InstanceResource):
         self.sms_status_callback: Optional[str] = payload.get("sms_status_callback")
         self.sms_url: Optional[str] = payload.get("sms_url")
         self.status_callback: Optional[str] = payload.get("status_callback")
-        self.status_callback_method: Optional[str] = payload.get("status_callback_method")
+        self.status_callback_method: Optional[str] = payload.get(
+            "status_callback_method"
+        )
         self.uri: Optional[str] = payload.get("uri")
-        self.voice_caller_id_lookup: Optional[bool] = payload.get("voice_caller_id_lookup")
+        self.voice_caller_id_lookup: Optional[bool] = payload.get(
+            "voice_caller_id_lookup"
+        )
         self.voice_fallback_method: Optional[str] = payload.get("voice_fallback_method")
         self.voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
         self.voice_method: Optional[str] = payload.get("voice_method")
         self.voice_url: Optional[str] = payload.get("voice_url")
-        self.public_application_connect_enabled: Optional[bool] = payload.get("public_application_connect_enabled")
+        self.public_application_connect_enabled: Optional[bool] = payload.get(
+            "public_application_connect_enabled"
+        )
 
-        
-        self._solution = { 
+        self._solution = {
             "account_sid": account_sid,
             "sid": sid or self.sid,
         }
@@ -92,32 +105,35 @@ class ApplicationInstance(InstanceResource):
         :returns: ApplicationContext for this ApplicationInstance
         """
         if self._context is None:
-            self._context = ApplicationContext(self._version, account_sid=self._solution['account_sid'], sid=self._solution['sid'],)
+            self._context = ApplicationContext(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the ApplicationInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ApplicationInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "ApplicationInstance":
         """
         Fetch the ApplicationInstance
-        
+
 
         :returns: The fetched ApplicationInstance
         """
@@ -126,17 +142,34 @@ class ApplicationInstance(InstanceResource):
     async def fetch_async(self) -> "ApplicationInstance":
         """
         Asynchronous coroutine to fetch the ApplicationInstance
-        
+
 
         :returns: The fetched ApplicationInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, api_version: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, voice_caller_id_lookup: Union[bool, object]=values.unset, sms_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, sms_status_callback: Union[str, object]=values.unset, message_status_callback: Union[str, object]=values.unset, public_application_connect_enabled: Union[bool, object]=values.unset) -> "ApplicationInstance":
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        api_version: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_status_callback: Union[str, object] = values.unset,
+        message_status_callback: Union[str, object] = values.unset,
+        public_application_connect_enabled: Union[bool, object] = values.unset,
+    ) -> "ApplicationInstance":
         """
         Update the ApplicationInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
         :param voice_url: The URL we should call when the phone number assigned to this application receives a call.
@@ -156,12 +189,47 @@ class ApplicationInstance(InstanceResource):
 
         :returns: The updated ApplicationInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, api_version=api_version, voice_url=voice_url, voice_method=voice_method, voice_fallback_url=voice_fallback_url, voice_fallback_method=voice_fallback_method, status_callback=status_callback, status_callback_method=status_callback_method, voice_caller_id_lookup=voice_caller_id_lookup, sms_url=sms_url, sms_method=sms_method, sms_fallback_url=sms_fallback_url, sms_fallback_method=sms_fallback_method, sms_status_callback=sms_status_callback, message_status_callback=message_status_callback, public_application_connect_enabled=public_application_connect_enabled, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            api_version=api_version,
+            voice_url=voice_url,
+            voice_method=voice_method,
+            voice_fallback_url=voice_fallback_url,
+            voice_fallback_method=voice_fallback_method,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            voice_caller_id_lookup=voice_caller_id_lookup,
+            sms_url=sms_url,
+            sms_method=sms_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_fallback_method=sms_fallback_method,
+            sms_status_callback=sms_status_callback,
+            message_status_callback=message_status_callback,
+            public_application_connect_enabled=public_application_connect_enabled,
+        )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, api_version: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, voice_caller_id_lookup: Union[bool, object]=values.unset, sms_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, sms_status_callback: Union[str, object]=values.unset, message_status_callback: Union[str, object]=values.unset, public_application_connect_enabled: Union[bool, object]=values.unset) -> "ApplicationInstance":
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        api_version: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_status_callback: Union[str, object] = values.unset,
+        message_status_callback: Union[str, object] = values.unset,
+        public_application_connect_enabled: Union[bool, object] = values.unset,
+    ) -> "ApplicationInstance":
         """
         Asynchronous coroutine to update the ApplicationInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
         :param voice_url: The URL we should call when the phone number assigned to this application receives a call.
@@ -181,16 +249,34 @@ class ApplicationInstance(InstanceResource):
 
         :returns: The updated ApplicationInstance
         """
-        return await self._proxy.update_async(friendly_name=friendly_name, api_version=api_version, voice_url=voice_url, voice_method=voice_method, voice_fallback_url=voice_fallback_url, voice_fallback_method=voice_fallback_method, status_callback=status_callback, status_callback_method=status_callback_method, voice_caller_id_lookup=voice_caller_id_lookup, sms_url=sms_url, sms_method=sms_method, sms_fallback_url=sms_fallback_url, sms_fallback_method=sms_fallback_method, sms_status_callback=sms_status_callback, message_status_callback=message_status_callback, public_application_connect_enabled=public_application_connect_enabled, )
-    
+        return await self._proxy.update_async(
+            friendly_name=friendly_name,
+            api_version=api_version,
+            voice_url=voice_url,
+            voice_method=voice_method,
+            voice_fallback_url=voice_fallback_url,
+            voice_fallback_method=voice_fallback_method,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            voice_caller_id_lookup=voice_caller_id_lookup,
+            sms_url=sms_url,
+            sms_method=sms_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_fallback_method=sms_fallback_method,
+            sms_status_callback=sms_status_callback,
+            message_status_callback=message_status_callback,
+            public_application_connect_enabled=public_application_connect_enabled,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.ApplicationInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.ApplicationInstance {}>".format(context)
+
 
 class ApplicationContext(InstanceContext):
 
@@ -204,76 +290,101 @@ class ApplicationContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
+        self._solution = {
+            "account_sid": account_sid,
+            "sid": sid,
         }
-        self._uri = '/Accounts/{account_sid}/Applications/{sid}.json'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Accounts/{account_sid}/Applications/{sid}.json".format(
+            **self._solution
+        )
+
     def delete(self) -> bool:
         """
         Deletes the ApplicationInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ApplicationInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> ApplicationInstance:
         """
         Fetch the ApplicationInstance
-        
+
 
         :returns: The fetched ApplicationInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ApplicationInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> ApplicationInstance:
         """
         Asynchronous coroutine to fetch the ApplicationInstance
-        
+
 
         :returns: The fetched ApplicationInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ApplicationInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, api_version: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, voice_caller_id_lookup: Union[bool, object]=values.unset, sms_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, sms_status_callback: Union[str, object]=values.unset, message_status_callback: Union[str, object]=values.unset, public_application_connect_enabled: Union[bool, object]=values.unset) -> ApplicationInstance:
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        api_version: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_status_callback: Union[str, object] = values.unset,
+        message_status_callback: Union[str, object] = values.unset,
+        public_application_connect_enabled: Union[bool, object] = values.unset,
+    ) -> ApplicationInstance:
         """
         Update the ApplicationInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
         :param voice_url: The URL we should call when the phone number assigned to this application receives a call.
@@ -293,39 +404,66 @@ class ApplicationContext(InstanceContext):
 
         :returns: The updated ApplicationInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ApiVersion': api_version,
-            'VoiceUrl': voice_url,
-            'VoiceMethod': voice_method,
-            'VoiceFallbackUrl': voice_fallback_url,
-            'VoiceFallbackMethod': voice_fallback_method,
-            'StatusCallback': status_callback,
-            'StatusCallbackMethod': status_callback_method,
-            'VoiceCallerIdLookup': serialize.boolean_to_string(voice_caller_id_lookup),
-            'SmsUrl': sms_url,
-            'SmsMethod': sms_method,
-            'SmsFallbackUrl': sms_fallback_url,
-            'SmsFallbackMethod': sms_fallback_method,
-            'SmsStatusCallback': sms_status_callback,
-            'MessageStatusCallback': message_status_callback,
-            'PublicApplicationConnectEnabled': serialize.boolean_to_string(public_application_connect_enabled),
-        })
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ApiVersion": api_version,
+                "VoiceUrl": voice_url,
+                "VoiceMethod": voice_method,
+                "VoiceFallbackUrl": voice_fallback_url,
+                "VoiceFallbackMethod": voice_fallback_method,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+                "VoiceCallerIdLookup": serialize.boolean_to_string(
+                    voice_caller_id_lookup
+                ),
+                "SmsUrl": sms_url,
+                "SmsMethod": sms_method,
+                "SmsFallbackUrl": sms_fallback_url,
+                "SmsFallbackMethod": sms_fallback_method,
+                "SmsStatusCallback": sms_status_callback,
+                "MessageStatusCallback": message_status_callback,
+                "PublicApplicationConnectEnabled": serialize.boolean_to_string(
+                    public_application_connect_enabled
+                ),
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return ApplicationInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, api_version: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, voice_caller_id_lookup: Union[bool, object]=values.unset, sms_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, sms_status_callback: Union[str, object]=values.unset, message_status_callback: Union[str, object]=values.unset, public_application_connect_enabled: Union[bool, object]=values.unset) -> ApplicationInstance:
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        api_version: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_status_callback: Union[str, object] = values.unset,
+        message_status_callback: Union[str, object] = values.unset,
+        public_application_connect_enabled: Union[bool, object] = values.unset,
+    ) -> ApplicationInstance:
         """
         Asynchronous coroutine to update the ApplicationInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param api_version: The API version to use to start a new TwiML session. Can be: `2010-04-01` or `2008-08-01`. The default value is your account's default API version.
         :param voice_url: The URL we should call when the phone number assigned to this application receives a call.
@@ -345,53 +483,52 @@ class ApplicationContext(InstanceContext):
 
         :returns: The updated ApplicationInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'ApiVersion': api_version,
-            'VoiceUrl': voice_url,
-            'VoiceMethod': voice_method,
-            'VoiceFallbackUrl': voice_fallback_url,
-            'VoiceFallbackMethod': voice_fallback_method,
-            'StatusCallback': status_callback,
-            'StatusCallbackMethod': status_callback_method,
-            'VoiceCallerIdLookup': serialize.boolean_to_string(voice_caller_id_lookup),
-            'SmsUrl': sms_url,
-            'SmsMethod': sms_method,
-            'SmsFallbackUrl': sms_fallback_url,
-            'SmsFallbackMethod': sms_fallback_method,
-            'SmsStatusCallback': sms_status_callback,
-            'MessageStatusCallback': message_status_callback,
-            'PublicApplicationConnectEnabled': serialize.boolean_to_string(public_application_connect_enabled),
-        })
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ApiVersion": api_version,
+                "VoiceUrl": voice_url,
+                "VoiceMethod": voice_method,
+                "VoiceFallbackUrl": voice_fallback_url,
+                "VoiceFallbackMethod": voice_fallback_method,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+                "VoiceCallerIdLookup": serialize.boolean_to_string(
+                    voice_caller_id_lookup
+                ),
+                "SmsUrl": sms_url,
+                "SmsMethod": sms_method,
+                "SmsFallbackUrl": sms_fallback_url,
+                "SmsFallbackMethod": sms_fallback_method,
+                "SmsStatusCallback": sms_status_callback,
+                "MessageStatusCallback": message_status_callback,
+                "PublicApplicationConnectEnabled": serialize.boolean_to_string(
+                    public_application_connect_enabled
+                ),
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return ApplicationInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.ApplicationContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.ApplicationContext {}>".format(context)
 
 
 class ApplicationPage(Page):
@@ -402,7 +539,9 @@ class ApplicationPage(Page):
 
         :param payload: Payload response from the API
         """
-        return ApplicationInstance(self._version, payload, account_sid=self._solution["account_sid"])
+        return ApplicationInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -413,32 +552,43 @@ class ApplicationPage(Page):
         return "<Twilio.Api.V2010.ApplicationPage>"
 
 
-
-
-
 class ApplicationList(ListResource):
-    
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ApplicationList
 
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Application resources to read.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/{account_sid}/Applications.json'.format(**self._solution)
-        
-        
-    
-    
-    
-    
-    def create(self, api_version: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, voice_caller_id_lookup: Union[bool, object]=values.unset, sms_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, sms_status_callback: Union[str, object]=values.unset, message_status_callback: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, public_application_connect_enabled: Union[bool, object]=values.unset) -> ApplicationInstance:
+        self._solution = {
+            "account_sid": account_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Applications.json".format(**self._solution)
+
+    def create(
+        self,
+        api_version: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_status_callback: Union[str, object] = values.unset,
+        message_status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        public_application_connect_enabled: Union[bool, object] = values.unset,
+    ) -> ApplicationInstance:
         """
         Create the ApplicationInstance
 
@@ -458,38 +608,63 @@ class ApplicationList(ListResource):
         :param message_status_callback: The URL we should call using a POST method to send message status information to your application.
         :param friendly_name: A descriptive string that you create to describe the new application. It can be up to 64 characters long.
         :param public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
-        
+
         :returns: The created ApplicationInstance
         """
-        
-        data = values.of({ 
-            'ApiVersion': api_version,
-            'VoiceUrl': voice_url,
-            'VoiceMethod': voice_method,
-            'VoiceFallbackUrl': voice_fallback_url,
-            'VoiceFallbackMethod': voice_fallback_method,
-            'StatusCallback': status_callback,
-            'StatusCallbackMethod': status_callback_method,
-            'VoiceCallerIdLookup': serialize.boolean_to_string(voice_caller_id_lookup),
-            'SmsUrl': sms_url,
-            'SmsMethod': sms_method,
-            'SmsFallbackUrl': sms_fallback_url,
-            'SmsFallbackMethod': sms_fallback_method,
-            'SmsStatusCallback': sms_status_callback,
-            'MessageStatusCallback': message_status_callback,
-            'FriendlyName': friendly_name,
-            'PublicApplicationConnectEnabled': serialize.boolean_to_string(public_application_connect_enabled),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return ApplicationInstance(self._version, payload, account_sid=self._solution['account_sid'])
+        data = values.of(
+            {
+                "ApiVersion": api_version,
+                "VoiceUrl": voice_url,
+                "VoiceMethod": voice_method,
+                "VoiceFallbackUrl": voice_fallback_url,
+                "VoiceFallbackMethod": voice_fallback_method,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+                "VoiceCallerIdLookup": serialize.boolean_to_string(
+                    voice_caller_id_lookup
+                ),
+                "SmsUrl": sms_url,
+                "SmsMethod": sms_method,
+                "SmsFallbackUrl": sms_fallback_url,
+                "SmsFallbackMethod": sms_fallback_method,
+                "SmsStatusCallback": sms_status_callback,
+                "MessageStatusCallback": message_status_callback,
+                "FriendlyName": friendly_name,
+                "PublicApplicationConnectEnabled": serialize.boolean_to_string(
+                    public_application_connect_enabled
+                ),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, api_version: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, voice_caller_id_lookup: Union[bool, object]=values.unset, sms_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, sms_status_callback: Union[str, object]=values.unset, message_status_callback: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, public_application_connect_enabled: Union[bool, object]=values.unset) -> ApplicationInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ApplicationInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    async def create_async(
+        self,
+        api_version: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_status_callback: Union[str, object] = values.unset,
+        message_status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        public_application_connect_enabled: Union[bool, object] = values.unset,
+    ) -> ApplicationInstance:
         """
         Asynchronously create the ApplicationInstance
 
@@ -509,41 +684,47 @@ class ApplicationList(ListResource):
         :param message_status_callback: The URL we should call using a POST method to send message status information to your application.
         :param friendly_name: A descriptive string that you create to describe the new application. It can be up to 64 characters long.
         :param public_application_connect_enabled: Whether to allow other Twilio accounts to dial this applicaton using Dial verb. Can be: `true` or `false`.
-        
+
         :returns: The created ApplicationInstance
         """
-        
-        data = values.of({ 
-            'ApiVersion': api_version,
-            'VoiceUrl': voice_url,
-            'VoiceMethod': voice_method,
-            'VoiceFallbackUrl': voice_fallback_url,
-            'VoiceFallbackMethod': voice_fallback_method,
-            'StatusCallback': status_callback,
-            'StatusCallbackMethod': status_callback_method,
-            'VoiceCallerIdLookup': serialize.boolean_to_string(voice_caller_id_lookup),
-            'SmsUrl': sms_url,
-            'SmsMethod': sms_method,
-            'SmsFallbackUrl': sms_fallback_url,
-            'SmsFallbackMethod': sms_fallback_method,
-            'SmsStatusCallback': sms_status_callback,
-            'MessageStatusCallback': message_status_callback,
-            'FriendlyName': friendly_name,
-            'PublicApplicationConnectEnabled': serialize.boolean_to_string(public_application_connect_enabled),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return ApplicationInstance(self._version, payload, account_sid=self._solution['account_sid'])
-    
-    
-    def stream(self, 
+        data = values.of(
+            {
+                "ApiVersion": api_version,
+                "VoiceUrl": voice_url,
+                "VoiceMethod": voice_method,
+                "VoiceFallbackUrl": voice_fallback_url,
+                "VoiceFallbackMethod": voice_fallback_method,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+                "VoiceCallerIdLookup": serialize.boolean_to_string(
+                    voice_caller_id_lookup
+                ),
+                "SmsUrl": sms_url,
+                "SmsMethod": sms_method,
+                "SmsFallbackUrl": sms_fallback_url,
+                "SmsFallbackMethod": sms_fallback_method,
+                "SmsStatusCallback": sms_status_callback,
+                "MessageStatusCallback": message_status_callback,
+                "FriendlyName": friendly_name,
+                "PublicApplicationConnectEnabled": serialize.boolean_to_string(
+                    public_application_connect_enabled
+                ),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ApplicationInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def stream(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ApplicationInstance]:
@@ -552,7 +733,7 @@ class ApplicationList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str friendly_name: The string that identifies the Application resources to read.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -564,16 +745,13 @@ class ApplicationList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            friendly_name=friendly_name,
-            page_size=limits['page_size']
-        )
+        page = self.page(friendly_name=friendly_name, page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ApplicationInstance]:
@@ -582,7 +760,7 @@ class ApplicationList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str friendly_name: The string that identifies the Application resources to read.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -595,15 +773,14 @@ class ApplicationList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            friendly_name=friendly_name,
-            page_size=limits['page_size']
+            friendly_name=friendly_name, page_size=limits["page_size"]
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ApplicationInstance]:
@@ -611,7 +788,7 @@ class ApplicationList(ListResource):
         Lists ApplicationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str friendly_name: The string that identifies the Application resources to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -622,15 +799,17 @@ class ApplicationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            friendly_name=friendly_name,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ApplicationInstance]:
@@ -638,7 +817,7 @@ class ApplicationList(ListResource):
         Asynchronously lists ApplicationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str friendly_name: The string that identifies the Application resources to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -649,15 +828,18 @@ class ApplicationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            friendly_name=friendly_name,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -665,7 +847,7 @@ class ApplicationList(ListResource):
         """
         Retrieve a single page of ApplicationInstance records from the API.
         Request is executed immediately
-        
+
         :param friendly_name: The string that identifies the Application resources to read.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -673,19 +855,21 @@ class ApplicationList(ListResource):
 
         :returns: Page of ApplicationInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return ApplicationPage(self._version, response, self._solution)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         friendly_name: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -693,7 +877,7 @@ class ApplicationList(ListResource):
         """
         Asynchronously retrieve a single page of ApplicationInstance records from the API.
         Request is executed immediately
-        
+
         :param friendly_name: The string that identifies the Application resources to read.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -701,14 +885,18 @@ class ApplicationList(ListResource):
 
         :returns: Page of ApplicationInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return ApplicationPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> ApplicationPage:
@@ -720,10 +908,7 @@ class ApplicationList(ListResource):
 
         :returns: Page of ApplicationInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return ApplicationPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> ApplicationPage:
@@ -735,29 +920,28 @@ class ApplicationList(ListResource):
 
         :returns: Page of ApplicationInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return ApplicationPage(self._version, response, self._solution)
-
-
 
     def get(self, sid: str) -> ApplicationContext:
         """
         Constructs a ApplicationContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Application resource to update.
         """
-        return ApplicationContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return ApplicationContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
 
     def __call__(self, sid: str) -> ApplicationContext:
         """
         Constructs a ApplicationContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Application resource to update.
         """
-        return ApplicationContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return ApplicationContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
 
     def __repr__(self) -> str:
         """
@@ -765,5 +949,4 @@ class ApplicationList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Api.V2010.ApplicationList>'
-
+        return "<Twilio.Api.V2010.ApplicationList>"

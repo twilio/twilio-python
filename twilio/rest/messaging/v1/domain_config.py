@@ -12,10 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from datetime import datetime
+from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -23,9 +21,7 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class DomainConfigInstance(InstanceResource):
-
     """
     :ivar domain_sid: The unique string that we created to identify the Domain resource.
     :ivar config_sid: The unique string that we created to identify the Domain config (prefix ZK).
@@ -34,26 +30,33 @@ class DomainConfigInstance(InstanceResource):
     :ivar continue_on_failure: Boolean field to set customer delivery preference when there is a failure in linkShortening service
     :ivar date_created: Date this Domain Config was created.
     :ivar date_updated: Date that this Domain Config was last updated.
-    :ivar url: 
+    :ivar url:
     :ivar disable_https: Customer's choice to send links with/without \"https://\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], domain_sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        domain_sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.domain_sid: Optional[str] = payload.get("domain_sid")
         self.config_sid: Optional[str] = payload.get("config_sid")
         self.fallback_url: Optional[str] = payload.get("fallback_url")
         self.callback_url: Optional[str] = payload.get("callback_url")
         self.continue_on_failure: Optional[bool] = payload.get("continue_on_failure")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.url: Optional[str] = payload.get("url")
         self.disable_https: Optional[bool] = payload.get("disable_https")
 
-        
-        self._solution = { 
+        self._solution = {
             "domain_sid": domain_sid or self.domain_sid,
         }
         self._context: Optional[DomainConfigContext] = None
@@ -67,14 +70,16 @@ class DomainConfigInstance(InstanceResource):
         :returns: DomainConfigContext for this DomainConfigInstance
         """
         if self._context is None:
-            self._context = DomainConfigContext(self._version, domain_sid=self._solution['domain_sid'],)
+            self._context = DomainConfigContext(
+                self._version,
+                domain_sid=self._solution["domain_sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "DomainConfigInstance":
         """
         Fetch the DomainConfigInstance
-        
+
 
         :returns: The fetched DomainConfigInstance
         """
@@ -83,17 +88,22 @@ class DomainConfigInstance(InstanceResource):
     async def fetch_async(self) -> "DomainConfigInstance":
         """
         Asynchronous coroutine to fetch the DomainConfigInstance
-        
+
 
         :returns: The fetched DomainConfigInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, fallback_url: Union[str, object]=values.unset, callback_url: Union[str, object]=values.unset, continue_on_failure: Union[bool, object]=values.unset, disable_https: Union[bool, object]=values.unset) -> "DomainConfigInstance":
+
+    def update(
+        self,
+        fallback_url: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        continue_on_failure: Union[bool, object] = values.unset,
+        disable_https: Union[bool, object] = values.unset,
+    ) -> "DomainConfigInstance":
         """
         Update the DomainConfigInstance
-        
+
         :param fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :param callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
         :param continue_on_failure: Boolean field to set customer delivery preference when there is a failure in linkShortening service
@@ -101,12 +111,23 @@ class DomainConfigInstance(InstanceResource):
 
         :returns: The updated DomainConfigInstance
         """
-        return self._proxy.update(fallback_url=fallback_url, callback_url=callback_url, continue_on_failure=continue_on_failure, disable_https=disable_https, )
+        return self._proxy.update(
+            fallback_url=fallback_url,
+            callback_url=callback_url,
+            continue_on_failure=continue_on_failure,
+            disable_https=disable_https,
+        )
 
-    async def update_async(self, fallback_url: Union[str, object]=values.unset, callback_url: Union[str, object]=values.unset, continue_on_failure: Union[bool, object]=values.unset, disable_https: Union[bool, object]=values.unset) -> "DomainConfigInstance":
+    async def update_async(
+        self,
+        fallback_url: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        continue_on_failure: Union[bool, object] = values.unset,
+        disable_https: Union[bool, object] = values.unset,
+    ) -> "DomainConfigInstance":
         """
         Asynchronous coroutine to update the DomainConfigInstance
-        
+
         :param fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :param callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
         :param continue_on_failure: Boolean field to set customer delivery preference when there is a failure in linkShortening service
@@ -114,16 +135,22 @@ class DomainConfigInstance(InstanceResource):
 
         :returns: The updated DomainConfigInstance
         """
-        return await self._proxy.update_async(fallback_url=fallback_url, callback_url=callback_url, continue_on_failure=continue_on_failure, disable_https=disable_https, )
-    
+        return await self._proxy.update_async(
+            fallback_url=fallback_url,
+            callback_url=callback_url,
+            continue_on_failure=continue_on_failure,
+            disable_https=disable_https,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.DomainConfigInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Messaging.V1.DomainConfigInstance {}>".format(context)
+
 
 class DomainConfigContext(InstanceContext):
 
@@ -136,54 +163,62 @@ class DomainConfigContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'domain_sid': domain_sid,
+        self._solution = {
+            "domain_sid": domain_sid,
         }
-        self._uri = '/LinkShortening/Domains/{domain_sid}/Config'.format(**self._solution)
-        
-    
-    
+        self._uri = "/LinkShortening/Domains/{domain_sid}/Config".format(
+            **self._solution
+        )
+
     def fetch(self) -> DomainConfigInstance:
         """
         Fetch the DomainConfigInstance
-        
+
 
         :returns: The fetched DomainConfigInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return DomainConfigInstance(
             self._version,
             payload,
-            domain_sid=self._solution['domain_sid'],
-            
+            domain_sid=self._solution["domain_sid"],
         )
 
     async def fetch_async(self) -> DomainConfigInstance:
         """
         Asynchronous coroutine to fetch the DomainConfigInstance
-        
+
 
         :returns: The fetched DomainConfigInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return DomainConfigInstance(
             self._version,
             payload,
-            domain_sid=self._solution['domain_sid'],
-            
+            domain_sid=self._solution["domain_sid"],
         )
-    
-    
-    def update(self, fallback_url: Union[str, object]=values.unset, callback_url: Union[str, object]=values.unset, continue_on_failure: Union[bool, object]=values.unset, disable_https: Union[bool, object]=values.unset) -> DomainConfigInstance:
+
+    def update(
+        self,
+        fallback_url: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        continue_on_failure: Union[bool, object] = values.unset,
+        disable_https: Union[bool, object] = values.unset,
+    ) -> DomainConfigInstance:
         """
         Update the DomainConfigInstance
-        
+
         :param fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :param callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
         :param continue_on_failure: Boolean field to set customer delivery preference when there is a failure in linkShortening service
@@ -191,26 +226,35 @@ class DomainConfigContext(InstanceContext):
 
         :returns: The updated DomainConfigInstance
         """
-        data = values.of({ 
-            'FallbackUrl': fallback_url,
-            'CallbackUrl': callback_url,
-            'ContinueOnFailure': serialize.boolean_to_string(continue_on_failure),
-            'DisableHttps': serialize.boolean_to_string(disable_https),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return DomainConfigInstance(
-            self._version,
-            payload,
-            domain_sid=self._solution['domain_sid']
+        data = values.of(
+            {
+                "FallbackUrl": fallback_url,
+                "CallbackUrl": callback_url,
+                "ContinueOnFailure": serialize.boolean_to_string(continue_on_failure),
+                "DisableHttps": serialize.boolean_to_string(disable_https),
+            }
         )
 
-    async def update_async(self, fallback_url: Union[str, object]=values.unset, callback_url: Union[str, object]=values.unset, continue_on_failure: Union[bool, object]=values.unset, disable_https: Union[bool, object]=values.unset) -> DomainConfigInstance:
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return DomainConfigInstance(
+            self._version, payload, domain_sid=self._solution["domain_sid"]
+        )
+
+    async def update_async(
+        self,
+        fallback_url: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        continue_on_failure: Union[bool, object] = values.unset,
+        disable_https: Union[bool, object] = values.unset,
+    ) -> DomainConfigInstance:
         """
         Asynchronous coroutine to update the DomainConfigInstance
-        
+
         :param fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
         :param callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
         :param continue_on_failure: Boolean field to set customer delivery preference when there is a failure in linkShortening service
@@ -218,54 +262,50 @@ class DomainConfigContext(InstanceContext):
 
         :returns: The updated DomainConfigInstance
         """
-        data = values.of({ 
-            'FallbackUrl': fallback_url,
-            'CallbackUrl': callback_url,
-            'ContinueOnFailure': serialize.boolean_to_string(continue_on_failure),
-            'DisableHttps': serialize.boolean_to_string(disable_https),
-        })
-        
+        data = values.of(
+            {
+                "FallbackUrl": fallback_url,
+                "CallbackUrl": callback_url,
+                "ContinueOnFailure": serialize.boolean_to_string(continue_on_failure),
+                "DisableHttps": serialize.boolean_to_string(disable_https),
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return DomainConfigInstance(
-            self._version,
-            payload,
-            domain_sid=self._solution['domain_sid']
+            self._version, payload, domain_sid=self._solution["domain_sid"]
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.DomainConfigContext {}>'.format(context)
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Messaging.V1.DomainConfigContext {}>".format(context)
 
 
 class DomainConfigList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the DomainConfigList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
-
-        
-        
-        
-        
 
     def get(self, domain_sid: str) -> DomainConfigContext:
         """
         Constructs a DomainConfigContext
-        
+
         :param domain_sid: Unique string used to identify the domain that this config should be associated with.
         """
         return DomainConfigContext(self._version, domain_sid=domain_sid)
@@ -273,7 +313,7 @@ class DomainConfigList(ListResource):
     def __call__(self, domain_sid: str) -> DomainConfigContext:
         """
         Constructs a DomainConfigContext
-        
+
         :param domain_sid: Unique string used to identify the domain that this config should be associated with.
         """
         return DomainConfigContext(self._version, domain_sid=domain_sid)
@@ -284,5 +324,4 @@ class DomainConfigList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Messaging.V1.DomainConfigList>'
-
+        return "<Twilio.Messaging.V1.DomainConfigList>"

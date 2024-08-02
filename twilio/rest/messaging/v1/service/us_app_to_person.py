@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -25,7 +23,6 @@ from twilio.base.page import Page
 
 
 class UsAppToPersonInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that identifies a US A2P Compliance resource `QE2c6890da8086d771620e9b13fadeba0b`.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the Campaign belongs to.
@@ -57,17 +54,26 @@ class UsAppToPersonInstance(InstanceResource):
     :ivar errors: Details indicating why a campaign registration failed. These errors can indicate one or more fields that were incorrect or did not meet review requirements.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], messaging_service_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        messaging_service_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.brand_registration_sid: Optional[str] = payload.get("brand_registration_sid")
+        self.brand_registration_sid: Optional[str] = payload.get(
+            "brand_registration_sid"
+        )
         self.messaging_service_sid: Optional[str] = payload.get("messaging_service_sid")
         self.description: Optional[str] = payload.get("description")
         self.message_samples: Optional[List[str]] = payload.get("message_samples")
-        self.us_app_to_person_usecase: Optional[str] = payload.get("us_app_to_person_usecase")
+        self.us_app_to_person_usecase: Optional[str] = payload.get(
+            "us_app_to_person_usecase"
+        )
         self.has_embedded_links: Optional[bool] = payload.get("has_embedded_links")
         self.has_embedded_phone: Optional[bool] = payload.get("has_embedded_phone")
         self.subscriber_opt_in: Optional[bool] = payload.get("subscriber_opt_in")
@@ -75,7 +81,9 @@ class UsAppToPersonInstance(InstanceResource):
         self.direct_lending: Optional[bool] = payload.get("direct_lending")
         self.campaign_status: Optional[str] = payload.get("campaign_status")
         self.campaign_id: Optional[str] = payload.get("campaign_id")
-        self.is_externally_registered: Optional[bool] = payload.get("is_externally_registered")
+        self.is_externally_registered: Optional[bool] = payload.get(
+            "is_externally_registered"
+        )
         self.rate_limits: Optional[Dict[str, object]] = payload.get("rate_limits")
         self.message_flow: Optional[str] = payload.get("message_flow")
         self.opt_in_message: Optional[str] = payload.get("opt_in_message")
@@ -84,14 +92,17 @@ class UsAppToPersonInstance(InstanceResource):
         self.opt_in_keywords: Optional[List[str]] = payload.get("opt_in_keywords")
         self.opt_out_keywords: Optional[List[str]] = payload.get("opt_out_keywords")
         self.help_keywords: Optional[List[str]] = payload.get("help_keywords")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.url: Optional[str] = payload.get("url")
         self.mock: Optional[bool] = payload.get("mock")
         self.errors: Optional[List[Dict[str, object]]] = payload.get("errors")
 
-        
-        self._solution = { 
+        self._solution = {
             "messaging_service_sid": messaging_service_sid,
             "sid": sid or self.sid,
         }
@@ -106,32 +117,35 @@ class UsAppToPersonInstance(InstanceResource):
         :returns: UsAppToPersonContext for this UsAppToPersonInstance
         """
         if self._context is None:
-            self._context = UsAppToPersonContext(self._version, messaging_service_sid=self._solution['messaging_service_sid'], sid=self._solution['sid'],)
+            self._context = UsAppToPersonContext(
+                self._version,
+                messaging_service_sid=self._solution["messaging_service_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the UsAppToPersonInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the UsAppToPersonInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "UsAppToPersonInstance":
         """
         Fetch the UsAppToPersonInstance
-        
+
 
         :returns: The fetched UsAppToPersonInstance
         """
@@ -140,17 +154,25 @@ class UsAppToPersonInstance(InstanceResource):
     async def fetch_async(self) -> "UsAppToPersonInstance":
         """
         Asynchronous coroutine to fetch the UsAppToPersonInstance
-        
+
 
         :returns: The fetched UsAppToPersonInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, has_embedded_links: bool, has_embedded_phone: bool, message_samples: List[str], message_flow: str, description: str, age_gated: bool, direct_lending: bool) -> "UsAppToPersonInstance":
+
+    def update(
+        self,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        message_samples: List[str],
+        message_flow: str,
+        description: str,
+        age_gated: bool,
+        direct_lending: bool,
+    ) -> "UsAppToPersonInstance":
         """
         Update the UsAppToPersonInstance
-        
+
         :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
         :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
         :param message_samples: An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
@@ -161,12 +183,29 @@ class UsAppToPersonInstance(InstanceResource):
 
         :returns: The updated UsAppToPersonInstance
         """
-        return self._proxy.update(has_embedded_links=has_embedded_links, has_embedded_phone=has_embedded_phone, message_samples=message_samples, message_flow=message_flow, description=description, age_gated=age_gated, direct_lending=direct_lending, )
+        return self._proxy.update(
+            has_embedded_links=has_embedded_links,
+            has_embedded_phone=has_embedded_phone,
+            message_samples=message_samples,
+            message_flow=message_flow,
+            description=description,
+            age_gated=age_gated,
+            direct_lending=direct_lending,
+        )
 
-    async def update_async(self, has_embedded_links: bool, has_embedded_phone: bool, message_samples: List[str], message_flow: str, description: str, age_gated: bool, direct_lending: bool) -> "UsAppToPersonInstance":
+    async def update_async(
+        self,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        message_samples: List[str],
+        message_flow: str,
+        description: str,
+        age_gated: bool,
+        direct_lending: bool,
+    ) -> "UsAppToPersonInstance":
         """
         Asynchronous coroutine to update the UsAppToPersonInstance
-        
+
         :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
         :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
         :param message_samples: An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
@@ -177,16 +216,25 @@ class UsAppToPersonInstance(InstanceResource):
 
         :returns: The updated UsAppToPersonInstance
         """
-        return await self._proxy.update_async(has_embedded_links=has_embedded_links, has_embedded_phone=has_embedded_phone, message_samples=message_samples, message_flow=message_flow, description=description, age_gated=age_gated, direct_lending=direct_lending, )
-    
+        return await self._proxy.update_async(
+            has_embedded_links=has_embedded_links,
+            has_embedded_phone=has_embedded_phone,
+            message_samples=message_samples,
+            message_flow=message_flow,
+            description=description,
+            age_gated=age_gated,
+            direct_lending=direct_lending,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.UsAppToPersonInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Messaging.V1.UsAppToPersonInstance {}>".format(context)
+
 
 class UsAppToPersonContext(InstanceContext):
 
@@ -200,76 +248,92 @@ class UsAppToPersonContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'messaging_service_sid': messaging_service_sid,
-            'sid': sid,
+        self._solution = {
+            "messaging_service_sid": messaging_service_sid,
+            "sid": sid,
         }
-        self._uri = '/Services/{messaging_service_sid}/Compliance/Usa2p/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Services/{messaging_service_sid}/Compliance/Usa2p/{sid}".format(
+            **self._solution
+        )
+
     def delete(self) -> bool:
         """
         Deletes the UsAppToPersonInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the UsAppToPersonInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> UsAppToPersonInstance:
         """
         Fetch the UsAppToPersonInstance
-        
+
 
         :returns: The fetched UsAppToPersonInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return UsAppToPersonInstance(
             self._version,
             payload,
-            messaging_service_sid=self._solution['messaging_service_sid'],
-            sid=self._solution['sid'],
-            
+            messaging_service_sid=self._solution["messaging_service_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> UsAppToPersonInstance:
         """
         Asynchronous coroutine to fetch the UsAppToPersonInstance
-        
+
 
         :returns: The fetched UsAppToPersonInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return UsAppToPersonInstance(
             self._version,
             payload,
-            messaging_service_sid=self._solution['messaging_service_sid'],
-            sid=self._solution['sid'],
-            
+            messaging_service_sid=self._solution["messaging_service_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, has_embedded_links: bool, has_embedded_phone: bool, message_samples: List[str], message_flow: str, description: str, age_gated: bool, direct_lending: bool) -> UsAppToPersonInstance:
+
+    def update(
+        self,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        message_samples: List[str],
+        message_flow: str,
+        description: str,
+        age_gated: bool,
+        direct_lending: bool,
+    ) -> UsAppToPersonInstance:
         """
         Update the UsAppToPersonInstance
-        
+
         :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
         :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
         :param message_samples: An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
@@ -280,30 +344,44 @@ class UsAppToPersonContext(InstanceContext):
 
         :returns: The updated UsAppToPersonInstance
         """
-        data = values.of({ 
-            'HasEmbeddedLinks': serialize.boolean_to_string(has_embedded_links),
-            'HasEmbeddedPhone': serialize.boolean_to_string(has_embedded_phone),
-            'MessageSamples': serialize.map(message_samples, lambda e: e),
-            'MessageFlow': message_flow,
-            'Description': description,
-            'AgeGated': serialize.boolean_to_string(age_gated),
-            'DirectLending': serialize.boolean_to_string(direct_lending),
-        })
-        
+        data = values.of(
+            {
+                "HasEmbeddedLinks": serialize.boolean_to_string(has_embedded_links),
+                "HasEmbeddedPhone": serialize.boolean_to_string(has_embedded_phone),
+                "MessageSamples": serialize.map(message_samples, lambda e: e),
+                "MessageFlow": message_flow,
+                "Description": description,
+                "AgeGated": serialize.boolean_to_string(age_gated),
+                "DirectLending": serialize.boolean_to_string(direct_lending),
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return UsAppToPersonInstance(
             self._version,
             payload,
-            messaging_service_sid=self._solution['messaging_service_sid'],
-            sid=self._solution['sid']
+            messaging_service_sid=self._solution["messaging_service_sid"],
+            sid=self._solution["sid"],
         )
 
-    async def update_async(self, has_embedded_links: bool, has_embedded_phone: bool, message_samples: List[str], message_flow: str, description: str, age_gated: bool, direct_lending: bool) -> UsAppToPersonInstance:
+    async def update_async(
+        self,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        message_samples: List[str],
+        message_flow: str,
+        description: str,
+        age_gated: bool,
+        direct_lending: bool,
+    ) -> UsAppToPersonInstance:
         """
         Asynchronous coroutine to update the UsAppToPersonInstance
-        
+
         :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
         :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
         :param message_samples: An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
@@ -314,44 +392,39 @@ class UsAppToPersonContext(InstanceContext):
 
         :returns: The updated UsAppToPersonInstance
         """
-        data = values.of({ 
-            'HasEmbeddedLinks': serialize.boolean_to_string(has_embedded_links),
-            'HasEmbeddedPhone': serialize.boolean_to_string(has_embedded_phone),
-            'MessageSamples': serialize.map(message_samples, lambda e: e),
-            'MessageFlow': message_flow,
-            'Description': description,
-            'AgeGated': serialize.boolean_to_string(age_gated),
-            'DirectLending': serialize.boolean_to_string(direct_lending),
-        })
-        
+        data = values.of(
+            {
+                "HasEmbeddedLinks": serialize.boolean_to_string(has_embedded_links),
+                "HasEmbeddedPhone": serialize.boolean_to_string(has_embedded_phone),
+                "MessageSamples": serialize.map(message_samples, lambda e: e),
+                "MessageFlow": message_flow,
+                "Description": description,
+                "AgeGated": serialize.boolean_to_string(age_gated),
+                "DirectLending": serialize.boolean_to_string(direct_lending),
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return UsAppToPersonInstance(
             self._version,
             payload,
-            messaging_service_sid=self._solution['messaging_service_sid'],
-            sid=self._solution['sid']
+            messaging_service_sid=self._solution["messaging_service_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Messaging.V1.UsAppToPersonContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Messaging.V1.UsAppToPersonContext {}>".format(context)
 
 
 class UsAppToPersonPage(Page):
@@ -362,7 +435,11 @@ class UsAppToPersonPage(Page):
 
         :param payload: Payload response from the API
         """
-        return UsAppToPersonInstance(self._version, payload, messaging_service_sid=self._solution["messaging_service_sid"])
+        return UsAppToPersonInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution["messaging_service_sid"],
+        )
 
     def __repr__(self) -> str:
         """
@@ -373,32 +450,45 @@ class UsAppToPersonPage(Page):
         return "<Twilio.Messaging.V1.UsAppToPersonPage>"
 
 
-
-
-
 class UsAppToPersonList(ListResource):
-    
+
     def __init__(self, version: Version, messaging_service_sid: str):
         """
         Initialize the UsAppToPersonList
 
         :param version: Version that contains the resource
         :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to fetch the resource from.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'messaging_service_sid': messaging_service_sid,  }
-        self._uri = '/Services/{messaging_service_sid}/Compliance/Usa2p'.format(**self._solution)
-        
-        
-    
-    
-    
-    
-    def create(self, brand_registration_sid: str, description: str, message_flow: str, message_samples: List[str], us_app_to_person_usecase: str, has_embedded_links: bool, has_embedded_phone: bool, opt_in_message: Union[str, object]=values.unset, opt_out_message: Union[str, object]=values.unset, help_message: Union[str, object]=values.unset, opt_in_keywords: Union[List[str], object]=values.unset, opt_out_keywords: Union[List[str], object]=values.unset, help_keywords: Union[List[str], object]=values.unset, subscriber_opt_in: Union[bool, object]=values.unset, age_gated: Union[bool, object]=values.unset, direct_lending: Union[bool, object]=values.unset) -> UsAppToPersonInstance:
+        self._solution = {
+            "messaging_service_sid": messaging_service_sid,
+        }
+        self._uri = "/Services/{messaging_service_sid}/Compliance/Usa2p".format(
+            **self._solution
+        )
+
+    def create(
+        self,
+        brand_registration_sid: str,
+        description: str,
+        message_flow: str,
+        message_samples: List[str],
+        us_app_to_person_usecase: str,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        opt_in_message: Union[str, object] = values.unset,
+        opt_out_message: Union[str, object] = values.unset,
+        help_message: Union[str, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        opt_out_keywords: Union[List[str], object] = values.unset,
+        help_keywords: Union[List[str], object] = values.unset,
+        subscriber_opt_in: Union[bool, object] = values.unset,
+        age_gated: Union[bool, object] = values.unset,
+        direct_lending: Union[bool, object] = values.unset,
+    ) -> UsAppToPersonInstance:
         """
         Create the UsAppToPersonInstance
 
@@ -418,38 +508,61 @@ class UsAppToPersonList(ListResource):
         :param subscriber_opt_in: A boolean that specifies whether campaign has Subscriber Optin or not.
         :param age_gated: A boolean that specifies whether campaign is age gated or not.
         :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
-        
+
         :returns: The created UsAppToPersonInstance
         """
-        
-        data = values.of({ 
-            'BrandRegistrationSid': brand_registration_sid,
-            'Description': description,
-            'MessageFlow': message_flow,
-            'MessageSamples': serialize.map(message_samples, lambda e: e),
-            'UsAppToPersonUsecase': us_app_to_person_usecase,
-            'HasEmbeddedLinks': serialize.boolean_to_string(has_embedded_links),
-            'HasEmbeddedPhone': serialize.boolean_to_string(has_embedded_phone),
-            'OptInMessage': opt_in_message,
-            'OptOutMessage': opt_out_message,
-            'HelpMessage': help_message,
-            'OptInKeywords': serialize.map(opt_in_keywords, lambda e: e),
-            'OptOutKeywords': serialize.map(opt_out_keywords, lambda e: e),
-            'HelpKeywords': serialize.map(help_keywords, lambda e: e),
-            'SubscriberOptIn': serialize.boolean_to_string(subscriber_opt_in),
-            'AgeGated': serialize.boolean_to_string(age_gated),
-            'DirectLending': serialize.boolean_to_string(direct_lending),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return UsAppToPersonInstance(self._version, payload, messaging_service_sid=self._solution['messaging_service_sid'])
+        data = values.of(
+            {
+                "BrandRegistrationSid": brand_registration_sid,
+                "Description": description,
+                "MessageFlow": message_flow,
+                "MessageSamples": serialize.map(message_samples, lambda e: e),
+                "UsAppToPersonUsecase": us_app_to_person_usecase,
+                "HasEmbeddedLinks": serialize.boolean_to_string(has_embedded_links),
+                "HasEmbeddedPhone": serialize.boolean_to_string(has_embedded_phone),
+                "OptInMessage": opt_in_message,
+                "OptOutMessage": opt_out_message,
+                "HelpMessage": help_message,
+                "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
+                "OptOutKeywords": serialize.map(opt_out_keywords, lambda e: e),
+                "HelpKeywords": serialize.map(help_keywords, lambda e: e),
+                "SubscriberOptIn": serialize.boolean_to_string(subscriber_opt_in),
+                "AgeGated": serialize.boolean_to_string(age_gated),
+                "DirectLending": serialize.boolean_to_string(direct_lending),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, brand_registration_sid: str, description: str, message_flow: str, message_samples: List[str], us_app_to_person_usecase: str, has_embedded_links: bool, has_embedded_phone: bool, opt_in_message: Union[str, object]=values.unset, opt_out_message: Union[str, object]=values.unset, help_message: Union[str, object]=values.unset, opt_in_keywords: Union[List[str], object]=values.unset, opt_out_keywords: Union[List[str], object]=values.unset, help_keywords: Union[List[str], object]=values.unset, subscriber_opt_in: Union[bool, object]=values.unset, age_gated: Union[bool, object]=values.unset, direct_lending: Union[bool, object]=values.unset) -> UsAppToPersonInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return UsAppToPersonInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution["messaging_service_sid"],
+        )
+
+    async def create_async(
+        self,
+        brand_registration_sid: str,
+        description: str,
+        message_flow: str,
+        message_samples: List[str],
+        us_app_to_person_usecase: str,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        opt_in_message: Union[str, object] = values.unset,
+        opt_out_message: Union[str, object] = values.unset,
+        help_message: Union[str, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        opt_out_keywords: Union[List[str], object] = values.unset,
+        help_keywords: Union[List[str], object] = values.unset,
+        subscriber_opt_in: Union[bool, object] = values.unset,
+        age_gated: Union[bool, object] = values.unset,
+        direct_lending: Union[bool, object] = values.unset,
+    ) -> UsAppToPersonInstance:
         """
         Asynchronously create the UsAppToPersonInstance
 
@@ -469,40 +582,44 @@ class UsAppToPersonList(ListResource):
         :param subscriber_opt_in: A boolean that specifies whether campaign has Subscriber Optin or not.
         :param age_gated: A boolean that specifies whether campaign is age gated or not.
         :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
-        
+
         :returns: The created UsAppToPersonInstance
         """
-        
-        data = values.of({ 
-            'BrandRegistrationSid': brand_registration_sid,
-            'Description': description,
-            'MessageFlow': message_flow,
-            'MessageSamples': serialize.map(message_samples, lambda e: e),
-            'UsAppToPersonUsecase': us_app_to_person_usecase,
-            'HasEmbeddedLinks': serialize.boolean_to_string(has_embedded_links),
-            'HasEmbeddedPhone': serialize.boolean_to_string(has_embedded_phone),
-            'OptInMessage': opt_in_message,
-            'OptOutMessage': opt_out_message,
-            'HelpMessage': help_message,
-            'OptInKeywords': serialize.map(opt_in_keywords, lambda e: e),
-            'OptOutKeywords': serialize.map(opt_out_keywords, lambda e: e),
-            'HelpKeywords': serialize.map(help_keywords, lambda e: e),
-            'SubscriberOptIn': serialize.boolean_to_string(subscriber_opt_in),
-            'AgeGated': serialize.boolean_to_string(age_gated),
-            'DirectLending': serialize.boolean_to_string(direct_lending),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return UsAppToPersonInstance(self._version, payload, messaging_service_sid=self._solution['messaging_service_sid'])
-    
-    
-    def stream(self, 
-        
+        data = values.of(
+            {
+                "BrandRegistrationSid": brand_registration_sid,
+                "Description": description,
+                "MessageFlow": message_flow,
+                "MessageSamples": serialize.map(message_samples, lambda e: e),
+                "UsAppToPersonUsecase": us_app_to_person_usecase,
+                "HasEmbeddedLinks": serialize.boolean_to_string(has_embedded_links),
+                "HasEmbeddedPhone": serialize.boolean_to_string(has_embedded_phone),
+                "OptInMessage": opt_in_message,
+                "OptOutMessage": opt_out_message,
+                "HelpMessage": help_message,
+                "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
+                "OptOutKeywords": serialize.map(opt_out_keywords, lambda e: e),
+                "HelpKeywords": serialize.map(help_keywords, lambda e: e),
+                "SubscriberOptIn": serialize.boolean_to_string(subscriber_opt_in),
+                "AgeGated": serialize.boolean_to_string(age_gated),
+                "DirectLending": serialize.boolean_to_string(direct_lending),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return UsAppToPersonInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution["messaging_service_sid"],
+        )
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[UsAppToPersonInstance]:
@@ -511,7 +628,7 @@ class UsAppToPersonList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -522,14 +639,12 @@ class UsAppToPersonList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[UsAppToPersonInstance]:
@@ -538,7 +653,7 @@ class UsAppToPersonList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -549,14 +664,12 @@ class UsAppToPersonList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[UsAppToPersonInstance]:
@@ -564,7 +677,7 @@ class UsAppToPersonList(ListResource):
         Lists UsAppToPersonInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -574,13 +687,15 @@ class UsAppToPersonList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[UsAppToPersonInstance]:
@@ -588,7 +703,7 @@ class UsAppToPersonList(ListResource):
         Asynchronously lists UsAppToPersonInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -598,13 +713,16 @@ class UsAppToPersonList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -612,24 +730,26 @@ class UsAppToPersonList(ListResource):
         """
         Retrieve a single page of UsAppToPersonInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of UsAppToPersonInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return UsAppToPersonPage(self._version, response, self._solution)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -637,20 +757,24 @@ class UsAppToPersonList(ListResource):
         """
         Asynchronously retrieve a single page of UsAppToPersonInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of UsAppToPersonInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return UsAppToPersonPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> UsAppToPersonPage:
@@ -662,10 +786,7 @@ class UsAppToPersonList(ListResource):
 
         :returns: Page of UsAppToPersonInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return UsAppToPersonPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> UsAppToPersonPage:
@@ -677,29 +798,32 @@ class UsAppToPersonList(ListResource):
 
         :returns: Page of UsAppToPersonInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return UsAppToPersonPage(self._version, response, self._solution)
-
-
 
     def get(self, sid: str) -> UsAppToPersonContext:
         """
         Constructs a UsAppToPersonContext
-        
+
         :param sid: The SID of the US A2P Compliance resource to update `QE2c6890da8086d771620e9b13fadeba0b`.
         """
-        return UsAppToPersonContext(self._version, messaging_service_sid=self._solution['messaging_service_sid'], sid=sid)
+        return UsAppToPersonContext(
+            self._version,
+            messaging_service_sid=self._solution["messaging_service_sid"],
+            sid=sid,
+        )
 
     def __call__(self, sid: str) -> UsAppToPersonContext:
         """
         Constructs a UsAppToPersonContext
-        
+
         :param sid: The SID of the US A2P Compliance resource to update `QE2c6890da8086d771620e9b13fadeba0b`.
         """
-        return UsAppToPersonContext(self._version, messaging_service_sid=self._solution['messaging_service_sid'], sid=sid)
+        return UsAppToPersonContext(
+            self._version,
+            messaging_service_sid=self._solution["messaging_service_sid"],
+            sid=sid,
+        )
 
     def __repr__(self) -> str:
         """
@@ -707,5 +831,4 @@ class UsAppToPersonList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Messaging.V1.UsAppToPersonList>'
-
+        return "<Twilio.Messaging.V1.UsAppToPersonList>"

@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -29,8 +27,12 @@ from twilio.rest.api.v2010.account.call.recording import RecordingList
 from twilio.rest.api.v2010.account.call.siprec import SiprecList
 from twilio.rest.api.v2010.account.call.stream import StreamList
 from twilio.rest.api.v2010.account.call.transcription import TranscriptionList
-from twilio.rest.api.v2010.account.call.user_defined_message import UserDefinedMessageList
-from twilio.rest.api.v2010.account.call.user_defined_message_subscription import UserDefinedMessageSubscriptionList
+from twilio.rest.api.v2010.account.call.user_defined_message import (
+    UserDefinedMessageList,
+)
+from twilio.rest.api.v2010.account.call.user_defined_message_subscription import (
+    UserDefinedMessageSubscriptionList,
+)
 
 
 class CallInstance(InstanceResource):
@@ -78,13 +80,22 @@ class CallInstance(InstanceResource):
     :ivar subresource_uris: A list of subresources available to this call, identified by their URIs relative to `https://api.twilio.com`.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
         self.parent_call_sid: Optional[str] = payload.get("parent_call_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.to: Optional[str] = payload.get("to")
@@ -93,8 +104,12 @@ class CallInstance(InstanceResource):
         self.from_formatted: Optional[str] = payload.get("from_formatted")
         self.phone_number_sid: Optional[str] = payload.get("phone_number_sid")
         self.status: Optional["CallInstance.Status"] = payload.get("status")
-        self.start_time: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("start_time"))
-        self.end_time: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("end_time"))
+        self.start_time: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("start_time")
+        )
+        self.end_time: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("end_time")
+        )
         self.duration: Optional[str] = payload.get("duration")
         self.price: Optional[str] = payload.get("price")
         self.price_unit: Optional[str] = payload.get("price_unit")
@@ -107,10 +122,11 @@ class CallInstance(InstanceResource):
         self.queue_time: Optional[str] = payload.get("queue_time")
         self.trunk_sid: Optional[str] = payload.get("trunk_sid")
         self.uri: Optional[str] = payload.get("uri")
-        self.subresource_uris: Optional[Dict[str, object]] = payload.get("subresource_uris")
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
 
-        
-        self._solution = { 
+        self._solution = {
             "account_sid": account_sid,
             "sid": sid or self.sid,
         }
@@ -125,32 +141,35 @@ class CallInstance(InstanceResource):
         :returns: CallContext for this CallInstance
         """
         if self._context is None:
-            self._context = CallContext(self._version, account_sid=self._solution['account_sid'], sid=self._solution['sid'],)
+            self._context = CallContext(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the CallInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CallInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "CallInstance":
         """
         Fetch the CallInstance
-        
+
 
         :returns: The fetched CallInstance
         """
@@ -159,20 +178,30 @@ class CallInstance(InstanceResource):
     async def fetch_async(self) -> "CallInstance":
         """
         Asynchronous coroutine to fetch the CallInstance
-        
+
 
         :returns: The fetched CallInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, url: Union[str, object]=values.unset, method: Union[str, object]=values.unset, status: Union["CallInstance.UpdateStatus", object]=values.unset, fallback_url: Union[str, object]=values.unset, fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, twiml: Union[str, object]=values.unset, time_limit: Union[int, object]=values.unset) -> "CallInstance":
+
+    def update(
+        self,
+        url: Union[str, object] = values.unset,
+        method: Union[str, object] = values.unset,
+        status: Union["CallInstance.UpdateStatus", object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        twiml: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
+    ) -> "CallInstance":
         """
         Update the CallInstance
-        
+
         :param url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
         :param method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param status: 
+        :param status:
         :param fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
         :param fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
         :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
@@ -182,15 +211,36 @@ class CallInstance(InstanceResource):
 
         :returns: The updated CallInstance
         """
-        return self._proxy.update(url=url, method=method, status=status, fallback_url=fallback_url, fallback_method=fallback_method, status_callback=status_callback, status_callback_method=status_callback_method, twiml=twiml, time_limit=time_limit, )
+        return self._proxy.update(
+            url=url,
+            method=method,
+            status=status,
+            fallback_url=fallback_url,
+            fallback_method=fallback_method,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            twiml=twiml,
+            time_limit=time_limit,
+        )
 
-    async def update_async(self, url: Union[str, object]=values.unset, method: Union[str, object]=values.unset, status: Union["CallInstance.UpdateStatus", object]=values.unset, fallback_url: Union[str, object]=values.unset, fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, twiml: Union[str, object]=values.unset, time_limit: Union[int, object]=values.unset) -> "CallInstance":
+    async def update_async(
+        self,
+        url: Union[str, object] = values.unset,
+        method: Union[str, object] = values.unset,
+        status: Union["CallInstance.UpdateStatus", object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        twiml: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
+    ) -> "CallInstance":
         """
         Asynchronous coroutine to update the CallInstance
-        
+
         :param url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
         :param method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param status: 
+        :param status:
         :param fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
         :param fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
         :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
@@ -200,79 +250,90 @@ class CallInstance(InstanceResource):
 
         :returns: The updated CallInstance
         """
-        return await self._proxy.update_async(url=url, method=method, status=status, fallback_url=fallback_url, fallback_method=fallback_method, status_callback=status_callback, status_callback_method=status_callback_method, twiml=twiml, time_limit=time_limit, )
-    
+        return await self._proxy.update_async(
+            url=url,
+            method=method,
+            status=status,
+            fallback_url=fallback_url,
+            fallback_method=fallback_method,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            twiml=twiml,
+            time_limit=time_limit,
+        )
+
     @property
     def events(self) -> EventList:
         """
         Access the events
         """
         return self._proxy.events
-    
+
     @property
     def notifications(self) -> NotificationList:
         """
         Access the notifications
         """
         return self._proxy.notifications
-    
+
     @property
     def payments(self) -> PaymentList:
         """
         Access the payments
         """
         return self._proxy.payments
-    
+
     @property
     def recordings(self) -> RecordingList:
         """
         Access the recordings
         """
         return self._proxy.recordings
-    
+
     @property
     def siprec(self) -> SiprecList:
         """
         Access the siprec
         """
         return self._proxy.siprec
-    
+
     @property
     def streams(self) -> StreamList:
         """
         Access the streams
         """
         return self._proxy.streams
-    
+
     @property
     def transcriptions(self) -> TranscriptionList:
         """
         Access the transcriptions
         """
         return self._proxy.transcriptions
-    
+
     @property
     def user_defined_messages(self) -> UserDefinedMessageList:
         """
         Access the user_defined_messages
         """
         return self._proxy.user_defined_messages
-    
+
     @property
     def user_defined_message_subscriptions(self) -> UserDefinedMessageSubscriptionList:
         """
         Access the user_defined_message_subscriptions
         """
         return self._proxy.user_defined_message_subscriptions
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.CallInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.CallInstance {}>".format(context)
+
 
 class CallContext(InstanceContext):
 
@@ -286,14 +347,13 @@ class CallContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
+        self._solution = {
+            "account_sid": account_sid,
+            "sid": sid,
         }
-        self._uri = '/Accounts/{account_sid}/Calls/{sid}.json'.format(**self._solution)
-        
+        self._uri = "/Accounts/{account_sid}/Calls/{sid}.json".format(**self._solution)
+
         self._events: Optional[EventList] = None
         self._notifications: Optional[NotificationList] = None
         self._payments: Optional[PaymentList] = None
@@ -302,72 +362,92 @@ class CallContext(InstanceContext):
         self._streams: Optional[StreamList] = None
         self._transcriptions: Optional[TranscriptionList] = None
         self._user_defined_messages: Optional[UserDefinedMessageList] = None
-        self._user_defined_message_subscriptions: Optional[UserDefinedMessageSubscriptionList] = None
-    
-    
+        self._user_defined_message_subscriptions: Optional[
+            UserDefinedMessageSubscriptionList
+        ] = None
+
     def delete(self) -> bool:
         """
         Deletes the CallInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CallInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> CallInstance:
         """
         Fetch the CallInstance
-        
+
 
         :returns: The fetched CallInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return CallInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> CallInstance:
         """
         Asynchronous coroutine to fetch the CallInstance
-        
+
 
         :returns: The fetched CallInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return CallInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, url: Union[str, object]=values.unset, method: Union[str, object]=values.unset, status: Union["CallInstance.UpdateStatus", object]=values.unset, fallback_url: Union[str, object]=values.unset, fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, twiml: Union[str, object]=values.unset, time_limit: Union[int, object]=values.unset) -> CallInstance:
+
+    def update(
+        self,
+        url: Union[str, object] = values.unset,
+        method: Union[str, object] = values.unset,
+        status: Union["CallInstance.UpdateStatus", object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        twiml: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
+    ) -> CallInstance:
         """
         Update the CallInstance
-        
+
         :param url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
         :param method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param status: 
+        :param status:
         :param fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
         :param fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
         :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
@@ -377,35 +457,51 @@ class CallContext(InstanceContext):
 
         :returns: The updated CallInstance
         """
-        data = values.of({ 
-            'Url': url,
-            'Method': method,
-            'Status': status,
-            'FallbackUrl': fallback_url,
-            'FallbackMethod': fallback_method,
-            'StatusCallback': status_callback,
-            'StatusCallbackMethod': status_callback_method,
-            'Twiml': twiml,
-            'TimeLimit': time_limit,
-        })
-        
+        data = values.of(
+            {
+                "Url": url,
+                "Method": method,
+                "Status": status,
+                "FallbackUrl": fallback_url,
+                "FallbackMethod": fallback_method,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+                "Twiml": twiml,
+                "TimeLimit": time_limit,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return CallInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
 
-    async def update_async(self, url: Union[str, object]=values.unset, method: Union[str, object]=values.unset, status: Union["CallInstance.UpdateStatus", object]=values.unset, fallback_url: Union[str, object]=values.unset, fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, twiml: Union[str, object]=values.unset, time_limit: Union[int, object]=values.unset) -> CallInstance:
+    async def update_async(
+        self,
+        url: Union[str, object] = values.unset,
+        method: Union[str, object] = values.unset,
+        status: Union["CallInstance.UpdateStatus", object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        twiml: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
+    ) -> CallInstance:
         """
         Asynchronous coroutine to update the CallInstance
-        
+
         :param url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
         :param method: The HTTP method we should use when calling the `url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
-        :param status: 
+        :param status:
         :param fallback_url: The URL that we call using the `fallback_method` if an error occurs when requesting or executing the TwiML at `url`. If an `application_sid` parameter is present, this parameter is ignored.
         :param fallback_method: The HTTP method that we should use to request the `fallback_url`. Can be: `GET` or `POST` and the default is `POST`. If an `application_sid` parameter is present, this parameter is ignored.
         :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application. If no `status_callback_event` is specified, we will send the `completed` status. If an `application_sid` parameter is present, this parameter is ignored. URLs must contain a valid hostname (underscores are not permitted).
@@ -415,29 +511,33 @@ class CallContext(InstanceContext):
 
         :returns: The updated CallInstance
         """
-        data = values.of({ 
-            'Url': url,
-            'Method': method,
-            'Status': status,
-            'FallbackUrl': fallback_url,
-            'FallbackMethod': fallback_method,
-            'StatusCallback': status_callback,
-            'StatusCallbackMethod': status_callback_method,
-            'Twiml': twiml,
-            'TimeLimit': time_limit,
-        })
-        
+        data = values.of(
+            {
+                "Url": url,
+                "Method": method,
+                "Status": status,
+                "FallbackUrl": fallback_url,
+                "FallbackMethod": fallback_method,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+                "Twiml": twiml,
+                "TimeLimit": time_limit,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return CallInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     @property
     def events(self) -> EventList:
         """
@@ -445,12 +545,12 @@ class CallContext(InstanceContext):
         """
         if self._events is None:
             self._events = EventList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
             )
         return self._events
-    
+
     @property
     def notifications(self) -> NotificationList:
         """
@@ -458,12 +558,12 @@ class CallContext(InstanceContext):
         """
         if self._notifications is None:
             self._notifications = NotificationList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
             )
         return self._notifications
-    
+
     @property
     def payments(self) -> PaymentList:
         """
@@ -471,12 +571,12 @@ class CallContext(InstanceContext):
         """
         if self._payments is None:
             self._payments = PaymentList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
             )
         return self._payments
-    
+
     @property
     def recordings(self) -> RecordingList:
         """
@@ -484,12 +584,12 @@ class CallContext(InstanceContext):
         """
         if self._recordings is None:
             self._recordings = RecordingList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
             )
         return self._recordings
-    
+
     @property
     def siprec(self) -> SiprecList:
         """
@@ -497,12 +597,12 @@ class CallContext(InstanceContext):
         """
         if self._siprec is None:
             self._siprec = SiprecList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
             )
         return self._siprec
-    
+
     @property
     def streams(self) -> StreamList:
         """
@@ -510,12 +610,12 @@ class CallContext(InstanceContext):
         """
         if self._streams is None:
             self._streams = StreamList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
             )
         return self._streams
-    
+
     @property
     def transcriptions(self) -> TranscriptionList:
         """
@@ -523,12 +623,12 @@ class CallContext(InstanceContext):
         """
         if self._transcriptions is None:
             self._transcriptions = TranscriptionList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
             )
         return self._transcriptions
-    
+
     @property
     def user_defined_messages(self) -> UserDefinedMessageList:
         """
@@ -536,42 +636,35 @@ class CallContext(InstanceContext):
         """
         if self._user_defined_messages is None:
             self._user_defined_messages = UserDefinedMessageList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
             )
         return self._user_defined_messages
-    
+
     @property
     def user_defined_message_subscriptions(self) -> UserDefinedMessageSubscriptionList:
         """
         Access the user_defined_message_subscriptions
         """
         if self._user_defined_message_subscriptions is None:
-            self._user_defined_message_subscriptions = UserDefinedMessageSubscriptionList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
+            self._user_defined_message_subscriptions = (
+                UserDefinedMessageSubscriptionList(
+                    self._version,
+                    self._solution["account_sid"],
+                    self._solution["sid"],
+                )
             )
         return self._user_defined_message_subscriptions
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.CallContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.CallContext {}>".format(context)
 
 
 class CallPage(Page):
@@ -582,7 +675,9 @@ class CallPage(Page):
 
         :param payload: Payload response from the API
         """
-        return CallInstance(self._version, payload, account_sid=self._solution["account_sid"])
+        return CallInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -593,32 +688,62 @@ class CallPage(Page):
         return "<Twilio.Api.V2010.CallPage>"
 
 
-
-
-
 class CallList(ListResource):
-    
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the CallList
 
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Call resource(s) to read.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/{account_sid}/Calls.json'.format(**self._solution)
-        
-        
-    
-    
-    
-    
-    def create(self, to: str, from_: str, method: Union[str, object]=values.unset, fallback_url: Union[str, object]=values.unset, fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_event: Union[List[str], object]=values.unset, status_callback_method: Union[str, object]=values.unset, send_digits: Union[str, object]=values.unset, timeout: Union[int, object]=values.unset, record: Union[bool, object]=values.unset, recording_channels: Union[str, object]=values.unset, recording_status_callback: Union[str, object]=values.unset, recording_status_callback_method: Union[str, object]=values.unset, sip_auth_username: Union[str, object]=values.unset, sip_auth_password: Union[str, object]=values.unset, machine_detection: Union[str, object]=values.unset, machine_detection_timeout: Union[int, object]=values.unset, recording_status_callback_event: Union[List[str], object]=values.unset, trim: Union[str, object]=values.unset, caller_id: Union[str, object]=values.unset, machine_detection_speech_threshold: Union[int, object]=values.unset, machine_detection_speech_end_threshold: Union[int, object]=values.unset, machine_detection_silence_timeout: Union[int, object]=values.unset, async_amd: Union[str, object]=values.unset, async_amd_status_callback: Union[str, object]=values.unset, async_amd_status_callback_method: Union[str, object]=values.unset, byoc: Union[str, object]=values.unset, call_reason: Union[str, object]=values.unset, call_token: Union[str, object]=values.unset, recording_track: Union[str, object]=values.unset, time_limit: Union[int, object]=values.unset, url: Union[str, object]=values.unset, twiml: Union[str, object]=values.unset, application_sid: Union[str, object]=values.unset) -> CallInstance:
+        self._solution = {
+            "account_sid": account_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Calls.json".format(**self._solution)
+
+    def create(
+        self,
+        to: str,
+        from_: str,
+        method: Union[str, object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_event: Union[List[str], object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        send_digits: Union[str, object] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        record: Union[bool, object] = values.unset,
+        recording_channels: Union[str, object] = values.unset,
+        recording_status_callback: Union[str, object] = values.unset,
+        recording_status_callback_method: Union[str, object] = values.unset,
+        sip_auth_username: Union[str, object] = values.unset,
+        sip_auth_password: Union[str, object] = values.unset,
+        machine_detection: Union[str, object] = values.unset,
+        machine_detection_timeout: Union[int, object] = values.unset,
+        recording_status_callback_event: Union[List[str], object] = values.unset,
+        trim: Union[str, object] = values.unset,
+        caller_id: Union[str, object] = values.unset,
+        machine_detection_speech_threshold: Union[int, object] = values.unset,
+        machine_detection_speech_end_threshold: Union[int, object] = values.unset,
+        machine_detection_silence_timeout: Union[int, object] = values.unset,
+        async_amd: Union[str, object] = values.unset,
+        async_amd_status_callback: Union[str, object] = values.unset,
+        async_amd_status_callback_method: Union[str, object] = values.unset,
+        byoc: Union[str, object] = values.unset,
+        call_reason: Union[str, object] = values.unset,
+        call_token: Union[str, object] = values.unset,
+        recording_track: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
+        url: Union[str, object] = values.unset,
+        twiml: Union[str, object] = values.unset,
+        application_sid: Union[str, object] = values.unset,
+    ) -> CallInstance:
         """
         Create the CallInstance
 
@@ -657,57 +782,101 @@ class CallList(ListResource):
         :param url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
         :param twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url parameter. If both `twiml` and `url` are provided then `twiml` parameter will be ignored. Max 4000 characters.
         :param application_sid: The SID of the Application resource that will handle the call, if the call will be handled by an application.
-        
+
         :returns: The created CallInstance
         """
-        
-        data = values.of({ 
-            'To': to,
-            'From': from_,
-            'Method': method,
-            'FallbackUrl': fallback_url,
-            'FallbackMethod': fallback_method,
-            'StatusCallback': status_callback,
-            'StatusCallbackEvent': serialize.map(status_callback_event, lambda e: e),
-            'StatusCallbackMethod': status_callback_method,
-            'SendDigits': send_digits,
-            'Timeout': timeout,
-            'Record': serialize.boolean_to_string(record),
-            'RecordingChannels': recording_channels,
-            'RecordingStatusCallback': recording_status_callback,
-            'RecordingStatusCallbackMethod': recording_status_callback_method,
-            'SipAuthUsername': sip_auth_username,
-            'SipAuthPassword': sip_auth_password,
-            'MachineDetection': machine_detection,
-            'MachineDetectionTimeout': machine_detection_timeout,
-            'RecordingStatusCallbackEvent': serialize.map(recording_status_callback_event, lambda e: e),
-            'Trim': trim,
-            'CallerId': caller_id,
-            'MachineDetectionSpeechThreshold': machine_detection_speech_threshold,
-            'MachineDetectionSpeechEndThreshold': machine_detection_speech_end_threshold,
-            'MachineDetectionSilenceTimeout': machine_detection_silence_timeout,
-            'AsyncAmd': async_amd,
-            'AsyncAmdStatusCallback': async_amd_status_callback,
-            'AsyncAmdStatusCallbackMethod': async_amd_status_callback_method,
-            'Byoc': byoc,
-            'CallReason': call_reason,
-            'CallToken': call_token,
-            'RecordingTrack': recording_track,
-            'TimeLimit': time_limit,
-            'Url': url,
-            'Twiml': twiml,
-            'ApplicationSid': application_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return CallInstance(self._version, payload, account_sid=self._solution['account_sid'])
+        data = values.of(
+            {
+                "To": to,
+                "From": from_,
+                "Method": method,
+                "FallbackUrl": fallback_url,
+                "FallbackMethod": fallback_method,
+                "StatusCallback": status_callback,
+                "StatusCallbackEvent": serialize.map(
+                    status_callback_event, lambda e: e
+                ),
+                "StatusCallbackMethod": status_callback_method,
+                "SendDigits": send_digits,
+                "Timeout": timeout,
+                "Record": serialize.boolean_to_string(record),
+                "RecordingChannels": recording_channels,
+                "RecordingStatusCallback": recording_status_callback,
+                "RecordingStatusCallbackMethod": recording_status_callback_method,
+                "SipAuthUsername": sip_auth_username,
+                "SipAuthPassword": sip_auth_password,
+                "MachineDetection": machine_detection,
+                "MachineDetectionTimeout": machine_detection_timeout,
+                "RecordingStatusCallbackEvent": serialize.map(
+                    recording_status_callback_event, lambda e: e
+                ),
+                "Trim": trim,
+                "CallerId": caller_id,
+                "MachineDetectionSpeechThreshold": machine_detection_speech_threshold,
+                "MachineDetectionSpeechEndThreshold": machine_detection_speech_end_threshold,
+                "MachineDetectionSilenceTimeout": machine_detection_silence_timeout,
+                "AsyncAmd": async_amd,
+                "AsyncAmdStatusCallback": async_amd_status_callback,
+                "AsyncAmdStatusCallbackMethod": async_amd_status_callback_method,
+                "Byoc": byoc,
+                "CallReason": call_reason,
+                "CallToken": call_token,
+                "RecordingTrack": recording_track,
+                "TimeLimit": time_limit,
+                "Url": url,
+                "Twiml": twiml,
+                "ApplicationSid": application_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, to: str, from_: str, method: Union[str, object]=values.unset, fallback_url: Union[str, object]=values.unset, fallback_method: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_event: Union[List[str], object]=values.unset, status_callback_method: Union[str, object]=values.unset, send_digits: Union[str, object]=values.unset, timeout: Union[int, object]=values.unset, record: Union[bool, object]=values.unset, recording_channels: Union[str, object]=values.unset, recording_status_callback: Union[str, object]=values.unset, recording_status_callback_method: Union[str, object]=values.unset, sip_auth_username: Union[str, object]=values.unset, sip_auth_password: Union[str, object]=values.unset, machine_detection: Union[str, object]=values.unset, machine_detection_timeout: Union[int, object]=values.unset, recording_status_callback_event: Union[List[str], object]=values.unset, trim: Union[str, object]=values.unset, caller_id: Union[str, object]=values.unset, machine_detection_speech_threshold: Union[int, object]=values.unset, machine_detection_speech_end_threshold: Union[int, object]=values.unset, machine_detection_silence_timeout: Union[int, object]=values.unset, async_amd: Union[str, object]=values.unset, async_amd_status_callback: Union[str, object]=values.unset, async_amd_status_callback_method: Union[str, object]=values.unset, byoc: Union[str, object]=values.unset, call_reason: Union[str, object]=values.unset, call_token: Union[str, object]=values.unset, recording_track: Union[str, object]=values.unset, time_limit: Union[int, object]=values.unset, url: Union[str, object]=values.unset, twiml: Union[str, object]=values.unset, application_sid: Union[str, object]=values.unset) -> CallInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return CallInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    async def create_async(
+        self,
+        to: str,
+        from_: str,
+        method: Union[str, object] = values.unset,
+        fallback_url: Union[str, object] = values.unset,
+        fallback_method: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_event: Union[List[str], object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        send_digits: Union[str, object] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        record: Union[bool, object] = values.unset,
+        recording_channels: Union[str, object] = values.unset,
+        recording_status_callback: Union[str, object] = values.unset,
+        recording_status_callback_method: Union[str, object] = values.unset,
+        sip_auth_username: Union[str, object] = values.unset,
+        sip_auth_password: Union[str, object] = values.unset,
+        machine_detection: Union[str, object] = values.unset,
+        machine_detection_timeout: Union[int, object] = values.unset,
+        recording_status_callback_event: Union[List[str], object] = values.unset,
+        trim: Union[str, object] = values.unset,
+        caller_id: Union[str, object] = values.unset,
+        machine_detection_speech_threshold: Union[int, object] = values.unset,
+        machine_detection_speech_end_threshold: Union[int, object] = values.unset,
+        machine_detection_silence_timeout: Union[int, object] = values.unset,
+        async_amd: Union[str, object] = values.unset,
+        async_amd_status_callback: Union[str, object] = values.unset,
+        async_amd_status_callback_method: Union[str, object] = values.unset,
+        byoc: Union[str, object] = values.unset,
+        call_reason: Union[str, object] = values.unset,
+        call_token: Union[str, object] = values.unset,
+        recording_track: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
+        url: Union[str, object] = values.unset,
+        twiml: Union[str, object] = values.unset,
+        application_sid: Union[str, object] = values.unset,
+    ) -> CallInstance:
         """
         Asynchronously create the CallInstance
 
@@ -746,58 +915,65 @@ class CallList(ListResource):
         :param url: The absolute URL that returns the TwiML instructions for the call. We will call this URL using the `method` when the call connects. For more information, see the [Url Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls).
         :param twiml: TwiML instructions for the call Twilio will use without fetching Twiml from url parameter. If both `twiml` and `url` are provided then `twiml` parameter will be ignored. Max 4000 characters.
         :param application_sid: The SID of the Application resource that will handle the call, if the call will be handled by an application.
-        
+
         :returns: The created CallInstance
         """
-        
-        data = values.of({ 
-            'To': to,
-            'From': from_,
-            'Method': method,
-            'FallbackUrl': fallback_url,
-            'FallbackMethod': fallback_method,
-            'StatusCallback': status_callback,
-            'StatusCallbackEvent': serialize.map(status_callback_event, lambda e: e),
-            'StatusCallbackMethod': status_callback_method,
-            'SendDigits': send_digits,
-            'Timeout': timeout,
-            'Record': serialize.boolean_to_string(record),
-            'RecordingChannels': recording_channels,
-            'RecordingStatusCallback': recording_status_callback,
-            'RecordingStatusCallbackMethod': recording_status_callback_method,
-            'SipAuthUsername': sip_auth_username,
-            'SipAuthPassword': sip_auth_password,
-            'MachineDetection': machine_detection,
-            'MachineDetectionTimeout': machine_detection_timeout,
-            'RecordingStatusCallbackEvent': serialize.map(recording_status_callback_event, lambda e: e),
-            'Trim': trim,
-            'CallerId': caller_id,
-            'MachineDetectionSpeechThreshold': machine_detection_speech_threshold,
-            'MachineDetectionSpeechEndThreshold': machine_detection_speech_end_threshold,
-            'MachineDetectionSilenceTimeout': machine_detection_silence_timeout,
-            'AsyncAmd': async_amd,
-            'AsyncAmdStatusCallback': async_amd_status_callback,
-            'AsyncAmdStatusCallbackMethod': async_amd_status_callback_method,
-            'Byoc': byoc,
-            'CallReason': call_reason,
-            'CallToken': call_token,
-            'RecordingTrack': recording_track,
-            'TimeLimit': time_limit,
-            'Url': url,
-            'Twiml': twiml,
-            'ApplicationSid': application_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return CallInstance(self._version, payload, account_sid=self._solution['account_sid'])
-    
-    
-    def stream(self, 
+        data = values.of(
+            {
+                "To": to,
+                "From": from_,
+                "Method": method,
+                "FallbackUrl": fallback_url,
+                "FallbackMethod": fallback_method,
+                "StatusCallback": status_callback,
+                "StatusCallbackEvent": serialize.map(
+                    status_callback_event, lambda e: e
+                ),
+                "StatusCallbackMethod": status_callback_method,
+                "SendDigits": send_digits,
+                "Timeout": timeout,
+                "Record": serialize.boolean_to_string(record),
+                "RecordingChannels": recording_channels,
+                "RecordingStatusCallback": recording_status_callback,
+                "RecordingStatusCallbackMethod": recording_status_callback_method,
+                "SipAuthUsername": sip_auth_username,
+                "SipAuthPassword": sip_auth_password,
+                "MachineDetection": machine_detection,
+                "MachineDetectionTimeout": machine_detection_timeout,
+                "RecordingStatusCallbackEvent": serialize.map(
+                    recording_status_callback_event, lambda e: e
+                ),
+                "Trim": trim,
+                "CallerId": caller_id,
+                "MachineDetectionSpeechThreshold": machine_detection_speech_threshold,
+                "MachineDetectionSpeechEndThreshold": machine_detection_speech_end_threshold,
+                "MachineDetectionSilenceTimeout": machine_detection_silence_timeout,
+                "AsyncAmd": async_amd,
+                "AsyncAmdStatusCallback": async_amd_status_callback,
+                "AsyncAmdStatusCallbackMethod": async_amd_status_callback_method,
+                "Byoc": byoc,
+                "CallReason": call_reason,
+                "CallToken": call_token,
+                "RecordingTrack": recording_track,
+                "TimeLimit": time_limit,
+                "Url": url,
+                "Twiml": twiml,
+                "ApplicationSid": application_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return CallInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def stream(
+        self,
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         parent_call_sid: Union[str, object] = values.unset,
@@ -808,7 +984,6 @@ class CallList(ListResource):
         end_time: Union[datetime, object] = values.unset,
         end_time_before: Union[datetime, object] = values.unset,
         end_time_after: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[CallInstance]:
@@ -817,7 +992,7 @@ class CallList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
         :param str from_: Only include calls from this phone number, SIP address, Client identifier or SIM SID.
         :param str parent_call_sid: Only include calls spawned by calls with this SID.
@@ -849,12 +1024,13 @@ class CallList(ListResource):
             end_time=end_time,
             end_time_before=end_time_before,
             end_time_after=end_time_after,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         parent_call_sid: Union[str, object] = values.unset,
@@ -865,7 +1041,6 @@ class CallList(ListResource):
         end_time: Union[datetime, object] = values.unset,
         end_time_before: Union[datetime, object] = values.unset,
         end_time_after: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[CallInstance]:
@@ -874,7 +1049,7 @@ class CallList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
         :param str from_: Only include calls from this phone number, SIP address, Client identifier or SIM SID.
         :param str parent_call_sid: Only include calls spawned by calls with this SID.
@@ -906,12 +1081,13 @@ class CallList(ListResource):
             end_time=end_time,
             end_time_before=end_time_before,
             end_time_after=end_time_after,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         parent_call_sid: Union[str, object] = values.unset,
@@ -922,7 +1098,6 @@ class CallList(ListResource):
         end_time: Union[datetime, object] = values.unset,
         end_time_before: Union[datetime, object] = values.unset,
         end_time_after: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CallInstance]:
@@ -930,7 +1105,7 @@ class CallList(ListResource):
         Lists CallInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
         :param str from_: Only include calls from this phone number, SIP address, Client identifier or SIM SID.
         :param str parent_call_sid: Only include calls spawned by calls with this SID.
@@ -950,22 +1125,25 @@ class CallList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            to=to,
-            from_=from_,
-            parent_call_sid=parent_call_sid,
-            status=status,
-            start_time=start_time,
-            start_time_before=start_time_before,
-            start_time_after=start_time_after,
-            end_time=end_time,
-            end_time_before=end_time_before,
-            end_time_after=end_time_after,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                to=to,
+                from_=from_,
+                parent_call_sid=parent_call_sid,
+                status=status,
+                start_time=start_time,
+                start_time_before=start_time_before,
+                start_time_after=start_time_after,
+                end_time=end_time,
+                end_time_before=end_time_before,
+                end_time_after=end_time_after,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         parent_call_sid: Union[str, object] = values.unset,
@@ -976,7 +1154,6 @@ class CallList(ListResource):
         end_time: Union[datetime, object] = values.unset,
         end_time_before: Union[datetime, object] = values.unset,
         end_time_after: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CallInstance]:
@@ -984,7 +1161,7 @@ class CallList(ListResource):
         Asynchronously lists CallInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
         :param str from_: Only include calls from this phone number, SIP address, Client identifier or SIM SID.
         :param str parent_call_sid: Only include calls spawned by calls with this SID.
@@ -1004,22 +1181,26 @@ class CallList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            to=to,
-            from_=from_,
-            parent_call_sid=parent_call_sid,
-            status=status,
-            start_time=start_time,
-            start_time_before=start_time_before,
-            start_time_after=start_time_after,
-            end_time=end_time,
-            end_time_before=end_time_before,
-            end_time_after=end_time_after,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                to=to,
+                from_=from_,
+                parent_call_sid=parent_call_sid,
+                status=status,
+                start_time=start_time,
+                start_time_before=start_time_before,
+                start_time_after=start_time_after,
+                end_time=end_time,
+                end_time_before=end_time_before,
+                end_time_after=end_time_after,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         parent_call_sid: Union[str, object] = values.unset,
@@ -1030,7 +1211,6 @@ class CallList(ListResource):
         end_time: Union[datetime, object] = values.unset,
         end_time_before: Union[datetime, object] = values.unset,
         end_time_after: Union[datetime, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1038,7 +1218,7 @@ class CallList(ListResource):
         """
         Retrieve a single page of CallInstance records from the API.
         Request is executed immediately
-        
+
         :param to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
         :param from_: Only include calls from this phone number, SIP address, Client identifier or SIM SID.
         :param parent_call_sid: Only include calls spawned by calls with this SID.
@@ -1055,26 +1235,29 @@ class CallList(ListResource):
 
         :returns: Page of CallInstance
         """
-        data = values.of({ 
-            'To': to,
-            'From': from_,
-            'ParentCallSid': parent_call_sid,
-            'Status': status,
-            'StartTime': serialize.iso8601_datetime(start_time),
-            'StartTime<': serialize.iso8601_datetime(start_time_before),
-            'StartTime>': serialize.iso8601_datetime(start_time_after),
-            'EndTime': serialize.iso8601_datetime(end_time),
-            'EndTime<': serialize.iso8601_datetime(end_time_before),
-            'EndTime>': serialize.iso8601_datetime(end_time_after),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "To": to,
+                "From": from_,
+                "ParentCallSid": parent_call_sid,
+                "Status": status,
+                "StartTime": serialize.iso8601_datetime(start_time),
+                "StartTime<": serialize.iso8601_datetime(start_time_before),
+                "StartTime>": serialize.iso8601_datetime(start_time_after),
+                "EndTime": serialize.iso8601_datetime(end_time),
+                "EndTime<": serialize.iso8601_datetime(end_time_before),
+                "EndTime>": serialize.iso8601_datetime(end_time_after),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return CallPage(self._version, response, self._solution)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         parent_call_sid: Union[str, object] = values.unset,
@@ -1085,7 +1268,6 @@ class CallList(ListResource):
         end_time: Union[datetime, object] = values.unset,
         end_time_before: Union[datetime, object] = values.unset,
         end_time_after: Union[datetime, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1093,7 +1275,7 @@ class CallList(ListResource):
         """
         Asynchronously retrieve a single page of CallInstance records from the API.
         Request is executed immediately
-        
+
         :param to: Only show calls made to this phone number, SIP address, Client identifier or SIM SID.
         :param from_: Only include calls from this phone number, SIP address, Client identifier or SIM SID.
         :param parent_call_sid: Only include calls spawned by calls with this SID.
@@ -1110,23 +1292,27 @@ class CallList(ListResource):
 
         :returns: Page of CallInstance
         """
-        data = values.of({ 
-            'To': to,
-            'From': from_,
-            'ParentCallSid': parent_call_sid,
-            'Status': status,
-            'StartTime': serialize.iso8601_datetime(start_time),
-            'StartTime<': serialize.iso8601_datetime(start_time_before),
-            'StartTime>': serialize.iso8601_datetime(start_time_after),
-            'EndTime': serialize.iso8601_datetime(end_time),
-            'EndTime<': serialize.iso8601_datetime(end_time_before),
-            'EndTime>': serialize.iso8601_datetime(end_time_after),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "To": to,
+                "From": from_,
+                "ParentCallSid": parent_call_sid,
+                "Status": status,
+                "StartTime": serialize.iso8601_datetime(start_time),
+                "StartTime<": serialize.iso8601_datetime(start_time_before),
+                "StartTime>": serialize.iso8601_datetime(start_time_after),
+                "EndTime": serialize.iso8601_datetime(end_time),
+                "EndTime<": serialize.iso8601_datetime(end_time_before),
+                "EndTime>": serialize.iso8601_datetime(end_time_after),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return CallPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> CallPage:
@@ -1138,10 +1324,7 @@ class CallList(ListResource):
 
         :returns: Page of CallInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return CallPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> CallPage:
@@ -1153,47 +1336,28 @@ class CallList(ListResource):
 
         :returns: Page of CallInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return CallPage(self._version, response, self._solution)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     def get(self, sid: str) -> CallContext:
         """
         Constructs a CallContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Call resource to update
         """
-        return CallContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return CallContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
 
     def __call__(self, sid: str) -> CallContext:
         """
         Constructs a CallContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Call resource to update
         """
-        return CallContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return CallContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
 
     def __repr__(self) -> str:
         """
@@ -1201,5 +1365,4 @@ class CallList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Api.V2010.CallList>'
-
+        return "<Twilio.Api.V2010.CallList>"

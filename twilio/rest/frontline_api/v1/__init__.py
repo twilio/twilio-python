@@ -28,7 +28,7 @@ class V1(Version):
         """
         super().__init__(domain, "v1")
         self._users: Optional[UserList] = None
-        
+
     @property
     def users(self) -> UserList:
         if self._users is None:

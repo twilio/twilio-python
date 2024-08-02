@@ -12,20 +12,14 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Any, Dict, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class AppManifestInstance(InstanceResource):
-
     """
     :ivar app_sid: A 34-character string that uniquely identifies this App.
     :ivar hash: App manifest hash represented as `hash_algorithm:hash_value`.
@@ -36,14 +30,12 @@ class AppManifestInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any], app_sid: str):
         super().__init__(version)
 
-        
         self.app_sid: Optional[str] = payload.get("app_sid")
         self.hash: Optional[str] = payload.get("hash")
         self.encoded_bytes: Optional[str] = payload.get("encoded_bytes")
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "app_sid": app_sid,
         }
         self._context: Optional[AppManifestContext] = None
@@ -57,14 +49,16 @@ class AppManifestInstance(InstanceResource):
         :returns: AppManifestContext for this AppManifestInstance
         """
         if self._context is None:
-            self._context = AppManifestContext(self._version, app_sid=self._solution['app_sid'],)
+            self._context = AppManifestContext(
+                self._version,
+                app_sid=self._solution["app_sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "AppManifestInstance":
         """
         Fetch the AppManifestInstance
-        
+
 
         :returns: The fetched AppManifestInstance
         """
@@ -73,20 +67,21 @@ class AppManifestInstance(InstanceResource):
     async def fetch_async(self) -> "AppManifestInstance":
         """
         Asynchronous coroutine to fetch the AppManifestInstance
-        
+
 
         :returns: The fetched AppManifestInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Microvisor.V1.AppManifestInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Microvisor.V1.AppManifestInstance {}>".format(context)
+
 
 class AppManifestContext(InstanceContext):
 
@@ -99,93 +94,90 @@ class AppManifestContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'app_sid': app_sid,
+        self._solution = {
+            "app_sid": app_sid,
         }
-        self._uri = '/Apps/{app_sid}/Manifest'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Apps/{app_sid}/Manifest".format(**self._solution)
+
     def fetch(self) -> AppManifestInstance:
         """
         Fetch the AppManifestInstance
-        
+
 
         :returns: The fetched AppManifestInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return AppManifestInstance(
             self._version,
             payload,
-            app_sid=self._solution['app_sid'],
-            
+            app_sid=self._solution["app_sid"],
         )
 
     async def fetch_async(self) -> AppManifestInstance:
         """
         Asynchronous coroutine to fetch the AppManifestInstance
-        
+
 
         :returns: The fetched AppManifestInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return AppManifestInstance(
             self._version,
             payload,
-            app_sid=self._solution['app_sid'],
-            
+            app_sid=self._solution["app_sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Microvisor.V1.AppManifestContext {}>'.format(context)
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Microvisor.V1.AppManifestContext {}>".format(context)
 
 
 class AppManifestList(ListResource):
-    
+
     def __init__(self, version: Version, app_sid: str):
         """
         Initialize the AppManifestList
 
         :param version: Version that contains the resource
         :param app_sid: A 34-character string that uniquely identifies this App.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'app_sid': app_sid,  }
-        
-        
-        
+        self._solution = {
+            "app_sid": app_sid,
+        }
 
     def get(self) -> AppManifestContext:
         """
         Constructs a AppManifestContext
-        
+
         """
-        return AppManifestContext(self._version, app_sid=self._solution['app_sid'])
+        return AppManifestContext(self._version, app_sid=self._solution["app_sid"])
 
     def __call__(self) -> AppManifestContext:
         """
         Constructs a AppManifestContext
-        
+
         """
-        return AppManifestContext(self._version, app_sid=self._solution['app_sid'])
+        return AppManifestContext(self._version, app_sid=self._solution["app_sid"])
 
     def __repr__(self) -> str:
         """
@@ -193,5 +185,4 @@ class AppManifestList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Microvisor.V1.AppManifestList>'
-
+        return "<Twilio.Microvisor.V1.AppManifestList>"

@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -48,28 +46,36 @@ class CompositionHookInstance(InstanceResource):
     :ivar url: The absolute URL of the resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.enabled: Optional[bool] = payload.get("enabled")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.sid: Optional[str] = payload.get("sid")
         self.audio_sources: Optional[List[str]] = payload.get("audio_sources")
-        self.audio_sources_excluded: Optional[List[str]] = payload.get("audio_sources_excluded")
+        self.audio_sources_excluded: Optional[List[str]] = payload.get(
+            "audio_sources_excluded"
+        )
         self.video_layout: Optional[Dict[str, object]] = payload.get("video_layout")
         self.resolution: Optional[str] = payload.get("resolution")
         self.trim: Optional[bool] = payload.get("trim")
         self.format: Optional["CompositionHookInstance.Format"] = payload.get("format")
         self.status_callback: Optional[str] = payload.get("status_callback")
-        self.status_callback_method: Optional[str] = payload.get("status_callback_method")
+        self.status_callback_method: Optional[str] = payload.get(
+            "status_callback_method"
+        )
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "sid": sid or self.sid,
         }
         self._context: Optional[CompositionHookContext] = None
@@ -83,32 +89,34 @@ class CompositionHookInstance(InstanceResource):
         :returns: CompositionHookContext for this CompositionHookInstance
         """
         if self._context is None:
-            self._context = CompositionHookContext(self._version, sid=self._solution['sid'],)
+            self._context = CompositionHookContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the CompositionHookInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CompositionHookInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "CompositionHookInstance":
         """
         Fetch the CompositionHookInstance
-        
+
 
         :returns: The fetched CompositionHookInstance
         """
@@ -117,59 +125,105 @@ class CompositionHookInstance(InstanceResource):
     async def fetch_async(self) -> "CompositionHookInstance":
         """
         Asynchronous coroutine to fetch the CompositionHookInstance
-        
+
 
         :returns: The fetched CompositionHookInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, friendly_name: str, enabled: Union[bool, object]=values.unset, video_layout: Union[object, object]=values.unset, audio_sources: Union[List[str], object]=values.unset, audio_sources_excluded: Union[List[str], object]=values.unset, trim: Union[bool, object]=values.unset, format: Union["CompositionHookInstance.Format", object]=values.unset, resolution: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset) -> "CompositionHookInstance":
+
+    def update(
+        self,
+        friendly_name: str,
+        enabled: Union[bool, object] = values.unset,
+        video_layout: Union[object, object] = values.unset,
+        audio_sources: Union[List[str], object] = values.unset,
+        audio_sources_excluded: Union[List[str], object] = values.unset,
+        trim: Union[bool, object] = values.unset,
+        format: Union["CompositionHookInstance.Format", object] = values.unset,
+        resolution: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+    ) -> "CompositionHookInstance":
         """
         Update the CompositionHookInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to  100 characters long and it must be unique within the account.
         :param enabled: Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook never triggers.
         :param video_layout: A JSON object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
         :param audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
         :param audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
         :param trim: Whether to clip the intervals where there is no active media in the compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param format: 
+        :param format:
         :param resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
         :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
         :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
 
         :returns: The updated CompositionHookInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, enabled=enabled, video_layout=video_layout, audio_sources=audio_sources, audio_sources_excluded=audio_sources_excluded, trim=trim, format=format, resolution=resolution, status_callback=status_callback, status_callback_method=status_callback_method, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            enabled=enabled,
+            video_layout=video_layout,
+            audio_sources=audio_sources,
+            audio_sources_excluded=audio_sources_excluded,
+            trim=trim,
+            format=format,
+            resolution=resolution,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+        )
 
-    async def update_async(self, friendly_name: str, enabled: Union[bool, object]=values.unset, video_layout: Union[object, object]=values.unset, audio_sources: Union[List[str], object]=values.unset, audio_sources_excluded: Union[List[str], object]=values.unset, trim: Union[bool, object]=values.unset, format: Union["CompositionHookInstance.Format", object]=values.unset, resolution: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset) -> "CompositionHookInstance":
+    async def update_async(
+        self,
+        friendly_name: str,
+        enabled: Union[bool, object] = values.unset,
+        video_layout: Union[object, object] = values.unset,
+        audio_sources: Union[List[str], object] = values.unset,
+        audio_sources_excluded: Union[List[str], object] = values.unset,
+        trim: Union[bool, object] = values.unset,
+        format: Union["CompositionHookInstance.Format", object] = values.unset,
+        resolution: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+    ) -> "CompositionHookInstance":
         """
         Asynchronous coroutine to update the CompositionHookInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to  100 characters long and it must be unique within the account.
         :param enabled: Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook never triggers.
         :param video_layout: A JSON object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
         :param audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
         :param audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
         :param trim: Whether to clip the intervals where there is no active media in the compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param format: 
+        :param format:
         :param resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
         :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
         :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
 
         :returns: The updated CompositionHookInstance
         """
-        return await self._proxy.update_async(friendly_name=friendly_name, enabled=enabled, video_layout=video_layout, audio_sources=audio_sources, audio_sources_excluded=audio_sources_excluded, trim=trim, format=format, resolution=resolution, status_callback=status_callback, status_callback_method=status_callback_method, )
-    
+        return await self._proxy.update_async(
+            friendly_name=friendly_name,
+            enabled=enabled,
+            video_layout=video_layout,
+            audio_sources=audio_sources,
+            audio_sources_excluded=audio_sources_excluded,
+            trim=trim,
+            format=format,
+            resolution=resolution,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.CompositionHookInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Video.V1.CompositionHookInstance {}>".format(context)
+
 
 class CompositionHookContext(InstanceContext):
 
@@ -182,165 +236,194 @@ class CompositionHookContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/CompositionHooks/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/CompositionHooks/{sid}".format(**self._solution)
+
     def delete(self) -> bool:
         """
         Deletes the CompositionHookInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CompositionHookInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> CompositionHookInstance:
         """
         Fetch the CompositionHookInstance
-        
+
 
         :returns: The fetched CompositionHookInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return CompositionHookInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> CompositionHookInstance:
         """
         Asynchronous coroutine to fetch the CompositionHookInstance
-        
+
 
         :returns: The fetched CompositionHookInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return CompositionHookInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, friendly_name: str, enabled: Union[bool, object]=values.unset, video_layout: Union[object, object]=values.unset, audio_sources: Union[List[str], object]=values.unset, audio_sources_excluded: Union[List[str], object]=values.unset, trim: Union[bool, object]=values.unset, format: Union["CompositionHookInstance.Format", object]=values.unset, resolution: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset) -> CompositionHookInstance:
+
+    def update(
+        self,
+        friendly_name: str,
+        enabled: Union[bool, object] = values.unset,
+        video_layout: Union[object, object] = values.unset,
+        audio_sources: Union[List[str], object] = values.unset,
+        audio_sources_excluded: Union[List[str], object] = values.unset,
+        trim: Union[bool, object] = values.unset,
+        format: Union["CompositionHookInstance.Format", object] = values.unset,
+        resolution: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+    ) -> CompositionHookInstance:
         """
         Update the CompositionHookInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to  100 characters long and it must be unique within the account.
         :param enabled: Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook never triggers.
         :param video_layout: A JSON object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
         :param audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
         :param audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
         :param trim: Whether to clip the intervals where there is no active media in the compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param format: 
+        :param format:
         :param resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
         :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
         :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
 
         :returns: The updated CompositionHookInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Enabled': serialize.boolean_to_string(enabled),
-            'VideoLayout': serialize.object(video_layout),
-            'AudioSources': serialize.map(audio_sources, lambda e: e),
-            'AudioSourcesExcluded': serialize.map(audio_sources_excluded, lambda e: e),
-            'Trim': serialize.boolean_to_string(trim),
-            'Format': format,
-            'Resolution': resolution,
-            'StatusCallback': status_callback,
-            'StatusCallbackMethod': status_callback_method,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return CompositionHookInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Enabled": serialize.boolean_to_string(enabled),
+                "VideoLayout": serialize.object(video_layout),
+                "AudioSources": serialize.map(audio_sources, lambda e: e),
+                "AudioSourcesExcluded": serialize.map(
+                    audio_sources_excluded, lambda e: e
+                ),
+                "Trim": serialize.boolean_to_string(trim),
+                "Format": format,
+                "Resolution": resolution,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+            }
         )
 
-    async def update_async(self, friendly_name: str, enabled: Union[bool, object]=values.unset, video_layout: Union[object, object]=values.unset, audio_sources: Union[List[str], object]=values.unset, audio_sources_excluded: Union[List[str], object]=values.unset, trim: Union[bool, object]=values.unset, format: Union["CompositionHookInstance.Format", object]=values.unset, resolution: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset) -> CompositionHookInstance:
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return CompositionHookInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+
+    async def update_async(
+        self,
+        friendly_name: str,
+        enabled: Union[bool, object] = values.unset,
+        video_layout: Union[object, object] = values.unset,
+        audio_sources: Union[List[str], object] = values.unset,
+        audio_sources_excluded: Union[List[str], object] = values.unset,
+        trim: Union[bool, object] = values.unset,
+        format: Union["CompositionHookInstance.Format", object] = values.unset,
+        resolution: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+    ) -> CompositionHookInstance:
         """
         Asynchronous coroutine to update the CompositionHookInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to  100 characters long and it must be unique within the account.
         :param enabled: Whether the composition hook is active. When `true`, the composition hook will be triggered for every completed Group Room in the account. When `false`, the composition hook never triggers.
         :param video_layout: A JSON object that describes the video layout of the composition hook in terms of regions. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
         :param audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
         :param audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
         :param trim: Whether to clip the intervals where there is no active media in the compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param format: 
+        :param format:
         :param resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
         :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
         :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
 
         :returns: The updated CompositionHookInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Enabled': serialize.boolean_to_string(enabled),
-            'VideoLayout': serialize.object(video_layout),
-            'AudioSources': serialize.map(audio_sources, lambda e: e),
-            'AudioSourcesExcluded': serialize.map(audio_sources_excluded, lambda e: e),
-            'Trim': serialize.boolean_to_string(trim),
-            'Format': format,
-            'Resolution': resolution,
-            'StatusCallback': status_callback,
-            'StatusCallbackMethod': status_callback_method,
-        })
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Enabled": serialize.boolean_to_string(enabled),
+                "VideoLayout": serialize.object(video_layout),
+                "AudioSources": serialize.map(audio_sources, lambda e: e),
+                "AudioSourcesExcluded": serialize.map(
+                    audio_sources_excluded, lambda e: e
+                ),
+                "Trim": serialize.boolean_to_string(trim),
+                "Format": format,
+                "Resolution": resolution,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return CompositionHookInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+            self._version, payload, sid=self._solution["sid"]
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.CompositionHookContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Video.V1.CompositionHookContext {}>".format(context)
 
 
 class CompositionHookPage(Page):
@@ -362,29 +445,32 @@ class CompositionHookPage(Page):
         return "<Twilio.Video.V1.CompositionHookPage>"
 
 
-
-
-
 class CompositionHookList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the CompositionHookList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/CompositionHooks'
-        
-        
-    
-    
-    
-    
-    def create(self, friendly_name: str, enabled: Union[bool, object]=values.unset, video_layout: Union[object, object]=values.unset, audio_sources: Union[List[str], object]=values.unset, audio_sources_excluded: Union[List[str], object]=values.unset, resolution: Union[str, object]=values.unset, format: Union["CompositionHookInstance.Format", object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, trim: Union[bool, object]=values.unset) -> CompositionHookInstance:
+        self._uri = "/CompositionHooks"
+
+    def create(
+        self,
+        friendly_name: str,
+        enabled: Union[bool, object] = values.unset,
+        video_layout: Union[object, object] = values.unset,
+        audio_sources: Union[List[str], object] = values.unset,
+        audio_sources_excluded: Union[List[str], object] = values.unset,
+        resolution: Union[str, object] = values.unset,
+        format: Union["CompositionHookInstance.Format", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        trim: Union[bool, object] = values.unset,
+    ) -> CompositionHookInstance:
         """
         Create the CompositionHookInstance
 
@@ -394,36 +480,51 @@ class CompositionHookList(ListResource):
         :param audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
         :param audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
         :param resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param format: 
+        :param format:
         :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
         :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
         :param trim: Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        
+
         :returns: The created CompositionHookInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Enabled': serialize.boolean_to_string(enabled),
-            'VideoLayout': serialize.object(video_layout),
-            'AudioSources': serialize.map(audio_sources, lambda e: e),
-            'AudioSourcesExcluded': serialize.map(audio_sources_excluded, lambda e: e),
-            'Resolution': resolution,
-            'Format': format,
-            'StatusCallback': status_callback,
-            'StatusCallbackMethod': status_callback_method,
-            'Trim': serialize.boolean_to_string(trim),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Enabled": serialize.boolean_to_string(enabled),
+                "VideoLayout": serialize.object(video_layout),
+                "AudioSources": serialize.map(audio_sources, lambda e: e),
+                "AudioSourcesExcluded": serialize.map(
+                    audio_sources_excluded, lambda e: e
+                ),
+                "Resolution": resolution,
+                "Format": format,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+                "Trim": serialize.boolean_to_string(trim),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return CompositionHookInstance(self._version, payload)
 
-    async def create_async(self, friendly_name: str, enabled: Union[bool, object]=values.unset, video_layout: Union[object, object]=values.unset, audio_sources: Union[List[str], object]=values.unset, audio_sources_excluded: Union[List[str], object]=values.unset, resolution: Union[str, object]=values.unset, format: Union["CompositionHookInstance.Format", object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, trim: Union[bool, object]=values.unset) -> CompositionHookInstance:
+    async def create_async(
+        self,
+        friendly_name: str,
+        enabled: Union[bool, object] = values.unset,
+        video_layout: Union[object, object] = values.unset,
+        audio_sources: Union[List[str], object] = values.unset,
+        audio_sources_excluded: Union[List[str], object] = values.unset,
+        resolution: Union[str, object] = values.unset,
+        format: Union["CompositionHookInstance.Format", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        trim: Union[bool, object] = values.unset,
+    ) -> CompositionHookInstance:
         """
         Asynchronously create the CompositionHookInstance
 
@@ -433,42 +534,44 @@ class CompositionHookList(ListResource):
         :param audio_sources: An array of track names from the same group room to merge into the compositions created by the composition hook. Can include zero or more track names. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` includes tracks named `student` as well as `studentTeam`.
         :param audio_sources_excluded: An array of track names to exclude. A composition triggered by the composition hook includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which matches zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
         :param resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param format: 
+        :param format:
         :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
         :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
         :param trim: Whether to clip the intervals where there is no active media in the Compositions triggered by the composition hook. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        
+
         :returns: The created CompositionHookInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'Enabled': serialize.boolean_to_string(enabled),
-            'VideoLayout': serialize.object(video_layout),
-            'AudioSources': serialize.map(audio_sources, lambda e: e),
-            'AudioSourcesExcluded': serialize.map(audio_sources_excluded, lambda e: e),
-            'Resolution': resolution,
-            'Format': format,
-            'StatusCallback': status_callback,
-            'StatusCallbackMethod': status_callback_method,
-            'Trim': serialize.boolean_to_string(trim),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Enabled": serialize.boolean_to_string(enabled),
+                "VideoLayout": serialize.object(video_layout),
+                "AudioSources": serialize.map(audio_sources, lambda e: e),
+                "AudioSourcesExcluded": serialize.map(
+                    audio_sources_excluded, lambda e: e
+                ),
+                "Resolution": resolution,
+                "Format": format,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+                "Trim": serialize.boolean_to_string(trim),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return CompositionHookInstance(self._version, payload)
-    
-    
-    def stream(self, 
+
+    def stream(
+        self,
         enabled: Union[bool, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[CompositionHookInstance]:
@@ -477,7 +580,7 @@ class CompositionHookList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
         :param datetime date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param datetime date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -497,17 +600,17 @@ class CompositionHookList(ListResource):
             date_created_after=date_created_after,
             date_created_before=date_created_before,
             friendly_name=friendly_name,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         enabled: Union[bool, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[CompositionHookInstance]:
@@ -516,7 +619,7 @@ class CompositionHookList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
         :param datetime date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param datetime date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -536,17 +639,17 @@ class CompositionHookList(ListResource):
             date_created_after=date_created_after,
             date_created_before=date_created_before,
             friendly_name=friendly_name,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         enabled: Union[bool, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CompositionHookInstance]:
@@ -554,7 +657,7 @@ class CompositionHookList(ListResource):
         Lists CompositionHookInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
         :param datetime date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param datetime date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -568,21 +671,23 @@ class CompositionHookList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            enabled=enabled,
-            date_created_after=date_created_after,
-            date_created_before=date_created_before,
-            friendly_name=friendly_name,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                enabled=enabled,
+                date_created_after=date_created_after,
+                date_created_before=date_created_before,
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         enabled: Union[bool, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CompositionHookInstance]:
@@ -590,7 +695,7 @@ class CompositionHookList(ListResource):
         Asynchronously lists CompositionHookInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param bool enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
         :param datetime date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param datetime date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -604,21 +709,24 @@ class CompositionHookList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            enabled=enabled,
-            date_created_after=date_created_after,
-            date_created_before=date_created_before,
-            friendly_name=friendly_name,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                enabled=enabled,
+                date_created_after=date_created_after,
+                date_created_before=date_created_before,
+                friendly_name=friendly_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         enabled: Union[bool, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -626,7 +734,7 @@ class CompositionHookList(ListResource):
         """
         Retrieve a single page of CompositionHookInstance records from the API.
         Request is executed immediately
-        
+
         :param enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
         :param date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -637,25 +745,27 @@ class CompositionHookList(ListResource):
 
         :returns: Page of CompositionHookInstance
         """
-        data = values.of({ 
-            'Enabled': serialize.boolean_to_string(enabled),
-            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
-            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
-            'FriendlyName': friendly_name,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Enabled": serialize.boolean_to_string(enabled),
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return CompositionHookPage(self._version, response)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         enabled: Union[bool, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -663,7 +773,7 @@ class CompositionHookList(ListResource):
         """
         Asynchronously retrieve a single page of CompositionHookInstance records from the API.
         Request is executed immediately
-        
+
         :param enabled: Read only CompositionHook resources with an `enabled` value that matches this parameter.
         :param date_created_after: Read only CompositionHook resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
         :param date_created_before: Read only CompositionHook resources created before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone.
@@ -674,17 +784,21 @@ class CompositionHookList(ListResource):
 
         :returns: Page of CompositionHookInstance
         """
-        data = values.of({ 
-            'Enabled': serialize.boolean_to_string(enabled),
-            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
-            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
-            'FriendlyName': friendly_name,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Enabled": serialize.boolean_to_string(enabled),
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return CompositionHookPage(self._version, response)
 
     def get_page(self, target_url: str) -> CompositionHookPage:
@@ -696,10 +810,7 @@ class CompositionHookList(ListResource):
 
         :returns: Page of CompositionHookInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return CompositionHookPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> CompositionHookPage:
@@ -711,18 +822,13 @@ class CompositionHookList(ListResource):
 
         :returns: Page of CompositionHookInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return CompositionHookPage(self._version, response)
-
-
 
     def get(self, sid: str) -> CompositionHookContext:
         """
         Constructs a CompositionHookContext
-        
+
         :param sid: The SID of the CompositionHook resource to update.
         """
         return CompositionHookContext(self._version, sid=sid)
@@ -730,7 +836,7 @@ class CompositionHookList(ListResource):
     def __call__(self, sid: str) -> CompositionHookContext:
         """
         Constructs a CompositionHookContext
-        
+
         :param sid: The SID of the CompositionHook resource to update.
         """
         return CompositionHookContext(self._version, sid=sid)
@@ -741,5 +847,4 @@ class CompositionHookList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Video.V1.CompositionHookList>'
-
+        return "<Twilio.Video.V1.CompositionHookList>"

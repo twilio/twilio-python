@@ -30,7 +30,7 @@ class Marketplace(Version):
         super().__init__(domain, "marketplace")
         self._available_add_ons: Optional[AvailableAddOnList] = None
         self._installed_add_ons: Optional[InstalledAddOnList] = None
-        
+
     @property
     def available_add_ons(self) -> AvailableAddOnList:
         if self._available_add_ons is None:

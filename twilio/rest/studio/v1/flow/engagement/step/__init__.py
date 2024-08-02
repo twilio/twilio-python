@@ -12,11 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -26,7 +24,6 @@ from twilio.rest.studio.v1.flow.engagement.step.step_context import StepContextL
 
 
 class StepInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that we created to identify the Step resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Step resource.
@@ -42,10 +39,16 @@ class StepInstance(InstanceResource):
     :ivar links: The URLs of related resources.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], flow_sid: str, engagement_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        flow_sid: str,
+        engagement_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.flow_sid: Optional[str] = payload.get("flow_sid")
@@ -54,13 +57,16 @@ class StepInstance(InstanceResource):
         self.context: Optional[Dict[str, object]] = payload.get("context")
         self.transitioned_from: Optional[str] = payload.get("transitioned_from")
         self.transitioned_to: Optional[str] = payload.get("transitioned_to")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        
-        self._solution = { 
+        self._solution = {
             "flow_sid": flow_sid,
             "engagement_sid": engagement_sid,
             "sid": sid or self.sid,
@@ -76,14 +82,18 @@ class StepInstance(InstanceResource):
         :returns: StepContext for this StepInstance
         """
         if self._context is None:
-            self._context = StepContext(self._version, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'], sid=self._solution['sid'],)
+            self._context = StepContext(
+                self._version,
+                flow_sid=self._solution["flow_sid"],
+                engagement_sid=self._solution["engagement_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "StepInstance":
         """
         Fetch the StepInstance
-        
+
 
         :returns: The fetched StepInstance
         """
@@ -92,27 +102,28 @@ class StepInstance(InstanceResource):
     async def fetch_async(self) -> "StepInstance":
         """
         Asynchronous coroutine to fetch the StepInstance
-        
+
 
         :returns: The fetched StepInstance
         """
         return await self._proxy.fetch_async()
-    
+
     @property
     def step_context(self) -> StepContextList:
         """
         Access the step_context
         """
         return self._proxy.step_context
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Studio.V1.StepInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Studio.V1.StepInstance {}>".format(context)
+
 
 class StepContext(InstanceContext):
 
@@ -127,57 +138,60 @@ class StepContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'flow_sid': flow_sid,
-            'engagement_sid': engagement_sid,
-            'sid': sid,
+        self._solution = {
+            "flow_sid": flow_sid,
+            "engagement_sid": engagement_sid,
+            "sid": sid,
         }
-        self._uri = '/Flows/{flow_sid}/Engagements/{engagement_sid}/Steps/{sid}'.format(**self._solution)
-        
+        self._uri = "/Flows/{flow_sid}/Engagements/{engagement_sid}/Steps/{sid}".format(
+            **self._solution
+        )
+
         self._step_context: Optional[StepContextList] = None
-    
-    
+
     def fetch(self) -> StepInstance:
         """
         Fetch the StepInstance
-        
+
 
         :returns: The fetched StepInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return StepInstance(
             self._version,
             payload,
-            flow_sid=self._solution['flow_sid'],
-            engagement_sid=self._solution['engagement_sid'],
-            sid=self._solution['sid'],
-            
+            flow_sid=self._solution["flow_sid"],
+            engagement_sid=self._solution["engagement_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> StepInstance:
         """
         Asynchronous coroutine to fetch the StepInstance
-        
+
 
         :returns: The fetched StepInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return StepInstance(
             self._version,
             payload,
-            flow_sid=self._solution['flow_sid'],
-            engagement_sid=self._solution['engagement_sid'],
-            sid=self._solution['sid'],
-            
+            flow_sid=self._solution["flow_sid"],
+            engagement_sid=self._solution["engagement_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     @property
     def step_context(self) -> StepContextList:
         """
@@ -185,24 +199,21 @@ class StepContext(InstanceContext):
         """
         if self._step_context is None:
             self._step_context = StepContextList(
-                self._version, 
-                self._solution['flow_sid'],
-                self._solution['engagement_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["flow_sid"],
+                self._solution["engagement_sid"],
+                self._solution["sid"],
             )
         return self._step_context
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Studio.V1.StepContext {}>'.format(context)
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Studio.V1.StepContext {}>".format(context)
 
 
 class StepPage(Page):
@@ -213,7 +224,12 @@ class StepPage(Page):
 
         :param payload: Payload response from the API
         """
-        return StepInstance(self._version, payload, flow_sid=self._solution["flow_sid"], engagement_sid=self._solution["engagement_sid"])
+        return StepInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution["flow_sid"],
+            engagement_sid=self._solution["engagement_sid"],
+        )
 
     def __repr__(self) -> str:
         """
@@ -224,11 +240,8 @@ class StepPage(Page):
         return "<Twilio.Studio.V1.StepPage>"
 
 
-
-
-
 class StepList(ListResource):
-    
+
     def __init__(self, version: Version, flow_sid: str, engagement_sid: str):
         """
         Initialize the StepList
@@ -236,20 +249,21 @@ class StepList(ListResource):
         :param version: Version that contains the resource
         :param flow_sid: The SID of the Flow with the Step to read.
         :param engagement_sid: The SID of the Engagement with the Step to read.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'flow_sid': flow_sid, 'engagement_sid': engagement_sid,  }
-        self._uri = '/Flows/{flow_sid}/Engagements/{engagement_sid}/Steps'.format(**self._solution)
-        
-        
-    
-    
-    def stream(self, 
-        
+        self._solution = {
+            "flow_sid": flow_sid,
+            "engagement_sid": engagement_sid,
+        }
+        self._uri = "/Flows/{flow_sid}/Engagements/{engagement_sid}/Steps".format(
+            **self._solution
+        )
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[StepInstance]:
@@ -258,7 +272,7 @@ class StepList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -269,14 +283,12 @@ class StepList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[StepInstance]:
@@ -285,7 +297,7 @@ class StepList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -296,14 +308,12 @@ class StepList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[StepInstance]:
@@ -311,7 +321,7 @@ class StepList(ListResource):
         Lists StepInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -321,13 +331,15 @@ class StepList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[StepInstance]:
@@ -335,7 +347,7 @@ class StepList(ListResource):
         Asynchronously lists StepInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -345,13 +357,16 @@ class StepList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -359,24 +374,26 @@ class StepList(ListResource):
         """
         Retrieve a single page of StepInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of StepInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return StepPage(self._version, response, self._solution)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -384,20 +401,24 @@ class StepList(ListResource):
         """
         Asynchronously retrieve a single page of StepInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of StepInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return StepPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> StepPage:
@@ -409,10 +430,7 @@ class StepList(ListResource):
 
         :returns: Page of StepInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return StepPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> StepPage:
@@ -424,31 +442,34 @@ class StepList(ListResource):
 
         :returns: Page of StepInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return StepPage(self._version, response, self._solution)
-
-
-
-
 
     def get(self, sid: str) -> StepContext:
         """
         Constructs a StepContext
-        
+
         :param sid: The SID of the Step resource to fetch.
         """
-        return StepContext(self._version, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'], sid=sid)
+        return StepContext(
+            self._version,
+            flow_sid=self._solution["flow_sid"],
+            engagement_sid=self._solution["engagement_sid"],
+            sid=sid,
+        )
 
     def __call__(self, sid: str) -> StepContext:
         """
         Constructs a StepContext
-        
+
         :param sid: The SID of the Step resource to fetch.
         """
-        return StepContext(self._version, flow_sid=self._solution['flow_sid'], engagement_sid=self._solution['engagement_sid'], sid=sid)
+        return StepContext(
+            self._version,
+            flow_sid=self._solution["flow_sid"],
+            engagement_sid=self._solution["engagement_sid"],
+            sid=sid,
+        )
 
     def __repr__(self) -> str:
         """
@@ -456,5 +477,4 @@ class StepList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Studio.V1.StepList>'
-
+        return "<Twilio.Studio.V1.StepList>"

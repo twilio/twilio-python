@@ -12,22 +12,20 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Any, Dict, Optional, Union
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.conversations.v1.service.configuration.notification import NotificationList
+from twilio.rest.conversations.v1.service.configuration.notification import (
+    NotificationList,
+)
 from twilio.rest.conversations.v1.service.configuration.webhook import WebhookList
 
 
 class ConfigurationInstance(InstanceResource):
-
     """
     :ivar chat_service_sid: The unique string that we created to identify the Service configuration resource.
     :ivar default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
@@ -38,20 +36,26 @@ class ConfigurationInstance(InstanceResource):
     :ivar reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/conversations/reachability) is enabled for this Conversations Service. The default is `false`.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], chat_service_sid: str):
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], chat_service_sid: str
+    ):
         super().__init__(version)
 
-        
         self.chat_service_sid: Optional[str] = payload.get("chat_service_sid")
-        self.default_conversation_creator_role_sid: Optional[str] = payload.get("default_conversation_creator_role_sid")
-        self.default_conversation_role_sid: Optional[str] = payload.get("default_conversation_role_sid")
-        self.default_chat_service_role_sid: Optional[str] = payload.get("default_chat_service_role_sid")
+        self.default_conversation_creator_role_sid: Optional[str] = payload.get(
+            "default_conversation_creator_role_sid"
+        )
+        self.default_conversation_role_sid: Optional[str] = payload.get(
+            "default_conversation_role_sid"
+        )
+        self.default_chat_service_role_sid: Optional[str] = payload.get(
+            "default_chat_service_role_sid"
+        )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
         self.reachability_enabled: Optional[bool] = payload.get("reachability_enabled")
 
-        
-        self._solution = { 
+        self._solution = {
             "chat_service_sid": chat_service_sid,
         }
         self._context: Optional[ConfigurationContext] = None
@@ -65,14 +69,16 @@ class ConfigurationInstance(InstanceResource):
         :returns: ConfigurationContext for this ConfigurationInstance
         """
         if self._context is None:
-            self._context = ConfigurationContext(self._version, chat_service_sid=self._solution['chat_service_sid'],)
+            self._context = ConfigurationContext(
+                self._version,
+                chat_service_sid=self._solution["chat_service_sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "ConfigurationInstance":
         """
         Fetch the ConfigurationInstance
-        
+
 
         :returns: The fetched ConfigurationInstance
         """
@@ -81,17 +87,22 @@ class ConfigurationInstance(InstanceResource):
     async def fetch_async(self) -> "ConfigurationInstance":
         """
         Asynchronous coroutine to fetch the ConfigurationInstance
-        
+
 
         :returns: The fetched ConfigurationInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, default_conversation_creator_role_sid: Union[str, object]=values.unset, default_conversation_role_sid: Union[str, object]=values.unset, default_chat_service_role_sid: Union[str, object]=values.unset, reachability_enabled: Union[bool, object]=values.unset) -> "ConfigurationInstance":
+
+    def update(
+        self,
+        default_conversation_creator_role_sid: Union[str, object] = values.unset,
+        default_conversation_role_sid: Union[str, object] = values.unset,
+        default_chat_service_role_sid: Union[str, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+    ) -> "ConfigurationInstance":
         """
         Update the ConfigurationInstance
-        
+
         :param default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
         :param default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
         :param default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
@@ -99,12 +110,23 @@ class ConfigurationInstance(InstanceResource):
 
         :returns: The updated ConfigurationInstance
         """
-        return self._proxy.update(default_conversation_creator_role_sid=default_conversation_creator_role_sid, default_conversation_role_sid=default_conversation_role_sid, default_chat_service_role_sid=default_chat_service_role_sid, reachability_enabled=reachability_enabled, )
+        return self._proxy.update(
+            default_conversation_creator_role_sid=default_conversation_creator_role_sid,
+            default_conversation_role_sid=default_conversation_role_sid,
+            default_chat_service_role_sid=default_chat_service_role_sid,
+            reachability_enabled=reachability_enabled,
+        )
 
-    async def update_async(self, default_conversation_creator_role_sid: Union[str, object]=values.unset, default_conversation_role_sid: Union[str, object]=values.unset, default_chat_service_role_sid: Union[str, object]=values.unset, reachability_enabled: Union[bool, object]=values.unset) -> "ConfigurationInstance":
+    async def update_async(
+        self,
+        default_conversation_creator_role_sid: Union[str, object] = values.unset,
+        default_conversation_role_sid: Union[str, object] = values.unset,
+        default_chat_service_role_sid: Union[str, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+    ) -> "ConfigurationInstance":
         """
         Asynchronous coroutine to update the ConfigurationInstance
-        
+
         :param default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
         :param default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
         :param default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
@@ -112,16 +134,22 @@ class ConfigurationInstance(InstanceResource):
 
         :returns: The updated ConfigurationInstance
         """
-        return await self._proxy.update_async(default_conversation_creator_role_sid=default_conversation_creator_role_sid, default_conversation_role_sid=default_conversation_role_sid, default_chat_service_role_sid=default_chat_service_role_sid, reachability_enabled=reachability_enabled, )
-    
+        return await self._proxy.update_async(
+            default_conversation_creator_role_sid=default_conversation_creator_role_sid,
+            default_conversation_role_sid=default_conversation_role_sid,
+            default_chat_service_role_sid=default_chat_service_role_sid,
+            reachability_enabled=reachability_enabled,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V1.ConfigurationInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Conversations.V1.ConfigurationInstance {}>".format(context)
+
 
 class ConfigurationContext(InstanceContext):
 
@@ -134,54 +162,62 @@ class ConfigurationContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'chat_service_sid': chat_service_sid,
+        self._solution = {
+            "chat_service_sid": chat_service_sid,
         }
-        self._uri = '/Services/{chat_service_sid}/Configuration'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Services/{chat_service_sid}/Configuration".format(
+            **self._solution
+        )
+
     def fetch(self) -> ConfigurationInstance:
         """
         Fetch the ConfigurationInstance
-        
+
 
         :returns: The fetched ConfigurationInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ConfigurationInstance(
             self._version,
             payload,
-            chat_service_sid=self._solution['chat_service_sid'],
-            
+            chat_service_sid=self._solution["chat_service_sid"],
         )
 
     async def fetch_async(self) -> ConfigurationInstance:
         """
         Asynchronous coroutine to fetch the ConfigurationInstance
-        
+
 
         :returns: The fetched ConfigurationInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ConfigurationInstance(
             self._version,
             payload,
-            chat_service_sid=self._solution['chat_service_sid'],
-            
+            chat_service_sid=self._solution["chat_service_sid"],
         )
-    
-    
-    def update(self, default_conversation_creator_role_sid: Union[str, object]=values.unset, default_conversation_role_sid: Union[str, object]=values.unset, default_chat_service_role_sid: Union[str, object]=values.unset, reachability_enabled: Union[bool, object]=values.unset) -> ConfigurationInstance:
+
+    def update(
+        self,
+        default_conversation_creator_role_sid: Union[str, object] = values.unset,
+        default_conversation_role_sid: Union[str, object] = values.unset,
+        default_chat_service_role_sid: Union[str, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+    ) -> ConfigurationInstance:
         """
         Update the ConfigurationInstance
-        
+
         :param default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
         :param default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
         :param default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
@@ -189,26 +225,37 @@ class ConfigurationContext(InstanceContext):
 
         :returns: The updated ConfigurationInstance
         """
-        data = values.of({ 
-            'DefaultConversationCreatorRoleSid': default_conversation_creator_role_sid,
-            'DefaultConversationRoleSid': default_conversation_role_sid,
-            'DefaultChatServiceRoleSid': default_chat_service_role_sid,
-            'ReachabilityEnabled': serialize.boolean_to_string(reachability_enabled),
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return ConfigurationInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution['chat_service_sid']
+        data = values.of(
+            {
+                "DefaultConversationCreatorRoleSid": default_conversation_creator_role_sid,
+                "DefaultConversationRoleSid": default_conversation_role_sid,
+                "DefaultChatServiceRoleSid": default_chat_service_role_sid,
+                "ReachabilityEnabled": serialize.boolean_to_string(
+                    reachability_enabled
+                ),
+            }
         )
 
-    async def update_async(self, default_conversation_creator_role_sid: Union[str, object]=values.unset, default_conversation_role_sid: Union[str, object]=values.unset, default_chat_service_role_sid: Union[str, object]=values.unset, reachability_enabled: Union[bool, object]=values.unset) -> ConfigurationInstance:
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return ConfigurationInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    async def update_async(
+        self,
+        default_conversation_creator_role_sid: Union[str, object] = values.unset,
+        default_conversation_role_sid: Union[str, object] = values.unset,
+        default_chat_service_role_sid: Union[str, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+    ) -> ConfigurationInstance:
         """
         Asynchronous coroutine to update the ConfigurationInstance
-        
+
         :param default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
         :param default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
         :param default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
@@ -216,55 +263,56 @@ class ConfigurationContext(InstanceContext):
 
         :returns: The updated ConfigurationInstance
         """
-        data = values.of({ 
-            'DefaultConversationCreatorRoleSid': default_conversation_creator_role_sid,
-            'DefaultConversationRoleSid': default_conversation_role_sid,
-            'DefaultChatServiceRoleSid': default_chat_service_role_sid,
-            'ReachabilityEnabled': serialize.boolean_to_string(reachability_enabled),
-        })
-        
+        data = values.of(
+            {
+                "DefaultConversationCreatorRoleSid": default_conversation_creator_role_sid,
+                "DefaultConversationRoleSid": default_conversation_role_sid,
+                "DefaultChatServiceRoleSid": default_chat_service_role_sid,
+                "ReachabilityEnabled": serialize.boolean_to_string(
+                    reachability_enabled
+                ),
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return ConfigurationInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution['chat_service_sid']
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Conversations.V1.ConfigurationContext {}>'.format(context)
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Conversations.V1.ConfigurationContext {}>".format(context)
 
 
 class ConfigurationList(ListResource):
-    
+
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the ConfigurationList
 
         :param version: Version that contains the resource
         :param chat_service_sid: The SID of the Service configuration resource to fetch.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'chat_service_sid': chat_service_sid,  }
-        
-        
+        self._solution = {
+            "chat_service_sid": chat_service_sid,
+        }
+
         self._notifications: Optional[NotificationList] = None
         self._webhooks: Optional[WebhookList] = None
-        
-
 
     @property
     def notifications(self) -> NotificationList:
@@ -272,10 +320,10 @@ class ConfigurationList(ListResource):
         Access the notifications
         """
         if self._notifications is None:
-            self._notifications = NotificationList(self._version, chat_service_sid=self._solution['chat_service_sid'])
+            self._notifications = NotificationList(
+                self._version, chat_service_sid=self._solution["chat_service_sid"]
+            )
         return self._notifications
-
-
 
     @property
     def webhooks(self) -> WebhookList:
@@ -283,23 +331,28 @@ class ConfigurationList(ListResource):
         Access the webhooks
         """
         if self._webhooks is None:
-            self._webhooks = WebhookList(self._version, chat_service_sid=self._solution['chat_service_sid'])
+            self._webhooks = WebhookList(
+                self._version, chat_service_sid=self._solution["chat_service_sid"]
+            )
         return self._webhooks
-
 
     def get(self) -> ConfigurationContext:
         """
         Constructs a ConfigurationContext
-        
+
         """
-        return ConfigurationContext(self._version, chat_service_sid=self._solution['chat_service_sid'])
+        return ConfigurationContext(
+            self._version, chat_service_sid=self._solution["chat_service_sid"]
+        )
 
     def __call__(self) -> ConfigurationContext:
         """
         Constructs a ConfigurationContext
-        
+
         """
-        return ConfigurationContext(self._version, chat_service_sid=self._solution['chat_service_sid'])
+        return ConfigurationContext(
+            self._version, chat_service_sid=self._solution["chat_service_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -307,5 +360,4 @@ class ConfigurationList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Conversations.V1.ConfigurationList>'
-
+        return "<Twilio.Conversations.V1.ConfigurationList>"

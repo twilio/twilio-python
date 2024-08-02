@@ -12,36 +12,33 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Any, Dict, List, Optional
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class OperatorAttachmentsInstance(InstanceResource):
-
     """
     :ivar service_sid: The unique SID identifier of the Service.
     :ivar operator_sids: List of Operator SIDs attached to the service. Includes both Custom and Pre-built Operators.
     :ivar url: The URL of this resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.service_sid: Optional[str] = payload.get("service_sid")
         self.operator_sids: Optional[List[str]] = payload.get("operator_sids")
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "service_sid": service_sid or self.service_sid,
         }
         self._context: Optional[OperatorAttachmentsContext] = None
@@ -55,14 +52,16 @@ class OperatorAttachmentsInstance(InstanceResource):
         :returns: OperatorAttachmentsContext for this OperatorAttachmentsInstance
         """
         if self._context is None:
-            self._context = OperatorAttachmentsContext(self._version, service_sid=self._solution['service_sid'],)
+            self._context = OperatorAttachmentsContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "OperatorAttachmentsInstance":
         """
         Fetch the OperatorAttachmentsInstance
-        
+
 
         :returns: The fetched OperatorAttachmentsInstance
         """
@@ -71,20 +70,21 @@ class OperatorAttachmentsInstance(InstanceResource):
     async def fetch_async(self) -> "OperatorAttachmentsInstance":
         """
         Asynchronous coroutine to fetch the OperatorAttachmentsInstance
-        
+
 
         :returns: The fetched OperatorAttachmentsInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Intelligence.V2.OperatorAttachmentsInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Intelligence.V2.OperatorAttachmentsInstance {}>".format(context)
+
 
 class OperatorAttachmentsContext(InstanceContext):
 
@@ -97,81 +97,75 @@ class OperatorAttachmentsContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
+        self._solution = {
+            "service_sid": service_sid,
         }
-        self._uri = '/Services/{service_sid}/Operators'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Services/{service_sid}/Operators".format(**self._solution)
+
     def fetch(self) -> OperatorAttachmentsInstance:
         """
         Fetch the OperatorAttachmentsInstance
-        
+
 
         :returns: The fetched OperatorAttachmentsInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return OperatorAttachmentsInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            
+            service_sid=self._solution["service_sid"],
         )
 
     async def fetch_async(self) -> OperatorAttachmentsInstance:
         """
         Asynchronous coroutine to fetch the OperatorAttachmentsInstance
-        
+
 
         :returns: The fetched OperatorAttachmentsInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return OperatorAttachmentsInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            
+            service_sid=self._solution["service_sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Intelligence.V2.OperatorAttachmentsContext {}>'.format(context)
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Intelligence.V2.OperatorAttachmentsContext {}>".format(context)
 
 
 class OperatorAttachmentsList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the OperatorAttachmentsList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
-
-        
-        
-        
-        
 
     def get(self, service_sid: str) -> OperatorAttachmentsContext:
         """
         Constructs a OperatorAttachmentsContext
-        
+
         :param service_sid: The unique SID identifier of the Service.
         """
         return OperatorAttachmentsContext(self._version, service_sid=service_sid)
@@ -179,7 +173,7 @@ class OperatorAttachmentsList(ListResource):
     def __call__(self, service_sid: str) -> OperatorAttachmentsContext:
         """
         Constructs a OperatorAttachmentsContext
-        
+
         :param service_sid: The unique SID identifier of the Service.
         """
         return OperatorAttachmentsContext(self._version, service_sid=service_sid)
@@ -190,5 +184,4 @@ class OperatorAttachmentsList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Intelligence.V2.OperatorAttachmentsList>'
-
+        return "<Twilio.Intelligence.V2.OperatorAttachmentsList>"

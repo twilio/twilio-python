@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -22,11 +20,12 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.account.address.dependent_phone_number import DependentPhoneNumberList
+from twilio.rest.api.v2010.account.address.dependent_phone_number import (
+    DependentPhoneNumberList,
+)
 
 
 class AddressInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource.
     :ivar city: The city in which the address is located.
@@ -46,15 +45,24 @@ class AddressInstance(InstanceResource):
     :ivar street_secondary: The additional number and street address of the address.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.city: Optional[str] = payload.get("city")
         self.customer_name: Optional[str] = payload.get("customer_name")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.iso_country: Optional[str] = payload.get("iso_country")
         self.postal_code: Optional[str] = payload.get("postal_code")
@@ -67,8 +75,7 @@ class AddressInstance(InstanceResource):
         self.verified: Optional[bool] = payload.get("verified")
         self.street_secondary: Optional[str] = payload.get("street_secondary")
 
-        
-        self._solution = { 
+        self._solution = {
             "account_sid": account_sid,
             "sid": sid or self.sid,
         }
@@ -83,32 +90,35 @@ class AddressInstance(InstanceResource):
         :returns: AddressContext for this AddressInstance
         """
         if self._context is None:
-            self._context = AddressContext(self._version, account_sid=self._solution['account_sid'], sid=self._solution['sid'],)
+            self._context = AddressContext(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the AddressInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AddressInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "AddressInstance":
         """
         Fetch the AddressInstance
-        
+
 
         :returns: The fetched AddressInstance
         """
@@ -117,17 +127,27 @@ class AddressInstance(InstanceResource):
     async def fetch_async(self) -> "AddressInstance":
         """
         Asynchronous coroutine to fetch the AddressInstance
-        
+
 
         :returns: The fetched AddressInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, customer_name: Union[str, object]=values.unset, street: Union[str, object]=values.unset, city: Union[str, object]=values.unset, region: Union[str, object]=values.unset, postal_code: Union[str, object]=values.unset, emergency_enabled: Union[bool, object]=values.unset, auto_correct_address: Union[bool, object]=values.unset, street_secondary: Union[str, object]=values.unset) -> "AddressInstance":
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        customer_name: Union[str, object] = values.unset,
+        street: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
+    ) -> "AddressInstance":
         """
         Update the AddressInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
         :param customer_name: The name to associate with the address.
         :param street: The number and street address of the address.
@@ -140,12 +160,33 @@ class AddressInstance(InstanceResource):
 
         :returns: The updated AddressInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, customer_name=customer_name, street=street, city=city, region=region, postal_code=postal_code, emergency_enabled=emergency_enabled, auto_correct_address=auto_correct_address, street_secondary=street_secondary, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            customer_name=customer_name,
+            street=street,
+            city=city,
+            region=region,
+            postal_code=postal_code,
+            emergency_enabled=emergency_enabled,
+            auto_correct_address=auto_correct_address,
+            street_secondary=street_secondary,
+        )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, customer_name: Union[str, object]=values.unset, street: Union[str, object]=values.unset, city: Union[str, object]=values.unset, region: Union[str, object]=values.unset, postal_code: Union[str, object]=values.unset, emergency_enabled: Union[bool, object]=values.unset, auto_correct_address: Union[bool, object]=values.unset, street_secondary: Union[str, object]=values.unset) -> "AddressInstance":
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        customer_name: Union[str, object] = values.unset,
+        street: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
+    ) -> "AddressInstance":
         """
         Asynchronous coroutine to update the AddressInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
         :param customer_name: The name to associate with the address.
         :param street: The number and street address of the address.
@@ -158,23 +199,34 @@ class AddressInstance(InstanceResource):
 
         :returns: The updated AddressInstance
         """
-        return await self._proxy.update_async(friendly_name=friendly_name, customer_name=customer_name, street=street, city=city, region=region, postal_code=postal_code, emergency_enabled=emergency_enabled, auto_correct_address=auto_correct_address, street_secondary=street_secondary, )
-    
+        return await self._proxy.update_async(
+            friendly_name=friendly_name,
+            customer_name=customer_name,
+            street=street,
+            city=city,
+            region=region,
+            postal_code=postal_code,
+            emergency_enabled=emergency_enabled,
+            auto_correct_address=auto_correct_address,
+            street_secondary=street_secondary,
+        )
+
     @property
     def dependent_phone_numbers(self) -> DependentPhoneNumberList:
         """
         Access the dependent_phone_numbers
         """
         return self._proxy.dependent_phone_numbers
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.AddressInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.AddressInstance {}>".format(context)
+
 
 class AddressContext(InstanceContext):
 
@@ -188,77 +240,96 @@ class AddressContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'sid': sid,
+        self._solution = {
+            "account_sid": account_sid,
+            "sid": sid,
         }
-        self._uri = '/Accounts/{account_sid}/Addresses/{sid}.json'.format(**self._solution)
-        
+        self._uri = "/Accounts/{account_sid}/Addresses/{sid}.json".format(
+            **self._solution
+        )
+
         self._dependent_phone_numbers: Optional[DependentPhoneNumberList] = None
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the AddressInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AddressInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> AddressInstance:
         """
         Fetch the AddressInstance
-        
+
 
         :returns: The fetched AddressInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return AddressInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> AddressInstance:
         """
         Asynchronous coroutine to fetch the AddressInstance
-        
+
 
         :returns: The fetched AddressInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return AddressInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, customer_name: Union[str, object]=values.unset, street: Union[str, object]=values.unset, city: Union[str, object]=values.unset, region: Union[str, object]=values.unset, postal_code: Union[str, object]=values.unset, emergency_enabled: Union[bool, object]=values.unset, auto_correct_address: Union[bool, object]=values.unset, street_secondary: Union[str, object]=values.unset) -> AddressInstance:
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        customer_name: Union[str, object] = values.unset,
+        street: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
+    ) -> AddressInstance:
         """
         Update the AddressInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
         :param customer_name: The name to associate with the address.
         :param street: The number and street address of the address.
@@ -271,32 +342,48 @@ class AddressContext(InstanceContext):
 
         :returns: The updated AddressInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'CustomerName': customer_name,
-            'Street': street,
-            'City': city,
-            'Region': region,
-            'PostalCode': postal_code,
-            'EmergencyEnabled': serialize.boolean_to_string(emergency_enabled),
-            'AutoCorrectAddress': serialize.boolean_to_string(auto_correct_address),
-            'StreetSecondary': street_secondary,
-        })
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "CustomerName": customer_name,
+                "Street": street,
+                "City": city,
+                "Region": region,
+                "PostalCode": postal_code,
+                "EmergencyEnabled": serialize.boolean_to_string(emergency_enabled),
+                "AutoCorrectAddress": serialize.boolean_to_string(auto_correct_address),
+                "StreetSecondary": street_secondary,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return AddressInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, customer_name: Union[str, object]=values.unset, street: Union[str, object]=values.unset, city: Union[str, object]=values.unset, region: Union[str, object]=values.unset, postal_code: Union[str, object]=values.unset, emergency_enabled: Union[bool, object]=values.unset, auto_correct_address: Union[bool, object]=values.unset, street_secondary: Union[str, object]=values.unset) -> AddressInstance:
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        customer_name: Union[str, object] = values.unset,
+        street: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
+    ) -> AddressInstance:
         """
         Asynchronous coroutine to update the AddressInstance
-        
+
         :param friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
         :param customer_name: The name to associate with the address.
         :param street: The number and street address of the address.
@@ -309,29 +396,33 @@ class AddressContext(InstanceContext):
 
         :returns: The updated AddressInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'CustomerName': customer_name,
-            'Street': street,
-            'City': city,
-            'Region': region,
-            'PostalCode': postal_code,
-            'EmergencyEnabled': serialize.boolean_to_string(emergency_enabled),
-            'AutoCorrectAddress': serialize.boolean_to_string(auto_correct_address),
-            'StreetSecondary': street_secondary,
-        })
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "CustomerName": customer_name,
+                "Street": street,
+                "City": city,
+                "Region": region,
+                "PostalCode": postal_code,
+                "EmergencyEnabled": serialize.boolean_to_string(emergency_enabled),
+                "AutoCorrectAddress": serialize.boolean_to_string(auto_correct_address),
+                "StreetSecondary": street_secondary,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return AddressInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            sid=self._solution['sid']
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     @property
     def dependent_phone_numbers(self) -> DependentPhoneNumberList:
         """
@@ -339,29 +430,20 @@ class AddressContext(InstanceContext):
         """
         if self._dependent_phone_numbers is None:
             self._dependent_phone_numbers = DependentPhoneNumberList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
             )
         return self._dependent_phone_numbers
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.AddressContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.AddressContext {}>".format(context)
 
 
 class AddressPage(Page):
@@ -372,7 +454,9 @@ class AddressPage(Page):
 
         :param payload: Payload response from the API
         """
-        return AddressInstance(self._version, payload, account_sid=self._solution["account_sid"])
+        return AddressInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -383,32 +467,37 @@ class AddressPage(Page):
         return "<Twilio.Api.V2010.AddressPage>"
 
 
-
-
-
 class AddressList(ListResource):
-    
+
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the AddressList
 
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is responsible for the Address resource to read.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'account_sid': account_sid,  }
-        self._uri = '/Accounts/{account_sid}/Addresses.json'.format(**self._solution)
-        
-        
-    
-    
-    
-    
-    def create(self, customer_name: str, street: str, city: str, region: str, postal_code: str, iso_country: str, friendly_name: Union[str, object]=values.unset, emergency_enabled: Union[bool, object]=values.unset, auto_correct_address: Union[bool, object]=values.unset, street_secondary: Union[str, object]=values.unset) -> AddressInstance:
+        self._solution = {
+            "account_sid": account_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/Addresses.json".format(**self._solution)
+
+    def create(
+        self,
+        customer_name: str,
+        street: str,
+        city: str,
+        region: str,
+        postal_code: str,
+        iso_country: str,
+        friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
+    ) -> AddressInstance:
         """
         Create the AddressInstance
 
@@ -422,32 +511,47 @@ class AddressList(ListResource):
         :param emergency_enabled: Whether to enable emergency calling on the new address. Can be: `true` or `false`.
         :param auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
         :param street_secondary: The additional number and street address of the address.
-        
+
         :returns: The created AddressInstance
         """
-        
-        data = values.of({ 
-            'CustomerName': customer_name,
-            'Street': street,
-            'City': city,
-            'Region': region,
-            'PostalCode': postal_code,
-            'IsoCountry': iso_country,
-            'FriendlyName': friendly_name,
-            'EmergencyEnabled': serialize.boolean_to_string(emergency_enabled),
-            'AutoCorrectAddress': serialize.boolean_to_string(auto_correct_address),
-            'StreetSecondary': street_secondary,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return AddressInstance(self._version, payload, account_sid=self._solution['account_sid'])
+        data = values.of(
+            {
+                "CustomerName": customer_name,
+                "Street": street,
+                "City": city,
+                "Region": region,
+                "PostalCode": postal_code,
+                "IsoCountry": iso_country,
+                "FriendlyName": friendly_name,
+                "EmergencyEnabled": serialize.boolean_to_string(emergency_enabled),
+                "AutoCorrectAddress": serialize.boolean_to_string(auto_correct_address),
+                "StreetSecondary": street_secondary,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, customer_name: str, street: str, city: str, region: str, postal_code: str, iso_country: str, friendly_name: Union[str, object]=values.unset, emergency_enabled: Union[bool, object]=values.unset, auto_correct_address: Union[bool, object]=values.unset, street_secondary: Union[str, object]=values.unset) -> AddressInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return AddressInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    async def create_async(
+        self,
+        customer_name: str,
+        street: str,
+        city: str,
+        region: str,
+        postal_code: str,
+        iso_country: str,
+        friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
+    ) -> AddressInstance:
         """
         Asynchronously create the AddressInstance
 
@@ -461,37 +565,39 @@ class AddressList(ListResource):
         :param emergency_enabled: Whether to enable emergency calling on the new address. Can be: `true` or `false`.
         :param auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
         :param street_secondary: The additional number and street address of the address.
-        
+
         :returns: The created AddressInstance
         """
-        
-        data = values.of({ 
-            'CustomerName': customer_name,
-            'Street': street,
-            'City': city,
-            'Region': region,
-            'PostalCode': postal_code,
-            'IsoCountry': iso_country,
-            'FriendlyName': friendly_name,
-            'EmergencyEnabled': serialize.boolean_to_string(emergency_enabled),
-            'AutoCorrectAddress': serialize.boolean_to_string(auto_correct_address),
-            'StreetSecondary': street_secondary,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return AddressInstance(self._version, payload, account_sid=self._solution['account_sid'])
-    
-    
-    def stream(self, 
+        data = values.of(
+            {
+                "CustomerName": customer_name,
+                "Street": street,
+                "City": city,
+                "Region": region,
+                "PostalCode": postal_code,
+                "IsoCountry": iso_country,
+                "FriendlyName": friendly_name,
+                "EmergencyEnabled": serialize.boolean_to_string(emergency_enabled),
+                "AutoCorrectAddress": serialize.boolean_to_string(auto_correct_address),
+                "StreetSecondary": street_secondary,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return AddressInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def stream(
+        self,
         customer_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[AddressInstance]:
@@ -500,7 +606,7 @@ class AddressList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str customer_name: The `customer_name` of the Address resources to read.
         :param str friendly_name: The string that identifies the Address resources to read.
         :param str iso_country: The ISO country code of the Address resources to read.
@@ -518,16 +624,16 @@ class AddressList(ListResource):
             customer_name=customer_name,
             friendly_name=friendly_name,
             iso_country=iso_country,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         customer_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[AddressInstance]:
@@ -536,7 +642,7 @@ class AddressList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str customer_name: The `customer_name` of the Address resources to read.
         :param str friendly_name: The string that identifies the Address resources to read.
         :param str iso_country: The ISO country code of the Address resources to read.
@@ -554,16 +660,16 @@ class AddressList(ListResource):
             customer_name=customer_name,
             friendly_name=friendly_name,
             iso_country=iso_country,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         customer_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[AddressInstance]:
@@ -571,7 +677,7 @@ class AddressList(ListResource):
         Lists AddressInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str customer_name: The `customer_name` of the Address resources to read.
         :param str friendly_name: The string that identifies the Address resources to read.
         :param str iso_country: The ISO country code of the Address resources to read.
@@ -584,19 +690,21 @@ class AddressList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            customer_name=customer_name,
-            friendly_name=friendly_name,
-            iso_country=iso_country,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                customer_name=customer_name,
+                friendly_name=friendly_name,
+                iso_country=iso_country,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         customer_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[AddressInstance]:
@@ -604,7 +712,7 @@ class AddressList(ListResource):
         Asynchronously lists AddressInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str customer_name: The `customer_name` of the Address resources to read.
         :param str friendly_name: The string that identifies the Address resources to read.
         :param str iso_country: The ISO country code of the Address resources to read.
@@ -617,19 +725,22 @@ class AddressList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            customer_name=customer_name,
-            friendly_name=friendly_name,
-            iso_country=iso_country,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                customer_name=customer_name,
+                friendly_name=friendly_name,
+                iso_country=iso_country,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         customer_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -637,7 +748,7 @@ class AddressList(ListResource):
         """
         Retrieve a single page of AddressInstance records from the API.
         Request is executed immediately
-        
+
         :param customer_name: The `customer_name` of the Address resources to read.
         :param friendly_name: The string that identifies the Address resources to read.
         :param iso_country: The ISO country code of the Address resources to read.
@@ -647,23 +758,25 @@ class AddressList(ListResource):
 
         :returns: Page of AddressInstance
         """
-        data = values.of({ 
-            'CustomerName': customer_name,
-            'FriendlyName': friendly_name,
-            'IsoCountry': iso_country,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "CustomerName": customer_name,
+                "FriendlyName": friendly_name,
+                "IsoCountry": iso_country,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return AddressPage(self._version, response, self._solution)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         customer_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -671,7 +784,7 @@ class AddressList(ListResource):
         """
         Asynchronously retrieve a single page of AddressInstance records from the API.
         Request is executed immediately
-        
+
         :param customer_name: The `customer_name` of the Address resources to read.
         :param friendly_name: The string that identifies the Address resources to read.
         :param iso_country: The ISO country code of the Address resources to read.
@@ -681,16 +794,20 @@ class AddressList(ListResource):
 
         :returns: Page of AddressInstance
         """
-        data = values.of({ 
-            'CustomerName': customer_name,
-            'FriendlyName': friendly_name,
-            'IsoCountry': iso_country,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "CustomerName": customer_name,
+                "FriendlyName": friendly_name,
+                "IsoCountry": iso_country,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return AddressPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> AddressPage:
@@ -702,10 +819,7 @@ class AddressList(ListResource):
 
         :returns: Page of AddressInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return AddressPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> AddressPage:
@@ -717,31 +831,28 @@ class AddressList(ListResource):
 
         :returns: Page of AddressInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return AddressPage(self._version, response, self._solution)
-
-
-
-
 
     def get(self, sid: str) -> AddressContext:
         """
         Constructs a AddressContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Address resource to update.
         """
-        return AddressContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return AddressContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
 
     def __call__(self, sid: str) -> AddressContext:
         """
         Constructs a AddressContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the Address resource to update.
         """
-        return AddressContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
+        return AddressContext(
+            self._version, account_sid=self._solution["account_sid"], sid=sid
+        )
 
     def __repr__(self) -> str:
         """
@@ -749,5 +860,4 @@ class AddressList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Api.V2010.AddressList>'
-
+        return "<Twilio.Api.V2010.AddressList>"

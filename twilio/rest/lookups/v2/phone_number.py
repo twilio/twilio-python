@@ -12,16 +12,12 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Any, Dict, List, Optional, Union
+from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
 
 
 class PhoneNumberInstance(InstanceResource):
@@ -54,30 +50,45 @@ class PhoneNumberInstance(InstanceResource):
     :ivar url: The absolute URL of the resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], phone_number: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        phone_number: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.calling_country_code: Optional[str] = payload.get("calling_country_code")
         self.country_code: Optional[str] = payload.get("country_code")
         self.phone_number: Optional[str] = payload.get("phone_number")
         self.national_format: Optional[str] = payload.get("national_format")
         self.valid: Optional[bool] = payload.get("valid")
-        self.validation_errors: Optional[List["PhoneNumberInstance.ValidationError"]] = payload.get("validation_errors")
+        self.validation_errors: Optional[
+            List["PhoneNumberInstance.ValidationError"]
+        ] = payload.get("validation_errors")
         self.caller_name: Optional[Dict[str, object]] = payload.get("caller_name")
         self.sim_swap: Optional[Dict[str, object]] = payload.get("sim_swap")
-        self.call_forwarding: Optional[Dict[str, object]] = payload.get("call_forwarding")
+        self.call_forwarding: Optional[Dict[str, object]] = payload.get(
+            "call_forwarding"
+        )
         self.line_status: Optional[Dict[str, object]] = payload.get("line_status")
-        self.line_type_intelligence: Optional[Dict[str, object]] = payload.get("line_type_intelligence")
+        self.line_type_intelligence: Optional[Dict[str, object]] = payload.get(
+            "line_type_intelligence"
+        )
         self.identity_match: Optional[Dict[str, object]] = payload.get("identity_match")
-        self.reassigned_number: Optional[Dict[str, object]] = payload.get("reassigned_number")
-        self.sms_pumping_risk: Optional[Dict[str, object]] = payload.get("sms_pumping_risk")
-        self.phone_number_quality_score: Optional[Dict[str, object]] = payload.get("phone_number_quality_score")
+        self.reassigned_number: Optional[Dict[str, object]] = payload.get(
+            "reassigned_number"
+        )
+        self.sms_pumping_risk: Optional[Dict[str, object]] = payload.get(
+            "sms_pumping_risk"
+        )
+        self.phone_number_quality_score: Optional[Dict[str, object]] = payload.get(
+            "phone_number_quality_score"
+        )
         self.pre_fill: Optional[Dict[str, object]] = payload.get("pre_fill")
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "phone_number": phone_number or self.phone_number,
         }
         self._context: Optional[PhoneNumberContext] = None
@@ -91,14 +102,32 @@ class PhoneNumberInstance(InstanceResource):
         :returns: PhoneNumberContext for this PhoneNumberInstance
         """
         if self._context is None:
-            self._context = PhoneNumberContext(self._version, phone_number=self._solution['phone_number'],)
+            self._context = PhoneNumberContext(
+                self._version,
+                phone_number=self._solution["phone_number"],
+            )
         return self._context
-    
-    
-    def fetch(self, fields: Union[str, object]=values.unset, country_code: Union[str, object]=values.unset, first_name: Union[str, object]=values.unset, last_name: Union[str, object]=values.unset, address_line1: Union[str, object]=values.unset, address_line2: Union[str, object]=values.unset, city: Union[str, object]=values.unset, state: Union[str, object]=values.unset, postal_code: Union[str, object]=values.unset, address_country_code: Union[str, object]=values.unset, national_id: Union[str, object]=values.unset, date_of_birth: Union[str, object]=values.unset, last_verified_date: Union[str, object]=values.unset, verification_sid: Union[str, object]=values.unset) -> "PhoneNumberInstance":
+
+    def fetch(
+        self,
+        fields: Union[str, object] = values.unset,
+        country_code: Union[str, object] = values.unset,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        address_line1: Union[str, object] = values.unset,
+        address_line2: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        state: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        address_country_code: Union[str, object] = values.unset,
+        national_id: Union[str, object] = values.unset,
+        date_of_birth: Union[str, object] = values.unset,
+        last_verified_date: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+    ) -> "PhoneNumberInstance":
         """
         Fetch the PhoneNumberInstance
-        
+
         :param fields: A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score, pre_fill.
         :param country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
         :param first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
@@ -116,12 +145,43 @@ class PhoneNumberInstance(InstanceResource):
 
         :returns: The fetched PhoneNumberInstance
         """
-        return self._proxy.fetch(fields=fields, country_code=country_code, first_name=first_name, last_name=last_name, address_line1=address_line1, address_line2=address_line2, city=city, state=state, postal_code=postal_code, address_country_code=address_country_code, national_id=national_id, date_of_birth=date_of_birth, last_verified_date=last_verified_date, verification_sid=verification_sid, )
+        return self._proxy.fetch(
+            fields=fields,
+            country_code=country_code,
+            first_name=first_name,
+            last_name=last_name,
+            address_line1=address_line1,
+            address_line2=address_line2,
+            city=city,
+            state=state,
+            postal_code=postal_code,
+            address_country_code=address_country_code,
+            national_id=national_id,
+            date_of_birth=date_of_birth,
+            last_verified_date=last_verified_date,
+            verification_sid=verification_sid,
+        )
 
-    async def fetch_async(self, fields: Union[str, object]=values.unset, country_code: Union[str, object]=values.unset, first_name: Union[str, object]=values.unset, last_name: Union[str, object]=values.unset, address_line1: Union[str, object]=values.unset, address_line2: Union[str, object]=values.unset, city: Union[str, object]=values.unset, state: Union[str, object]=values.unset, postal_code: Union[str, object]=values.unset, address_country_code: Union[str, object]=values.unset, national_id: Union[str, object]=values.unset, date_of_birth: Union[str, object]=values.unset, last_verified_date: Union[str, object]=values.unset, verification_sid: Union[str, object]=values.unset) -> "PhoneNumberInstance":
+    async def fetch_async(
+        self,
+        fields: Union[str, object] = values.unset,
+        country_code: Union[str, object] = values.unset,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        address_line1: Union[str, object] = values.unset,
+        address_line2: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        state: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        address_country_code: Union[str, object] = values.unset,
+        national_id: Union[str, object] = values.unset,
+        date_of_birth: Union[str, object] = values.unset,
+        last_verified_date: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+    ) -> "PhoneNumberInstance":
         """
         Asynchronous coroutine to fetch the PhoneNumberInstance
-        
+
         :param fields: A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score, pre_fill.
         :param country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
         :param first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
@@ -139,16 +199,32 @@ class PhoneNumberInstance(InstanceResource):
 
         :returns: The fetched PhoneNumberInstance
         """
-        return await self._proxy.fetch_async(fields=fields, country_code=country_code, first_name=first_name, last_name=last_name, address_line1=address_line1, address_line2=address_line2, city=city, state=state, postal_code=postal_code, address_country_code=address_country_code, national_id=national_id, date_of_birth=date_of_birth, last_verified_date=last_verified_date, verification_sid=verification_sid, )
-    
+        return await self._proxy.fetch_async(
+            fields=fields,
+            country_code=country_code,
+            first_name=first_name,
+            last_name=last_name,
+            address_line1=address_line1,
+            address_line2=address_line2,
+            city=city,
+            state=state,
+            postal_code=postal_code,
+            address_country_code=address_country_code,
+            national_id=national_id,
+            date_of_birth=date_of_birth,
+            last_verified_date=last_verified_date,
+            verification_sid=verification_sid,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Lookups.V2.PhoneNumberInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Lookups.V2.PhoneNumberInstance {}>".format(context)
+
 
 class PhoneNumberContext(InstanceContext):
 
@@ -161,19 +237,32 @@ class PhoneNumberContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'phone_number': phone_number,
+        self._solution = {
+            "phone_number": phone_number,
         }
-        self._uri = '/PhoneNumbers/{phone_number}'.format(**self._solution)
-        
-    
-    
-    def fetch(self, fields: Union[str, object]=values.unset, country_code: Union[str, object]=values.unset, first_name: Union[str, object]=values.unset, last_name: Union[str, object]=values.unset, address_line1: Union[str, object]=values.unset, address_line2: Union[str, object]=values.unset, city: Union[str, object]=values.unset, state: Union[str, object]=values.unset, postal_code: Union[str, object]=values.unset, address_country_code: Union[str, object]=values.unset, national_id: Union[str, object]=values.unset, date_of_birth: Union[str, object]=values.unset, last_verified_date: Union[str, object]=values.unset, verification_sid: Union[str, object]=values.unset) -> PhoneNumberInstance:
+        self._uri = "/PhoneNumbers/{phone_number}".format(**self._solution)
+
+    def fetch(
+        self,
+        fields: Union[str, object] = values.unset,
+        country_code: Union[str, object] = values.unset,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        address_line1: Union[str, object] = values.unset,
+        address_line2: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        state: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        address_country_code: Union[str, object] = values.unset,
+        national_id: Union[str, object] = values.unset,
+        date_of_birth: Union[str, object] = values.unset,
+        last_verified_date: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+    ) -> PhoneNumberInstance:
         """
         Fetch the PhoneNumberInstance
-        
+
         :param fields: A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score, pre_fill.
         :param country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
         :param first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
@@ -191,37 +280,54 @@ class PhoneNumberContext(InstanceContext):
 
         :returns: The fetched PhoneNumberInstance
         """
-        
-        data = values.of({ 
-            'Fields': fields,
-            'CountryCode': country_code,
-            'FirstName': first_name,
-            'LastName': last_name,
-            'AddressLine1': address_line1,
-            'AddressLine2': address_line2,
-            'City': city,
-            'State': state,
-            'PostalCode': postal_code,
-            'AddressCountryCode': address_country_code,
-            'NationalId': national_id,
-            'DateOfBirth': date_of_birth,
-            'LastVerifiedDate': last_verified_date,
-            'VerificationSid': verification_sid,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        data = values.of(
+            {
+                "Fields": fields,
+                "CountryCode": country_code,
+                "FirstName": first_name,
+                "LastName": last_name,
+                "AddressLine1": address_line1,
+                "AddressLine2": address_line2,
+                "City": city,
+                "State": state,
+                "PostalCode": postal_code,
+                "AddressCountryCode": address_country_code,
+                "NationalId": national_id,
+                "DateOfBirth": date_of_birth,
+                "LastVerifiedDate": last_verified_date,
+                "VerificationSid": verification_sid,
+            }
+        )
+
+        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
 
         return PhoneNumberInstance(
             self._version,
             payload,
-            phone_number=self._solution['phone_number'],
-            
+            phone_number=self._solution["phone_number"],
         )
 
-    async def fetch_async(self, fields: Union[str, object]=values.unset, country_code: Union[str, object]=values.unset, first_name: Union[str, object]=values.unset, last_name: Union[str, object]=values.unset, address_line1: Union[str, object]=values.unset, address_line2: Union[str, object]=values.unset, city: Union[str, object]=values.unset, state: Union[str, object]=values.unset, postal_code: Union[str, object]=values.unset, address_country_code: Union[str, object]=values.unset, national_id: Union[str, object]=values.unset, date_of_birth: Union[str, object]=values.unset, last_verified_date: Union[str, object]=values.unset, verification_sid: Union[str, object]=values.unset) -> PhoneNumberInstance:
+    async def fetch_async(
+        self,
+        fields: Union[str, object] = values.unset,
+        country_code: Union[str, object] = values.unset,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        address_line1: Union[str, object] = values.unset,
+        address_line2: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        state: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        address_country_code: Union[str, object] = values.unset,
+        national_id: Union[str, object] = values.unset,
+        date_of_birth: Union[str, object] = values.unset,
+        last_verified_date: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+    ) -> PhoneNumberInstance:
         """
         Asynchronous coroutine to fetch the PhoneNumberInstance
-        
+
         :param fields: A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score, pre_fill.
         :param country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
         :param first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
@@ -239,65 +345,61 @@ class PhoneNumberContext(InstanceContext):
 
         :returns: The fetched PhoneNumberInstance
         """
-        
-        data = values.of({ 
-            'Fields': fields,
-            'CountryCode': country_code,
-            'FirstName': first_name,
-            'LastName': last_name,
-            'AddressLine1': address_line1,
-            'AddressLine2': address_line2,
-            'City': city,
-            'State': state,
-            'PostalCode': postal_code,
-            'AddressCountryCode': address_country_code,
-            'NationalId': national_id,
-            'DateOfBirth': date_of_birth,
-            'LastVerifiedDate': last_verified_date,
-            'VerificationSid': verification_sid,
-        })
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        data = values.of(
+            {
+                "Fields": fields,
+                "CountryCode": country_code,
+                "FirstName": first_name,
+                "LastName": last_name,
+                "AddressLine1": address_line1,
+                "AddressLine2": address_line2,
+                "City": city,
+                "State": state,
+                "PostalCode": postal_code,
+                "AddressCountryCode": address_country_code,
+                "NationalId": national_id,
+                "DateOfBirth": date_of_birth,
+                "LastVerifiedDate": last_verified_date,
+                "VerificationSid": verification_sid,
+            }
+        )
+
+        payload = await self._version.fetch_async(
+            method="GET", uri=self._uri, params=data
+        )
 
         return PhoneNumberInstance(
             self._version,
             payload,
-            phone_number=self._solution['phone_number'],
-            
+            phone_number=self._solution["phone_number"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Lookups.V2.PhoneNumberContext {}>'.format(context)
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Lookups.V2.PhoneNumberContext {}>".format(context)
 
 
 class PhoneNumberList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the PhoneNumberList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
-
-        
-        
-        
-        
 
     def get(self, phone_number: str) -> PhoneNumberContext:
         """
         Constructs a PhoneNumberContext
-        
+
         :param phone_number: The phone number to lookup in E.164 or national format. Default country code is +1 (North America).
         """
         return PhoneNumberContext(self._version, phone_number=phone_number)
@@ -305,7 +407,7 @@ class PhoneNumberList(ListResource):
     def __call__(self, phone_number: str) -> PhoneNumberContext:
         """
         Constructs a PhoneNumberContext
-        
+
         :param phone_number: The phone number to lookup in E.164 or national format. Default country code is +1 (North America).
         """
         return PhoneNumberContext(self._version, phone_number=phone_number)
@@ -316,5 +418,4 @@ class PhoneNumberList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Lookups.V2.PhoneNumberList>'
-
+        return "<Twilio.Lookups.V2.PhoneNumberList>"

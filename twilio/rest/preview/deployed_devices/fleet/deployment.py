@@ -12,11 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -25,7 +23,6 @@ from twilio.base.page import Page
 
 
 class DeploymentInstance(InstanceResource):
-
     """
     :ivar sid: Contains a 34 character string that uniquely identifies this Deployment resource.
     :ivar url: Contains an absolute URL for this Deployment resource.
@@ -37,21 +34,29 @@ class DeploymentInstance(InstanceResource):
     :ivar date_updated: Specifies the date this Deployment was last updated, given in UTC ISO 8601 format.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], fleet_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        fleet_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.url: Optional[str] = payload.get("url")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.fleet_sid: Optional[str] = payload.get("fleet_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.sync_service_sid: Optional[str] = payload.get("sync_service_sid")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
 
-        
-        self._solution = { 
+        self._solution = {
             "fleet_sid": fleet_sid,
             "sid": sid or self.sid,
         }
@@ -66,32 +71,35 @@ class DeploymentInstance(InstanceResource):
         :returns: DeploymentContext for this DeploymentInstance
         """
         if self._context is None:
-            self._context = DeploymentContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=self._solution['sid'],)
+            self._context = DeploymentContext(
+                self._version,
+                fleet_sid=self._solution["fleet_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the DeploymentInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the DeploymentInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "DeploymentInstance":
         """
         Fetch the DeploymentInstance
-        
+
 
         :returns: The fetched DeploymentInstance
         """
@@ -100,43 +108,57 @@ class DeploymentInstance(InstanceResource):
     async def fetch_async(self) -> "DeploymentInstance":
         """
         Asynchronous coroutine to fetch the DeploymentInstance
-        
+
 
         :returns: The fetched DeploymentInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, sync_service_sid: Union[str, object]=values.unset) -> "DeploymentInstance":
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        sync_service_sid: Union[str, object] = values.unset,
+    ) -> "DeploymentInstance":
         """
         Update the DeploymentInstance
-        
+
         :param friendly_name: Provides a human readable descriptive text for this Deployment, up to 64 characters long
         :param sync_service_sid: Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
 
         :returns: The updated DeploymentInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, sync_service_sid=sync_service_sid, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            sync_service_sid=sync_service_sid,
+        )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, sync_service_sid: Union[str, object]=values.unset) -> "DeploymentInstance":
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        sync_service_sid: Union[str, object] = values.unset,
+    ) -> "DeploymentInstance":
         """
         Asynchronous coroutine to update the DeploymentInstance
-        
+
         :param friendly_name: Provides a human readable descriptive text for this Deployment, up to 64 characters long
         :param sync_service_sid: Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
 
         :returns: The updated DeploymentInstance
         """
-        return await self._proxy.update_async(friendly_name=friendly_name, sync_service_sid=sync_service_sid, )
-    
+        return await self._proxy.update_async(
+            friendly_name=friendly_name,
+            sync_service_sid=sync_service_sid,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.DeployedDevices.DeploymentInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.DeployedDevices.DeploymentInstance {}>".format(context)
+
 
 class DeploymentContext(InstanceContext):
 
@@ -145,143 +167,156 @@ class DeploymentContext(InstanceContext):
         Initialize the DeploymentContext
 
         :param version: Version that contains the resource
-        :param fleet_sid: 
+        :param fleet_sid:
         :param sid: Provides a 34 character string that uniquely identifies the requested Deployment resource.
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'fleet_sid': fleet_sid,
-            'sid': sid,
+        self._solution = {
+            "fleet_sid": fleet_sid,
+            "sid": sid,
         }
-        self._uri = '/Fleets/{fleet_sid}/Deployments/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Fleets/{fleet_sid}/Deployments/{sid}".format(**self._solution)
+
     def delete(self) -> bool:
         """
         Deletes the DeploymentInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the DeploymentInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> DeploymentInstance:
         """
         Fetch the DeploymentInstance
-        
+
 
         :returns: The fetched DeploymentInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return DeploymentInstance(
             self._version,
             payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid'],
-            
+            fleet_sid=self._solution["fleet_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> DeploymentInstance:
         """
         Asynchronous coroutine to fetch the DeploymentInstance
-        
+
 
         :returns: The fetched DeploymentInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return DeploymentInstance(
             self._version,
             payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid'],
-            
+            fleet_sid=self._solution["fleet_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, sync_service_sid: Union[str, object]=values.unset) -> DeploymentInstance:
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        sync_service_sid: Union[str, object] = values.unset,
+    ) -> DeploymentInstance:
         """
         Update the DeploymentInstance
-        
+
         :param friendly_name: Provides a human readable descriptive text for this Deployment, up to 64 characters long
         :param sync_service_sid: Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
 
         :returns: The updated DeploymentInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'SyncServiceSid': sync_service_sid,
-        })
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "SyncServiceSid": sync_service_sid,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return DeploymentInstance(
             self._version,
             payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid']
+            fleet_sid=self._solution["fleet_sid"],
+            sid=self._solution["sid"],
         )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, sync_service_sid: Union[str, object]=values.unset) -> DeploymentInstance:
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        sync_service_sid: Union[str, object] = values.unset,
+    ) -> DeploymentInstance:
         """
         Asynchronous coroutine to update the DeploymentInstance
-        
+
         :param friendly_name: Provides a human readable descriptive text for this Deployment, up to 64 characters long
         :param sync_service_sid: Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
 
         :returns: The updated DeploymentInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'SyncServiceSid': sync_service_sid,
-        })
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "SyncServiceSid": sync_service_sid,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return DeploymentInstance(
             self._version,
             payload,
-            fleet_sid=self._solution['fleet_sid'],
-            sid=self._solution['sid']
+            fleet_sid=self._solution["fleet_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.DeployedDevices.DeploymentContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.DeployedDevices.DeploymentContext {}>".format(context)
 
 
 class DeploymentPage(Page):
@@ -292,7 +327,9 @@ class DeploymentPage(Page):
 
         :param payload: Payload response from the API
         """
-        return DeploymentInstance(self._version, payload, fleet_sid=self._solution["fleet_sid"])
+        return DeploymentInstance(
+            self._version, payload, fleet_sid=self._solution["fleet_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -303,80 +340,86 @@ class DeploymentPage(Page):
         return "<Twilio.Preview.DeployedDevices.DeploymentPage>"
 
 
-
-
-
 class DeploymentList(ListResource):
-    
+
     def __init__(self, version: Version, fleet_sid: str):
         """
         Initialize the DeploymentList
 
         :param version: Version that contains the resource
-        :param fleet_sid: 
-        
+        :param fleet_sid:
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'fleet_sid': fleet_sid,  }
-        self._uri = '/Fleets/{fleet_sid}/Deployments'.format(**self._solution)
-        
-        
-    
-    
-    
-    
-    def create(self, friendly_name: Union[str, object]=values.unset, sync_service_sid: Union[str, object]=values.unset) -> DeploymentInstance:
+        self._solution = {
+            "fleet_sid": fleet_sid,
+        }
+        self._uri = "/Fleets/{fleet_sid}/Deployments".format(**self._solution)
+
+    def create(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        sync_service_sid: Union[str, object] = values.unset,
+    ) -> DeploymentInstance:
         """
         Create the DeploymentInstance
 
         :param friendly_name: Provides a human readable descriptive text for this Deployment, up to 256 characters long.
         :param sync_service_sid: Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
-        
+
         :returns: The created DeploymentInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'SyncServiceSid': sync_service_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return DeploymentInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "SyncServiceSid": sync_service_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, friendly_name: Union[str, object]=values.unset, sync_service_sid: Union[str, object]=values.unset) -> DeploymentInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return DeploymentInstance(
+            self._version, payload, fleet_sid=self._solution["fleet_sid"]
+        )
+
+    async def create_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        sync_service_sid: Union[str, object] = values.unset,
+    ) -> DeploymentInstance:
         """
         Asynchronously create the DeploymentInstance
 
         :param friendly_name: Provides a human readable descriptive text for this Deployment, up to 256 characters long.
         :param sync_service_sid: Provides the unique string identifier of the Twilio Sync service instance that will be linked to and accessible by this Deployment.
-        
+
         :returns: The created DeploymentInstance
         """
-        
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'SyncServiceSid': sync_service_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return DeploymentInstance(self._version, payload, fleet_sid=self._solution['fleet_sid'])
-    
-    
-    def stream(self, 
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "SyncServiceSid": sync_service_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return DeploymentInstance(
+            self._version, payload, fleet_sid=self._solution["fleet_sid"]
+        )
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[DeploymentInstance]:
@@ -385,7 +428,7 @@ class DeploymentList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -396,14 +439,12 @@ class DeploymentList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[DeploymentInstance]:
@@ -412,7 +453,7 @@ class DeploymentList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -423,14 +464,12 @@ class DeploymentList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DeploymentInstance]:
@@ -438,7 +477,7 @@ class DeploymentList(ListResource):
         Lists DeploymentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -448,13 +487,15 @@ class DeploymentList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DeploymentInstance]:
@@ -462,7 +503,7 @@ class DeploymentList(ListResource):
         Asynchronously lists DeploymentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -472,13 +513,16 @@ class DeploymentList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -486,24 +530,26 @@ class DeploymentList(ListResource):
         """
         Retrieve a single page of DeploymentInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeploymentInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return DeploymentPage(self._version, response, self._solution)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -511,20 +557,24 @@ class DeploymentList(ListResource):
         """
         Asynchronously retrieve a single page of DeploymentInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeploymentInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return DeploymentPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> DeploymentPage:
@@ -536,10 +586,7 @@ class DeploymentList(ListResource):
 
         :returns: Page of DeploymentInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return DeploymentPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> DeploymentPage:
@@ -551,29 +598,28 @@ class DeploymentList(ListResource):
 
         :returns: Page of DeploymentInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return DeploymentPage(self._version, response, self._solution)
-
-
 
     def get(self, sid: str) -> DeploymentContext:
         """
         Constructs a DeploymentContext
-        
+
         :param sid: Provides a 34 character string that uniquely identifies the requested Deployment resource.
         """
-        return DeploymentContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
+        return DeploymentContext(
+            self._version, fleet_sid=self._solution["fleet_sid"], sid=sid
+        )
 
     def __call__(self, sid: str) -> DeploymentContext:
         """
         Constructs a DeploymentContext
-        
+
         :param sid: Provides a 34 character string that uniquely identifies the requested Deployment resource.
         """
-        return DeploymentContext(self._version, fleet_sid=self._solution['fleet_sid'], sid=sid)
+        return DeploymentContext(
+            self._version, fleet_sid=self._solution["fleet_sid"], sid=sid
+        )
 
     def __repr__(self) -> str:
         """
@@ -581,5 +627,4 @@ class DeploymentList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Preview.DeployedDevices.DeploymentList>'
-
+        return "<Twilio.Preview.DeployedDevices.DeploymentList>"

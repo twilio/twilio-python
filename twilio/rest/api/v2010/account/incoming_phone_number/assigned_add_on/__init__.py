@@ -12,21 +12,20 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension import AssignedAddOnExtensionList
+from twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on.assigned_add_on_extension import (
+    AssignedAddOnExtensionList,
+)
 
 
 class AssignedAddOnInstance(InstanceResource):
-
     """
     :ivar sid: The unique string that that we created to identify the resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resource.
@@ -41,10 +40,16 @@ class AssignedAddOnInstance(InstanceResource):
     :ivar subresource_uris: A list of related resources identified by their relative URIs.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, resource_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        account_sid: str,
+        resource_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.resource_sid: Optional[str] = payload.get("resource_sid")
@@ -52,13 +57,18 @@ class AssignedAddOnInstance(InstanceResource):
         self.description: Optional[str] = payload.get("description")
         self.configuration: Optional[Dict[str, object]] = payload.get("configuration")
         self.unique_name: Optional[str] = payload.get("unique_name")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
         self.uri: Optional[str] = payload.get("uri")
-        self.subresource_uris: Optional[Dict[str, object]] = payload.get("subresource_uris")
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
+            "subresource_uris"
+        )
 
-        
-        self._solution = { 
+        self._solution = {
             "account_sid": account_sid,
             "resource_sid": resource_sid,
             "sid": sid or self.sid,
@@ -74,32 +84,36 @@ class AssignedAddOnInstance(InstanceResource):
         :returns: AssignedAddOnContext for this AssignedAddOnInstance
         """
         if self._context is None:
-            self._context = AssignedAddOnContext(self._version, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'], sid=self._solution['sid'],)
+            self._context = AssignedAddOnContext(
+                self._version,
+                account_sid=self._solution["account_sid"],
+                resource_sid=self._solution["resource_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the AssignedAddOnInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AssignedAddOnInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "AssignedAddOnInstance":
         """
         Fetch the AssignedAddOnInstance
-        
+
 
         :returns: The fetched AssignedAddOnInstance
         """
@@ -108,27 +122,28 @@ class AssignedAddOnInstance(InstanceResource):
     async def fetch_async(self) -> "AssignedAddOnInstance":
         """
         Asynchronous coroutine to fetch the AssignedAddOnInstance
-        
+
 
         :returns: The fetched AssignedAddOnInstance
         """
         return await self._proxy.fetch_async()
-    
+
     @property
     def extensions(self) -> AssignedAddOnExtensionList:
         """
         Access the extensions
         """
         return self._proxy.extensions
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.AssignedAddOnInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.AssignedAddOnInstance {}>".format(context)
+
 
 class AssignedAddOnContext(InstanceContext):
 
@@ -143,76 +158,84 @@ class AssignedAddOnContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'account_sid': account_sid,
-            'resource_sid': resource_sid,
-            'sid': sid,
+        self._solution = {
+            "account_sid": account_sid,
+            "resource_sid": resource_sid,
+            "sid": sid,
         }
-        self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns/{sid}.json'.format(**self._solution)
-        
+        self._uri = "/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns/{sid}.json".format(
+            **self._solution
+        )
+
         self._extensions: Optional[AssignedAddOnExtensionList] = None
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the AssignedAddOnInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AssignedAddOnInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> AssignedAddOnInstance:
         """
         Fetch the AssignedAddOnInstance
-        
+
 
         :returns: The fetched AssignedAddOnInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return AssignedAddOnInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            resource_sid=self._solution['resource_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            resource_sid=self._solution["resource_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> AssignedAddOnInstance:
         """
         Asynchronous coroutine to fetch the AssignedAddOnInstance
-        
+
 
         :returns: The fetched AssignedAddOnInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return AssignedAddOnInstance(
             self._version,
             payload,
-            account_sid=self._solution['account_sid'],
-            resource_sid=self._solution['resource_sid'],
-            sid=self._solution['sid'],
-            
+            account_sid=self._solution["account_sid"],
+            resource_sid=self._solution["resource_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     @property
     def extensions(self) -> AssignedAddOnExtensionList:
         """
@@ -220,28 +243,21 @@ class AssignedAddOnContext(InstanceContext):
         """
         if self._extensions is None:
             self._extensions = AssignedAddOnExtensionList(
-                self._version, 
-                self._solution['account_sid'],
-                self._solution['resource_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["account_sid"],
+                self._solution["resource_sid"],
+                self._solution["sid"],
             )
         return self._extensions
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Api.V2010.AssignedAddOnContext {}>'.format(context)
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Api.V2010.AssignedAddOnContext {}>".format(context)
 
 
 class AssignedAddOnPage(Page):
@@ -252,7 +268,12 @@ class AssignedAddOnPage(Page):
 
         :param payload: Payload response from the API
         """
-        return AssignedAddOnInstance(self._version, payload, account_sid=self._solution["account_sid"], resource_sid=self._solution["resource_sid"])
+        return AssignedAddOnInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            resource_sid=self._solution["resource_sid"],
+        )
 
     def __repr__(self) -> str:
         """
@@ -263,11 +284,8 @@ class AssignedAddOnPage(Page):
         return "<Twilio.Api.V2010.AssignedAddOnPage>"
 
 
-
-
-
 class AssignedAddOnList(ListResource):
-    
+
     def __init__(self, version: Version, account_sid: str, resource_sid: str):
         """
         Initialize the AssignedAddOnList
@@ -275,64 +293,75 @@ class AssignedAddOnList(ListResource):
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the resources to read.
         :param resource_sid: The SID of the Phone Number to which the Add-on is assigned.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'account_sid': account_sid, 'resource_sid': resource_sid,  }
-        self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns.json'.format(**self._solution)
-        
-        
-    
-    
-    
+        self._solution = {
+            "account_sid": account_sid,
+            "resource_sid": resource_sid,
+        }
+        self._uri = "/Accounts/{account_sid}/IncomingPhoneNumbers/{resource_sid}/AssignedAddOns.json".format(
+            **self._solution
+        )
+
     def create(self, installed_add_on_sid: str) -> AssignedAddOnInstance:
         """
         Create the AssignedAddOnInstance
 
         :param installed_add_on_sid: The SID that identifies the Add-on installation.
-        
+
         :returns: The created AssignedAddOnInstance
         """
-        
-        data = values.of({ 
-            'InstalledAddOnSid': installed_add_on_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return AssignedAddOnInstance(self._version, payload, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'])
+        data = values.of(
+            {
+                "InstalledAddOnSid": installed_add_on_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return AssignedAddOnInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            resource_sid=self._solution["resource_sid"],
+        )
 
     async def create_async(self, installed_add_on_sid: str) -> AssignedAddOnInstance:
         """
         Asynchronously create the AssignedAddOnInstance
 
         :param installed_add_on_sid: The SID that identifies the Add-on installation.
-        
+
         :returns: The created AssignedAddOnInstance
         """
-        
-        data = values.of({ 
-            'InstalledAddOnSid': installed_add_on_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return AssignedAddOnInstance(self._version, payload, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'])
-    
-    
-    def stream(self, 
-        
+        data = values.of(
+            {
+                "InstalledAddOnSid": installed_add_on_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return AssignedAddOnInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            resource_sid=self._solution["resource_sid"],
+        )
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[AssignedAddOnInstance]:
@@ -341,7 +370,7 @@ class AssignedAddOnList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -352,14 +381,12 @@ class AssignedAddOnList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[AssignedAddOnInstance]:
@@ -368,7 +395,7 @@ class AssignedAddOnList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -379,14 +406,12 @@ class AssignedAddOnList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[AssignedAddOnInstance]:
@@ -394,7 +419,7 @@ class AssignedAddOnList(ListResource):
         Lists AssignedAddOnInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -404,13 +429,15 @@ class AssignedAddOnList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[AssignedAddOnInstance]:
@@ -418,7 +445,7 @@ class AssignedAddOnList(ListResource):
         Asynchronously lists AssignedAddOnInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -428,13 +455,16 @@ class AssignedAddOnList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -442,24 +472,26 @@ class AssignedAddOnList(ListResource):
         """
         Retrieve a single page of AssignedAddOnInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssignedAddOnInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return AssignedAddOnPage(self._version, response, self._solution)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -467,20 +499,24 @@ class AssignedAddOnList(ListResource):
         """
         Asynchronously retrieve a single page of AssignedAddOnInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssignedAddOnInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return AssignedAddOnPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> AssignedAddOnPage:
@@ -492,10 +528,7 @@ class AssignedAddOnList(ListResource):
 
         :returns: Page of AssignedAddOnInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return AssignedAddOnPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> AssignedAddOnPage:
@@ -507,31 +540,34 @@ class AssignedAddOnList(ListResource):
 
         :returns: Page of AssignedAddOnInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return AssignedAddOnPage(self._version, response, self._solution)
-
-
-
-
 
     def get(self, sid: str) -> AssignedAddOnContext:
         """
         Constructs a AssignedAddOnContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
         """
-        return AssignedAddOnContext(self._version, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'], sid=sid)
+        return AssignedAddOnContext(
+            self._version,
+            account_sid=self._solution["account_sid"],
+            resource_sid=self._solution["resource_sid"],
+            sid=sid,
+        )
 
     def __call__(self, sid: str) -> AssignedAddOnContext:
         """
         Constructs a AssignedAddOnContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the resource to fetch.
         """
-        return AssignedAddOnContext(self._version, account_sid=self._solution['account_sid'], resource_sid=self._solution['resource_sid'], sid=sid)
+        return AssignedAddOnContext(
+            self._version,
+            account_sid=self._solution["account_sid"],
+            resource_sid=self._solution["resource_sid"],
+            sid=sid,
+        )
 
     def __repr__(self) -> str:
         """
@@ -539,5 +575,4 @@ class AssignedAddOnList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Api.V2010.AssignedAddOnList>'
-
+        return "<Twilio.Api.V2010.AssignedAddOnList>"

@@ -12,16 +12,12 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Any, Dict, Optional, Union
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
-
 
 
 class PortingPortabilityInstance(InstanceResource):
@@ -44,22 +40,31 @@ class PortingPortabilityInstance(InstanceResource):
     :ivar url: This is the url of the request that you're trying to reach out to locate the resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], phone_number: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        phone_number: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.phone_number: Optional[str] = payload.get("phone_number")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.portable: Optional[bool] = payload.get("portable")
-        self.pin_and_account_number_required: Optional[bool] = payload.get("pin_and_account_number_required")
+        self.pin_and_account_number_required: Optional[bool] = payload.get(
+            "pin_and_account_number_required"
+        )
         self.not_portable_reason: Optional[str] = payload.get("not_portable_reason")
-        self.not_portable_reason_code: Optional[int] = deserialize.integer(payload.get("not_portable_reason_code"))
-        self.number_type: Optional["PortingPortabilityInstance.NumberType"] = payload.get("number_type")
+        self.not_portable_reason_code: Optional[int] = deserialize.integer(
+            payload.get("not_portable_reason_code")
+        )
+        self.number_type: Optional["PortingPortabilityInstance.NumberType"] = (
+            payload.get("number_type")
+        )
         self.country: Optional[str] = payload.get("country")
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "phone_number": phone_number or self.phone_number,
         }
         self._context: Optional[PortingPortabilityContext] = None
@@ -73,38 +78,49 @@ class PortingPortabilityInstance(InstanceResource):
         :returns: PortingPortabilityContext for this PortingPortabilityInstance
         """
         if self._context is None:
-            self._context = PortingPortabilityContext(self._version, phone_number=self._solution['phone_number'],)
+            self._context = PortingPortabilityContext(
+                self._version,
+                phone_number=self._solution["phone_number"],
+            )
         return self._context
-    
-    
-    def fetch(self, target_account_sid: Union[str, object]=values.unset) -> "PortingPortabilityInstance":
+
+    def fetch(
+        self, target_account_sid: Union[str, object] = values.unset
+    ) -> "PortingPortabilityInstance":
         """
         Fetch the PortingPortabilityInstance
-        
+
         :param target_account_sid: The SID of the account where the phone number(s) will be ported.
 
         :returns: The fetched PortingPortabilityInstance
         """
-        return self._proxy.fetch(target_account_sid=target_account_sid, )
+        return self._proxy.fetch(
+            target_account_sid=target_account_sid,
+        )
 
-    async def fetch_async(self, target_account_sid: Union[str, object]=values.unset) -> "PortingPortabilityInstance":
+    async def fetch_async(
+        self, target_account_sid: Union[str, object] = values.unset
+    ) -> "PortingPortabilityInstance":
         """
         Asynchronous coroutine to fetch the PortingPortabilityInstance
-        
+
         :param target_account_sid: The SID of the account where the phone number(s) will be ported.
 
         :returns: The fetched PortingPortabilityInstance
         """
-        return await self._proxy.fetch_async(target_account_sid=target_account_sid, )
-    
+        return await self._proxy.fetch_async(
+            target_account_sid=target_account_sid,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Numbers.V1.PortingPortabilityInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Numbers.V1.PortingPortabilityInstance {}>".format(context)
+
 
 class PortingPortabilityContext(InstanceContext):
 
@@ -117,91 +133,91 @@ class PortingPortabilityContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'phone_number': phone_number,
+        self._solution = {
+            "phone_number": phone_number,
         }
-        self._uri = '/Porting/Portability/PhoneNumber/{phone_number}'.format(**self._solution)
-        
-    
-    
-    def fetch(self, target_account_sid: Union[str, object]=values.unset) -> PortingPortabilityInstance:
+        self._uri = "/Porting/Portability/PhoneNumber/{phone_number}".format(
+            **self._solution
+        )
+
+    def fetch(
+        self, target_account_sid: Union[str, object] = values.unset
+    ) -> PortingPortabilityInstance:
         """
         Fetch the PortingPortabilityInstance
-        
+
         :param target_account_sid: The SID of the account where the phone number(s) will be ported.
 
         :returns: The fetched PortingPortabilityInstance
         """
-        
-        data = values.of({ 
-            'TargetAccountSid': target_account_sid,
-        })
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
+
+        data = values.of(
+            {
+                "TargetAccountSid": target_account_sid,
+            }
+        )
+
+        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
 
         return PortingPortabilityInstance(
             self._version,
             payload,
-            phone_number=self._solution['phone_number'],
-            
+            phone_number=self._solution["phone_number"],
         )
 
-    async def fetch_async(self, target_account_sid: Union[str, object]=values.unset) -> PortingPortabilityInstance:
+    async def fetch_async(
+        self, target_account_sid: Union[str, object] = values.unset
+    ) -> PortingPortabilityInstance:
         """
         Asynchronous coroutine to fetch the PortingPortabilityInstance
-        
+
         :param target_account_sid: The SID of the account where the phone number(s) will be ported.
 
         :returns: The fetched PortingPortabilityInstance
         """
-        
-        data = values.of({ 
-            'TargetAccountSid': target_account_sid,
-        })
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
+
+        data = values.of(
+            {
+                "TargetAccountSid": target_account_sid,
+            }
+        )
+
+        payload = await self._version.fetch_async(
+            method="GET", uri=self._uri, params=data
+        )
 
         return PortingPortabilityInstance(
             self._version,
             payload,
-            phone_number=self._solution['phone_number'],
-            
+            phone_number=self._solution["phone_number"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Numbers.V1.PortingPortabilityContext {}>'.format(context)
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Numbers.V1.PortingPortabilityContext {}>".format(context)
 
 
 class PortingPortabilityList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the PortingPortabilityList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
-
-        
-        
-        
-        
 
     def get(self, phone_number: str) -> PortingPortabilityContext:
         """
         Constructs a PortingPortabilityContext
-        
+
         :param phone_number: The phone number which portability is to be checked. Phone numbers are in E.164 format (e.g. +16175551212).
         """
         return PortingPortabilityContext(self._version, phone_number=phone_number)
@@ -209,7 +225,7 @@ class PortingPortabilityList(ListResource):
     def __call__(self, phone_number: str) -> PortingPortabilityContext:
         """
         Constructs a PortingPortabilityContext
-        
+
         :param phone_number: The phone number which portability is to be checked. Phone numbers are in E.164 format (e.g. +16175551212).
         """
         return PortingPortabilityContext(self._version, phone_number=phone_number)
@@ -220,5 +236,4 @@ class PortingPortabilityList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Numbers.V1.PortingPortabilityList>'
-
+        return "<Twilio.Numbers.V1.PortingPortabilityList>"

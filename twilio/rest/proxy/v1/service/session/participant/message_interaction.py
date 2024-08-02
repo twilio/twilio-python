@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -77,10 +75,17 @@ class MessageInteractionInstance(InstanceResource):
     :ivar url: The absolute URL of the MessageInteraction resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, session_sid: str, participant_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        session_sid: str,
+        participant_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.session_sid: Optional[str] = payload.get("session_sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
@@ -88,22 +93,35 @@ class MessageInteractionInstance(InstanceResource):
         self.data: Optional[str] = payload.get("data")
         self.type: Optional["MessageInteractionInstance.Type"] = payload.get("type")
         self.participant_sid: Optional[str] = payload.get("participant_sid")
-        self.inbound_participant_sid: Optional[str] = payload.get("inbound_participant_sid")
+        self.inbound_participant_sid: Optional[str] = payload.get(
+            "inbound_participant_sid"
+        )
         self.inbound_resource_sid: Optional[str] = payload.get("inbound_resource_sid")
-        self.inbound_resource_status: Optional["MessageInteractionInstance.ResourceStatus"] = payload.get("inbound_resource_status")
+        self.inbound_resource_status: Optional[
+            "MessageInteractionInstance.ResourceStatus"
+        ] = payload.get("inbound_resource_status")
         self.inbound_resource_type: Optional[str] = payload.get("inbound_resource_type")
         self.inbound_resource_url: Optional[str] = payload.get("inbound_resource_url")
-        self.outbound_participant_sid: Optional[str] = payload.get("outbound_participant_sid")
+        self.outbound_participant_sid: Optional[str] = payload.get(
+            "outbound_participant_sid"
+        )
         self.outbound_resource_sid: Optional[str] = payload.get("outbound_resource_sid")
-        self.outbound_resource_status: Optional["MessageInteractionInstance.ResourceStatus"] = payload.get("outbound_resource_status")
-        self.outbound_resource_type: Optional[str] = payload.get("outbound_resource_type")
+        self.outbound_resource_status: Optional[
+            "MessageInteractionInstance.ResourceStatus"
+        ] = payload.get("outbound_resource_status")
+        self.outbound_resource_type: Optional[str] = payload.get(
+            "outbound_resource_type"
+        )
         self.outbound_resource_url: Optional[str] = payload.get("outbound_resource_url")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "service_sid": service_sid,
             "session_sid": session_sid,
             "participant_sid": participant_sid,
@@ -120,14 +138,19 @@ class MessageInteractionInstance(InstanceResource):
         :returns: MessageInteractionContext for this MessageInteractionInstance
         """
         if self._context is None:
-            self._context = MessageInteractionContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], participant_sid=self._solution['participant_sid'], sid=self._solution['sid'],)
+            self._context = MessageInteractionContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                session_sid=self._solution["session_sid"],
+                participant_sid=self._solution["participant_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "MessageInteractionInstance":
         """
         Fetch the MessageInteractionInstance
-        
+
 
         :returns: The fetched MessageInteractionInstance
         """
@@ -136,24 +159,32 @@ class MessageInteractionInstance(InstanceResource):
     async def fetch_async(self) -> "MessageInteractionInstance":
         """
         Asynchronous coroutine to fetch the MessageInteractionInstance
-        
+
 
         :returns: The fetched MessageInteractionInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Proxy.V1.MessageInteractionInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Proxy.V1.MessageInteractionInstance {}>".format(context)
+
 
 class MessageInteractionContext(InstanceContext):
 
-    def __init__(self, version: Version, service_sid: str, session_sid: str, participant_sid: str, sid: str):
+    def __init__(
+        self,
+        version: Version,
+        service_sid: str,
+        session_sid: str,
+        participant_sid: str,
+        sid: str,
+    ):
         """
         Initialize the MessageInteractionContext
 
@@ -165,72 +196,69 @@ class MessageInteractionContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'session_sid': session_sid,
-            'participant_sid': participant_sid,
-            'sid': sid,
+        self._solution = {
+            "service_sid": service_sid,
+            "session_sid": session_sid,
+            "participant_sid": participant_sid,
+            "sid": sid,
         }
-        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants/{participant_sid}/MessageInteractions/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/Services/{service_sid}/Sessions/{session_sid}/Participants/{participant_sid}/MessageInteractions/{sid}".format(
+            **self._solution
+        )
+
     def fetch(self) -> MessageInteractionInstance:
         """
         Fetch the MessageInteractionInstance
-        
+
 
         :returns: The fetched MessageInteractionInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return MessageInteractionInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            session_sid=self._solution['session_sid'],
-            participant_sid=self._solution['participant_sid'],
-            sid=self._solution['sid'],
-            
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+            participant_sid=self._solution["participant_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> MessageInteractionInstance:
         """
         Asynchronous coroutine to fetch the MessageInteractionInstance
-        
+
 
         :returns: The fetched MessageInteractionInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return MessageInteractionInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            session_sid=self._solution['session_sid'],
-            participant_sid=self._solution['participant_sid'],
-            sid=self._solution['sid'],
-            
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+            participant_sid=self._solution["participant_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Proxy.V1.MessageInteractionContext {}>'.format(context)
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Proxy.V1.MessageInteractionContext {}>".format(context)
 
 
 class MessageInteractionPage(Page):
@@ -241,7 +269,13 @@ class MessageInteractionPage(Page):
 
         :param payload: Payload response from the API
         """
-        return MessageInteractionInstance(self._version, payload, service_sid=self._solution["service_sid"], session_sid=self._solution["session_sid"], participant_sid=self._solution["participant_sid"])
+        return MessageInteractionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+            participant_sid=self._solution["participant_sid"],
+        )
 
     def __repr__(self) -> str:
         """
@@ -252,12 +286,11 @@ class MessageInteractionPage(Page):
         return "<Twilio.Proxy.V1.MessageInteractionPage>"
 
 
-
-
-
 class MessageInteractionList(ListResource):
-    
-    def __init__(self, version: Version, service_sid: str, session_sid: str, participant_sid: str):
+
+    def __init__(
+        self, version: Version, service_sid: str, session_sid: str, participant_sid: str
+    ):
         """
         Initialize the MessageInteractionList
 
@@ -265,67 +298,90 @@ class MessageInteractionList(ListResource):
         :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from.
         :param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) to read the resources from.
         :param participant_sid: The SID of the [Participant](https://www.twilio.com/docs/proxy/api/participant) to read the resources from.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'service_sid': service_sid, 'session_sid': session_sid, 'participant_sid': participant_sid,  }
-        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Participants/{participant_sid}/MessageInteractions'.format(**self._solution)
-        
-        
-    
-    
-    def create(self, body: Union[str, object]=values.unset, media_url: Union[List[str], object]=values.unset) -> MessageInteractionInstance:
+        self._solution = {
+            "service_sid": service_sid,
+            "session_sid": session_sid,
+            "participant_sid": participant_sid,
+        }
+        self._uri = "/Services/{service_sid}/Sessions/{session_sid}/Participants/{participant_sid}/MessageInteractions".format(
+            **self._solution
+        )
+
+    def create(
+        self,
+        body: Union[str, object] = values.unset,
+        media_url: Union[List[str], object] = values.unset,
+    ) -> MessageInteractionInstance:
         """
         Create the MessageInteractionInstance
 
         :param body: The message to send to the participant
         :param media_url: Reserved. Not currently supported.
-        
+
         :returns: The created MessageInteractionInstance
         """
-        
-        data = values.of({ 
-            'Body': body,
-            'MediaUrl': serialize.map(media_url, lambda e: e),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return MessageInteractionInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], participant_sid=self._solution['participant_sid'])
+        data = values.of(
+            {
+                "Body": body,
+                "MediaUrl": serialize.map(media_url, lambda e: e),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, body: Union[str, object]=values.unset, media_url: Union[List[str], object]=values.unset) -> MessageInteractionInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return MessageInteractionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+            participant_sid=self._solution["participant_sid"],
+        )
+
+    async def create_async(
+        self,
+        body: Union[str, object] = values.unset,
+        media_url: Union[List[str], object] = values.unset,
+    ) -> MessageInteractionInstance:
         """
         Asynchronously create the MessageInteractionInstance
 
         :param body: The message to send to the participant
         :param media_url: Reserved. Not currently supported.
-        
+
         :returns: The created MessageInteractionInstance
         """
-        
-        data = values.of({ 
-            'Body': body,
-            'MediaUrl': serialize.map(media_url, lambda e: e),
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return MessageInteractionInstance(self._version, payload, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], participant_sid=self._solution['participant_sid'])
-    
-    
-    def stream(self, 
-        
+        data = values.of(
+            {
+                "Body": body,
+                "MediaUrl": serialize.map(media_url, lambda e: e),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return MessageInteractionInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+            participant_sid=self._solution["participant_sid"],
+        )
+
+    def stream(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[MessageInteractionInstance]:
@@ -334,7 +390,7 @@ class MessageInteractionList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -345,14 +401,12 @@ class MessageInteractionList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            page_size=limits['page_size']
-        )
+        page = self.page(page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
-        
+    async def stream_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[MessageInteractionInstance]:
@@ -361,7 +415,7 @@ class MessageInteractionList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -372,14 +426,12 @@ class MessageInteractionList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
-        
+    def list(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[MessageInteractionInstance]:
@@ -387,7 +439,7 @@ class MessageInteractionList(ListResource):
         Lists MessageInteractionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -397,13 +449,15 @@ class MessageInteractionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
-        
+    async def list_async(
+        self,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[MessageInteractionInstance]:
@@ -411,7 +465,7 @@ class MessageInteractionList(ListResource):
         Asynchronously lists MessageInteractionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -421,13 +475,16 @@ class MessageInteractionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
-        
+    def page(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -435,24 +492,26 @@ class MessageInteractionList(ListResource):
         """
         Retrieve a single page of MessageInteractionInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessageInteractionInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return MessageInteractionPage(self._version, response, self._solution)
 
-    async def page_async(self, 
-        
+    async def page_async(
+        self,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -460,20 +519,24 @@ class MessageInteractionList(ListResource):
         """
         Asynchronously retrieve a single page of MessageInteractionInstance records from the API.
         Request is executed immediately
-        
+
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of MessageInteractionInstance
         """
-        data = values.of({ 
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return MessageInteractionPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> MessageInteractionPage:
@@ -485,10 +548,7 @@ class MessageInteractionList(ListResource):
 
         :returns: Page of MessageInteractionInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return MessageInteractionPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> MessageInteractionPage:
@@ -500,29 +560,36 @@ class MessageInteractionList(ListResource):
 
         :returns: Page of MessageInteractionInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return MessageInteractionPage(self._version, response, self._solution)
-
-
 
     def get(self, sid: str) -> MessageInteractionContext:
         """
         Constructs a MessageInteractionContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the MessageInteraction resource to fetch.
         """
-        return MessageInteractionContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], participant_sid=self._solution['participant_sid'], sid=sid)
+        return MessageInteractionContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+            participant_sid=self._solution["participant_sid"],
+            sid=sid,
+        )
 
     def __call__(self, sid: str) -> MessageInteractionContext:
         """
         Constructs a MessageInteractionContext
-        
+
         :param sid: The Twilio-provided string that uniquely identifies the MessageInteraction resource to fetch.
         """
-        return MessageInteractionContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], participant_sid=self._solution['participant_sid'], sid=sid)
+        return MessageInteractionContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            session_sid=self._solution["session_sid"],
+            participant_sid=self._solution["participant_sid"],
+            sid=sid,
+        )
 
     def __repr__(self) -> str:
         """
@@ -530,5 +597,4 @@ class MessageInteractionList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Proxy.V1.MessageInteractionList>'
-
+        return "<Twilio.Proxy.V1.MessageInteractionList>"

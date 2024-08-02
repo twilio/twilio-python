@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -67,31 +65,50 @@ class ChallengeInstance(InstanceResource):
     :ivar links: Contains a dictionary of URL links to nested resources of this Challenge.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, identity: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        identity: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
         self.entity_sid: Optional[str] = payload.get("entity_sid")
         self.identity: Optional[str] = payload.get("identity")
         self.factor_sid: Optional[str] = payload.get("factor_sid")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
-        self.date_responded: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_responded"))
-        self.expiration_date: Optional[datetime] = deserialize.iso8601_datetime(payload.get("expiration_date"))
-        self.status: Optional["ChallengeInstance.ChallengeStatuses"] = payload.get("status")
-        self.responded_reason: Optional["ChallengeInstance.ChallengeReasons"] = payload.get("responded_reason")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.date_responded: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_responded")
+        )
+        self.expiration_date: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("expiration_date")
+        )
+        self.status: Optional["ChallengeInstance.ChallengeStatuses"] = payload.get(
+            "status"
+        )
+        self.responded_reason: Optional["ChallengeInstance.ChallengeReasons"] = (
+            payload.get("responded_reason")
+        )
         self.details: Optional[Dict[str, object]] = payload.get("details")
         self.hidden_details: Optional[Dict[str, object]] = payload.get("hidden_details")
         self.metadata: Optional[Dict[str, object]] = payload.get("metadata")
-        self.factor_type: Optional["ChallengeInstance.FactorTypes"] = payload.get("factor_type")
+        self.factor_type: Optional["ChallengeInstance.FactorTypes"] = payload.get(
+            "factor_type"
+        )
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        
-        self._solution = { 
+        self._solution = {
             "service_sid": service_sid,
             "identity": identity,
             "sid": sid or self.sid,
@@ -107,14 +124,18 @@ class ChallengeInstance(InstanceResource):
         :returns: ChallengeContext for this ChallengeInstance
         """
         if self._context is None:
-            self._context = ChallengeContext(self._version, service_sid=self._solution['service_sid'], identity=self._solution['identity'], sid=self._solution['sid'],)
+            self._context = ChallengeContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                identity=self._solution["identity"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "ChallengeInstance":
         """
         Fetch the ChallengeInstance
-        
+
 
         :returns: The fetched ChallengeInstance
         """
@@ -123,50 +144,64 @@ class ChallengeInstance(InstanceResource):
     async def fetch_async(self) -> "ChallengeInstance":
         """
         Asynchronous coroutine to fetch the ChallengeInstance
-        
+
 
         :returns: The fetched ChallengeInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, auth_payload: Union[str, object]=values.unset, metadata: Union[object, object]=values.unset) -> "ChallengeInstance":
+
+    def update(
+        self,
+        auth_payload: Union[str, object] = values.unset,
+        metadata: Union[object, object] = values.unset,
+    ) -> "ChallengeInstance":
         """
         Update the ChallengeInstance
-        
+
         :param auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
         :param metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
 
         :returns: The updated ChallengeInstance
         """
-        return self._proxy.update(auth_payload=auth_payload, metadata=metadata, )
+        return self._proxy.update(
+            auth_payload=auth_payload,
+            metadata=metadata,
+        )
 
-    async def update_async(self, auth_payload: Union[str, object]=values.unset, metadata: Union[object, object]=values.unset) -> "ChallengeInstance":
+    async def update_async(
+        self,
+        auth_payload: Union[str, object] = values.unset,
+        metadata: Union[object, object] = values.unset,
+    ) -> "ChallengeInstance":
         """
         Asynchronous coroutine to update the ChallengeInstance
-        
+
         :param auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
         :param metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
 
         :returns: The updated ChallengeInstance
         """
-        return await self._proxy.update_async(auth_payload=auth_payload, metadata=metadata, )
-    
+        return await self._proxy.update_async(
+            auth_payload=auth_payload,
+            metadata=metadata,
+        )
+
     @property
     def notifications(self) -> NotificationList:
         """
         Access the notifications
         """
         return self._proxy.notifications
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.ChallengeInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Verify.V2.ChallengeInstance {}>".format(context)
+
 
 class ChallengeContext(InstanceContext):
 
@@ -181,108 +216,130 @@ class ChallengeContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'identity': identity,
-            'sid': sid,
+        self._solution = {
+            "service_sid": service_sid,
+            "identity": identity,
+            "sid": sid,
         }
-        self._uri = '/Services/{service_sid}/Entities/{identity}/Challenges/{sid}'.format(**self._solution)
-        
+        self._uri = (
+            "/Services/{service_sid}/Entities/{identity}/Challenges/{sid}".format(
+                **self._solution
+            )
+        )
+
         self._notifications: Optional[NotificationList] = None
-    
-    
+
     def fetch(self) -> ChallengeInstance:
         """
         Fetch the ChallengeInstance
-        
+
 
         :returns: The fetched ChallengeInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ChallengeInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            identity=self._solution['identity'],
-            sid=self._solution['sid'],
-            
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> ChallengeInstance:
         """
         Asynchronous coroutine to fetch the ChallengeInstance
-        
+
 
         :returns: The fetched ChallengeInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ChallengeInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            identity=self._solution['identity'],
-            sid=self._solution['sid'],
-            
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, auth_payload: Union[str, object]=values.unset, metadata: Union[object, object]=values.unset) -> ChallengeInstance:
+
+    def update(
+        self,
+        auth_payload: Union[str, object] = values.unset,
+        metadata: Union[object, object] = values.unset,
+    ) -> ChallengeInstance:
         """
         Update the ChallengeInstance
-        
+
         :param auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
         :param metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
 
         :returns: The updated ChallengeInstance
         """
-        data = values.of({ 
-            'AuthPayload': auth_payload,
-            'Metadata': serialize.object(metadata),
-        })
-        
+        data = values.of(
+            {
+                "AuthPayload": auth_payload,
+                "Metadata": serialize.object(metadata),
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return ChallengeInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            identity=self._solution['identity'],
-            sid=self._solution['sid']
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+            sid=self._solution["sid"],
         )
 
-    async def update_async(self, auth_payload: Union[str, object]=values.unset, metadata: Union[object, object]=values.unset) -> ChallengeInstance:
+    async def update_async(
+        self,
+        auth_payload: Union[str, object] = values.unset,
+        metadata: Union[object, object] = values.unset,
+    ) -> ChallengeInstance:
         """
         Asynchronous coroutine to update the ChallengeInstance
-        
+
         :param auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
         :param metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
 
         :returns: The updated ChallengeInstance
         """
-        data = values.of({ 
-            'AuthPayload': auth_payload,
-            'Metadata': serialize.object(metadata),
-        })
-        
+        data = values.of(
+            {
+                "AuthPayload": auth_payload,
+                "Metadata": serialize.object(metadata),
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return ChallengeInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            identity=self._solution['identity'],
-            sid=self._solution['sid']
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     @property
     def notifications(self) -> NotificationList:
         """
@@ -290,28 +347,21 @@ class ChallengeContext(InstanceContext):
         """
         if self._notifications is None:
             self._notifications = NotificationList(
-                self._version, 
-                self._solution['service_sid'],
-                self._solution['identity'],
-                self._solution['sid'],
+                self._version,
+                self._solution["service_sid"],
+                self._solution["identity"],
+                self._solution["sid"],
             )
         return self._notifications
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Verify.V2.ChallengeContext {}>'.format(context)
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Verify.V2.ChallengeContext {}>".format(context)
 
 
 class ChallengePage(Page):
@@ -322,7 +372,12 @@ class ChallengePage(Page):
 
         :param payload: Payload response from the API
         """
-        return ChallengeInstance(self._version, payload, service_sid=self._solution["service_sid"], identity=self._solution["identity"])
+        return ChallengeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+        )
 
     def __repr__(self) -> str:
         """
@@ -333,11 +388,8 @@ class ChallengePage(Page):
         return "<Twilio.Verify.V2.ChallengePage>"
 
 
-
-
-
 class ChallengeList(ListResource):
-    
+
     def __init__(self, version: Version, service_sid: str, identity: str):
         """
         Initialize the ChallengeList
@@ -345,20 +397,28 @@ class ChallengeList(ListResource):
         :param version: Version that contains the resource
         :param service_sid: The unique SID identifier of the Service.
         :param identity: Customer unique identity for the Entity owner of the Challenge. This identifier should be immutable, not PII, length between 8 and 64 characters, and generated by your external system, such as your user's UUID, GUID, or SID. It can only contain dash (-) separated alphanumeric characters.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'service_sid': service_sid, 'identity': identity,  }
-        self._uri = '/Services/{service_sid}/Entities/{identity}/Challenges'.format(**self._solution)
-        
-        
-    
-    
-    
-    def create(self, factor_sid: str, expiration_date: Union[datetime, object]=values.unset, details_message: Union[str, object]=values.unset, details_fields: Union[List[object], object]=values.unset, hidden_details: Union[object, object]=values.unset, auth_payload: Union[str, object]=values.unset) -> ChallengeInstance:
+        self._solution = {
+            "service_sid": service_sid,
+            "identity": identity,
+        }
+        self._uri = "/Services/{service_sid}/Entities/{identity}/Challenges".format(
+            **self._solution
+        )
+
+    def create(
+        self,
+        factor_sid: str,
+        expiration_date: Union[datetime, object] = values.unset,
+        details_message: Union[str, object] = values.unset,
+        details_fields: Union[List[object], object] = values.unset,
+        hidden_details: Union[object, object] = values.unset,
+        auth_payload: Union[str, object] = values.unset,
+    ) -> ChallengeInstance:
         """
         Create the ChallengeInstance
 
@@ -368,28 +428,44 @@ class ChallengeList(ListResource):
         :param details_fields: A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when `factor_type` is `push`. There can be up to 20 details fields.
         :param hidden_details: Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\\\"ip\\\": \\\"172.168.1.234\\\"}`. Can be up to 1024 characters in length
         :param auth_payload: Optional payload used to verify the Challenge upon creation. Only used with a Factor of type `totp` to carry the TOTP code that needs to be verified. For `TOTP` this value must be between 3 and 8 characters long.
-        
+
         :returns: The created ChallengeInstance
         """
-        
-        data = values.of({ 
-            'FactorSid': factor_sid,
-            'ExpirationDate': serialize.iso8601_datetime(expiration_date),
-            'Details.Message': details_message,
-            'Details.Fields': serialize.map(details_fields, lambda e: serialize.object(e)),
-            'HiddenDetails': serialize.object(hidden_details),
-            'AuthPayload': auth_payload,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return ChallengeInstance(self._version, payload, service_sid=self._solution['service_sid'], identity=self._solution['identity'])
+        data = values.of(
+            {
+                "FactorSid": factor_sid,
+                "ExpirationDate": serialize.iso8601_datetime(expiration_date),
+                "Details.Message": details_message,
+                "Details.Fields": serialize.map(
+                    details_fields, lambda e: serialize.object(e)
+                ),
+                "HiddenDetails": serialize.object(hidden_details),
+                "AuthPayload": auth_payload,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
-    async def create_async(self, factor_sid: str, expiration_date: Union[datetime, object]=values.unset, details_message: Union[str, object]=values.unset, details_fields: Union[List[object], object]=values.unset, hidden_details: Union[object, object]=values.unset, auth_payload: Union[str, object]=values.unset) -> ChallengeInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ChallengeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+        )
+
+    async def create_async(
+        self,
+        factor_sid: str,
+        expiration_date: Union[datetime, object] = values.unset,
+        details_message: Union[str, object] = values.unset,
+        details_fields: Union[List[object], object] = values.unset,
+        hidden_details: Union[object, object] = values.unset,
+        auth_payload: Union[str, object] = values.unset,
+    ) -> ChallengeInstance:
         """
         Asynchronously create the ChallengeInstance
 
@@ -399,33 +475,40 @@ class ChallengeList(ListResource):
         :param details_fields: A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when `factor_type` is `push`. There can be up to 20 details fields.
         :param hidden_details: Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\\\"ip\\\": \\\"172.168.1.234\\\"}`. Can be up to 1024 characters in length
         :param auth_payload: Optional payload used to verify the Challenge upon creation. Only used with a Factor of type `totp` to carry the TOTP code that needs to be verified. For `TOTP` this value must be between 3 and 8 characters long.
-        
+
         :returns: The created ChallengeInstance
         """
-        
-        data = values.of({ 
-            'FactorSid': factor_sid,
-            'ExpirationDate': serialize.iso8601_datetime(expiration_date),
-            'Details.Message': details_message,
-            'Details.Fields': serialize.map(details_fields, lambda e: serialize.object(e)),
-            'HiddenDetails': serialize.object(hidden_details),
-            'AuthPayload': auth_payload,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return ChallengeInstance(self._version, payload, service_sid=self._solution['service_sid'], identity=self._solution['identity'])
-    
-    
-    def stream(self, 
+        data = values.of(
+            {
+                "FactorSid": factor_sid,
+                "ExpirationDate": serialize.iso8601_datetime(expiration_date),
+                "Details.Message": details_message,
+                "Details.Fields": serialize.map(
+                    details_fields, lambda e: serialize.object(e)
+                ),
+                "HiddenDetails": serialize.object(hidden_details),
+                "AuthPayload": auth_payload,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ChallengeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+        )
+
+    def stream(
+        self,
         factor_sid: Union[str, object] = values.unset,
         status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
         order: Union["ChallengeInstance.ListOrders", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ChallengeInstance]:
@@ -434,7 +517,7 @@ class ChallengeList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str factor_sid: The unique SID identifier of the Factor.
         :param &quot;ChallengeInstance.ChallengeStatuses&quot; status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
         :param &quot;ChallengeInstance.ListOrders&quot; order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
@@ -452,16 +535,16 @@ class ChallengeList(ListResource):
             factor_sid=factor_sid,
             status=status,
             order=order,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         factor_sid: Union[str, object] = values.unset,
         status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
         order: Union["ChallengeInstance.ListOrders", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ChallengeInstance]:
@@ -470,7 +553,7 @@ class ChallengeList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str factor_sid: The unique SID identifier of the Factor.
         :param &quot;ChallengeInstance.ChallengeStatuses&quot; status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
         :param &quot;ChallengeInstance.ListOrders&quot; order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
@@ -488,16 +571,16 @@ class ChallengeList(ListResource):
             factor_sid=factor_sid,
             status=status,
             order=order,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         factor_sid: Union[str, object] = values.unset,
         status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
         order: Union["ChallengeInstance.ListOrders", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ChallengeInstance]:
@@ -505,7 +588,7 @@ class ChallengeList(ListResource):
         Lists ChallengeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str factor_sid: The unique SID identifier of the Factor.
         :param &quot;ChallengeInstance.ChallengeStatuses&quot; status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
         :param &quot;ChallengeInstance.ListOrders&quot; order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
@@ -518,19 +601,21 @@ class ChallengeList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            factor_sid=factor_sid,
-            status=status,
-            order=order,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                factor_sid=factor_sid,
+                status=status,
+                order=order,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         factor_sid: Union[str, object] = values.unset,
         status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
         order: Union["ChallengeInstance.ListOrders", object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ChallengeInstance]:
@@ -538,7 +623,7 @@ class ChallengeList(ListResource):
         Asynchronously lists ChallengeInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str factor_sid: The unique SID identifier of the Factor.
         :param &quot;ChallengeInstance.ChallengeStatuses&quot; status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
         :param &quot;ChallengeInstance.ListOrders&quot; order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
@@ -551,19 +636,22 @@ class ChallengeList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            factor_sid=factor_sid,
-            status=status,
-            order=order,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                factor_sid=factor_sid,
+                status=status,
+                order=order,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         factor_sid: Union[str, object] = values.unset,
         status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
         order: Union["ChallengeInstance.ListOrders", object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -571,7 +659,7 @@ class ChallengeList(ListResource):
         """
         Retrieve a single page of ChallengeInstance records from the API.
         Request is executed immediately
-        
+
         :param factor_sid: The unique SID identifier of the Factor.
         :param status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
         :param order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
@@ -581,23 +669,25 @@ class ChallengeList(ListResource):
 
         :returns: Page of ChallengeInstance
         """
-        data = values.of({ 
-            'FactorSid': factor_sid,
-            'Status': status,
-            'Order': order,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "FactorSid": factor_sid,
+                "Status": status,
+                "Order": order,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return ChallengePage(self._version, response, self._solution)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         factor_sid: Union[str, object] = values.unset,
         status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
         order: Union["ChallengeInstance.ListOrders", object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -605,7 +695,7 @@ class ChallengeList(ListResource):
         """
         Asynchronously retrieve a single page of ChallengeInstance records from the API.
         Request is executed immediately
-        
+
         :param factor_sid: The unique SID identifier of the Factor.
         :param status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
         :param order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
@@ -615,16 +705,20 @@ class ChallengeList(ListResource):
 
         :returns: Page of ChallengeInstance
         """
-        data = values.of({ 
-            'FactorSid': factor_sid,
-            'Status': status,
-            'Order': order,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "FactorSid": factor_sid,
+                "Status": status,
+                "Order": order,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return ChallengePage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> ChallengePage:
@@ -636,10 +730,7 @@ class ChallengeList(ListResource):
 
         :returns: Page of ChallengeInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return ChallengePage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> ChallengePage:
@@ -651,31 +742,34 @@ class ChallengeList(ListResource):
 
         :returns: Page of ChallengeInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return ChallengePage(self._version, response, self._solution)
-
-
-
-
 
     def get(self, sid: str) -> ChallengeContext:
         """
         Constructs a ChallengeContext
-        
+
         :param sid: A 34 character string that uniquely identifies this Challenge.
         """
-        return ChallengeContext(self._version, service_sid=self._solution['service_sid'], identity=self._solution['identity'], sid=sid)
+        return ChallengeContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+            sid=sid,
+        )
 
     def __call__(self, sid: str) -> ChallengeContext:
         """
         Constructs a ChallengeContext
-        
+
         :param sid: A 34 character string that uniquely identifies this Challenge.
         """
-        return ChallengeContext(self._version, service_sid=self._solution['service_sid'], identity=self._solution['identity'], sid=sid)
+        return ChallengeContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+            sid=sid,
+        )
 
     def __repr__(self) -> str:
         """
@@ -683,5 +777,4 @@ class ChallengeList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Verify.V2.ChallengeList>'
-
+        return "<Twilio.Verify.V2.ChallengeList>"

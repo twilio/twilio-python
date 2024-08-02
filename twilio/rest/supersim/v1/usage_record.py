@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 
@@ -54,7 +52,6 @@ class UsageRecordInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.sim_sid: Optional[str] = payload.get("sim_sid")
         self.network_sid: Optional[str] = payload.get("network_sid")
@@ -64,22 +61,19 @@ class UsageRecordInstance(InstanceResource):
         self.data_upload: Optional[int] = payload.get("data_upload")
         self.data_download: Optional[int] = payload.get("data_download")
         self.data_total: Optional[int] = payload.get("data_total")
-        self.data_total_billed: Optional[float] = deserialize.decimal(payload.get("data_total_billed"))
+        self.data_total_billed: Optional[float] = deserialize.decimal(
+            payload.get("data_total_billed")
+        )
         self.billed_unit: Optional[str] = payload.get("billed_unit")
 
-        
-        
-    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        
-        return '<Twilio.Supersim.V1.UsageRecordInstance>'
 
-
+        return "<Twilio.Supersim.V1.UsageRecordInstance>"
 
 
 class UsageRecordPage(Page):
@@ -101,26 +95,21 @@ class UsageRecordPage(Page):
         return "<Twilio.Supersim.V1.UsageRecordPage>"
 
 
-
-
-
 class UsageRecordList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the UsageRecordList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/UsageRecords'
-        
-        
-    
-    def stream(self, 
+        self._uri = "/UsageRecords"
+
+    def stream(
+        self,
         sim: Union[str, object] = values.unset,
         fleet: Union[str, object] = values.unset,
         network: Union[str, object] = values.unset,
@@ -129,7 +118,6 @@ class UsageRecordList(ListResource):
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[UsageRecordInstance]:
@@ -138,7 +126,7 @@ class UsageRecordList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str sim: SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
         :param str fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
         :param str network: SID of a Network resource. Only show UsageRecords representing usage on this network.
@@ -166,12 +154,13 @@ class UsageRecordList(ListResource):
             granularity=granularity,
             start_time=start_time,
             end_time=end_time,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         sim: Union[str, object] = values.unset,
         fleet: Union[str, object] = values.unset,
         network: Union[str, object] = values.unset,
@@ -180,7 +169,6 @@ class UsageRecordList(ListResource):
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[UsageRecordInstance]:
@@ -189,7 +177,7 @@ class UsageRecordList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str sim: SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
         :param str fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
         :param str network: SID of a Network resource. Only show UsageRecords representing usage on this network.
@@ -217,12 +205,13 @@ class UsageRecordList(ListResource):
             granularity=granularity,
             start_time=start_time,
             end_time=end_time,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         sim: Union[str, object] = values.unset,
         fleet: Union[str, object] = values.unset,
         network: Union[str, object] = values.unset,
@@ -231,7 +220,6 @@ class UsageRecordList(ListResource):
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[UsageRecordInstance]:
@@ -239,7 +227,7 @@ class UsageRecordList(ListResource):
         Lists UsageRecordInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str sim: SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
         :param str fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
         :param str network: SID of a Network resource. Only show UsageRecords representing usage on this network.
@@ -257,20 +245,23 @@ class UsageRecordList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            sim=sim,
-            fleet=fleet,
-            network=network,
-            iso_country=iso_country,
-            group=group,
-            granularity=granularity,
-            start_time=start_time,
-            end_time=end_time,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                sim=sim,
+                fleet=fleet,
+                network=network,
+                iso_country=iso_country,
+                group=group,
+                granularity=granularity,
+                start_time=start_time,
+                end_time=end_time,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         sim: Union[str, object] = values.unset,
         fleet: Union[str, object] = values.unset,
         network: Union[str, object] = values.unset,
@@ -279,7 +270,6 @@ class UsageRecordList(ListResource):
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[UsageRecordInstance]:
@@ -287,7 +277,7 @@ class UsageRecordList(ListResource):
         Asynchronously lists UsageRecordInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str sim: SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
         :param str fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
         :param str network: SID of a Network resource. Only show UsageRecords representing usage on this network.
@@ -305,20 +295,24 @@ class UsageRecordList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            sim=sim,
-            fleet=fleet,
-            network=network,
-            iso_country=iso_country,
-            group=group,
-            granularity=granularity,
-            start_time=start_time,
-            end_time=end_time,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                sim=sim,
+                fleet=fleet,
+                network=network,
+                iso_country=iso_country,
+                group=group,
+                granularity=granularity,
+                start_time=start_time,
+                end_time=end_time,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         sim: Union[str, object] = values.unset,
         fleet: Union[str, object] = values.unset,
         network: Union[str, object] = values.unset,
@@ -327,7 +321,6 @@ class UsageRecordList(ListResource):
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -335,7 +328,7 @@ class UsageRecordList(ListResource):
         """
         Retrieve a single page of UsageRecordInstance records from the API.
         Request is executed immediately
-        
+
         :param sim: SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
         :param fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
         :param network: SID of a Network resource. Only show UsageRecords representing usage on this network.
@@ -350,24 +343,27 @@ class UsageRecordList(ListResource):
 
         :returns: Page of UsageRecordInstance
         """
-        data = values.of({ 
-            'Sim': sim,
-            'Fleet': fleet,
-            'Network': network,
-            'IsoCountry': iso_country,
-            'Group': group,
-            'Granularity': granularity,
-            'StartTime': serialize.iso8601_datetime(start_time),
-            'EndTime': serialize.iso8601_datetime(end_time),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Sim": sim,
+                "Fleet": fleet,
+                "Network": network,
+                "IsoCountry": iso_country,
+                "Group": group,
+                "Granularity": granularity,
+                "StartTime": serialize.iso8601_datetime(start_time),
+                "EndTime": serialize.iso8601_datetime(end_time),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return UsageRecordPage(self._version, response)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         sim: Union[str, object] = values.unset,
         fleet: Union[str, object] = values.unset,
         network: Union[str, object] = values.unset,
@@ -376,7 +372,6 @@ class UsageRecordList(ListResource):
         granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
         start_time: Union[datetime, object] = values.unset,
         end_time: Union[datetime, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -384,7 +379,7 @@ class UsageRecordList(ListResource):
         """
         Asynchronously retrieve a single page of UsageRecordInstance records from the API.
         Request is executed immediately
-        
+
         :param sim: SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
         :param fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
         :param network: SID of a Network resource. Only show UsageRecords representing usage on this network.
@@ -399,21 +394,25 @@ class UsageRecordList(ListResource):
 
         :returns: Page of UsageRecordInstance
         """
-        data = values.of({ 
-            'Sim': sim,
-            'Fleet': fleet,
-            'Network': network,
-            'IsoCountry': iso_country,
-            'Group': group,
-            'Granularity': granularity,
-            'StartTime': serialize.iso8601_datetime(start_time),
-            'EndTime': serialize.iso8601_datetime(end_time),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Sim": sim,
+                "Fleet": fleet,
+                "Network": network,
+                "IsoCountry": iso_country,
+                "Group": group,
+                "Granularity": granularity,
+                "StartTime": serialize.iso8601_datetime(start_time),
+                "EndTime": serialize.iso8601_datetime(end_time),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return UsageRecordPage(self._version, response)
 
     def get_page(self, target_url: str) -> UsageRecordPage:
@@ -425,10 +424,7 @@ class UsageRecordList(ListResource):
 
         :returns: Page of UsageRecordInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return UsageRecordPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> UsageRecordPage:
@@ -440,14 +436,8 @@ class UsageRecordList(ListResource):
 
         :returns: Page of UsageRecordInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return UsageRecordPage(self._version, response)
-
-
-
 
     def __repr__(self) -> str:
         """
@@ -455,5 +445,4 @@ class UsageRecordList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Supersim.V1.UsageRecordList>'
-
+        return "<Twilio.Supersim.V1.UsageRecordList>"

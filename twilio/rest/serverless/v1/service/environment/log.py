@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -46,10 +44,16 @@ class LogInstance(InstanceResource):
     :ivar url: The absolute URL of the Log resource.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, environment_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        service_sid: str,
+        environment_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
@@ -60,11 +64,12 @@ class LogInstance(InstanceResource):
         self.request_sid: Optional[str] = payload.get("request_sid")
         self.level: Optional["LogInstance.Level"] = payload.get("level")
         self.message: Optional[str] = payload.get("message")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "service_sid": service_sid,
             "environment_sid": environment_sid,
             "sid": sid or self.sid,
@@ -80,14 +85,18 @@ class LogInstance(InstanceResource):
         :returns: LogContext for this LogInstance
         """
         if self._context is None:
-            self._context = LogContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=self._solution['sid'],)
+            self._context = LogContext(
+                self._version,
+                service_sid=self._solution["service_sid"],
+                environment_sid=self._solution["environment_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "LogInstance":
         """
         Fetch the LogInstance
-        
+
 
         :returns: The fetched LogInstance
         """
@@ -96,24 +105,27 @@ class LogInstance(InstanceResource):
     async def fetch_async(self) -> "LogInstance":
         """
         Asynchronous coroutine to fetch the LogInstance
-        
+
 
         :returns: The fetched LogInstance
         """
         return await self._proxy.fetch_async()
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.LogInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Serverless.V1.LogInstance {}>".format(context)
+
 
 class LogContext(InstanceContext):
 
-    def __init__(self, version: Version, service_sid: str, environment_sid: str, sid: str):
+    def __init__(
+        self, version: Version, service_sid: str, environment_sid: str, sid: str
+    ):
         """
         Initialize the LogContext
 
@@ -124,67 +136,68 @@ class LogContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'service_sid': service_sid,
-            'environment_sid': environment_sid,
-            'sid': sid,
+        self._solution = {
+            "service_sid": service_sid,
+            "environment_sid": environment_sid,
+            "sid": sid,
         }
-        self._uri = '/Services/{service_sid}/Environments/{environment_sid}/Logs/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = (
+            "/Services/{service_sid}/Environments/{environment_sid}/Logs/{sid}".format(
+                **self._solution
+            )
+        )
+
     def fetch(self) -> LogInstance:
         """
         Fetch the LogInstance
-        
+
 
         :returns: The fetched LogInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return LogInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            environment_sid=self._solution['environment_sid'],
-            sid=self._solution['sid'],
-            
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> LogInstance:
         """
         Asynchronous coroutine to fetch the LogInstance
-        
+
 
         :returns: The fetched LogInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return LogInstance(
             self._version,
             payload,
-            service_sid=self._solution['service_sid'],
-            environment_sid=self._solution['environment_sid'],
-            sid=self._solution['sid'],
-            
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Serverless.V1.LogContext {}>'.format(context)
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Serverless.V1.LogContext {}>".format(context)
 
 
 class LogPage(Page):
@@ -195,7 +208,12 @@ class LogPage(Page):
 
         :param payload: Payload response from the API
         """
-        return LogInstance(self._version, payload, service_sid=self._solution["service_sid"], environment_sid=self._solution["environment_sid"])
+        return LogInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+        )
 
     def __repr__(self) -> str:
         """
@@ -206,11 +224,8 @@ class LogPage(Page):
         return "<Twilio.Serverless.V1.LogPage>"
 
 
-
-
-
 class LogList(ListResource):
-    
+
     def __init__(self, version: Version, service_sid: str, environment_sid: str):
         """
         Initialize the LogList
@@ -218,23 +233,26 @@ class LogList(ListResource):
         :param version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Log resource from.
         :param environment_sid: The SID of the environment with the Log resources to read.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'service_sid': service_sid, 'environment_sid': environment_sid,  }
-        self._uri = '/Services/{service_sid}/Environments/{environment_sid}/Logs'.format(**self._solution)
-        
-        
-    
-    
-    def stream(self, 
+        self._solution = {
+            "service_sid": service_sid,
+            "environment_sid": environment_sid,
+        }
+        self._uri = (
+            "/Services/{service_sid}/Environments/{environment_sid}/Logs".format(
+                **self._solution
+            )
+        )
+
+    def stream(
+        self,
         function_sid: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[LogInstance]:
@@ -243,7 +261,7 @@ class LogList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str function_sid: The SID of the function whose invocation produced the Log resources to read.
         :param datetime start_date: The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
         :param datetime end_date: The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
@@ -261,16 +279,16 @@ class LogList(ListResource):
             function_sid=function_sid,
             start_date=start_date,
             end_date=end_date,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         function_sid: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[LogInstance]:
@@ -279,7 +297,7 @@ class LogList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str function_sid: The SID of the function whose invocation produced the Log resources to read.
         :param datetime start_date: The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
         :param datetime end_date: The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
@@ -297,16 +315,16 @@ class LogList(ListResource):
             function_sid=function_sid,
             start_date=start_date,
             end_date=end_date,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         function_sid: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[LogInstance]:
@@ -314,7 +332,7 @@ class LogList(ListResource):
         Lists LogInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str function_sid: The SID of the function whose invocation produced the Log resources to read.
         :param datetime start_date: The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
         :param datetime end_date: The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
@@ -327,19 +345,21 @@ class LogList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            function_sid=function_sid,
-            start_date=start_date,
-            end_date=end_date,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                function_sid=function_sid,
+                start_date=start_date,
+                end_date=end_date,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         function_sid: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[LogInstance]:
@@ -347,7 +367,7 @@ class LogList(ListResource):
         Asynchronously lists LogInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str function_sid: The SID of the function whose invocation produced the Log resources to read.
         :param datetime start_date: The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
         :param datetime end_date: The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
@@ -360,19 +380,22 @@ class LogList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            function_sid=function_sid,
-            start_date=start_date,
-            end_date=end_date,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                function_sid=function_sid,
+                start_date=start_date,
+                end_date=end_date,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         function_sid: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -380,7 +403,7 @@ class LogList(ListResource):
         """
         Retrieve a single page of LogInstance records from the API.
         Request is executed immediately
-        
+
         :param function_sid: The SID of the function whose invocation produced the Log resources to read.
         :param start_date: The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
         :param end_date: The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
@@ -390,23 +413,25 @@ class LogList(ListResource):
 
         :returns: Page of LogInstance
         """
-        data = values.of({ 
-            'FunctionSid': function_sid,
-            'StartDate': serialize.iso8601_datetime(start_date),
-            'EndDate': serialize.iso8601_datetime(end_date),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "FunctionSid": function_sid,
+                "StartDate": serialize.iso8601_datetime(start_date),
+                "EndDate": serialize.iso8601_datetime(end_date),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return LogPage(self._version, response, self._solution)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         function_sid: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -414,7 +439,7 @@ class LogList(ListResource):
         """
         Asynchronously retrieve a single page of LogInstance records from the API.
         Request is executed immediately
-        
+
         :param function_sid: The SID of the function whose invocation produced the Log resources to read.
         :param start_date: The date/time (in GMT, ISO 8601) after which the Log resources must have been created. Defaults to 1 day prior to current date/time.
         :param end_date: The date/time (in GMT, ISO 8601) before which the Log resources must have been created. Defaults to current date/time.
@@ -424,16 +449,20 @@ class LogList(ListResource):
 
         :returns: Page of LogInstance
         """
-        data = values.of({ 
-            'FunctionSid': function_sid,
-            'StartDate': serialize.iso8601_datetime(start_date),
-            'EndDate': serialize.iso8601_datetime(end_date),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "FunctionSid": function_sid,
+                "StartDate": serialize.iso8601_datetime(start_date),
+                "EndDate": serialize.iso8601_datetime(end_date),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return LogPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> LogPage:
@@ -445,10 +474,7 @@ class LogList(ListResource):
 
         :returns: Page of LogInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return LogPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> LogPage:
@@ -460,29 +486,34 @@ class LogList(ListResource):
 
         :returns: Page of LogInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return LogPage(self._version, response, self._solution)
-
-
 
     def get(self, sid: str) -> LogContext:
         """
         Constructs a LogContext
-        
+
         :param sid: The SID of the Log resource to fetch.
         """
-        return LogContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=sid)
+        return LogContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+            sid=sid,
+        )
 
     def __call__(self, sid: str) -> LogContext:
         """
         Constructs a LogContext
-        
+
         :param sid: The SID of the Log resource to fetch.
         """
-        return LogContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=sid)
+        return LogContext(
+            self._version,
+            service_sid=self._solution["service_sid"],
+            environment_sid=self._solution["environment_sid"],
+            sid=sid,
+        )
 
     def __repr__(self) -> str:
         """
@@ -490,5 +521,4 @@ class LogList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Serverless.V1.LogList>'
-
+        return "<Twilio.Serverless.V1.LogList>"

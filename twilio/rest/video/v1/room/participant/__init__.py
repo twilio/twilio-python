@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -49,25 +47,37 @@ class ParticipantInstance(InstanceResource):
     :ivar links: The URLs of related resources.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], room_sid: str, sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        room_sid: str,
+        sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.room_sid: Optional[str] = payload.get("room_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.status: Optional["ParticipantInstance.Status"] = payload.get("status")
         self.identity: Optional[str] = payload.get("identity")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
-        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("start_time"))
-        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("end_time"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("start_time")
+        )
+        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("end_time")
+        )
         self.duration: Optional[int] = deserialize.integer(payload.get("duration"))
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        
-        self._solution = { 
+        self._solution = {
             "room_sid": room_sid,
             "sid": sid or self.sid,
         }
@@ -82,14 +92,17 @@ class ParticipantInstance(InstanceResource):
         :returns: ParticipantContext for this ParticipantInstance
         """
         if self._context is None:
-            self._context = ParticipantContext(self._version, room_sid=self._solution['room_sid'], sid=self._solution['sid'],)
+            self._context = ParticipantContext(
+                self._version,
+                room_sid=self._solution["room_sid"],
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def fetch(self) -> "ParticipantInstance":
         """
         Fetch the ParticipantInstance
-        
+
 
         :returns: The fetched ParticipantInstance
         """
@@ -98,69 +111,77 @@ class ParticipantInstance(InstanceResource):
     async def fetch_async(self) -> "ParticipantInstance":
         """
         Asynchronous coroutine to fetch the ParticipantInstance
-        
+
 
         :returns: The fetched ParticipantInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, status: Union["ParticipantInstance.Status", object]=values.unset) -> "ParticipantInstance":
+
+    def update(
+        self, status: Union["ParticipantInstance.Status", object] = values.unset
+    ) -> "ParticipantInstance":
         """
         Update the ParticipantInstance
-        
-        :param status: 
+
+        :param status:
 
         :returns: The updated ParticipantInstance
         """
-        return self._proxy.update(status=status, )
+        return self._proxy.update(
+            status=status,
+        )
 
-    async def update_async(self, status: Union["ParticipantInstance.Status", object]=values.unset) -> "ParticipantInstance":
+    async def update_async(
+        self, status: Union["ParticipantInstance.Status", object] = values.unset
+    ) -> "ParticipantInstance":
         """
         Asynchronous coroutine to update the ParticipantInstance
-        
-        :param status: 
+
+        :param status:
 
         :returns: The updated ParticipantInstance
         """
-        return await self._proxy.update_async(status=status, )
-    
+        return await self._proxy.update_async(
+            status=status,
+        )
+
     @property
     def anonymize(self) -> AnonymizeList:
         """
         Access the anonymize
         """
         return self._proxy.anonymize
-    
+
     @property
     def published_tracks(self) -> PublishedTrackList:
         """
         Access the published_tracks
         """
         return self._proxy.published_tracks
-    
+
     @property
     def subscribe_rules(self) -> SubscribeRulesList:
         """
         Access the subscribe_rules
         """
         return self._proxy.subscribe_rules
-    
+
     @property
     def subscribed_tracks(self) -> SubscribedTrackList:
         """
         Access the subscribed_tracks
         """
         return self._proxy.subscribed_tracks
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.ParticipantInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Video.V1.ParticipantInstance {}>".format(context)
+
 
 class ParticipantContext(InstanceContext):
 
@@ -174,102 +195,116 @@ class ParticipantContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'room_sid': room_sid,
-            'sid': sid,
+        self._solution = {
+            "room_sid": room_sid,
+            "sid": sid,
         }
-        self._uri = '/Rooms/{room_sid}/Participants/{sid}'.format(**self._solution)
-        
+        self._uri = "/Rooms/{room_sid}/Participants/{sid}".format(**self._solution)
+
         self._anonymize: Optional[AnonymizeList] = None
         self._published_tracks: Optional[PublishedTrackList] = None
         self._subscribe_rules: Optional[SubscribeRulesList] = None
         self._subscribed_tracks: Optional[SubscribedTrackList] = None
-    
-    
+
     def fetch(self) -> ParticipantInstance:
         """
         Fetch the ParticipantInstance
-        
+
 
         :returns: The fetched ParticipantInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ParticipantInstance(
             self._version,
             payload,
-            room_sid=self._solution['room_sid'],
-            sid=self._solution['sid'],
-            
+            room_sid=self._solution["room_sid"],
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> ParticipantInstance:
         """
         Asynchronous coroutine to fetch the ParticipantInstance
-        
+
 
         :returns: The fetched ParticipantInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return ParticipantInstance(
             self._version,
             payload,
-            room_sid=self._solution['room_sid'],
-            sid=self._solution['sid'],
-            
+            room_sid=self._solution["room_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, status: Union["ParticipantInstance.Status", object]=values.unset) -> ParticipantInstance:
+
+    def update(
+        self, status: Union["ParticipantInstance.Status", object] = values.unset
+    ) -> ParticipantInstance:
         """
         Update the ParticipantInstance
-        
-        :param status: 
+
+        :param status:
 
         :returns: The updated ParticipantInstance
         """
-        data = values.of({ 
-            'Status': status,
-        })
-        
+        data = values.of(
+            {
+                "Status": status,
+            }
+        )
 
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return ParticipantInstance(
             self._version,
             payload,
-            room_sid=self._solution['room_sid'],
-            sid=self._solution['sid']
+            room_sid=self._solution["room_sid"],
+            sid=self._solution["sid"],
         )
 
-    async def update_async(self, status: Union["ParticipantInstance.Status", object]=values.unset) -> ParticipantInstance:
+    async def update_async(
+        self, status: Union["ParticipantInstance.Status", object] = values.unset
+    ) -> ParticipantInstance:
         """
         Asynchronous coroutine to update the ParticipantInstance
-        
-        :param status: 
+
+        :param status:
 
         :returns: The updated ParticipantInstance
         """
-        data = values.of({ 
-            'Status': status,
-        })
-        
+        data = values.of(
+            {
+                "Status": status,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return ParticipantInstance(
             self._version,
             payload,
-            room_sid=self._solution['room_sid'],
-            sid=self._solution['sid']
+            room_sid=self._solution["room_sid"],
+            sid=self._solution["sid"],
         )
-    
-    
+
     @property
     def anonymize(self) -> AnonymizeList:
         """
@@ -277,12 +312,12 @@ class ParticipantContext(InstanceContext):
         """
         if self._anonymize is None:
             self._anonymize = AnonymizeList(
-                self._version, 
-                self._solution['room_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["room_sid"],
+                self._solution["sid"],
             )
         return self._anonymize
-    
+
     @property
     def published_tracks(self) -> PublishedTrackList:
         """
@@ -290,12 +325,12 @@ class ParticipantContext(InstanceContext):
         """
         if self._published_tracks is None:
             self._published_tracks = PublishedTrackList(
-                self._version, 
-                self._solution['room_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["room_sid"],
+                self._solution["sid"],
             )
         return self._published_tracks
-    
+
     @property
     def subscribe_rules(self) -> SubscribeRulesList:
         """
@@ -303,12 +338,12 @@ class ParticipantContext(InstanceContext):
         """
         if self._subscribe_rules is None:
             self._subscribe_rules = SubscribeRulesList(
-                self._version, 
-                self._solution['room_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["room_sid"],
+                self._solution["sid"],
             )
         return self._subscribe_rules
-    
+
     @property
     def subscribed_tracks(self) -> SubscribedTrackList:
         """
@@ -316,25 +351,20 @@ class ParticipantContext(InstanceContext):
         """
         if self._subscribed_tracks is None:
             self._subscribed_tracks = SubscribedTrackList(
-                self._version, 
-                self._solution['room_sid'],
-                self._solution['sid'],
+                self._version,
+                self._solution["room_sid"],
+                self._solution["sid"],
             )
         return self._subscribed_tracks
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Video.V1.ParticipantContext {}>'.format(context)
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Video.V1.ParticipantContext {}>".format(context)
 
 
 class ParticipantPage(Page):
@@ -345,7 +375,9 @@ class ParticipantPage(Page):
 
         :param payload: Payload response from the API
         """
-        return ParticipantInstance(self._version, payload, room_sid=self._solution["room_sid"])
+        return ParticipantInstance(
+            self._version, payload, room_sid=self._solution["room_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -356,36 +388,30 @@ class ParticipantPage(Page):
         return "<Twilio.Video.V1.ParticipantPage>"
 
 
-
-
-
 class ParticipantList(ListResource):
-    
+
     def __init__(self, version: Version, room_sid: str):
         """
         Initialize the ParticipantList
 
         :param version: Version that contains the resource
         :param room_sid: The SID of the room with the Participant resources to read.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'room_sid': room_sid,  }
-        self._uri = '/Rooms/{room_sid}/Participants'.format(**self._solution)
-        
-        
-    
-    
-    
-    def stream(self, 
+        self._solution = {
+            "room_sid": room_sid,
+        }
+        self._uri = "/Rooms/{room_sid}/Participants".format(**self._solution)
+
+    def stream(
+        self,
         status: Union["ParticipantInstance.Status", object] = values.unset,
         identity: Union[str, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ParticipantInstance]:
@@ -394,7 +420,7 @@ class ParticipantList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param &quot;ParticipantInstance.Status&quot; status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -414,17 +440,17 @@ class ParticipantList(ListResource):
             identity=identity,
             date_created_after=date_created_after,
             date_created_before=date_created_before,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         status: Union["ParticipantInstance.Status", object] = values.unset,
         identity: Union[str, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ParticipantInstance]:
@@ -433,7 +459,7 @@ class ParticipantList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param &quot;ParticipantInstance.Status&quot; status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -453,17 +479,17 @@ class ParticipantList(ListResource):
             identity=identity,
             date_created_after=date_created_after,
             date_created_before=date_created_before,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         status: Union["ParticipantInstance.Status", object] = values.unset,
         identity: Union[str, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ParticipantInstance]:
@@ -471,7 +497,7 @@ class ParticipantList(ListResource):
         Lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param &quot;ParticipantInstance.Status&quot; status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -485,21 +511,23 @@ class ParticipantList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            status=status,
-            identity=identity,
-            date_created_after=date_created_after,
-            date_created_before=date_created_before,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                status=status,
+                identity=identity,
+                date_created_after=date_created_after,
+                date_created_before=date_created_before,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         status: Union["ParticipantInstance.Status", object] = values.unset,
         identity: Union[str, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ParticipantInstance]:
@@ -507,7 +535,7 @@ class ParticipantList(ListResource):
         Asynchronously lists ParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param &quot;ParticipantInstance.Status&quot; status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param str identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param datetime date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -521,21 +549,24 @@ class ParticipantList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            status=status,
-            identity=identity,
-            date_created_after=date_created_after,
-            date_created_before=date_created_before,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                status=status,
+                identity=identity,
+                date_created_after=date_created_after,
+                date_created_before=date_created_before,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         status: Union["ParticipantInstance.Status", object] = values.unset,
         identity: Union[str, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -543,7 +574,7 @@ class ParticipantList(ListResource):
         """
         Retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
-        
+
         :param status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -554,25 +585,27 @@ class ParticipantList(ListResource):
 
         :returns: Page of ParticipantInstance
         """
-        data = values.of({ 
-            'Status': status,
-            'Identity': identity,
-            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
-            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Status": status,
+                "Identity": identity,
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return ParticipantPage(self._version, response, self._solution)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         status: Union["ParticipantInstance.Status", object] = values.unset,
         identity: Union[str, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -580,7 +613,7 @@ class ParticipantList(ListResource):
         """
         Asynchronously retrieve a single page of ParticipantInstance records from the API.
         Request is executed immediately
-        
+
         :param status: Read only the participants with this status. Can be: `connected` or `disconnected`. For `in-progress` Rooms the default Status is `connected`, for `completed` Rooms only `disconnected` Participants are returned.
         :param identity: Read only the Participants with this [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity` value.
         :param date_created_after: Read only Participants that started after this date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
@@ -591,17 +624,21 @@ class ParticipantList(ListResource):
 
         :returns: Page of ParticipantInstance
         """
-        data = values.of({ 
-            'Status': status,
-            'Identity': identity,
-            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
-            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Status": status,
+                "Identity": identity,
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return ParticipantPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> ParticipantPage:
@@ -613,10 +650,7 @@ class ParticipantList(ListResource):
 
         :returns: Page of ParticipantInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> ParticipantPage:
@@ -628,37 +662,28 @@ class ParticipantList(ListResource):
 
         :returns: Page of ParticipantInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return ParticipantPage(self._version, response, self._solution)
-
-
-
-
-
-
-
-
-
-
 
     def get(self, sid: str) -> ParticipantContext:
         """
         Constructs a ParticipantContext
-        
+
         :param sid: The SID of the RoomParticipant resource to update.
         """
-        return ParticipantContext(self._version, room_sid=self._solution['room_sid'], sid=sid)
+        return ParticipantContext(
+            self._version, room_sid=self._solution["room_sid"], sid=sid
+        )
 
     def __call__(self, sid: str) -> ParticipantContext:
         """
         Constructs a ParticipantContext
-        
+
         :param sid: The SID of the RoomParticipant resource to update.
         """
-        return ParticipantContext(self._version, room_sid=self._solution['room_sid'], sid=sid)
+        return ParticipantContext(
+            self._version, room_sid=self._solution["room_sid"], sid=sid
+        )
 
     def __repr__(self) -> str:
         """
@@ -666,5 +691,4 @@ class ParticipantList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Video.V1.ParticipantList>'
-
+        return "<Twilio.Video.V1.ParticipantList>"

@@ -12,9 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -67,36 +65,52 @@ class HostedNumberOrderInstance(InstanceResource):
     :ivar verification_call_sids: A list of 34 character strings that are unique identifiers for the calls placed as part of ownership verification.
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
+    def __init__(
+        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
+    ):
         super().__init__(version)
 
-        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.incoming_phone_number_sid: Optional[str] = payload.get("incoming_phone_number_sid")
+        self.incoming_phone_number_sid: Optional[str] = payload.get(
+            "incoming_phone_number_sid"
+        )
         self.address_sid: Optional[str] = payload.get("address_sid")
         self.signing_document_sid: Optional[str] = payload.get("signing_document_sid")
         self.phone_number: Optional[str] = payload.get("phone_number")
         self.capabilities: Optional[str] = payload.get("capabilities")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.unique_name: Optional[str] = payload.get("unique_name")
-        self.status: Optional["HostedNumberOrderInstance.Status"] = payload.get("status")
+        self.status: Optional["HostedNumberOrderInstance.Status"] = payload.get(
+            "status"
+        )
         self.failure_reason: Optional[str] = payload.get("failure_reason")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
-        self.verification_attempts: Optional[int] = deserialize.integer(payload.get("verification_attempts"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("date_updated")
+        )
+        self.verification_attempts: Optional[int] = deserialize.integer(
+            payload.get("verification_attempts")
+        )
         self.email: Optional[str] = payload.get("email")
         self.cc_emails: Optional[List[str]] = payload.get("cc_emails")
         self.url: Optional[str] = payload.get("url")
-        self.verification_type: Optional["HostedNumberOrderInstance.VerificationType"] = payload.get("verification_type")
-        self.verification_document_sid: Optional[str] = payload.get("verification_document_sid")
+        self.verification_type: Optional[
+            "HostedNumberOrderInstance.VerificationType"
+        ] = payload.get("verification_type")
+        self.verification_document_sid: Optional[str] = payload.get(
+            "verification_document_sid"
+        )
         self.extension: Optional[str] = payload.get("extension")
         self.call_delay: Optional[int] = deserialize.integer(payload.get("call_delay"))
         self.verification_code: Optional[str] = payload.get("verification_code")
-        self.verification_call_sids: Optional[List[str]] = payload.get("verification_call_sids")
+        self.verification_call_sids: Optional[List[str]] = payload.get(
+            "verification_call_sids"
+        )
 
-        
-        self._solution = { 
+        self._solution = {
             "sid": sid or self.sid,
         }
         self._context: Optional[HostedNumberOrderContext] = None
@@ -110,32 +124,34 @@ class HostedNumberOrderInstance(InstanceResource):
         :returns: HostedNumberOrderContext for this HostedNumberOrderInstance
         """
         if self._context is None:
-            self._context = HostedNumberOrderContext(self._version, sid=self._solution['sid'],)
+            self._context = HostedNumberOrderContext(
+                self._version,
+                sid=self._solution["sid"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the HostedNumberOrderInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the HostedNumberOrderInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "HostedNumberOrderInstance":
         """
         Fetch the HostedNumberOrderInstance
-        
+
 
         :returns: The fetched HostedNumberOrderInstance
         """
@@ -144,59 +160,111 @@ class HostedNumberOrderInstance(InstanceResource):
     async def fetch_async(self) -> "HostedNumberOrderInstance":
         """
         Asynchronous coroutine to fetch the HostedNumberOrderInstance
-        
+
 
         :returns: The fetched HostedNumberOrderInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, unique_name: Union[str, object]=values.unset, email: Union[str, object]=values.unset, cc_emails: Union[List[str], object]=values.unset, status: Union["HostedNumberOrderInstance.Status", object]=values.unset, verification_code: Union[str, object]=values.unset, verification_type: Union["HostedNumberOrderInstance.VerificationType", object]=values.unset, verification_document_sid: Union[str, object]=values.unset, extension: Union[str, object]=values.unset, call_delay: Union[int, object]=values.unset) -> "HostedNumberOrderInstance":
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        verification_code: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
+    ) -> "HostedNumberOrderInstance":
         """
         Update the HostedNumberOrderInstance
-        
+
         :param friendly_name: A 64 character string that is a human readable text that describes this resource.
         :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
         :param email: Email of the owner of this phone number that is being hosted.
         :param cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
-        :param status: 
+        :param status:
         :param verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
-        :param verification_type: 
+        :param verification_type:
         :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
         :param extension: Digits to dial after connecting the verification call.
         :param call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
 
         :returns: The updated HostedNumberOrderInstance
         """
-        return self._proxy.update(friendly_name=friendly_name, unique_name=unique_name, email=email, cc_emails=cc_emails, status=status, verification_code=verification_code, verification_type=verification_type, verification_document_sid=verification_document_sid, extension=extension, call_delay=call_delay, )
+        return self._proxy.update(
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            email=email,
+            cc_emails=cc_emails,
+            status=status,
+            verification_code=verification_code,
+            verification_type=verification_type,
+            verification_document_sid=verification_document_sid,
+            extension=extension,
+            call_delay=call_delay,
+        )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, unique_name: Union[str, object]=values.unset, email: Union[str, object]=values.unset, cc_emails: Union[List[str], object]=values.unset, status: Union["HostedNumberOrderInstance.Status", object]=values.unset, verification_code: Union[str, object]=values.unset, verification_type: Union["HostedNumberOrderInstance.VerificationType", object]=values.unset, verification_document_sid: Union[str, object]=values.unset, extension: Union[str, object]=values.unset, call_delay: Union[int, object]=values.unset) -> "HostedNumberOrderInstance":
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        verification_code: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
+    ) -> "HostedNumberOrderInstance":
         """
         Asynchronous coroutine to update the HostedNumberOrderInstance
-        
+
         :param friendly_name: A 64 character string that is a human readable text that describes this resource.
         :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
         :param email: Email of the owner of this phone number that is being hosted.
         :param cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
-        :param status: 
+        :param status:
         :param verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
-        :param verification_type: 
+        :param verification_type:
         :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
         :param extension: Digits to dial after connecting the verification call.
         :param call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
 
         :returns: The updated HostedNumberOrderInstance
         """
-        return await self._proxy.update_async(friendly_name=friendly_name, unique_name=unique_name, email=email, cc_emails=cc_emails, status=status, verification_code=verification_code, verification_type=verification_type, verification_document_sid=verification_document_sid, extension=extension, call_delay=call_delay, )
-    
+        return await self._proxy.update_async(
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            email=email,
+            cc_emails=cc_emails,
+            status=status,
+            verification_code=verification_code,
+            verification_type=verification_type,
+            verification_document_sid=verification_document_sid,
+            extension=extension,
+            call_delay=call_delay,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.HostedNumbers.HostedNumberOrderInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.HostedNumbers.HostedNumberOrderInstance {}>".format(
+            context
+        )
+
 
 class HostedNumberOrderContext(InstanceContext):
 
@@ -209,165 +277,196 @@ class HostedNumberOrderContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'sid': sid,
+        self._solution = {
+            "sid": sid,
         }
-        self._uri = '/HostedNumberOrders/{sid}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/HostedNumberOrders/{sid}".format(**self._solution)
+
     def delete(self) -> bool:
         """
         Deletes the HostedNumberOrderInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the HostedNumberOrderInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
-    
-    
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
+        )
+
     def fetch(self) -> HostedNumberOrderInstance:
         """
         Fetch the HostedNumberOrderInstance
-        
+
 
         :returns: The fetched HostedNumberOrderInstance
         """
-        
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
 
         return HostedNumberOrderInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
 
     async def fetch_async(self) -> HostedNumberOrderInstance:
         """
         Asynchronous coroutine to fetch the HostedNumberOrderInstance
-        
+
 
         :returns: The fetched HostedNumberOrderInstance
         """
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
 
         return HostedNumberOrderInstance(
             self._version,
             payload,
-            sid=self._solution['sid'],
-            
+            sid=self._solution["sid"],
         )
-    
-    
-    def update(self, friendly_name: Union[str, object]=values.unset, unique_name: Union[str, object]=values.unset, email: Union[str, object]=values.unset, cc_emails: Union[List[str], object]=values.unset, status: Union["HostedNumberOrderInstance.Status", object]=values.unset, verification_code: Union[str, object]=values.unset, verification_type: Union["HostedNumberOrderInstance.VerificationType", object]=values.unset, verification_document_sid: Union[str, object]=values.unset, extension: Union[str, object]=values.unset, call_delay: Union[int, object]=values.unset) -> HostedNumberOrderInstance:
+
+    def update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        verification_code: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
+    ) -> HostedNumberOrderInstance:
         """
         Update the HostedNumberOrderInstance
-        
+
         :param friendly_name: A 64 character string that is a human readable text that describes this resource.
         :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
         :param email: Email of the owner of this phone number that is being hosted.
         :param cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
-        :param status: 
+        :param status:
         :param verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
-        :param verification_type: 
+        :param verification_type:
         :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
         :param extension: Digits to dial after connecting the verification call.
         :param call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
 
         :returns: The updated HostedNumberOrderInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'UniqueName': unique_name,
-            'Email': email,
-            'CcEmails': serialize.map(cc_emails, lambda e: e),
-            'Status': status,
-            'VerificationCode': verification_code,
-            'VerificationType': verification_type,
-            'VerificationDocumentSid': verification_document_sid,
-            'Extension': extension,
-            'CallDelay': call_delay,
-        })
-        
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data,)
-
-        return HostedNumberOrderInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "UniqueName": unique_name,
+                "Email": email,
+                "CcEmails": serialize.map(cc_emails, lambda e: e),
+                "Status": status,
+                "VerificationCode": verification_code,
+                "VerificationType": verification_type,
+                "VerificationDocumentSid": verification_document_sid,
+                "Extension": extension,
+                "CallDelay": call_delay,
+            }
         )
 
-    async def update_async(self, friendly_name: Union[str, object]=values.unset, unique_name: Union[str, object]=values.unset, email: Union[str, object]=values.unset, cc_emails: Union[List[str], object]=values.unset, status: Union["HostedNumberOrderInstance.Status", object]=values.unset, verification_code: Union[str, object]=values.unset, verification_type: Union["HostedNumberOrderInstance.VerificationType", object]=values.unset, verification_document_sid: Union[str, object]=values.unset, extension: Union[str, object]=values.unset, call_delay: Union[int, object]=values.unset) -> HostedNumberOrderInstance:
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return HostedNumberOrderInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+
+    async def update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        verification_code: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
+    ) -> HostedNumberOrderInstance:
         """
         Asynchronous coroutine to update the HostedNumberOrderInstance
-        
+
         :param friendly_name: A 64 character string that is a human readable text that describes this resource.
         :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
         :param email: Email of the owner of this phone number that is being hosted.
         :param cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
-        :param status: 
+        :param status:
         :param verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
-        :param verification_type: 
+        :param verification_type:
         :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
         :param extension: Digits to dial after connecting the verification call.
         :param call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
 
         :returns: The updated HostedNumberOrderInstance
         """
-        data = values.of({ 
-            'FriendlyName': friendly_name,
-            'UniqueName': unique_name,
-            'Email': email,
-            'CcEmails': serialize.map(cc_emails, lambda e: e),
-            'Status': status,
-            'VerificationCode': verification_code,
-            'VerificationType': verification_type,
-            'VerificationDocumentSid': verification_document_sid,
-            'Extension': extension,
-            'CallDelay': call_delay,
-        })
-        
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "UniqueName": unique_name,
+                "Email": email,
+                "CcEmails": serialize.map(cc_emails, lambda e: e),
+                "Status": status,
+                "VerificationCode": verification_code,
+                "VerificationType": verification_type,
+                "VerificationDocumentSid": verification_document_sid,
+                "Extension": extension,
+                "CallDelay": call_delay,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
 
         return HostedNumberOrderInstance(
-            self._version,
-            payload,
-            sid=self._solution['sid']
+            self._version, payload, sid=self._solution["sid"]
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Preview.HostedNumbers.HostedNumberOrderContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.Preview.HostedNumbers.HostedNumberOrderContext {}>".format(
+            context
+        )
 
 
 class HostedNumberOrderPage(Page):
@@ -389,29 +488,41 @@ class HostedNumberOrderPage(Page):
         return "<Twilio.Preview.HostedNumbers.HostedNumberOrderPage>"
 
 
-
-
-
 class HostedNumberOrderList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the HostedNumberOrderList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/HostedNumberOrders'
-        
-        
-    
-    
-    
-    
-    def create(self, phone_number: str, sms_capability: bool, account_sid: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, unique_name: Union[str, object]=values.unset, cc_emails: Union[List[str], object]=values.unset, sms_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, status_callback_url: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, sms_application_sid: Union[str, object]=values.unset, address_sid: Union[str, object]=values.unset, email: Union[str, object]=values.unset, verification_type: Union["HostedNumberOrderInstance.VerificationType", object]=values.unset, verification_document_sid: Union[str, object]=values.unset) -> HostedNumberOrderInstance:
+        self._uri = "/HostedNumberOrders"
+
+    def create(
+        self,
+        phone_number: str,
+        sms_capability: bool,
+        account_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        sms_application_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+    ) -> HostedNumberOrderInstance:
         """
         Create the HostedNumberOrderInstance
 
@@ -430,41 +541,63 @@ class HostedNumberOrderList(ListResource):
         :param sms_application_sid: Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
         :param address_sid: Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
         :param email: Optional. Email of the owner of this phone number that is being hosted.
-        :param verification_type: 
+        :param verification_type:
         :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
-        
+
         :returns: The created HostedNumberOrderInstance
         """
-        
-        data = values.of({ 
-            'PhoneNumber': phone_number,
-            'SmsCapability': serialize.boolean_to_string(sms_capability),
-            'AccountSid': account_sid,
-            'FriendlyName': friendly_name,
-            'UniqueName': unique_name,
-            'CcEmails': serialize.map(cc_emails, lambda e: e),
-            'SmsUrl': sms_url,
-            'SmsMethod': sms_method,
-            'SmsFallbackUrl': sms_fallback_url,
-            'SmsFallbackMethod': sms_fallback_method,
-            'StatusCallbackUrl': status_callback_url,
-            'StatusCallbackMethod': status_callback_method,
-            'SmsApplicationSid': sms_application_sid,
-            'AddressSid': address_sid,
-            'Email': email,
-            'VerificationType': verification_type,
-            'VerificationDocumentSid': verification_document_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "PhoneNumber": phone_number,
+                "SmsCapability": serialize.boolean_to_string(sms_capability),
+                "AccountSid": account_sid,
+                "FriendlyName": friendly_name,
+                "UniqueName": unique_name,
+                "CcEmails": serialize.map(cc_emails, lambda e: e),
+                "SmsUrl": sms_url,
+                "SmsMethod": sms_method,
+                "SmsFallbackUrl": sms_fallback_url,
+                "SmsFallbackMethod": sms_fallback_method,
+                "StatusCallbackUrl": status_callback_url,
+                "StatusCallbackMethod": status_callback_method,
+                "SmsApplicationSid": sms_application_sid,
+                "AddressSid": address_sid,
+                "Email": email,
+                "VerificationType": verification_type,
+                "VerificationDocumentSid": verification_document_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return HostedNumberOrderInstance(self._version, payload)
 
-    async def create_async(self, phone_number: str, sms_capability: bool, account_sid: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, unique_name: Union[str, object]=values.unset, cc_emails: Union[List[str], object]=values.unset, sms_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, status_callback_url: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, sms_application_sid: Union[str, object]=values.unset, address_sid: Union[str, object]=values.unset, email: Union[str, object]=values.unset, verification_type: Union["HostedNumberOrderInstance.VerificationType", object]=values.unset, verification_document_sid: Union[str, object]=values.unset) -> HostedNumberOrderInstance:
+    async def create_async(
+        self,
+        phone_number: str,
+        sms_capability: bool,
+        account_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        sms_application_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+    ) -> HostedNumberOrderInstance:
         """
         Asynchronously create the HostedNumberOrderInstance
 
@@ -483,48 +616,48 @@ class HostedNumberOrderList(ListResource):
         :param sms_application_sid: Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
         :param address_sid: Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
         :param email: Optional. Email of the owner of this phone number that is being hosted.
-        :param verification_type: 
+        :param verification_type:
         :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
-        
+
         :returns: The created HostedNumberOrderInstance
         """
-        
-        data = values.of({ 
-            'PhoneNumber': phone_number,
-            'SmsCapability': serialize.boolean_to_string(sms_capability),
-            'AccountSid': account_sid,
-            'FriendlyName': friendly_name,
-            'UniqueName': unique_name,
-            'CcEmails': serialize.map(cc_emails, lambda e: e),
-            'SmsUrl': sms_url,
-            'SmsMethod': sms_method,
-            'SmsFallbackUrl': sms_fallback_url,
-            'SmsFallbackMethod': sms_fallback_method,
-            'StatusCallbackUrl': status_callback_url,
-            'StatusCallbackMethod': status_callback_method,
-            'SmsApplicationSid': sms_application_sid,
-            'AddressSid': address_sid,
-            'Email': email,
-            'VerificationType': verification_type,
-            'VerificationDocumentSid': verification_document_sid,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "PhoneNumber": phone_number,
+                "SmsCapability": serialize.boolean_to_string(sms_capability),
+                "AccountSid": account_sid,
+                "FriendlyName": friendly_name,
+                "UniqueName": unique_name,
+                "CcEmails": serialize.map(cc_emails, lambda e: e),
+                "SmsUrl": sms_url,
+                "SmsMethod": sms_method,
+                "SmsFallbackUrl": sms_fallback_url,
+                "SmsFallbackMethod": sms_fallback_method,
+                "StatusCallbackUrl": status_callback_url,
+                "StatusCallbackMethod": status_callback_method,
+                "SmsApplicationSid": sms_application_sid,
+                "AddressSid": address_sid,
+                "Email": email,
+                "VerificationType": verification_type,
+                "VerificationDocumentSid": verification_document_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return HostedNumberOrderInstance(self._version, payload)
-    
-    
-    def stream(self, 
+
+    def stream(
+        self,
         status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[HostedNumberOrderInstance]:
@@ -533,7 +666,7 @@ class HostedNumberOrderList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param &quot;HostedNumberOrderInstance.Status&quot; status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
@@ -555,18 +688,18 @@ class HostedNumberOrderList(ListResource):
             incoming_phone_number_sid=incoming_phone_number_sid,
             friendly_name=friendly_name,
             unique_name=unique_name,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[HostedNumberOrderInstance]:
@@ -575,7 +708,7 @@ class HostedNumberOrderList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param &quot;HostedNumberOrderInstance.Status&quot; status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
@@ -597,18 +730,18 @@ class HostedNumberOrderList(ListResource):
             incoming_phone_number_sid=incoming_phone_number_sid,
             friendly_name=friendly_name,
             unique_name=unique_name,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[HostedNumberOrderInstance]:
@@ -616,7 +749,7 @@ class HostedNumberOrderList(ListResource):
         Lists HostedNumberOrderInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param &quot;HostedNumberOrderInstance.Status&quot; status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
@@ -631,23 +764,25 @@ class HostedNumberOrderList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            status=status,
-            phone_number=phone_number,
-            incoming_phone_number_sid=incoming_phone_number_sid,
-            friendly_name=friendly_name,
-            unique_name=unique_name,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                status=status,
+                phone_number=phone_number,
+                incoming_phone_number_sid=incoming_phone_number_sid,
+                friendly_name=friendly_name,
+                unique_name=unique_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[HostedNumberOrderInstance]:
@@ -655,7 +790,7 @@ class HostedNumberOrderList(ListResource):
         Asynchronously lists HostedNumberOrderInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param &quot;HostedNumberOrderInstance.Status&quot; status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
@@ -670,23 +805,26 @@ class HostedNumberOrderList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            status=status,
-            phone_number=phone_number,
-            incoming_phone_number_sid=incoming_phone_number_sid,
-            friendly_name=friendly_name,
-            unique_name=unique_name,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                status=status,
+                phone_number=phone_number,
+                incoming_phone_number_sid=incoming_phone_number_sid,
+                friendly_name=friendly_name,
+                unique_name=unique_name,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -694,7 +832,7 @@ class HostedNumberOrderList(ListResource):
         """
         Retrieve a single page of HostedNumberOrderInstance records from the API.
         Request is executed immediately
-        
+
         :param status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
         :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
@@ -706,27 +844,29 @@ class HostedNumberOrderList(ListResource):
 
         :returns: Page of HostedNumberOrderInstance
         """
-        data = values.of({ 
-            'Status': status,
-            'PhoneNumber': phone_number,
-            'IncomingPhoneNumberSid': incoming_phone_number_sid,
-            'FriendlyName': friendly_name,
-            'UniqueName': unique_name,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Status": status,
+                "PhoneNumber": phone_number,
+                "IncomingPhoneNumberSid": incoming_phone_number_sid,
+                "FriendlyName": friendly_name,
+                "UniqueName": unique_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return HostedNumberOrderPage(self._version, response)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         unique_name: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -734,7 +874,7 @@ class HostedNumberOrderList(ListResource):
         """
         Asynchronously retrieve a single page of HostedNumberOrderInstance records from the API.
         Request is executed immediately
-        
+
         :param status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
         :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
         :param incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
@@ -746,18 +886,22 @@ class HostedNumberOrderList(ListResource):
 
         :returns: Page of HostedNumberOrderInstance
         """
-        data = values.of({ 
-            'Status': status,
-            'PhoneNumber': phone_number,
-            'IncomingPhoneNumberSid': incoming_phone_number_sid,
-            'FriendlyName': friendly_name,
-            'UniqueName': unique_name,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Status": status,
+                "PhoneNumber": phone_number,
+                "IncomingPhoneNumberSid": incoming_phone_number_sid,
+                "FriendlyName": friendly_name,
+                "UniqueName": unique_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return HostedNumberOrderPage(self._version, response)
 
     def get_page(self, target_url: str) -> HostedNumberOrderPage:
@@ -769,10 +913,7 @@ class HostedNumberOrderList(ListResource):
 
         :returns: Page of HostedNumberOrderInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return HostedNumberOrderPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> HostedNumberOrderPage:
@@ -784,18 +925,13 @@ class HostedNumberOrderList(ListResource):
 
         :returns: Page of HostedNumberOrderInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return HostedNumberOrderPage(self._version, response)
-
-
 
     def get(self, sid: str) -> HostedNumberOrderContext:
         """
         Constructs a HostedNumberOrderContext
-        
+
         :param sid: A 34 character string that uniquely identifies this HostedNumberOrder.
         """
         return HostedNumberOrderContext(self._version, sid=sid)
@@ -803,7 +939,7 @@ class HostedNumberOrderList(ListResource):
     def __call__(self, sid: str) -> HostedNumberOrderContext:
         """
         Constructs a HostedNumberOrderContext
-        
+
         :param sid: A 34 character string that uniquely identifies this HostedNumberOrder.
         """
         return HostedNumberOrderContext(self._version, sid=sid)
@@ -814,5 +950,4 @@ class HostedNumberOrderList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Preview.HostedNumbers.HostedNumberOrderList>'
-
+        return "<Twilio.Preview.HostedNumbers.HostedNumberOrderList>"

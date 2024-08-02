@@ -12,11 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -25,12 +22,11 @@ from twilio.base.page import Page
 
 
 class AssessmentsInstance(InstanceResource):
-
     """
     :ivar account_sid: The unique SID identifier of the Account.
     :ivar assessment_sid: The SID of the assessment
     :ivar offset: Offset of the conversation
-    :ivar report: The flag indicating if this assessment is part of report 
+    :ivar report: The flag indicating if this assessment is part of report
     :ivar weight: The weightage given to this comment
     :ivar agent_id: The id of the Agent
     :ivar segment_id: Segment Id of conversation
@@ -39,14 +35,18 @@ class AssessmentsInstance(InstanceResource):
     :ivar answer_text: The answer text selected by user
     :ivar answer_id: The id of the answer selected by user
     :ivar assessment: Assessment Details associated with an assessment
-    :ivar timestamp: 
-    :ivar url: 
+    :ivar timestamp:
+    :ivar url:
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], assessment_sid: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        assessment_sid: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.assessment_sid: Optional[str] = payload.get("assessment_sid")
         self.offset: Optional[float] = deserialize.decimal(payload.get("offset"))
@@ -62,8 +62,7 @@ class AssessmentsInstance(InstanceResource):
         self.timestamp: Optional[float] = deserialize.decimal(payload.get("timestamp"))
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "assessment_sid": assessment_sid or self.assessment_sid,
         }
         self._context: Optional[AssessmentsContext] = None
@@ -77,14 +76,22 @@ class AssessmentsInstance(InstanceResource):
         :returns: AssessmentsContext for this AssessmentsInstance
         """
         if self._context is None:
-            self._context = AssessmentsContext(self._version, assessment_sid=self._solution['assessment_sid'],)
+            self._context = AssessmentsContext(
+                self._version,
+                assessment_sid=self._solution["assessment_sid"],
+            )
         return self._context
-    
-    
-    def update(self, offset: float, answer_text: str, answer_id: str, authorization: Union[str, object]=values.unset) -> "AssessmentsInstance":
+
+    def update(
+        self,
+        offset: float,
+        answer_text: str,
+        answer_id: str,
+        authorization: Union[str, object] = values.unset,
+    ) -> "AssessmentsInstance":
         """
         Update the AssessmentsInstance
-        
+
         :param offset: The offset of the conversation
         :param answer_text: The answer text selected by user
         :param answer_id: The id of the answer selected by user
@@ -92,12 +99,23 @@ class AssessmentsInstance(InstanceResource):
 
         :returns: The updated AssessmentsInstance
         """
-        return self._proxy.update(offset=offset, answer_text=answer_text, answer_id=answer_id, authorization=authorization, )
+        return self._proxy.update(
+            offset=offset,
+            answer_text=answer_text,
+            answer_id=answer_id,
+            authorization=authorization,
+        )
 
-    async def update_async(self, offset: float, answer_text: str, answer_id: str, authorization: Union[str, object]=values.unset) -> "AssessmentsInstance":
+    async def update_async(
+        self,
+        offset: float,
+        answer_text: str,
+        answer_id: str,
+        authorization: Union[str, object] = values.unset,
+    ) -> "AssessmentsInstance":
         """
         Asynchronous coroutine to update the AssessmentsInstance
-        
+
         :param offset: The offset of the conversation
         :param answer_text: The answer text selected by user
         :param answer_id: The id of the answer selected by user
@@ -105,16 +123,22 @@ class AssessmentsInstance(InstanceResource):
 
         :returns: The updated AssessmentsInstance
         """
-        return await self._proxy.update_async(offset=offset, answer_text=answer_text, answer_id=answer_id, authorization=authorization, )
-    
+        return await self._proxy.update_async(
+            offset=offset,
+            answer_text=answer_text,
+            answer_id=answer_id,
+            authorization=authorization,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.AssessmentsInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.FlexApi.V1.AssessmentsInstance {}>".format(context)
+
 
 class AssessmentsContext(InstanceContext):
 
@@ -127,19 +151,24 @@ class AssessmentsContext(InstanceContext):
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'assessment_sid': assessment_sid,
+        self._solution = {
+            "assessment_sid": assessment_sid,
         }
-        self._uri = '/Insights/QualityManagement/Assessments/{assessment_sid}'.format(**self._solution)
-        
-    
-    
-    def update(self, offset: float, answer_text: str, answer_id: str, authorization: Union[str, object]=values.unset) -> AssessmentsInstance:
+        self._uri = "/Insights/QualityManagement/Assessments/{assessment_sid}".format(
+            **self._solution
+        )
+
+    def update(
+        self,
+        offset: float,
+        answer_text: str,
+        answer_id: str,
+        authorization: Union[str, object] = values.unset,
+    ) -> AssessmentsInstance:
         """
         Update the AssessmentsInstance
-        
+
         :param offset: The offset of the conversation
         :param answer_text: The answer text selected by user
         :param answer_id: The id of the answer selected by user
@@ -147,25 +176,37 @@ class AssessmentsContext(InstanceContext):
 
         :returns: The updated AssessmentsInstance
         """
-        data = values.of({ 
-            'Offset': offset,
-            'AnswerText': answer_text,
-            'AnswerId': answer_id,
-        })
-        headers = values.of({'Authorization': authorization, })
-
-        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
-
-        return AssessmentsInstance(
-            self._version,
-            payload,
-            assessment_sid=self._solution['assessment_sid']
+        data = values.of(
+            {
+                "Offset": offset,
+                "AnswerText": answer_text,
+                "AnswerId": answer_id,
+            }
+        )
+        headers = values.of(
+            {
+                "Authorization": authorization,
+            }
         )
 
-    async def update_async(self, offset: float, answer_text: str, answer_id: str, authorization: Union[str, object]=values.unset) -> AssessmentsInstance:
+        payload = self._version.update(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return AssessmentsInstance(
+            self._version, payload, assessment_sid=self._solution["assessment_sid"]
+        )
+
+    async def update_async(
+        self,
+        offset: float,
+        answer_text: str,
+        answer_id: str,
+        authorization: Union[str, object] = values.unset,
+    ) -> AssessmentsInstance:
         """
         Asynchronous coroutine to update the AssessmentsInstance
-        
+
         :param offset: The offset of the conversation
         :param answer_text: The answer text selected by user
         :param answer_id: The id of the answer selected by user
@@ -173,35 +214,35 @@ class AssessmentsContext(InstanceContext):
 
         :returns: The updated AssessmentsInstance
         """
-        data = values.of({ 
-            'Offset': offset,
-            'AnswerText': answer_text,
-            'AnswerId': answer_id,
-        })
-        headers = values.of({'Authorization': authorization, })
+        data = values.of(
+            {
+                "Offset": offset,
+                "AnswerText": answer_text,
+                "AnswerId": answer_id,
+            }
+        )
+        headers = values.of(
+            {
+                "Authorization": authorization,
+            }
+        )
 
-        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
+        payload = await self._version.update_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return AssessmentsInstance(
-            self._version,
-            payload,
-            assessment_sid=self._solution['assessment_sid']
+            self._version, payload, assessment_sid=self._solution["assessment_sid"]
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.FlexApi.V1.AssessmentsContext {}>'.format(context)
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.FlexApi.V1.AssessmentsContext {}>".format(context)
 
 
 class AssessmentsPage(Page):
@@ -223,31 +264,37 @@ class AssessmentsPage(Page):
         return "<Twilio.FlexApi.V1.AssessmentsPage>"
 
 
-
-
-
 class AssessmentsList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the AssessmentsList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
 
-        
-        self._uri = '/Insights/QualityManagement/Assessments'
-        
-        
-    
-    
-    def create(self, category_sid: str, category_name: str, segment_id: str, agent_id: str, offset: float, metric_id: str, metric_name: str, answer_text: str, answer_id: str, questionnaire_sid: str, authorization: Union[str, object]=values.unset) -> AssessmentsInstance:
+        self._uri = "/Insights/QualityManagement/Assessments"
+
+    def create(
+        self,
+        category_sid: str,
+        category_name: str,
+        segment_id: str,
+        agent_id: str,
+        offset: float,
+        metric_id: str,
+        metric_name: str,
+        answer_text: str,
+        answer_id: str,
+        questionnaire_sid: str,
+        authorization: Union[str, object] = values.unset,
+    ) -> AssessmentsInstance:
         """
         Create the AssessmentsInstance
 
-        :param category_sid: The SID of the category 
+        :param category_sid: The SID of the category
         :param category_name: The name of the category
         :param segment_id: Segment Id of the conversation
         :param agent_id: The id of the Agent
@@ -258,37 +305,55 @@ class AssessmentsList(ListResource):
         :param answer_id: The id of the answer selected by user
         :param questionnaire_sid: Questionnaire SID of the associated question
         :param authorization: The Authorization HTTP request header
-        
+
         :returns: The created AssessmentsInstance
         """
-        
-        data = values.of({ 
-            'CategorySid': category_sid,
-            'CategoryName': category_name,
-            'SegmentId': segment_id,
-            'AgentId': agent_id,
-            'Offset': offset,
-            'MetricId': metric_id,
-            'MetricName': metric_name,
-            'AnswerText': answer_text,
-            'AnswerId': answer_id,
-            'QuestionnaireSid': questionnaire_sid,
-        })
-        headers = values.of({
-                'Authorization': authorization,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "CategorySid": category_sid,
+                "CategoryName": category_name,
+                "SegmentId": segment_id,
+                "AgentId": agent_id,
+                "Offset": offset,
+                "MetricId": metric_id,
+                "MetricName": metric_name,
+                "AnswerText": answer_text,
+                "AnswerId": answer_id,
+                "QuestionnaireSid": questionnaire_sid,
+            }
+        )
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return AssessmentsInstance(self._version, payload)
 
-    async def create_async(self, category_sid: str, category_name: str, segment_id: str, agent_id: str, offset: float, metric_id: str, metric_name: str, answer_text: str, answer_id: str, questionnaire_sid: str, authorization: Union[str, object]=values.unset) -> AssessmentsInstance:
+    async def create_async(
+        self,
+        category_sid: str,
+        category_name: str,
+        segment_id: str,
+        agent_id: str,
+        offset: float,
+        metric_id: str,
+        metric_name: str,
+        answer_text: str,
+        answer_id: str,
+        questionnaire_sid: str,
+        authorization: Union[str, object] = values.unset,
+    ) -> AssessmentsInstance:
         """
         Asynchronously create the AssessmentsInstance
 
-        :param category_sid: The SID of the category 
+        :param category_sid: The SID of the category
         :param category_name: The name of the category
         :param segment_id: Segment Id of the conversation
         :param agent_id: The id of the Agent
@@ -299,37 +364,41 @@ class AssessmentsList(ListResource):
         :param answer_id: The id of the answer selected by user
         :param questionnaire_sid: Questionnaire SID of the associated question
         :param authorization: The Authorization HTTP request header
-        
+
         :returns: The created AssessmentsInstance
         """
-        
-        data = values.of({ 
-            'CategorySid': category_sid,
-            'CategoryName': category_name,
-            'SegmentId': segment_id,
-            'AgentId': agent_id,
-            'Offset': offset,
-            'MetricId': metric_id,
-            'MetricName': metric_name,
-            'AnswerText': answer_text,
-            'AnswerId': answer_id,
-            'QuestionnaireSid': questionnaire_sid,
-        })
-        headers = values.of({
-                'Authorization': authorization,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        data = values.of(
+            {
+                "CategorySid": category_sid,
+                "CategoryName": category_name,
+                "SegmentId": segment_id,
+                "AgentId": agent_id,
+                "Offset": offset,
+                "MetricId": metric_id,
+                "MetricName": metric_name,
+                "AnswerText": answer_text,
+                "AnswerId": answer_id,
+                "QuestionnaireSid": questionnaire_sid,
+            }
+        )
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return AssessmentsInstance(self._version, payload)
-    
-    
-    def stream(self, 
+
+    def stream(
+        self,
         authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[AssessmentsInstance]:
@@ -338,7 +407,7 @@ class AssessmentsList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str authorization: The Authorization HTTP request header
         :param str segment_id: The id of the segment.
         :param limit: Upper limit for the number of records to return. stream()
@@ -354,15 +423,15 @@ class AssessmentsList(ListResource):
         page = self.page(
             authorization=authorization,
             segment_id=segment_id,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[AssessmentsInstance]:
@@ -371,7 +440,7 @@ class AssessmentsList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
+
         :param str authorization: The Authorization HTTP request header
         :param str segment_id: The id of the segment.
         :param limit: Upper limit for the number of records to return. stream()
@@ -387,15 +456,15 @@ class AssessmentsList(ListResource):
         page = await self.page_async(
             authorization=authorization,
             segment_id=segment_id,
-            page_size=limits['page_size']
+            page_size=limits["page_size"],
         )
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[AssessmentsInstance]:
@@ -403,7 +472,7 @@ class AssessmentsList(ListResource):
         Lists AssessmentsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str authorization: The Authorization HTTP request header
         :param str segment_id: The id of the segment.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -415,17 +484,19 @@ class AssessmentsList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            authorization=authorization,
-            segment_id=segment_id,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                authorization=authorization,
+                segment_id=segment_id,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
-        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[AssessmentsInstance]:
@@ -433,7 +504,7 @@ class AssessmentsList(ListResource):
         Asynchronously lists AssessmentsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
+
         :param str authorization: The Authorization HTTP request header
         :param str segment_id: The id of the segment.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -445,17 +516,20 @@ class AssessmentsList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            authorization=authorization,
-            segment_id=segment_id,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                authorization=authorization,
+                segment_id=segment_id,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -463,7 +537,7 @@ class AssessmentsList(ListResource):
         """
         Retrieve a single page of AssessmentsInstance records from the API.
         Request is executed immediately
-        
+
         :param authorization: The Authorization HTTP request header
         :param segment_id: The id of the segment.
         :param page_token: PageToken provided by the API
@@ -472,21 +546,23 @@ class AssessmentsList(ListResource):
 
         :returns: Page of AssessmentsInstance
         """
-        data = values.of({ 
-            'Authorization': authorization,
-            'SegmentId': segment_id,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Authorization": authorization,
+                "SegmentId": segment_id,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        response = self._version.page(method="GET", uri=self._uri, params=data)
         return AssessmentsPage(self._version, response)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
-        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -494,7 +570,7 @@ class AssessmentsList(ListResource):
         """
         Asynchronously retrieve a single page of AssessmentsInstance records from the API.
         Request is executed immediately
-        
+
         :param authorization: The Authorization HTTP request header
         :param segment_id: The id of the segment.
         :param page_token: PageToken provided by the API
@@ -503,15 +579,19 @@ class AssessmentsList(ListResource):
 
         :returns: Page of AssessmentsInstance
         """
-        data = values.of({ 
-            'Authorization': authorization,
-            'SegmentId': segment_id,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "Authorization": authorization,
+                "SegmentId": segment_id,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data
+        )
         return AssessmentsPage(self._version, response)
 
     def get_page(self, target_url: str) -> AssessmentsPage:
@@ -523,10 +603,7 @@ class AssessmentsList(ListResource):
 
         :returns: Page of AssessmentsInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return AssessmentsPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> AssessmentsPage:
@@ -538,18 +615,13 @@ class AssessmentsList(ListResource):
 
         :returns: Page of AssessmentsInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return AssessmentsPage(self._version, response)
-
-
 
     def get(self, assessment_sid: str) -> AssessmentsContext:
         """
         Constructs a AssessmentsContext
-        
+
         :param assessment_sid: The SID of the assessment to be modified
         """
         return AssessmentsContext(self._version, assessment_sid=assessment_sid)
@@ -557,7 +629,7 @@ class AssessmentsList(ListResource):
     def __call__(self, assessment_sid: str) -> AssessmentsContext:
         """
         Constructs a AssessmentsContext
-        
+
         :param assessment_sid: The SID of the assessment to be modified
         """
         return AssessmentsContext(self._version, assessment_sid=assessment_sid)
@@ -568,5 +640,4 @@ class AssessmentsList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.FlexApi.V1.AssessmentsList>'
-
+        return "<Twilio.FlexApi.V1.AssessmentsList>"

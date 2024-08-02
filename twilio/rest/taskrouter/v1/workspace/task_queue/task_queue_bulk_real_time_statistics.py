@@ -12,24 +12,19 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Any, Dict, List, Optional, Union
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-
 class TaskQueueBulkRealTimeStatisticsInstance(InstanceResource):
-
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
     :ivar workspace_sid: The SID of the Workspace that contains the TaskQueue.
-    :ivar task_queue_data: The real-time statistics for each requested TaskQueue SID. `task_queue_data` returns the following attributes:  `task_queue_sid`: The SID of the TaskQueue from which these statistics were calculated.  `total_available_workers`: The total number of Workers available for Tasks in the TaskQueue.  `total_eligible_workers`: The total number of Workers eligible for Tasks in the TaskQueue, regardless of their Activity state.  `total_tasks`: The total number of Tasks.  `longest_task_waiting_age`: The age of the longest waiting Task.  `longest_task_waiting_sid`: The SID of the longest waiting Task.  `tasks_by_status`: The number of Tasks grouped by their current status.  `tasks_by_priority`: The number of Tasks grouped by priority.  `activity_statistics`: The number of current Workers grouped by Activity. 
+    :ivar task_queue_data: The real-time statistics for each requested TaskQueue SID. `task_queue_data` returns the following attributes:  `task_queue_sid`: The SID of the TaskQueue from which these statistics were calculated.  `total_available_workers`: The total number of Workers available for Tasks in the TaskQueue.  `total_eligible_workers`: The total number of Workers eligible for Tasks in the TaskQueue, regardless of their Activity state.  `total_tasks`: The total number of Tasks.  `longest_task_waiting_age`: The age of the longest waiting Task.  `longest_task_waiting_sid`: The SID of the longest waiting Task.  `tasks_by_status`: The number of Tasks grouped by their current status.  `tasks_by_priority`: The number of Tasks grouped by priority.  `activity_statistics`: The number of current Workers grouped by Activity.
     :ivar task_queue_response_count: The number of TaskQueue statistics received in task_queue_data.
     :ivar url: The absolute URL of the TaskQueue statistics resource.
     """
@@ -37,90 +32,99 @@ class TaskQueueBulkRealTimeStatisticsInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any], workspace_sid: str):
         super().__init__(version)
 
-        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.workspace_sid: Optional[str] = payload.get("workspace_sid")
-        self.task_queue_data: Optional[List[Dict[str, object]]] = payload.get("task_queue_data")
-        self.task_queue_response_count: Optional[int] = deserialize.integer(payload.get("task_queue_response_count"))
+        self.task_queue_data: Optional[List[Dict[str, object]]] = payload.get(
+            "task_queue_data"
+        )
+        self.task_queue_response_count: Optional[int] = deserialize.integer(
+            payload.get("task_queue_response_count")
+        )
         self.url: Optional[str] = payload.get("url")
 
-        
-        self._solution = { 
+        self._solution = {
             "workspace_sid": workspace_sid,
         }
-        
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.Taskrouter.V1.TaskQueueBulkRealTimeStatisticsInstance {}>'.format(context)
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return (
+            "<Twilio.Taskrouter.V1.TaskQueueBulkRealTimeStatisticsInstance {}>".format(
+                context
+            )
+        )
 
 
 class TaskQueueBulkRealTimeStatisticsList(ListResource):
-    
+
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskQueueBulkRealTimeStatisticsList
 
         :param version: Version that contains the resource
         :param workspace_sid: The unique SID identifier of the Workspace.
-        
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'workspace_sid': workspace_sid,  }
-        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/RealTimeStatistics'.format(**self._solution)
-        
-        
-    
-    def create(self, body: Union[object, object]=values.unset) -> TaskQueueBulkRealTimeStatisticsInstance:
+        self._solution = {
+            "workspace_sid": workspace_sid,
+        }
+        self._uri = "/Workspaces/{workspace_sid}/TaskQueues/RealTimeStatistics".format(
+            **self._solution
+        )
+
+    def create(
+        self, body: Union[object, object] = values.unset
+    ) -> TaskQueueBulkRealTimeStatisticsInstance:
         """
         Create the TaskQueueBulkRealTimeStatisticsInstance
 
-        :param body: 
-        
+        :param body:
+
         :returns: The created TaskQueueBulkRealTimeStatisticsInstance
         """
         data = body.to_dict()
-        
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        headers['Content-Type'] = 'application/json'
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return TaskQueueBulkRealTimeStatisticsInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers["Content-Type"] = "application/json"
 
-    async def create_async(self, body: Union[object, object]=values.unset) -> TaskQueueBulkRealTimeStatisticsInstance:
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return TaskQueueBulkRealTimeStatisticsInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    async def create_async(
+        self, body: Union[object, object] = values.unset
+    ) -> TaskQueueBulkRealTimeStatisticsInstance:
         """
         Asynchronously create the TaskQueueBulkRealTimeStatisticsInstance
 
-        :param body: 
-        
+        :param body:
+
         :returns: The created TaskQueueBulkRealTimeStatisticsInstance
         """
         data = body.to_dict()
-        
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        headers['Content-Type'] = 'application/json'
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return TaskQueueBulkRealTimeStatisticsInstance(self._version, payload, workspace_sid=self._solution['workspace_sid'])
-    
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers["Content-Type"] = "application/json"
 
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
+        return TaskQueueBulkRealTimeStatisticsInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -128,5 +132,4 @@ class TaskQueueBulkRealTimeStatisticsList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.Taskrouter.V1.TaskQueueBulkRealTimeStatisticsList>'
-
+        return "<Twilio.Taskrouter.V1.TaskQueueBulkRealTimeStatisticsList>"
