@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -66,11 +68,10 @@ class SimInstance(InstanceResource):
     :ivar ip_address: Deprecated.
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.unique_name: Optional[str] = payload.get("unique_name")
         self.account_sid: Optional[str] = payload.get("account_sid")
@@ -79,13 +80,9 @@ class SimInstance(InstanceResource):
         self.iccid: Optional[str] = payload.get("iccid")
         self.e_id: Optional[str] = payload.get("e_id")
         self.status: Optional["SimInstance.Status"] = payload.get("status")
-        self.reset_status: Optional["SimInstance.ResetStatus"] = payload.get(
-            "reset_status"
-        )
+        self.reset_status: Optional["SimInstance.ResetStatus"] = payload.get("reset_status")
         self.commands_callback_url: Optional[str] = payload.get("commands_callback_url")
-        self.commands_callback_method: Optional[str] = payload.get(
-            "commands_callback_method"
-        )
+        self.commands_callback_method: Optional[str] = payload.get("commands_callback_method")
         self.sms_fallback_method: Optional[str] = payload.get("sms_fallback_method")
         self.sms_fallback_url: Optional[str] = payload.get("sms_fallback_url")
         self.sms_method: Optional[str] = payload.get("sms_method")
@@ -94,17 +91,14 @@ class SimInstance(InstanceResource):
         self.voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
         self.voice_method: Optional[str] = payload.get("voice_method")
         self.voice_url: Optional[str] = payload.get("voice_url")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
         self.ip_address: Optional[str] = payload.get("ip_address")
 
-        self._solution = {
+        
+        self._solution = { 
             "sid": sid or self.sid,
         }
         self._context: Optional[SimContext] = None
@@ -118,34 +112,32 @@ class SimInstance(InstanceResource):
         :returns: SimContext for this SimInstance
         """
         if self._context is None:
-            self._context = SimContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
+            self._context = SimContext(self._version, sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the SimInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SimInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "SimInstance":
         """
         Fetch the SimInstance
-
+        
 
         :returns: The fetched SimInstance
         """
@@ -154,42 +146,23 @@ class SimInstance(InstanceResource):
     async def fetch_async(self) -> "SimInstance":
         """
         Asynchronous coroutine to fetch the SimInstance
-
+        
 
         :returns: The fetched SimInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        unique_name: Union[str, object] = values.unset,
-        callback_method: Union[str, object] = values.unset,
-        callback_url: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        rate_plan: Union[str, object] = values.unset,
-        status: Union["SimInstance.Status", object] = values.unset,
-        commands_callback_method: Union[str, object] = values.unset,
-        commands_callback_url: Union[str, object] = values.unset,
-        sms_fallback_method: Union[str, object] = values.unset,
-        sms_fallback_url: Union[str, object] = values.unset,
-        sms_method: Union[str, object] = values.unset,
-        sms_url: Union[str, object] = values.unset,
-        voice_fallback_method: Union[str, object] = values.unset,
-        voice_fallback_url: Union[str, object] = values.unset,
-        voice_method: Union[str, object] = values.unset,
-        voice_url: Union[str, object] = values.unset,
-        reset_status: Union["SimInstance.ResetStatus", object] = values.unset,
-        account_sid: Union[str, object] = values.unset,
-    ) -> "SimInstance":
+    
+    
+    def update(self, unique_name: Union[str, object]=values.unset, callback_method: Union[str, object]=values.unset, callback_url: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, rate_plan: Union[str, object]=values.unset, status: Union["SimInstance.Status", object]=values.unset, commands_callback_method: Union[str, object]=values.unset, commands_callback_url: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_url: Union[str, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, reset_status: Union["SimInstance.ResetStatus", object]=values.unset, account_sid: Union[str, object]=values.unset) -> "SimInstance":
         """
         Update the SimInstance
-
+        
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the `sid` in the URL path to address the resource.
         :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `POST` or `GET`. The default is `POST`.
         :param callback_url: The URL we should call using the `callback_url` when the SIM has finished updating. When the SIM transitions from `new` to `ready` or from any status to `deactivated`, we call this URL when the status changes to an intermediate status (`ready` or `deactivated`) and again when the status changes to its final status (`active` or `canceled`).
         :param friendly_name: A descriptive string that you create to describe the Sim resource. It does not need to be unique.
         :param rate_plan: The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
-        :param status:
+        :param status: 
         :param commands_callback_method: The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
         :param commands_callback_url: The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/iot/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
         :param sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
@@ -200,62 +173,23 @@ class SimInstance(InstanceResource):
         :param voice_fallback_url: Deprecated.
         :param voice_method: Deprecated.
         :param voice_url: Deprecated.
-        :param reset_status:
+        :param reset_status: 
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/iot/wireless/api/sim-resource#move-sims-between-subaccounts).
 
         :returns: The updated SimInstance
         """
-        return self._proxy.update(
-            unique_name=unique_name,
-            callback_method=callback_method,
-            callback_url=callback_url,
-            friendly_name=friendly_name,
-            rate_plan=rate_plan,
-            status=status,
-            commands_callback_method=commands_callback_method,
-            commands_callback_url=commands_callback_url,
-            sms_fallback_method=sms_fallback_method,
-            sms_fallback_url=sms_fallback_url,
-            sms_method=sms_method,
-            sms_url=sms_url,
-            voice_fallback_method=voice_fallback_method,
-            voice_fallback_url=voice_fallback_url,
-            voice_method=voice_method,
-            voice_url=voice_url,
-            reset_status=reset_status,
-            account_sid=account_sid,
-        )
+        return self._proxy.update(unique_name=unique_name, callback_method=callback_method, callback_url=callback_url, friendly_name=friendly_name, rate_plan=rate_plan, status=status, commands_callback_method=commands_callback_method, commands_callback_url=commands_callback_url, sms_fallback_method=sms_fallback_method, sms_fallback_url=sms_fallback_url, sms_method=sms_method, sms_url=sms_url, voice_fallback_method=voice_fallback_method, voice_fallback_url=voice_fallback_url, voice_method=voice_method, voice_url=voice_url, reset_status=reset_status, account_sid=account_sid, )
 
-    async def update_async(
-        self,
-        unique_name: Union[str, object] = values.unset,
-        callback_method: Union[str, object] = values.unset,
-        callback_url: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        rate_plan: Union[str, object] = values.unset,
-        status: Union["SimInstance.Status", object] = values.unset,
-        commands_callback_method: Union[str, object] = values.unset,
-        commands_callback_url: Union[str, object] = values.unset,
-        sms_fallback_method: Union[str, object] = values.unset,
-        sms_fallback_url: Union[str, object] = values.unset,
-        sms_method: Union[str, object] = values.unset,
-        sms_url: Union[str, object] = values.unset,
-        voice_fallback_method: Union[str, object] = values.unset,
-        voice_fallback_url: Union[str, object] = values.unset,
-        voice_method: Union[str, object] = values.unset,
-        voice_url: Union[str, object] = values.unset,
-        reset_status: Union["SimInstance.ResetStatus", object] = values.unset,
-        account_sid: Union[str, object] = values.unset,
-    ) -> "SimInstance":
+    async def update_async(self, unique_name: Union[str, object]=values.unset, callback_method: Union[str, object]=values.unset, callback_url: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, rate_plan: Union[str, object]=values.unset, status: Union["SimInstance.Status", object]=values.unset, commands_callback_method: Union[str, object]=values.unset, commands_callback_url: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_url: Union[str, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, reset_status: Union["SimInstance.ResetStatus", object]=values.unset, account_sid: Union[str, object]=values.unset) -> "SimInstance":
         """
         Asynchronous coroutine to update the SimInstance
-
+        
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the `sid` in the URL path to address the resource.
         :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `POST` or `GET`. The default is `POST`.
         :param callback_url: The URL we should call using the `callback_url` when the SIM has finished updating. When the SIM transitions from `new` to `ready` or from any status to `deactivated`, we call this URL when the status changes to an intermediate status (`ready` or `deactivated`) and again when the status changes to its final status (`active` or `canceled`).
         :param friendly_name: A descriptive string that you create to describe the Sim resource. It does not need to be unique.
         :param rate_plan: The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
-        :param status:
+        :param status: 
         :param commands_callback_method: The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
         :param commands_callback_url: The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/iot/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
         :param sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
@@ -266,55 +200,35 @@ class SimInstance(InstanceResource):
         :param voice_fallback_url: Deprecated.
         :param voice_method: Deprecated.
         :param voice_url: Deprecated.
-        :param reset_status:
+        :param reset_status: 
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/iot/wireless/api/sim-resource#move-sims-between-subaccounts).
 
         :returns: The updated SimInstance
         """
-        return await self._proxy.update_async(
-            unique_name=unique_name,
-            callback_method=callback_method,
-            callback_url=callback_url,
-            friendly_name=friendly_name,
-            rate_plan=rate_plan,
-            status=status,
-            commands_callback_method=commands_callback_method,
-            commands_callback_url=commands_callback_url,
-            sms_fallback_method=sms_fallback_method,
-            sms_fallback_url=sms_fallback_url,
-            sms_method=sms_method,
-            sms_url=sms_url,
-            voice_fallback_method=voice_fallback_method,
-            voice_fallback_url=voice_fallback_url,
-            voice_method=voice_method,
-            voice_url=voice_url,
-            reset_status=reset_status,
-            account_sid=account_sid,
-        )
-
+        return await self._proxy.update_async(unique_name=unique_name, callback_method=callback_method, callback_url=callback_url, friendly_name=friendly_name, rate_plan=rate_plan, status=status, commands_callback_method=commands_callback_method, commands_callback_url=commands_callback_url, sms_fallback_method=sms_fallback_method, sms_fallback_url=sms_fallback_url, sms_method=sms_method, sms_url=sms_url, voice_fallback_method=voice_fallback_method, voice_fallback_url=voice_fallback_url, voice_method=voice_method, voice_url=voice_url, reset_status=reset_status, account_sid=account_sid, )
+    
     @property
     def data_sessions(self) -> DataSessionList:
         """
         Access the data_sessions
         """
         return self._proxy.data_sessions
-
+    
     @property
     def usage_records(self) -> UsageRecordList:
         """
         Access the usage_records
         """
         return self._proxy.usage_records
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Wireless.V1.SimInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Wireless.V1.SimInstance {}>'.format(context)
 
 class SimContext(InstanceContext):
 
@@ -327,107 +241,81 @@ class SimContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
+        self._solution = { 
+            'sid': sid,
         }
-        self._uri = "/Sims/{sid}".format(**self._solution)
-
+        self._uri = '/Sims/{sid}'.format(**self._solution)
+        
         self._data_sessions: Optional[DataSessionList] = None
         self._usage_records: Optional[UsageRecordList] = None
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the SimInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SimInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> SimInstance:
         """
         Fetch the SimInstance
-
+        
 
         :returns: The fetched SimInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SimInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> SimInstance:
         """
         Asynchronous coroutine to fetch the SimInstance
-
+        
 
         :returns: The fetched SimInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return SimInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
-
-    def update(
-        self,
-        unique_name: Union[str, object] = values.unset,
-        callback_method: Union[str, object] = values.unset,
-        callback_url: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        rate_plan: Union[str, object] = values.unset,
-        status: Union["SimInstance.Status", object] = values.unset,
-        commands_callback_method: Union[str, object] = values.unset,
-        commands_callback_url: Union[str, object] = values.unset,
-        sms_fallback_method: Union[str, object] = values.unset,
-        sms_fallback_url: Union[str, object] = values.unset,
-        sms_method: Union[str, object] = values.unset,
-        sms_url: Union[str, object] = values.unset,
-        voice_fallback_method: Union[str, object] = values.unset,
-        voice_fallback_url: Union[str, object] = values.unset,
-        voice_method: Union[str, object] = values.unset,
-        voice_url: Union[str, object] = values.unset,
-        reset_status: Union["SimInstance.ResetStatus", object] = values.unset,
-        account_sid: Union[str, object] = values.unset,
-    ) -> SimInstance:
+    
+    
+    def update(self, unique_name: Union[str, object]=values.unset, callback_method: Union[str, object]=values.unset, callback_url: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, rate_plan: Union[str, object]=values.unset, status: Union["SimInstance.Status", object]=values.unset, commands_callback_method: Union[str, object]=values.unset, commands_callback_url: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_url: Union[str, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, reset_status: Union["SimInstance.ResetStatus", object]=values.unset, account_sid: Union[str, object]=values.unset) -> SimInstance:
         """
         Update the SimInstance
-
+        
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the `sid` in the URL path to address the resource.
         :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `POST` or `GET`. The default is `POST`.
         :param callback_url: The URL we should call using the `callback_url` when the SIM has finished updating. When the SIM transitions from `new` to `ready` or from any status to `deactivated`, we call this URL when the status changes to an intermediate status (`ready` or `deactivated`) and again when the status changes to its final status (`active` or `canceled`).
         :param friendly_name: A descriptive string that you create to describe the Sim resource. It does not need to be unique.
         :param rate_plan: The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
-        :param status:
+        :param status: 
         :param commands_callback_method: The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
         :param commands_callback_url: The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/iot/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
         :param sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
@@ -438,72 +326,51 @@ class SimContext(InstanceContext):
         :param voice_fallback_url: Deprecated.
         :param voice_method: Deprecated.
         :param voice_url: Deprecated.
-        :param reset_status:
+        :param reset_status: 
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/iot/wireless/api/sim-resource#move-sims-between-subaccounts).
 
         :returns: The updated SimInstance
         """
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-                "CallbackMethod": callback_method,
-                "CallbackUrl": callback_url,
-                "FriendlyName": friendly_name,
-                "RatePlan": rate_plan,
-                "Status": status,
-                "CommandsCallbackMethod": commands_callback_method,
-                "CommandsCallbackUrl": commands_callback_url,
-                "SmsFallbackMethod": sms_fallback_method,
-                "SmsFallbackUrl": sms_fallback_url,
-                "SmsMethod": sms_method,
-                "SmsUrl": sms_url,
-                "VoiceFallbackMethod": voice_fallback_method,
-                "VoiceFallbackUrl": voice_fallback_url,
-                "VoiceMethod": voice_method,
-                "VoiceUrl": voice_url,
-                "ResetStatus": reset_status,
-                "AccountSid": account_sid,
-            }
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'CallbackMethod': callback_method,
+            'CallbackUrl': callback_url,
+            'FriendlyName': friendly_name,
+            'RatePlan': rate_plan,
+            'Status': status,
+            'CommandsCallbackMethod': commands_callback_method,
+            'CommandsCallbackUrl': commands_callback_url,
+            'SmsFallbackMethod': sms_fallback_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsMethod': sms_method,
+            'SmsUrl': sms_url,
+            'VoiceFallbackMethod': voice_fallback_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceMethod': voice_method,
+            'VoiceUrl': voice_url,
+            'ResetStatus': reset_status,
+            'AccountSid': account_sid,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return SimInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
         )
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return SimInstance(self._version, payload, sid=self._solution["sid"])
-
-    async def update_async(
-        self,
-        unique_name: Union[str, object] = values.unset,
-        callback_method: Union[str, object] = values.unset,
-        callback_url: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        rate_plan: Union[str, object] = values.unset,
-        status: Union["SimInstance.Status", object] = values.unset,
-        commands_callback_method: Union[str, object] = values.unset,
-        commands_callback_url: Union[str, object] = values.unset,
-        sms_fallback_method: Union[str, object] = values.unset,
-        sms_fallback_url: Union[str, object] = values.unset,
-        sms_method: Union[str, object] = values.unset,
-        sms_url: Union[str, object] = values.unset,
-        voice_fallback_method: Union[str, object] = values.unset,
-        voice_fallback_url: Union[str, object] = values.unset,
-        voice_method: Union[str, object] = values.unset,
-        voice_url: Union[str, object] = values.unset,
-        reset_status: Union["SimInstance.ResetStatus", object] = values.unset,
-        account_sid: Union[str, object] = values.unset,
-    ) -> SimInstance:
+    async def update_async(self, unique_name: Union[str, object]=values.unset, callback_method: Union[str, object]=values.unset, callback_url: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, rate_plan: Union[str, object]=values.unset, status: Union["SimInstance.Status", object]=values.unset, commands_callback_method: Union[str, object]=values.unset, commands_callback_url: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_url: Union[str, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, reset_status: Union["SimInstance.ResetStatus", object]=values.unset, account_sid: Union[str, object]=values.unset) -> SimInstance:
         """
         Asynchronous coroutine to update the SimInstance
-
+        
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the `sid` in the URL path to address the resource.
         :param callback_method: The HTTP method we should use to call `callback_url`. Can be: `POST` or `GET`. The default is `POST`.
         :param callback_url: The URL we should call using the `callback_url` when the SIM has finished updating. When the SIM transitions from `new` to `ready` or from any status to `deactivated`, we call this URL when the status changes to an intermediate status (`ready` or `deactivated`) and again when the status changes to its final status (`active` or `canceled`).
         :param friendly_name: A descriptive string that you create to describe the Sim resource. It does not need to be unique.
         :param rate_plan: The SID or unique name of the [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource) to which the Sim resource should be assigned.
-        :param status:
+        :param status: 
         :param commands_callback_method: The HTTP method we should use to call `commands_callback_url`. Can be: `POST` or `GET`. The default is `POST`.
         :param commands_callback_url: The URL we should call using the `commands_callback_method` when the SIM sends a [Command](https://www.twilio.com/docs/iot/wireless/api/command-resource). Your server should respond with an HTTP status code in the 200 range; any response body is ignored.
         :param sms_fallback_method: The HTTP method we should use to call `sms_fallback_url`. Can be: `GET` or `POST`. Default is `POST`.
@@ -514,42 +381,42 @@ class SimContext(InstanceContext):
         :param voice_fallback_url: Deprecated.
         :param voice_method: Deprecated.
         :param voice_url: Deprecated.
-        :param reset_status:
+        :param reset_status: 
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to which the Sim resource should belong. The Account SID can only be that of the requesting Account or that of a [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the requesting Account. Only valid when the Sim resource's status is `new`. For more information, see the [Move SIMs between Subaccounts documentation](https://www.twilio.com/docs/iot/wireless/api/sim-resource#move-sims-between-subaccounts).
 
         :returns: The updated SimInstance
         """
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-                "CallbackMethod": callback_method,
-                "CallbackUrl": callback_url,
-                "FriendlyName": friendly_name,
-                "RatePlan": rate_plan,
-                "Status": status,
-                "CommandsCallbackMethod": commands_callback_method,
-                "CommandsCallbackUrl": commands_callback_url,
-                "SmsFallbackMethod": sms_fallback_method,
-                "SmsFallbackUrl": sms_fallback_url,
-                "SmsMethod": sms_method,
-                "SmsUrl": sms_url,
-                "VoiceFallbackMethod": voice_fallback_method,
-                "VoiceFallbackUrl": voice_fallback_url,
-                "VoiceMethod": voice_method,
-                "VoiceUrl": voice_url,
-                "ResetStatus": reset_status,
-                "AccountSid": account_sid,
-            }
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'CallbackMethod': callback_method,
+            'CallbackUrl': callback_url,
+            'FriendlyName': friendly_name,
+            'RatePlan': rate_plan,
+            'Status': status,
+            'CommandsCallbackMethod': commands_callback_method,
+            'CommandsCallbackUrl': commands_callback_url,
+            'SmsFallbackMethod': sms_fallback_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsMethod': sms_method,
+            'SmsUrl': sms_url,
+            'VoiceFallbackMethod': voice_fallback_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceMethod': voice_method,
+            'VoiceUrl': voice_url,
+            'ResetStatus': reset_status,
+            'AccountSid': account_sid,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return SimInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
         )
-
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return SimInstance(self._version, payload, sid=self._solution["sid"])
-
+    
+    
     @property
     def data_sessions(self) -> DataSessionList:
         """
@@ -557,11 +424,11 @@ class SimContext(InstanceContext):
         """
         if self._data_sessions is None:
             self._data_sessions = DataSessionList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._data_sessions
-
+    
     @property
     def usage_records(self) -> UsageRecordList:
         """
@@ -569,19 +436,26 @@ class SimContext(InstanceContext):
         """
         if self._usage_records is None:
             self._usage_records = UsageRecordList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._usage_records
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Wireless.V1.SimContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Wireless.V1.SimContext {}>'.format(context)
+
+
+
+
+
+
+
 
 
 class SimPage(Page):
@@ -603,26 +477,35 @@ class SimPage(Page):
         return "<Twilio.Wireless.V1.SimPage>"
 
 
-class SimList(ListResource):
 
+
+
+class SimList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the SimList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/Sims"
-
-    def stream(
-        self,
+        
+        self._uri = '/Sims'
+        
+        
+    
+    
+    
+    
+    def stream(self, 
         status: Union["SimInstance.Status", object] = values.unset,
         iccid: Union[str, object] = values.unset,
         rate_plan: Union[str, object] = values.unset,
         e_id: Union[str, object] = values.unset,
         sim_registration_code: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[SimInstance]:
@@ -631,7 +514,7 @@ class SimList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;SimInstance.Status&quot; status: Only return Sim resources with this status.
         :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
         :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
@@ -653,18 +536,18 @@ class SimList(ListResource):
             rate_plan=rate_plan,
             e_id=e_id,
             sim_registration_code=sim_registration_code,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         status: Union["SimInstance.Status", object] = values.unset,
         iccid: Union[str, object] = values.unset,
         rate_plan: Union[str, object] = values.unset,
         e_id: Union[str, object] = values.unset,
         sim_registration_code: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[SimInstance]:
@@ -673,7 +556,7 @@ class SimList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;SimInstance.Status&quot; status: Only return Sim resources with this status.
         :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
         :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
@@ -695,18 +578,18 @@ class SimList(ListResource):
             rate_plan=rate_plan,
             e_id=e_id,
             sim_registration_code=sim_registration_code,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         status: Union["SimInstance.Status", object] = values.unset,
         iccid: Union[str, object] = values.unset,
         rate_plan: Union[str, object] = values.unset,
         e_id: Union[str, object] = values.unset,
         sim_registration_code: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[SimInstance]:
@@ -714,7 +597,7 @@ class SimList(ListResource):
         Lists SimInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;SimInstance.Status&quot; status: Only return Sim resources with this status.
         :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
         :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
@@ -729,25 +612,23 @@ class SimList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                status=status,
-                iccid=iccid,
-                rate_plan=rate_plan,
-                e_id=e_id,
-                sim_registration_code=sim_registration_code,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            status=status,
+            iccid=iccid,
+            rate_plan=rate_plan,
+            e_id=e_id,
+            sim_registration_code=sim_registration_code,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         status: Union["SimInstance.Status", object] = values.unset,
         iccid: Union[str, object] = values.unset,
         rate_plan: Union[str, object] = values.unset,
         e_id: Union[str, object] = values.unset,
         sim_registration_code: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[SimInstance]:
@@ -755,7 +636,7 @@ class SimList(ListResource):
         Asynchronously lists SimInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;SimInstance.Status&quot; status: Only return Sim resources with this status.
         :param str iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
         :param str rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
@@ -770,26 +651,23 @@ class SimList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                status=status,
-                iccid=iccid,
-                rate_plan=rate_plan,
-                e_id=e_id,
-                sim_registration_code=sim_registration_code,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            status=status,
+            iccid=iccid,
+            rate_plan=rate_plan,
+            e_id=e_id,
+            sim_registration_code=sim_registration_code,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         status: Union["SimInstance.Status", object] = values.unset,
         iccid: Union[str, object] = values.unset,
         rate_plan: Union[str, object] = values.unset,
         e_id: Union[str, object] = values.unset,
         sim_registration_code: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -797,7 +675,7 @@ class SimList(ListResource):
         """
         Retrieve a single page of SimInstance records from the API.
         Request is executed immediately
-
+        
         :param status: Only return Sim resources with this status.
         :param iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
         :param rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
@@ -809,29 +687,27 @@ class SimList(ListResource):
 
         :returns: Page of SimInstance
         """
-        data = values.of(
-            {
-                "Status": status,
-                "Iccid": iccid,
-                "RatePlan": rate_plan,
-                "EId": e_id,
-                "SimRegistrationCode": sim_registration_code,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Status': status,
+            'Iccid': iccid,
+            'RatePlan': rate_plan,
+            'EId': e_id,
+            'SimRegistrationCode': sim_registration_code,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return SimPage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         status: Union["SimInstance.Status", object] = values.unset,
         iccid: Union[str, object] = values.unset,
         rate_plan: Union[str, object] = values.unset,
         e_id: Union[str, object] = values.unset,
         sim_registration_code: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -839,7 +715,7 @@ class SimList(ListResource):
         """
         Asynchronously retrieve a single page of SimInstance records from the API.
         Request is executed immediately
-
+        
         :param status: Only return Sim resources with this status.
         :param iccid: Only return Sim resources with this ICCID. This will return a list with a maximum size of 1.
         :param rate_plan: The SID or unique name of a [RatePlan resource](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource). Only return Sim resources assigned to this RatePlan resource.
@@ -851,22 +727,18 @@ class SimList(ListResource):
 
         :returns: Page of SimInstance
         """
-        data = values.of(
-            {
-                "Status": status,
-                "Iccid": iccid,
-                "RatePlan": rate_plan,
-                "EId": e_id,
-                "SimRegistrationCode": sim_registration_code,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Status': status,
+            'Iccid': iccid,
+            'RatePlan': rate_plan,
+            'EId': e_id,
+            'SimRegistrationCode': sim_registration_code,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return SimPage(self._version, response)
 
     def get_page(self, target_url: str) -> SimPage:
@@ -878,7 +750,10 @@ class SimList(ListResource):
 
         :returns: Page of SimInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return SimPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> SimPage:
@@ -890,13 +765,22 @@ class SimList(ListResource):
 
         :returns: Page of SimInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return SimPage(self._version, response)
+
+
+
+
+
+
 
     def get(self, sid: str) -> SimContext:
         """
         Constructs a SimContext
-
+        
         :param sid: The SID or the `unique_name` of the Sim resource to update.
         """
         return SimContext(self._version, sid=sid)
@@ -904,7 +788,7 @@ class SimList(ListResource):
     def __call__(self, sid: str) -> SimContext:
         """
         Constructs a SimContext
-
+        
         :param sid: The SID or the `unique_name` of the Sim resource to update.
         """
         return SimContext(self._version, sid=sid)
@@ -915,4 +799,5 @@ class SimList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Wireless.V1.SimList>"
+        return '<Twilio.Wireless.V1.SimList>'
+

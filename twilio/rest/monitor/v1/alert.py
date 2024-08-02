@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -23,6 +25,7 @@ from twilio.base.page import Page
 
 
 class AlertInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Alert resource.
     :ivar alert_text: The text of the alert.
@@ -45,23 +48,16 @@ class AlertInstance(InstanceResource):
     :ivar service_sid: The SID of the service or resource that generated the alert. Can be `null`.
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.alert_text: Optional[str] = payload.get("alert_text")
         self.api_version: Optional[str] = payload.get("api_version")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_generated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_generated")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_generated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_generated"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.error_code: Optional[str] = payload.get("error_code")
         self.log_level: Optional[str] = payload.get("log_level")
         self.more_info: Optional[str] = payload.get("more_info")
@@ -76,7 +72,8 @@ class AlertInstance(InstanceResource):
         self.request_headers: Optional[str] = payload.get("request_headers")
         self.service_sid: Optional[str] = payload.get("service_sid")
 
-        self._solution = {
+        
+        self._solution = { 
             "sid": sid or self.sid,
         }
         self._context: Optional[AlertContext] = None
@@ -90,16 +87,14 @@ class AlertInstance(InstanceResource):
         :returns: AlertContext for this AlertInstance
         """
         if self._context is None:
-            self._context = AlertContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
+            self._context = AlertContext(self._version, sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def fetch(self) -> "AlertInstance":
         """
         Fetch the AlertInstance
-
+        
 
         :returns: The fetched AlertInstance
         """
@@ -108,21 +103,20 @@ class AlertInstance(InstanceResource):
     async def fetch_async(self) -> "AlertInstance":
         """
         Asynchronous coroutine to fetch the AlertInstance
-
+        
 
         :returns: The fetched AlertInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Monitor.V1.AlertInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Monitor.V1.AlertInstance {}>'.format(context)
 
 class AlertContext(InstanceContext):
 
@@ -135,58 +129,61 @@ class AlertContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
+        self._solution = { 
+            'sid': sid,
         }
-        self._uri = "/Alerts/{sid}".format(**self._solution)
-
+        self._uri = '/Alerts/{sid}'.format(**self._solution)
+        
+    
+    
     def fetch(self) -> AlertInstance:
         """
         Fetch the AlertInstance
-
+        
 
         :returns: The fetched AlertInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AlertInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> AlertInstance:
         """
         Asynchronous coroutine to fetch the AlertInstance
-
+        
 
         :returns: The fetched AlertInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return AlertInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Monitor.V1.AlertContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Monitor.V1.AlertContext {}>'.format(context)
+
+
+
 
 
 class AlertPage(Page):
@@ -208,24 +205,31 @@ class AlertPage(Page):
         return "<Twilio.Monitor.V1.AlertPage>"
 
 
-class AlertList(ListResource):
 
+
+
+class AlertList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the AlertList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/Alerts"
-
-    def stream(
-        self,
+        
+        self._uri = '/Alerts'
+        
+        
+    
+    
+    def stream(self, 
         log_level: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[AlertInstance]:
@@ -234,7 +238,7 @@ class AlertList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str log_level: Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
         :param datetime start_date: Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
         :param datetime end_date: Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
@@ -252,16 +256,16 @@ class AlertList(ListResource):
             log_level=log_level,
             start_date=start_date,
             end_date=end_date,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         log_level: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[AlertInstance]:
@@ -270,7 +274,7 @@ class AlertList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str log_level: Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
         :param datetime start_date: Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
         :param datetime end_date: Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
@@ -288,16 +292,16 @@ class AlertList(ListResource):
             log_level=log_level,
             start_date=start_date,
             end_date=end_date,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         log_level: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[AlertInstance]:
@@ -305,7 +309,7 @@ class AlertList(ListResource):
         Lists AlertInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str log_level: Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
         :param datetime start_date: Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
         :param datetime end_date: Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
@@ -318,21 +322,19 @@ class AlertList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                log_level=log_level,
-                start_date=start_date,
-                end_date=end_date,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            log_level=log_level,
+            start_date=start_date,
+            end_date=end_date,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         log_level: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[AlertInstance]:
@@ -340,7 +342,7 @@ class AlertList(ListResource):
         Asynchronously lists AlertInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str log_level: Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
         :param datetime start_date: Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
         :param datetime end_date: Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
@@ -353,22 +355,19 @@ class AlertList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                log_level=log_level,
-                start_date=start_date,
-                end_date=end_date,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            log_level=log_level,
+            start_date=start_date,
+            end_date=end_date,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         log_level: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -376,7 +375,7 @@ class AlertList(ListResource):
         """
         Retrieve a single page of AlertInstance records from the API.
         Request is executed immediately
-
+        
         :param log_level: Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
         :param start_date: Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
         :param end_date: Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
@@ -386,25 +385,23 @@ class AlertList(ListResource):
 
         :returns: Page of AlertInstance
         """
-        data = values.of(
-            {
-                "LogLevel": log_level,
-                "StartDate": serialize.iso8601_datetime(start_date),
-                "EndDate": serialize.iso8601_datetime(end_date),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'LogLevel': log_level,
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'EndDate': serialize.iso8601_datetime(end_date),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return AlertPage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         log_level: Union[str, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         end_date: Union[datetime, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -412,7 +409,7 @@ class AlertList(ListResource):
         """
         Asynchronously retrieve a single page of AlertInstance records from the API.
         Request is executed immediately
-
+        
         :param log_level: Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`, or `debug`.
         :param start_date: Only include alerts that occurred on or after this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
         :param end_date: Only include alerts that occurred on or before this date and time. Specify the date and time in GMT and format as `YYYY-MM-DD` or `YYYY-MM-DDThh:mm:ssZ`. Queries for alerts older than 30 days are not supported.
@@ -422,20 +419,16 @@ class AlertList(ListResource):
 
         :returns: Page of AlertInstance
         """
-        data = values.of(
-            {
-                "LogLevel": log_level,
-                "StartDate": serialize.iso8601_datetime(start_date),
-                "EndDate": serialize.iso8601_datetime(end_date),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'LogLevel': log_level,
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'EndDate': serialize.iso8601_datetime(end_date),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return AlertPage(self._version, response)
 
     def get_page(self, target_url: str) -> AlertPage:
@@ -447,7 +440,10 @@ class AlertList(ListResource):
 
         :returns: Page of AlertInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return AlertPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> AlertPage:
@@ -459,13 +455,18 @@ class AlertList(ListResource):
 
         :returns: Page of AlertInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return AlertPage(self._version, response)
+
+
 
     def get(self, sid: str) -> AlertContext:
         """
         Constructs a AlertContext
-
+        
         :param sid: The SID of the Alert resource to fetch.
         """
         return AlertContext(self._version, sid=sid)
@@ -473,7 +474,7 @@ class AlertList(ListResource):
     def __call__(self, sid: str) -> AlertContext:
         """
         Constructs a AlertContext
-
+        
         :param sid: The SID of the Alert resource to fetch.
         """
         return AlertContext(self._version, sid=sid)
@@ -484,4 +485,5 @@ class AlertList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Monitor.V1.AlertList>"
+        return '<Twilio.Monitor.V1.AlertList>'
+

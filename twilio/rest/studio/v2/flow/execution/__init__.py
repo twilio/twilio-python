@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -43,33 +45,23 @@ class ExecutionInstance(InstanceResource):
     :ivar links: The URLs of nested resources.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        flow_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], flow_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.flow_sid: Optional[str] = payload.get("flow_sid")
-        self.contact_channel_address: Optional[str] = payload.get(
-            "contact_channel_address"
-        )
+        self.contact_channel_address: Optional[str] = payload.get("contact_channel_address")
         self.context: Optional[Dict[str, object]] = payload.get("context")
         self.status: Optional["ExecutionInstance.Status"] = payload.get("status")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        self._solution = {
+        
+        self._solution = { 
             "flow_sid": flow_sid,
             "sid": sid or self.sid,
         }
@@ -84,35 +76,32 @@ class ExecutionInstance(InstanceResource):
         :returns: ExecutionContext for this ExecutionInstance
         """
         if self._context is None:
-            self._context = ExecutionContext(
-                self._version,
-                flow_sid=self._solution["flow_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = ExecutionContext(self._version, flow_sid=self._solution['flow_sid'], sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the ExecutionInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ExecutionInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "ExecutionInstance":
         """
         Fetch the ExecutionInstance
-
+        
 
         :returns: The fetched ExecutionInstance
         """
@@ -121,61 +110,55 @@ class ExecutionInstance(InstanceResource):
     async def fetch_async(self) -> "ExecutionInstance":
         """
         Asynchronous coroutine to fetch the ExecutionInstance
-
+        
 
         :returns: The fetched ExecutionInstance
         """
         return await self._proxy.fetch_async()
-
+    
+    
     def update(self, status: "ExecutionInstance.Status") -> "ExecutionInstance":
         """
         Update the ExecutionInstance
-
-        :param status:
+        
+        :param status: 
 
         :returns: The updated ExecutionInstance
         """
-        return self._proxy.update(
-            status=status,
-        )
+        return self._proxy.update(status=status, )
 
-    async def update_async(
-        self, status: "ExecutionInstance.Status"
-    ) -> "ExecutionInstance":
+    async def update_async(self, status: "ExecutionInstance.Status") -> "ExecutionInstance":
         """
         Asynchronous coroutine to update the ExecutionInstance
-
-        :param status:
+        
+        :param status: 
 
         :returns: The updated ExecutionInstance
         """
-        return await self._proxy.update_async(
-            status=status,
-        )
-
+        return await self._proxy.update_async(status=status, )
+    
     @property
     def execution_context(self) -> ExecutionContextList:
         """
         Access the execution_context
         """
         return self._proxy.execution_context
-
+    
     @property
     def steps(self) -> ExecutionStepList:
         """
         Access the steps
         """
         return self._proxy.steps
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V2.ExecutionInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Studio.V2.ExecutionInstance {}>'.format(context)
 
 class ExecutionContext(InstanceContext):
 
@@ -189,136 +172,119 @@ class ExecutionContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "flow_sid": flow_sid,
-            "sid": sid,
+        self._solution = { 
+            'flow_sid': flow_sid,
+            'sid': sid,
         }
-        self._uri = "/Flows/{flow_sid}/Executions/{sid}".format(**self._solution)
-
+        self._uri = '/Flows/{flow_sid}/Executions/{sid}'.format(**self._solution)
+        
         self._execution_context: Optional[ExecutionContextList] = None
         self._steps: Optional[ExecutionStepList] = None
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the ExecutionInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ExecutionInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> ExecutionInstance:
         """
         Fetch the ExecutionInstance
-
+        
 
         :returns: The fetched ExecutionInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ExecutionInstance(
             self._version,
             payload,
-            flow_sid=self._solution["flow_sid"],
-            sid=self._solution["sid"],
+            flow_sid=self._solution['flow_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> ExecutionInstance:
         """
         Asynchronous coroutine to fetch the ExecutionInstance
-
+        
 
         :returns: The fetched ExecutionInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return ExecutionInstance(
             self._version,
             payload,
-            flow_sid=self._solution["flow_sid"],
-            sid=self._solution["sid"],
+            flow_sid=self._solution['flow_sid'],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def update(self, status: "ExecutionInstance.Status") -> ExecutionInstance:
         """
         Update the ExecutionInstance
-
-        :param status:
+        
+        :param status: 
 
         :returns: The updated ExecutionInstance
         """
-        data = values.of(
-            {
-                "Status": status,
-            }
-        )
+        data = values.of({ 
+            'Status': status,
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ExecutionInstance(
             self._version,
             payload,
-            flow_sid=self._solution["flow_sid"],
-            sid=self._solution["sid"],
+            flow_sid=self._solution['flow_sid'],
+            sid=self._solution['sid']
         )
 
-    async def update_async(
-        self, status: "ExecutionInstance.Status"
-    ) -> ExecutionInstance:
+    async def update_async(self, status: "ExecutionInstance.Status") -> ExecutionInstance:
         """
         Asynchronous coroutine to update the ExecutionInstance
-
-        :param status:
+        
+        :param status: 
 
         :returns: The updated ExecutionInstance
         """
-        data = values.of(
-            {
-                "Status": status,
-            }
-        )
+        data = values.of({ 
+            'Status': status,
+        })
+        
 
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
 
         return ExecutionInstance(
             self._version,
             payload,
-            flow_sid=self._solution["flow_sid"],
-            sid=self._solution["sid"],
+            flow_sid=self._solution['flow_sid'],
+            sid=self._solution['sid']
         )
-
+    
+    
     @property
     def execution_context(self) -> ExecutionContextList:
         """
@@ -326,12 +292,12 @@ class ExecutionContext(InstanceContext):
         """
         if self._execution_context is None:
             self._execution_context = ExecutionContextList(
-                self._version,
-                self._solution["flow_sid"],
-                self._solution["sid"],
+                self._version, 
+                self._solution['flow_sid'],
+                self._solution['sid'],
             )
         return self._execution_context
-
+    
     @property
     def steps(self) -> ExecutionStepList:
         """
@@ -339,20 +305,29 @@ class ExecutionContext(InstanceContext):
         """
         if self._steps is None:
             self._steps = ExecutionStepList(
-                self._version,
-                self._solution["flow_sid"],
-                self._solution["sid"],
+                self._version, 
+                self._solution['flow_sid'],
+                self._solution['sid'],
             )
         return self._steps
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V2.ExecutionContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Studio.V2.ExecutionContext {}>'.format(context)
+
+
+
+
+
+
+
+
+
 
 
 class ExecutionPage(Page):
@@ -363,9 +338,7 @@ class ExecutionPage(Page):
 
         :param payload: Payload response from the API
         """
-        return ExecutionInstance(
-            self._version, payload, flow_sid=self._solution["flow_sid"]
-        )
+        return ExecutionInstance(self._version, payload, flow_sid=self._solution["flow_sid"])
 
     def __repr__(self) -> str:
         """
@@ -376,88 +349,86 @@ class ExecutionPage(Page):
         return "<Twilio.Studio.V2.ExecutionPage>"
 
 
-class ExecutionList(ListResource):
 
+
+
+class ExecutionList(ListResource):
+    
     def __init__(self, version: Version, flow_sid: str):
         """
         Initialize the ExecutionList
 
         :param version: Version that contains the resource
         :param flow_sid: The SID of the Flow with the Execution resources to read.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "flow_sid": flow_sid,
-        }
-        self._uri = "/Flows/{flow_sid}/Executions".format(**self._solution)
-
-    def create(
-        self, to: str, from_: str, parameters: Union[object, object] = values.unset
-    ) -> ExecutionInstance:
+        self._solution = { 'flow_sid': flow_sid,  }
+        self._uri = '/Flows/{flow_sid}/Executions'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, to: str, from_: str, parameters: Union[object, object]=values.unset) -> ExecutionInstance:
         """
         Create the ExecutionInstance
 
         :param to: The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`.
         :param from_: The Twilio phone number to send messages or initiate calls from during the Flow's Execution. Available as variable `{{flow.channel.address}}`. For SMS, this can also be a Messaging Service SID.
         :param parameters: JSON data that will be added to the Flow's context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
-
+        
         :returns: The created ExecutionInstance
         """
+        
+        data = values.of({ 
+            'To': to,
+            'From': from_,
+            'Parameters': serialize.object(parameters),
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "To": to,
-                "From": from_,
-                "Parameters": serialize.object(parameters),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return ExecutionInstance(self._version, payload, flow_sid=self._solution['flow_sid'])
 
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ExecutionInstance(
-            self._version, payload, flow_sid=self._solution["flow_sid"]
-        )
-
-    async def create_async(
-        self, to: str, from_: str, parameters: Union[object, object] = values.unset
-    ) -> ExecutionInstance:
+    async def create_async(self, to: str, from_: str, parameters: Union[object, object]=values.unset) -> ExecutionInstance:
         """
         Asynchronously create the ExecutionInstance
 
         :param to: The Contact phone number to start a Studio Flow Execution, available as variable `{{contact.channel.address}}`.
         :param from_: The Twilio phone number to send messages or initiate calls from during the Flow's Execution. Available as variable `{{flow.channel.address}}`. For SMS, this can also be a Messaging Service SID.
         :param parameters: JSON data that will be added to the Flow's context and that can be accessed as variables inside your Flow. For example, if you pass in `Parameters={\\\"name\\\":\\\"Zeke\\\"}`, a widget in your Flow can reference the variable `{{flow.data.name}}`, which returns \\\"Zeke\\\". Note: the JSON value must explicitly be passed as a string, not as a hash object. Depending on your particular HTTP library, you may need to add quotes or URL encode the JSON string.
-
+        
         :returns: The created ExecutionInstance
         """
+        
+        data = values.of({ 
+            'To': to,
+            'From': from_,
+            'Parameters': serialize.object(parameters),
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "To": to,
-                "From": from_,
-                "Parameters": serialize.object(parameters),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ExecutionInstance(
-            self._version, payload, flow_sid=self._solution["flow_sid"]
-        )
-
-    def stream(
-        self,
+        return ExecutionInstance(self._version, payload, flow_sid=self._solution['flow_sid'])
+    
+    
+    def stream(self, 
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ExecutionInstance]:
@@ -466,7 +437,7 @@ class ExecutionList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param limit: Upper limit for the number of records to return. stream()
@@ -482,15 +453,15 @@ class ExecutionList(ListResource):
         page = self.page(
             date_created_from=date_created_from,
             date_created_to=date_created_to,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ExecutionInstance]:
@@ -499,7 +470,7 @@ class ExecutionList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param limit: Upper limit for the number of records to return. stream()
@@ -515,15 +486,15 @@ class ExecutionList(ListResource):
         page = await self.page_async(
             date_created_from=date_created_from,
             date_created_to=date_created_to,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ExecutionInstance]:
@@ -531,7 +502,7 @@ class ExecutionList(ListResource):
         Lists ExecutionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -543,19 +514,17 @@ class ExecutionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                date_created_from=date_created_from,
-                date_created_to=date_created_to,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            date_created_from=date_created_from,
+            date_created_to=date_created_to,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ExecutionInstance]:
@@ -563,7 +532,7 @@ class ExecutionList(ListResource):
         Asynchronously lists ExecutionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param datetime date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param datetime date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -575,20 +544,17 @@ class ExecutionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                date_created_from=date_created_from,
-                date_created_to=date_created_to,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            date_created_from=date_created_from,
+            date_created_to=date_created_to,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -596,7 +562,7 @@ class ExecutionList(ListResource):
         """
         Retrieve a single page of ExecutionInstance records from the API.
         Request is executed immediately
-
+        
         :param date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param page_token: PageToken provided by the API
@@ -605,23 +571,21 @@ class ExecutionList(ListResource):
 
         :returns: Page of ExecutionInstance
         """
-        data = values.of(
-            {
-                "DateCreatedFrom": serialize.iso8601_datetime(date_created_from),
-                "DateCreatedTo": serialize.iso8601_datetime(date_created_to),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'DateCreatedFrom': serialize.iso8601_datetime(date_created_from),
+            'DateCreatedTo': serialize.iso8601_datetime(date_created_to),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return ExecutionPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         date_created_from: Union[datetime, object] = values.unset,
         date_created_to: Union[datetime, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -629,7 +593,7 @@ class ExecutionList(ListResource):
         """
         Asynchronously retrieve a single page of ExecutionInstance records from the API.
         Request is executed immediately
-
+        
         :param date_created_from: Only show Execution resources starting on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param date_created_to: Only show Execution resources starting before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as `YYYY-MM-DDThh:mm:ss-hh:mm`.
         :param page_token: PageToken provided by the API
@@ -638,19 +602,15 @@ class ExecutionList(ListResource):
 
         :returns: Page of ExecutionInstance
         """
-        data = values.of(
-            {
-                "DateCreatedFrom": serialize.iso8601_datetime(date_created_from),
-                "DateCreatedTo": serialize.iso8601_datetime(date_created_to),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'DateCreatedFrom': serialize.iso8601_datetime(date_created_from),
+            'DateCreatedTo': serialize.iso8601_datetime(date_created_to),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return ExecutionPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> ExecutionPage:
@@ -662,7 +622,10 @@ class ExecutionList(ListResource):
 
         :returns: Page of ExecutionInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return ExecutionPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> ExecutionPage:
@@ -674,28 +637,33 @@ class ExecutionList(ListResource):
 
         :returns: Page of ExecutionInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return ExecutionPage(self._version, response, self._solution)
+
+
+
+
+
+
 
     def get(self, sid: str) -> ExecutionContext:
         """
         Constructs a ExecutionContext
-
+        
         :param sid: The SID of the Execution resource to update.
         """
-        return ExecutionContext(
-            self._version, flow_sid=self._solution["flow_sid"], sid=sid
-        )
+        return ExecutionContext(self._version, flow_sid=self._solution['flow_sid'], sid=sid)
 
     def __call__(self, sid: str) -> ExecutionContext:
         """
         Constructs a ExecutionContext
-
+        
         :param sid: The SID of the Execution resource to update.
         """
-        return ExecutionContext(
-            self._version, flow_sid=self._solution["flow_sid"], sid=sid
-        )
+        return ExecutionContext(self._version, flow_sid=self._solution['flow_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -703,4 +671,5 @@ class ExecutionList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Studio.V2.ExecutionList>"
+        return '<Twilio.Studio.V2.ExecutionList>'
+

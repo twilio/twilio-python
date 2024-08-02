@@ -12,8 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -22,24 +25,26 @@ from twilio.base.page import Page
 
 
 class InsightsAssessmentsCommentInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Insights resource and owns this resource.
     :ivar assessment_sid: The SID of the assessment.
     :ivar comment: The comment added for assessment.
     :ivar offset: The offset
-    :ivar report: The flag indicating if this assessment is part of report
+    :ivar report: The flag indicating if this assessment is part of report 
     :ivar weight: The weightage given to this comment
     :ivar agent_id: The id of the agent.
     :ivar segment_id: The id of the segment.
     :ivar user_name: The name of the user.
     :ivar user_email: The email id of the user.
     :ivar timestamp: The timestamp when the record is inserted
-    :ivar url:
+    :ivar url: 
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.assessment_sid: Optional[str] = payload.get("assessment_sid")
         self.comment: Optional[Dict[str, object]] = payload.get("comment")
@@ -53,21 +58,26 @@ class InsightsAssessmentsCommentInstance(InstanceResource):
         self.timestamp: Optional[float] = deserialize.decimal(payload.get("timestamp"))
         self.url: Optional[str] = payload.get("url")
 
+        
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
+        
+        return '<Twilio.FlexApi.V1.InsightsAssessmentsCommentInstance>'
 
-        return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentInstance>"
+
+
+
 
 
 class InsightsAssessmentsCommentPage(Page):
 
-    def get_instance(
-        self, payload: Dict[str, Any]
-    ) -> InsightsAssessmentsCommentInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> InsightsAssessmentsCommentInstance:
         """
         Build an instance of InsightsAssessmentsCommentInstance
 
@@ -84,29 +94,26 @@ class InsightsAssessmentsCommentPage(Page):
         return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentPage>"
 
 
-class InsightsAssessmentsCommentList(ListResource):
 
+
+
+class InsightsAssessmentsCommentList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the InsightsAssessmentsCommentList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/Insights/QualityManagement/Assessments/Comments"
-
-    def create(
-        self,
-        category_id: str,
-        category_name: str,
-        comment: str,
-        segment_id: str,
-        agent_id: str,
-        offset: float,
-        authorization: Union[str, object] = values.unset,
-    ) -> InsightsAssessmentsCommentInstance:
+        
+        self._uri = '/Insights/QualityManagement/Assessments/Comments'
+        
+        
+    
+    def create(self, category_id: str, category_name: str, comment: str, segment_id: str, agent_id: str, offset: float, authorization: Union[str, object]=values.unset) -> InsightsAssessmentsCommentInstance:
         """
         Create the InsightsAssessmentsCommentInstance
 
@@ -117,43 +124,29 @@ class InsightsAssessmentsCommentList(ListResource):
         :param agent_id: The id of the agent.
         :param offset: The offset
         :param authorization: The Authorization HTTP request header
-
+        
         :returns: The created InsightsAssessmentsCommentInstance
         """
-
-        data = values.of(
-            {
-                "CategoryId": category_id,
-                "CategoryName": category_name,
-                "Comment": comment,
-                "SegmentId": segment_id,
-                "AgentId": agent_id,
-                "Offset": offset,
-            }
-        )
-        headers = values.of(
-            {
-                "Authorization": authorization,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'CategoryId': category_id,
+            'CategoryName': category_name,
+            'Comment': comment,
+            'SegmentId': segment_id,
+            'AgentId': agent_id,
+            'Offset': offset,
+        })
+        headers = values.of({
+                'Authorization': authorization,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
         return InsightsAssessmentsCommentInstance(self._version, payload)
 
-    async def create_async(
-        self,
-        category_id: str,
-        category_name: str,
-        comment: str,
-        segment_id: str,
-        agent_id: str,
-        offset: float,
-        authorization: Union[str, object] = values.unset,
-    ) -> InsightsAssessmentsCommentInstance:
+    async def create_async(self, category_id: str, category_name: str, comment: str, segment_id: str, agent_id: str, offset: float, authorization: Union[str, object]=values.unset) -> InsightsAssessmentsCommentInstance:
         """
         Asynchronously create the InsightsAssessmentsCommentInstance
 
@@ -164,38 +157,34 @@ class InsightsAssessmentsCommentList(ListResource):
         :param agent_id: The id of the agent.
         :param offset: The offset
         :param authorization: The Authorization HTTP request header
-
+        
         :returns: The created InsightsAssessmentsCommentInstance
         """
-
-        data = values.of(
-            {
-                "CategoryId": category_id,
-                "CategoryName": category_name,
-                "Comment": comment,
-                "SegmentId": segment_id,
-                "AgentId": agent_id,
-                "Offset": offset,
-            }
-        )
-        headers = values.of(
-            {
-                "Authorization": authorization,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'CategoryId': category_id,
+            'CategoryName': category_name,
+            'Comment': comment,
+            'SegmentId': segment_id,
+            'AgentId': agent_id,
+            'Offset': offset,
+        })
+        headers = values.of({
+                'Authorization': authorization,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return InsightsAssessmentsCommentInstance(self._version, payload)
-
-    def stream(
-        self,
+    
+    
+    def stream(self, 
         authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         agent_id: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[InsightsAssessmentsCommentInstance]:
@@ -204,7 +193,7 @@ class InsightsAssessmentsCommentList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str authorization: The Authorization HTTP request header
         :param str segment_id: The id of the segment.
         :param str agent_id: The id of the agent.
@@ -222,16 +211,16 @@ class InsightsAssessmentsCommentList(ListResource):
             authorization=authorization,
             segment_id=segment_id,
             agent_id=agent_id,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         agent_id: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[InsightsAssessmentsCommentInstance]:
@@ -240,7 +229,7 @@ class InsightsAssessmentsCommentList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str authorization: The Authorization HTTP request header
         :param str segment_id: The id of the segment.
         :param str agent_id: The id of the agent.
@@ -258,16 +247,16 @@ class InsightsAssessmentsCommentList(ListResource):
             authorization=authorization,
             segment_id=segment_id,
             agent_id=agent_id,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         agent_id: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[InsightsAssessmentsCommentInstance]:
@@ -275,7 +264,7 @@ class InsightsAssessmentsCommentList(ListResource):
         Lists InsightsAssessmentsCommentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str authorization: The Authorization HTTP request header
         :param str segment_id: The id of the segment.
         :param str agent_id: The id of the agent.
@@ -288,21 +277,19 @@ class InsightsAssessmentsCommentList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                authorization=authorization,
-                segment_id=segment_id,
-                agent_id=agent_id,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            authorization=authorization,
+            segment_id=segment_id,
+            agent_id=agent_id,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         agent_id: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[InsightsAssessmentsCommentInstance]:
@@ -310,7 +297,7 @@ class InsightsAssessmentsCommentList(ListResource):
         Asynchronously lists InsightsAssessmentsCommentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str authorization: The Authorization HTTP request header
         :param str segment_id: The id of the segment.
         :param str agent_id: The id of the agent.
@@ -323,22 +310,19 @@ class InsightsAssessmentsCommentList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                authorization=authorization,
-                segment_id=segment_id,
-                agent_id=agent_id,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            authorization=authorization,
+            segment_id=segment_id,
+            agent_id=agent_id,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         agent_id: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -346,7 +330,7 @@ class InsightsAssessmentsCommentList(ListResource):
         """
         Retrieve a single page of InsightsAssessmentsCommentInstance records from the API.
         Request is executed immediately
-
+        
         :param authorization: The Authorization HTTP request header
         :param segment_id: The id of the segment.
         :param agent_id: The id of the agent.
@@ -356,25 +340,23 @@ class InsightsAssessmentsCommentList(ListResource):
 
         :returns: Page of InsightsAssessmentsCommentInstance
         """
-        data = values.of(
-            {
-                "Authorization": authorization,
-                "SegmentId": segment_id,
-                "AgentId": agent_id,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Authorization': authorization,
+            'SegmentId': segment_id,
+            'AgentId': agent_id,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return InsightsAssessmentsCommentPage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         authorization: Union[str, object] = values.unset,
         segment_id: Union[str, object] = values.unset,
         agent_id: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -382,7 +364,7 @@ class InsightsAssessmentsCommentList(ListResource):
         """
         Asynchronously retrieve a single page of InsightsAssessmentsCommentInstance records from the API.
         Request is executed immediately
-
+        
         :param authorization: The Authorization HTTP request header
         :param segment_id: The id of the segment.
         :param agent_id: The id of the agent.
@@ -392,20 +374,16 @@ class InsightsAssessmentsCommentList(ListResource):
 
         :returns: Page of InsightsAssessmentsCommentInstance
         """
-        data = values.of(
-            {
-                "Authorization": authorization,
-                "SegmentId": segment_id,
-                "AgentId": agent_id,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Authorization': authorization,
+            'SegmentId': segment_id,
+            'AgentId': agent_id,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return InsightsAssessmentsCommentPage(self._version, response)
 
     def get_page(self, target_url: str) -> InsightsAssessmentsCommentPage:
@@ -417,7 +395,10 @@ class InsightsAssessmentsCommentList(ListResource):
 
         :returns: Page of InsightsAssessmentsCommentInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return InsightsAssessmentsCommentPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> InsightsAssessmentsCommentPage:
@@ -429,8 +410,14 @@ class InsightsAssessmentsCommentList(ListResource):
 
         :returns: Page of InsightsAssessmentsCommentInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return InsightsAssessmentsCommentPage(self._version, response)
+
+
+
 
     def __repr__(self) -> str:
         """
@@ -438,4 +425,5 @@ class InsightsAssessmentsCommentList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.FlexApi.V1.InsightsAssessmentsCommentList>"
+        return '<Twilio.FlexApi.V1.InsightsAssessmentsCommentList>'
+

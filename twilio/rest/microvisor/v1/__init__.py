@@ -34,7 +34,7 @@ class V1(Version):
         self._account_secrets: Optional[AccountSecretList] = None
         self._apps: Optional[AppList] = None
         self._devices: Optional[DeviceList] = None
-
+        
     @property
     def account_configs(self) -> AccountConfigList:
         if self._account_configs is None:

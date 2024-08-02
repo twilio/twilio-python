@@ -20,9 +20,7 @@ from twilio.rest.verify.v2.safelist import SafelistList
 from twilio.rest.verify.v2.service import ServiceList
 from twilio.rest.verify.v2.template import TemplateList
 from twilio.rest.verify.v2.verification_attempt import VerificationAttemptList
-from twilio.rest.verify.v2.verification_attempts_summary import (
-    VerificationAttemptsSummaryList,
-)
+from twilio.rest.verify.v2.verification_attempts_summary import VerificationAttemptsSummaryList
 
 
 class V2(Version):
@@ -39,10 +37,8 @@ class V2(Version):
         self._services: Optional[ServiceList] = None
         self._templates: Optional[TemplateList] = None
         self._verification_attempts: Optional[VerificationAttemptList] = None
-        self._verification_attempts_summary: Optional[
-            VerificationAttemptsSummaryList
-        ] = None
-
+        self._verification_attempts_summary: Optional[VerificationAttemptsSummaryList] = None
+        
     @property
     def forms(self) -> FormList:
         if self._forms is None:

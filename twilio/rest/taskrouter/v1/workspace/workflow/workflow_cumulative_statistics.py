@@ -12,8 +12,10 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
-from typing import Any, Dict, Optional, Union
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -21,7 +23,9 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
 class WorkflowCumulativeStatisticsInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Workflow resource.
     :ivar avg_task_acceptance_time: The average time in seconds between Task creation and acceptance.
@@ -47,75 +51,35 @@ class WorkflowCumulativeStatisticsInstance(InstanceResource):
     :ivar url: The absolute URL of the Workflow statistics resource.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        workspace_sid: str,
-        workflow_sid: str,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], workspace_sid: str, workflow_sid: str):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.avg_task_acceptance_time: Optional[int] = deserialize.integer(
-            payload.get("avg_task_acceptance_time")
-        )
-        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("start_time")
-        )
-        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("end_time")
-        )
-        self.reservations_created: Optional[int] = deserialize.integer(
-            payload.get("reservations_created")
-        )
-        self.reservations_accepted: Optional[int] = deserialize.integer(
-            payload.get("reservations_accepted")
-        )
-        self.reservations_rejected: Optional[int] = deserialize.integer(
-            payload.get("reservations_rejected")
-        )
-        self.reservations_timed_out: Optional[int] = deserialize.integer(
-            payload.get("reservations_timed_out")
-        )
-        self.reservations_canceled: Optional[int] = deserialize.integer(
-            payload.get("reservations_canceled")
-        )
-        self.reservations_rescinded: Optional[int] = deserialize.integer(
-            payload.get("reservations_rescinded")
-        )
-        self.split_by_wait_time: Optional[Dict[str, object]] = payload.get(
-            "split_by_wait_time"
-        )
-        self.wait_duration_until_accepted: Optional[Dict[str, object]] = payload.get(
-            "wait_duration_until_accepted"
-        )
-        self.wait_duration_until_canceled: Optional[Dict[str, object]] = payload.get(
-            "wait_duration_until_canceled"
-        )
-        self.tasks_canceled: Optional[int] = deserialize.integer(
-            payload.get("tasks_canceled")
-        )
-        self.tasks_completed: Optional[int] = deserialize.integer(
-            payload.get("tasks_completed")
-        )
-        self.tasks_entered: Optional[int] = deserialize.integer(
-            payload.get("tasks_entered")
-        )
-        self.tasks_deleted: Optional[int] = deserialize.integer(
-            payload.get("tasks_deleted")
-        )
-        self.tasks_moved: Optional[int] = deserialize.integer(
-            payload.get("tasks_moved")
-        )
-        self.tasks_timed_out_in_workflow: Optional[int] = deserialize.integer(
-            payload.get("tasks_timed_out_in_workflow")
-        )
+        self.avg_task_acceptance_time: Optional[int] = deserialize.integer(payload.get("avg_task_acceptance_time"))
+        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("start_time"))
+        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("end_time"))
+        self.reservations_created: Optional[int] = deserialize.integer(payload.get("reservations_created"))
+        self.reservations_accepted: Optional[int] = deserialize.integer(payload.get("reservations_accepted"))
+        self.reservations_rejected: Optional[int] = deserialize.integer(payload.get("reservations_rejected"))
+        self.reservations_timed_out: Optional[int] = deserialize.integer(payload.get("reservations_timed_out"))
+        self.reservations_canceled: Optional[int] = deserialize.integer(payload.get("reservations_canceled"))
+        self.reservations_rescinded: Optional[int] = deserialize.integer(payload.get("reservations_rescinded"))
+        self.split_by_wait_time: Optional[Dict[str, object]] = payload.get("split_by_wait_time")
+        self.wait_duration_until_accepted: Optional[Dict[str, object]] = payload.get("wait_duration_until_accepted")
+        self.wait_duration_until_canceled: Optional[Dict[str, object]] = payload.get("wait_duration_until_canceled")
+        self.tasks_canceled: Optional[int] = deserialize.integer(payload.get("tasks_canceled"))
+        self.tasks_completed: Optional[int] = deserialize.integer(payload.get("tasks_completed"))
+        self.tasks_entered: Optional[int] = deserialize.integer(payload.get("tasks_entered"))
+        self.tasks_deleted: Optional[int] = deserialize.integer(payload.get("tasks_deleted"))
+        self.tasks_moved: Optional[int] = deserialize.integer(payload.get("tasks_moved"))
+        self.tasks_timed_out_in_workflow: Optional[int] = deserialize.integer(payload.get("tasks_timed_out_in_workflow"))
         self.workflow_sid: Optional[str] = payload.get("workflow_sid")
         self.workspace_sid: Optional[str] = payload.get("workspace_sid")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "workspace_sid": workspace_sid,
             "workflow_sid": workflow_sid,
         }
@@ -130,24 +94,14 @@ class WorkflowCumulativeStatisticsInstance(InstanceResource):
         :returns: WorkflowCumulativeStatisticsContext for this WorkflowCumulativeStatisticsInstance
         """
         if self._context is None:
-            self._context = WorkflowCumulativeStatisticsContext(
-                self._version,
-                workspace_sid=self._solution["workspace_sid"],
-                workflow_sid=self._solution["workflow_sid"],
-            )
+            self._context = WorkflowCumulativeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], workflow_sid=self._solution['workflow_sid'],)
         return self._context
-
-    def fetch(
-        self,
-        end_date: Union[datetime, object] = values.unset,
-        minutes: Union[int, object] = values.unset,
-        start_date: Union[datetime, object] = values.unset,
-        task_channel: Union[str, object] = values.unset,
-        split_by_wait_time: Union[str, object] = values.unset,
-    ) -> "WorkflowCumulativeStatisticsInstance":
+    
+    
+    def fetch(self, end_date: Union[datetime, object]=values.unset, minutes: Union[int, object]=values.unset, start_date: Union[datetime, object]=values.unset, task_channel: Union[str, object]=values.unset, split_by_wait_time: Union[str, object]=values.unset) -> "WorkflowCumulativeStatisticsInstance":
         """
         Fetch the WorkflowCumulativeStatisticsInstance
-
+        
         :param end_date: Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
         :param minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
         :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -156,25 +110,12 @@ class WorkflowCumulativeStatisticsInstance(InstanceResource):
 
         :returns: The fetched WorkflowCumulativeStatisticsInstance
         """
-        return self._proxy.fetch(
-            end_date=end_date,
-            minutes=minutes,
-            start_date=start_date,
-            task_channel=task_channel,
-            split_by_wait_time=split_by_wait_time,
-        )
+        return self._proxy.fetch(end_date=end_date, minutes=minutes, start_date=start_date, task_channel=task_channel, split_by_wait_time=split_by_wait_time, )
 
-    async def fetch_async(
-        self,
-        end_date: Union[datetime, object] = values.unset,
-        minutes: Union[int, object] = values.unset,
-        start_date: Union[datetime, object] = values.unset,
-        task_channel: Union[str, object] = values.unset,
-        split_by_wait_time: Union[str, object] = values.unset,
-    ) -> "WorkflowCumulativeStatisticsInstance":
+    async def fetch_async(self, end_date: Union[datetime, object]=values.unset, minutes: Union[int, object]=values.unset, start_date: Union[datetime, object]=values.unset, task_channel: Union[str, object]=values.unset, split_by_wait_time: Union[str, object]=values.unset) -> "WorkflowCumulativeStatisticsInstance":
         """
         Asynchronous coroutine to fetch the WorkflowCumulativeStatisticsInstance
-
+        
         :param end_date: Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
         :param minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
         :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -183,25 +124,16 @@ class WorkflowCumulativeStatisticsInstance(InstanceResource):
 
         :returns: The fetched WorkflowCumulativeStatisticsInstance
         """
-        return await self._proxy.fetch_async(
-            end_date=end_date,
-            minutes=minutes,
-            start_date=start_date,
-            task_channel=task_channel,
-            split_by_wait_time=split_by_wait_time,
-        )
-
+        return await self._proxy.fetch_async(end_date=end_date, minutes=minutes, start_date=start_date, task_channel=task_channel, split_by_wait_time=split_by_wait_time, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.WorkflowCumulativeStatisticsInstance {}>".format(
-            context
-        )
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.WorkflowCumulativeStatisticsInstance {}>'.format(context)
 
 class WorkflowCumulativeStatisticsContext(InstanceContext):
 
@@ -215,26 +147,20 @@ class WorkflowCumulativeStatisticsContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "workspace_sid": workspace_sid,
-            "workflow_sid": workflow_sid,
+        self._solution = { 
+            'workspace_sid': workspace_sid,
+            'workflow_sid': workflow_sid,
         }
-        self._uri = "/Workspaces/{workspace_sid}/Workflows/{workflow_sid}/CumulativeStatistics".format(
-            **self._solution
-        )
-
-    def fetch(
-        self,
-        end_date: Union[datetime, object] = values.unset,
-        minutes: Union[int, object] = values.unset,
-        start_date: Union[datetime, object] = values.unset,
-        task_channel: Union[str, object] = values.unset,
-        split_by_wait_time: Union[str, object] = values.unset,
-    ) -> WorkflowCumulativeStatisticsInstance:
+        self._uri = '/Workspaces/{workspace_sid}/Workflows/{workflow_sid}/CumulativeStatistics'.format(**self._solution)
+        
+    
+    
+    def fetch(self, end_date: Union[datetime, object]=values.unset, minutes: Union[int, object]=values.unset, start_date: Union[datetime, object]=values.unset, task_channel: Union[str, object]=values.unset, split_by_wait_time: Union[str, object]=values.unset) -> WorkflowCumulativeStatisticsInstance:
         """
         Fetch the WorkflowCumulativeStatisticsInstance
-
+        
         :param end_date: Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
         :param minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
         :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -243,37 +169,29 @@ class WorkflowCumulativeStatisticsContext(InstanceContext):
 
         :returns: The fetched WorkflowCumulativeStatisticsInstance
         """
-
-        data = values.of(
-            {
-                "EndDate": serialize.iso8601_datetime(end_date),
-                "Minutes": minutes,
-                "StartDate": serialize.iso8601_datetime(start_date),
-                "TaskChannel": task_channel,
-                "SplitByWaitTime": split_by_wait_time,
-            }
-        )
-
-        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
+        
+        data = values.of({ 
+            'EndDate': serialize.iso8601_datetime(end_date),
+            'Minutes': minutes,
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'TaskChannel': task_channel,
+            'SplitByWaitTime': split_by_wait_time,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return WorkflowCumulativeStatisticsInstance(
             self._version,
             payload,
-            workspace_sid=self._solution["workspace_sid"],
-            workflow_sid=self._solution["workflow_sid"],
+            workspace_sid=self._solution['workspace_sid'],
+            workflow_sid=self._solution['workflow_sid'],
+            
         )
 
-    async def fetch_async(
-        self,
-        end_date: Union[datetime, object] = values.unset,
-        minutes: Union[int, object] = values.unset,
-        start_date: Union[datetime, object] = values.unset,
-        task_channel: Union[str, object] = values.unset,
-        split_by_wait_time: Union[str, object] = values.unset,
-    ) -> WorkflowCumulativeStatisticsInstance:
+    async def fetch_async(self, end_date: Union[datetime, object]=values.unset, minutes: Union[int, object]=values.unset, start_date: Union[datetime, object]=values.unset, task_channel: Union[str, object]=values.unset, split_by_wait_time: Union[str, object]=values.unset) -> WorkflowCumulativeStatisticsInstance:
         """
         Asynchronous coroutine to fetch the WorkflowCumulativeStatisticsInstance
-
+        
         :param end_date: Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
         :param minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
         :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -282,42 +200,39 @@ class WorkflowCumulativeStatisticsContext(InstanceContext):
 
         :returns: The fetched WorkflowCumulativeStatisticsInstance
         """
-
-        data = values.of(
-            {
-                "EndDate": serialize.iso8601_datetime(end_date),
-                "Minutes": minutes,
-                "StartDate": serialize.iso8601_datetime(start_date),
-                "TaskChannel": task_channel,
-                "SplitByWaitTime": split_by_wait_time,
-            }
-        )
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data
-        )
+        
+        data = values.of({ 
+            'EndDate': serialize.iso8601_datetime(end_date),
+            'Minutes': minutes,
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'TaskChannel': task_channel,
+            'SplitByWaitTime': split_by_wait_time,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
 
         return WorkflowCumulativeStatisticsInstance(
             self._version,
             payload,
-            workspace_sid=self._solution["workspace_sid"],
-            workflow_sid=self._solution["workflow_sid"],
+            workspace_sid=self._solution['workspace_sid'],
+            workflow_sid=self._solution['workflow_sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.WorkflowCumulativeStatisticsContext {}>".format(
-            context
-        )
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.WorkflowCumulativeStatisticsContext {}>'.format(context)
+
 
 
 class WorkflowCumulativeStatisticsList(ListResource):
-
+    
     def __init__(self, version: Version, workspace_sid: str, workflow_sid: str):
         """
         Initialize the WorkflowCumulativeStatisticsList
@@ -325,37 +240,30 @@ class WorkflowCumulativeStatisticsList(ListResource):
         :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the resource to fetch.
         :param workflow_sid: Returns the list of Tasks that are being controlled by the Workflow with the specified Sid value.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "workspace_sid": workspace_sid,
-            "workflow_sid": workflow_sid,
-        }
+        self._solution = { 'workspace_sid': workspace_sid, 'workflow_sid': workflow_sid,  }
+        
+        
+        
 
     def get(self) -> WorkflowCumulativeStatisticsContext:
         """
         Constructs a WorkflowCumulativeStatisticsContext
-
+        
         """
-        return WorkflowCumulativeStatisticsContext(
-            self._version,
-            workspace_sid=self._solution["workspace_sid"],
-            workflow_sid=self._solution["workflow_sid"],
-        )
+        return WorkflowCumulativeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], workflow_sid=self._solution['workflow_sid'])
 
     def __call__(self) -> WorkflowCumulativeStatisticsContext:
         """
         Constructs a WorkflowCumulativeStatisticsContext
-
+        
         """
-        return WorkflowCumulativeStatisticsContext(
-            self._version,
-            workspace_sid=self._solution["workspace_sid"],
-            workflow_sid=self._solution["workflow_sid"],
-        )
+        return WorkflowCumulativeStatisticsContext(self._version, workspace_sid=self._solution['workspace_sid'], workflow_sid=self._solution['workflow_sid'])
 
     def __repr__(self) -> str:
         """
@@ -363,4 +271,5 @@ class WorkflowCumulativeStatisticsList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Taskrouter.V1.WorkflowCumulativeStatisticsList>"
+        return '<Twilio.Taskrouter.V1.WorkflowCumulativeStatisticsList>'
+

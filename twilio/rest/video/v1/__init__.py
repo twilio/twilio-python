@@ -38,7 +38,7 @@ class V1(Version):
         self._recordings: Optional[RecordingList] = None
         self._recording_settings: Optional[RecordingSettingsList] = None
         self._rooms: Optional[RoomList] = None
-
+        
     @property
     def compositions(self) -> CompositionList:
         if self._compositions is None:

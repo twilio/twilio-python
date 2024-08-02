@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 
@@ -23,6 +25,7 @@ from twilio.base.page import Page
 
 
 class ContentInstance(InstanceResource):
+
     """
     :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
@@ -39,12 +42,9 @@ class ContentInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
@@ -54,14 +54,19 @@ class ContentInstance(InstanceResource):
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
+        
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
+        
+        return '<Twilio.Content.V2.ContentInstance>'
 
-        return "<Twilio.Content.V2.ContentInstance>"
+
 
 
 class ContentPage(Page):
@@ -83,21 +88,27 @@ class ContentPage(Page):
         return "<Twilio.Content.V2.ContentPage>"
 
 
-class ContentList(ListResource):
 
+
+
+class ContentList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the ContentList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/Content"
-
-    def stream(
-        self,
+        
+        self._uri = '/Content'
+        
+        
+    
+    def stream(self, 
+        
         sort_by_date: Union[str, object] = values.unset,
         sort_by_content_name: Union[str, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
@@ -115,7 +126,7 @@ class ContentList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str sort_by_date: Whether to sort by ascending or descending date updated
         :param str sort_by_content_name: Whether to sort by ascending or descending content name
         :param datetime date_created_after: Filter by >=[date-time]
@@ -145,13 +156,13 @@ class ContentList(ListResource):
             language=language,
             content_type=content_type,
             channel_eligibility=channel_eligibility,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         sort_by_date: Union[str, object] = values.unset,
         sort_by_content_name: Union[str, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
@@ -169,7 +180,7 @@ class ContentList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str sort_by_date: Whether to sort by ascending or descending date updated
         :param str sort_by_content_name: Whether to sort by ascending or descending content name
         :param datetime date_created_after: Filter by >=[date-time]
@@ -199,13 +210,13 @@ class ContentList(ListResource):
             language=language,
             content_type=content_type,
             channel_eligibility=channel_eligibility,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         sort_by_date: Union[str, object] = values.unset,
         sort_by_content_name: Union[str, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
@@ -222,7 +233,7 @@ class ContentList(ListResource):
         Lists ContentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str sort_by_date: Whether to sort by ascending or descending date updated
         :param str sort_by_content_name: Whether to sort by ascending or descending content name
         :param datetime date_created_after: Filter by >=[date-time]
@@ -241,24 +252,22 @@ class ContentList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                sort_by_date=sort_by_date,
-                sort_by_content_name=sort_by_content_name,
-                date_created_after=date_created_after,
-                date_created_before=date_created_before,
-                content_name=content_name,
-                content=content,
-                language=language,
-                content_type=content_type,
-                channel_eligibility=channel_eligibility,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            sort_by_date=sort_by_date,
+            sort_by_content_name=sort_by_content_name,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            content_name=content_name,
+            content=content,
+            language=language,
+            content_type=content_type,
+            channel_eligibility=channel_eligibility,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         sort_by_date: Union[str, object] = values.unset,
         sort_by_content_name: Union[str, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
@@ -275,7 +284,7 @@ class ContentList(ListResource):
         Asynchronously lists ContentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str sort_by_date: Whether to sort by ascending or descending date updated
         :param str sort_by_content_name: Whether to sort by ascending or descending content name
         :param datetime date_created_after: Filter by >=[date-time]
@@ -294,25 +303,22 @@ class ContentList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                sort_by_date=sort_by_date,
-                sort_by_content_name=sort_by_content_name,
-                date_created_after=date_created_after,
-                date_created_before=date_created_before,
-                content_name=content_name,
-                content=content,
-                language=language,
-                content_type=content_type,
-                channel_eligibility=channel_eligibility,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            sort_by_date=sort_by_date,
+            sort_by_content_name=sort_by_content_name,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            content_name=content_name,
+            content=content,
+            language=language,
+            content_type=content_type,
+            channel_eligibility=channel_eligibility,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         sort_by_date: Union[str, object] = values.unset,
         sort_by_content_name: Union[str, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
@@ -329,7 +335,7 @@ class ContentList(ListResource):
         """
         Retrieve a single page of ContentInstance records from the API.
         Request is executed immediately
-
+        
         :param sort_by_date: Whether to sort by ascending or descending date updated
         :param sort_by_content_name: Whether to sort by ascending or descending content name
         :param date_created_after: Filter by >=[date-time]
@@ -345,28 +351,26 @@ class ContentList(ListResource):
 
         :returns: Page of ContentInstance
         """
-        data = values.of(
-            {
-                "SortByDate": sort_by_date,
-                "SortByContentName": sort_by_content_name,
-                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
-                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
-                "ContentName": content_name,
-                "Content": content,
-                "Language": serialize.map(language, lambda e: e),
-                "ContentType": serialize.map(content_type, lambda e: e),
-                "ChannelEligibility": serialize.map(channel_eligibility, lambda e: e),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'SortByDate': sort_by_date,
+            'SortByContentName': sort_by_content_name,
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
+            'ContentName': content_name,
+            'Content': content,
+            'Language': serialize.map(language, lambda e: e),
+            'ContentType': serialize.map(content_type, lambda e: e),
+            'ChannelEligibility': serialize.map(channel_eligibility, lambda e: e),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return ContentPage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         sort_by_date: Union[str, object] = values.unset,
         sort_by_content_name: Union[str, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
@@ -383,7 +387,7 @@ class ContentList(ListResource):
         """
         Asynchronously retrieve a single page of ContentInstance records from the API.
         Request is executed immediately
-
+        
         :param sort_by_date: Whether to sort by ascending or descending date updated
         :param sort_by_content_name: Whether to sort by ascending or descending content name
         :param date_created_after: Filter by >=[date-time]
@@ -399,26 +403,22 @@ class ContentList(ListResource):
 
         :returns: Page of ContentInstance
         """
-        data = values.of(
-            {
-                "SortByDate": sort_by_date,
-                "SortByContentName": sort_by_content_name,
-                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
-                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
-                "ContentName": content_name,
-                "Content": content,
-                "Language": serialize.map(language, lambda e: e),
-                "ContentType": serialize.map(content_type, lambda e: e),
-                "ChannelEligibility": serialize.map(channel_eligibility, lambda e: e),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'SortByDate': sort_by_date,
+            'SortByContentName': sort_by_content_name,
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
+            'ContentName': content_name,
+            'Content': content,
+            'Language': serialize.map(language, lambda e: e),
+            'ContentType': serialize.map(content_type, lambda e: e),
+            'ChannelEligibility': serialize.map(channel_eligibility, lambda e: e),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return ContentPage(self._version, response)
 
     def get_page(self, target_url: str) -> ContentPage:
@@ -430,7 +430,10 @@ class ContentList(ListResource):
 
         :returns: Page of ContentInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return ContentPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> ContentPage:
@@ -442,8 +445,14 @@ class ContentList(ListResource):
 
         :returns: Page of ContentInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return ContentPage(self._version, response)
+
+
+
 
     def __repr__(self) -> str:
         """
@@ -451,4 +460,5 @@ class ContentList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Content.V2.ContentList>"
+        return '<Twilio.Content.V2.ContentList>'
+

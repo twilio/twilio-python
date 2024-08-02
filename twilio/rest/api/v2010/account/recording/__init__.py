@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -66,28 +68,17 @@ class RecordingInstance(InstanceResource):
     :ivar media_url: The URL of the media file associated with this recording resource. When stored externally, this is the full URL location of the media file.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        account_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.api_version: Optional[str] = payload.get("api_version")
         self.call_sid: Optional[str] = payload.get("call_sid")
         self.conference_sid: Optional[str] = payload.get("conference_sid")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_updated")
-        )
-        self.start_time: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("start_time")
-        )
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
+        self.start_time: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("start_time"))
         self.duration: Optional[str] = payload.get("duration")
         self.sid: Optional[str] = payload.get("sid")
         self.price: Optional[str] = payload.get("price")
@@ -97,15 +88,12 @@ class RecordingInstance(InstanceResource):
         self.source: Optional["RecordingInstance.Source"] = payload.get("source")
         self.error_code: Optional[int] = deserialize.integer(payload.get("error_code"))
         self.uri: Optional[str] = payload.get("uri")
-        self.encryption_details: Optional[Dict[str, object]] = payload.get(
-            "encryption_details"
-        )
-        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
-            "subresource_uris"
-        )
+        self.encryption_details: Optional[Dict[str, object]] = payload.get("encryption_details")
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get("subresource_uris")
         self.media_url: Optional[str] = payload.get("media_url")
 
-        self._solution = {
+        
+        self._solution = { 
             "account_sid": account_sid,
             "sid": sid or self.sid,
         }
@@ -120,82 +108,70 @@ class RecordingInstance(InstanceResource):
         :returns: RecordingContext for this RecordingInstance
         """
         if self._context is None:
-            self._context = RecordingContext(
-                self._version,
-                account_sid=self._solution["account_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = RecordingContext(self._version, account_sid=self._solution['account_sid'], sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the RecordingInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the RecordingInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
-    def fetch(
-        self, include_soft_deleted: Union[bool, object] = values.unset
-    ) -> "RecordingInstance":
+    
+    
+    def fetch(self, include_soft_deleted: Union[bool, object]=values.unset) -> "RecordingInstance":
         """
         Fetch the RecordingInstance
-
+        
         :param include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 
         :returns: The fetched RecordingInstance
         """
-        return self._proxy.fetch(
-            include_soft_deleted=include_soft_deleted,
-        )
+        return self._proxy.fetch(include_soft_deleted=include_soft_deleted, )
 
-    async def fetch_async(
-        self, include_soft_deleted: Union[bool, object] = values.unset
-    ) -> "RecordingInstance":
+    async def fetch_async(self, include_soft_deleted: Union[bool, object]=values.unset) -> "RecordingInstance":
         """
         Asynchronous coroutine to fetch the RecordingInstance
-
+        
         :param include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 
         :returns: The fetched RecordingInstance
         """
-        return await self._proxy.fetch_async(
-            include_soft_deleted=include_soft_deleted,
-        )
-
+        return await self._proxy.fetch_async(include_soft_deleted=include_soft_deleted, )
+    
     @property
     def add_on_results(self) -> AddOnResultList:
         """
         Access the add_on_results
         """
         return self._proxy.add_on_results
-
+    
     @property
     def transcriptions(self) -> TranscriptionList:
         """
         Access the transcriptions
         """
         return self._proxy.transcriptions
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.RecordingInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.RecordingInstance {}>'.format(context)
 
 class RecordingContext(InstanceContext):
 
@@ -209,96 +185,84 @@ class RecordingContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-            "sid": sid,
+        self._solution = { 
+            'account_sid': account_sid,
+            'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/Recordings/{sid}.json".format(
-            **self._solution
-        )
-
+        self._uri = '/Accounts/{account_sid}/Recordings/{sid}.json'.format(**self._solution)
+        
         self._add_on_results: Optional[AddOnResultList] = None
         self._transcriptions: Optional[TranscriptionList] = None
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the RecordingInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the RecordingInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
-    def fetch(
-        self, include_soft_deleted: Union[bool, object] = values.unset
-    ) -> RecordingInstance:
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
+    def fetch(self, include_soft_deleted: Union[bool, object]=values.unset) -> RecordingInstance:
         """
         Fetch the RecordingInstance
-
+        
         :param include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 
         :returns: The fetched RecordingInstance
         """
-
-        data = values.of(
-            {
-                "IncludeSoftDeleted": serialize.boolean_to_string(include_soft_deleted),
-            }
-        )
-
-        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
+        
+        data = values.of({ 
+            'IncludeSoftDeleted': serialize.boolean_to_string(include_soft_deleted),
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return RecordingInstance(
             self._version,
             payload,
-            account_sid=self._solution["account_sid"],
-            sid=self._solution["sid"],
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
         )
 
-    async def fetch_async(
-        self, include_soft_deleted: Union[bool, object] = values.unset
-    ) -> RecordingInstance:
+    async def fetch_async(self, include_soft_deleted: Union[bool, object]=values.unset) -> RecordingInstance:
         """
         Asynchronous coroutine to fetch the RecordingInstance
-
+        
         :param include_soft_deleted: A boolean parameter indicating whether to retrieve soft deleted recordings or not. Recordings metadata are kept after deletion for a retention period of 40 days.
 
         :returns: The fetched RecordingInstance
         """
-
-        data = values.of(
-            {
-                "IncludeSoftDeleted": serialize.boolean_to_string(include_soft_deleted),
-            }
-        )
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data
-        )
+        
+        data = values.of({ 
+            'IncludeSoftDeleted': serialize.boolean_to_string(include_soft_deleted),
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
 
         return RecordingInstance(
             self._version,
             payload,
-            account_sid=self._solution["account_sid"],
-            sid=self._solution["sid"],
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     @property
     def add_on_results(self) -> AddOnResultList:
         """
@@ -306,12 +270,12 @@ class RecordingContext(InstanceContext):
         """
         if self._add_on_results is None:
             self._add_on_results = AddOnResultList(
-                self._version,
-                self._solution["account_sid"],
-                self._solution["sid"],
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._add_on_results
-
+    
     @property
     def transcriptions(self) -> TranscriptionList:
         """
@@ -319,20 +283,25 @@ class RecordingContext(InstanceContext):
         """
         if self._transcriptions is None:
             self._transcriptions = TranscriptionList(
-                self._version,
-                self._solution["account_sid"],
-                self._solution["sid"],
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._transcriptions
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.RecordingContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.RecordingContext {}>'.format(context)
+
+
+
+
+
 
 
 class RecordingPage(Page):
@@ -343,9 +312,7 @@ class RecordingPage(Page):
 
         :param payload: Payload response from the API
         """
-        return RecordingInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
+        return RecordingInstance(self._version, payload, account_sid=self._solution["account_sid"])
 
     def __repr__(self) -> str:
         """
@@ -356,32 +323,38 @@ class RecordingPage(Page):
         return "<Twilio.Api.V2010.RecordingPage>"
 
 
-class RecordingList(ListResource):
 
+
+
+class RecordingList(ListResource):
+    
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the RecordingList
 
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Recording resources to read.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/Recordings.json".format(**self._solution)
-
-    def stream(
-        self,
+        self._solution = { 'account_sid': account_sid,  }
+        self._uri = '/Accounts/{account_sid}/Recordings.json'.format(**self._solution)
+        
+        
+    
+    
+    
+    def stream(self, 
         date_created: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         call_sid: Union[str, object] = values.unset,
         conference_sid: Union[str, object] = values.unset,
         include_soft_deleted: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[RecordingInstance]:
@@ -390,7 +363,7 @@ class RecordingList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param datetime date_created: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
         :param datetime date_created_before: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
         :param datetime date_created_after: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
@@ -414,19 +387,19 @@ class RecordingList(ListResource):
             call_sid=call_sid,
             conference_sid=conference_sid,
             include_soft_deleted=include_soft_deleted,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         date_created: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         call_sid: Union[str, object] = values.unset,
         conference_sid: Union[str, object] = values.unset,
         include_soft_deleted: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[RecordingInstance]:
@@ -435,7 +408,7 @@ class RecordingList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param datetime date_created: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
         :param datetime date_created_before: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
         :param datetime date_created_after: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
@@ -459,19 +432,19 @@ class RecordingList(ListResource):
             call_sid=call_sid,
             conference_sid=conference_sid,
             include_soft_deleted=include_soft_deleted,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         date_created: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         call_sid: Union[str, object] = values.unset,
         conference_sid: Union[str, object] = values.unset,
         include_soft_deleted: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[RecordingInstance]:
@@ -479,7 +452,7 @@ class RecordingList(ListResource):
         Lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param datetime date_created: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
         :param datetime date_created_before: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
         :param datetime date_created_after: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
@@ -495,27 +468,25 @@ class RecordingList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                date_created=date_created,
-                date_created_before=date_created_before,
-                date_created_after=date_created_after,
-                call_sid=call_sid,
-                conference_sid=conference_sid,
-                include_soft_deleted=include_soft_deleted,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            date_created=date_created,
+            date_created_before=date_created_before,
+            date_created_after=date_created_after,
+            call_sid=call_sid,
+            conference_sid=conference_sid,
+            include_soft_deleted=include_soft_deleted,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         date_created: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         call_sid: Union[str, object] = values.unset,
         conference_sid: Union[str, object] = values.unset,
         include_soft_deleted: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[RecordingInstance]:
@@ -523,7 +494,7 @@ class RecordingList(ListResource):
         Asynchronously lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param datetime date_created: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
         :param datetime date_created_before: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
         :param datetime date_created_after: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
@@ -539,28 +510,25 @@ class RecordingList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                date_created=date_created,
-                date_created_before=date_created_before,
-                date_created_after=date_created_after,
-                call_sid=call_sid,
-                conference_sid=conference_sid,
-                include_soft_deleted=include_soft_deleted,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            date_created=date_created,
+            date_created_before=date_created_before,
+            date_created_after=date_created_after,
+            call_sid=call_sid,
+            conference_sid=conference_sid,
+            include_soft_deleted=include_soft_deleted,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         date_created: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         call_sid: Union[str, object] = values.unset,
         conference_sid: Union[str, object] = values.unset,
         include_soft_deleted: Union[bool, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -568,7 +536,7 @@ class RecordingList(ListResource):
         """
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
-
+        
         :param date_created: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
         :param date_created_before: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
         :param date_created_after: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
@@ -581,31 +549,29 @@ class RecordingList(ListResource):
 
         :returns: Page of RecordingInstance
         """
-        data = values.of(
-            {
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateCreated<": serialize.iso8601_datetime(date_created_before),
-                "DateCreated>": serialize.iso8601_datetime(date_created_after),
-                "CallSid": call_sid,
-                "ConferenceSid": conference_sid,
-                "IncludeSoftDeleted": serialize.boolean_to_string(include_soft_deleted),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateCreated<': serialize.iso8601_datetime(date_created_before),
+            'DateCreated>': serialize.iso8601_datetime(date_created_after),
+            'CallSid': call_sid,
+            'ConferenceSid': conference_sid,
+            'IncludeSoftDeleted': serialize.boolean_to_string(include_soft_deleted),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return RecordingPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         date_created: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         call_sid: Union[str, object] = values.unset,
         conference_sid: Union[str, object] = values.unset,
         include_soft_deleted: Union[bool, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -613,7 +579,7 @@ class RecordingList(ListResource):
         """
         Asynchronously retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
-
+        
         :param date_created: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
         :param date_created_before: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
         :param date_created_after: Only include recordings that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read recordings that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read recordings that were created on or after midnight of this date.
@@ -626,23 +592,19 @@ class RecordingList(ListResource):
 
         :returns: Page of RecordingInstance
         """
-        data = values.of(
-            {
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateCreated<": serialize.iso8601_datetime(date_created_before),
-                "DateCreated>": serialize.iso8601_datetime(date_created_after),
-                "CallSid": call_sid,
-                "ConferenceSid": conference_sid,
-                "IncludeSoftDeleted": serialize.boolean_to_string(include_soft_deleted),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateCreated<': serialize.iso8601_datetime(date_created_before),
+            'DateCreated>': serialize.iso8601_datetime(date_created_after),
+            'CallSid': call_sid,
+            'ConferenceSid': conference_sid,
+            'IncludeSoftDeleted': serialize.boolean_to_string(include_soft_deleted),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return RecordingPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> RecordingPage:
@@ -654,7 +616,10 @@ class RecordingList(ListResource):
 
         :returns: Page of RecordingInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return RecordingPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> RecordingPage:
@@ -666,28 +631,33 @@ class RecordingList(ListResource):
 
         :returns: Page of RecordingInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return RecordingPage(self._version, response, self._solution)
+
+
+
+
+
+
 
     def get(self, sid: str) -> RecordingContext:
         """
         Constructs a RecordingContext
-
+        
         :param sid: The Twilio-provided string that uniquely identifies the Recording resource to fetch.
         """
-        return RecordingContext(
-            self._version, account_sid=self._solution["account_sid"], sid=sid
-        )
+        return RecordingContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __call__(self, sid: str) -> RecordingContext:
         """
         Constructs a RecordingContext
-
+        
         :param sid: The Twilio-provided string that uniquely identifies the Recording resource to fetch.
         """
-        return RecordingContext(
-            self._version, account_sid=self._solution["account_sid"], sid=sid
-        )
+        return RecordingContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -695,4 +665,5 @@ class RecordingList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Api.V2010.RecordingList>"
+        return '<Twilio.Api.V2010.RecordingList>'
+

@@ -12,15 +12,20 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, Optional, Union
-from twilio.base import values
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
 class ValidationRequestInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for the Caller ID.
     :ivar call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Caller ID is associated with.
@@ -32,55 +37,51 @@ class ValidationRequestInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.call_sid: Optional[str] = payload.get("call_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.phone_number: Optional[str] = payload.get("phone_number")
         self.validation_code: Optional[str] = payload.get("validation_code")
 
-        self._solution = {
+        
+        self._solution = { 
             "account_sid": account_sid,
         }
-
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.ValidationRequestInstance {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.ValidationRequestInstance {}>'.format(context)
+
+
 
 
 class ValidationRequestList(ListResource):
-
+    
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the ValidationRequestList
 
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for the new caller ID resource.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/OutgoingCallerIds.json".format(
-            **self._solution
-        )
-
-    def create(
-        self,
-        phone_number: str,
-        friendly_name: Union[str, object] = values.unset,
-        call_delay: Union[int, object] = values.unset,
-        extension: Union[str, object] = values.unset,
-        status_callback: Union[str, object] = values.unset,
-        status_callback_method: Union[str, object] = values.unset,
-    ) -> ValidationRequestInstance:
+        self._solution = { 'account_sid': account_sid,  }
+        self._uri = '/Accounts/{account_sid}/OutgoingCallerIds.json'.format(**self._solution)
+        
+        
+    
+    def create(self, phone_number: str, friendly_name: Union[str, object]=values.unset, call_delay: Union[int, object]=values.unset, extension: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset) -> ValidationRequestInstance:
         """
         Create the ValidationRequestInstance
 
@@ -90,39 +91,28 @@ class ValidationRequestList(ListResource):
         :param extension: The digits to dial after connecting the verification call.
         :param status_callback: The URL we should call using the `status_callback_method` to send status information about the verification process to your application.
         :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`.
-
+        
         :returns: The created ValidationRequestInstance
         """
+        
+        data = values.of({ 
+            'PhoneNumber': phone_number,
+            'FriendlyName': friendly_name,
+            'CallDelay': call_delay,
+            'Extension': extension,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "PhoneNumber": phone_number,
-                "FriendlyName": friendly_name,
-                "CallDelay": call_delay,
-                "Extension": extension,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return ValidationRequestInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ValidationRequestInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    async def create_async(
-        self,
-        phone_number: str,
-        friendly_name: Union[str, object] = values.unset,
-        call_delay: Union[int, object] = values.unset,
-        extension: Union[str, object] = values.unset,
-        status_callback: Union[str, object] = values.unset,
-        status_callback_method: Union[str, object] = values.unset,
-    ) -> ValidationRequestInstance:
+    async def create_async(self, phone_number: str, friendly_name: Union[str, object]=values.unset, call_delay: Union[int, object]=values.unset, extension: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset) -> ValidationRequestInstance:
         """
         Asynchronously create the ValidationRequestInstance
 
@@ -132,29 +122,29 @@ class ValidationRequestList(ListResource):
         :param extension: The digits to dial after connecting the verification call.
         :param status_callback: The URL we should call using the `status_callback_method` to send status information about the verification process to your application.
         :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`.
-
+        
         :returns: The created ValidationRequestInstance
         """
+        
+        data = values.of({ 
+            'PhoneNumber': phone_number,
+            'FriendlyName': friendly_name,
+            'CallDelay': call_delay,
+            'Extension': extension,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "PhoneNumber": phone_number,
-                "FriendlyName": friendly_name,
-                "CallDelay": call_delay,
-                "Extension": extension,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return ValidationRequestInstance(self._version, payload, account_sid=self._solution['account_sid'])
+    
 
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
 
-        return ValidationRequestInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
 
     def __repr__(self) -> str:
         """
@@ -162,4 +152,5 @@ class ValidationRequestList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Api.V2010.ValidationRequestList>"
+        return '<Twilio.Api.V2010.ValidationRequestList>'
+

@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,6 +26,7 @@ from twilio.rest.verify.v2.service.rate_limit.bucket import BucketList
 
 
 class RateLimitInstance(InstanceResource):
+
     """
     :ivar sid: A 34 character string that uniquely identifies this Rate Limit.
     :ivar service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
@@ -36,30 +39,22 @@ class RateLimitInstance(InstanceResource):
     :ivar links: The URLs of related resources.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        service_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.unique_name: Optional[str] = payload.get("unique_name")
         self.description: Optional[str] = payload.get("description")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        self._solution = {
+        
+        self._solution = { 
             "service_sid": service_sid,
             "sid": sid or self.sid,
         }
@@ -74,35 +69,32 @@ class RateLimitInstance(InstanceResource):
         :returns: RateLimitContext for this RateLimitInstance
         """
         if self._context is None:
-            self._context = RateLimitContext(
-                self._version,
-                service_sid=self._solution["service_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = RateLimitContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the RateLimitInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the RateLimitInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "RateLimitInstance":
         """
         Fetch the RateLimitInstance
-
+        
 
         :returns: The fetched RateLimitInstance
         """
@@ -111,56 +103,48 @@ class RateLimitInstance(InstanceResource):
     async def fetch_async(self) -> "RateLimitInstance":
         """
         Asynchronous coroutine to fetch the RateLimitInstance
-
+        
 
         :returns: The fetched RateLimitInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self, description: Union[str, object] = values.unset
-    ) -> "RateLimitInstance":
+    
+    
+    def update(self, description: Union[str, object]=values.unset) -> "RateLimitInstance":
         """
         Update the RateLimitInstance
-
+        
         :param description: Description of this Rate Limit
 
         :returns: The updated RateLimitInstance
         """
-        return self._proxy.update(
-            description=description,
-        )
+        return self._proxy.update(description=description, )
 
-    async def update_async(
-        self, description: Union[str, object] = values.unset
-    ) -> "RateLimitInstance":
+    async def update_async(self, description: Union[str, object]=values.unset) -> "RateLimitInstance":
         """
         Asynchronous coroutine to update the RateLimitInstance
-
+        
         :param description: Description of this Rate Limit
 
         :returns: The updated RateLimitInstance
         """
-        return await self._proxy.update_async(
-            description=description,
-        )
-
+        return await self._proxy.update_async(description=description, )
+    
     @property
     def buckets(self) -> BucketList:
         """
         Access the buckets
         """
         return self._proxy.buckets
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.RateLimitInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.RateLimitInstance {}>'.format(context)
 
 class RateLimitContext(InstanceContext):
 
@@ -174,137 +158,118 @@ class RateLimitContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "sid": sid,
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
         }
-        self._uri = "/Services/{service_sid}/RateLimits/{sid}".format(**self._solution)
-
+        self._uri = '/Services/{service_sid}/RateLimits/{sid}'.format(**self._solution)
+        
         self._buckets: Optional[BucketList] = None
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the RateLimitInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the RateLimitInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> RateLimitInstance:
         """
         Fetch the RateLimitInstance
-
+        
 
         :returns: The fetched RateLimitInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RateLimitInstance(
             self._version,
             payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> RateLimitInstance:
         """
         Asynchronous coroutine to fetch the RateLimitInstance
-
+        
 
         :returns: The fetched RateLimitInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return RateLimitInstance(
             self._version,
             payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
         )
-
-    def update(
-        self, description: Union[str, object] = values.unset
-    ) -> RateLimitInstance:
+    
+    
+    def update(self, description: Union[str, object]=values.unset) -> RateLimitInstance:
         """
         Update the RateLimitInstance
-
+        
         :param description: Description of this Rate Limit
 
         :returns: The updated RateLimitInstance
         """
-        data = values.of(
-            {
-                "Description": description,
-            }
-        )
+        data = values.of({ 
+            'Description': description,
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return RateLimitInstance(
             self._version,
             payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
         )
 
-    async def update_async(
-        self, description: Union[str, object] = values.unset
-    ) -> RateLimitInstance:
+    async def update_async(self, description: Union[str, object]=values.unset) -> RateLimitInstance:
         """
         Asynchronous coroutine to update the RateLimitInstance
-
+        
         :param description: Description of this Rate Limit
 
         :returns: The updated RateLimitInstance
         """
-        data = values.of(
-            {
-                "Description": description,
-            }
-        )
+        data = values.of({ 
+            'Description': description,
+        })
+        
 
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
 
         return RateLimitInstance(
             self._version,
             payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
         )
-
+    
+    
     @property
     def buckets(self) -> BucketList:
         """
@@ -312,20 +277,29 @@ class RateLimitContext(InstanceContext):
         """
         if self._buckets is None:
             self._buckets = BucketList(
-                self._version,
-                self._solution["service_sid"],
-                self._solution["sid"],
+                self._version, 
+                self._solution['service_sid'],
+                self._solution['sid'],
             )
         return self._buckets
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.RateLimitContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.RateLimitContext {}>'.format(context)
+
+
+
+
+
+
+
+
+
 
 
 class RateLimitPage(Page):
@@ -336,9 +310,7 @@ class RateLimitPage(Page):
 
         :param payload: Payload response from the API
         """
-        return RateLimitInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
+        return RateLimitInstance(self._version, payload, service_sid=self._solution["service_sid"])
 
     def __repr__(self) -> str:
         """
@@ -349,82 +321,80 @@ class RateLimitPage(Page):
         return "<Twilio.Verify.V2.RateLimitPage>"
 
 
-class RateLimitList(ListResource):
 
+
+
+class RateLimitList(ListResource):
+    
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the RateLimitList
 
         :param version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/verify/api/service) the resource is associated with.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-        }
-        self._uri = "/Services/{service_sid}/RateLimits".format(**self._solution)
-
-    def create(
-        self, unique_name: str, description: Union[str, object] = values.unset
-    ) -> RateLimitInstance:
+        self._solution = { 'service_sid': service_sid,  }
+        self._uri = '/Services/{service_sid}/RateLimits'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name: str, description: Union[str, object]=values.unset) -> RateLimitInstance:
         """
         Create the RateLimitInstance
 
         :param unique_name: Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
         :param description: Description of this Rate Limit
-
+        
         :returns: The created RateLimitInstance
         """
+        
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'Description': description,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-                "Description": description,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return RateLimitInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return RateLimitInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    async def create_async(
-        self, unique_name: str, description: Union[str, object] = values.unset
-    ) -> RateLimitInstance:
+    async def create_async(self, unique_name: str, description: Union[str, object]=values.unset) -> RateLimitInstance:
         """
         Asynchronously create the RateLimitInstance
 
         :param unique_name: Provides a unique and addressable name to be assigned to this Rate Limit, assigned by the developer, to be optionally used in addition to SID. **This value should not contain PII.**
         :param description: Description of this Rate Limit
-
+        
         :returns: The created RateLimitInstance
         """
+        
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'Description': description,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-                "Description": description,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return RateLimitInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def stream(
-        self,
+        return RateLimitInstance(self._version, payload, service_sid=self._solution['service_sid'])
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[RateLimitInstance]:
@@ -433,7 +403,7 @@ class RateLimitList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -444,12 +414,14 @@ class RateLimitList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[RateLimitInstance]:
@@ -458,7 +430,7 @@ class RateLimitList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -469,12 +441,14 @@ class RateLimitList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[RateLimitInstance]:
@@ -482,7 +456,7 @@ class RateLimitList(ListResource):
         Lists RateLimitInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -492,15 +466,13 @@ class RateLimitList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[RateLimitInstance]:
@@ -508,7 +480,7 @@ class RateLimitList(ListResource):
         Asynchronously lists RateLimitInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -518,16 +490,13 @@ class RateLimitList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -535,26 +504,24 @@ class RateLimitList(ListResource):
         """
         Retrieve a single page of RateLimitInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RateLimitInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return RateLimitPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -562,24 +529,20 @@ class RateLimitList(ListResource):
         """
         Asynchronously retrieve a single page of RateLimitInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of RateLimitInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return RateLimitPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> RateLimitPage:
@@ -591,7 +554,10 @@ class RateLimitList(ListResource):
 
         :returns: Page of RateLimitInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return RateLimitPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> RateLimitPage:
@@ -603,28 +569,31 @@ class RateLimitList(ListResource):
 
         :returns: Page of RateLimitInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return RateLimitPage(self._version, response, self._solution)
+
+
+
+
 
     def get(self, sid: str) -> RateLimitContext:
         """
         Constructs a RateLimitContext
-
+        
         :param sid: The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch.
         """
-        return RateLimitContext(
-            self._version, service_sid=self._solution["service_sid"], sid=sid
-        )
+        return RateLimitContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __call__(self, sid: str) -> RateLimitContext:
         """
         Constructs a RateLimitContext
-
+        
         :param sid: The Twilio-provided string that uniquely identifies the Rate Limit resource to fetch.
         """
-        return RateLimitContext(
-            self._version, service_sid=self._solution["service_sid"], sid=sid
-        )
+        return RateLimitContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -632,4 +601,5 @@ class RateLimitList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Verify.V2.RateLimitList>"
+        return '<Twilio.Verify.V2.RateLimitList>'
+

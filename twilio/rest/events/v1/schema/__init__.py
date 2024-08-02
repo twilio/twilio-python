@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
-from typing import Any, Dict, Optional
-from twilio.base import deserialize
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,6 +26,7 @@ from twilio.rest.events.v1.schema.schema_version import SchemaVersionList
 
 
 class SchemaInstance(InstanceResource):
+
     """
     :ivar id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
     :ivar url: The URL of this resource.
@@ -32,22 +35,18 @@ class SchemaInstance(InstanceResource):
     :ivar latest_version: The latest version published of this schema.
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], id: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], id: Optional[str] = None):
         super().__init__(version)
 
+        
         self.id: Optional[str] = payload.get("id")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
-        self.latest_version_date_created: Optional[datetime] = (
-            deserialize.iso8601_datetime(payload.get("latest_version_date_created"))
-        )
-        self.latest_version: Optional[int] = deserialize.integer(
-            payload.get("latest_version")
-        )
+        self.latest_version_date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("latest_version_date_created"))
+        self.latest_version: Optional[int] = deserialize.integer(payload.get("latest_version"))
 
-        self._solution = {
+        
+        self._solution = { 
             "id": id or self.id,
         }
         self._context: Optional[SchemaContext] = None
@@ -61,16 +60,14 @@ class SchemaInstance(InstanceResource):
         :returns: SchemaContext for this SchemaInstance
         """
         if self._context is None:
-            self._context = SchemaContext(
-                self._version,
-                id=self._solution["id"],
-            )
+            self._context = SchemaContext(self._version, id=self._solution['id'],)
         return self._context
-
+    
+    
     def fetch(self) -> "SchemaInstance":
         """
         Fetch the SchemaInstance
-
+        
 
         :returns: The fetched SchemaInstance
         """
@@ -79,28 +76,27 @@ class SchemaInstance(InstanceResource):
     async def fetch_async(self) -> "SchemaInstance":
         """
         Asynchronous coroutine to fetch the SchemaInstance
-
+        
 
         :returns: The fetched SchemaInstance
         """
         return await self._proxy.fetch_async()
-
+    
     @property
     def versions(self) -> SchemaVersionList:
         """
         Access the versions
         """
         return self._proxy.versions
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.SchemaInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Events.V1.SchemaInstance {}>'.format(context)
 
 class SchemaContext(InstanceContext):
 
@@ -113,52 +109,51 @@ class SchemaContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "id": id,
+        self._solution = { 
+            'id': id,
         }
-        self._uri = "/Schemas/{id}".format(**self._solution)
-
+        self._uri = '/Schemas/{id}'.format(**self._solution)
+        
         self._versions: Optional[SchemaVersionList] = None
-
+    
+    
     def fetch(self) -> SchemaInstance:
         """
         Fetch the SchemaInstance
-
+        
 
         :returns: The fetched SchemaInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SchemaInstance(
             self._version,
             payload,
-            id=self._solution["id"],
+            id=self._solution['id'],
+            
         )
 
     async def fetch_async(self) -> SchemaInstance:
         """
         Asynchronous coroutine to fetch the SchemaInstance
-
+        
 
         :returns: The fetched SchemaInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return SchemaInstance(
             self._version,
             payload,
-            id=self._solution["id"],
+            id=self._solution['id'],
+            
         )
-
+    
+    
     @property
     def versions(self) -> SchemaVersionList:
         """
@@ -166,36 +161,44 @@ class SchemaContext(InstanceContext):
         """
         if self._versions is None:
             self._versions = SchemaVersionList(
-                self._version,
-                self._solution["id"],
+                self._version, 
+                self._solution['id'],
             )
         return self._versions
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.SchemaContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Events.V1.SchemaContext {}>'.format(context)
+
 
 
 class SchemaList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the SchemaList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
+
+        
+        
+        
+        
+
+
 
     def get(self, id: str) -> SchemaContext:
         """
         Constructs a SchemaContext
-
+        
         :param id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
         """
         return SchemaContext(self._version, id=id)
@@ -203,7 +206,7 @@ class SchemaList(ListResource):
     def __call__(self, id: str) -> SchemaContext:
         """
         Constructs a SchemaContext
-
+        
         :param id: The unique identifier of the schema. Each schema can have multiple versions, that share the same id.
         """
         return SchemaContext(self._version, id=id)
@@ -214,4 +217,5 @@ class SchemaList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Events.V1.SchemaList>"
+        return '<Twilio.Events.V1.SchemaList>'
+

@@ -12,16 +12,20 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
-from typing import Any, Dict, Optional
-from twilio.base import deserialize
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
 class FlexUserInstance(InstanceResource):
+
     """
     :ivar account_sid: The unique SID of the account that created the resource.
     :ivar instance_sid: The unique ID created by Twilio to identify a Flex instance.
@@ -38,18 +42,13 @@ class FlexUserInstance(InstanceResource):
     :ivar created_date: The date that this user was created, given in ISO 8601 format.
     :ivar updated_date: The date that this user was updated, given in ISO 8601 format.
     :ivar version: The current version of the user.
-    :ivar url:
+    :ivar url: 
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        instance_sid: Optional[str] = None,
-        flex_user_sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], instance_sid: Optional[str] = None, flex_user_sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.instance_sid: Optional[str] = payload.get("instance_sid")
         self.user_sid: Optional[str] = payload.get("user_sid")
@@ -62,16 +61,13 @@ class FlexUserInstance(InstanceResource):
         self.username: Optional[str] = payload.get("username")
         self.email: Optional[str] = payload.get("email")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
-        self.created_date: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("created_date")
-        )
-        self.updated_date: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("updated_date")
-        )
+        self.created_date: Optional[datetime] = deserialize.iso8601_datetime(payload.get("created_date"))
+        self.updated_date: Optional[datetime] = deserialize.iso8601_datetime(payload.get("updated_date"))
         self.version: Optional[int] = deserialize.integer(payload.get("version"))
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "instance_sid": instance_sid or self.instance_sid,
             "flex_user_sid": flex_user_sid or self.flex_user_sid,
         }
@@ -86,17 +82,14 @@ class FlexUserInstance(InstanceResource):
         :returns: FlexUserContext for this FlexUserInstance
         """
         if self._context is None:
-            self._context = FlexUserContext(
-                self._version,
-                instance_sid=self._solution["instance_sid"],
-                flex_user_sid=self._solution["flex_user_sid"],
-            )
+            self._context = FlexUserContext(self._version, instance_sid=self._solution['instance_sid'], flex_user_sid=self._solution['flex_user_sid'],)
         return self._context
-
+    
+    
     def fetch(self) -> "FlexUserInstance":
         """
         Fetch the FlexUserInstance
-
+        
 
         :returns: The fetched FlexUserInstance
         """
@@ -105,21 +98,20 @@ class FlexUserInstance(InstanceResource):
     async def fetch_async(self) -> "FlexUserInstance":
         """
         Asynchronous coroutine to fetch the FlexUserInstance
-
+        
 
         :returns: The fetched FlexUserInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V2.FlexUserInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V2.FlexUserInstance {}>'.format(context)
 
 class FlexUserContext(InstanceContext):
 
@@ -133,97 +125,97 @@ class FlexUserContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "instance_sid": instance_sid,
-            "flex_user_sid": flex_user_sid,
+        self._solution = { 
+            'instance_sid': instance_sid,
+            'flex_user_sid': flex_user_sid,
         }
-        self._uri = "/Instances/{instance_sid}/Users/{flex_user_sid}".format(
-            **self._solution
-        )
-
+        self._uri = '/Instances/{instance_sid}/Users/{flex_user_sid}'.format(**self._solution)
+        
+    
+    
     def fetch(self) -> FlexUserInstance:
         """
         Fetch the FlexUserInstance
-
+        
 
         :returns: The fetched FlexUserInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FlexUserInstance(
             self._version,
             payload,
-            instance_sid=self._solution["instance_sid"],
-            flex_user_sid=self._solution["flex_user_sid"],
+            instance_sid=self._solution['instance_sid'],
+            flex_user_sid=self._solution['flex_user_sid'],
+            
         )
 
     async def fetch_async(self) -> FlexUserInstance:
         """
         Asynchronous coroutine to fetch the FlexUserInstance
-
+        
 
         :returns: The fetched FlexUserInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return FlexUserInstance(
             self._version,
             payload,
-            instance_sid=self._solution["instance_sid"],
-            flex_user_sid=self._solution["flex_user_sid"],
+            instance_sid=self._solution['instance_sid'],
+            flex_user_sid=self._solution['flex_user_sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V2.FlexUserContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V2.FlexUserContext {}>'.format(context)
+
 
 
 class FlexUserList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the FlexUserList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
+
+        
+        
+        
+        
 
     def get(self, instance_sid: str, flex_user_sid: str) -> FlexUserContext:
         """
         Constructs a FlexUserContext
-
+        
         :param instance_sid: The unique ID created by Twilio to identify a Flex instance.
         :param flex_user_sid: The unique id for the flex user to be retrieved.
         """
-        return FlexUserContext(
-            self._version, instance_sid=instance_sid, flex_user_sid=flex_user_sid
-        )
+        return FlexUserContext(self._version, instance_sid=instance_sid, flex_user_sid=flex_user_sid)
 
     def __call__(self, instance_sid: str, flex_user_sid: str) -> FlexUserContext:
         """
         Constructs a FlexUserContext
-
+        
         :param instance_sid: The unique ID created by Twilio to identify a Flex instance.
         :param flex_user_sid: The unique id for the flex user to be retrieved.
         """
-        return FlexUserContext(
-            self._version, instance_sid=instance_sid, flex_user_sid=flex_user_sid
-        )
+        return FlexUserContext(self._version, instance_sid=instance_sid, flex_user_sid=flex_user_sid)
 
     def __repr__(self) -> str:
         """
@@ -231,4 +223,5 @@ class FlexUserList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.FlexApi.V2.FlexUserList>"
+        return '<Twilio.FlexApi.V2.FlexUserList>'
+

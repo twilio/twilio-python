@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,6 +25,7 @@ from twilio.base.page import Page
 
 
 class DeploymentInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the Deployment resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Deployment resource.
@@ -34,30 +37,21 @@ class DeploymentInstance(InstanceResource):
     :ivar url: The absolute URL of the Deployment resource.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        service_sid: str,
-        environment_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, environment_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
         self.environment_sid: Optional[str] = payload.get("environment_sid")
         self.build_sid: Optional[str] = payload.get("build_sid")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "service_sid": service_sid,
             "environment_sid": environment_sid,
             "sid": sid or self.sid,
@@ -73,18 +67,14 @@ class DeploymentInstance(InstanceResource):
         :returns: DeploymentContext for this DeploymentInstance
         """
         if self._context is None:
-            self._context = DeploymentContext(
-                self._version,
-                service_sid=self._solution["service_sid"],
-                environment_sid=self._solution["environment_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = DeploymentContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def fetch(self) -> "DeploymentInstance":
         """
         Fetch the DeploymentInstance
-
+        
 
         :returns: The fetched DeploymentInstance
         """
@@ -93,27 +83,24 @@ class DeploymentInstance(InstanceResource):
     async def fetch_async(self) -> "DeploymentInstance":
         """
         Asynchronous coroutine to fetch the DeploymentInstance
-
+        
 
         :returns: The fetched DeploymentInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.DeploymentInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Serverless.V1.DeploymentInstance {}>'.format(context)
 
 class DeploymentContext(InstanceContext):
 
-    def __init__(
-        self, version: Version, service_sid: str, environment_sid: str, sid: str
-    ):
+    def __init__(self, version: Version, service_sid: str, environment_sid: str, sid: str):
         """
         Initialize the DeploymentContext
 
@@ -124,66 +111,69 @@ class DeploymentContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "environment_sid": environment_sid,
-            "sid": sid,
+        self._solution = { 
+            'service_sid': service_sid,
+            'environment_sid': environment_sid,
+            'sid': sid,
         }
-        self._uri = "/Services/{service_sid}/Environments/{environment_sid}/Deployments/{sid}".format(
-            **self._solution
-        )
-
+        self._uri = '/Services/{service_sid}/Environments/{environment_sid}/Deployments/{sid}'.format(**self._solution)
+        
+    
+    
     def fetch(self) -> DeploymentInstance:
         """
         Fetch the DeploymentInstance
-
+        
 
         :returns: The fetched DeploymentInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DeploymentInstance(
             self._version,
             payload,
-            service_sid=self._solution["service_sid"],
-            environment_sid=self._solution["environment_sid"],
-            sid=self._solution["sid"],
+            service_sid=self._solution['service_sid'],
+            environment_sid=self._solution['environment_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> DeploymentInstance:
         """
         Asynchronous coroutine to fetch the DeploymentInstance
-
+        
 
         :returns: The fetched DeploymentInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return DeploymentInstance(
             self._version,
             payload,
-            service_sid=self._solution["service_sid"],
-            environment_sid=self._solution["environment_sid"],
-            sid=self._solution["sid"],
+            service_sid=self._solution['service_sid'],
+            environment_sid=self._solution['environment_sid'],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.DeploymentContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Serverless.V1.DeploymentContext {}>'.format(context)
+
+
+
+
+
 
 
 class DeploymentPage(Page):
@@ -194,12 +184,7 @@ class DeploymentPage(Page):
 
         :param payload: Payload response from the API
         """
-        return DeploymentInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            environment_sid=self._solution["environment_sid"],
-        )
+        return DeploymentInstance(self._version, payload, service_sid=self._solution["service_sid"], environment_sid=self._solution["environment_sid"])
 
     def __repr__(self) -> str:
         """
@@ -210,8 +195,11 @@ class DeploymentPage(Page):
         return "<Twilio.Serverless.V1.DeploymentPage>"
 
 
-class DeploymentList(ListResource):
 
+
+
+class DeploymentList(ListResource):
+    
     def __init__(self, version: Version, service_sid: str, environment_sid: str):
         """
         Initialize the DeploymentList
@@ -219,81 +207,63 @@ class DeploymentList(ListResource):
         :param version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Deployment resources from.
         :param environment_sid: The SID of the Environment used by the Deployment resources to read.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "environment_sid": environment_sid,
-        }
-        self._uri = (
-            "/Services/{service_sid}/Environments/{environment_sid}/Deployments".format(
-                **self._solution
-            )
-        )
-
-    def create(
-        self, build_sid: Union[str, object] = values.unset
-    ) -> DeploymentInstance:
+        self._solution = { 'service_sid': service_sid, 'environment_sid': environment_sid,  }
+        self._uri = '/Services/{service_sid}/Environments/{environment_sid}/Deployments'.format(**self._solution)
+        
+        
+    
+    
+    def create(self, build_sid: Union[str, object]=values.unset) -> DeploymentInstance:
         """
         Create the DeploymentInstance
 
         :param build_sid: The SID of the Build for the Deployment.
-
+        
         :returns: The created DeploymentInstance
         """
+        
+        data = values.of({ 
+            'BuildSid': build_sid,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "BuildSid": build_sid,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return DeploymentInstance(self._version, payload, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'])
 
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return DeploymentInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            environment_sid=self._solution["environment_sid"],
-        )
-
-    async def create_async(
-        self, build_sid: Union[str, object] = values.unset
-    ) -> DeploymentInstance:
+    async def create_async(self, build_sid: Union[str, object]=values.unset) -> DeploymentInstance:
         """
         Asynchronously create the DeploymentInstance
 
         :param build_sid: The SID of the Build for the Deployment.
-
+        
         :returns: The created DeploymentInstance
         """
+        
+        data = values.of({ 
+            'BuildSid': build_sid,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "BuildSid": build_sid,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return DeploymentInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            environment_sid=self._solution["environment_sid"],
-        )
-
-    def stream(
-        self,
+        return DeploymentInstance(self._version, payload, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'])
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[DeploymentInstance]:
@@ -302,7 +272,7 @@ class DeploymentList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -313,12 +283,14 @@ class DeploymentList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[DeploymentInstance]:
@@ -327,7 +299,7 @@ class DeploymentList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -338,12 +310,14 @@ class DeploymentList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DeploymentInstance]:
@@ -351,7 +325,7 @@ class DeploymentList(ListResource):
         Lists DeploymentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -361,15 +335,13 @@ class DeploymentList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DeploymentInstance]:
@@ -377,7 +349,7 @@ class DeploymentList(ListResource):
         Asynchronously lists DeploymentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -387,16 +359,13 @@ class DeploymentList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -404,26 +373,24 @@ class DeploymentList(ListResource):
         """
         Retrieve a single page of DeploymentInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeploymentInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return DeploymentPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -431,24 +398,20 @@ class DeploymentList(ListResource):
         """
         Asynchronously retrieve a single page of DeploymentInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeploymentInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return DeploymentPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> DeploymentPage:
@@ -460,7 +423,10 @@ class DeploymentList(ListResource):
 
         :returns: Page of DeploymentInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return DeploymentPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> DeploymentPage:
@@ -472,34 +438,29 @@ class DeploymentList(ListResource):
 
         :returns: Page of DeploymentInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return DeploymentPage(self._version, response, self._solution)
+
+
 
     def get(self, sid: str) -> DeploymentContext:
         """
         Constructs a DeploymentContext
-
+        
         :param sid: The SID that identifies the Deployment resource to fetch.
         """
-        return DeploymentContext(
-            self._version,
-            service_sid=self._solution["service_sid"],
-            environment_sid=self._solution["environment_sid"],
-            sid=sid,
-        )
+        return DeploymentContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=sid)
 
     def __call__(self, sid: str) -> DeploymentContext:
         """
         Constructs a DeploymentContext
-
+        
         :param sid: The SID that identifies the Deployment resource to fetch.
         """
-        return DeploymentContext(
-            self._version,
-            service_sid=self._solution["service_sid"],
-            environment_sid=self._solution["environment_sid"],
-            sid=sid,
-        )
+        return DeploymentContext(self._version, service_sid=self._solution['service_sid'], environment_sid=self._solution['environment_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -507,4 +468,5 @@ class DeploymentList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Serverless.V1.DeploymentList>"
+        return '<Twilio.Serverless.V1.DeploymentList>'
+

@@ -30,7 +30,7 @@ class V2(Version):
         super().__init__(domain, "v2")
         self._contents: Optional[ContentList] = None
         self._content_and_approvals: Optional[ContentAndApprovalsList] = None
-
+        
     @property
     def contents(self) -> ContentList:
         if self._contents is None:

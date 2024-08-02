@@ -12,16 +12,20 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
-from typing import Any, Dict, Optional
-from twilio.base import deserialize
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
 class DomainConfigMessagingServiceInstance(InstanceResource):
+
     """
     :ivar domain_sid: The unique string that we created to identify the Domain resource.
     :ivar config_sid: The unique string that we created to identify the Domain config (prefix ZK).
@@ -31,34 +35,26 @@ class DomainConfigMessagingServiceInstance(InstanceResource):
     :ivar continue_on_failure: Boolean field to set customer delivery preference when there is a failure in linkShortening service
     :ivar date_created: Date this Domain Config was created.
     :ivar date_updated: Date that this Domain Config was last updated.
-    :ivar url:
+    :ivar url: 
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        messaging_service_sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], messaging_service_sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.domain_sid: Optional[str] = payload.get("domain_sid")
         self.config_sid: Optional[str] = payload.get("config_sid")
         self.messaging_service_sid: Optional[str] = payload.get("messaging_service_sid")
         self.fallback_url: Optional[str] = payload.get("fallback_url")
         self.callback_url: Optional[str] = payload.get("callback_url")
         self.continue_on_failure: Optional[bool] = payload.get("continue_on_failure")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
-            "messaging_service_sid": messaging_service_sid
-            or self.messaging_service_sid,
+        
+        self._solution = { 
+            "messaging_service_sid": messaging_service_sid or self.messaging_service_sid,
         }
         self._context: Optional[DomainConfigMessagingServiceContext] = None
 
@@ -71,16 +67,14 @@ class DomainConfigMessagingServiceInstance(InstanceResource):
         :returns: DomainConfigMessagingServiceContext for this DomainConfigMessagingServiceInstance
         """
         if self._context is None:
-            self._context = DomainConfigMessagingServiceContext(
-                self._version,
-                messaging_service_sid=self._solution["messaging_service_sid"],
-            )
+            self._context = DomainConfigMessagingServiceContext(self._version, messaging_service_sid=self._solution['messaging_service_sid'],)
         return self._context
-
+    
+    
     def fetch(self) -> "DomainConfigMessagingServiceInstance":
         """
         Fetch the DomainConfigMessagingServiceInstance
-
+        
 
         :returns: The fetched DomainConfigMessagingServiceInstance
         """
@@ -89,23 +83,20 @@ class DomainConfigMessagingServiceInstance(InstanceResource):
     async def fetch_async(self) -> "DomainConfigMessagingServiceInstance":
         """
         Asynchronous coroutine to fetch the DomainConfigMessagingServiceInstance
-
+        
 
         :returns: The fetched DomainConfigMessagingServiceInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.DomainConfigMessagingServiceInstance {}>".format(
-            context
-        )
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Messaging.V1.DomainConfigMessagingServiceInstance {}>'.format(context)
 
 class DomainConfigMessagingServiceContext(InstanceContext):
 
@@ -118,96 +109,92 @@ class DomainConfigMessagingServiceContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "messaging_service_sid": messaging_service_sid,
+        self._solution = { 
+            'messaging_service_sid': messaging_service_sid,
         }
-        self._uri = "/LinkShortening/MessagingService/{messaging_service_sid}/DomainConfig".format(
-            **self._solution
-        )
-
+        self._uri = '/LinkShortening/MessagingService/{messaging_service_sid}/DomainConfig'.format(**self._solution)
+        
+    
+    
     def fetch(self) -> DomainConfigMessagingServiceInstance:
         """
         Fetch the DomainConfigMessagingServiceInstance
-
+        
 
         :returns: The fetched DomainConfigMessagingServiceInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DomainConfigMessagingServiceInstance(
             self._version,
             payload,
-            messaging_service_sid=self._solution["messaging_service_sid"],
+            messaging_service_sid=self._solution['messaging_service_sid'],
+            
         )
 
     async def fetch_async(self) -> DomainConfigMessagingServiceInstance:
         """
         Asynchronous coroutine to fetch the DomainConfigMessagingServiceInstance
-
+        
 
         :returns: The fetched DomainConfigMessagingServiceInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return DomainConfigMessagingServiceInstance(
             self._version,
             payload,
-            messaging_service_sid=self._solution["messaging_service_sid"],
+            messaging_service_sid=self._solution['messaging_service_sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.DomainConfigMessagingServiceContext {}>".format(
-            context
-        )
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Messaging.V1.DomainConfigMessagingServiceContext {}>'.format(context)
+
 
 
 class DomainConfigMessagingServiceList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the DomainConfigMessagingServiceList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
+
+        
+        
+        
+        
 
     def get(self, messaging_service_sid: str) -> DomainConfigMessagingServiceContext:
         """
         Constructs a DomainConfigMessagingServiceContext
-
+        
         :param messaging_service_sid: Unique string used to identify the Messaging service that this domain should be associated with.
         """
-        return DomainConfigMessagingServiceContext(
-            self._version, messaging_service_sid=messaging_service_sid
-        )
+        return DomainConfigMessagingServiceContext(self._version, messaging_service_sid=messaging_service_sid)
 
-    def __call__(
-        self, messaging_service_sid: str
-    ) -> DomainConfigMessagingServiceContext:
+    def __call__(self, messaging_service_sid: str) -> DomainConfigMessagingServiceContext:
         """
         Constructs a DomainConfigMessagingServiceContext
-
+        
         :param messaging_service_sid: Unique string used to identify the Messaging service that this domain should be associated with.
         """
-        return DomainConfigMessagingServiceContext(
-            self._version, messaging_service_sid=messaging_service_sid
-        )
+        return DomainConfigMessagingServiceContext(self._version, messaging_service_sid=messaging_service_sid)
 
     def __repr__(self) -> str:
         """
@@ -215,4 +202,5 @@ class DomainConfigMessagingServiceList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Messaging.V1.DomainConfigMessagingServiceList>"
+        return '<Twilio.Messaging.V1.DomainConfigMessagingServiceList>'
+

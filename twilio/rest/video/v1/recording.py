@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -66,39 +68,31 @@ class RecordingInstance(InstanceResource):
     :ivar links: The URLs of related resources.
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.status: Optional["RecordingInstance.Status"] = payload.get("status")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
         self.sid: Optional[str] = payload.get("sid")
         self.source_sid: Optional[str] = payload.get("source_sid")
         self.size: Optional[int] = payload.get("size")
         self.url: Optional[str] = payload.get("url")
         self.type: Optional["RecordingInstance.Type"] = payload.get("type")
         self.duration: Optional[int] = deserialize.integer(payload.get("duration"))
-        self.container_format: Optional["RecordingInstance.Format"] = payload.get(
-            "container_format"
-        )
+        self.container_format: Optional["RecordingInstance.Format"] = payload.get("container_format")
         self.codec: Optional["RecordingInstance.Codec"] = payload.get("codec")
         self.grouping_sids: Optional[Dict[str, object]] = payload.get("grouping_sids")
         self.track_name: Optional[str] = payload.get("track_name")
         self.offset: Optional[int] = payload.get("offset")
-        self.media_external_location: Optional[str] = payload.get(
-            "media_external_location"
-        )
+        self.media_external_location: Optional[str] = payload.get("media_external_location")
         self.status_callback: Optional[str] = payload.get("status_callback")
-        self.status_callback_method: Optional[str] = payload.get(
-            "status_callback_method"
-        )
+        self.status_callback_method: Optional[str] = payload.get("status_callback_method")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        self._solution = {
+        
+        self._solution = { 
             "sid": sid or self.sid,
         }
         self._context: Optional[RecordingContext] = None
@@ -112,34 +106,32 @@ class RecordingInstance(InstanceResource):
         :returns: RecordingContext for this RecordingInstance
         """
         if self._context is None:
-            self._context = RecordingContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
+            self._context = RecordingContext(self._version, sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the RecordingInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the RecordingInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "RecordingInstance":
         """
         Fetch the RecordingInstance
-
+        
 
         :returns: The fetched RecordingInstance
         """
@@ -148,21 +140,20 @@ class RecordingInstance(InstanceResource):
     async def fetch_async(self) -> "RecordingInstance":
         """
         Asynchronous coroutine to fetch the RecordingInstance
-
+        
 
         :returns: The fetched RecordingInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.RecordingInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Video.V1.RecordingInstance {}>'.format(context)
 
 class RecordingContext(InstanceContext):
 
@@ -175,82 +166,82 @@ class RecordingContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
+        self._solution = { 
+            'sid': sid,
         }
-        self._uri = "/Recordings/{sid}".format(**self._solution)
-
+        self._uri = '/Recordings/{sid}'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the RecordingInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the RecordingInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> RecordingInstance:
         """
         Fetch the RecordingInstance
-
+        
 
         :returns: The fetched RecordingInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RecordingInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> RecordingInstance:
         """
         Asynchronous coroutine to fetch the RecordingInstance
-
+        
 
         :returns: The fetched RecordingInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return RecordingInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.RecordingContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Video.V1.RecordingContext {}>'.format(context)
+
+
+
+
+
 
 
 class RecordingPage(Page):
@@ -272,27 +263,35 @@ class RecordingPage(Page):
         return "<Twilio.Video.V1.RecordingPage>"
 
 
-class RecordingList(ListResource):
 
+
+
+class RecordingList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the RecordingList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/Recordings"
-
-    def stream(
-        self,
+        
+        self._uri = '/Recordings'
+        
+        
+    
+    
+    
+    def stream(self, 
         status: Union["RecordingInstance.Status", object] = values.unset,
         source_sid: Union[str, object] = values.unset,
         grouping_sid: Union[List[str], object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         media_type: Union["RecordingInstance.Type", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[RecordingInstance]:
@@ -301,7 +300,7 @@ class RecordingList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;RecordingInstance.Status&quot; status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param List[str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
@@ -325,19 +324,19 @@ class RecordingList(ListResource):
             date_created_after=date_created_after,
             date_created_before=date_created_before,
             media_type=media_type,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         status: Union["RecordingInstance.Status", object] = values.unset,
         source_sid: Union[str, object] = values.unset,
         grouping_sid: Union[List[str], object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         media_type: Union["RecordingInstance.Type", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[RecordingInstance]:
@@ -346,7 +345,7 @@ class RecordingList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;RecordingInstance.Status&quot; status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param List[str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
@@ -370,19 +369,19 @@ class RecordingList(ListResource):
             date_created_after=date_created_after,
             date_created_before=date_created_before,
             media_type=media_type,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         status: Union["RecordingInstance.Status", object] = values.unset,
         source_sid: Union[str, object] = values.unset,
         grouping_sid: Union[List[str], object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         media_type: Union["RecordingInstance.Type", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[RecordingInstance]:
@@ -390,7 +389,7 @@ class RecordingList(ListResource):
         Lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;RecordingInstance.Status&quot; status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param List[str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
@@ -406,27 +405,25 @@ class RecordingList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                status=status,
-                source_sid=source_sid,
-                grouping_sid=grouping_sid,
-                date_created_after=date_created_after,
-                date_created_before=date_created_before,
-                media_type=media_type,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            status=status,
+            source_sid=source_sid,
+            grouping_sid=grouping_sid,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            media_type=media_type,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         status: Union["RecordingInstance.Status", object] = values.unset,
         source_sid: Union[str, object] = values.unset,
         grouping_sid: Union[List[str], object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         media_type: Union["RecordingInstance.Type", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[RecordingInstance]:
@@ -434,7 +431,7 @@ class RecordingList(ListResource):
         Asynchronously lists RecordingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;RecordingInstance.Status&quot; status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param str source_sid: Read only the recordings that have this `source_sid`.
         :param List[str] grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
@@ -450,28 +447,25 @@ class RecordingList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                status=status,
-                source_sid=source_sid,
-                grouping_sid=grouping_sid,
-                date_created_after=date_created_after,
-                date_created_before=date_created_before,
-                media_type=media_type,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            status=status,
+            source_sid=source_sid,
+            grouping_sid=grouping_sid,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            media_type=media_type,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         status: Union["RecordingInstance.Status", object] = values.unset,
         source_sid: Union[str, object] = values.unset,
         grouping_sid: Union[List[str], object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         media_type: Union["RecordingInstance.Type", object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -479,7 +473,7 @@ class RecordingList(ListResource):
         """
         Retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
-
+        
         :param status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param source_sid: Read only the recordings that have this `source_sid`.
         :param grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
@@ -492,31 +486,29 @@ class RecordingList(ListResource):
 
         :returns: Page of RecordingInstance
         """
-        data = values.of(
-            {
-                "Status": status,
-                "SourceSid": source_sid,
-                "GroupingSid": serialize.map(grouping_sid, lambda e: e),
-                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
-                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
-                "MediaType": media_type,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Status': status,
+            'SourceSid': source_sid,
+            'GroupingSid': serialize.map(grouping_sid, lambda e: e),
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
+            'MediaType': media_type,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return RecordingPage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         status: Union["RecordingInstance.Status", object] = values.unset,
         source_sid: Union[str, object] = values.unset,
         grouping_sid: Union[List[str], object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         media_type: Union["RecordingInstance.Type", object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -524,7 +516,7 @@ class RecordingList(ListResource):
         """
         Asynchronously retrieve a single page of RecordingInstance records from the API.
         Request is executed immediately
-
+        
         :param status: Read only the recordings that have this status. Can be: `processing`, `completed`, or `deleted`.
         :param source_sid: Read only the recordings that have this `source_sid`.
         :param grouping_sid: Read only recordings with this `grouping_sid`, which may include a `participant_sid` and/or a `room_sid`.
@@ -537,23 +529,19 @@ class RecordingList(ListResource):
 
         :returns: Page of RecordingInstance
         """
-        data = values.of(
-            {
-                "Status": status,
-                "SourceSid": source_sid,
-                "GroupingSid": serialize.map(grouping_sid, lambda e: e),
-                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
-                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
-                "MediaType": media_type,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Status': status,
+            'SourceSid': source_sid,
+            'GroupingSid': serialize.map(grouping_sid, lambda e: e),
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
+            'MediaType': media_type,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return RecordingPage(self._version, response)
 
     def get_page(self, target_url: str) -> RecordingPage:
@@ -565,7 +553,10 @@ class RecordingList(ListResource):
 
         :returns: Page of RecordingInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return RecordingPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> RecordingPage:
@@ -577,13 +568,18 @@ class RecordingList(ListResource):
 
         :returns: Page of RecordingInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return RecordingPage(self._version, response)
+
+
 
     def get(self, sid: str) -> RecordingContext:
         """
         Constructs a RecordingContext
-
+        
         :param sid: The SID of the Recording resource to fetch.
         """
         return RecordingContext(self._version, sid=sid)
@@ -591,7 +587,7 @@ class RecordingList(ListResource):
     def __call__(self, sid: str) -> RecordingContext:
         """
         Constructs a RecordingContext
-
+        
         :param sid: The SID of the Recording resource to fetch.
         """
         return RecordingContext(self._version, sid=sid)
@@ -602,4 +598,5 @@ class RecordingList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Video.V1.RecordingList>"
+        return '<Twilio.Video.V1.RecordingList>'
+

@@ -36,7 +36,7 @@ class V1(Version):
         self._conferences: Optional[ConferenceList] = None
         self._rooms: Optional[RoomList] = None
         self._settings: Optional[SettingList] = None
-
+        
     @property
     def calls(self) -> CallList:
         if self._calls is None:

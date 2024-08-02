@@ -12,7 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, Optional
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -24,25 +28,23 @@ from twilio.rest.bulkexports.v1.export.job import JobList
 
 
 class ExportInstance(InstanceResource):
+
     """
     :ivar resource_type: The type of communication – Messages, Calls, Conferences, and Participants
     :ivar url: The URL of this resource.
     :ivar links: Contains a dictionary of URL links to nested resources of this Export.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        resource_type: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], resource_type: Optional[str] = None):
         super().__init__(version)
 
+        
         self.resource_type: Optional[str] = payload.get("resource_type")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        self._solution = {
+        
+        self._solution = { 
             "resource_type": resource_type or self.resource_type,
         }
         self._context: Optional[ExportContext] = None
@@ -56,16 +58,14 @@ class ExportInstance(InstanceResource):
         :returns: ExportContext for this ExportInstance
         """
         if self._context is None:
-            self._context = ExportContext(
-                self._version,
-                resource_type=self._solution["resource_type"],
-            )
+            self._context = ExportContext(self._version, resource_type=self._solution['resource_type'],)
         return self._context
-
+    
+    
     def fetch(self) -> "ExportInstance":
         """
         Fetch the ExportInstance
-
+        
 
         :returns: The fetched ExportInstance
         """
@@ -74,35 +74,34 @@ class ExportInstance(InstanceResource):
     async def fetch_async(self) -> "ExportInstance":
         """
         Asynchronous coroutine to fetch the ExportInstance
-
+        
 
         :returns: The fetched ExportInstance
         """
         return await self._proxy.fetch_async()
-
+    
     @property
     def days(self) -> DayList:
         """
         Access the days
         """
         return self._proxy.days
-
+    
     @property
     def export_custom_jobs(self) -> ExportCustomJobList:
         """
         Access the export_custom_jobs
         """
         return self._proxy.export_custom_jobs
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Bulkexports.V1.ExportInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Bulkexports.V1.ExportInstance {}>'.format(context)
 
 class ExportContext(InstanceContext):
 
@@ -115,53 +114,52 @@ class ExportContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "resource_type": resource_type,
+        self._solution = { 
+            'resource_type': resource_type,
         }
-        self._uri = "/Exports/{resource_type}".format(**self._solution)
-
+        self._uri = '/Exports/{resource_type}'.format(**self._solution)
+        
         self._days: Optional[DayList] = None
         self._export_custom_jobs: Optional[ExportCustomJobList] = None
-
+    
+    
     def fetch(self) -> ExportInstance:
         """
         Fetch the ExportInstance
-
+        
 
         :returns: The fetched ExportInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ExportInstance(
             self._version,
             payload,
-            resource_type=self._solution["resource_type"],
+            resource_type=self._solution['resource_type'],
+            
         )
 
     async def fetch_async(self) -> ExportInstance:
         """
         Asynchronous coroutine to fetch the ExportInstance
-
+        
 
         :returns: The fetched ExportInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return ExportInstance(
             self._version,
             payload,
-            resource_type=self._solution["resource_type"],
+            resource_type=self._solution['resource_type'],
+            
         )
-
+    
+    
     @property
     def days(self) -> DayList:
         """
@@ -169,11 +167,11 @@ class ExportContext(InstanceContext):
         """
         if self._days is None:
             self._days = DayList(
-                self._version,
-                self._solution["resource_type"],
+                self._version, 
+                self._solution['resource_type'],
             )
         return self._days
-
+    
     @property
     def export_custom_jobs(self) -> ExportCustomJobList:
         """
@@ -181,35 +179,45 @@ class ExportContext(InstanceContext):
         """
         if self._export_custom_jobs is None:
             self._export_custom_jobs = ExportCustomJobList(
-                self._version,
-                self._solution["resource_type"],
+                self._version, 
+                self._solution['resource_type'],
             )
         return self._export_custom_jobs
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Bulkexports.V1.ExportContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Bulkexports.V1.ExportContext {}>'.format(context)
+
 
 
 class ExportList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the ExportList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/Exports"
-
+        
+        self._uri = '/Exports'
+        
         self._jobs: Optional[JobList] = None
+        
+    
+
+
+
+
+
+
 
     @property
     def jobs(self) -> JobList:
@@ -220,10 +228,11 @@ class ExportList(ListResource):
             self._jobs = JobList(self._version)
         return self._jobs
 
+
     def get(self, resource_type: str) -> ExportContext:
         """
         Constructs a ExportContext
-
+        
         :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
         """
         return ExportContext(self._version, resource_type=resource_type)
@@ -231,7 +240,7 @@ class ExportList(ListResource):
     def __call__(self, resource_type: str) -> ExportContext:
         """
         Constructs a ExportContext
-
+        
         :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
         """
         return ExportContext(self._version, resource_type=resource_type)
@@ -242,4 +251,5 @@ class ExportList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Bulkexports.V1.ExportList>"
+        return '<Twilio.Bulkexports.V1.ExportList>'
+

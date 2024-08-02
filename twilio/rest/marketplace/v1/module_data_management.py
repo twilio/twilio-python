@@ -12,30 +12,34 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, Optional, Union
-from twilio.base import values
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
 class ModuleDataManagementInstance(InstanceResource):
+
     """
-    :ivar url:
-    :ivar sid:
-    :ivar description:
-    :ivar support:
-    :ivar policies:
-    :ivar module_info:
-    :ivar documentation:
+    :ivar url: 
+    :ivar sid: 
+    :ivar description: 
+    :ivar support: 
+    :ivar policies: 
+    :ivar module_info: 
+    :ivar documentation: 
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.url: Optional[str] = payload.get("url")
         self.sid: Optional[str] = payload.get("sid")
         self.description: Optional[Dict[str, object]] = payload.get("description")
@@ -44,7 +48,8 @@ class ModuleDataManagementInstance(InstanceResource):
         self.module_info: Optional[Dict[str, object]] = payload.get("module_info")
         self.documentation: Optional[Dict[str, object]] = payload.get("documentation")
 
-        self._solution = {
+        
+        self._solution = { 
             "sid": sid or self.sid,
         }
         self._context: Optional[ModuleDataManagementContext] = None
@@ -58,16 +63,14 @@ class ModuleDataManagementInstance(InstanceResource):
         :returns: ModuleDataManagementContext for this ModuleDataManagementInstance
         """
         if self._context is None:
-            self._context = ModuleDataManagementContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
+            self._context = ModuleDataManagementContext(self._version, sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def fetch(self) -> "ModuleDataManagementInstance":
         """
         Fetch the ModuleDataManagementInstance
-
+        
 
         :returns: The fetched ModuleDataManagementInstance
         """
@@ -76,75 +79,49 @@ class ModuleDataManagementInstance(InstanceResource):
     async def fetch_async(self) -> "ModuleDataManagementInstance":
         """
         Asynchronous coroutine to fetch the ModuleDataManagementInstance
-
+        
 
         :returns: The fetched ModuleDataManagementInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        module_info: Union[str, object] = values.unset,
-        description: Union[str, object] = values.unset,
-        documentation: Union[str, object] = values.unset,
-        policies: Union[str, object] = values.unset,
-        support: Union[str, object] = values.unset,
-    ) -> "ModuleDataManagementInstance":
+    
+    
+    def update(self, module_info: Union[str, object]=values.unset, description: Union[str, object]=values.unset, documentation: Union[str, object]=values.unset, policies: Union[str, object]=values.unset, support: Union[str, object]=values.unset) -> "ModuleDataManagementInstance":
         """
         Update the ModuleDataManagementInstance
-
-        :param module_info:
-        :param description:
-        :param documentation:
-        :param policies:
-        :param support:
+        
+        :param module_info: 
+        :param description: 
+        :param documentation: 
+        :param policies: 
+        :param support: 
 
         :returns: The updated ModuleDataManagementInstance
         """
-        return self._proxy.update(
-            module_info=module_info,
-            description=description,
-            documentation=documentation,
-            policies=policies,
-            support=support,
-        )
+        return self._proxy.update(module_info=module_info, description=description, documentation=documentation, policies=policies, support=support, )
 
-    async def update_async(
-        self,
-        module_info: Union[str, object] = values.unset,
-        description: Union[str, object] = values.unset,
-        documentation: Union[str, object] = values.unset,
-        policies: Union[str, object] = values.unset,
-        support: Union[str, object] = values.unset,
-    ) -> "ModuleDataManagementInstance":
+    async def update_async(self, module_info: Union[str, object]=values.unset, description: Union[str, object]=values.unset, documentation: Union[str, object]=values.unset, policies: Union[str, object]=values.unset, support: Union[str, object]=values.unset) -> "ModuleDataManagementInstance":
         """
         Asynchronous coroutine to update the ModuleDataManagementInstance
-
-        :param module_info:
-        :param description:
-        :param documentation:
-        :param policies:
-        :param support:
+        
+        :param module_info: 
+        :param description: 
+        :param documentation: 
+        :param policies: 
+        :param support: 
 
         :returns: The updated ModuleDataManagementInstance
         """
-        return await self._proxy.update_async(
-            module_info=module_info,
-            description=description,
-            documentation=documentation,
-            policies=policies,
-            support=support,
-        )
-
+        return await self._proxy.update_async(module_info=module_info, description=description, documentation=documentation, policies=policies, support=support, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Marketplace.V1.ModuleDataManagementInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Marketplace.V1.ModuleDataManagementInstance {}>'.format(context)
 
 class ModuleDataManagementContext(InstanceContext):
 
@@ -153,166 +130,153 @@ class ModuleDataManagementContext(InstanceContext):
         Initialize the ModuleDataManagementContext
 
         :param version: Version that contains the resource
-        :param sid:
+        :param sid: 
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
+        self._solution = { 
+            'sid': sid,
         }
-        self._uri = "/Listing/{sid}".format(**self._solution)
-
+        self._uri = '/Listing/{sid}'.format(**self._solution)
+        
+    
+    
     def fetch(self) -> ModuleDataManagementInstance:
         """
         Fetch the ModuleDataManagementInstance
-
+        
 
         :returns: The fetched ModuleDataManagementInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ModuleDataManagementInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> ModuleDataManagementInstance:
         """
         Asynchronous coroutine to fetch the ModuleDataManagementInstance
-
+        
 
         :returns: The fetched ModuleDataManagementInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return ModuleDataManagementInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
-
-    def update(
-        self,
-        module_info: Union[str, object] = values.unset,
-        description: Union[str, object] = values.unset,
-        documentation: Union[str, object] = values.unset,
-        policies: Union[str, object] = values.unset,
-        support: Union[str, object] = values.unset,
-    ) -> ModuleDataManagementInstance:
+    
+    
+    def update(self, module_info: Union[str, object]=values.unset, description: Union[str, object]=values.unset, documentation: Union[str, object]=values.unset, policies: Union[str, object]=values.unset, support: Union[str, object]=values.unset) -> ModuleDataManagementInstance:
         """
         Update the ModuleDataManagementInstance
-
-        :param module_info:
-        :param description:
-        :param documentation:
-        :param policies:
-        :param support:
+        
+        :param module_info: 
+        :param description: 
+        :param documentation: 
+        :param policies: 
+        :param support: 
 
         :returns: The updated ModuleDataManagementInstance
         """
-        data = values.of(
-            {
-                "ModuleInfo": module_info,
-                "Description": description,
-                "Documentation": documentation,
-                "Policies": policies,
-                "Support": support,
-            }
-        )
+        data = values.of({ 
+            'ModuleInfo': module_info,
+            'Description': description,
+            'Documentation': documentation,
+            'Policies': policies,
+            'Support': support,
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ModuleDataManagementInstance(
-            self._version, payload, sid=self._solution["sid"]
+            self._version,
+            payload,
+            sid=self._solution['sid']
         )
 
-    async def update_async(
-        self,
-        module_info: Union[str, object] = values.unset,
-        description: Union[str, object] = values.unset,
-        documentation: Union[str, object] = values.unset,
-        policies: Union[str, object] = values.unset,
-        support: Union[str, object] = values.unset,
-    ) -> ModuleDataManagementInstance:
+    async def update_async(self, module_info: Union[str, object]=values.unset, description: Union[str, object]=values.unset, documentation: Union[str, object]=values.unset, policies: Union[str, object]=values.unset, support: Union[str, object]=values.unset) -> ModuleDataManagementInstance:
         """
         Asynchronous coroutine to update the ModuleDataManagementInstance
-
-        :param module_info:
-        :param description:
-        :param documentation:
-        :param policies:
-        :param support:
+        
+        :param module_info: 
+        :param description: 
+        :param documentation: 
+        :param policies: 
+        :param support: 
 
         :returns: The updated ModuleDataManagementInstance
         """
-        data = values.of(
-            {
-                "ModuleInfo": module_info,
-                "Description": description,
-                "Documentation": documentation,
-                "Policies": policies,
-                "Support": support,
-            }
-        )
+        data = values.of({ 
+            'ModuleInfo': module_info,
+            'Description': description,
+            'Documentation': documentation,
+            'Policies': policies,
+            'Support': support,
+        })
+        
 
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
 
         return ModuleDataManagementInstance(
-            self._version, payload, sid=self._solution["sid"]
+            self._version,
+            payload,
+            sid=self._solution['sid']
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Marketplace.V1.ModuleDataManagementContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Marketplace.V1.ModuleDataManagementContext {}>'.format(context)
+
 
 
 class ModuleDataManagementList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the ModuleDataManagementList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
+
+        
+        
+        
+        
 
     def get(self, sid: str) -> ModuleDataManagementContext:
         """
         Constructs a ModuleDataManagementContext
-
-        :param sid:
+        
+        :param sid: 
         """
         return ModuleDataManagementContext(self._version, sid=sid)
 
     def __call__(self, sid: str) -> ModuleDataManagementContext:
         """
         Constructs a ModuleDataManagementContext
-
-        :param sid:
+        
+        :param sid: 
         """
         return ModuleDataManagementContext(self._version, sid=sid)
 
@@ -322,4 +286,5 @@ class ModuleDataManagementList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Marketplace.V1.ModuleDataManagementList>"
+        return '<Twilio.Marketplace.V1.ModuleDataManagementList>'
+

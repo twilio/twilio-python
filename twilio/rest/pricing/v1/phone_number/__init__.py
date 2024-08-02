@@ -12,7 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Optional
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 
 
 from twilio.base.list_resource import ListResource
@@ -21,20 +25,28 @@ from twilio.base.version import Version
 from twilio.rest.pricing.v1.phone_number.country import CountryList
 
 
-class PhoneNumberList(ListResource):
 
+
+
+
+class PhoneNumberList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the PhoneNumberList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/PhoneNumbers"
-
+        
+        self._uri = '/PhoneNumbers'
+        
         self._countries: Optional[CountryList] = None
+        
+
+
 
     @property
     def countries(self) -> CountryList:
@@ -45,10 +57,13 @@ class PhoneNumberList(ListResource):
             self._countries = CountryList(self._version)
         return self._countries
 
+
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Pricing.V1.PhoneNumberList>"
+        return '<Twilio.Pricing.V1.PhoneNumberList>'
+

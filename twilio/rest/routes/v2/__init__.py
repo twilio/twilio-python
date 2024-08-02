@@ -32,7 +32,7 @@ class V2(Version):
         self._phone_numbers: Optional[PhoneNumberList] = None
         self._sip_domains: Optional[SipDomainList] = None
         self._trunks: Optional[TrunkList] = None
-
+        
     @property
     def phone_numbers(self) -> PhoneNumberList:
         if self._phone_numbers is None:

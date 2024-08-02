@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -74,51 +76,32 @@ class InteractionInstance(InstanceResource):
     :ivar url: The absolute URL of the Interaction resource.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        service_sid: str,
-        session_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, session_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.session_sid: Optional[str] = payload.get("session_sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.data: Optional[str] = payload.get("data")
         self.type: Optional["InteractionInstance.Type"] = payload.get("type")
-        self.inbound_participant_sid: Optional[str] = payload.get(
-            "inbound_participant_sid"
-        )
+        self.inbound_participant_sid: Optional[str] = payload.get("inbound_participant_sid")
         self.inbound_resource_sid: Optional[str] = payload.get("inbound_resource_sid")
-        self.inbound_resource_status: Optional["InteractionInstance.ResourceStatus"] = (
-            payload.get("inbound_resource_status")
-        )
+        self.inbound_resource_status: Optional["InteractionInstance.ResourceStatus"] = payload.get("inbound_resource_status")
         self.inbound_resource_type: Optional[str] = payload.get("inbound_resource_type")
         self.inbound_resource_url: Optional[str] = payload.get("inbound_resource_url")
-        self.outbound_participant_sid: Optional[str] = payload.get(
-            "outbound_participant_sid"
-        )
+        self.outbound_participant_sid: Optional[str] = payload.get("outbound_participant_sid")
         self.outbound_resource_sid: Optional[str] = payload.get("outbound_resource_sid")
-        self.outbound_resource_status: Optional[
-            "InteractionInstance.ResourceStatus"
-        ] = payload.get("outbound_resource_status")
-        self.outbound_resource_type: Optional[str] = payload.get(
-            "outbound_resource_type"
-        )
+        self.outbound_resource_status: Optional["InteractionInstance.ResourceStatus"] = payload.get("outbound_resource_status")
+        self.outbound_resource_type: Optional[str] = payload.get("outbound_resource_type")
         self.outbound_resource_url: Optional[str] = payload.get("outbound_resource_url")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "service_sid": service_sid,
             "session_sid": session_sid,
             "sid": sid or self.sid,
@@ -134,36 +117,32 @@ class InteractionInstance(InstanceResource):
         :returns: InteractionContext for this InteractionInstance
         """
         if self._context is None:
-            self._context = InteractionContext(
-                self._version,
-                service_sid=self._solution["service_sid"],
-                session_sid=self._solution["session_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = InteractionContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the InteractionInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the InteractionInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "InteractionInstance":
         """
         Fetch the InteractionInstance
-
+        
 
         :returns: The fetched InteractionInstance
         """
@@ -172,21 +151,20 @@ class InteractionInstance(InstanceResource):
     async def fetch_async(self) -> "InteractionInstance":
         """
         Asynchronous coroutine to fetch the InteractionInstance
-
+        
 
         :returns: The fetched InteractionInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Proxy.V1.InteractionInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Proxy.V1.InteractionInstance {}>'.format(context)
 
 class InteractionContext(InstanceContext):
 
@@ -201,92 +179,88 @@ class InteractionContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "session_sid": session_sid,
-            "sid": sid,
+        self._solution = { 
+            'service_sid': service_sid,
+            'session_sid': session_sid,
+            'sid': sid,
         }
-        self._uri = (
-            "/Services/{service_sid}/Sessions/{session_sid}/Interactions/{sid}".format(
-                **self._solution
-            )
-        )
-
+        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Interactions/{sid}'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the InteractionInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the InteractionInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> InteractionInstance:
         """
         Fetch the InteractionInstance
-
+        
 
         :returns: The fetched InteractionInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return InteractionInstance(
             self._version,
             payload,
-            service_sid=self._solution["service_sid"],
-            session_sid=self._solution["session_sid"],
-            sid=self._solution["sid"],
+            service_sid=self._solution['service_sid'],
+            session_sid=self._solution['session_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> InteractionInstance:
         """
         Asynchronous coroutine to fetch the InteractionInstance
-
+        
 
         :returns: The fetched InteractionInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return InteractionInstance(
             self._version,
             payload,
-            service_sid=self._solution["service_sid"],
-            session_sid=self._solution["session_sid"],
-            sid=self._solution["sid"],
+            service_sid=self._solution['service_sid'],
+            session_sid=self._solution['session_sid'],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Proxy.V1.InteractionContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Proxy.V1.InteractionContext {}>'.format(context)
+
+
+
+
+
 
 
 class InteractionPage(Page):
@@ -297,12 +271,7 @@ class InteractionPage(Page):
 
         :param payload: Payload response from the API
         """
-        return InteractionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            session_sid=self._solution["session_sid"],
-        )
+        return InteractionInstance(self._version, payload, service_sid=self._solution["service_sid"], session_sid=self._solution["session_sid"])
 
     def __repr__(self) -> str:
         """
@@ -313,8 +282,11 @@ class InteractionPage(Page):
         return "<Twilio.Proxy.V1.InteractionPage>"
 
 
-class InteractionList(ListResource):
 
+
+
+class InteractionList(ListResource):
+    
     def __init__(self, version: Version, service_sid: str, session_sid: str):
         """
         Initialize the InteractionList
@@ -322,23 +294,21 @@ class InteractionList(ListResource):
         :param version: Version that contains the resource
         :param service_sid: The SID of the parent [Service](https://www.twilio.com/docs/proxy/api/service) to read the resources from.
         :param session_sid: The SID of the parent [Session](https://www.twilio.com/docs/proxy/api/session) to read the resources from.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "session_sid": session_sid,
-        }
-        self._uri = (
-            "/Services/{service_sid}/Sessions/{session_sid}/Interactions".format(
-                **self._solution
-            )
-        )
-
-    def stream(
-        self,
+        self._solution = { 'service_sid': service_sid, 'session_sid': session_sid,  }
+        self._uri = '/Services/{service_sid}/Sessions/{session_sid}/Interactions'.format(**self._solution)
+        
+        
+    
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[InteractionInstance]:
@@ -347,7 +317,7 @@ class InteractionList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -358,12 +328,14 @@ class InteractionList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[InteractionInstance]:
@@ -372,7 +344,7 @@ class InteractionList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -383,12 +355,14 @@ class InteractionList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[InteractionInstance]:
@@ -396,7 +370,7 @@ class InteractionList(ListResource):
         Lists InteractionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -406,15 +380,13 @@ class InteractionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[InteractionInstance]:
@@ -422,7 +394,7 @@ class InteractionList(ListResource):
         Asynchronously lists InteractionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -432,16 +404,13 @@ class InteractionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -449,26 +418,24 @@ class InteractionList(ListResource):
         """
         Retrieve a single page of InteractionInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InteractionInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return InteractionPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -476,24 +443,20 @@ class InteractionList(ListResource):
         """
         Asynchronously retrieve a single page of InteractionInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InteractionInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return InteractionPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> InteractionPage:
@@ -505,7 +468,10 @@ class InteractionList(ListResource):
 
         :returns: Page of InteractionInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return InteractionPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> InteractionPage:
@@ -517,34 +483,29 @@ class InteractionList(ListResource):
 
         :returns: Page of InteractionInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return InteractionPage(self._version, response, self._solution)
+
+
 
     def get(self, sid: str) -> InteractionContext:
         """
         Constructs a InteractionContext
-
+        
         :param sid: The Twilio-provided string that uniquely identifies the Interaction resource to fetch.
         """
-        return InteractionContext(
-            self._version,
-            service_sid=self._solution["service_sid"],
-            session_sid=self._solution["session_sid"],
-            sid=sid,
-        )
+        return InteractionContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], sid=sid)
 
     def __call__(self, sid: str) -> InteractionContext:
         """
         Constructs a InteractionContext
-
+        
         :param sid: The Twilio-provided string that uniquely identifies the Interaction resource to fetch.
         """
-        return InteractionContext(
-            self._version,
-            service_sid=self._solution["service_sid"],
-            session_sid=self._solution["session_sid"],
-            sid=sid,
-        )
+        return InteractionContext(self._version, service_sid=self._solution['service_sid'], session_sid=self._solution['session_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -552,4 +513,5 @@ class InteractionList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Proxy.V1.InteractionList>"
+        return '<Twilio.Proxy.V1.InteractionList>'
+

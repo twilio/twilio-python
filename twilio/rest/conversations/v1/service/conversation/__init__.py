@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -21,9 +23,7 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.conversations.v1.service.conversation.message import MessageList
-from twilio.rest.conversations.v1.service.conversation.participant import (
-    ParticipantList,
-)
+from twilio.rest.conversations.v1.service.conversation.participant import ParticipantList
 from twilio.rest.conversations.v1.service.conversation.webhook import WebhookList
 
 
@@ -55,15 +55,10 @@ class ConversationInstance(InstanceResource):
     :ivar bindings: 
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        chat_service_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], chat_service_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.chat_service_sid: Optional[str] = payload.get("chat_service_sid")
         self.messaging_service_sid: Optional[str] = payload.get("messaging_service_sid")
@@ -72,18 +67,15 @@ class ConversationInstance(InstanceResource):
         self.unique_name: Optional[str] = payload.get("unique_name")
         self.attributes: Optional[str] = payload.get("attributes")
         self.state: Optional["ConversationInstance.State"] = payload.get("state")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.timers: Optional[Dict[str, object]] = payload.get("timers")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
         self.bindings: Optional[Dict[str, object]] = payload.get("bindings")
 
-        self._solution = {
+        
+        self._solution = { 
             "chat_service_sid": chat_service_sid,
             "sid": sid or self.sid,
         }
@@ -98,51 +90,34 @@ class ConversationInstance(InstanceResource):
         :returns: ConversationContext for this ConversationInstance
         """
         if self._context is None:
-            self._context = ConversationContext(
-                self._version,
-                chat_service_sid=self._solution["chat_service_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = ConversationContext(self._version, chat_service_sid=self._solution['chat_service_sid'], sid=self._solution['sid'],)
         return self._context
-
-    def delete(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "ConversationInstance.WebhookEnabledType", object
-        ] = values.unset,
-    ) -> bool:
+    
+    
+    def delete(self, x_twilio_webhook_enabled: Union["ConversationInstance.WebhookEnabledType", object]=values.unset) -> bool:
         """
         Deletes the ConversationInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._proxy.delete(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-        )
-
-    async def delete_async(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "ConversationInstance.WebhookEnabledType", object
-        ] = values.unset,
-    ) -> bool:
+        return self._proxy.delete(x_twilio_webhook_enabled=x_twilio_webhook_enabled, )
+    async def delete_async(self, x_twilio_webhook_enabled: Union["ConversationInstance.WebhookEnabledType", object]=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the ConversationInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._proxy.delete_async(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-        )
-
+        return await self._proxy.delete_async(x_twilio_webhook_enabled=x_twilio_webhook_enabled, )
+    
+    
     def fetch(self) -> "ConversationInstance":
         """
         Fetch the ConversationInstance
-
+        
 
         :returns: The fetched ConversationInstance
         """
@@ -151,39 +126,24 @@ class ConversationInstance(InstanceResource):
     async def fetch_async(self) -> "ConversationInstance":
         """
         Asynchronous coroutine to fetch the ConversationInstance
-
+        
 
         :returns: The fetched ConversationInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "ConversationInstance.WebhookEnabledType", object
-        ] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        date_created: Union[datetime, object] = values.unset,
-        date_updated: Union[datetime, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        messaging_service_sid: Union[str, object] = values.unset,
-        state: Union["ConversationInstance.State", object] = values.unset,
-        timers_inactive: Union[str, object] = values.unset,
-        timers_closed: Union[str, object] = values.unset,
-        unique_name: Union[str, object] = values.unset,
-        bindings_email_address: Union[str, object] = values.unset,
-        bindings_email_name: Union[str, object] = values.unset,
-    ) -> "ConversationInstance":
+    
+    
+    def update(self, x_twilio_webhook_enabled: Union["ConversationInstance.WebhookEnabledType", object]=values.unset, friendly_name: Union[str, object]=values.unset, date_created: Union[datetime, object]=values.unset, date_updated: Union[datetime, object]=values.unset, attributes: Union[str, object]=values.unset, messaging_service_sid: Union[str, object]=values.unset, state: Union["ConversationInstance.State", object]=values.unset, timers_inactive: Union[str, object]=values.unset, timers_closed: Union[str, object]=values.unset, unique_name: Union[str, object]=values.unset, bindings_email_address: Union[str, object]=values.unset, bindings_email_name: Union[str, object]=values.unset) -> "ConversationInstance":
         """
         Update the ConversationInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
-        :param state:
+        :param state: 
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
@@ -192,48 +152,19 @@ class ConversationInstance(InstanceResource):
 
         :returns: The updated ConversationInstance
         """
-        return self._proxy.update(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-            friendly_name=friendly_name,
-            date_created=date_created,
-            date_updated=date_updated,
-            attributes=attributes,
-            messaging_service_sid=messaging_service_sid,
-            state=state,
-            timers_inactive=timers_inactive,
-            timers_closed=timers_closed,
-            unique_name=unique_name,
-            bindings_email_address=bindings_email_address,
-            bindings_email_name=bindings_email_name,
-        )
+        return self._proxy.update(x_twilio_webhook_enabled=x_twilio_webhook_enabled, friendly_name=friendly_name, date_created=date_created, date_updated=date_updated, attributes=attributes, messaging_service_sid=messaging_service_sid, state=state, timers_inactive=timers_inactive, timers_closed=timers_closed, unique_name=unique_name, bindings_email_address=bindings_email_address, bindings_email_name=bindings_email_name, )
 
-    async def update_async(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "ConversationInstance.WebhookEnabledType", object
-        ] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        date_created: Union[datetime, object] = values.unset,
-        date_updated: Union[datetime, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        messaging_service_sid: Union[str, object] = values.unset,
-        state: Union["ConversationInstance.State", object] = values.unset,
-        timers_inactive: Union[str, object] = values.unset,
-        timers_closed: Union[str, object] = values.unset,
-        unique_name: Union[str, object] = values.unset,
-        bindings_email_address: Union[str, object] = values.unset,
-        bindings_email_name: Union[str, object] = values.unset,
-    ) -> "ConversationInstance":
+    async def update_async(self, x_twilio_webhook_enabled: Union["ConversationInstance.WebhookEnabledType", object]=values.unset, friendly_name: Union[str, object]=values.unset, date_created: Union[datetime, object]=values.unset, date_updated: Union[datetime, object]=values.unset, attributes: Union[str, object]=values.unset, messaging_service_sid: Union[str, object]=values.unset, state: Union["ConversationInstance.State", object]=values.unset, timers_inactive: Union[str, object]=values.unset, timers_closed: Union[str, object]=values.unset, unique_name: Union[str, object]=values.unset, bindings_email_address: Union[str, object]=values.unset, bindings_email_name: Union[str, object]=values.unset) -> "ConversationInstance":
         """
         Asynchronous coroutine to update the ConversationInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
-        :param state:
+        :param state: 
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
@@ -242,51 +173,37 @@ class ConversationInstance(InstanceResource):
 
         :returns: The updated ConversationInstance
         """
-        return await self._proxy.update_async(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-            friendly_name=friendly_name,
-            date_created=date_created,
-            date_updated=date_updated,
-            attributes=attributes,
-            messaging_service_sid=messaging_service_sid,
-            state=state,
-            timers_inactive=timers_inactive,
-            timers_closed=timers_closed,
-            unique_name=unique_name,
-            bindings_email_address=bindings_email_address,
-            bindings_email_name=bindings_email_name,
-        )
-
+        return await self._proxy.update_async(x_twilio_webhook_enabled=x_twilio_webhook_enabled, friendly_name=friendly_name, date_created=date_created, date_updated=date_updated, attributes=attributes, messaging_service_sid=messaging_service_sid, state=state, timers_inactive=timers_inactive, timers_closed=timers_closed, unique_name=unique_name, bindings_email_address=bindings_email_address, bindings_email_name=bindings_email_name, )
+    
     @property
     def messages(self) -> MessageList:
         """
         Access the messages
         """
         return self._proxy.messages
-
+    
     @property
     def participants(self) -> ParticipantList:
         """
         Access the participants
         """
         return self._proxy.participants
-
+    
     @property
     def webhooks(self) -> WebhookList:
         """
         Access the webhooks
         """
         return self._proxy.webhooks
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.ConversationInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.ConversationInstance {}>'.format(context)
 
 class ConversationContext(InstanceContext):
 
@@ -300,130 +217,92 @@ class ConversationContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
-            "sid": sid,
+        self._solution = { 
+            'chat_service_sid': chat_service_sid,
+            'sid': sid,
         }
-        self._uri = "/Services/{chat_service_sid}/Conversations/{sid}".format(
-            **self._solution
-        )
-
+        self._uri = '/Services/{chat_service_sid}/Conversations/{sid}'.format(**self._solution)
+        
         self._messages: Optional[MessageList] = None
         self._participants: Optional[ParticipantList] = None
         self._webhooks: Optional[WebhookList] = None
-
-    def delete(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "ConversationInstance.WebhookEnabledType", object
-        ] = values.unset,
-    ) -> bool:
+    
+    
+    def delete(self, x_twilio_webhook_enabled: Union["ConversationInstance.WebhookEnabledType", object]=values.unset) -> bool:
         """
         Deletes the ConversationInstance
 
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
-
-    async def delete_async(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "ConversationInstance.WebhookEnabledType", object
-        ] = values.unset,
-    ) -> bool:
+    async def delete_async(self, x_twilio_webhook_enabled: Union["ConversationInstance.WebhookEnabledType", object]=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the ConversationInstance
 
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
-
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
-        )
-
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        
+        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
+    
+    
     def fetch(self) -> ConversationInstance:
         """
         Fetch the ConversationInstance
-
+        
 
         :returns: The fetched ConversationInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ConversationInstance(
             self._version,
             payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
+            chat_service_sid=self._solution['chat_service_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> ConversationInstance:
         """
         Asynchronous coroutine to fetch the ConversationInstance
-
+        
 
         :returns: The fetched ConversationInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return ConversationInstance(
             self._version,
             payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
+            chat_service_sid=self._solution['chat_service_sid'],
+            sid=self._solution['sid'],
+            
         )
-
-    def update(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "ConversationInstance.WebhookEnabledType", object
-        ] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        date_created: Union[datetime, object] = values.unset,
-        date_updated: Union[datetime, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        messaging_service_sid: Union[str, object] = values.unset,
-        state: Union["ConversationInstance.State", object] = values.unset,
-        timers_inactive: Union[str, object] = values.unset,
-        timers_closed: Union[str, object] = values.unset,
-        unique_name: Union[str, object] = values.unset,
-        bindings_email_address: Union[str, object] = values.unset,
-        bindings_email_name: Union[str, object] = values.unset,
-    ) -> ConversationInstance:
+    
+    
+    def update(self, x_twilio_webhook_enabled: Union["ConversationInstance.WebhookEnabledType", object]=values.unset, friendly_name: Union[str, object]=values.unset, date_created: Union[datetime, object]=values.unset, date_updated: Union[datetime, object]=values.unset, attributes: Union[str, object]=values.unset, messaging_service_sid: Union[str, object]=values.unset, state: Union["ConversationInstance.State", object]=values.unset, timers_inactive: Union[str, object]=values.unset, timers_closed: Union[str, object]=values.unset, unique_name: Union[str, object]=values.unset, bindings_email_address: Union[str, object]=values.unset, bindings_email_name: Union[str, object]=values.unset) -> ConversationInstance:
         """
         Update the ConversationInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
-        :param state:
+        :param state: 
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
@@ -432,65 +311,41 @@ class ConversationContext(InstanceContext):
 
         :returns: The updated ConversationInstance
         """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateUpdated": serialize.iso8601_datetime(date_updated),
-                "Attributes": attributes,
-                "MessagingServiceSid": messaging_service_sid,
-                "State": state,
-                "Timers.Inactive": timers_inactive,
-                "Timers.Closed": timers_closed,
-                "UniqueName": unique_name,
-                "Bindings.Email.Address": bindings_email_address,
-                "Bindings.Email.Name": bindings_email_name,
-            }
-        )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
+            'MessagingServiceSid': messaging_service_sid,
+            'State': state,
+            'Timers.Inactive': timers_inactive,
+            'Timers.Closed': timers_closed,
+            'UniqueName': unique_name,
+            'Bindings.Email.Address': bindings_email_address,
+            'Bindings.Email.Name': bindings_email_name,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.update(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return ConversationInstance(
             self._version,
             payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
+            chat_service_sid=self._solution['chat_service_sid'],
+            sid=self._solution['sid']
         )
 
-    async def update_async(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "ConversationInstance.WebhookEnabledType", object
-        ] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        date_created: Union[datetime, object] = values.unset,
-        date_updated: Union[datetime, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        messaging_service_sid: Union[str, object] = values.unset,
-        state: Union["ConversationInstance.State", object] = values.unset,
-        timers_inactive: Union[str, object] = values.unset,
-        timers_closed: Union[str, object] = values.unset,
-        unique_name: Union[str, object] = values.unset,
-        bindings_email_address: Union[str, object] = values.unset,
-        bindings_email_name: Union[str, object] = values.unset,
-    ) -> ConversationInstance:
+    async def update_async(self, x_twilio_webhook_enabled: Union["ConversationInstance.WebhookEnabledType", object]=values.unset, friendly_name: Union[str, object]=values.unset, date_created: Union[datetime, object]=values.unset, date_updated: Union[datetime, object]=values.unset, attributes: Union[str, object]=values.unset, messaging_service_sid: Union[str, object]=values.unset, state: Union["ConversationInstance.State", object]=values.unset, timers_inactive: Union[str, object]=values.unset, timers_closed: Union[str, object]=values.unset, unique_name: Union[str, object]=values.unset, bindings_email_address: Union[str, object]=values.unset, bindings_email_name: Union[str, object]=values.unset) -> ConversationInstance:
         """
         Asynchronous coroutine to update the ConversationInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
         :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
         :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
-        :param state:
+        :param state: 
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
@@ -499,38 +354,31 @@ class ConversationContext(InstanceContext):
 
         :returns: The updated ConversationInstance
         """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateUpdated": serialize.iso8601_datetime(date_updated),
-                "Attributes": attributes,
-                "MessagingServiceSid": messaging_service_sid,
-                "State": state,
-                "Timers.Inactive": timers_inactive,
-                "Timers.Closed": timers_closed,
-                "UniqueName": unique_name,
-                "Bindings.Email.Address": bindings_email_address,
-                "Bindings.Email.Name": bindings_email_name,
-            }
-        )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
+            'MessagingServiceSid': messaging_service_sid,
+            'State': state,
+            'Timers.Inactive': timers_inactive,
+            'Timers.Closed': timers_closed,
+            'UniqueName': unique_name,
+            'Bindings.Email.Address': bindings_email_address,
+            'Bindings.Email.Name': bindings_email_name,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return ConversationInstance(
             self._version,
             payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
+            chat_service_sid=self._solution['chat_service_sid'],
+            sid=self._solution['sid']
         )
-
+    
+    
     @property
     def messages(self) -> MessageList:
         """
@@ -538,12 +386,12 @@ class ConversationContext(InstanceContext):
         """
         if self._messages is None:
             self._messages = MessageList(
-                self._version,
-                self._solution["chat_service_sid"],
-                self._solution["sid"],
+                self._version, 
+                self._solution['chat_service_sid'],
+                self._solution['sid'],
             )
         return self._messages
-
+    
     @property
     def participants(self) -> ParticipantList:
         """
@@ -551,12 +399,12 @@ class ConversationContext(InstanceContext):
         """
         if self._participants is None:
             self._participants = ParticipantList(
-                self._version,
-                self._solution["chat_service_sid"],
-                self._solution["sid"],
+                self._version, 
+                self._solution['chat_service_sid'],
+                self._solution['sid'],
             )
         return self._participants
-
+    
     @property
     def webhooks(self) -> WebhookList:
         """
@@ -564,20 +412,29 @@ class ConversationContext(InstanceContext):
         """
         if self._webhooks is None:
             self._webhooks = WebhookList(
-                self._version,
-                self._solution["chat_service_sid"],
-                self._solution["sid"],
+                self._version, 
+                self._solution['chat_service_sid'],
+                self._solution['sid'],
             )
         return self._webhooks
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.ConversationContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.ConversationContext {}>'.format(context)
+
+
+
+
+
+
+
+
+
 
 
 class ConversationPage(Page):
@@ -588,9 +445,7 @@ class ConversationPage(Page):
 
         :param payload: Payload response from the API
         """
-        return ConversationInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
-        )
+        return ConversationInstance(self._version, payload, chat_service_sid=self._solution["chat_service_sid"])
 
     def __repr__(self) -> str:
         """
@@ -601,43 +456,32 @@ class ConversationPage(Page):
         return "<Twilio.Conversations.V1.ConversationPage>"
 
 
-class ConversationList(ListResource):
 
+
+
+class ConversationList(ListResource):
+    
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the ConversationList
 
         :param version: Version that contains the resource
         :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Conversation resource is associated with.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
-        }
-        self._uri = "/Services/{chat_service_sid}/Conversations".format(
-            **self._solution
-        )
-
-    def create(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "ConversationInstance.WebhookEnabledType", object
-        ] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        unique_name: Union[str, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        messaging_service_sid: Union[str, object] = values.unset,
-        date_created: Union[datetime, object] = values.unset,
-        date_updated: Union[datetime, object] = values.unset,
-        state: Union["ConversationInstance.State", object] = values.unset,
-        timers_inactive: Union[str, object] = values.unset,
-        timers_closed: Union[str, object] = values.unset,
-        bindings_email_address: Union[str, object] = values.unset,
-        bindings_email_name: Union[str, object] = values.unset,
-    ) -> ConversationInstance:
+        self._solution = { 'chat_service_sid': chat_service_sid,  }
+        self._uri = '/Services/{chat_service_sid}/Conversations'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, x_twilio_webhook_enabled: Union["ConversationInstance.WebhookEnabledType", object]=values.unset, friendly_name: Union[str, object]=values.unset, unique_name: Union[str, object]=values.unset, attributes: Union[str, object]=values.unset, messaging_service_sid: Union[str, object]=values.unset, date_created: Union[datetime, object]=values.unset, date_updated: Union[datetime, object]=values.unset, state: Union["ConversationInstance.State", object]=values.unset, timers_inactive: Union[str, object]=values.unset, timers_closed: Union[str, object]=values.unset, bindings_email_address: Union[str, object]=values.unset, bindings_email_name: Union[str, object]=values.unset) -> ConversationInstance:
         """
         Create the ConversationInstance
 
@@ -648,62 +492,39 @@ class ConversationList(ListResource):
         :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
-        :param state:
+        :param state: 
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
         :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
         :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
-
+        
         :returns: The created ConversationInstance
         """
+        
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'Attributes': attributes,
+            'MessagingServiceSid': messaging_service_sid,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'State': state,
+            'Timers.Inactive': timers_inactive,
+            'Timers.Closed': timers_closed,
+            'Bindings.Email.Address': bindings_email_address,
+            'Bindings.Email.Name': bindings_email_name,
+        })
+        headers = values.of({
+                'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "UniqueName": unique_name,
-                "Attributes": attributes,
-                "MessagingServiceSid": messaging_service_sid,
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateUpdated": serialize.iso8601_datetime(date_updated),
-                "State": state,
-                "Timers.Inactive": timers_inactive,
-                "Timers.Closed": timers_closed,
-                "Bindings.Email.Address": bindings_email_address,
-                "Bindings.Email.Name": bindings_email_name,
-            }
-        )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
+        return ConversationInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'])
 
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ConversationInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
-        )
-
-    async def create_async(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "ConversationInstance.WebhookEnabledType", object
-        ] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        unique_name: Union[str, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        messaging_service_sid: Union[str, object] = values.unset,
-        date_created: Union[datetime, object] = values.unset,
-        date_updated: Union[datetime, object] = values.unset,
-        state: Union["ConversationInstance.State", object] = values.unset,
-        timers_inactive: Union[str, object] = values.unset,
-        timers_closed: Union[str, object] = values.unset,
-        bindings_email_address: Union[str, object] = values.unset,
-        bindings_email_name: Union[str, object] = values.unset,
-    ) -> ConversationInstance:
+    async def create_async(self, x_twilio_webhook_enabled: Union["ConversationInstance.WebhookEnabledType", object]=values.unset, friendly_name: Union[str, object]=values.unset, unique_name: Union[str, object]=values.unset, attributes: Union[str, object]=values.unset, messaging_service_sid: Union[str, object]=values.unset, date_created: Union[datetime, object]=values.unset, date_updated: Union[datetime, object]=values.unset, state: Union["ConversationInstance.State", object]=values.unset, timers_inactive: Union[str, object]=values.unset, timers_closed: Union[str, object]=values.unset, bindings_email_address: Union[str, object]=values.unset, bindings_email_name: Union[str, object]=values.unset) -> ConversationInstance:
         """
         Asynchronously create the ConversationInstance
 
@@ -714,50 +535,44 @@ class ConversationList(ListResource):
         :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
         :param date_created: The date that this resource was created.
         :param date_updated: The date that this resource was last updated.
-        :param state:
+        :param state: 
         :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
         :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
         :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
-
+        
         :returns: The created ConversationInstance
         """
+        
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'Attributes': attributes,
+            'MessagingServiceSid': messaging_service_sid,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'State': state,
+            'Timers.Inactive': timers_inactive,
+            'Timers.Closed': timers_closed,
+            'Bindings.Email.Address': bindings_email_address,
+            'Bindings.Email.Name': bindings_email_name,
+        })
+        headers = values.of({
+                'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "UniqueName": unique_name,
-                "Attributes": attributes,
-                "MessagingServiceSid": messaging_service_sid,
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateUpdated": serialize.iso8601_datetime(date_updated),
-                "State": state,
-                "Timers.Inactive": timers_inactive,
-                "Timers.Closed": timers_closed,
-                "Bindings.Email.Address": bindings_email_address,
-                "Bindings.Email.Name": bindings_email_name,
-            }
-        )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ConversationInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
-        )
-
-    def stream(
-        self,
+        return ConversationInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'])
+    
+    
+    def stream(self, 
         start_date: Union[str, object] = values.unset,
         end_date: Union[str, object] = values.unset,
         state: Union["ConversationInstance.State", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ConversationInstance]:
@@ -766,7 +581,7 @@ class ConversationList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param str end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
@@ -784,16 +599,16 @@ class ConversationList(ListResource):
             start_date=start_date,
             end_date=end_date,
             state=state,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         start_date: Union[str, object] = values.unset,
         end_date: Union[str, object] = values.unset,
         state: Union["ConversationInstance.State", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ConversationInstance]:
@@ -802,7 +617,7 @@ class ConversationList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param str end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
@@ -820,16 +635,16 @@ class ConversationList(ListResource):
             start_date=start_date,
             end_date=end_date,
             state=state,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         start_date: Union[str, object] = values.unset,
         end_date: Union[str, object] = values.unset,
         state: Union["ConversationInstance.State", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ConversationInstance]:
@@ -837,7 +652,7 @@ class ConversationList(ListResource):
         Lists ConversationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param str end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
@@ -850,21 +665,19 @@ class ConversationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                start_date=start_date,
-                end_date=end_date,
-                state=state,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            start_date=start_date,
+            end_date=end_date,
+            state=state,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         start_date: Union[str, object] = values.unset,
         end_date: Union[str, object] = values.unset,
         state: Union["ConversationInstance.State", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ConversationInstance]:
@@ -872,7 +685,7 @@ class ConversationList(ListResource):
         Asynchronously lists ConversationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param str end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
@@ -885,22 +698,19 @@ class ConversationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                start_date=start_date,
-                end_date=end_date,
-                state=state,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            start_date=start_date,
+            end_date=end_date,
+            state=state,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         start_date: Union[str, object] = values.unset,
         end_date: Union[str, object] = values.unset,
         state: Union["ConversationInstance.State", object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -908,7 +718,7 @@ class ConversationList(ListResource):
         """
         Retrieve a single page of ConversationInstance records from the API.
         Request is executed immediately
-
+        
         :param start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
@@ -918,25 +728,23 @@ class ConversationList(ListResource):
 
         :returns: Page of ConversationInstance
         """
-        data = values.of(
-            {
-                "StartDate": start_date,
-                "EndDate": end_date,
-                "State": state,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'StartDate': start_date,
+            'EndDate': end_date,
+            'State': state,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return ConversationPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         start_date: Union[str, object] = values.unset,
         end_date: Union[str, object] = values.unset,
         state: Union["ConversationInstance.State", object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -944,7 +752,7 @@ class ConversationList(ListResource):
         """
         Asynchronously retrieve a single page of ConversationInstance records from the API.
         Request is executed immediately
-
+        
         :param start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
         :param state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
@@ -954,20 +762,16 @@ class ConversationList(ListResource):
 
         :returns: Page of ConversationInstance
         """
-        data = values.of(
-            {
-                "StartDate": start_date,
-                "EndDate": end_date,
-                "State": state,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'StartDate': start_date,
+            'EndDate': end_date,
+            'State': state,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return ConversationPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> ConversationPage:
@@ -979,7 +783,10 @@ class ConversationList(ListResource):
 
         :returns: Page of ConversationInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return ConversationPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> ConversationPage:
@@ -991,28 +798,35 @@ class ConversationList(ListResource):
 
         :returns: Page of ConversationInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return ConversationPage(self._version, response, self._solution)
+
+
+
+
+
+
+
+
 
     def get(self, sid: str) -> ConversationContext:
         """
         Constructs a ConversationContext
-
+        
         :param sid: A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
         """
-        return ConversationContext(
-            self._version, chat_service_sid=self._solution["chat_service_sid"], sid=sid
-        )
+        return ConversationContext(self._version, chat_service_sid=self._solution['chat_service_sid'], sid=sid)
 
     def __call__(self, sid: str) -> ConversationContext:
         """
         Constructs a ConversationContext
-
+        
         :param sid: A 34 character string that uniquely identifies this resource. Can also be the `unique_name` of the Conversation.
         """
-        return ConversationContext(
-            self._version, chat_service_sid=self._solution["chat_service_sid"], sid=sid
-        )
+        return ConversationContext(self._version, chat_service_sid=self._solution['chat_service_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -1020,4 +834,5 @@ class ConversationList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Conversations.V1.ConversationList>"
+        return '<Twilio.Conversations.V1.ConversationList>'
+

@@ -12,15 +12,20 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, Optional, Union
-from twilio.base import serialize, values
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
 class NotificationInstance(InstanceResource):
+
     """
     :ivar account_sid: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this configuration.
     :ivar chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
@@ -31,24 +36,20 @@ class NotificationInstance(InstanceResource):
     :ivar url: An absolute API resource URL for this configuration.
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], chat_service_sid: str
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], chat_service_sid: str):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.chat_service_sid: Optional[str] = payload.get("chat_service_sid")
         self.new_message: Optional[Dict[str, object]] = payload.get("new_message")
-        self.added_to_conversation: Optional[Dict[str, object]] = payload.get(
-            "added_to_conversation"
-        )
-        self.removed_from_conversation: Optional[Dict[str, object]] = payload.get(
-            "removed_from_conversation"
-        )
+        self.added_to_conversation: Optional[Dict[str, object]] = payload.get("added_to_conversation")
+        self.removed_from_conversation: Optional[Dict[str, object]] = payload.get("removed_from_conversation")
         self.log_enabled: Optional[bool] = payload.get("log_enabled")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "chat_service_sid": chat_service_sid,
         }
         self._context: Optional[NotificationContext] = None
@@ -62,16 +63,14 @@ class NotificationInstance(InstanceResource):
         :returns: NotificationContext for this NotificationInstance
         """
         if self._context is None:
-            self._context = NotificationContext(
-                self._version,
-                chat_service_sid=self._solution["chat_service_sid"],
-            )
+            self._context = NotificationContext(self._version, chat_service_sid=self._solution['chat_service_sid'],)
         return self._context
-
+    
+    
     def fetch(self) -> "NotificationInstance":
         """
         Fetch the NotificationInstance
-
+        
 
         :returns: The fetched NotificationInstance
         """
@@ -80,31 +79,17 @@ class NotificationInstance(InstanceResource):
     async def fetch_async(self) -> "NotificationInstance":
         """
         Asynchronous coroutine to fetch the NotificationInstance
-
+        
 
         :returns: The fetched NotificationInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        log_enabled: Union[bool, object] = values.unset,
-        new_message_enabled: Union[bool, object] = values.unset,
-        new_message_template: Union[str, object] = values.unset,
-        new_message_sound: Union[str, object] = values.unset,
-        new_message_badge_count_enabled: Union[bool, object] = values.unset,
-        added_to_conversation_enabled: Union[bool, object] = values.unset,
-        added_to_conversation_template: Union[str, object] = values.unset,
-        added_to_conversation_sound: Union[str, object] = values.unset,
-        removed_from_conversation_enabled: Union[bool, object] = values.unset,
-        removed_from_conversation_template: Union[str, object] = values.unset,
-        removed_from_conversation_sound: Union[str, object] = values.unset,
-        new_message_with_media_enabled: Union[bool, object] = values.unset,
-        new_message_with_media_template: Union[str, object] = values.unset,
-    ) -> "NotificationInstance":
+    
+    
+    def update(self, log_enabled: Union[bool, object]=values.unset, new_message_enabled: Union[bool, object]=values.unset, new_message_template: Union[str, object]=values.unset, new_message_sound: Union[str, object]=values.unset, new_message_badge_count_enabled: Union[bool, object]=values.unset, added_to_conversation_enabled: Union[bool, object]=values.unset, added_to_conversation_template: Union[str, object]=values.unset, added_to_conversation_sound: Union[str, object]=values.unset, removed_from_conversation_enabled: Union[bool, object]=values.unset, removed_from_conversation_template: Union[str, object]=values.unset, removed_from_conversation_sound: Union[str, object]=values.unset, new_message_with_media_enabled: Union[bool, object]=values.unset, new_message_with_media_template: Union[str, object]=values.unset) -> "NotificationInstance":
         """
         Update the NotificationInstance
-
+        
         :param log_enabled: Weather the notification logging is enabled.
         :param new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
         :param new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
@@ -121,41 +106,12 @@ class NotificationInstance(InstanceResource):
 
         :returns: The updated NotificationInstance
         """
-        return self._proxy.update(
-            log_enabled=log_enabled,
-            new_message_enabled=new_message_enabled,
-            new_message_template=new_message_template,
-            new_message_sound=new_message_sound,
-            new_message_badge_count_enabled=new_message_badge_count_enabled,
-            added_to_conversation_enabled=added_to_conversation_enabled,
-            added_to_conversation_template=added_to_conversation_template,
-            added_to_conversation_sound=added_to_conversation_sound,
-            removed_from_conversation_enabled=removed_from_conversation_enabled,
-            removed_from_conversation_template=removed_from_conversation_template,
-            removed_from_conversation_sound=removed_from_conversation_sound,
-            new_message_with_media_enabled=new_message_with_media_enabled,
-            new_message_with_media_template=new_message_with_media_template,
-        )
+        return self._proxy.update(log_enabled=log_enabled, new_message_enabled=new_message_enabled, new_message_template=new_message_template, new_message_sound=new_message_sound, new_message_badge_count_enabled=new_message_badge_count_enabled, added_to_conversation_enabled=added_to_conversation_enabled, added_to_conversation_template=added_to_conversation_template, added_to_conversation_sound=added_to_conversation_sound, removed_from_conversation_enabled=removed_from_conversation_enabled, removed_from_conversation_template=removed_from_conversation_template, removed_from_conversation_sound=removed_from_conversation_sound, new_message_with_media_enabled=new_message_with_media_enabled, new_message_with_media_template=new_message_with_media_template, )
 
-    async def update_async(
-        self,
-        log_enabled: Union[bool, object] = values.unset,
-        new_message_enabled: Union[bool, object] = values.unset,
-        new_message_template: Union[str, object] = values.unset,
-        new_message_sound: Union[str, object] = values.unset,
-        new_message_badge_count_enabled: Union[bool, object] = values.unset,
-        added_to_conversation_enabled: Union[bool, object] = values.unset,
-        added_to_conversation_template: Union[str, object] = values.unset,
-        added_to_conversation_sound: Union[str, object] = values.unset,
-        removed_from_conversation_enabled: Union[bool, object] = values.unset,
-        removed_from_conversation_template: Union[str, object] = values.unset,
-        removed_from_conversation_sound: Union[str, object] = values.unset,
-        new_message_with_media_enabled: Union[bool, object] = values.unset,
-        new_message_with_media_template: Union[str, object] = values.unset,
-    ) -> "NotificationInstance":
+    async def update_async(self, log_enabled: Union[bool, object]=values.unset, new_message_enabled: Union[bool, object]=values.unset, new_message_template: Union[str, object]=values.unset, new_message_sound: Union[str, object]=values.unset, new_message_badge_count_enabled: Union[bool, object]=values.unset, added_to_conversation_enabled: Union[bool, object]=values.unset, added_to_conversation_template: Union[str, object]=values.unset, added_to_conversation_sound: Union[str, object]=values.unset, removed_from_conversation_enabled: Union[bool, object]=values.unset, removed_from_conversation_template: Union[str, object]=values.unset, removed_from_conversation_sound: Union[str, object]=values.unset, new_message_with_media_enabled: Union[bool, object]=values.unset, new_message_with_media_template: Union[str, object]=values.unset) -> "NotificationInstance":
         """
         Asynchronous coroutine to update the NotificationInstance
-
+        
         :param log_enabled: Weather the notification logging is enabled.
         :param new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
         :param new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
@@ -172,31 +128,16 @@ class NotificationInstance(InstanceResource):
 
         :returns: The updated NotificationInstance
         """
-        return await self._proxy.update_async(
-            log_enabled=log_enabled,
-            new_message_enabled=new_message_enabled,
-            new_message_template=new_message_template,
-            new_message_sound=new_message_sound,
-            new_message_badge_count_enabled=new_message_badge_count_enabled,
-            added_to_conversation_enabled=added_to_conversation_enabled,
-            added_to_conversation_template=added_to_conversation_template,
-            added_to_conversation_sound=added_to_conversation_sound,
-            removed_from_conversation_enabled=removed_from_conversation_enabled,
-            removed_from_conversation_template=removed_from_conversation_template,
-            removed_from_conversation_sound=removed_from_conversation_sound,
-            new_message_with_media_enabled=new_message_with_media_enabled,
-            new_message_with_media_template=new_message_with_media_template,
-        )
-
+        return await self._proxy.update_async(log_enabled=log_enabled, new_message_enabled=new_message_enabled, new_message_template=new_message_template, new_message_sound=new_message_sound, new_message_badge_count_enabled=new_message_badge_count_enabled, added_to_conversation_enabled=added_to_conversation_enabled, added_to_conversation_template=added_to_conversation_template, added_to_conversation_sound=added_to_conversation_sound, removed_from_conversation_enabled=removed_from_conversation_enabled, removed_from_conversation_template=removed_from_conversation_template, removed_from_conversation_sound=removed_from_conversation_sound, new_message_with_media_enabled=new_message_with_media_enabled, new_message_with_media_template=new_message_with_media_template, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.NotificationInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.NotificationInstance {}>'.format(context)
 
 class NotificationContext(InstanceContext):
 
@@ -209,71 +150,54 @@ class NotificationContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
+        self._solution = { 
+            'chat_service_sid': chat_service_sid,
         }
-        self._uri = "/Services/{chat_service_sid}/Configuration/Notifications".format(
-            **self._solution
-        )
-
+        self._uri = '/Services/{chat_service_sid}/Configuration/Notifications'.format(**self._solution)
+        
+    
+    
     def fetch(self) -> NotificationInstance:
         """
         Fetch the NotificationInstance
-
+        
 
         :returns: The fetched NotificationInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return NotificationInstance(
             self._version,
             payload,
-            chat_service_sid=self._solution["chat_service_sid"],
+            chat_service_sid=self._solution['chat_service_sid'],
+            
         )
 
     async def fetch_async(self) -> NotificationInstance:
         """
         Asynchronous coroutine to fetch the NotificationInstance
-
+        
 
         :returns: The fetched NotificationInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return NotificationInstance(
             self._version,
             payload,
-            chat_service_sid=self._solution["chat_service_sid"],
+            chat_service_sid=self._solution['chat_service_sid'],
+            
         )
-
-    def update(
-        self,
-        log_enabled: Union[bool, object] = values.unset,
-        new_message_enabled: Union[bool, object] = values.unset,
-        new_message_template: Union[str, object] = values.unset,
-        new_message_sound: Union[str, object] = values.unset,
-        new_message_badge_count_enabled: Union[bool, object] = values.unset,
-        added_to_conversation_enabled: Union[bool, object] = values.unset,
-        added_to_conversation_template: Union[str, object] = values.unset,
-        added_to_conversation_sound: Union[str, object] = values.unset,
-        removed_from_conversation_enabled: Union[bool, object] = values.unset,
-        removed_from_conversation_template: Union[str, object] = values.unset,
-        removed_from_conversation_sound: Union[str, object] = values.unset,
-        new_message_with_media_enabled: Union[bool, object] = values.unset,
-        new_message_with_media_template: Union[str, object] = values.unset,
-    ) -> NotificationInstance:
+    
+    
+    def update(self, log_enabled: Union[bool, object]=values.unset, new_message_enabled: Union[bool, object]=values.unset, new_message_template: Union[str, object]=values.unset, new_message_sound: Union[str, object]=values.unset, new_message_badge_count_enabled: Union[bool, object]=values.unset, added_to_conversation_enabled: Union[bool, object]=values.unset, added_to_conversation_template: Union[str, object]=values.unset, added_to_conversation_sound: Union[str, object]=values.unset, removed_from_conversation_enabled: Union[bool, object]=values.unset, removed_from_conversation_template: Union[str, object]=values.unset, removed_from_conversation_sound: Union[str, object]=values.unset, new_message_with_media_enabled: Union[bool, object]=values.unset, new_message_with_media_template: Union[str, object]=values.unset) -> NotificationInstance:
         """
         Update the NotificationInstance
-
+        
         :param log_enabled: Weather the notification logging is enabled.
         :param new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
         :param new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
@@ -290,61 +214,35 @@ class NotificationContext(InstanceContext):
 
         :returns: The updated NotificationInstance
         """
-        data = values.of(
-            {
-                "LogEnabled": serialize.boolean_to_string(log_enabled),
-                "NewMessage.Enabled": serialize.boolean_to_string(new_message_enabled),
-                "NewMessage.Template": new_message_template,
-                "NewMessage.Sound": new_message_sound,
-                "NewMessage.BadgeCountEnabled": serialize.boolean_to_string(
-                    new_message_badge_count_enabled
-                ),
-                "AddedToConversation.Enabled": serialize.boolean_to_string(
-                    added_to_conversation_enabled
-                ),
-                "AddedToConversation.Template": added_to_conversation_template,
-                "AddedToConversation.Sound": added_to_conversation_sound,
-                "RemovedFromConversation.Enabled": serialize.boolean_to_string(
-                    removed_from_conversation_enabled
-                ),
-                "RemovedFromConversation.Template": removed_from_conversation_template,
-                "RemovedFromConversation.Sound": removed_from_conversation_sound,
-                "NewMessage.WithMedia.Enabled": serialize.boolean_to_string(
-                    new_message_with_media_enabled
-                ),
-                "NewMessage.WithMedia.Template": new_message_with_media_template,
-            }
-        )
+        data = values.of({ 
+            'LogEnabled': serialize.boolean_to_string(log_enabled),
+            'NewMessage.Enabled': serialize.boolean_to_string(new_message_enabled),
+            'NewMessage.Template': new_message_template,
+            'NewMessage.Sound': new_message_sound,
+            'NewMessage.BadgeCountEnabled': serialize.boolean_to_string(new_message_badge_count_enabled),
+            'AddedToConversation.Enabled': serialize.boolean_to_string(added_to_conversation_enabled),
+            'AddedToConversation.Template': added_to_conversation_template,
+            'AddedToConversation.Sound': added_to_conversation_sound,
+            'RemovedFromConversation.Enabled': serialize.boolean_to_string(removed_from_conversation_enabled),
+            'RemovedFromConversation.Template': removed_from_conversation_template,
+            'RemovedFromConversation.Sound': removed_from_conversation_sound,
+            'NewMessage.WithMedia.Enabled': serialize.boolean_to_string(new_message_with_media_enabled),
+            'NewMessage.WithMedia.Template': new_message_with_media_template,
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return NotificationInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+            self._version,
+            payload,
+            chat_service_sid=self._solution['chat_service_sid']
         )
 
-    async def update_async(
-        self,
-        log_enabled: Union[bool, object] = values.unset,
-        new_message_enabled: Union[bool, object] = values.unset,
-        new_message_template: Union[str, object] = values.unset,
-        new_message_sound: Union[str, object] = values.unset,
-        new_message_badge_count_enabled: Union[bool, object] = values.unset,
-        added_to_conversation_enabled: Union[bool, object] = values.unset,
-        added_to_conversation_template: Union[str, object] = values.unset,
-        added_to_conversation_sound: Union[str, object] = values.unset,
-        removed_from_conversation_enabled: Union[bool, object] = values.unset,
-        removed_from_conversation_template: Union[str, object] = values.unset,
-        removed_from_conversation_sound: Union[str, object] = values.unset,
-        new_message_with_media_enabled: Union[bool, object] = values.unset,
-        new_message_with_media_template: Union[str, object] = values.unset,
-    ) -> NotificationInstance:
+    async def update_async(self, log_enabled: Union[bool, object]=values.unset, new_message_enabled: Union[bool, object]=values.unset, new_message_template: Union[str, object]=values.unset, new_message_sound: Union[str, object]=values.unset, new_message_badge_count_enabled: Union[bool, object]=values.unset, added_to_conversation_enabled: Union[bool, object]=values.unset, added_to_conversation_template: Union[str, object]=values.unset, added_to_conversation_sound: Union[str, object]=values.unset, removed_from_conversation_enabled: Union[bool, object]=values.unset, removed_from_conversation_template: Union[str, object]=values.unset, removed_from_conversation_sound: Union[str, object]=values.unset, new_message_with_media_enabled: Union[bool, object]=values.unset, new_message_with_media_template: Union[str, object]=values.unset) -> NotificationInstance:
         """
         Asynchronous coroutine to update the NotificationInstance
-
+        
         :param log_enabled: Weather the notification logging is enabled.
         :param new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
         :param new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
@@ -361,86 +259,75 @@ class NotificationContext(InstanceContext):
 
         :returns: The updated NotificationInstance
         """
-        data = values.of(
-            {
-                "LogEnabled": serialize.boolean_to_string(log_enabled),
-                "NewMessage.Enabled": serialize.boolean_to_string(new_message_enabled),
-                "NewMessage.Template": new_message_template,
-                "NewMessage.Sound": new_message_sound,
-                "NewMessage.BadgeCountEnabled": serialize.boolean_to_string(
-                    new_message_badge_count_enabled
-                ),
-                "AddedToConversation.Enabled": serialize.boolean_to_string(
-                    added_to_conversation_enabled
-                ),
-                "AddedToConversation.Template": added_to_conversation_template,
-                "AddedToConversation.Sound": added_to_conversation_sound,
-                "RemovedFromConversation.Enabled": serialize.boolean_to_string(
-                    removed_from_conversation_enabled
-                ),
-                "RemovedFromConversation.Template": removed_from_conversation_template,
-                "RemovedFromConversation.Sound": removed_from_conversation_sound,
-                "NewMessage.WithMedia.Enabled": serialize.boolean_to_string(
-                    new_message_with_media_enabled
-                ),
-                "NewMessage.WithMedia.Template": new_message_with_media_template,
-            }
-        )
+        data = values.of({ 
+            'LogEnabled': serialize.boolean_to_string(log_enabled),
+            'NewMessage.Enabled': serialize.boolean_to_string(new_message_enabled),
+            'NewMessage.Template': new_message_template,
+            'NewMessage.Sound': new_message_sound,
+            'NewMessage.BadgeCountEnabled': serialize.boolean_to_string(new_message_badge_count_enabled),
+            'AddedToConversation.Enabled': serialize.boolean_to_string(added_to_conversation_enabled),
+            'AddedToConversation.Template': added_to_conversation_template,
+            'AddedToConversation.Sound': added_to_conversation_sound,
+            'RemovedFromConversation.Enabled': serialize.boolean_to_string(removed_from_conversation_enabled),
+            'RemovedFromConversation.Template': removed_from_conversation_template,
+            'RemovedFromConversation.Sound': removed_from_conversation_sound,
+            'NewMessage.WithMedia.Enabled': serialize.boolean_to_string(new_message_with_media_enabled),
+            'NewMessage.WithMedia.Template': new_message_with_media_template,
+        })
+        
 
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
 
         return NotificationInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+            self._version,
+            payload,
+            chat_service_sid=self._solution['chat_service_sid']
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.NotificationContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.NotificationContext {}>'.format(context)
+
 
 
 class NotificationList(ListResource):
-
+    
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the NotificationList
 
         :param version: Version that contains the resource
         :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Configuration applies to.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
-        }
+        self._solution = { 'chat_service_sid': chat_service_sid,  }
+        
+        
+        
 
     def get(self) -> NotificationContext:
         """
         Constructs a NotificationContext
-
+        
         """
-        return NotificationContext(
-            self._version, chat_service_sid=self._solution["chat_service_sid"]
-        )
+        return NotificationContext(self._version, chat_service_sid=self._solution['chat_service_sid'])
 
     def __call__(self) -> NotificationContext:
         """
         Constructs a NotificationContext
-
+        
         """
-        return NotificationContext(
-            self._version, chat_service_sid=self._solution["chat_service_sid"]
-        )
+        return NotificationContext(self._version, chat_service_sid=self._solution['chat_service_sid'])
 
     def __repr__(self) -> str:
         """
@@ -448,4 +335,5 @@ class NotificationList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Conversations.V1.NotificationList>"
+        return '<Twilio.Conversations.V1.NotificationList>'
+

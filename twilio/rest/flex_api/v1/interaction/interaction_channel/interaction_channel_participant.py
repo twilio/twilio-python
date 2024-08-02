@@ -12,8 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import serialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -43,28 +46,19 @@ class InteractionChannelParticipantInstance(InstanceResource):
     :ivar routing_properties: The Participant's routing properties.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        interaction_sid: str,
-        channel_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], interaction_sid: str, channel_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
-        self.type: Optional["InteractionChannelParticipantInstance.Type"] = payload.get(
-            "type"
-        )
+        self.type: Optional["InteractionChannelParticipantInstance.Type"] = payload.get("type")
         self.interaction_sid: Optional[str] = payload.get("interaction_sid")
         self.channel_sid: Optional[str] = payload.get("channel_sid")
         self.url: Optional[str] = payload.get("url")
-        self.routing_properties: Optional[Dict[str, object]] = payload.get(
-            "routing_properties"
-        )
+        self.routing_properties: Optional[Dict[str, object]] = payload.get("routing_properties")
 
-        self._solution = {
+        
+        self._solution = { 
             "interaction_sid": interaction_sid,
             "channel_sid": channel_sid,
             "sid": sid or self.sid,
@@ -80,59 +74,42 @@ class InteractionChannelParticipantInstance(InstanceResource):
         :returns: InteractionChannelParticipantContext for this InteractionChannelParticipantInstance
         """
         if self._context is None:
-            self._context = InteractionChannelParticipantContext(
-                self._version,
-                interaction_sid=self._solution["interaction_sid"],
-                channel_sid=self._solution["channel_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = InteractionChannelParticipantContext(self._version, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'], sid=self._solution['sid'],)
         return self._context
-
-    def update(
-        self, status: "InteractionChannelParticipantInstance.Status"
-    ) -> "InteractionChannelParticipantInstance":
+    
+    
+    def update(self, status: "InteractionChannelParticipantInstance.Status") -> "InteractionChannelParticipantInstance":
         """
         Update the InteractionChannelParticipantInstance
-
-        :param status:
+        
+        :param status: 
 
         :returns: The updated InteractionChannelParticipantInstance
         """
-        return self._proxy.update(
-            status=status,
-        )
+        return self._proxy.update(status=status, )
 
-    async def update_async(
-        self, status: "InteractionChannelParticipantInstance.Status"
-    ) -> "InteractionChannelParticipantInstance":
+    async def update_async(self, status: "InteractionChannelParticipantInstance.Status") -> "InteractionChannelParticipantInstance":
         """
         Asynchronous coroutine to update the InteractionChannelParticipantInstance
-
-        :param status:
+        
+        :param status: 
 
         :returns: The updated InteractionChannelParticipantInstance
         """
-        return await self._proxy.update_async(
-            status=status,
-        )
-
+        return await self._proxy.update_async(status=status, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InteractionChannelParticipantInstance {}>".format(
-            context
-        )
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.InteractionChannelParticipantInstance {}>'.format(context)
 
 class InteractionChannelParticipantContext(InstanceContext):
 
-    def __init__(
-        self, version: Version, interaction_sid: str, channel_sid: str, sid: str
-    ):
+    def __init__(self, version: Version, interaction_sid: str, channel_sid: str, sid: str):
         """
         Initialize the InteractionChannelParticipantContext
 
@@ -143,104 +120,88 @@ class InteractionChannelParticipantContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "interaction_sid": interaction_sid,
-            "channel_sid": channel_sid,
-            "sid": sid,
+        self._solution = { 
+            'interaction_sid': interaction_sid,
+            'channel_sid': channel_sid,
+            'sid': sid,
         }
-        self._uri = "/Interactions/{interaction_sid}/Channels/{channel_sid}/Participants/{sid}".format(
-            **self._solution
-        )
-
-    def update(
-        self, status: "InteractionChannelParticipantInstance.Status"
-    ) -> InteractionChannelParticipantInstance:
+        self._uri = '/Interactions/{interaction_sid}/Channels/{channel_sid}/Participants/{sid}'.format(**self._solution)
+        
+    
+    
+    def update(self, status: "InteractionChannelParticipantInstance.Status") -> InteractionChannelParticipantInstance:
         """
         Update the InteractionChannelParticipantInstance
-
-        :param status:
+        
+        :param status: 
 
         :returns: The updated InteractionChannelParticipantInstance
         """
-        data = values.of(
-            {
-                "Status": status,
-            }
-        )
+        data = values.of({ 
+            'Status': status,
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return InteractionChannelParticipantInstance(
             self._version,
             payload,
-            interaction_sid=self._solution["interaction_sid"],
-            channel_sid=self._solution["channel_sid"],
-            sid=self._solution["sid"],
+            interaction_sid=self._solution['interaction_sid'],
+            channel_sid=self._solution['channel_sid'],
+            sid=self._solution['sid']
         )
 
-    async def update_async(
-        self, status: "InteractionChannelParticipantInstance.Status"
-    ) -> InteractionChannelParticipantInstance:
+    async def update_async(self, status: "InteractionChannelParticipantInstance.Status") -> InteractionChannelParticipantInstance:
         """
         Asynchronous coroutine to update the InteractionChannelParticipantInstance
-
-        :param status:
+        
+        :param status: 
 
         :returns: The updated InteractionChannelParticipantInstance
         """
-        data = values.of(
-            {
-                "Status": status,
-            }
-        )
+        data = values.of({ 
+            'Status': status,
+        })
+        
 
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
 
         return InteractionChannelParticipantInstance(
             self._version,
             payload,
-            interaction_sid=self._solution["interaction_sid"],
-            channel_sid=self._solution["channel_sid"],
-            sid=self._solution["sid"],
+            interaction_sid=self._solution['interaction_sid'],
+            channel_sid=self._solution['channel_sid'],
+            sid=self._solution['sid']
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.InteractionChannelParticipantContext {}>".format(
-            context
-        )
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.InteractionChannelParticipantContext {}>'.format(context)
+
+
+
+
+
 
 
 class InteractionChannelParticipantPage(Page):
 
-    def get_instance(
-        self, payload: Dict[str, Any]
-    ) -> InteractionChannelParticipantInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> InteractionChannelParticipantInstance:
         """
         Build an instance of InteractionChannelParticipantInstance
 
         :param payload: Payload response from the API
         """
-        return InteractionChannelParticipantInstance(
-            self._version,
-            payload,
-            interaction_sid=self._solution["interaction_sid"],
-            channel_sid=self._solution["channel_sid"],
-        )
+        return InteractionChannelParticipantInstance(self._version, payload, interaction_sid=self._solution["interaction_sid"], channel_sid=self._solution["channel_sid"])
 
     def __repr__(self) -> str:
         """
@@ -251,8 +212,11 @@ class InteractionChannelParticipantPage(Page):
         return "<Twilio.FlexApi.V1.InteractionChannelParticipantPage>"
 
 
-class InteractionChannelParticipantList(ListResource):
 
+
+
+class InteractionChannelParticipantList(ListResource):
+    
     def __init__(self, version: Version, interaction_sid: str, channel_sid: str):
         """
         Initialize the InteractionChannelParticipantList
@@ -260,93 +224,71 @@ class InteractionChannelParticipantList(ListResource):
         :param version: Version that contains the resource
         :param interaction_sid: The Interaction Sid for this channel.
         :param channel_sid: The Channel Sid for this Participant.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "interaction_sid": interaction_sid,
-            "channel_sid": channel_sid,
-        }
-        self._uri = "/Interactions/{interaction_sid}/Channels/{channel_sid}/Participants".format(
-            **self._solution
-        )
-
-    def create(
-        self,
-        type: "InteractionChannelParticipantInstance.Type",
-        media_properties: object,
-        routing_properties: Union[object, object] = values.unset,
-    ) -> InteractionChannelParticipantInstance:
+        self._solution = { 'interaction_sid': interaction_sid, 'channel_sid': channel_sid,  }
+        self._uri = '/Interactions/{interaction_sid}/Channels/{channel_sid}/Participants'.format(**self._solution)
+        
+        
+    
+    
+    def create(self, type: "InteractionChannelParticipantInstance.Type", media_properties: object, routing_properties: Union[object, object]=values.unset) -> InteractionChannelParticipantInstance:
         """
         Create the InteractionChannelParticipantInstance
 
-        :param type:
+        :param type: 
         :param media_properties: JSON representing the Media Properties for the new Participant.
         :param routing_properties: Object representing the Routing Properties for the new Participant.
-
+        
         :returns: The created InteractionChannelParticipantInstance
         """
+        
+        data = values.of({ 
+            'Type': type,
+            'MediaProperties': serialize.object(media_properties),
+            'RoutingProperties': serialize.object(routing_properties),
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Type": type,
-                "MediaProperties": serialize.object(media_properties),
-                "RoutingProperties": serialize.object(routing_properties),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return InteractionChannelParticipantInstance(self._version, payload, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'])
 
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return InteractionChannelParticipantInstance(
-            self._version,
-            payload,
-            interaction_sid=self._solution["interaction_sid"],
-            channel_sid=self._solution["channel_sid"],
-        )
-
-    async def create_async(
-        self,
-        type: "InteractionChannelParticipantInstance.Type",
-        media_properties: object,
-        routing_properties: Union[object, object] = values.unset,
-    ) -> InteractionChannelParticipantInstance:
+    async def create_async(self, type: "InteractionChannelParticipantInstance.Type", media_properties: object, routing_properties: Union[object, object]=values.unset) -> InteractionChannelParticipantInstance:
         """
         Asynchronously create the InteractionChannelParticipantInstance
 
-        :param type:
+        :param type: 
         :param media_properties: JSON representing the Media Properties for the new Participant.
         :param routing_properties: Object representing the Routing Properties for the new Participant.
-
+        
         :returns: The created InteractionChannelParticipantInstance
         """
+        
+        data = values.of({ 
+            'Type': type,
+            'MediaProperties': serialize.object(media_properties),
+            'RoutingProperties': serialize.object(routing_properties),
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Type": type,
-                "MediaProperties": serialize.object(media_properties),
-                "RoutingProperties": serialize.object(routing_properties),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return InteractionChannelParticipantInstance(
-            self._version,
-            payload,
-            interaction_sid=self._solution["interaction_sid"],
-            channel_sid=self._solution["channel_sid"],
-        )
-
-    def stream(
-        self,
+        return InteractionChannelParticipantInstance(self._version, payload, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'])
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[InteractionChannelParticipantInstance]:
@@ -355,7 +297,7 @@ class InteractionChannelParticipantList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -366,12 +308,14 @@ class InteractionChannelParticipantList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[InteractionChannelParticipantInstance]:
@@ -380,7 +324,7 @@ class InteractionChannelParticipantList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -391,12 +335,14 @@ class InteractionChannelParticipantList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[InteractionChannelParticipantInstance]:
@@ -404,7 +350,7 @@ class InteractionChannelParticipantList(ListResource):
         Lists InteractionChannelParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -414,15 +360,13 @@ class InteractionChannelParticipantList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[InteractionChannelParticipantInstance]:
@@ -430,7 +374,7 @@ class InteractionChannelParticipantList(ListResource):
         Asynchronously lists InteractionChannelParticipantInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -440,16 +384,13 @@ class InteractionChannelParticipantList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -457,28 +398,24 @@ class InteractionChannelParticipantList(ListResource):
         """
         Retrieve a single page of InteractionChannelParticipantInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InteractionChannelParticipantInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return InteractionChannelParticipantPage(
-            self._version, response, self._solution
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data)
+        return InteractionChannelParticipantPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -486,27 +423,21 @@ class InteractionChannelParticipantList(ListResource):
         """
         Asynchronously retrieve a single page of InteractionChannelParticipantInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of InteractionChannelParticipantInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return InteractionChannelParticipantPage(
-            self._version, response, self._solution
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        return InteractionChannelParticipantPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> InteractionChannelParticipantPage:
         """
@@ -517,14 +448,13 @@ class InteractionChannelParticipantList(ListResource):
 
         :returns: Page of InteractionChannelParticipantInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return InteractionChannelParticipantPage(
-            self._version, response, self._solution
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
         )
+        return InteractionChannelParticipantPage(self._version, response, self._solution)
 
-    async def get_page_async(
-        self, target_url: str
-    ) -> InteractionChannelParticipantPage:
+    async def get_page_async(self, target_url: str) -> InteractionChannelParticipantPage:
         """
         Asynchronously retrieve a specific page of InteractionChannelParticipantInstance records from the API.
         Request is executed immediately
@@ -533,36 +463,29 @@ class InteractionChannelParticipantList(ListResource):
 
         :returns: Page of InteractionChannelParticipantInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return InteractionChannelParticipantPage(
-            self._version, response, self._solution
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
         )
+        return InteractionChannelParticipantPage(self._version, response, self._solution)
+
+
 
     def get(self, sid: str) -> InteractionChannelParticipantContext:
         """
         Constructs a InteractionChannelParticipantContext
-
+        
         :param sid: The unique string created by Twilio to identify an Interaction Channel resource.
         """
-        return InteractionChannelParticipantContext(
-            self._version,
-            interaction_sid=self._solution["interaction_sid"],
-            channel_sid=self._solution["channel_sid"],
-            sid=sid,
-        )
+        return InteractionChannelParticipantContext(self._version, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
     def __call__(self, sid: str) -> InteractionChannelParticipantContext:
         """
         Constructs a InteractionChannelParticipantContext
-
+        
         :param sid: The unique string created by Twilio to identify an Interaction Channel resource.
         """
-        return InteractionChannelParticipantContext(
-            self._version,
-            interaction_sid=self._solution["interaction_sid"],
-            channel_sid=self._solution["channel_sid"],
-            sid=sid,
-        )
+        return InteractionChannelParticipantContext(self._version, interaction_sid=self._solution['interaction_sid'], channel_sid=self._solution['channel_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -570,4 +493,5 @@ class InteractionChannelParticipantList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.FlexApi.V1.InteractionChannelParticipantList>"
+        return '<Twilio.FlexApi.V1.InteractionChannelParticipantList>'
+

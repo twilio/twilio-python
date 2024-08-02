@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -23,6 +25,7 @@ from twilio.base.page import Page
 
 
 class MediaInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with this Media resource.
     :ivar content_type: The default [MIME type](https://en.wikipedia.org/wiki/Internet_media_type) of the media, for example `image/jpeg`, `image/png`, or `image/gif`.
@@ -33,29 +36,20 @@ class MediaInstance(InstanceResource):
     :ivar uri: The URI of this Media resource, relative to `https://api.twilio.com`.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        account_sid: str,
-        message_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, message_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.content_type: Optional[str] = payload.get("content_type")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
         self.parent_sid: Optional[str] = payload.get("parent_sid")
         self.sid: Optional[str] = payload.get("sid")
         self.uri: Optional[str] = payload.get("uri")
 
-        self._solution = {
+        
+        self._solution = { 
             "account_sid": account_sid,
             "message_sid": message_sid,
             "sid": sid or self.sid,
@@ -71,36 +65,32 @@ class MediaInstance(InstanceResource):
         :returns: MediaContext for this MediaInstance
         """
         if self._context is None:
-            self._context = MediaContext(
-                self._version,
-                account_sid=self._solution["account_sid"],
-                message_sid=self._solution["message_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = MediaContext(self._version, account_sid=self._solution['account_sid'], message_sid=self._solution['message_sid'], sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the MediaInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the MediaInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "MediaInstance":
         """
         Fetch the MediaInstance
-
+        
 
         :returns: The fetched MediaInstance
         """
@@ -109,21 +99,20 @@ class MediaInstance(InstanceResource):
     async def fetch_async(self) -> "MediaInstance":
         """
         Asynchronous coroutine to fetch the MediaInstance
-
+        
 
         :returns: The fetched MediaInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.MediaInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.MediaInstance {}>'.format(context)
 
 class MediaContext(InstanceContext):
 
@@ -138,92 +127,88 @@ class MediaContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-            "message_sid": message_sid,
-            "sid": sid,
+        self._solution = { 
+            'account_sid': account_sid,
+            'message_sid': message_sid,
+            'sid': sid,
         }
-        self._uri = (
-            "/Accounts/{account_sid}/Messages/{message_sid}/Media/{sid}.json".format(
-                **self._solution
-            )
-        )
-
+        self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media/{sid}.json'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the MediaInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the MediaInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> MediaInstance:
         """
         Fetch the MediaInstance
-
+        
 
         :returns: The fetched MediaInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MediaInstance(
             self._version,
             payload,
-            account_sid=self._solution["account_sid"],
-            message_sid=self._solution["message_sid"],
-            sid=self._solution["sid"],
+            account_sid=self._solution['account_sid'],
+            message_sid=self._solution['message_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> MediaInstance:
         """
         Asynchronous coroutine to fetch the MediaInstance
-
+        
 
         :returns: The fetched MediaInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return MediaInstance(
             self._version,
             payload,
-            account_sid=self._solution["account_sid"],
-            message_sid=self._solution["message_sid"],
-            sid=self._solution["sid"],
+            account_sid=self._solution['account_sid'],
+            message_sid=self._solution['message_sid'],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.MediaContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.MediaContext {}>'.format(context)
+
+
+
+
+
 
 
 class MediaPage(Page):
@@ -234,12 +219,7 @@ class MediaPage(Page):
 
         :param payload: Payload response from the API
         """
-        return MediaInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            message_sid=self._solution["message_sid"],
-        )
+        return MediaInstance(self._version, payload, account_sid=self._solution["account_sid"], message_sid=self._solution["message_sid"])
 
     def __repr__(self) -> str:
         """
@@ -250,8 +230,11 @@ class MediaPage(Page):
         return "<Twilio.Api.V2010.MediaPage>"
 
 
-class MediaList(ListResource):
 
+
+
+class MediaList(ListResource):
+    
     def __init__(self, version: Version, account_sid: str, message_sid: str):
         """
         Initialize the MediaList
@@ -259,24 +242,24 @@ class MediaList(ListResource):
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that is associated with the Media resources.
         :param message_sid: The SID of the Message resource that is associated with the Media resources.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-            "message_sid": message_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/Messages/{message_sid}/Media.json".format(
-            **self._solution
-        )
-
-    def stream(
-        self,
+        self._solution = { 'account_sid': account_sid, 'message_sid': message_sid,  }
+        self._uri = '/Accounts/{account_sid}/Messages/{message_sid}/Media.json'.format(**self._solution)
+        
+        
+    
+    
+    
+    def stream(self, 
         date_created: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[MediaInstance]:
@@ -285,7 +268,7 @@ class MediaList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param datetime date_created: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
         :param datetime date_created_before: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
         :param datetime date_created_after: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
@@ -303,16 +286,16 @@ class MediaList(ListResource):
             date_created=date_created,
             date_created_before=date_created_before,
             date_created_after=date_created_after,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         date_created: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[MediaInstance]:
@@ -321,7 +304,7 @@ class MediaList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param datetime date_created: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
         :param datetime date_created_before: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
         :param datetime date_created_after: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
@@ -339,16 +322,16 @@ class MediaList(ListResource):
             date_created=date_created,
             date_created_before=date_created_before,
             date_created_after=date_created_after,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         date_created: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[MediaInstance]:
@@ -356,7 +339,7 @@ class MediaList(ListResource):
         Lists MediaInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param datetime date_created: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
         :param datetime date_created_before: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
         :param datetime date_created_after: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
@@ -369,21 +352,19 @@ class MediaList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                date_created=date_created,
-                date_created_before=date_created_before,
-                date_created_after=date_created_after,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            date_created=date_created,
+            date_created_before=date_created_before,
+            date_created_after=date_created_after,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         date_created: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[MediaInstance]:
@@ -391,7 +372,7 @@ class MediaList(ListResource):
         Asynchronously lists MediaInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param datetime date_created: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
         :param datetime date_created_before: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
         :param datetime date_created_after: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
@@ -404,22 +385,19 @@ class MediaList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                date_created=date_created,
-                date_created_before=date_created_before,
-                date_created_after=date_created_after,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            date_created=date_created,
+            date_created_before=date_created_before,
+            date_created_after=date_created_after,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         date_created: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -427,7 +405,7 @@ class MediaList(ListResource):
         """
         Retrieve a single page of MediaInstance records from the API.
         Request is executed immediately
-
+        
         :param date_created: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
         :param date_created_before: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
         :param date_created_after: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
@@ -437,25 +415,23 @@ class MediaList(ListResource):
 
         :returns: Page of MediaInstance
         """
-        data = values.of(
-            {
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateCreated<": serialize.iso8601_datetime(date_created_before),
-                "DateCreated>": serialize.iso8601_datetime(date_created_after),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateCreated<': serialize.iso8601_datetime(date_created_before),
+            'DateCreated>': serialize.iso8601_datetime(date_created_after),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return MediaPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         date_created: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -463,7 +439,7 @@ class MediaList(ListResource):
         """
         Asynchronously retrieve a single page of MediaInstance records from the API.
         Request is executed immediately
-
+        
         :param date_created: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
         :param date_created_before: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
         :param date_created_after: Only include Media resources that were created on this date. Specify a date as `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read Media that were created on this date. You can also specify an inequality, such as `StartTime<=YYYY-MM-DD`, to read Media that were created on or before midnight of this date, and `StartTime>=YYYY-MM-DD` to read Media that were created on or after midnight of this date.
@@ -473,20 +449,16 @@ class MediaList(ListResource):
 
         :returns: Page of MediaInstance
         """
-        data = values.of(
-            {
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateCreated<": serialize.iso8601_datetime(date_created_before),
-                "DateCreated>": serialize.iso8601_datetime(date_created_after),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateCreated<': serialize.iso8601_datetime(date_created_before),
+            'DateCreated>': serialize.iso8601_datetime(date_created_after),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return MediaPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> MediaPage:
@@ -498,7 +470,10 @@ class MediaList(ListResource):
 
         :returns: Page of MediaInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return MediaPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> MediaPage:
@@ -510,34 +485,29 @@ class MediaList(ListResource):
 
         :returns: Page of MediaInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return MediaPage(self._version, response, self._solution)
+
+
 
     def get(self, sid: str) -> MediaContext:
         """
         Constructs a MediaContext
-
+        
         :param sid: The Twilio-provided string that uniquely identifies the Media resource to fetch.
         """
-        return MediaContext(
-            self._version,
-            account_sid=self._solution["account_sid"],
-            message_sid=self._solution["message_sid"],
-            sid=sid,
-        )
+        return MediaContext(self._version, account_sid=self._solution['account_sid'], message_sid=self._solution['message_sid'], sid=sid)
 
     def __call__(self, sid: str) -> MediaContext:
         """
         Constructs a MediaContext
-
+        
         :param sid: The Twilio-provided string that uniquely identifies the Media resource to fetch.
         """
-        return MediaContext(
-            self._version,
-            account_sid=self._solution["account_sid"],
-            message_sid=self._solution["message_sid"],
-            sid=sid,
-        )
+        return MediaContext(self._version, account_sid=self._solution['account_sid'], message_sid=self._solution['message_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -545,4 +515,5 @@ class MediaList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Api.V2010.MediaList>"
+        return '<Twilio.Api.V2010.MediaList>'
+

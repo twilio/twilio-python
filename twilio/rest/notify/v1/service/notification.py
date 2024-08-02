@@ -12,13 +12,16 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
-from typing import Any, Dict, List, Optional, Union
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
+
 
 
 class NotificationInstance(InstanceResource):
@@ -53,18 +56,15 @@ class NotificationInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
         self.identities: Optional[List[str]] = payload.get("identities")
         self.tags: Optional[List[str]] = payload.get("tags")
         self.segments: Optional[List[str]] = payload.get("segments")
-        self.priority: Optional["NotificationInstance.Priority"] = payload.get(
-            "priority"
-        )
+        self.priority: Optional["NotificationInstance.Priority"] = payload.get("priority")
         self.ttl: Optional[int] = deserialize.integer(payload.get("ttl"))
         self.title: Optional[str] = payload.get("title")
         self.body: Optional[str] = payload.get("body")
@@ -75,69 +75,52 @@ class NotificationInstance(InstanceResource):
         self.gcm: Optional[Dict[str, object]] = payload.get("gcm")
         self.fcm: Optional[Dict[str, object]] = payload.get("fcm")
         self.sms: Optional[Dict[str, object]] = payload.get("sms")
-        self.facebook_messenger: Optional[Dict[str, object]] = payload.get(
-            "facebook_messenger"
-        )
+        self.facebook_messenger: Optional[Dict[str, object]] = payload.get("facebook_messenger")
         self.alexa: Optional[Dict[str, object]] = payload.get("alexa")
 
-        self._solution = {
+        
+        self._solution = { 
             "service_sid": service_sid,
         }
-
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Notify.V1.NotificationInstance {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Notify.V1.NotificationInstance {}>'.format(context)
+
+
 
 
 class NotificationList(ListResource):
-
+    
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the NotificationList
 
         :param version: Version that contains the resource
         :param service_sid: The SID of the [Service](https://www.twilio.com/docs/notify/api/service-resource) to create the resource under.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-        }
-        self._uri = "/Services/{service_sid}/Notifications".format(**self._solution)
-
-    def create(
-        self,
-        body: Union[str, object] = values.unset,
-        priority: Union["NotificationInstance.Priority", object] = values.unset,
-        ttl: Union[int, object] = values.unset,
-        title: Union[str, object] = values.unset,
-        sound: Union[str, object] = values.unset,
-        action: Union[str, object] = values.unset,
-        data: Union[object, object] = values.unset,
-        apn: Union[object, object] = values.unset,
-        gcm: Union[object, object] = values.unset,
-        sms: Union[object, object] = values.unset,
-        facebook_messenger: Union[object, object] = values.unset,
-        fcm: Union[object, object] = values.unset,
-        segment: Union[List[str], object] = values.unset,
-        alexa: Union[object, object] = values.unset,
-        to_binding: Union[List[str], object] = values.unset,
-        delivery_callback_url: Union[str, object] = values.unset,
-        identity: Union[List[str], object] = values.unset,
-        tag: Union[List[str], object] = values.unset,
-    ) -> NotificationInstance:
+        self._solution = { 'service_sid': service_sid,  }
+        self._uri = '/Services/{service_sid}/Notifications'.format(**self._solution)
+        
+        
+    
+    def create(self, body: Union[str, object]=values.unset, priority: Union["NotificationInstance.Priority", object]=values.unset, ttl: Union[int, object]=values.unset, title: Union[str, object]=values.unset, sound: Union[str, object]=values.unset, action: Union[str, object]=values.unset, data: Union[object, object]=values.unset, apn: Union[object, object]=values.unset, gcm: Union[object, object]=values.unset, sms: Union[object, object]=values.unset, facebook_messenger: Union[object, object]=values.unset, fcm: Union[object, object]=values.unset, segment: Union[List[str], object]=values.unset, alexa: Union[object, object]=values.unset, to_binding: Union[List[str], object]=values.unset, delivery_callback_url: Union[str, object]=values.unset, identity: Union[List[str], object]=values.unset, tag: Union[List[str], object]=values.unset) -> NotificationInstance:
         """
         Create the NotificationInstance
 
         :param body: The notification text. For FCM and GCM, translates to `data.twi_body`. For APNS, translates to `aps.alert.body`. For SMS, translates to `body`. SMS requires either this `body` value, or `media_urls` attribute defined in the `sms` parameter of the notification.
-        :param priority:
+        :param priority: 
         :param ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
         :param title: The notification title. For FCM and GCM, this translates to the `data.twi_title` value. For APNS, this translates to the `aps.alert.title` value. SMS does not support this property. This field is not visible on iOS phones and tablets but appears on Apple Watch and Android devices.
         :param sound: The name of the sound to be played for the notification. For FCM and GCM, this Translates to `data.twi_sound`.  For APNS, this translates to `aps.sound`.  SMS does not support this property.
@@ -154,68 +137,45 @@ class NotificationList(ListResource):
         :param delivery_callback_url: URL to send webhooks.
         :param identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery will be attempted only to Bindings with an Identity in this list. No more than 20 items are allowed in this list.
         :param tag: A tag that selects the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 5 tags. The implicit tag `all` is available to notify all Bindings in a Service instance. Similarly, the implicit tags `apn`, `fcm`, `gcm`, `sms` and `facebook-messenger` are available to notify all Bindings in a specific channel.
-
+        
         :returns: The created NotificationInstance
         """
+        
+        data = values.of({ 
+            'Body': body,
+            'Priority': priority,
+            'Ttl': ttl,
+            'Title': title,
+            'Sound': sound,
+            'Action': action,
+            'Data': serialize.object(data),
+            'Apn': serialize.object(apn),
+            'Gcm': serialize.object(gcm),
+            'Sms': serialize.object(sms),
+            'FacebookMessenger': serialize.object(facebook_messenger),
+            'Fcm': serialize.object(fcm),
+            'Segment': serialize.map(segment, lambda e: e),
+            'Alexa': serialize.object(alexa),
+            'ToBinding': serialize.map(to_binding, lambda e: e),
+            'DeliveryCallbackUrl': delivery_callback_url,
+            'Identity': serialize.map(identity, lambda e: e),
+            'Tag': serialize.map(tag, lambda e: e),
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Body": body,
-                "Priority": priority,
-                "Ttl": ttl,
-                "Title": title,
-                "Sound": sound,
-                "Action": action,
-                "Data": serialize.object(data),
-                "Apn": serialize.object(apn),
-                "Gcm": serialize.object(gcm),
-                "Sms": serialize.object(sms),
-                "FacebookMessenger": serialize.object(facebook_messenger),
-                "Fcm": serialize.object(fcm),
-                "Segment": serialize.map(segment, lambda e: e),
-                "Alexa": serialize.object(alexa),
-                "ToBinding": serialize.map(to_binding, lambda e: e),
-                "DeliveryCallbackUrl": delivery_callback_url,
-                "Identity": serialize.map(identity, lambda e: e),
-                "Tag": serialize.map(tag, lambda e: e),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return NotificationInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return NotificationInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    async def create_async(
-        self,
-        body: Union[str, object] = values.unset,
-        priority: Union["NotificationInstance.Priority", object] = values.unset,
-        ttl: Union[int, object] = values.unset,
-        title: Union[str, object] = values.unset,
-        sound: Union[str, object] = values.unset,
-        action: Union[str, object] = values.unset,
-        data: Union[object, object] = values.unset,
-        apn: Union[object, object] = values.unset,
-        gcm: Union[object, object] = values.unset,
-        sms: Union[object, object] = values.unset,
-        facebook_messenger: Union[object, object] = values.unset,
-        fcm: Union[object, object] = values.unset,
-        segment: Union[List[str], object] = values.unset,
-        alexa: Union[object, object] = values.unset,
-        to_binding: Union[List[str], object] = values.unset,
-        delivery_callback_url: Union[str, object] = values.unset,
-        identity: Union[List[str], object] = values.unset,
-        tag: Union[List[str], object] = values.unset,
-    ) -> NotificationInstance:
+    async def create_async(self, body: Union[str, object]=values.unset, priority: Union["NotificationInstance.Priority", object]=values.unset, ttl: Union[int, object]=values.unset, title: Union[str, object]=values.unset, sound: Union[str, object]=values.unset, action: Union[str, object]=values.unset, data: Union[object, object]=values.unset, apn: Union[object, object]=values.unset, gcm: Union[object, object]=values.unset, sms: Union[object, object]=values.unset, facebook_messenger: Union[object, object]=values.unset, fcm: Union[object, object]=values.unset, segment: Union[List[str], object]=values.unset, alexa: Union[object, object]=values.unset, to_binding: Union[List[str], object]=values.unset, delivery_callback_url: Union[str, object]=values.unset, identity: Union[List[str], object]=values.unset, tag: Union[List[str], object]=values.unset) -> NotificationInstance:
         """
         Asynchronously create the NotificationInstance
 
         :param body: The notification text. For FCM and GCM, translates to `data.twi_body`. For APNS, translates to `aps.alert.body`. For SMS, translates to `body`. SMS requires either this `body` value, or `media_urls` attribute defined in the `sms` parameter of the notification.
-        :param priority:
+        :param priority: 
         :param ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
         :param title: The notification title. For FCM and GCM, this translates to the `data.twi_title` value. For APNS, this translates to the `aps.alert.title` value. SMS does not support this property. This field is not visible on iOS phones and tablets but appears on Apple Watch and Android devices.
         :param sound: The name of the sound to be played for the notification. For FCM and GCM, this Translates to `data.twi_sound`.  For APNS, this translates to `aps.sound`.  SMS does not support this property.
@@ -232,41 +192,41 @@ class NotificationList(ListResource):
         :param delivery_callback_url: URL to send webhooks.
         :param identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery will be attempted only to Bindings with an Identity in this list. No more than 20 items are allowed in this list.
         :param tag: A tag that selects the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 5 tags. The implicit tag `all` is available to notify all Bindings in a Service instance. Similarly, the implicit tags `apn`, `fcm`, `gcm`, `sms` and `facebook-messenger` are available to notify all Bindings in a specific channel.
-
+        
         :returns: The created NotificationInstance
         """
+        
+        data = values.of({ 
+            'Body': body,
+            'Priority': priority,
+            'Ttl': ttl,
+            'Title': title,
+            'Sound': sound,
+            'Action': action,
+            'Data': serialize.object(data),
+            'Apn': serialize.object(apn),
+            'Gcm': serialize.object(gcm),
+            'Sms': serialize.object(sms),
+            'FacebookMessenger': serialize.object(facebook_messenger),
+            'Fcm': serialize.object(fcm),
+            'Segment': serialize.map(segment, lambda e: e),
+            'Alexa': serialize.object(alexa),
+            'ToBinding': serialize.map(to_binding, lambda e: e),
+            'DeliveryCallbackUrl': delivery_callback_url,
+            'Identity': serialize.map(identity, lambda e: e),
+            'Tag': serialize.map(tag, lambda e: e),
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Body": body,
-                "Priority": priority,
-                "Ttl": ttl,
-                "Title": title,
-                "Sound": sound,
-                "Action": action,
-                "Data": serialize.object(data),
-                "Apn": serialize.object(apn),
-                "Gcm": serialize.object(gcm),
-                "Sms": serialize.object(sms),
-                "FacebookMessenger": serialize.object(facebook_messenger),
-                "Fcm": serialize.object(fcm),
-                "Segment": serialize.map(segment, lambda e: e),
-                "Alexa": serialize.object(alexa),
-                "ToBinding": serialize.map(to_binding, lambda e: e),
-                "DeliveryCallbackUrl": delivery_callback_url,
-                "Identity": serialize.map(identity, lambda e: e),
-                "Tag": serialize.map(tag, lambda e: e),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return NotificationInstance(self._version, payload, service_sid=self._solution['service_sid'])
+    
 
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
 
-        return NotificationInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
 
     def __repr__(self) -> str:
         """
@@ -274,4 +234,5 @@ class NotificationList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Notify.V1.NotificationList>"
+        return '<Twilio.Notify.V1.NotificationList>'
+

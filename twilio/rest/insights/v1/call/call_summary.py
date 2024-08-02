@@ -12,13 +12,16 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
-from typing import Any, Dict, List, Optional, Union
-from twilio.base import deserialize, values
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
+
 
 
 class CallSummaryInstance(InstanceResource):
@@ -81,33 +84,18 @@ class CallSummaryInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any], call_sid: str):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.call_sid: Optional[str] = payload.get("call_sid")
-        self.call_type: Optional["CallSummaryInstance.CallType"] = payload.get(
-            "call_type"
-        )
-        self.call_state: Optional["CallSummaryInstance.CallState"] = payload.get(
-            "call_state"
-        )
-        self.answered_by: Optional["CallSummaryInstance.AnsweredBy"] = payload.get(
-            "answered_by"
-        )
-        self.processing_state: Optional["CallSummaryInstance.ProcessingState"] = (
-            payload.get("processing_state")
-        )
-        self.created_time: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("created_time")
-        )
-        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("start_time")
-        )
-        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("end_time")
-        )
+        self.call_type: Optional["CallSummaryInstance.CallType"] = payload.get("call_type")
+        self.call_state: Optional["CallSummaryInstance.CallState"] = payload.get("call_state")
+        self.answered_by: Optional["CallSummaryInstance.AnsweredBy"] = payload.get("answered_by")
+        self.processing_state: Optional["CallSummaryInstance.ProcessingState"] = payload.get("processing_state")
+        self.created_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("created_time"))
+        self.start_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("start_time"))
+        self.end_time: Optional[datetime] = deserialize.iso8601_datetime(payload.get("end_time"))
         self.duration: Optional[int] = deserialize.integer(payload.get("duration"))
-        self.connect_duration: Optional[int] = deserialize.integer(
-            payload.get("connect_duration")
-        )
+        self.connect_duration: Optional[int] = deserialize.integer(payload.get("connect_duration"))
         self._from: Optional[Dict[str, object]] = payload.get("from")
         self.to: Optional[Dict[str, object]] = payload.get("to")
         self.carrier_edge: Optional[Dict[str, object]] = payload.get("carrier_edge")
@@ -121,7 +109,8 @@ class CallSummaryInstance(InstanceResource):
         self.trust: Optional[Dict[str, object]] = payload.get("trust")
         self.annotation: Optional[Dict[str, object]] = payload.get("annotation")
 
-        self._solution = {
+        
+        self._solution = { 
             "call_sid": call_sid,
         }
         self._context: Optional[CallSummaryContext] = None
@@ -135,55 +124,38 @@ class CallSummaryInstance(InstanceResource):
         :returns: CallSummaryContext for this CallSummaryInstance
         """
         if self._context is None:
-            self._context = CallSummaryContext(
-                self._version,
-                call_sid=self._solution["call_sid"],
-            )
+            self._context = CallSummaryContext(self._version, call_sid=self._solution['call_sid'],)
         return self._context
-
-    def fetch(
-        self,
-        processing_state: Union[
-            "CallSummaryInstance.ProcessingState", object
-        ] = values.unset,
-    ) -> "CallSummaryInstance":
+    
+    
+    def fetch(self, processing_state: Union["CallSummaryInstance.ProcessingState", object]=values.unset) -> "CallSummaryInstance":
         """
         Fetch the CallSummaryInstance
-
+        
         :param processing_state: The Processing State of this Call Summary. One of `complete`, `partial` or `all`.
 
         :returns: The fetched CallSummaryInstance
         """
-        return self._proxy.fetch(
-            processing_state=processing_state,
-        )
+        return self._proxy.fetch(processing_state=processing_state, )
 
-    async def fetch_async(
-        self,
-        processing_state: Union[
-            "CallSummaryInstance.ProcessingState", object
-        ] = values.unset,
-    ) -> "CallSummaryInstance":
+    async def fetch_async(self, processing_state: Union["CallSummaryInstance.ProcessingState", object]=values.unset) -> "CallSummaryInstance":
         """
         Asynchronous coroutine to fetch the CallSummaryInstance
-
+        
         :param processing_state: The Processing State of this Call Summary. One of `complete`, `partial` or `all`.
 
         :returns: The fetched CallSummaryInstance
         """
-        return await self._proxy.fetch_async(
-            processing_state=processing_state,
-        )
-
+        return await self._proxy.fetch_async(processing_state=processing_state, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.CallSummaryInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Insights.V1.CallSummaryInstance {}>'.format(context)
 
 class CallSummaryContext(InstanceContext):
 
@@ -196,110 +168,103 @@ class CallSummaryContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "call_sid": call_sid,
+        self._solution = { 
+            'call_sid': call_sid,
         }
-        self._uri = "/Voice/{call_sid}/Summary".format(**self._solution)
-
-    def fetch(
-        self,
-        processing_state: Union[
-            "CallSummaryInstance.ProcessingState", object
-        ] = values.unset,
-    ) -> CallSummaryInstance:
+        self._uri = '/Voice/{call_sid}/Summary'.format(**self._solution)
+        
+    
+    
+    def fetch(self, processing_state: Union["CallSummaryInstance.ProcessingState", object]=values.unset) -> CallSummaryInstance:
         """
         Fetch the CallSummaryInstance
-
+        
         :param processing_state: The Processing State of this Call Summary. One of `complete`, `partial` or `all`.
 
         :returns: The fetched CallSummaryInstance
         """
-
-        data = values.of(
-            {
-                "ProcessingState": processing_state,
-            }
-        )
-
-        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
+        
+        data = values.of({ 
+            'ProcessingState': processing_state,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return CallSummaryInstance(
             self._version,
             payload,
-            call_sid=self._solution["call_sid"],
+            call_sid=self._solution['call_sid'],
+            
         )
 
-    async def fetch_async(
-        self,
-        processing_state: Union[
-            "CallSummaryInstance.ProcessingState", object
-        ] = values.unset,
-    ) -> CallSummaryInstance:
+    async def fetch_async(self, processing_state: Union["CallSummaryInstance.ProcessingState", object]=values.unset) -> CallSummaryInstance:
         """
         Asynchronous coroutine to fetch the CallSummaryInstance
-
+        
         :param processing_state: The Processing State of this Call Summary. One of `complete`, `partial` or `all`.
 
         :returns: The fetched CallSummaryInstance
         """
-
-        data = values.of(
-            {
-                "ProcessingState": processing_state,
-            }
-        )
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data
-        )
+        
+        data = values.of({ 
+            'ProcessingState': processing_state,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
 
         return CallSummaryInstance(
             self._version,
             payload,
-            call_sid=self._solution["call_sid"],
+            call_sid=self._solution['call_sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.CallSummaryContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Insights.V1.CallSummaryContext {}>'.format(context)
+
 
 
 class CallSummaryList(ListResource):
-
+    
     def __init__(self, version: Version, call_sid: str):
         """
         Initialize the CallSummaryList
 
         :param version: Version that contains the resource
         :param call_sid: The unique SID identifier of the Call.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "call_sid": call_sid,
-        }
+        self._solution = { 'call_sid': call_sid,  }
+        
+        
+        
 
     def get(self) -> CallSummaryContext:
         """
         Constructs a CallSummaryContext
-
+        
         """
-        return CallSummaryContext(self._version, call_sid=self._solution["call_sid"])
+        return CallSummaryContext(self._version, call_sid=self._solution['call_sid'])
 
     def __call__(self) -> CallSummaryContext:
         """
         Constructs a CallSummaryContext
-
+        
         """
-        return CallSummaryContext(self._version, call_sid=self._solution["call_sid"])
+        return CallSummaryContext(self._version, call_sid=self._solution['call_sid'])
 
     def __repr__(self) -> str:
         """
@@ -307,4 +272,5 @@ class CallSummaryList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Insights.V1.CallSummaryList>"
+        return '<Twilio.Insights.V1.CallSummaryList>'
+

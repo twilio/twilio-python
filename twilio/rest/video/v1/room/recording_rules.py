@@ -12,8 +12,10 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
-from typing import Any, Dict, List, Optional, Union
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
@@ -21,7 +23,9 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
 class RecordingRulesInstance(InstanceResource):
+
     """
     :ivar room_sid: The SID of the Room resource for the Recording Rules
     :ivar rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
@@ -32,130 +36,125 @@ class RecordingRulesInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any], room_sid: str):
         super().__init__(version)
 
+        
         self.room_sid: Optional[str] = payload.get("room_sid")
         self.rules: Optional[List[str]] = payload.get("rules")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
 
-        self._solution = {
+        
+        self._solution = { 
             "room_sid": room_sid,
         }
-
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.RecordingRulesInstance {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Video.V1.RecordingRulesInstance {}>'.format(context)
+
+
 
 
 class RecordingRulesList(ListResource):
-
+    
     def __init__(self, version: Version, room_sid: str):
         """
         Initialize the RecordingRulesList
 
         :param version: Version that contains the resource
         :param room_sid: The SID of the Room resource where the recording rules to update apply.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "room_sid": room_sid,
-        }
-        self._uri = "/Rooms/{room_sid}/RecordingRules".format(**self._solution)
-
+        self._solution = { 'room_sid': room_sid,  }
+        self._uri = '/Rooms/{room_sid}/RecordingRules'.format(**self._solution)
+        
+        
+    
     def fetch(self) -> RecordingRulesInstance:
         """
         Asynchronously fetch the RecordingRulesInstance
 
-
+        
         :returns: The fetched RecordingRulesInstance
         """
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, headers=headers)
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return RecordingRulesInstance(
-            self._version, payload, room_sid=self._solution["room_sid"]
-        )
+        return RecordingRulesInstance(self._version, payload, room_sid=self._solution['room_sid'])
 
     async def fetch_async(self) -> RecordingRulesInstance:
         """
         Asynchronously fetch the RecordingRulesInstance
 
-
+        
         :returns: The fetched RecordingRulesInstance
         """
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, headers=headers)
 
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
+        return RecordingRulesInstance(self._version, payload, room_sid=self._solution['room_sid'])
+    
 
-        return RecordingRulesInstance(
-            self._version, payload, room_sid=self._solution["room_sid"]
-        )
-
-    def update(
-        self, rules: Union[object, object] = values.unset
-    ) -> RecordingRulesInstance:
+    def update(self, rules: Union[object, object]=values.unset) -> RecordingRulesInstance:
         """
         Update the RecordingRulesInstance
 
         :param rules: A JSON-encoded array of recording rules.
-
+        
         :returns: The created RecordingRulesInstance
         """
+        
+        data = values.of({ 
+            'Rules': serialize.object(rules),
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Rules": serialize.object(rules),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return RecordingRulesInstance(self._version, payload, room_sid=self._solution['room_sid'])
 
-        payload = self._version.update(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return RecordingRulesInstance(
-            self._version, payload, room_sid=self._solution["room_sid"]
-        )
-
-    async def update_async(
-        self, rules: Union[object, object] = values.unset
-    ) -> RecordingRulesInstance:
+    async def update_async(self, rules: Union[object, object]=values.unset) -> RecordingRulesInstance:
         """
         Asynchronously update the RecordingRulesInstance
 
         :param rules: A JSON-encoded array of recording rules.
-
+        
         :returns: The created RecordingRulesInstance
         """
+        
+        data = values.of({ 
+            'Rules': serialize.object(rules),
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Rules": serialize.object(rules),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return RecordingRulesInstance(self._version, payload, room_sid=self._solution['room_sid'])
 
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
 
-        return RecordingRulesInstance(
-            self._version, payload, room_sid=self._solution["room_sid"]
-        )
 
     def __repr__(self) -> str:
         """
@@ -163,4 +162,5 @@ class RecordingRulesList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Video.V1.RecordingRulesList>"
+        return '<Twilio.Video.V1.RecordingRulesList>'
+

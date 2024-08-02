@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -63,15 +65,10 @@ class DependentPhoneNumberInstance(InstanceResource):
     :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        account_sid: str,
-        address_sid: str,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, address_sid: str):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
@@ -80,50 +77,42 @@ class DependentPhoneNumberInstance(InstanceResource):
         self.voice_method: Optional[str] = payload.get("voice_method")
         self.voice_fallback_method: Optional[str] = payload.get("voice_fallback_method")
         self.voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
-        self.voice_caller_id_lookup: Optional[bool] = payload.get(
-            "voice_caller_id_lookup"
-        )
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_updated")
-        )
+        self.voice_caller_id_lookup: Optional[bool] = payload.get("voice_caller_id_lookup")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
         self.sms_fallback_method: Optional[str] = payload.get("sms_fallback_method")
         self.sms_fallback_url: Optional[str] = payload.get("sms_fallback_url")
         self.sms_method: Optional[str] = payload.get("sms_method")
         self.sms_url: Optional[str] = payload.get("sms_url")
-        self.address_requirements: Optional[
-            "DependentPhoneNumberInstance.AddressRequirement"
-        ] = payload.get("address_requirements")
+        self.address_requirements: Optional["DependentPhoneNumberInstance.AddressRequirement"] = payload.get("address_requirements")
         self.capabilities: Optional[Dict[str, object]] = payload.get("capabilities")
         self.status_callback: Optional[str] = payload.get("status_callback")
-        self.status_callback_method: Optional[str] = payload.get(
-            "status_callback_method"
-        )
+        self.status_callback_method: Optional[str] = payload.get("status_callback_method")
         self.api_version: Optional[str] = payload.get("api_version")
         self.sms_application_sid: Optional[str] = payload.get("sms_application_sid")
         self.voice_application_sid: Optional[str] = payload.get("voice_application_sid")
         self.trunk_sid: Optional[str] = payload.get("trunk_sid")
-        self.emergency_status: Optional[
-            "DependentPhoneNumberInstance.EmergencyStatus"
-        ] = payload.get("emergency_status")
+        self.emergency_status: Optional["DependentPhoneNumberInstance.EmergencyStatus"] = payload.get("emergency_status")
         self.emergency_address_sid: Optional[str] = payload.get("emergency_address_sid")
         self.uri: Optional[str] = payload.get("uri")
 
-        self._solution = {
+        
+        self._solution = { 
             "account_sid": account_sid,
             "address_sid": address_sid,
         }
-
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.DependentPhoneNumberInstance {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.DependentPhoneNumberInstance {}>'.format(context)
+
+
 
 
 class DependentPhoneNumberPage(Page):
@@ -134,12 +123,7 @@ class DependentPhoneNumberPage(Page):
 
         :param payload: Payload response from the API
         """
-        return DependentPhoneNumberInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            address_sid=self._solution["address_sid"],
-        )
+        return DependentPhoneNumberInstance(self._version, payload, account_sid=self._solution["account_sid"], address_sid=self._solution["address_sid"])
 
     def __repr__(self) -> str:
         """
@@ -150,8 +134,11 @@ class DependentPhoneNumberPage(Page):
         return "<Twilio.Api.V2010.DependentPhoneNumberPage>"
 
 
-class DependentPhoneNumberList(ListResource):
 
+
+
+class DependentPhoneNumberList(ListResource):
+    
     def __init__(self, version: Version, account_sid: str, address_sid: str):
         """
         Initialize the DependentPhoneNumberList
@@ -159,21 +146,19 @@ class DependentPhoneNumberList(ListResource):
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the DependentPhoneNumber resources to read.
         :param address_sid: The SID of the Address resource associated with the phone number.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-            "address_sid": address_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/Addresses/{address_sid}/DependentPhoneNumbers.json".format(
-            **self._solution
-        )
-
-    def stream(
-        self,
+        self._solution = { 'account_sid': account_sid, 'address_sid': address_sid,  }
+        self._uri = '/Accounts/{account_sid}/Addresses/{address_sid}/DependentPhoneNumbers.json'.format(**self._solution)
+        
+        
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[DependentPhoneNumberInstance]:
@@ -182,7 +167,7 @@ class DependentPhoneNumberList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -193,12 +178,14 @@ class DependentPhoneNumberList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[DependentPhoneNumberInstance]:
@@ -207,7 +194,7 @@ class DependentPhoneNumberList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -218,12 +205,14 @@ class DependentPhoneNumberList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DependentPhoneNumberInstance]:
@@ -231,7 +220,7 @@ class DependentPhoneNumberList(ListResource):
         Lists DependentPhoneNumberInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -241,15 +230,13 @@ class DependentPhoneNumberList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DependentPhoneNumberInstance]:
@@ -257,7 +244,7 @@ class DependentPhoneNumberList(ListResource):
         Asynchronously lists DependentPhoneNumberInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -267,16 +254,13 @@ class DependentPhoneNumberList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -284,26 +268,24 @@ class DependentPhoneNumberList(ListResource):
         """
         Retrieve a single page of DependentPhoneNumberInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DependentPhoneNumberInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return DependentPhoneNumberPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -311,24 +293,20 @@ class DependentPhoneNumberList(ListResource):
         """
         Asynchronously retrieve a single page of DependentPhoneNumberInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DependentPhoneNumberInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return DependentPhoneNumberPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> DependentPhoneNumberPage:
@@ -340,7 +318,10 @@ class DependentPhoneNumberList(ListResource):
 
         :returns: Page of DependentPhoneNumberInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return DependentPhoneNumberPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> DependentPhoneNumberPage:
@@ -352,8 +333,14 @@ class DependentPhoneNumberList(ListResource):
 
         :returns: Page of DependentPhoneNumberInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return DependentPhoneNumberPage(self._version, response, self._solution)
+
+
+
 
     def __repr__(self) -> str:
         """
@@ -361,4 +348,5 @@ class DependentPhoneNumberList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Api.V2010.DependentPhoneNumberList>"
+        return '<Twilio.Api.V2010.DependentPhoneNumberList>'
+

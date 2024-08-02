@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import serialize, values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,6 +25,7 @@ from twilio.base.page import Page
 
 
 class TaskQueuesStatisticsInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the TaskQueue resource.
     :ivar cumulative: An object that contains the cumulative statistics for the TaskQueues.
@@ -34,24 +37,29 @@ class TaskQueuesStatisticsInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any], workspace_sid: str):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.cumulative: Optional[Dict[str, object]] = payload.get("cumulative")
         self.realtime: Optional[Dict[str, object]] = payload.get("realtime")
         self.task_queue_sid: Optional[str] = payload.get("task_queue_sid")
         self.workspace_sid: Optional[str] = payload.get("workspace_sid")
 
-        self._solution = {
+        
+        self._solution = { 
             "workspace_sid": workspace_sid,
         }
-
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.TaskQueuesStatisticsInstance {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.TaskQueuesStatisticsInstance {}>'.format(context)
+
+
 
 
 class TaskQueuesStatisticsPage(Page):
@@ -62,9 +70,7 @@ class TaskQueuesStatisticsPage(Page):
 
         :param payload: Payload response from the API
         """
-        return TaskQueuesStatisticsInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
-        )
+        return TaskQueuesStatisticsInstance(self._version, payload, workspace_sid=self._solution["workspace_sid"])
 
     def __repr__(self) -> str:
         """
@@ -75,34 +81,36 @@ class TaskQueuesStatisticsPage(Page):
         return "<Twilio.Taskrouter.V1.TaskQueuesStatisticsPage>"
 
 
-class TaskQueuesStatisticsList(ListResource):
 
+
+
+class TaskQueuesStatisticsList(ListResource):
+    
     def __init__(self, version: Version, workspace_sid: str):
         """
         Initialize the TaskQueuesStatisticsList
 
         :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the TaskQueues to read.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "workspace_sid": workspace_sid,
-        }
-        self._uri = "/Workspaces/{workspace_sid}/TaskQueues/Statistics".format(
-            **self._solution
-        )
-
-    def stream(
-        self,
+        self._solution = { 'workspace_sid': workspace_sid,  }
+        self._uri = '/Workspaces/{workspace_sid}/TaskQueues/Statistics'.format(**self._solution)
+        
+        
+    
+    def stream(self, 
         end_date: Union[datetime, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         minutes: Union[int, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         split_by_wait_time: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[TaskQueuesStatisticsInstance]:
@@ -111,7 +119,7 @@ class TaskQueuesStatisticsList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
         :param str friendly_name: The `friendly_name` of the TaskQueue statistics to read.
         :param int minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
@@ -135,19 +143,19 @@ class TaskQueuesStatisticsList(ListResource):
             start_date=start_date,
             task_channel=task_channel,
             split_by_wait_time=split_by_wait_time,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         end_date: Union[datetime, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         minutes: Union[int, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         split_by_wait_time: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[TaskQueuesStatisticsInstance]:
@@ -156,7 +164,7 @@ class TaskQueuesStatisticsList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
         :param str friendly_name: The `friendly_name` of the TaskQueue statistics to read.
         :param int minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
@@ -180,19 +188,19 @@ class TaskQueuesStatisticsList(ListResource):
             start_date=start_date,
             task_channel=task_channel,
             split_by_wait_time=split_by_wait_time,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         end_date: Union[datetime, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         minutes: Union[int, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         split_by_wait_time: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[TaskQueuesStatisticsInstance]:
@@ -200,7 +208,7 @@ class TaskQueuesStatisticsList(ListResource):
         Lists TaskQueuesStatisticsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
         :param str friendly_name: The `friendly_name` of the TaskQueue statistics to read.
         :param int minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
@@ -216,27 +224,25 @@ class TaskQueuesStatisticsList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                end_date=end_date,
-                friendly_name=friendly_name,
-                minutes=minutes,
-                start_date=start_date,
-                task_channel=task_channel,
-                split_by_wait_time=split_by_wait_time,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            end_date=end_date,
+            friendly_name=friendly_name,
+            minutes=minutes,
+            start_date=start_date,
+            task_channel=task_channel,
+            split_by_wait_time=split_by_wait_time,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         end_date: Union[datetime, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         minutes: Union[int, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         split_by_wait_time: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[TaskQueuesStatisticsInstance]:
@@ -244,7 +250,7 @@ class TaskQueuesStatisticsList(ListResource):
         Asynchronously lists TaskQueuesStatisticsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param datetime end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
         :param str friendly_name: The `friendly_name` of the TaskQueue statistics to read.
         :param int minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
@@ -260,28 +266,25 @@ class TaskQueuesStatisticsList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                end_date=end_date,
-                friendly_name=friendly_name,
-                minutes=minutes,
-                start_date=start_date,
-                task_channel=task_channel,
-                split_by_wait_time=split_by_wait_time,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            end_date=end_date,
+            friendly_name=friendly_name,
+            minutes=minutes,
+            start_date=start_date,
+            task_channel=task_channel,
+            split_by_wait_time=split_by_wait_time,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         end_date: Union[datetime, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         minutes: Union[int, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         split_by_wait_time: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -289,7 +292,7 @@ class TaskQueuesStatisticsList(ListResource):
         """
         Retrieve a single page of TaskQueuesStatisticsInstance records from the API.
         Request is executed immediately
-
+        
         :param end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
         :param friendly_name: The `friendly_name` of the TaskQueue statistics to read.
         :param minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
@@ -302,31 +305,29 @@ class TaskQueuesStatisticsList(ListResource):
 
         :returns: Page of TaskQueuesStatisticsInstance
         """
-        data = values.of(
-            {
-                "EndDate": serialize.iso8601_datetime(end_date),
-                "FriendlyName": friendly_name,
-                "Minutes": minutes,
-                "StartDate": serialize.iso8601_datetime(start_date),
-                "TaskChannel": task_channel,
-                "SplitByWaitTime": split_by_wait_time,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'EndDate': serialize.iso8601_datetime(end_date),
+            'FriendlyName': friendly_name,
+            'Minutes': minutes,
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'TaskChannel': task_channel,
+            'SplitByWaitTime': split_by_wait_time,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return TaskQueuesStatisticsPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         end_date: Union[datetime, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         minutes: Union[int, object] = values.unset,
         start_date: Union[datetime, object] = values.unset,
         task_channel: Union[str, object] = values.unset,
         split_by_wait_time: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -334,7 +335,7 @@ class TaskQueuesStatisticsList(ListResource):
         """
         Asynchronously retrieve a single page of TaskQueuesStatisticsInstance records from the API.
         Request is executed immediately
-
+        
         :param end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
         :param friendly_name: The `friendly_name` of the TaskQueue statistics to read.
         :param minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
@@ -347,23 +348,19 @@ class TaskQueuesStatisticsList(ListResource):
 
         :returns: Page of TaskQueuesStatisticsInstance
         """
-        data = values.of(
-            {
-                "EndDate": serialize.iso8601_datetime(end_date),
-                "FriendlyName": friendly_name,
-                "Minutes": minutes,
-                "StartDate": serialize.iso8601_datetime(start_date),
-                "TaskChannel": task_channel,
-                "SplitByWaitTime": split_by_wait_time,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'EndDate': serialize.iso8601_datetime(end_date),
+            'FriendlyName': friendly_name,
+            'Minutes': minutes,
+            'StartDate': serialize.iso8601_datetime(start_date),
+            'TaskChannel': task_channel,
+            'SplitByWaitTime': split_by_wait_time,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return TaskQueuesStatisticsPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> TaskQueuesStatisticsPage:
@@ -375,7 +372,10 @@ class TaskQueuesStatisticsList(ListResource):
 
         :returns: Page of TaskQueuesStatisticsInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return TaskQueuesStatisticsPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> TaskQueuesStatisticsPage:
@@ -387,8 +387,14 @@ class TaskQueuesStatisticsList(ListResource):
 
         :returns: Page of TaskQueuesStatisticsInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return TaskQueuesStatisticsPage(self._version, response, self._solution)
+
+
+
 
     def __repr__(self) -> str:
         """
@@ -396,4 +402,5 @@ class TaskQueuesStatisticsList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Taskrouter.V1.TaskQueuesStatisticsList>"
+        return '<Twilio.Taskrouter.V1.TaskQueuesStatisticsList>'
+

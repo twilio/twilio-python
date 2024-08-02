@@ -12,16 +12,20 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
-from typing import Any, Dict, List, Optional, Union
-from twilio.base import deserialize, values
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
 class TokenInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Token resource.
     :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
@@ -35,99 +39,96 @@ class TokenInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
         self.ice_servers: Optional[List[str]] = payload.get("ice_servers")
         self.password: Optional[str] = payload.get("password")
         self.ttl: Optional[str] = payload.get("ttl")
         self.username: Optional[str] = payload.get("username")
 
-        self._solution = {
+        
+        self._solution = { 
             "account_sid": account_sid,
         }
-
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.TokenInstance {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.TokenInstance {}>'.format(context)
+
+
 
 
 class TokenList(ListResource):
-
+    
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the TokenList
 
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that will create the resource.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/Tokens.json".format(**self._solution)
-
-    def create(self, ttl: Union[int, object] = values.unset) -> TokenInstance:
+        self._solution = { 'account_sid': account_sid,  }
+        self._uri = '/Accounts/{account_sid}/Tokens.json'.format(**self._solution)
+        
+        
+    
+    def create(self, ttl: Union[int, object]=values.unset) -> TokenInstance:
         """
         Create the TokenInstance
 
         :param ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
-
+        
         :returns: The created TokenInstance
         """
+        
+        data = values.of({ 
+            'Ttl': ttl,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Ttl": ttl,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return TokenInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return TokenInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    async def create_async(
-        self, ttl: Union[int, object] = values.unset
-    ) -> TokenInstance:
+    async def create_async(self, ttl: Union[int, object]=values.unset) -> TokenInstance:
         """
         Asynchronously create the TokenInstance
 
         :param ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
-
+        
         :returns: The created TokenInstance
         """
+        
+        data = values.of({ 
+            'Ttl': ttl,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Ttl": ttl,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return TokenInstance(self._version, payload, account_sid=self._solution['account_sid'])
+    
 
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
 
-        return TokenInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
 
     def __repr__(self) -> str:
         """
@@ -135,4 +136,5 @@ class TokenList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Api.V2010.TokenList>"
+        return '<Twilio.Api.V2010.TokenList>'
+

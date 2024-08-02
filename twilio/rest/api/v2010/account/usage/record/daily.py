@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import date
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 
@@ -74,89 +76,45 @@ class DailyInstance(InstanceResource):
         IMP_V1_USAGE = "imp-v1-usage"
         LOOKUPS = "lookups"
         MARKETPLACE = "marketplace"
-        MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION = (
-            "marketplace-algorithmia-named-entity-recognition"
-        )
+        MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION = "marketplace-algorithmia-named-entity-recognition"
         MARKETPLACE_CADENCE_TRANSCRIPTION = "marketplace-cadence-transcription"
         MARKETPLACE_CADENCE_TRANSLATION = "marketplace-cadence-translation"
         MARKETPLACE_CAPIO_SPEECH_TO_TEXT = "marketplace-capio-speech-to-text"
         MARKETPLACE_CONVRIZA_ABABA = "marketplace-convriza-ababa"
         MARKETPLACE_DEEPGRAM_PHRASE_DETECTOR = "marketplace-deepgram-phrase-detector"
-        MARKETPLACE_DIGITAL_SEGMENT_BUSINESS_INFO = (
-            "marketplace-digital-segment-business-info"
-        )
-        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS = (
-            "marketplace-facebook-offline-conversions"
-        )
+        MARKETPLACE_DIGITAL_SEGMENT_BUSINESS_INFO = "marketplace-digital-segment-business-info"
+        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS = "marketplace-facebook-offline-conversions"
         MARKETPLACE_GOOGLE_SPEECH_TO_TEXT = "marketplace-google-speech-to-text"
-        MARKETPLACE_IBM_WATSON_MESSAGE_INSIGHTS = (
-            "marketplace-ibm-watson-message-insights"
-        )
-        MARKETPLACE_IBM_WATSON_MESSAGE_SENTIMENT = (
-            "marketplace-ibm-watson-message-sentiment"
-        )
-        MARKETPLACE_IBM_WATSON_RECORDING_ANALYSIS = (
-            "marketplace-ibm-watson-recording-analysis"
-        )
+        MARKETPLACE_IBM_WATSON_MESSAGE_INSIGHTS = "marketplace-ibm-watson-message-insights"
+        MARKETPLACE_IBM_WATSON_MESSAGE_SENTIMENT = "marketplace-ibm-watson-message-sentiment"
+        MARKETPLACE_IBM_WATSON_RECORDING_ANALYSIS = "marketplace-ibm-watson-recording-analysis"
         MARKETPLACE_IBM_WATSON_TONE_ANALYZER = "marketplace-ibm-watson-tone-analyzer"
         MARKETPLACE_ICEHOOK_SYSTEMS_SCOUT = "marketplace-icehook-systems-scout"
-        MARKETPLACE_INFOGROUP_DATAAXLE_BIZINFO = (
-            "marketplace-infogroup-dataaxle-bizinfo"
-        )
-        MARKETPLACE_KEEN_IO_CONTACT_CENTER_ANALYTICS = (
-            "marketplace-keen-io-contact-center-analytics"
-        )
+        MARKETPLACE_INFOGROUP_DATAAXLE_BIZINFO = "marketplace-infogroup-dataaxle-bizinfo"
+        MARKETPLACE_KEEN_IO_CONTACT_CENTER_ANALYTICS = "marketplace-keen-io-contact-center-analytics"
         MARKETPLACE_MARCHEX_CLEANCALL = "marketplace-marchex-cleancall"
-        MARKETPLACE_MARCHEX_SENTIMENT_ANALYSIS_FOR_SMS = (
-            "marketplace-marchex-sentiment-analysis-for-sms"
-        )
-        MARKETPLACE_MARKETPLACE_NEXTCALLER_SOCIAL_ID = (
-            "marketplace-marketplace-nextcaller-social-id"
-        )
-        MARKETPLACE_MOBILE_COMMONS_OPT_OUT_CLASSIFIER = (
-            "marketplace-mobile-commons-opt-out-classifier"
-        )
-        MARKETPLACE_NEXIWAVE_VOICEMAIL_TO_TEXT = (
-            "marketplace-nexiwave-voicemail-to-text"
-        )
-        MARKETPLACE_NEXTCALLER_ADVANCED_CALLER_IDENTIFICATION = (
-            "marketplace-nextcaller-advanced-caller-identification"
-        )
+        MARKETPLACE_MARCHEX_SENTIMENT_ANALYSIS_FOR_SMS = "marketplace-marchex-sentiment-analysis-for-sms"
+        MARKETPLACE_MARKETPLACE_NEXTCALLER_SOCIAL_ID = "marketplace-marketplace-nextcaller-social-id"
+        MARKETPLACE_MOBILE_COMMONS_OPT_OUT_CLASSIFIER = "marketplace-mobile-commons-opt-out-classifier"
+        MARKETPLACE_NEXIWAVE_VOICEMAIL_TO_TEXT = "marketplace-nexiwave-voicemail-to-text"
+        MARKETPLACE_NEXTCALLER_ADVANCED_CALLER_IDENTIFICATION = "marketplace-nextcaller-advanced-caller-identification"
         MARKETPLACE_NOMOROBO_SPAM_SCORE = "marketplace-nomorobo-spam-score"
         MARKETPLACE_PAYFONE_TCPA_COMPLIANCE = "marketplace-payfone-tcpa-compliance"
-        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION = (
-            "marketplace-remeeting-automatic-speech-recognition"
-        )
-        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED = (
-            "marketplace-tcpa-defense-solutions-blacklist-feed"
-        )
+        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION = "marketplace-remeeting-automatic-speech-recognition"
+        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED = "marketplace-tcpa-defense-solutions-blacklist-feed"
         MARKETPLACE_TELO_OPENCNAM = "marketplace-telo-opencnam"
         MARKETPLACE_TRUECNAM_TRUE_SPAM = "marketplace-truecnam-true-spam"
-        MARKETPLACE_TWILIO_CALLER_NAME_LOOKUP_US = (
-            "marketplace-twilio-caller-name-lookup-us"
-        )
-        MARKETPLACE_TWILIO_CARRIER_INFORMATION_LOOKUP = (
-            "marketplace-twilio-carrier-information-lookup"
-        )
+        MARKETPLACE_TWILIO_CALLER_NAME_LOOKUP_US = "marketplace-twilio-caller-name-lookup-us"
+        MARKETPLACE_TWILIO_CARRIER_INFORMATION_LOOKUP = "marketplace-twilio-carrier-information-lookup"
         MARKETPLACE_VOICEBASE_PCI = "marketplace-voicebase-pci"
         MARKETPLACE_VOICEBASE_TRANSCRIPTION = "marketplace-voicebase-transcription"
-        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY = (
-            "marketplace-voicebase-transcription-custom-vocabulary"
-        )
-        MARKETPLACE_WHITEPAGES_PRO_CALLER_IDENTIFICATION = (
-            "marketplace-whitepages-pro-caller-identification"
-        )
-        MARKETPLACE_WHITEPAGES_PRO_PHONE_INTELLIGENCE = (
-            "marketplace-whitepages-pro-phone-intelligence"
-        )
-        MARKETPLACE_WHITEPAGES_PRO_PHONE_REPUTATION = (
-            "marketplace-whitepages-pro-phone-reputation"
-        )
+        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY = "marketplace-voicebase-transcription-custom-vocabulary"
+        MARKETPLACE_WHITEPAGES_PRO_CALLER_IDENTIFICATION = "marketplace-whitepages-pro-caller-identification"
+        MARKETPLACE_WHITEPAGES_PRO_PHONE_INTELLIGENCE = "marketplace-whitepages-pro-phone-intelligence"
+        MARKETPLACE_WHITEPAGES_PRO_PHONE_REPUTATION = "marketplace-whitepages-pro-phone-reputation"
         MARKETPLACE_WOLFARM_SPOKEN_RESULTS = "marketplace-wolfarm-spoken-results"
         MARKETPLACE_WOLFRAM_SHORT_ANSWER = "marketplace-wolfram-short-answer"
-        MARKETPLACE_YTICA_CONTACT_CENTER_REPORTING_ANALYTICS = (
-            "marketplace-ytica-contact-center-reporting-analytics"
-        )
+        MARKETPLACE_YTICA_CONTACT_CENTER_REPORTING_ANALYTICS = "marketplace-ytica-contact-center-reporting-analytics"
         MEDIASTORAGE = "mediastorage"
         MMS = "mms"
         MMS_INBOUND = "mms-inbound"
@@ -175,9 +133,7 @@ class DailyInstance(InstanceResource):
         NUMBER_FORMAT_LOOKUPS = "number-format-lookups"
         PCHAT = "pchat"
         PCHAT_USERS = "pchat-users"
-        PEER_TO_PEER_ROOMS_PARTICIPANT_MINUTES = (
-            "peer-to-peer-rooms-participant-minutes"
-        )
+        PEER_TO_PEER_ROOMS_PARTICIPANT_MINUTES = "peer-to-peer-rooms-participant-minutes"
         PFAX = "pfax"
         PFAX_MINUTES = "pfax-minutes"
         PFAX_MINUTES_INBOUND = "pfax-minutes-inbound"
@@ -268,24 +224,14 @@ class DailyInstance(InstanceResource):
         TWILIO_INTERCONNECT = "twilio-interconnect"
         VERIFY_PUSH = "verify-push"
         VERIFY_TOTP = "verify-totp"
-        VERIFY_WHATSAPP_CONVERSATIONS_BUSINESS_INITIATED = (
-            "verify-whatsapp-conversations-business-initiated"
-        )
+        VERIFY_WHATSAPP_CONVERSATIONS_BUSINESS_INITIATED = "verify-whatsapp-conversations-business-initiated"
         VIDEO_RECORDINGS = "video-recordings"
         VIRTUAL_AGENT = "virtual-agent"
         VOICE_INSIGHTS = "voice-insights"
-        VOICE_INSIGHTS_CLIENT_INSIGHTS_ON_DEMAND_MINUTE = (
-            "voice-insights-client-insights-on-demand-minute"
-        )
-        VOICE_INSIGHTS_PTSN_INSIGHTS_ON_DEMAND_MINUTE = (
-            "voice-insights-ptsn-insights-on-demand-minute"
-        )
-        VOICE_INSIGHTS_SIP_INTERFACE_INSIGHTS_ON_DEMAND_MINUTE = (
-            "voice-insights-sip-interface-insights-on-demand-minute"
-        )
-        VOICE_INSIGHTS_SIP_TRUNKING_INSIGHTS_ON_DEMAND_MINUTE = (
-            "voice-insights-sip-trunking-insights-on-demand-minute"
-        )
+        VOICE_INSIGHTS_CLIENT_INSIGHTS_ON_DEMAND_MINUTE = "voice-insights-client-insights-on-demand-minute"
+        VOICE_INSIGHTS_PTSN_INSIGHTS_ON_DEMAND_MINUTE = "voice-insights-ptsn-insights-on-demand-minute"
+        VOICE_INSIGHTS_SIP_INTERFACE_INSIGHTS_ON_DEMAND_MINUTE = "voice-insights-sip-interface-insights-on-demand-minute"
+        VOICE_INSIGHTS_SIP_TRUNKING_INSIGHTS_ON_DEMAND_MINUTE = "voice-insights-sip-trunking-insights-on-demand-minute"
         VOICE_INTELLIGENCE = "voice-intelligence"
         VOICE_INTELLIGENCE_TRANSCRIPTION = "voice-intelligence-transcription"
         VOICE_INTELLIGENCE_OPERATORS = "voice-intelligence-operators"
@@ -299,9 +245,7 @@ class DailyInstance(InstanceResource):
         WIRELESS_USAGE_COMMANDS = "wireless-usage-commands"
         WIRELESS_USAGE_COMMANDS_AFRICA = "wireless-usage-commands-africa"
         WIRELESS_USAGE_COMMANDS_ASIA = "wireless-usage-commands-asia"
-        WIRELESS_USAGE_COMMANDS_CENTRALANDSOUTHAMERICA = (
-            "wireless-usage-commands-centralandsouthamerica"
-        )
+        WIRELESS_USAGE_COMMANDS_CENTRALANDSOUTHAMERICA = "wireless-usage-commands-centralandsouthamerica"
         WIRELESS_USAGE_COMMANDS_EUROPE = "wireless-usage-commands-europe"
         WIRELESS_USAGE_COMMANDS_HOME = "wireless-usage-commands-home"
         WIRELESS_USAGE_COMMANDS_NORTHAMERICA = "wireless-usage-commands-northamerica"
@@ -310,30 +254,16 @@ class DailyInstance(InstanceResource):
         WIRELESS_USAGE_DATA = "wireless-usage-data"
         WIRELESS_USAGE_DATA_AFRICA = "wireless-usage-data-africa"
         WIRELESS_USAGE_DATA_ASIA = "wireless-usage-data-asia"
-        WIRELESS_USAGE_DATA_CENTRALANDSOUTHAMERICA = (
-            "wireless-usage-data-centralandsouthamerica"
-        )
-        WIRELESS_USAGE_DATA_CUSTOM_ADDITIONALMB = (
-            "wireless-usage-data-custom-additionalmb"
-        )
+        WIRELESS_USAGE_DATA_CENTRALANDSOUTHAMERICA = "wireless-usage-data-centralandsouthamerica"
+        WIRELESS_USAGE_DATA_CUSTOM_ADDITIONALMB = "wireless-usage-data-custom-additionalmb"
         WIRELESS_USAGE_DATA_CUSTOM_FIRST5MB = "wireless-usage-data-custom-first5mb"
         WIRELESS_USAGE_DATA_DOMESTIC_ROAMING = "wireless-usage-data-domestic-roaming"
         WIRELESS_USAGE_DATA_EUROPE = "wireless-usage-data-europe"
-        WIRELESS_USAGE_DATA_INDIVIDUAL_ADDITIONALGB = (
-            "wireless-usage-data-individual-additionalgb"
-        )
-        WIRELESS_USAGE_DATA_INDIVIDUAL_FIRSTGB = (
-            "wireless-usage-data-individual-firstgb"
-        )
-        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_CANADA = (
-            "wireless-usage-data-international-roaming-canada"
-        )
-        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_INDIA = (
-            "wireless-usage-data-international-roaming-india"
-        )
-        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_MEXICO = (
-            "wireless-usage-data-international-roaming-mexico"
-        )
+        WIRELESS_USAGE_DATA_INDIVIDUAL_ADDITIONALGB = "wireless-usage-data-individual-additionalgb"
+        WIRELESS_USAGE_DATA_INDIVIDUAL_FIRSTGB = "wireless-usage-data-individual-firstgb"
+        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_CANADA = "wireless-usage-data-international-roaming-canada"
+        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_INDIA = "wireless-usage-data-international-roaming-india"
+        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_MEXICO = "wireless-usage-data-international-roaming-mexico"
         WIRELESS_USAGE_DATA_NORTHAMERICA = "wireless-usage-data-northamerica"
         WIRELESS_USAGE_DATA_OCEANIA = "wireless-usage-data-oceania"
         WIRELESS_USAGE_DATA_POOLED = "wireless-usage-data-pooled"
@@ -368,6 +298,7 @@ class DailyInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.api_version: Optional[str] = payload.get("api_version")
         self.as_of: Optional[str] = payload.get("as_of")
@@ -375,33 +306,31 @@ class DailyInstance(InstanceResource):
         self.count: Optional[str] = payload.get("count")
         self.count_unit: Optional[str] = payload.get("count_unit")
         self.description: Optional[str] = payload.get("description")
-        self.end_date: Optional[date] = deserialize.iso8601_date(
-            payload.get("end_date")
-        )
+        self.end_date: Optional[date] = deserialize.iso8601_date(payload.get("end_date"))
         self.price: Optional[float] = deserialize.decimal(payload.get("price"))
         self.price_unit: Optional[str] = payload.get("price_unit")
-        self.start_date: Optional[date] = deserialize.iso8601_date(
-            payload.get("start_date")
-        )
-        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
-            "subresource_uris"
-        )
+        self.start_date: Optional[date] = deserialize.iso8601_date(payload.get("start_date"))
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get("subresource_uris")
         self.uri: Optional[str] = payload.get("uri")
         self.usage: Optional[str] = payload.get("usage")
         self.usage_unit: Optional[str] = payload.get("usage_unit")
 
-        self._solution = {
+        
+        self._solution = { 
             "account_sid": account_sid,
         }
-
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.DailyInstance {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.DailyInstance {}>'.format(context)
+
+
 
 
 class DailyPage(Page):
@@ -412,9 +341,7 @@ class DailyPage(Page):
 
         :param payload: Payload response from the API
         """
-        return DailyInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
+        return DailyInstance(self._version, payload, account_sid=self._solution["account_sid"])
 
     def __repr__(self) -> str:
         """
@@ -425,32 +352,34 @@ class DailyPage(Page):
         return "<Twilio.Api.V2010.DailyPage>"
 
 
-class DailyList(ListResource):
 
+
+
+class DailyList(ListResource):
+    
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the DailyList
 
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the UsageRecord resources to read.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/Usage/Records/Daily.json".format(
-            **self._solution
-        )
-
-    def stream(
-        self,
+        self._solution = { 'account_sid': account_sid,  }
+        self._uri = '/Accounts/{account_sid}/Usage/Records/Daily.json'.format(**self._solution)
+        
+        
+    
+    def stream(self, 
         category: Union["DailyInstance.Category", object] = values.unset,
         start_date: Union[date, object] = values.unset,
         end_date: Union[date, object] = values.unset,
         include_subaccounts: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[DailyInstance]:
@@ -459,7 +388,7 @@ class DailyList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;DailyInstance.Category&quot; category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
@@ -479,17 +408,17 @@ class DailyList(ListResource):
             start_date=start_date,
             end_date=end_date,
             include_subaccounts=include_subaccounts,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         category: Union["DailyInstance.Category", object] = values.unset,
         start_date: Union[date, object] = values.unset,
         end_date: Union[date, object] = values.unset,
         include_subaccounts: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[DailyInstance]:
@@ -498,7 +427,7 @@ class DailyList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;DailyInstance.Category&quot; category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
@@ -518,17 +447,17 @@ class DailyList(ListResource):
             start_date=start_date,
             end_date=end_date,
             include_subaccounts=include_subaccounts,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         category: Union["DailyInstance.Category", object] = values.unset,
         start_date: Union[date, object] = values.unset,
         end_date: Union[date, object] = values.unset,
         include_subaccounts: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DailyInstance]:
@@ -536,7 +465,7 @@ class DailyList(ListResource):
         Lists DailyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;DailyInstance.Category&quot; category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
@@ -550,23 +479,21 @@ class DailyList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                category=category,
-                start_date=start_date,
-                end_date=end_date,
-                include_subaccounts=include_subaccounts,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            category=category,
+            start_date=start_date,
+            end_date=end_date,
+            include_subaccounts=include_subaccounts,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         category: Union["DailyInstance.Category", object] = values.unset,
         start_date: Union[date, object] = values.unset,
         end_date: Union[date, object] = values.unset,
         include_subaccounts: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DailyInstance]:
@@ -574,7 +501,7 @@ class DailyList(ListResource):
         Asynchronously lists DailyInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;DailyInstance.Category&quot; category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
         :param date start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param date end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
@@ -588,24 +515,21 @@ class DailyList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                category=category,
-                start_date=start_date,
-                end_date=end_date,
-                include_subaccounts=include_subaccounts,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            category=category,
+            start_date=start_date,
+            end_date=end_date,
+            include_subaccounts=include_subaccounts,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         category: Union["DailyInstance.Category", object] = values.unset,
         start_date: Union[date, object] = values.unset,
         end_date: Union[date, object] = values.unset,
         include_subaccounts: Union[bool, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -613,7 +537,7 @@ class DailyList(ListResource):
         """
         Retrieve a single page of DailyInstance records from the API.
         Request is executed immediately
-
+        
         :param category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
         :param start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
@@ -624,27 +548,25 @@ class DailyList(ListResource):
 
         :returns: Page of DailyInstance
         """
-        data = values.of(
-            {
-                "Category": category,
-                "StartDate": serialize.iso8601_date(start_date),
-                "EndDate": serialize.iso8601_date(end_date),
-                "IncludeSubaccounts": serialize.boolean_to_string(include_subaccounts),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Category': category,
+            'StartDate': serialize.iso8601_date(start_date),
+            'EndDate': serialize.iso8601_date(end_date),
+            'IncludeSubaccounts': serialize.boolean_to_string(include_subaccounts),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return DailyPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         category: Union["DailyInstance.Category", object] = values.unset,
         start_date: Union[date, object] = values.unset,
         end_date: Union[date, object] = values.unset,
         include_subaccounts: Union[bool, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -652,7 +574,7 @@ class DailyList(ListResource):
         """
         Asynchronously retrieve a single page of DailyInstance records from the API.
         Request is executed immediately
-
+        
         :param category: The [usage category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved.
         :param start_date: Only include usage that has occurred on or after this date. Specify the date in GMT and format as `YYYY-MM-DD`. You can also specify offsets from the current date, such as: `-30days`, which will set the start date to be 30 days before the current date.
         :param end_date: Only include usage that occurred on or before this date. Specify the date in GMT and format as `YYYY-MM-DD`.  You can also specify offsets from the current date, such as: `+30days`, which will set the end date to 30 days from the current date.
@@ -663,21 +585,17 @@ class DailyList(ListResource):
 
         :returns: Page of DailyInstance
         """
-        data = values.of(
-            {
-                "Category": category,
-                "StartDate": serialize.iso8601_date(start_date),
-                "EndDate": serialize.iso8601_date(end_date),
-                "IncludeSubaccounts": serialize.boolean_to_string(include_subaccounts),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Category': category,
+            'StartDate': serialize.iso8601_date(start_date),
+            'EndDate': serialize.iso8601_date(end_date),
+            'IncludeSubaccounts': serialize.boolean_to_string(include_subaccounts),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return DailyPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> DailyPage:
@@ -689,7 +607,10 @@ class DailyList(ListResource):
 
         :returns: Page of DailyInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return DailyPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> DailyPage:
@@ -701,8 +622,14 @@ class DailyList(ListResource):
 
         :returns: Page of DailyInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return DailyPage(self._version, response, self._solution)
+
+
+
 
     def __repr__(self) -> str:
         """
@@ -710,4 +637,5 @@ class DailyList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Api.V2010.DailyList>"
+        return '<Twilio.Api.V2010.DailyList>'
+

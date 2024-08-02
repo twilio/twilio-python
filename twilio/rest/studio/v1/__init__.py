@@ -28,7 +28,7 @@ class V1(Version):
         """
         super().__init__(domain, "v1")
         self._flows: Optional[FlowList] = None
-
+        
     @property
     def flows(self) -> FlowList:
         if self._flows is None:

@@ -32,7 +32,7 @@ class V2(Version):
         self._countries: Optional[CountryList] = None
         self._numbers: Optional[NumberList] = None
         self._voice: Optional[VoiceList] = None
-
+        
     @property
     def countries(self) -> CountryList:
         if self._countries is None:

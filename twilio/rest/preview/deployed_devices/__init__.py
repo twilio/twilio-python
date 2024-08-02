@@ -28,7 +28,7 @@ class DeployedDevices(Version):
         """
         super().__init__(domain, "DeployedDevices")
         self._fleets: Optional[FleetList] = None
-
+        
     @property
     def fleets(self) -> FleetList:
         if self._fleets is None:

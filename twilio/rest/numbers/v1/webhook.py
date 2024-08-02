@@ -12,16 +12,20 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
-from typing import Any, Dict, List, Optional
-from twilio.base import deserialize, values
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
 class WebhookInstance(InstanceResource):
+
     """
     :ivar url: The URL of the webhook configuration request
     :ivar port_in_target_url: Webhook URL to send a request when a port in request or port in phone number event happens
@@ -34,50 +38,58 @@ class WebhookInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
+        
         self.url: Optional[str] = payload.get("url")
         self.port_in_target_url: Optional[str] = payload.get("port_in_target_url")
         self.port_out_target_url: Optional[str] = payload.get("port_out_target_url")
         self.notifications_of: Optional[List[str]] = payload.get("notifications_of")
-        self.port_in_target_date_created: Optional[datetime] = (
-            deserialize.iso8601_datetime(payload.get("port_in_target_date_created"))
-        )
-        self.port_out_target_date_created: Optional[datetime] = (
-            deserialize.iso8601_datetime(payload.get("port_out_target_date_created"))
-        )
+        self.port_in_target_date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("port_in_target_date_created"))
+        self.port_out_target_date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("port_out_target_date_created"))
 
+        
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
+        
+        return '<Twilio.Numbers.V1.WebhookInstance>'
 
-        return "<Twilio.Numbers.V1.WebhookInstance>"
+
 
 
 class WebhookList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the WebhookList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/Porting/Configuration/Webhook"
-
+        
+        self._uri = '/Porting/Configuration/Webhook'
+        
+        
+    
     def fetch(self) -> WebhookInstance:
         """
         Asynchronously fetch the WebhookInstance
 
-
+        
         :returns: The fetched WebhookInstance
         """
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, headers=headers)
 
         return WebhookInstance(self._version, payload)
 
@@ -85,16 +97,19 @@ class WebhookList(ListResource):
         """
         Asynchronously fetch the WebhookInstance
 
-
+        
         :returns: The fetched WebhookInstance
         """
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, headers=headers)
 
         return WebhookInstance(self._version, payload)
+
+
 
     def __repr__(self) -> str:
         """
@@ -102,4 +117,5 @@ class WebhookList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Numbers.V1.WebhookList>"
+        return '<Twilio.Numbers.V1.WebhookList>'
+

@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,6 +25,7 @@ from twilio.base.page import Page
 
 
 class PluginReleaseInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the Plugin Release resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Plugin Release resource and owns this resource.
@@ -31,20 +34,18 @@ class PluginReleaseInstance(InstanceResource):
     :ivar url: The absolute URL of the Plugin Release resource.
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.configuration_sid: Optional[str] = payload.get("configuration_sid")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "sid": sid or self.sid,
         }
         self._context: Optional[PluginReleaseContext] = None
@@ -58,49 +59,38 @@ class PluginReleaseInstance(InstanceResource):
         :returns: PluginReleaseContext for this PluginReleaseInstance
         """
         if self._context is None:
-            self._context = PluginReleaseContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
+            self._context = PluginReleaseContext(self._version, sid=self._solution['sid'],)
         return self._context
-
-    def fetch(
-        self, flex_metadata: Union[str, object] = values.unset
-    ) -> "PluginReleaseInstance":
+    
+    
+    def fetch(self, flex_metadata: Union[str, object]=values.unset) -> "PluginReleaseInstance":
         """
         Fetch the PluginReleaseInstance
-
+        
         :param flex_metadata: The Flex-Metadata HTTP request header
 
         :returns: The fetched PluginReleaseInstance
         """
-        return self._proxy.fetch(
-            flex_metadata=flex_metadata,
-        )
+        return self._proxy.fetch(flex_metadata=flex_metadata, )
 
-    async def fetch_async(
-        self, flex_metadata: Union[str, object] = values.unset
-    ) -> "PluginReleaseInstance":
+    async def fetch_async(self, flex_metadata: Union[str, object]=values.unset) -> "PluginReleaseInstance":
         """
         Asynchronous coroutine to fetch the PluginReleaseInstance
-
+        
         :param flex_metadata: The Flex-Metadata HTTP request header
 
         :returns: The fetched PluginReleaseInstance
         """
-        return await self._proxy.fetch_async(
-            flex_metadata=flex_metadata,
-        )
-
+        return await self._proxy.fetch_async(flex_metadata=flex_metadata, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.PluginReleaseInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.PluginReleaseInstance {}>'.format(context)
 
 class PluginReleaseContext(InstanceContext):
 
@@ -113,72 +103,73 @@ class PluginReleaseContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
+        self._solution = { 
+            'sid': sid,
         }
-        self._uri = "/PluginService/Releases/{sid}".format(**self._solution)
-
-    def fetch(
-        self, flex_metadata: Union[str, object] = values.unset
-    ) -> PluginReleaseInstance:
+        self._uri = '/PluginService/Releases/{sid}'.format(**self._solution)
+        
+    
+    
+    def fetch(self, flex_metadata: Union[str, object]=values.unset) -> PluginReleaseInstance:
         """
         Fetch the PluginReleaseInstance
-
+        
         :param flex_metadata: The Flex-Metadata HTTP request header
 
         :returns: The fetched PluginReleaseInstance
         """
-
-        data = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-            }
-        )
-
-        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
+        
+        data = values.of({ 
+            'Flex-Metadata': flex_metadata,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return PluginReleaseInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
 
-    async def fetch_async(
-        self, flex_metadata: Union[str, object] = values.unset
-    ) -> PluginReleaseInstance:
+    async def fetch_async(self, flex_metadata: Union[str, object]=values.unset) -> PluginReleaseInstance:
         """
         Asynchronous coroutine to fetch the PluginReleaseInstance
-
+        
         :param flex_metadata: The Flex-Metadata HTTP request header
 
         :returns: The fetched PluginReleaseInstance
         """
-
-        data = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-            }
-        )
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data
-        )
+        
+        data = values.of({ 
+            'Flex-Metadata': flex_metadata,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
 
         return PluginReleaseInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.PluginReleaseContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.PluginReleaseContext {}>'.format(context)
+
+
+
+
+
 
 
 class PluginReleasePage(Page):
@@ -200,82 +191,76 @@ class PluginReleasePage(Page):
         return "<Twilio.FlexApi.V1.PluginReleasePage>"
 
 
-class PluginReleaseList(ListResource):
 
+
+
+class PluginReleaseList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the PluginReleaseList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/PluginService/Releases"
-
-    def create(
-        self, configuration_id: str, flex_metadata: Union[str, object] = values.unset
-    ) -> PluginReleaseInstance:
+        
+        self._uri = '/PluginService/Releases'
+        
+        
+    
+    
+    def create(self, configuration_id: str, flex_metadata: Union[str, object]=values.unset) -> PluginReleaseInstance:
         """
         Create the PluginReleaseInstance
 
         :param configuration_id: The SID or the Version of the Flex Plugin Configuration to release.
         :param flex_metadata: The Flex-Metadata HTTP request header
-
+        
         :returns: The created PluginReleaseInstance
         """
-
-        data = values.of(
-            {
-                "ConfigurationId": configuration_id,
-            }
-        )
-        headers = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'ConfigurationId': configuration_id,
+        })
+        headers = values.of({
+                'Flex-Metadata': flex_metadata,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
         return PluginReleaseInstance(self._version, payload)
 
-    async def create_async(
-        self, configuration_id: str, flex_metadata: Union[str, object] = values.unset
-    ) -> PluginReleaseInstance:
+    async def create_async(self, configuration_id: str, flex_metadata: Union[str, object]=values.unset) -> PluginReleaseInstance:
         """
         Asynchronously create the PluginReleaseInstance
 
         :param configuration_id: The SID or the Version of the Flex Plugin Configuration to release.
         :param flex_metadata: The Flex-Metadata HTTP request header
-
+        
         :returns: The created PluginReleaseInstance
         """
-
-        data = values.of(
-            {
-                "ConfigurationId": configuration_id,
-            }
-        )
-        headers = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'ConfigurationId': configuration_id,
+        })
+        headers = values.of({
+                'Flex-Metadata': flex_metadata,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return PluginReleaseInstance(self._version, payload)
-
-    def stream(
-        self,
+    
+    
+    def stream(self, 
         flex_metadata: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[PluginReleaseInstance]:
@@ -284,7 +269,7 @@ class PluginReleaseList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str flex_metadata: The Flex-Metadata HTTP request header
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -296,13 +281,16 @@ class PluginReleaseList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(flex_metadata=flex_metadata, page_size=limits["page_size"])
+        page = self.page(
+            flex_metadata=flex_metadata,
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         flex_metadata: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[PluginReleaseInstance]:
@@ -311,7 +299,7 @@ class PluginReleaseList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str flex_metadata: The Flex-Metadata HTTP request header
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -324,14 +312,15 @@ class PluginReleaseList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            flex_metadata=flex_metadata, page_size=limits["page_size"]
+            flex_metadata=flex_metadata,
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         flex_metadata: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[PluginReleaseInstance]:
@@ -339,7 +328,7 @@ class PluginReleaseList(ListResource):
         Lists PluginReleaseInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str flex_metadata: The Flex-Metadata HTTP request header
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -350,17 +339,15 @@ class PluginReleaseList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                flex_metadata=flex_metadata,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            flex_metadata=flex_metadata,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         flex_metadata: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[PluginReleaseInstance]:
@@ -368,7 +355,7 @@ class PluginReleaseList(ListResource):
         Asynchronously lists PluginReleaseInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str flex_metadata: The Flex-Metadata HTTP request header
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -379,18 +366,15 @@ class PluginReleaseList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                flex_metadata=flex_metadata,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            flex_metadata=flex_metadata,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         flex_metadata: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -398,7 +382,7 @@ class PluginReleaseList(ListResource):
         """
         Retrieve a single page of PluginReleaseInstance records from the API.
         Request is executed immediately
-
+        
         :param flex_metadata: The Flex-Metadata HTTP request header
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -406,21 +390,19 @@ class PluginReleaseList(ListResource):
 
         :returns: Page of PluginReleaseInstance
         """
-        data = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Flex-Metadata': flex_metadata,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return PluginReleasePage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         flex_metadata: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -428,7 +410,7 @@ class PluginReleaseList(ListResource):
         """
         Asynchronously retrieve a single page of PluginReleaseInstance records from the API.
         Request is executed immediately
-
+        
         :param flex_metadata: The Flex-Metadata HTTP request header
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -436,18 +418,14 @@ class PluginReleaseList(ListResource):
 
         :returns: Page of PluginReleaseInstance
         """
-        data = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Flex-Metadata': flex_metadata,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return PluginReleasePage(self._version, response)
 
     def get_page(self, target_url: str) -> PluginReleasePage:
@@ -459,7 +437,10 @@ class PluginReleaseList(ListResource):
 
         :returns: Page of PluginReleaseInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return PluginReleasePage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> PluginReleasePage:
@@ -471,13 +452,18 @@ class PluginReleaseList(ListResource):
 
         :returns: Page of PluginReleaseInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return PluginReleasePage(self._version, response)
+
+
 
     def get(self, sid: str) -> PluginReleaseContext:
         """
         Constructs a PluginReleaseContext
-
+        
         :param sid: The SID of the Flex Plugin Release resource to fetch.
         """
         return PluginReleaseContext(self._version, sid=sid)
@@ -485,7 +471,7 @@ class PluginReleaseList(ListResource):
     def __call__(self, sid: str) -> PluginReleaseContext:
         """
         Constructs a PluginReleaseContext
-
+        
         :param sid: The SID of the Flex Plugin Release resource to fetch.
         """
         return PluginReleaseContext(self._version, sid=sid)
@@ -496,4 +482,5 @@ class PluginReleaseList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.FlexApi.V1.PluginReleaseList>"
+        return '<Twilio.FlexApi.V1.PluginReleaseList>'
+

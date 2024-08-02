@@ -12,17 +12,17 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.conversations.v1.service.user.user_conversation import (
-    UserConversationList,
-)
+from twilio.rest.conversations.v1.service.user.user_conversation import UserConversationList
 
 
 class UserInstance(InstanceResource):
@@ -47,15 +47,10 @@ class UserInstance(InstanceResource):
     :ivar links: 
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        chat_service_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], chat_service_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.chat_service_sid: Optional[str] = payload.get("chat_service_sid")
@@ -65,16 +60,13 @@ class UserInstance(InstanceResource):
         self.attributes: Optional[str] = payload.get("attributes")
         self.is_online: Optional[bool] = payload.get("is_online")
         self.is_notifiable: Optional[bool] = payload.get("is_notifiable")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        self._solution = {
+        
+        self._solution = { 
             "chat_service_sid": chat_service_sid,
             "sid": sid or self.sid,
         }
@@ -89,51 +81,34 @@ class UserInstance(InstanceResource):
         :returns: UserContext for this UserInstance
         """
         if self._context is None:
-            self._context = UserContext(
-                self._version,
-                chat_service_sid=self._solution["chat_service_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = UserContext(self._version, chat_service_sid=self._solution['chat_service_sid'], sid=self._solution['sid'],)
         return self._context
-
-    def delete(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "UserInstance.WebhookEnabledType", object
-        ] = values.unset,
-    ) -> bool:
+    
+    
+    def delete(self, x_twilio_webhook_enabled: Union["UserInstance.WebhookEnabledType", object]=values.unset) -> bool:
         """
         Deletes the UserInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._proxy.delete(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-        )
-
-    async def delete_async(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "UserInstance.WebhookEnabledType", object
-        ] = values.unset,
-    ) -> bool:
+        return self._proxy.delete(x_twilio_webhook_enabled=x_twilio_webhook_enabled, )
+    async def delete_async(self, x_twilio_webhook_enabled: Union["UserInstance.WebhookEnabledType", object]=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the UserInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._proxy.delete_async(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-        )
-
+        return await self._proxy.delete_async(x_twilio_webhook_enabled=x_twilio_webhook_enabled, )
+    
+    
     def fetch(self) -> "UserInstance":
         """
         Fetch the UserInstance
-
+        
 
         :returns: The fetched UserInstance
         """
@@ -142,24 +117,17 @@ class UserInstance(InstanceResource):
     async def fetch_async(self) -> "UserInstance":
         """
         Asynchronous coroutine to fetch the UserInstance
-
+        
 
         :returns: The fetched UserInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "UserInstance.WebhookEnabledType", object
-        ] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        role_sid: Union[str, object] = values.unset,
-    ) -> "UserInstance":
+    
+    
+    def update(self, x_twilio_webhook_enabled: Union["UserInstance.WebhookEnabledType", object]=values.unset, friendly_name: Union[str, object]=values.unset, attributes: Union[str, object]=values.unset, role_sid: Union[str, object]=values.unset) -> "UserInstance":
         """
         Update the UserInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param friendly_name: The string that you assigned to describe the resource.
         :param attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
@@ -167,25 +135,12 @@ class UserInstance(InstanceResource):
 
         :returns: The updated UserInstance
         """
-        return self._proxy.update(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-            friendly_name=friendly_name,
-            attributes=attributes,
-            role_sid=role_sid,
-        )
+        return self._proxy.update(x_twilio_webhook_enabled=x_twilio_webhook_enabled, friendly_name=friendly_name, attributes=attributes, role_sid=role_sid, )
 
-    async def update_async(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "UserInstance.WebhookEnabledType", object
-        ] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        role_sid: Union[str, object] = values.unset,
-    ) -> "UserInstance":
+    async def update_async(self, x_twilio_webhook_enabled: Union["UserInstance.WebhookEnabledType", object]=values.unset, friendly_name: Union[str, object]=values.unset, attributes: Union[str, object]=values.unset, role_sid: Union[str, object]=values.unset) -> "UserInstance":
         """
         Asynchronous coroutine to update the UserInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param friendly_name: The string that you assigned to describe the resource.
         :param attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
@@ -193,29 +148,23 @@ class UserInstance(InstanceResource):
 
         :returns: The updated UserInstance
         """
-        return await self._proxy.update_async(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-            friendly_name=friendly_name,
-            attributes=attributes,
-            role_sid=role_sid,
-        )
-
+        return await self._proxy.update_async(x_twilio_webhook_enabled=x_twilio_webhook_enabled, friendly_name=friendly_name, attributes=attributes, role_sid=role_sid, )
+    
     @property
     def user_conversations(self) -> UserConversationList:
         """
         Access the user_conversations
         """
         return self._proxy.user_conversations
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.UserInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.UserInstance {}>'.format(context)
 
 class UserContext(InstanceContext):
 
@@ -229,111 +178,83 @@ class UserContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
-            "sid": sid,
+        self._solution = { 
+            'chat_service_sid': chat_service_sid,
+            'sid': sid,
         }
-        self._uri = "/Services/{chat_service_sid}/Users/{sid}".format(**self._solution)
-
+        self._uri = '/Services/{chat_service_sid}/Users/{sid}'.format(**self._solution)
+        
         self._user_conversations: Optional[UserConversationList] = None
-
-    def delete(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "UserInstance.WebhookEnabledType", object
-        ] = values.unset,
-    ) -> bool:
+    
+    
+    def delete(self, x_twilio_webhook_enabled: Union["UserInstance.WebhookEnabledType", object]=values.unset) -> bool:
         """
         Deletes the UserInstance
 
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
-
-    async def delete_async(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "UserInstance.WebhookEnabledType", object
-        ] = values.unset,
-    ) -> bool:
+    async def delete_async(self, x_twilio_webhook_enabled: Union["UserInstance.WebhookEnabledType", object]=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the UserInstance
 
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
-
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
-        )
-
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        
+        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
+    
+    
     def fetch(self) -> UserInstance:
         """
         Fetch the UserInstance
-
+        
 
         :returns: The fetched UserInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return UserInstance(
             self._version,
             payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
+            chat_service_sid=self._solution['chat_service_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> UserInstance:
         """
         Asynchronous coroutine to fetch the UserInstance
-
+        
 
         :returns: The fetched UserInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return UserInstance(
             self._version,
             payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
+            chat_service_sid=self._solution['chat_service_sid'],
+            sid=self._solution['sid'],
+            
         )
-
-    def update(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "UserInstance.WebhookEnabledType", object
-        ] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        role_sid: Union[str, object] = values.unset,
-    ) -> UserInstance:
+    
+    
+    def update(self, x_twilio_webhook_enabled: Union["UserInstance.WebhookEnabledType", object]=values.unset, friendly_name: Union[str, object]=values.unset, attributes: Union[str, object]=values.unset, role_sid: Union[str, object]=values.unset) -> UserInstance:
         """
         Update the UserInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param friendly_name: The string that you assigned to describe the resource.
         :param attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
@@ -341,42 +262,26 @@ class UserContext(InstanceContext):
 
         :returns: The updated UserInstance
         """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Attributes": attributes,
-                "RoleSid": role_sid,
-            }
-        )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Attributes': attributes,
+            'RoleSid': role_sid,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.update(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return UserInstance(
             self._version,
             payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
+            chat_service_sid=self._solution['chat_service_sid'],
+            sid=self._solution['sid']
         )
 
-    async def update_async(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "UserInstance.WebhookEnabledType", object
-        ] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        role_sid: Union[str, object] = values.unset,
-    ) -> UserInstance:
+    async def update_async(self, x_twilio_webhook_enabled: Union["UserInstance.WebhookEnabledType", object]=values.unset, friendly_name: Union[str, object]=values.unset, attributes: Union[str, object]=values.unset, role_sid: Union[str, object]=values.unset) -> UserInstance:
         """
         Asynchronous coroutine to update the UserInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param friendly_name: The string that you assigned to describe the resource.
         :param attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
@@ -384,30 +289,23 @@ class UserContext(InstanceContext):
 
         :returns: The updated UserInstance
         """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Attributes": attributes,
-                "RoleSid": role_sid,
-            }
-        )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Attributes': attributes,
+            'RoleSid': role_sid,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return UserInstance(
             self._version,
             payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            sid=self._solution["sid"],
+            chat_service_sid=self._solution['chat_service_sid'],
+            sid=self._solution['sid']
         )
-
+    
+    
     @property
     def user_conversations(self) -> UserConversationList:
         """
@@ -415,20 +313,29 @@ class UserContext(InstanceContext):
         """
         if self._user_conversations is None:
             self._user_conversations = UserConversationList(
-                self._version,
-                self._solution["chat_service_sid"],
-                self._solution["sid"],
+                self._version, 
+                self._solution['chat_service_sid'],
+                self._solution['sid'],
             )
         return self._user_conversations
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.UserContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.UserContext {}>'.format(context)
+
+
+
+
+
+
+
+
+
 
 
 class UserPage(Page):
@@ -439,9 +346,7 @@ class UserPage(Page):
 
         :param payload: Payload response from the API
         """
-        return UserInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
-        )
+        return UserInstance(self._version, payload, chat_service_sid=self._solution["chat_service_sid"])
 
     def __repr__(self) -> str:
         """
@@ -452,34 +357,32 @@ class UserPage(Page):
         return "<Twilio.Conversations.V1.UserPage>"
 
 
-class UserList(ListResource):
 
+
+
+class UserList(ListResource):
+    
     def __init__(self, version: Version, chat_service_sid: str):
         """
         Initialize the UserList
 
         :param version: Version that contains the resource
         :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to read the User resources from.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
-        }
-        self._uri = "/Services/{chat_service_sid}/Users".format(**self._solution)
-
-    def create(
-        self,
-        identity: str,
-        x_twilio_webhook_enabled: Union[
-            "UserInstance.WebhookEnabledType", object
-        ] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        role_sid: Union[str, object] = values.unset,
-    ) -> UserInstance:
+        self._solution = { 'chat_service_sid': chat_service_sid,  }
+        self._uri = '/Services/{chat_service_sid}/Users'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, identity: str, x_twilio_webhook_enabled: Union["UserInstance.WebhookEnabledType", object]=values.unset, friendly_name: Union[str, object]=values.unset, attributes: Union[str, object]=values.unset, role_sid: Union[str, object]=values.unset) -> UserInstance:
         """
         Create the UserInstance
 
@@ -488,43 +391,27 @@ class UserList(ListResource):
         :param friendly_name: The string that you assigned to describe the resource.
         :param attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
         :param role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
-
+        
         :returns: The created UserInstance
         """
+        
+        data = values.of({ 
+            'Identity': identity,
+            'FriendlyName': friendly_name,
+            'Attributes': attributes,
+            'RoleSid': role_sid,
+        })
+        headers = values.of({
+                'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Identity": identity,
-                "FriendlyName": friendly_name,
-                "Attributes": attributes,
-                "RoleSid": role_sid,
-            }
-        )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
+        return UserInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'])
 
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return UserInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
-        )
-
-    async def create_async(
-        self,
-        identity: str,
-        x_twilio_webhook_enabled: Union[
-            "UserInstance.WebhookEnabledType", object
-        ] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        role_sid: Union[str, object] = values.unset,
-    ) -> UserInstance:
+    async def create_async(self, identity: str, x_twilio_webhook_enabled: Union["UserInstance.WebhookEnabledType", object]=values.unset, friendly_name: Union[str, object]=values.unset, attributes: Union[str, object]=values.unset, role_sid: Union[str, object]=values.unset) -> UserInstance:
         """
         Asynchronously create the UserInstance
 
@@ -533,35 +420,29 @@ class UserList(ListResource):
         :param friendly_name: The string that you assigned to describe the resource.
         :param attributes: The JSON Object string that stores application-specific data. If attributes have not been set, `{}` is returned.
         :param role_sid: The SID of a service-level [Role](https://www.twilio.com/docs/conversations/api/role-resource) to assign to the user.
-
+        
         :returns: The created UserInstance
         """
+        
+        data = values.of({ 
+            'Identity': identity,
+            'FriendlyName': friendly_name,
+            'Attributes': attributes,
+            'RoleSid': role_sid,
+        })
+        headers = values.of({
+                'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Identity": identity,
-                "FriendlyName": friendly_name,
-                "Attributes": attributes,
-                "RoleSid": role_sid,
-            }
-        )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return UserInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
-        )
-
-    def stream(
-        self,
+        return UserInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'])
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[UserInstance]:
@@ -570,7 +451,7 @@ class UserList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -581,12 +462,14 @@ class UserList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[UserInstance]:
@@ -595,7 +478,7 @@ class UserList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -606,12 +489,14 @@ class UserList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[UserInstance]:
@@ -619,7 +504,7 @@ class UserList(ListResource):
         Lists UserInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -629,15 +514,13 @@ class UserList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[UserInstance]:
@@ -645,7 +528,7 @@ class UserList(ListResource):
         Asynchronously lists UserInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -655,16 +538,13 @@ class UserList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -672,26 +552,24 @@ class UserList(ListResource):
         """
         Retrieve a single page of UserInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return UserPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -699,24 +577,20 @@ class UserList(ListResource):
         """
         Asynchronously retrieve a single page of UserInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return UserPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> UserPage:
@@ -728,7 +602,10 @@ class UserList(ListResource):
 
         :returns: Page of UserInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return UserPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> UserPage:
@@ -740,28 +617,31 @@ class UserList(ListResource):
 
         :returns: Page of UserInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return UserPage(self._version, response, self._solution)
+
+
+
+
 
     def get(self, sid: str) -> UserContext:
         """
         Constructs a UserContext
-
+        
         :param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
         """
-        return UserContext(
-            self._version, chat_service_sid=self._solution["chat_service_sid"], sid=sid
-        )
+        return UserContext(self._version, chat_service_sid=self._solution['chat_service_sid'], sid=sid)
 
     def __call__(self, sid: str) -> UserContext:
         """
         Constructs a UserContext
-
+        
         :param sid: The SID of the User resource to update. This value can be either the `sid` or the `identity` of the User resource to update.
         """
-        return UserContext(
-            self._version, chat_service_sid=self._solution["chat_service_sid"], sid=sid
-        )
+        return UserContext(self._version, chat_service_sid=self._solution['chat_service_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -769,4 +649,5 @@ class UserList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Conversations.V1.UserList>"
+        return '<Twilio.Conversations.V1.UserList>'
+

@@ -12,11 +12,16 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, Optional
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
+
 
 
 class ProvisioningStatusInstance(InstanceResource):
@@ -35,11 +40,11 @@ class ProvisioningStatusInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
-        self.status: Optional["ProvisioningStatusInstance.Status"] = payload.get(
-            "status"
-        )
+        
+        self.status: Optional["ProvisioningStatusInstance.Status"] = payload.get("status")
         self.url: Optional[str] = payload.get("url")
 
+        
         self._context: Optional[ProvisioningStatusContext] = None
 
     @property
@@ -51,15 +56,14 @@ class ProvisioningStatusInstance(InstanceResource):
         :returns: ProvisioningStatusContext for this ProvisioningStatusInstance
         """
         if self._context is None:
-            self._context = ProvisioningStatusContext(
-                self._version,
-            )
+            self._context = ProvisioningStatusContext(self._version,)
         return self._context
-
+    
+    
     def fetch(self) -> "ProvisioningStatusInstance":
         """
         Fetch the ProvisioningStatusInstance
-
+        
 
         :returns: The fetched ProvisioningStatusInstance
         """
@@ -68,21 +72,20 @@ class ProvisioningStatusInstance(InstanceResource):
     async def fetch_async(self) -> "ProvisioningStatusInstance":
         """
         Asynchronous coroutine to fetch the ProvisioningStatusInstance
-
+        
 
         :returns: The fetched ProvisioningStatusInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-
-        return "<Twilio.FlexApi.V1.ProvisioningStatusInstance>"
-
+        
+        return '<Twilio.FlexApi.V1.ProvisioningStatusInstance>'
 
 class ProvisioningStatusContext(InstanceContext):
 
@@ -94,76 +97,82 @@ class ProvisioningStatusContext(InstanceContext):
         """
         super().__init__(version)
 
-        self._uri = "/account/provision/status"
-
+        
+        self._uri = '/account/provision/status'
+        
+    
+    
     def fetch(self) -> ProvisioningStatusInstance:
         """
         Fetch the ProvisioningStatusInstance
-
+        
 
         :returns: The fetched ProvisioningStatusInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ProvisioningStatusInstance(
             self._version,
             payload,
+            
         )
 
     async def fetch_async(self) -> ProvisioningStatusInstance:
         """
         Asynchronous coroutine to fetch the ProvisioningStatusInstance
-
+        
 
         :returns: The fetched ProvisioningStatusInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return ProvisioningStatusInstance(
             self._version,
             payload,
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
+        
+        return '<Twilio.FlexApi.V1.ProvisioningStatusContext>'
 
-        return "<Twilio.FlexApi.V1.ProvisioningStatusContext>"
 
 
 class ProvisioningStatusList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the ProvisioningStatusList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
+
+        
+        
+        
+        
 
     def get(self) -> ProvisioningStatusContext:
         """
         Constructs a ProvisioningStatusContext
-
+        
         """
         return ProvisioningStatusContext(self._version)
 
     def __call__(self) -> ProvisioningStatusContext:
         """
         Constructs a ProvisioningStatusContext
-
+        
         """
         return ProvisioningStatusContext(self._version)
 
@@ -173,4 +182,5 @@ class ProvisioningStatusList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.FlexApi.V1.ProvisioningStatusList>"
+        return '<Twilio.FlexApi.V1.ProvisioningStatusList>'
+

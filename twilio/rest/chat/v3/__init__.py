@@ -28,7 +28,7 @@ class V3(Version):
         """
         super().__init__(domain, "v3")
         self._channels: Optional[ChannelList] = None
-
+        
     @property
     def channels(self) -> ChannelList:
         if self._channels is None:

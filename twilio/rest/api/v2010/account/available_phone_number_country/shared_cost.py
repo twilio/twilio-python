@@ -12,6 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 
@@ -22,6 +25,7 @@ from twilio.base.page import Page
 
 
 class SharedCostInstance(InstanceResource):
+
     """
     :ivar friendly_name: A formatted version of the phone number.
     :ivar phone_number: The phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
@@ -35,18 +39,13 @@ class SharedCostInstance(InstanceResource):
     :ivar iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of this phone number.
     :ivar address_requirements: The type of [Address](https://www.twilio.com/docs/usage/api/address) resource the phone number requires. Can be: `none`, `any`, `local`, or `foreign`. `none` means no address is required. `any` means an address is required, but it can be anywhere in the world. `local` means an address in the phone number's country is required. `foreign` means an address outside of the phone number's country is required.
     :ivar beta: Whether the phone number is new to the Twilio platform. Can be: `true` or `false`.
-    :ivar capabilities:
+    :ivar capabilities: 
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        account_sid: str,
-        country_code: str,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, country_code: str):
         super().__init__(version)
 
+        
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.phone_number: Optional[str] = payload.get("phone_number")
         self.lata: Optional[str] = payload.get("lata")
@@ -61,19 +60,23 @@ class SharedCostInstance(InstanceResource):
         self.beta: Optional[bool] = payload.get("beta")
         self.capabilities: Optional[str] = payload.get("capabilities")
 
-        self._solution = {
+        
+        self._solution = { 
             "account_sid": account_sid,
             "country_code": country_code,
         }
-
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.SharedCostInstance {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.SharedCostInstance {}>'.format(context)
+
+
 
 
 class SharedCostPage(Page):
@@ -84,12 +87,7 @@ class SharedCostPage(Page):
 
         :param payload: Payload response from the API
         """
-        return SharedCostInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            country_code=self._solution["country_code"],
-        )
+        return SharedCostInstance(self._version, payload, account_sid=self._solution["account_sid"], country_code=self._solution["country_code"])
 
     def __repr__(self) -> str:
         """
@@ -100,8 +98,11 @@ class SharedCostPage(Page):
         return "<Twilio.Api.V2010.SharedCostPage>"
 
 
-class SharedCostList(ListResource):
 
+
+
+class SharedCostList(ListResource):
+    
     def __init__(self, version: Version, account_sid: str, country_code: str):
         """
         Initialize the SharedCostList
@@ -109,21 +110,18 @@ class SharedCostList(ListResource):
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) requesting the AvailablePhoneNumber resources.
         :param country_code: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country from which to read phone numbers.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-            "country_code": country_code,
-        }
-        self._uri = "/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}/SharedCost.json".format(
-            **self._solution
-        )
-
-    def stream(
-        self,
+        self._solution = { 'account_sid': account_sid, 'country_code': country_code,  }
+        self._uri = '/Accounts/{account_sid}/AvailablePhoneNumbers/{country_code}/SharedCost.json'.format(**self._solution)
+        
+        
+    
+    def stream(self, 
         area_code: Union[int, object] = values.unset,
         contains: Union[str, object] = values.unset,
         sms_enabled: Union[bool, object] = values.unset,
@@ -142,6 +140,7 @@ class SharedCostList(ListResource):
         in_lata: Union[str, object] = values.unset,
         in_locality: Union[str, object] = values.unset,
         fax_enabled: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[SharedCostInstance]:
@@ -150,7 +149,7 @@ class SharedCostList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param int area_code: The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
         :param str contains: The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
         :param bool sms_enabled: Whether the phone numbers can receive text messages. Can be: `true` or `false`.
@@ -198,13 +197,12 @@ class SharedCostList(ListResource):
             in_lata=in_lata,
             in_locality=in_locality,
             fax_enabled=fax_enabled,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         area_code: Union[int, object] = values.unset,
         contains: Union[str, object] = values.unset,
         sms_enabled: Union[bool, object] = values.unset,
@@ -223,6 +221,7 @@ class SharedCostList(ListResource):
         in_lata: Union[str, object] = values.unset,
         in_locality: Union[str, object] = values.unset,
         fax_enabled: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[SharedCostInstance]:
@@ -231,7 +230,7 @@ class SharedCostList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param int area_code: The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
         :param str contains: The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
         :param bool sms_enabled: Whether the phone numbers can receive text messages. Can be: `true` or `false`.
@@ -279,13 +278,12 @@ class SharedCostList(ListResource):
             in_lata=in_lata,
             in_locality=in_locality,
             fax_enabled=fax_enabled,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         area_code: Union[int, object] = values.unset,
         contains: Union[str, object] = values.unset,
         sms_enabled: Union[bool, object] = values.unset,
@@ -304,6 +302,7 @@ class SharedCostList(ListResource):
         in_lata: Union[str, object] = values.unset,
         in_locality: Union[str, object] = values.unset,
         fax_enabled: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[SharedCostInstance]:
@@ -311,7 +310,7 @@ class SharedCostList(ListResource):
         Lists SharedCostInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param int area_code: The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
         :param str contains: The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
         :param bool sms_enabled: Whether the phone numbers can receive text messages. Can be: `true` or `false`.
@@ -339,33 +338,30 @@ class SharedCostList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                area_code=area_code,
-                contains=contains,
-                sms_enabled=sms_enabled,
-                mms_enabled=mms_enabled,
-                voice_enabled=voice_enabled,
-                exclude_all_address_required=exclude_all_address_required,
-                exclude_local_address_required=exclude_local_address_required,
-                exclude_foreign_address_required=exclude_foreign_address_required,
-                beta=beta,
-                near_number=near_number,
-                near_lat_long=near_lat_long,
-                distance=distance,
-                in_postal_code=in_postal_code,
-                in_region=in_region,
-                in_rate_center=in_rate_center,
-                in_lata=in_lata,
-                in_locality=in_locality,
-                fax_enabled=fax_enabled,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            area_code=area_code,
+            contains=contains,
+            sms_enabled=sms_enabled,
+            mms_enabled=mms_enabled,
+            voice_enabled=voice_enabled,
+            exclude_all_address_required=exclude_all_address_required,
+            exclude_local_address_required=exclude_local_address_required,
+            exclude_foreign_address_required=exclude_foreign_address_required,
+            beta=beta,
+            near_number=near_number,
+            near_lat_long=near_lat_long,
+            distance=distance,
+            in_postal_code=in_postal_code,
+            in_region=in_region,
+            in_rate_center=in_rate_center,
+            in_lata=in_lata,
+            in_locality=in_locality,
+            fax_enabled=fax_enabled,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         area_code: Union[int, object] = values.unset,
         contains: Union[str, object] = values.unset,
         sms_enabled: Union[bool, object] = values.unset,
@@ -384,6 +380,7 @@ class SharedCostList(ListResource):
         in_lata: Union[str, object] = values.unset,
         in_locality: Union[str, object] = values.unset,
         fax_enabled: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[SharedCostInstance]:
@@ -391,7 +388,7 @@ class SharedCostList(ListResource):
         Asynchronously lists SharedCostInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param int area_code: The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
         :param str contains: The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
         :param bool sms_enabled: Whether the phone numbers can receive text messages. Can be: `true` or `false`.
@@ -419,34 +416,30 @@ class SharedCostList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                area_code=area_code,
-                contains=contains,
-                sms_enabled=sms_enabled,
-                mms_enabled=mms_enabled,
-                voice_enabled=voice_enabled,
-                exclude_all_address_required=exclude_all_address_required,
-                exclude_local_address_required=exclude_local_address_required,
-                exclude_foreign_address_required=exclude_foreign_address_required,
-                beta=beta,
-                near_number=near_number,
-                near_lat_long=near_lat_long,
-                distance=distance,
-                in_postal_code=in_postal_code,
-                in_region=in_region,
-                in_rate_center=in_rate_center,
-                in_lata=in_lata,
-                in_locality=in_locality,
-                fax_enabled=fax_enabled,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            area_code=area_code,
+            contains=contains,
+            sms_enabled=sms_enabled,
+            mms_enabled=mms_enabled,
+            voice_enabled=voice_enabled,
+            exclude_all_address_required=exclude_all_address_required,
+            exclude_local_address_required=exclude_local_address_required,
+            exclude_foreign_address_required=exclude_foreign_address_required,
+            beta=beta,
+            near_number=near_number,
+            near_lat_long=near_lat_long,
+            distance=distance,
+            in_postal_code=in_postal_code,
+            in_region=in_region,
+            in_rate_center=in_rate_center,
+            in_lata=in_lata,
+            in_locality=in_locality,
+            fax_enabled=fax_enabled,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         area_code: Union[int, object] = values.unset,
         contains: Union[str, object] = values.unset,
         sms_enabled: Union[bool, object] = values.unset,
@@ -465,6 +458,7 @@ class SharedCostList(ListResource):
         in_lata: Union[str, object] = values.unset,
         in_locality: Union[str, object] = values.unset,
         fax_enabled: Union[bool, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -472,7 +466,7 @@ class SharedCostList(ListResource):
         """
         Retrieve a single page of SharedCostInstance records from the API.
         Request is executed immediately
-
+        
         :param area_code: The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
         :param contains: The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
         :param sms_enabled: Whether the phone numbers can receive text messages. Can be: `true` or `false`.
@@ -497,43 +491,34 @@ class SharedCostList(ListResource):
 
         :returns: Page of SharedCostInstance
         """
-        data = values.of(
-            {
-                "AreaCode": area_code,
-                "Contains": contains,
-                "SmsEnabled": serialize.boolean_to_string(sms_enabled),
-                "MmsEnabled": serialize.boolean_to_string(mms_enabled),
-                "VoiceEnabled": serialize.boolean_to_string(voice_enabled),
-                "ExcludeAllAddressRequired": serialize.boolean_to_string(
-                    exclude_all_address_required
-                ),
-                "ExcludeLocalAddressRequired": serialize.boolean_to_string(
-                    exclude_local_address_required
-                ),
-                "ExcludeForeignAddressRequired": serialize.boolean_to_string(
-                    exclude_foreign_address_required
-                ),
-                "Beta": serialize.boolean_to_string(beta),
-                "NearNumber": near_number,
-                "NearLatLong": near_lat_long,
-                "Distance": distance,
-                "InPostalCode": in_postal_code,
-                "InRegion": in_region,
-                "InRateCenter": in_rate_center,
-                "InLata": in_lata,
-                "InLocality": in_locality,
-                "FaxEnabled": serialize.boolean_to_string(fax_enabled),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'AreaCode': area_code,
+            'Contains': contains,
+            'SmsEnabled': serialize.boolean_to_string(sms_enabled),
+            'MmsEnabled': serialize.boolean_to_string(mms_enabled),
+            'VoiceEnabled': serialize.boolean_to_string(voice_enabled),
+            'ExcludeAllAddressRequired': serialize.boolean_to_string(exclude_all_address_required),
+            'ExcludeLocalAddressRequired': serialize.boolean_to_string(exclude_local_address_required),
+            'ExcludeForeignAddressRequired': serialize.boolean_to_string(exclude_foreign_address_required),
+            'Beta': serialize.boolean_to_string(beta),
+            'NearNumber': near_number,
+            'NearLatLong': near_lat_long,
+            'Distance': distance,
+            'InPostalCode': in_postal_code,
+            'InRegion': in_region,
+            'InRateCenter': in_rate_center,
+            'InLata': in_lata,
+            'InLocality': in_locality,
+            'FaxEnabled': serialize.boolean_to_string(fax_enabled),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return SharedCostPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         area_code: Union[int, object] = values.unset,
         contains: Union[str, object] = values.unset,
         sms_enabled: Union[bool, object] = values.unset,
@@ -552,6 +537,7 @@ class SharedCostList(ListResource):
         in_lata: Union[str, object] = values.unset,
         in_locality: Union[str, object] = values.unset,
         fax_enabled: Union[bool, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -559,7 +545,7 @@ class SharedCostList(ListResource):
         """
         Asynchronously retrieve a single page of SharedCostInstance records from the API.
         Request is executed immediately
-
+        
         :param area_code: The area code of the phone numbers to read. Applies to only phone numbers in the US and Canada.
         :param contains: The pattern on which to match phone numbers. Valid characters are `*`, `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For examples, see [Example 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters.
         :param sms_enabled: Whether the phone numbers can receive text messages. Can be: `true` or `false`.
@@ -584,41 +570,31 @@ class SharedCostList(ListResource):
 
         :returns: Page of SharedCostInstance
         """
-        data = values.of(
-            {
-                "AreaCode": area_code,
-                "Contains": contains,
-                "SmsEnabled": serialize.boolean_to_string(sms_enabled),
-                "MmsEnabled": serialize.boolean_to_string(mms_enabled),
-                "VoiceEnabled": serialize.boolean_to_string(voice_enabled),
-                "ExcludeAllAddressRequired": serialize.boolean_to_string(
-                    exclude_all_address_required
-                ),
-                "ExcludeLocalAddressRequired": serialize.boolean_to_string(
-                    exclude_local_address_required
-                ),
-                "ExcludeForeignAddressRequired": serialize.boolean_to_string(
-                    exclude_foreign_address_required
-                ),
-                "Beta": serialize.boolean_to_string(beta),
-                "NearNumber": near_number,
-                "NearLatLong": near_lat_long,
-                "Distance": distance,
-                "InPostalCode": in_postal_code,
-                "InRegion": in_region,
-                "InRateCenter": in_rate_center,
-                "InLata": in_lata,
-                "InLocality": in_locality,
-                "FaxEnabled": serialize.boolean_to_string(fax_enabled),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'AreaCode': area_code,
+            'Contains': contains,
+            'SmsEnabled': serialize.boolean_to_string(sms_enabled),
+            'MmsEnabled': serialize.boolean_to_string(mms_enabled),
+            'VoiceEnabled': serialize.boolean_to_string(voice_enabled),
+            'ExcludeAllAddressRequired': serialize.boolean_to_string(exclude_all_address_required),
+            'ExcludeLocalAddressRequired': serialize.boolean_to_string(exclude_local_address_required),
+            'ExcludeForeignAddressRequired': serialize.boolean_to_string(exclude_foreign_address_required),
+            'Beta': serialize.boolean_to_string(beta),
+            'NearNumber': near_number,
+            'NearLatLong': near_lat_long,
+            'Distance': distance,
+            'InPostalCode': in_postal_code,
+            'InRegion': in_region,
+            'InRateCenter': in_rate_center,
+            'InLata': in_lata,
+            'InLocality': in_locality,
+            'FaxEnabled': serialize.boolean_to_string(fax_enabled),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return SharedCostPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> SharedCostPage:
@@ -630,7 +606,10 @@ class SharedCostList(ListResource):
 
         :returns: Page of SharedCostInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return SharedCostPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> SharedCostPage:
@@ -642,8 +621,14 @@ class SharedCostList(ListResource):
 
         :returns: Page of SharedCostInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return SharedCostPage(self._version, response, self._solution)
+
+
+
 
     def __repr__(self) -> str:
         """
@@ -651,4 +636,5 @@ class SharedCostList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Api.V2010.SharedCostList>"
+        return '<Twilio.Api.V2010.SharedCostList>'
+

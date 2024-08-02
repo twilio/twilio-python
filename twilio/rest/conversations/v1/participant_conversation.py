@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -51,49 +53,37 @@ class ParticipantConversationInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.chat_service_sid: Optional[str] = payload.get("chat_service_sid")
         self.participant_sid: Optional[str] = payload.get("participant_sid")
         self.participant_user_sid: Optional[str] = payload.get("participant_user_sid")
         self.participant_identity: Optional[str] = payload.get("participant_identity")
-        self.participant_messaging_binding: Optional[Dict[str, object]] = payload.get(
-            "participant_messaging_binding"
-        )
+        self.participant_messaging_binding: Optional[Dict[str, object]] = payload.get("participant_messaging_binding")
         self.conversation_sid: Optional[str] = payload.get("conversation_sid")
-        self.conversation_unique_name: Optional[str] = payload.get(
-            "conversation_unique_name"
-        )
-        self.conversation_friendly_name: Optional[str] = payload.get(
-            "conversation_friendly_name"
-        )
-        self.conversation_attributes: Optional[str] = payload.get(
-            "conversation_attributes"
-        )
-        self.conversation_date_created: Optional[datetime] = (
-            deserialize.iso8601_datetime(payload.get("conversation_date_created"))
-        )
-        self.conversation_date_updated: Optional[datetime] = (
-            deserialize.iso8601_datetime(payload.get("conversation_date_updated"))
-        )
-        self.conversation_created_by: Optional[str] = payload.get(
-            "conversation_created_by"
-        )
-        self.conversation_state: Optional["ParticipantConversationInstance.State"] = (
-            payload.get("conversation_state")
-        )
-        self.conversation_timers: Optional[Dict[str, object]] = payload.get(
-            "conversation_timers"
-        )
+        self.conversation_unique_name: Optional[str] = payload.get("conversation_unique_name")
+        self.conversation_friendly_name: Optional[str] = payload.get("conversation_friendly_name")
+        self.conversation_attributes: Optional[str] = payload.get("conversation_attributes")
+        self.conversation_date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("conversation_date_created"))
+        self.conversation_date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("conversation_date_updated"))
+        self.conversation_created_by: Optional[str] = payload.get("conversation_created_by")
+        self.conversation_state: Optional["ParticipantConversationInstance.State"] = payload.get("conversation_state")
+        self.conversation_timers: Optional[Dict[str, object]] = payload.get("conversation_timers")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
+        
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
+        
+        return '<Twilio.Conversations.V1.ParticipantConversationInstance>'
 
-        return "<Twilio.Conversations.V1.ParticipantConversationInstance>"
+
 
 
 class ParticipantConversationPage(Page):
@@ -115,23 +105,29 @@ class ParticipantConversationPage(Page):
         return "<Twilio.Conversations.V1.ParticipantConversationPage>"
 
 
-class ParticipantConversationList(ListResource):
 
+
+
+class ParticipantConversationList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the ParticipantConversationList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/ParticipantConversations"
-
-    def stream(
-        self,
+        
+        self._uri = '/ParticipantConversations'
+        
+        
+    
+    def stream(self, 
         identity: Union[str, object] = values.unset,
         address: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ParticipantConversationInstance]:
@@ -140,7 +136,7 @@ class ParticipantConversationList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
         :param str address: A unique string identifier for the conversation participant who's not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded.
         :param limit: Upper limit for the number of records to return. stream()
@@ -154,15 +150,17 @@ class ParticipantConversationList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
-            identity=identity, address=address, page_size=limits["page_size"]
+            identity=identity,
+            address=address,
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         identity: Union[str, object] = values.unset,
         address: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ParticipantConversationInstance]:
@@ -171,7 +169,7 @@ class ParticipantConversationList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
         :param str address: A unique string identifier for the conversation participant who's not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded.
         :param limit: Upper limit for the number of records to return. stream()
@@ -185,15 +183,17 @@ class ParticipantConversationList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            identity=identity, address=address, page_size=limits["page_size"]
+            identity=identity,
+            address=address,
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         identity: Union[str, object] = values.unset,
         address: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ParticipantConversationInstance]:
@@ -201,7 +201,7 @@ class ParticipantConversationList(ListResource):
         Lists ParticipantConversationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
         :param str address: A unique string identifier for the conversation participant who's not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -213,19 +213,17 @@ class ParticipantConversationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                identity=identity,
-                address=address,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            identity=identity,
+            address=address,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         identity: Union[str, object] = values.unset,
         address: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ParticipantConversationInstance]:
@@ -233,7 +231,7 @@ class ParticipantConversationList(ListResource):
         Asynchronously lists ParticipantConversationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
         :param str address: A unique string identifier for the conversation participant who's not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -245,20 +243,17 @@ class ParticipantConversationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                identity=identity,
-                address=address,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            identity=identity,
+            address=address,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         identity: Union[str, object] = values.unset,
         address: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -266,7 +261,7 @@ class ParticipantConversationList(ListResource):
         """
         Retrieve a single page of ParticipantConversationInstance records from the API.
         Request is executed immediately
-
+        
         :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
         :param address: A unique string identifier for the conversation participant who's not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded.
         :param page_token: PageToken provided by the API
@@ -275,23 +270,21 @@ class ParticipantConversationList(ListResource):
 
         :returns: Page of ParticipantConversationInstance
         """
-        data = values.of(
-            {
-                "Identity": identity,
-                "Address": address,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Identity': identity,
+            'Address': address,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return ParticipantConversationPage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         identity: Union[str, object] = values.unset,
         address: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -299,7 +292,7 @@ class ParticipantConversationList(ListResource):
         """
         Asynchronously retrieve a single page of ParticipantConversationInstance records from the API.
         Request is executed immediately
-
+        
         :param identity: A unique string identifier for the conversation participant as [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource). This parameter is non-null if (and only if) the participant is using the Conversations SDK to communicate. Limited to 256 characters.
         :param address: A unique string identifier for the conversation participant who's not a Conversation User. This parameter could be found in messaging_binding.address field of Participant resource. It should be url-encoded.
         :param page_token: PageToken provided by the API
@@ -308,19 +301,15 @@ class ParticipantConversationList(ListResource):
 
         :returns: Page of ParticipantConversationInstance
         """
-        data = values.of(
-            {
-                "Identity": identity,
-                "Address": address,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Identity': identity,
+            'Address': address,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return ParticipantConversationPage(self._version, response)
 
     def get_page(self, target_url: str) -> ParticipantConversationPage:
@@ -332,7 +321,10 @@ class ParticipantConversationList(ListResource):
 
         :returns: Page of ParticipantConversationInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return ParticipantConversationPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> ParticipantConversationPage:
@@ -344,8 +336,14 @@ class ParticipantConversationList(ListResource):
 
         :returns: Page of ParticipantConversationInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return ParticipantConversationPage(self._version, response)
+
+
+
 
     def __repr__(self) -> str:
         """
@@ -353,4 +351,5 @@ class ParticipantConversationList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Conversations.V1.ParticipantConversationList>"
+        return '<Twilio.Conversations.V1.ParticipantConversationList>'
+

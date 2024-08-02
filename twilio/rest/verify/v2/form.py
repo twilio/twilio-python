@@ -12,11 +12,16 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, Optional
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
+
 
 
 class FormInstance(InstanceResource):
@@ -31,20 +36,17 @@ class FormInstance(InstanceResource):
     :ivar url: The URL to access the forms for this type.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        form_type: Optional[FormTypes] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], form_type: Optional[FormTypes] = None):
         super().__init__(version)
 
+        
         self.form_type: Optional["FormInstance.FormTypes"] = payload.get("form_type")
         self.forms: Optional[Dict[str, object]] = payload.get("forms")
         self.form_meta: Optional[Dict[str, object]] = payload.get("form_meta")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "form_type": form_type or self.form_type,
         }
         self._context: Optional[FormContext] = None
@@ -58,16 +60,14 @@ class FormInstance(InstanceResource):
         :returns: FormContext for this FormInstance
         """
         if self._context is None:
-            self._context = FormContext(
-                self._version,
-                form_type=self._solution["form_type"],
-            )
+            self._context = FormContext(self._version, form_type=self._solution['form_type'],)
         return self._context
-
+    
+    
     def fetch(self) -> "FormInstance":
         """
         Fetch the FormInstance
-
+        
 
         :returns: The fetched FormInstance
         """
@@ -76,21 +76,20 @@ class FormInstance(InstanceResource):
     async def fetch_async(self) -> "FormInstance":
         """
         Asynchronous coroutine to fetch the FormInstance
-
+        
 
         :returns: The fetched FormInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.FormInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.FormInstance {}>'.format(context)
 
 class FormContext(InstanceContext):
 
@@ -103,75 +102,81 @@ class FormContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "form_type": form_type,
+        self._solution = { 
+            'form_type': form_type,
         }
-        self._uri = "/Forms/{form_type}".format(**self._solution)
-
+        self._uri = '/Forms/{form_type}'.format(**self._solution)
+        
+    
+    
     def fetch(self) -> FormInstance:
         """
         Fetch the FormInstance
-
+        
 
         :returns: The fetched FormInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FormInstance(
             self._version,
             payload,
-            form_type=self._solution["form_type"],
+            form_type=self._solution['form_type'],
+            
         )
 
     async def fetch_async(self) -> FormInstance:
         """
         Asynchronous coroutine to fetch the FormInstance
-
+        
 
         :returns: The fetched FormInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return FormInstance(
             self._version,
             payload,
-            form_type=self._solution["form_type"],
+            form_type=self._solution['form_type'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.FormContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.FormContext {}>'.format(context)
+
 
 
 class FormList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the FormList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
+
+        
+        
+        
+        
 
     def get(self, form_type: "FormInstance.FormTypes") -> FormContext:
         """
         Constructs a FormContext
-
+        
         :param form_type: The Type of this Form. Currently only `form-push` is supported.
         """
         return FormContext(self._version, form_type=form_type)
@@ -179,7 +184,7 @@ class FormList(ListResource):
     def __call__(self, form_type: "FormInstance.FormTypes") -> FormContext:
         """
         Constructs a FormContext
-
+        
         :param form_type: The Type of this Form. Currently only `form-push` is supported.
         """
         return FormContext(self._version, form_type=form_type)
@@ -190,4 +195,5 @@ class FormList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Verify.V2.FormList>"
+        return '<Twilio.Verify.V2.FormList>'
+

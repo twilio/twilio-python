@@ -19,16 +19,10 @@ from twilio.rest.messaging.v1.brand_registration import BrandRegistrationList
 from twilio.rest.messaging.v1.deactivations import DeactivationsList
 from twilio.rest.messaging.v1.domain_certs import DomainCertsList
 from twilio.rest.messaging.v1.domain_config import DomainConfigList
-from twilio.rest.messaging.v1.domain_config_messaging_service import (
-    DomainConfigMessagingServiceList,
-)
+from twilio.rest.messaging.v1.domain_config_messaging_service import DomainConfigMessagingServiceList
 from twilio.rest.messaging.v1.external_campaign import ExternalCampaignList
-from twilio.rest.messaging.v1.linkshortening_messaging_service import (
-    LinkshorteningMessagingServiceList,
-)
-from twilio.rest.messaging.v1.linkshortening_messaging_service_domain_association import (
-    LinkshorteningMessagingServiceDomainAssociationList,
-)
+from twilio.rest.messaging.v1.linkshortening_messaging_service import LinkshorteningMessagingServiceList
+from twilio.rest.messaging.v1.linkshortening_messaging_service_domain_association import LinkshorteningMessagingServiceDomainAssociationList
 from twilio.rest.messaging.v1.service import ServiceList
 from twilio.rest.messaging.v1.tollfree_verification import TollfreeVerificationList
 from twilio.rest.messaging.v1.usecase import UsecaseList
@@ -47,20 +41,14 @@ class V1(Version):
         self._deactivations: Optional[DeactivationsList] = None
         self._domain_certs: Optional[DomainCertsList] = None
         self._domain_config: Optional[DomainConfigList] = None
-        self._domain_config_messaging_service: Optional[
-            DomainConfigMessagingServiceList
-        ] = None
+        self._domain_config_messaging_service: Optional[DomainConfigMessagingServiceList] = None
         self._external_campaign: Optional[ExternalCampaignList] = None
-        self._linkshortening_messaging_service: Optional[
-            LinkshorteningMessagingServiceList
-        ] = None
-        self._linkshortening_messaging_service_domain_association: Optional[
-            LinkshorteningMessagingServiceDomainAssociationList
-        ] = None
+        self._linkshortening_messaging_service: Optional[LinkshorteningMessagingServiceList] = None
+        self._linkshortening_messaging_service_domain_association: Optional[LinkshorteningMessagingServiceDomainAssociationList] = None
         self._services: Optional[ServiceList] = None
         self._tollfree_verifications: Optional[TollfreeVerificationList] = None
         self._usecases: Optional[UsecaseList] = None
-
+        
     @property
     def brand_registrations(self) -> BrandRegistrationList:
         if self._brand_registrations is None:
@@ -88,9 +76,7 @@ class V1(Version):
     @property
     def domain_config_messaging_service(self) -> DomainConfigMessagingServiceList:
         if self._domain_config_messaging_service is None:
-            self._domain_config_messaging_service = DomainConfigMessagingServiceList(
-                self
-            )
+            self._domain_config_messaging_service = DomainConfigMessagingServiceList(self)
         return self._domain_config_messaging_service
 
     @property
@@ -102,19 +88,13 @@ class V1(Version):
     @property
     def linkshortening_messaging_service(self) -> LinkshorteningMessagingServiceList:
         if self._linkshortening_messaging_service is None:
-            self._linkshortening_messaging_service = LinkshorteningMessagingServiceList(
-                self
-            )
+            self._linkshortening_messaging_service = LinkshorteningMessagingServiceList(self)
         return self._linkshortening_messaging_service
 
     @property
-    def linkshortening_messaging_service_domain_association(
-        self,
-    ) -> LinkshorteningMessagingServiceDomainAssociationList:
+    def linkshortening_messaging_service_domain_association(self) -> LinkshorteningMessagingServiceDomainAssociationList:
         if self._linkshortening_messaging_service_domain_association is None:
-            self._linkshortening_messaging_service_domain_association = (
-                LinkshorteningMessagingServiceDomainAssociationList(self)
-            )
+            self._linkshortening_messaging_service_domain_association = LinkshorteningMessagingServiceDomainAssociationList(self)
         return self._linkshortening_messaging_service_domain_association
 
     @property

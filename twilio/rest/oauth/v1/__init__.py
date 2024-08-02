@@ -30,7 +30,7 @@ class V1(Version):
         super().__init__(domain, "v1")
         self._authorize: Optional[AuthorizeList] = None
         self._token: Optional[TokenList] = None
-
+        
     @property
     def authorize(self) -> AuthorizeList:
         if self._authorize is None:

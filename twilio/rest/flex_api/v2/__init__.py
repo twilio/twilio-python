@@ -30,7 +30,7 @@ class V2(Version):
         super().__init__(domain, "v2")
         self._flex_user: Optional[FlexUserList] = None
         self._web_channels: Optional[WebChannelsList] = None
-
+        
     @property
     def flex_user(self) -> FlexUserList:
         if self._flex_user is None:

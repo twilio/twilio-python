@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -59,28 +61,17 @@ class PhoneNumberInstance(InstanceResource):
     :ivar voice_url: The URL we call using the `voice_method` when the phone number receives a call. The `voice_url` is not be used if a `voice_application_sid` or a `trunk_sid` is set.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        trunk_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], trunk_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.address_requirements: Optional[
-            "PhoneNumberInstance.AddressRequirement"
-        ] = payload.get("address_requirements")
+        self.address_requirements: Optional["PhoneNumberInstance.AddressRequirement"] = payload.get("address_requirements")
         self.api_version: Optional[str] = payload.get("api_version")
         self.beta: Optional[bool] = payload.get("beta")
         self.capabilities: Optional[Dict[str, object]] = payload.get("capabilities")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.links: Optional[Dict[str, object]] = payload.get("links")
         self.phone_number: Optional[str] = payload.get("phone_number")
@@ -91,21 +82,18 @@ class PhoneNumberInstance(InstanceResource):
         self.sms_method: Optional[str] = payload.get("sms_method")
         self.sms_url: Optional[str] = payload.get("sms_url")
         self.status_callback: Optional[str] = payload.get("status_callback")
-        self.status_callback_method: Optional[str] = payload.get(
-            "status_callback_method"
-        )
+        self.status_callback_method: Optional[str] = payload.get("status_callback_method")
         self.trunk_sid: Optional[str] = payload.get("trunk_sid")
         self.url: Optional[str] = payload.get("url")
         self.voice_application_sid: Optional[str] = payload.get("voice_application_sid")
-        self.voice_caller_id_lookup: Optional[bool] = payload.get(
-            "voice_caller_id_lookup"
-        )
+        self.voice_caller_id_lookup: Optional[bool] = payload.get("voice_caller_id_lookup")
         self.voice_fallback_method: Optional[str] = payload.get("voice_fallback_method")
         self.voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
         self.voice_method: Optional[str] = payload.get("voice_method")
         self.voice_url: Optional[str] = payload.get("voice_url")
 
-        self._solution = {
+        
+        self._solution = { 
             "trunk_sid": trunk_sid,
             "sid": sid or self.sid,
         }
@@ -120,35 +108,32 @@ class PhoneNumberInstance(InstanceResource):
         :returns: PhoneNumberContext for this PhoneNumberInstance
         """
         if self._context is None:
-            self._context = PhoneNumberContext(
-                self._version,
-                trunk_sid=self._solution["trunk_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = PhoneNumberContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the PhoneNumberInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the PhoneNumberInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "PhoneNumberInstance":
         """
         Fetch the PhoneNumberInstance
-
+        
 
         :returns: The fetched PhoneNumberInstance
         """
@@ -157,21 +142,20 @@ class PhoneNumberInstance(InstanceResource):
     async def fetch_async(self) -> "PhoneNumberInstance":
         """
         Asynchronous coroutine to fetch the PhoneNumberInstance
-
+        
 
         :returns: The fetched PhoneNumberInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trunking.V1.PhoneNumberInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trunking.V1.PhoneNumberInstance {}>'.format(context)
 
 class PhoneNumberContext(InstanceContext):
 
@@ -185,85 +169,87 @@ class PhoneNumberContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "trunk_sid": trunk_sid,
-            "sid": sid,
+        self._solution = { 
+            'trunk_sid': trunk_sid,
+            'sid': sid,
         }
-        self._uri = "/Trunks/{trunk_sid}/PhoneNumbers/{sid}".format(**self._solution)
-
+        self._uri = '/Trunks/{trunk_sid}/PhoneNumbers/{sid}'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the PhoneNumberInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the PhoneNumberInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> PhoneNumberInstance:
         """
         Fetch the PhoneNumberInstance
-
+        
 
         :returns: The fetched PhoneNumberInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return PhoneNumberInstance(
             self._version,
             payload,
-            trunk_sid=self._solution["trunk_sid"],
-            sid=self._solution["sid"],
+            trunk_sid=self._solution['trunk_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> PhoneNumberInstance:
         """
         Asynchronous coroutine to fetch the PhoneNumberInstance
-
+        
 
         :returns: The fetched PhoneNumberInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return PhoneNumberInstance(
             self._version,
             payload,
-            trunk_sid=self._solution["trunk_sid"],
-            sid=self._solution["sid"],
+            trunk_sid=self._solution['trunk_sid'],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trunking.V1.PhoneNumberContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trunking.V1.PhoneNumberContext {}>'.format(context)
+
+
+
+
+
+
+
 
 
 class PhoneNumberPage(Page):
@@ -274,9 +260,7 @@ class PhoneNumberPage(Page):
 
         :param payload: Payload response from the API
         """
-        return PhoneNumberInstance(
-            self._version, payload, trunk_sid=self._solution["trunk_sid"]
-        )
+        return PhoneNumberInstance(self._version, payload, trunk_sid=self._solution["trunk_sid"])
 
     def __repr__(self) -> str:
         """
@@ -287,74 +271,75 @@ class PhoneNumberPage(Page):
         return "<Twilio.Trunking.V1.PhoneNumberPage>"
 
 
-class PhoneNumberList(ListResource):
 
+
+
+class PhoneNumberList(ListResource):
+    
     def __init__(self, version: Version, trunk_sid: str):
         """
         Initialize the PhoneNumberList
 
         :param version: Version that contains the resource
         :param trunk_sid: The SID of the Trunk from which to read the PhoneNumber resources.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "trunk_sid": trunk_sid,
-        }
-        self._uri = "/Trunks/{trunk_sid}/PhoneNumbers".format(**self._solution)
-
+        self._solution = { 'trunk_sid': trunk_sid,  }
+        self._uri = '/Trunks/{trunk_sid}/PhoneNumbers'.format(**self._solution)
+        
+        
+    
+    
+    
     def create(self, phone_number_sid: str) -> PhoneNumberInstance:
         """
         Create the PhoneNumberInstance
 
         :param phone_number_sid: The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk.
-
+        
         :returns: The created PhoneNumberInstance
         """
+        
+        data = values.of({ 
+            'PhoneNumberSid': phone_number_sid,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "PhoneNumberSid": phone_number_sid,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return PhoneNumberInstance(
-            self._version, payload, trunk_sid=self._solution["trunk_sid"]
-        )
+        return PhoneNumberInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
 
     async def create_async(self, phone_number_sid: str) -> PhoneNumberInstance:
         """
         Asynchronously create the PhoneNumberInstance
 
         :param phone_number_sid: The SID of the [Incoming Phone Number](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) that you want to associate with the trunk.
-
+        
         :returns: The created PhoneNumberInstance
         """
+        
+        data = values.of({ 
+            'PhoneNumberSid': phone_number_sid,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "PhoneNumberSid": phone_number_sid,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return PhoneNumberInstance(
-            self._version, payload, trunk_sid=self._solution["trunk_sid"]
-        )
-
-    def stream(
-        self,
+        return PhoneNumberInstance(self._version, payload, trunk_sid=self._solution['trunk_sid'])
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[PhoneNumberInstance]:
@@ -363,7 +348,7 @@ class PhoneNumberList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -374,12 +359,14 @@ class PhoneNumberList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[PhoneNumberInstance]:
@@ -388,7 +375,7 @@ class PhoneNumberList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -399,12 +386,14 @@ class PhoneNumberList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[PhoneNumberInstance]:
@@ -412,7 +401,7 @@ class PhoneNumberList(ListResource):
         Lists PhoneNumberInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -422,15 +411,13 @@ class PhoneNumberList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[PhoneNumberInstance]:
@@ -438,7 +425,7 @@ class PhoneNumberList(ListResource):
         Asynchronously lists PhoneNumberInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -448,16 +435,13 @@ class PhoneNumberList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -465,26 +449,24 @@ class PhoneNumberList(ListResource):
         """
         Retrieve a single page of PhoneNumberInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of PhoneNumberInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return PhoneNumberPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -492,24 +474,20 @@ class PhoneNumberList(ListResource):
         """
         Asynchronously retrieve a single page of PhoneNumberInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of PhoneNumberInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return PhoneNumberPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> PhoneNumberPage:
@@ -521,7 +499,10 @@ class PhoneNumberList(ListResource):
 
         :returns: Page of PhoneNumberInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return PhoneNumberPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> PhoneNumberPage:
@@ -533,28 +514,29 @@ class PhoneNumberList(ListResource):
 
         :returns: Page of PhoneNumberInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return PhoneNumberPage(self._version, response, self._solution)
+
+
 
     def get(self, sid: str) -> PhoneNumberContext:
         """
         Constructs a PhoneNumberContext
-
+        
         :param sid: The unique string that we created to identify the PhoneNumber resource to fetch.
         """
-        return PhoneNumberContext(
-            self._version, trunk_sid=self._solution["trunk_sid"], sid=sid
-        )
+        return PhoneNumberContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
 
     def __call__(self, sid: str) -> PhoneNumberContext:
         """
         Constructs a PhoneNumberContext
-
+        
         :param sid: The unique string that we created to identify the PhoneNumber resource to fetch.
         """
-        return PhoneNumberContext(
-            self._version, trunk_sid=self._solution["trunk_sid"], sid=sid
-        )
+        return PhoneNumberContext(self._version, trunk_sid=self._solution['trunk_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -562,4 +544,5 @@ class PhoneNumberList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Trunking.V1.PhoneNumberList>"
+        return '<Twilio.Trunking.V1.PhoneNumberList>'
+

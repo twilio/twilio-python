@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,6 +25,7 @@ from twilio.base.page import Page
 
 
 class CustomerProfilesEntityAssignmentsInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the Item Assignment resource.
     :ivar customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.
@@ -32,25 +35,19 @@ class CustomerProfilesEntityAssignmentsInstance(InstanceResource):
     :ivar url: The absolute URL of the Identity resource.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        customer_profile_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], customer_profile_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.customer_profile_sid: Optional[str] = payload.get("customer_profile_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.object_sid: Optional[str] = payload.get("object_sid")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "customer_profile_sid": customer_profile_sid,
             "sid": sid or self.sid,
         }
@@ -65,35 +62,32 @@ class CustomerProfilesEntityAssignmentsInstance(InstanceResource):
         :returns: CustomerProfilesEntityAssignmentsContext for this CustomerProfilesEntityAssignmentsInstance
         """
         if self._context is None:
-            self._context = CustomerProfilesEntityAssignmentsContext(
-                self._version,
-                customer_profile_sid=self._solution["customer_profile_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = CustomerProfilesEntityAssignmentsContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the CustomerProfilesEntityAssignmentsInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CustomerProfilesEntityAssignmentsInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "CustomerProfilesEntityAssignmentsInstance":
         """
         Fetch the CustomerProfilesEntityAssignmentsInstance
-
+        
 
         :returns: The fetched CustomerProfilesEntityAssignmentsInstance
         """
@@ -102,25 +96,20 @@ class CustomerProfilesEntityAssignmentsInstance(InstanceResource):
     async def fetch_async(self) -> "CustomerProfilesEntityAssignmentsInstance":
         """
         Asynchronous coroutine to fetch the CustomerProfilesEntityAssignmentsInstance
-
+        
 
         :returns: The fetched CustomerProfilesEntityAssignmentsInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return (
-            "<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsInstance {}>".format(
-                context
-            )
-        )
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsInstance {}>'.format(context)
 
 class CustomerProfilesEntityAssignmentsContext(InstanceContext):
 
@@ -134,110 +123,98 @@ class CustomerProfilesEntityAssignmentsContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "customer_profile_sid": customer_profile_sid,
-            "sid": sid,
+        self._solution = { 
+            'customer_profile_sid': customer_profile_sid,
+            'sid': sid,
         }
-        self._uri = (
-            "/CustomerProfiles/{customer_profile_sid}/EntityAssignments/{sid}".format(
-                **self._solution
-            )
-        )
-
+        self._uri = '/CustomerProfiles/{customer_profile_sid}/EntityAssignments/{sid}'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the CustomerProfilesEntityAssignmentsInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CustomerProfilesEntityAssignmentsInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> CustomerProfilesEntityAssignmentsInstance:
         """
         Fetch the CustomerProfilesEntityAssignmentsInstance
-
+        
 
         :returns: The fetched CustomerProfilesEntityAssignmentsInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CustomerProfilesEntityAssignmentsInstance(
             self._version,
             payload,
-            customer_profile_sid=self._solution["customer_profile_sid"],
-            sid=self._solution["sid"],
+            customer_profile_sid=self._solution['customer_profile_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> CustomerProfilesEntityAssignmentsInstance:
         """
         Asynchronous coroutine to fetch the CustomerProfilesEntityAssignmentsInstance
-
+        
 
         :returns: The fetched CustomerProfilesEntityAssignmentsInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return CustomerProfilesEntityAssignmentsInstance(
             self._version,
             payload,
-            customer_profile_sid=self._solution["customer_profile_sid"],
-            sid=self._solution["sid"],
+            customer_profile_sid=self._solution['customer_profile_sid'],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return (
-            "<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsContext {}>".format(
-                context
-            )
-        )
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsContext {}>'.format(context)
+
+
+
+
+
+
+
 
 
 class CustomerProfilesEntityAssignmentsPage(Page):
 
-    def get_instance(
-        self, payload: Dict[str, Any]
-    ) -> CustomerProfilesEntityAssignmentsInstance:
+    def get_instance(self, payload: Dict[str, Any]) -> CustomerProfilesEntityAssignmentsInstance:
         """
         Build an instance of CustomerProfilesEntityAssignmentsInstance
 
         :param payload: Payload response from the API
         """
-        return CustomerProfilesEntityAssignmentsInstance(
-            self._version,
-            payload,
-            customer_profile_sid=self._solution["customer_profile_sid"],
-        )
+        return CustomerProfilesEntityAssignmentsInstance(self._version, payload, customer_profile_sid=self._solution["customer_profile_sid"])
 
     def __repr__(self) -> str:
         """
@@ -248,83 +225,76 @@ class CustomerProfilesEntityAssignmentsPage(Page):
         return "<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsPage>"
 
 
-class CustomerProfilesEntityAssignmentsList(ListResource):
 
+
+
+class CustomerProfilesEntityAssignmentsList(ListResource):
+    
     def __init__(self, version: Version, customer_profile_sid: str):
         """
         Initialize the CustomerProfilesEntityAssignmentsList
 
         :param version: Version that contains the resource
         :param customer_profile_sid: The unique string that we created to identify the CustomerProfile resource.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "customer_profile_sid": customer_profile_sid,
-        }
-        self._uri = "/CustomerProfiles/{customer_profile_sid}/EntityAssignments".format(
-            **self._solution
-        )
-
+        self._solution = { 'customer_profile_sid': customer_profile_sid,  }
+        self._uri = '/CustomerProfiles/{customer_profile_sid}/EntityAssignments'.format(**self._solution)
+        
+        
+    
+    
+    
     def create(self, object_sid: str) -> CustomerProfilesEntityAssignmentsInstance:
         """
         Create the CustomerProfilesEntityAssignmentsInstance
 
         :param object_sid: The SID of an object bag that holds information of the different items.
-
+        
         :returns: The created CustomerProfilesEntityAssignmentsInstance
         """
+        
+        data = values.of({ 
+            'ObjectSid': object_sid,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "ObjectSid": object_sid,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return CustomerProfilesEntityAssignmentsInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])
 
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return CustomerProfilesEntityAssignmentsInstance(
-            self._version,
-            payload,
-            customer_profile_sid=self._solution["customer_profile_sid"],
-        )
-
-    async def create_async(
-        self, object_sid: str
-    ) -> CustomerProfilesEntityAssignmentsInstance:
+    async def create_async(self, object_sid: str) -> CustomerProfilesEntityAssignmentsInstance:
         """
         Asynchronously create the CustomerProfilesEntityAssignmentsInstance
 
         :param object_sid: The SID of an object bag that holds information of the different items.
-
+        
         :returns: The created CustomerProfilesEntityAssignmentsInstance
         """
+        
+        data = values.of({ 
+            'ObjectSid': object_sid,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "ObjectSid": object_sid,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return CustomerProfilesEntityAssignmentsInstance(
-            self._version,
-            payload,
-            customer_profile_sid=self._solution["customer_profile_sid"],
-        )
-
-    def stream(
-        self,
+        return CustomerProfilesEntityAssignmentsInstance(self._version, payload, customer_profile_sid=self._solution['customer_profile_sid'])
+    
+    
+    def stream(self, 
         object_type: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[CustomerProfilesEntityAssignmentsInstance]:
@@ -333,7 +303,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -345,13 +315,16 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(object_type=object_type, page_size=limits["page_size"])
+        page = self.page(
+            object_type=object_type,
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         object_type: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[CustomerProfilesEntityAssignmentsInstance]:
@@ -360,7 +333,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -373,14 +346,15 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            object_type=object_type, page_size=limits["page_size"]
+            object_type=object_type,
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         object_type: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CustomerProfilesEntityAssignmentsInstance]:
@@ -388,7 +362,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         Lists CustomerProfilesEntityAssignmentsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -399,17 +373,15 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                object_type=object_type,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            object_type=object_type,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         object_type: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CustomerProfilesEntityAssignmentsInstance]:
@@ -417,7 +389,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         Asynchronously lists CustomerProfilesEntityAssignmentsInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -428,18 +400,15 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                object_type=object_type,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            object_type=object_type,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         object_type: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -447,7 +416,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         """
         Retrieve a single page of CustomerProfilesEntityAssignmentsInstance records from the API.
         Request is executed immediately
-
+        
         :param object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -455,23 +424,19 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
 
         :returns: Page of CustomerProfilesEntityAssignmentsInstance
         """
-        data = values.of(
-            {
-                "ObjectType": object_type,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'ObjectType': object_type,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
-        return CustomerProfilesEntityAssignmentsPage(
-            self._version, response, self._solution
-        )
+        response = self._version.page(method='GET', uri=self._uri, params=data)
+        return CustomerProfilesEntityAssignmentsPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         object_type: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -479,7 +444,7 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
         """
         Asynchronously retrieve a single page of CustomerProfilesEntityAssignmentsInstance records from the API.
         Request is executed immediately
-
+        
         :param object_type: A string to filter the results by (EndUserType or SupportingDocumentType) machine-name. This is useful when you want to retrieve the entity-assignment of a specific end-user or supporting document.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -487,21 +452,15 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
 
         :returns: Page of CustomerProfilesEntityAssignmentsInstance
         """
-        data = values.of(
-            {
-                "ObjectType": object_type,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'ObjectType': object_type,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
-        return CustomerProfilesEntityAssignmentsPage(
-            self._version, response, self._solution
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        return CustomerProfilesEntityAssignmentsPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> CustomerProfilesEntityAssignmentsPage:
         """
@@ -512,14 +471,13 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
 
         :returns: Page of CustomerProfilesEntityAssignmentsInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
-        return CustomerProfilesEntityAssignmentsPage(
-            self._version, response, self._solution
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
         )
+        return CustomerProfilesEntityAssignmentsPage(self._version, response, self._solution)
 
-    async def get_page_async(
-        self, target_url: str
-    ) -> CustomerProfilesEntityAssignmentsPage:
+    async def get_page_async(self, target_url: str) -> CustomerProfilesEntityAssignmentsPage:
         """
         Asynchronously retrieve a specific page of CustomerProfilesEntityAssignmentsInstance records from the API.
         Request is executed immediately
@@ -528,34 +486,29 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
 
         :returns: Page of CustomerProfilesEntityAssignmentsInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
-        return CustomerProfilesEntityAssignmentsPage(
-            self._version, response, self._solution
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
         )
+        return CustomerProfilesEntityAssignmentsPage(self._version, response, self._solution)
+
+
 
     def get(self, sid: str) -> CustomerProfilesEntityAssignmentsContext:
         """
         Constructs a CustomerProfilesEntityAssignmentsContext
-
+        
         :param sid: The unique string that we created to identify the Identity resource.
         """
-        return CustomerProfilesEntityAssignmentsContext(
-            self._version,
-            customer_profile_sid=self._solution["customer_profile_sid"],
-            sid=sid,
-        )
+        return CustomerProfilesEntityAssignmentsContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=sid)
 
     def __call__(self, sid: str) -> CustomerProfilesEntityAssignmentsContext:
         """
         Constructs a CustomerProfilesEntityAssignmentsContext
-
+        
         :param sid: The unique string that we created to identify the Identity resource.
         """
-        return CustomerProfilesEntityAssignmentsContext(
-            self._version,
-            customer_profile_sid=self._solution["customer_profile_sid"],
-            sid=sid,
-        )
+        return CustomerProfilesEntityAssignmentsContext(self._version, customer_profile_sid=self._solution['customer_profile_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -563,4 +516,5 @@ class CustomerProfilesEntityAssignmentsList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsList>"
+        return '<Twilio.Trusthub.V1.CustomerProfilesEntityAssignmentsList>'
+

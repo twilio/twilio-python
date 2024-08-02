@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -20,9 +22,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.messaging.v1.brand_registration.brand_registration_otp import (
-    BrandRegistrationOtpList,
-)
+from twilio.rest.messaging.v1.brand_registration.brand_registration_otp import BrandRegistrationOtpList
 from twilio.rest.messaging.v1.brand_registration.brand_vetting import BrandVettingList
 
 
@@ -72,52 +72,34 @@ class BrandRegistrationInstance(InstanceResource):
     :ivar links: 
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.customer_profile_bundle_sid: Optional[str] = payload.get(
-            "customer_profile_bundle_sid"
-        )
-        self.a2p_profile_bundle_sid: Optional[str] = payload.get(
-            "a2p_profile_bundle_sid"
-        )
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.customer_profile_bundle_sid: Optional[str] = payload.get("customer_profile_bundle_sid")
+        self.a2p_profile_bundle_sid: Optional[str] = payload.get("a2p_profile_bundle_sid")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.brand_type: Optional[str] = payload.get("brand_type")
-        self.status: Optional["BrandRegistrationInstance.Status"] = payload.get(
-            "status"
-        )
+        self.status: Optional["BrandRegistrationInstance.Status"] = payload.get("status")
         self.tcr_id: Optional[str] = payload.get("tcr_id")
         self.failure_reason: Optional[str] = payload.get("failure_reason")
         self.errors: Optional[List[Dict[str, object]]] = payload.get("errors")
         self.url: Optional[str] = payload.get("url")
-        self.brand_score: Optional[int] = deserialize.integer(
-            payload.get("brand_score")
-        )
-        self.brand_feedback: Optional[
-            List["BrandRegistrationInstance.BrandFeedback"]
-        ] = payload.get("brand_feedback")
-        self.identity_status: Optional["BrandRegistrationInstance.IdentityStatus"] = (
-            payload.get("identity_status")
-        )
+        self.brand_score: Optional[int] = deserialize.integer(payload.get("brand_score"))
+        self.brand_feedback: Optional[List["BrandRegistrationInstance.BrandFeedback"]] = payload.get("brand_feedback")
+        self.identity_status: Optional["BrandRegistrationInstance.IdentityStatus"] = payload.get("identity_status")
         self.russell_3000: Optional[bool] = payload.get("russell_3000")
         self.government_entity: Optional[bool] = payload.get("government_entity")
         self.tax_exempt_status: Optional[str] = payload.get("tax_exempt_status")
-        self.skip_automatic_sec_vet: Optional[bool] = payload.get(
-            "skip_automatic_sec_vet"
-        )
+        self.skip_automatic_sec_vet: Optional[bool] = payload.get("skip_automatic_sec_vet")
         self.mock: Optional[bool] = payload.get("mock")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        self._solution = {
+        
+        self._solution = { 
             "sid": sid or self.sid,
         }
         self._context: Optional[BrandRegistrationContext] = None
@@ -131,16 +113,14 @@ class BrandRegistrationInstance(InstanceResource):
         :returns: BrandRegistrationContext for this BrandRegistrationInstance
         """
         if self._context is None:
-            self._context = BrandRegistrationContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
+            self._context = BrandRegistrationContext(self._version, sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def fetch(self) -> "BrandRegistrationInstance":
         """
         Fetch the BrandRegistrationInstance
-
+        
 
         :returns: The fetched BrandRegistrationInstance
         """
@@ -149,16 +129,17 @@ class BrandRegistrationInstance(InstanceResource):
     async def fetch_async(self) -> "BrandRegistrationInstance":
         """
         Asynchronous coroutine to fetch the BrandRegistrationInstance
-
+        
 
         :returns: The fetched BrandRegistrationInstance
         """
         return await self._proxy.fetch_async()
-
+    
+    
     def update(self) -> "BrandRegistrationInstance":
         """
         Update the BrandRegistrationInstance
-
+        
 
         :returns: The updated BrandRegistrationInstance
         """
@@ -167,35 +148,34 @@ class BrandRegistrationInstance(InstanceResource):
     async def update_async(self) -> "BrandRegistrationInstance":
         """
         Asynchronous coroutine to update the BrandRegistrationInstance
-
+        
 
         :returns: The updated BrandRegistrationInstance
         """
         return await self._proxy.update_async()
-
+    
     @property
     def brand_registration_otps(self) -> BrandRegistrationOtpList:
         """
         Access the brand_registration_otps
         """
         return self._proxy.brand_registration_otps
-
+    
     @property
     def brand_vettings(self) -> BrandVettingList:
         """
         Access the brand_vettings
         """
         return self._proxy.brand_vettings
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.BrandRegistrationInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Messaging.V1.BrandRegistrationInstance {}>'.format(context)
 
 class BrandRegistrationContext(InstanceContext):
 
@@ -208,91 +188,91 @@ class BrandRegistrationContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
+        self._solution = { 
+            'sid': sid,
         }
-        self._uri = "/a2p/BrandRegistrations/{sid}".format(**self._solution)
-
+        self._uri = '/a2p/BrandRegistrations/{sid}'.format(**self._solution)
+        
         self._brand_registration_otps: Optional[BrandRegistrationOtpList] = None
         self._brand_vettings: Optional[BrandVettingList] = None
-
+    
+    
     def fetch(self) -> BrandRegistrationInstance:
         """
         Fetch the BrandRegistrationInstance
-
+        
 
         :returns: The fetched BrandRegistrationInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return BrandRegistrationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> BrandRegistrationInstance:
         """
         Asynchronous coroutine to fetch the BrandRegistrationInstance
-
+        
 
         :returns: The fetched BrandRegistrationInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return BrandRegistrationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def update(self) -> BrandRegistrationInstance:
         """
         Update the BrandRegistrationInstance
-
+        
 
         :returns: The updated BrandRegistrationInstance
         """
-        data = values.of({})
+        data = values.of({ 
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return BrandRegistrationInstance(
-            self._version, payload, sid=self._solution["sid"]
+            self._version,
+            payload,
+            sid=self._solution['sid']
         )
 
     async def update_async(self) -> BrandRegistrationInstance:
         """
         Asynchronous coroutine to update the BrandRegistrationInstance
-
+        
 
         :returns: The updated BrandRegistrationInstance
         """
-        data = values.of({})
+        data = values.of({ 
+        })
+        
 
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
 
         return BrandRegistrationInstance(
-            self._version, payload, sid=self._solution["sid"]
+            self._version,
+            payload,
+            sid=self._solution['sid']
         )
-
+    
+    
     @property
     def brand_registration_otps(self) -> BrandRegistrationOtpList:
         """
@@ -300,11 +280,11 @@ class BrandRegistrationContext(InstanceContext):
         """
         if self._brand_registration_otps is None:
             self._brand_registration_otps = BrandRegistrationOtpList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._brand_registration_otps
-
+    
     @property
     def brand_vettings(self) -> BrandVettingList:
         """
@@ -312,19 +292,26 @@ class BrandRegistrationContext(InstanceContext):
         """
         if self._brand_vettings is None:
             self._brand_vettings = BrandVettingList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._brand_vettings
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.BrandRegistrationContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Messaging.V1.BrandRegistrationContext {}>'.format(context)
+
+
+
+
+
+
+
 
 
 class BrandRegistrationPage(Page):
@@ -346,27 +333,28 @@ class BrandRegistrationPage(Page):
         return "<Twilio.Messaging.V1.BrandRegistrationPage>"
 
 
-class BrandRegistrationList(ListResource):
 
+
+
+class BrandRegistrationList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the BrandRegistrationList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/a2p/BrandRegistrations"
-
-    def create(
-        self,
-        customer_profile_bundle_sid: str,
-        a2p_profile_bundle_sid: str,
-        brand_type: Union[str, object] = values.unset,
-        mock: Union[bool, object] = values.unset,
-        skip_automatic_sec_vet: Union[bool, object] = values.unset,
-    ) -> BrandRegistrationInstance:
+        
+        self._uri = '/a2p/BrandRegistrations'
+        
+        
+    
+    
+    
+    def create(self, customer_profile_bundle_sid: str, a2p_profile_bundle_sid: str, brand_type: Union[str, object]=values.unset, mock: Union[bool, object]=values.unset, skip_automatic_sec_vet: Union[bool, object]=values.unset) -> BrandRegistrationInstance:
         """
         Create the BrandRegistrationInstance
 
@@ -375,37 +363,27 @@ class BrandRegistrationList(ListResource):
         :param brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"SOLE_PROPRIETOR\\\". SOLE_PROPRIETOR is for low volume, SOLE_PROPRIETOR use cases. STANDARD is for all other use cases.
         :param mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
         :param skip_automatic_sec_vet: A flag to disable automatic secondary vetting for brands which it would otherwise be done.
-
+        
         :returns: The created BrandRegistrationInstance
         """
-
-        data = values.of(
-            {
-                "CustomerProfileBundleSid": customer_profile_bundle_sid,
-                "A2PProfileBundleSid": a2p_profile_bundle_sid,
-                "BrandType": brand_type,
-                "Mock": serialize.boolean_to_string(mock),
-                "SkipAutomaticSecVet": serialize.boolean_to_string(
-                    skip_automatic_sec_vet
-                ),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'CustomerProfileBundleSid': customer_profile_bundle_sid,
+            'A2PProfileBundleSid': a2p_profile_bundle_sid,
+            'BrandType': brand_type,
+            'Mock': serialize.boolean_to_string(mock),
+            'SkipAutomaticSecVet': serialize.boolean_to_string(skip_automatic_sec_vet),
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
         return BrandRegistrationInstance(self._version, payload)
 
-    async def create_async(
-        self,
-        customer_profile_bundle_sid: str,
-        a2p_profile_bundle_sid: str,
-        brand_type: Union[str, object] = values.unset,
-        mock: Union[bool, object] = values.unset,
-        skip_automatic_sec_vet: Union[bool, object] = values.unset,
-    ) -> BrandRegistrationInstance:
+    async def create_async(self, customer_profile_bundle_sid: str, a2p_profile_bundle_sid: str, brand_type: Union[str, object]=values.unset, mock: Union[bool, object]=values.unset, skip_automatic_sec_vet: Union[bool, object]=values.unset) -> BrandRegistrationInstance:
         """
         Asynchronously create the BrandRegistrationInstance
 
@@ -414,31 +392,29 @@ class BrandRegistrationList(ListResource):
         :param brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"SOLE_PROPRIETOR\\\". SOLE_PROPRIETOR is for low volume, SOLE_PROPRIETOR use cases. STANDARD is for all other use cases.
         :param mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
         :param skip_automatic_sec_vet: A flag to disable automatic secondary vetting for brands which it would otherwise be done.
-
+        
         :returns: The created BrandRegistrationInstance
         """
-
-        data = values.of(
-            {
-                "CustomerProfileBundleSid": customer_profile_bundle_sid,
-                "A2PProfileBundleSid": a2p_profile_bundle_sid,
-                "BrandType": brand_type,
-                "Mock": serialize.boolean_to_string(mock),
-                "SkipAutomaticSecVet": serialize.boolean_to_string(
-                    skip_automatic_sec_vet
-                ),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'CustomerProfileBundleSid': customer_profile_bundle_sid,
+            'A2PProfileBundleSid': a2p_profile_bundle_sid,
+            'BrandType': brand_type,
+            'Mock': serialize.boolean_to_string(mock),
+            'SkipAutomaticSecVet': serialize.boolean_to_string(skip_automatic_sec_vet),
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return BrandRegistrationInstance(self._version, payload)
-
-    def stream(
-        self,
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[BrandRegistrationInstance]:
@@ -447,7 +423,7 @@ class BrandRegistrationList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -458,12 +434,14 @@ class BrandRegistrationList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[BrandRegistrationInstance]:
@@ -472,7 +450,7 @@ class BrandRegistrationList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -483,12 +461,14 @@ class BrandRegistrationList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[BrandRegistrationInstance]:
@@ -496,7 +476,7 @@ class BrandRegistrationList(ListResource):
         Lists BrandRegistrationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -506,15 +486,13 @@ class BrandRegistrationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[BrandRegistrationInstance]:
@@ -522,7 +500,7 @@ class BrandRegistrationList(ListResource):
         Asynchronously lists BrandRegistrationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -532,16 +510,13 @@ class BrandRegistrationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -549,26 +524,24 @@ class BrandRegistrationList(ListResource):
         """
         Retrieve a single page of BrandRegistrationInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of BrandRegistrationInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return BrandRegistrationPage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -576,24 +549,20 @@ class BrandRegistrationList(ListResource):
         """
         Asynchronously retrieve a single page of BrandRegistrationInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of BrandRegistrationInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return BrandRegistrationPage(self._version, response)
 
     def get_page(self, target_url: str) -> BrandRegistrationPage:
@@ -605,7 +574,10 @@ class BrandRegistrationList(ListResource):
 
         :returns: Page of BrandRegistrationInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return BrandRegistrationPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> BrandRegistrationPage:
@@ -617,13 +589,22 @@ class BrandRegistrationList(ListResource):
 
         :returns: Page of BrandRegistrationInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return BrandRegistrationPage(self._version, response)
+
+
+
+
+
+
 
     def get(self, sid: str) -> BrandRegistrationContext:
         """
         Constructs a BrandRegistrationContext
-
+        
         :param sid: The SID of the Brand Registration resource to update.
         """
         return BrandRegistrationContext(self._version, sid=sid)
@@ -631,7 +612,7 @@ class BrandRegistrationList(ListResource):
     def __call__(self, sid: str) -> BrandRegistrationContext:
         """
         Constructs a BrandRegistrationContext
-
+        
         :param sid: The SID of the Brand Registration resource to update.
         """
         return BrandRegistrationContext(self._version, sid=sid)
@@ -642,4 +623,5 @@ class BrandRegistrationList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Messaging.V1.BrandRegistrationList>"
+        return '<Twilio.Messaging.V1.BrandRegistrationList>'
+

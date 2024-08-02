@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -45,11 +47,10 @@ class CustomOperatorInstance(InstanceResource):
     :ivar url: The URL of this resource.
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.sid: Optional[str] = payload.get("sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
@@ -57,19 +58,14 @@ class CustomOperatorInstance(InstanceResource):
         self.author: Optional[str] = payload.get("author")
         self.operator_type: Optional[str] = payload.get("operator_type")
         self.version: Optional[int] = deserialize.integer(payload.get("version"))
-        self.availability: Optional["CustomOperatorInstance.Availability"] = (
-            payload.get("availability")
-        )
+        self.availability: Optional["CustomOperatorInstance.Availability"] = payload.get("availability")
         self.config: Optional[Dict[str, object]] = payload.get("config")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "sid": sid or self.sid,
         }
         self._context: Optional[CustomOperatorContext] = None
@@ -83,34 +79,32 @@ class CustomOperatorInstance(InstanceResource):
         :returns: CustomOperatorContext for this CustomOperatorInstance
         """
         if self._context is None:
-            self._context = CustomOperatorContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
+            self._context = CustomOperatorContext(self._version, sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the CustomOperatorInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CustomOperatorInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "CustomOperatorInstance":
         """
         Fetch the CustomOperatorInstance
-
+        
 
         :returns: The fetched CustomOperatorInstance
         """
@@ -119,63 +113,45 @@ class CustomOperatorInstance(InstanceResource):
     async def fetch_async(self) -> "CustomOperatorInstance":
         """
         Asynchronous coroutine to fetch the CustomOperatorInstance
-
+        
 
         :returns: The fetched CustomOperatorInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        friendly_name: str,
-        config: object,
-        if_match: Union[str, object] = values.unset,
-    ) -> "CustomOperatorInstance":
+    
+    
+    def update(self, friendly_name: str, config: object, if_match: Union[str, object]=values.unset) -> "CustomOperatorInstance":
         """
         Update the CustomOperatorInstance
-
+        
         :param friendly_name: A human-readable name of this resource, up to 64 characters.
         :param config: Operator configuration, following the schema defined by the Operator Type.
         :param if_match: The If-Match HTTP request header
 
         :returns: The updated CustomOperatorInstance
         """
-        return self._proxy.update(
-            friendly_name=friendly_name,
-            config=config,
-            if_match=if_match,
-        )
+        return self._proxy.update(friendly_name=friendly_name, config=config, if_match=if_match, )
 
-    async def update_async(
-        self,
-        friendly_name: str,
-        config: object,
-        if_match: Union[str, object] = values.unset,
-    ) -> "CustomOperatorInstance":
+    async def update_async(self, friendly_name: str, config: object, if_match: Union[str, object]=values.unset) -> "CustomOperatorInstance":
         """
         Asynchronous coroutine to update the CustomOperatorInstance
-
+        
         :param friendly_name: A human-readable name of this resource, up to 64 characters.
         :param config: Operator configuration, following the schema defined by the Operator Type.
         :param if_match: The If-Match HTTP request header
 
         :returns: The updated CustomOperatorInstance
         """
-        return await self._proxy.update_async(
-            friendly_name=friendly_name,
-            config=config,
-            if_match=if_match,
-        )
-
+        return await self._proxy.update_async(friendly_name=friendly_name, config=config, if_match=if_match, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.CustomOperatorInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Intelligence.V2.CustomOperatorInstance {}>'.format(context)
 
 class CustomOperatorContext(InstanceContext):
 
@@ -188,148 +164,135 @@ class CustomOperatorContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
+        self._solution = { 
+            'sid': sid,
         }
-        self._uri = "/Operators/Custom/{sid}".format(**self._solution)
-
+        self._uri = '/Operators/Custom/{sid}'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the CustomOperatorInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CustomOperatorInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> CustomOperatorInstance:
         """
         Fetch the CustomOperatorInstance
-
+        
 
         :returns: The fetched CustomOperatorInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CustomOperatorInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> CustomOperatorInstance:
         """
         Asynchronous coroutine to fetch the CustomOperatorInstance
-
+        
 
         :returns: The fetched CustomOperatorInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return CustomOperatorInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
-
-    def update(
-        self,
-        friendly_name: str,
-        config: object,
-        if_match: Union[str, object] = values.unset,
-    ) -> CustomOperatorInstance:
+    
+    
+    def update(self, friendly_name: str, config: object, if_match: Union[str, object]=values.unset) -> CustomOperatorInstance:
         """
         Update the CustomOperatorInstance
-
+        
         :param friendly_name: A human-readable name of this resource, up to 64 characters.
         :param config: Operator configuration, following the schema defined by the Operator Type.
         :param if_match: The If-Match HTTP request header
 
         :returns: The updated CustomOperatorInstance
         """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Config": serialize.object(config),
-            }
-        )
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Config': serialize.object(config),
+        })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(
-            method="POST", uri=self._uri, data=data, headers=headers
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return CustomOperatorInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
         )
 
-        return CustomOperatorInstance(self._version, payload, sid=self._solution["sid"])
-
-    async def update_async(
-        self,
-        friendly_name: str,
-        config: object,
-        if_match: Union[str, object] = values.unset,
-    ) -> CustomOperatorInstance:
+    async def update_async(self, friendly_name: str, config: object, if_match: Union[str, object]=values.unset) -> CustomOperatorInstance:
         """
         Asynchronous coroutine to update the CustomOperatorInstance
-
+        
         :param friendly_name: A human-readable name of this resource, up to 64 characters.
         :param config: Operator configuration, following the schema defined by the Operator Type.
         :param if_match: The If-Match HTTP request header
 
         :returns: The updated CustomOperatorInstance
         """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Config": serialize.object(config),
-            }
-        )
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Config': serialize.object(config),
+        })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return CustomOperatorInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
         )
-
-        return CustomOperatorInstance(self._version, payload, sid=self._solution["sid"])
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.CustomOperatorContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Intelligence.V2.CustomOperatorContext {}>'.format(context)
+
+
+
+
+
+
+
+
+
 
 
 class CustomOperatorPage(Page):
@@ -351,81 +314,83 @@ class CustomOperatorPage(Page):
         return "<Twilio.Intelligence.V2.CustomOperatorPage>"
 
 
-class CustomOperatorList(ListResource):
 
+
+
+class CustomOperatorList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the CustomOperatorList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/Operators/Custom"
-
-    def create(
-        self, friendly_name: str, operator_type: str, config: object
-    ) -> CustomOperatorInstance:
+        
+        self._uri = '/Operators/Custom'
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name: str, operator_type: str, config: object) -> CustomOperatorInstance:
         """
         Create the CustomOperatorInstance
 
         :param friendly_name: A human readable description of the new Operator, up to 64 characters.
         :param operator_type: Operator Type for this Operator. References an existing Operator Type resource.
         :param config: Operator configuration, following the schema defined by the Operator Type.
-
+        
         :returns: The created CustomOperatorInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "OperatorType": operator_type,
-                "Config": serialize.object(config),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'OperatorType': operator_type,
+            'Config': serialize.object(config),
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
         return CustomOperatorInstance(self._version, payload)
 
-    async def create_async(
-        self, friendly_name: str, operator_type: str, config: object
-    ) -> CustomOperatorInstance:
+    async def create_async(self, friendly_name: str, operator_type: str, config: object) -> CustomOperatorInstance:
         """
         Asynchronously create the CustomOperatorInstance
 
         :param friendly_name: A human readable description of the new Operator, up to 64 characters.
         :param operator_type: Operator Type for this Operator. References an existing Operator Type resource.
         :param config: Operator configuration, following the schema defined by the Operator Type.
-
+        
         :returns: The created CustomOperatorInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "OperatorType": operator_type,
-                "Config": serialize.object(config),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'OperatorType': operator_type,
+            'Config': serialize.object(config),
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return CustomOperatorInstance(self._version, payload)
-
-    def stream(
-        self,
-        availability: Union[
-            "CustomOperatorInstance.Availability", object
-        ] = values.unset,
+    
+    
+    def stream(self, 
+        availability: Union["CustomOperatorInstance.Availability", object] = values.unset,
         language_code: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[CustomOperatorInstance]:
@@ -434,7 +399,7 @@ class CustomOperatorList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;CustomOperatorInstance.Availability&quot; availability: Returns Custom Operators with the provided availability type. Possible values: internal, beta, public, retired.
         :param str language_code: Returns Custom Operators that support the provided language code.
         :param limit: Upper limit for the number of records to return. stream()
@@ -450,17 +415,15 @@ class CustomOperatorList(ListResource):
         page = self.page(
             availability=availability,
             language_code=language_code,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
-        availability: Union[
-            "CustomOperatorInstance.Availability", object
-        ] = values.unset,
+    async def stream_async(self, 
+        availability: Union["CustomOperatorInstance.Availability", object] = values.unset,
         language_code: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[CustomOperatorInstance]:
@@ -469,7 +432,7 @@ class CustomOperatorList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;CustomOperatorInstance.Availability&quot; availability: Returns Custom Operators with the provided availability type. Possible values: internal, beta, public, retired.
         :param str language_code: Returns Custom Operators that support the provided language code.
         :param limit: Upper limit for the number of records to return. stream()
@@ -485,17 +448,15 @@ class CustomOperatorList(ListResource):
         page = await self.page_async(
             availability=availability,
             language_code=language_code,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
-        availability: Union[
-            "CustomOperatorInstance.Availability", object
-        ] = values.unset,
+    def list(self, 
+        availability: Union["CustomOperatorInstance.Availability", object] = values.unset,
         language_code: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CustomOperatorInstance]:
@@ -503,7 +464,7 @@ class CustomOperatorList(ListResource):
         Lists CustomOperatorInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;CustomOperatorInstance.Availability&quot; availability: Returns Custom Operators with the provided availability type. Possible values: internal, beta, public, retired.
         :param str language_code: Returns Custom Operators that support the provided language code.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -515,21 +476,17 @@ class CustomOperatorList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                availability=availability,
-                language_code=language_code,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            availability=availability,
+            language_code=language_code,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
-        availability: Union[
-            "CustomOperatorInstance.Availability", object
-        ] = values.unset,
+    async def list_async(self, 
+        availability: Union["CustomOperatorInstance.Availability", object] = values.unset,
         language_code: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CustomOperatorInstance]:
@@ -537,7 +494,7 @@ class CustomOperatorList(ListResource):
         Asynchronously lists CustomOperatorInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;CustomOperatorInstance.Availability&quot; availability: Returns Custom Operators with the provided availability type. Possible values: internal, beta, public, retired.
         :param str language_code: Returns Custom Operators that support the provided language code.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -549,22 +506,17 @@ class CustomOperatorList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                availability=availability,
-                language_code=language_code,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            availability=availability,
+            language_code=language_code,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
-        availability: Union[
-            "CustomOperatorInstance.Availability", object
-        ] = values.unset,
+    def page(self, 
+        availability: Union["CustomOperatorInstance.Availability", object] = values.unset,
         language_code: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -572,7 +524,7 @@ class CustomOperatorList(ListResource):
         """
         Retrieve a single page of CustomOperatorInstance records from the API.
         Request is executed immediately
-
+        
         :param availability: Returns Custom Operators with the provided availability type. Possible values: internal, beta, public, retired.
         :param language_code: Returns Custom Operators that support the provided language code.
         :param page_token: PageToken provided by the API
@@ -581,25 +533,21 @@ class CustomOperatorList(ListResource):
 
         :returns: Page of CustomOperatorInstance
         """
-        data = values.of(
-            {
-                "Availability": availability,
-                "LanguageCode": language_code,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Availability': availability,
+            'LanguageCode': language_code,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return CustomOperatorPage(self._version, response)
 
-    async def page_async(
-        self,
-        availability: Union[
-            "CustomOperatorInstance.Availability", object
-        ] = values.unset,
+    async def page_async(self, 
+        availability: Union["CustomOperatorInstance.Availability", object] = values.unset,
         language_code: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -607,7 +555,7 @@ class CustomOperatorList(ListResource):
         """
         Asynchronously retrieve a single page of CustomOperatorInstance records from the API.
         Request is executed immediately
-
+        
         :param availability: Returns Custom Operators with the provided availability type. Possible values: internal, beta, public, retired.
         :param language_code: Returns Custom Operators that support the provided language code.
         :param page_token: PageToken provided by the API
@@ -616,19 +564,15 @@ class CustomOperatorList(ListResource):
 
         :returns: Page of CustomOperatorInstance
         """
-        data = values.of(
-            {
-                "Availability": availability,
-                "LanguageCode": language_code,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Availability': availability,
+            'LanguageCode': language_code,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return CustomOperatorPage(self._version, response)
 
     def get_page(self, target_url: str) -> CustomOperatorPage:
@@ -640,7 +584,10 @@ class CustomOperatorList(ListResource):
 
         :returns: Page of CustomOperatorInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return CustomOperatorPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> CustomOperatorPage:
@@ -652,13 +599,18 @@ class CustomOperatorList(ListResource):
 
         :returns: Page of CustomOperatorInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return CustomOperatorPage(self._version, response)
+
+
 
     def get(self, sid: str) -> CustomOperatorContext:
         """
         Constructs a CustomOperatorContext
-
+        
         :param sid: A 34 character string that uniquely identifies this Custom Operator.
         """
         return CustomOperatorContext(self._version, sid=sid)
@@ -666,7 +618,7 @@ class CustomOperatorList(ListResource):
     def __call__(self, sid: str) -> CustomOperatorContext:
         """
         Constructs a CustomOperatorContext
-
+        
         :param sid: A 34 character string that uniquely identifies this Custom Operator.
         """
         return CustomOperatorContext(self._version, sid=sid)
@@ -677,4 +629,5 @@ class CustomOperatorList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Intelligence.V2.CustomOperatorList>"
+        return '<Twilio.Intelligence.V2.CustomOperatorList>'
+

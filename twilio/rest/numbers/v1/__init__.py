@@ -18,19 +18,11 @@ from twilio.base.domain import Domain
 from twilio.rest.numbers.v1.bulk_eligibility import BulkEligibilityList
 from twilio.rest.numbers.v1.eligibility import EligibilityList
 from twilio.rest.numbers.v1.porting_port_in import PortingPortInList
-from twilio.rest.numbers.v1.porting_port_in_phone_number import (
-    PortingPortInPhoneNumberList,
-)
+from twilio.rest.numbers.v1.porting_port_in_phone_number import PortingPortInPhoneNumberList
 from twilio.rest.numbers.v1.porting_portability import PortingPortabilityList
-from twilio.rest.numbers.v1.porting_webhook_configuration import (
-    PortingWebhookConfigurationList,
-)
-from twilio.rest.numbers.v1.porting_webhook_configuration_delete import (
-    PortingWebhookConfigurationDeleteList,
-)
-from twilio.rest.numbers.v1.signing_request_configuration import (
-    SigningRequestConfigurationList,
-)
+from twilio.rest.numbers.v1.porting_webhook_configuration import PortingWebhookConfigurationList
+from twilio.rest.numbers.v1.porting_webhook_configuration_delete import PortingWebhookConfigurationDeleteList
+from twilio.rest.numbers.v1.signing_request_configuration import SigningRequestConfigurationList
 from twilio.rest.numbers.v1.webhook import WebhookList
 
 
@@ -46,21 +38,13 @@ class V1(Version):
         self._bulk_eligibilities: Optional[BulkEligibilityList] = None
         self._eligibilities: Optional[EligibilityList] = None
         self._porting_port_ins: Optional[PortingPortInList] = None
-        self._porting_port_in_phone_number: Optional[PortingPortInPhoneNumberList] = (
-            None
-        )
+        self._porting_port_in_phone_number: Optional[PortingPortInPhoneNumberList] = None
         self._porting_portabilities: Optional[PortingPortabilityList] = None
-        self._porting_webhook_configurations: Optional[
-            PortingWebhookConfigurationList
-        ] = None
-        self._porting_webhook_configurations_delete: Optional[
-            PortingWebhookConfigurationDeleteList
-        ] = None
-        self._signing_request_configurations: Optional[
-            SigningRequestConfigurationList
-        ] = None
+        self._porting_webhook_configurations: Optional[PortingWebhookConfigurationList] = None
+        self._porting_webhook_configurations_delete: Optional[PortingWebhookConfigurationDeleteList] = None
+        self._signing_request_configurations: Optional[SigningRequestConfigurationList] = None
         self._webhook: Optional[WebhookList] = None
-
+        
     @property
     def bulk_eligibilities(self) -> BulkEligibilityList:
         if self._bulk_eligibilities is None:
@@ -98,13 +82,9 @@ class V1(Version):
         return self._porting_webhook_configurations
 
     @property
-    def porting_webhook_configurations_delete(
-        self,
-    ) -> PortingWebhookConfigurationDeleteList:
+    def porting_webhook_configurations_delete(self) -> PortingWebhookConfigurationDeleteList:
         if self._porting_webhook_configurations_delete is None:
-            self._porting_webhook_configurations_delete = (
-                PortingWebhookConfigurationDeleteList(self)
-            )
+            self._porting_webhook_configurations_delete = PortingWebhookConfigurationDeleteList(self)
         return self._porting_webhook_configurations_delete
 
     @property

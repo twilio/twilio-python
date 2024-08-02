@@ -12,15 +12,20 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, List, Optional
-from twilio.base import serialize, values
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
 class FlowTestUserInstance(InstanceResource):
+
     """
     :ivar sid: Unique identifier of the flow.
     :ivar test_users: List of test user identities that can test draft versions of the flow.
@@ -30,11 +35,13 @@ class FlowTestUserInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any], sid: str):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.test_users: Optional[List[str]] = payload.get("test_users")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "sid": sid,
         }
         self._context: Optional[FlowTestUserContext] = None
@@ -48,16 +55,14 @@ class FlowTestUserInstance(InstanceResource):
         :returns: FlowTestUserContext for this FlowTestUserInstance
         """
         if self._context is None:
-            self._context = FlowTestUserContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
+            self._context = FlowTestUserContext(self._version, sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def fetch(self) -> "FlowTestUserInstance":
         """
         Fetch the FlowTestUserInstance
-
+        
 
         :returns: The fetched FlowTestUserInstance
         """
@@ -66,45 +71,41 @@ class FlowTestUserInstance(InstanceResource):
     async def fetch_async(self) -> "FlowTestUserInstance":
         """
         Asynchronous coroutine to fetch the FlowTestUserInstance
-
+        
 
         :returns: The fetched FlowTestUserInstance
         """
         return await self._proxy.fetch_async()
-
+    
+    
     def update(self, test_users: List[str]) -> "FlowTestUserInstance":
         """
         Update the FlowTestUserInstance
-
+        
         :param test_users: List of test user identities that can test draft versions of the flow.
 
         :returns: The updated FlowTestUserInstance
         """
-        return self._proxy.update(
-            test_users=test_users,
-        )
+        return self._proxy.update(test_users=test_users, )
 
     async def update_async(self, test_users: List[str]) -> "FlowTestUserInstance":
         """
         Asynchronous coroutine to update the FlowTestUserInstance
-
+        
         :param test_users: List of test user identities that can test draft versions of the flow.
 
         :returns: The updated FlowTestUserInstance
         """
-        return await self._proxy.update_async(
-            test_users=test_users,
-        )
-
+        return await self._proxy.update_async(test_users=test_users, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V2.FlowTestUserInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Studio.V2.FlowTestUserInstance {}>'.format(context)
 
 class FlowTestUserContext(InstanceContext):
 
@@ -117,134 +118,136 @@ class FlowTestUserContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
+        self._solution = { 
+            'sid': sid,
         }
-        self._uri = "/Flows/{sid}/TestUsers".format(**self._solution)
-
+        self._uri = '/Flows/{sid}/TestUsers'.format(**self._solution)
+        
+    
+    
     def fetch(self) -> FlowTestUserInstance:
         """
         Fetch the FlowTestUserInstance
-
+        
 
         :returns: The fetched FlowTestUserInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return FlowTestUserInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> FlowTestUserInstance:
         """
         Asynchronous coroutine to fetch the FlowTestUserInstance
-
+        
 
         :returns: The fetched FlowTestUserInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return FlowTestUserInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def update(self, test_users: List[str]) -> FlowTestUserInstance:
         """
         Update the FlowTestUserInstance
-
+        
         :param test_users: List of test user identities that can test draft versions of the flow.
 
         :returns: The updated FlowTestUserInstance
         """
-        data = values.of(
-            {
-                "TestUsers": serialize.map(test_users, lambda e: e),
-            }
-        )
+        data = values.of({ 
+            'TestUsers': serialize.map(test_users, lambda e: e),
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
-        return FlowTestUserInstance(self._version, payload, sid=self._solution["sid"])
+        return FlowTestUserInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
+        )
 
     async def update_async(self, test_users: List[str]) -> FlowTestUserInstance:
         """
         Asynchronous coroutine to update the FlowTestUserInstance
-
+        
         :param test_users: List of test user identities that can test draft versions of the flow.
 
         :returns: The updated FlowTestUserInstance
         """
-        data = values.of(
-            {
-                "TestUsers": serialize.map(test_users, lambda e: e),
-            }
+        data = values.of({ 
+            'TestUsers': serialize.map(test_users, lambda e: e),
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return FlowTestUserInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
         )
-
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return FlowTestUserInstance(self._version, payload, sid=self._solution["sid"])
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Studio.V2.FlowTestUserContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Studio.V2.FlowTestUserContext {}>'.format(context)
+
 
 
 class FlowTestUserList(ListResource):
-
+    
     def __init__(self, version: Version, sid: str):
         """
         Initialize the FlowTestUserList
 
         :param version: Version that contains the resource
         :param sid: Unique identifier of the flow.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
-        }
+        self._solution = { 'sid': sid,  }
+        
+        
+        
 
     def get(self) -> FlowTestUserContext:
         """
         Constructs a FlowTestUserContext
-
+        
         """
-        return FlowTestUserContext(self._version, sid=self._solution["sid"])
+        return FlowTestUserContext(self._version, sid=self._solution['sid'])
 
     def __call__(self) -> FlowTestUserContext:
         """
         Constructs a FlowTestUserContext
-
+        
         """
-        return FlowTestUserContext(self._version, sid=self._solution["sid"])
+        return FlowTestUserContext(self._version, sid=self._solution['sid'])
 
     def __repr__(self) -> str:
         """
@@ -252,4 +255,5 @@ class FlowTestUserList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Studio.V2.FlowTestUserList>"
+        return '<Twilio.Studio.V2.FlowTestUserList>'
+

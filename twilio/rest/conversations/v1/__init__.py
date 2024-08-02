@@ -19,9 +19,7 @@ from twilio.rest.conversations.v1.address_configuration import AddressConfigurat
 from twilio.rest.conversations.v1.configuration import ConfigurationList
 from twilio.rest.conversations.v1.conversation import ConversationList
 from twilio.rest.conversations.v1.credential import CredentialList
-from twilio.rest.conversations.v1.participant_conversation import (
-    ParticipantConversationList,
-)
+from twilio.rest.conversations.v1.participant_conversation import ParticipantConversationList
 from twilio.rest.conversations.v1.role import RoleList
 from twilio.rest.conversations.v1.service import ServiceList
 from twilio.rest.conversations.v1.user import UserList
@@ -44,7 +42,7 @@ class V1(Version):
         self._roles: Optional[RoleList] = None
         self._services: Optional[ServiceList] = None
         self._users: Optional[UserList] = None
-
+        
     @property
     def address_configurations(self) -> AddressConfigurationList:
         if self._address_configurations is None:

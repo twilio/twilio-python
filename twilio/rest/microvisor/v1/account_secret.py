@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,24 +25,23 @@ from twilio.base.page import Page
 
 
 class AccountSecretInstance(InstanceResource):
+
     """
     :ivar key: The secret key; up to 100 characters.
-    :ivar date_rotated:
+    :ivar date_rotated: 
     :ivar url: The absolute URL of the Secret.
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], key: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], key: Optional[str] = None):
         super().__init__(version)
 
+        
         self.key: Optional[str] = payload.get("key")
-        self.date_rotated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_rotated")
-        )
+        self.date_rotated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_rotated"))
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "key": key or self.key,
         }
         self._context: Optional[AccountSecretContext] = None
@@ -54,34 +55,32 @@ class AccountSecretInstance(InstanceResource):
         :returns: AccountSecretContext for this AccountSecretInstance
         """
         if self._context is None:
-            self._context = AccountSecretContext(
-                self._version,
-                key=self._solution["key"],
-            )
+            self._context = AccountSecretContext(self._version, key=self._solution['key'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the AccountSecretInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AccountSecretInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "AccountSecretInstance":
         """
         Fetch the AccountSecretInstance
-
+        
 
         :returns: The fetched AccountSecretInstance
         """
@@ -90,45 +89,41 @@ class AccountSecretInstance(InstanceResource):
     async def fetch_async(self) -> "AccountSecretInstance":
         """
         Asynchronous coroutine to fetch the AccountSecretInstance
-
+        
 
         :returns: The fetched AccountSecretInstance
         """
         return await self._proxy.fetch_async()
-
+    
+    
     def update(self, value: str) -> "AccountSecretInstance":
         """
         Update the AccountSecretInstance
-
+        
         :param value: The secret value; up to 4096 characters.
 
         :returns: The updated AccountSecretInstance
         """
-        return self._proxy.update(
-            value=value,
-        )
+        return self._proxy.update(value=value, )
 
     async def update_async(self, value: str) -> "AccountSecretInstance":
         """
         Asynchronous coroutine to update the AccountSecretInstance
-
+        
         :param value: The secret value; up to 4096 characters.
 
         :returns: The updated AccountSecretInstance
         """
-        return await self._proxy.update_async(
-            value=value,
-        )
-
+        return await self._proxy.update_async(value=value, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Microvisor.V1.AccountSecretInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Microvisor.V1.AccountSecretInstance {}>'.format(context)
 
 class AccountSecretContext(InstanceContext):
 
@@ -141,126 +136,129 @@ class AccountSecretContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "key": key,
+        self._solution = { 
+            'key': key,
         }
-        self._uri = "/Secrets/{key}".format(**self._solution)
-
+        self._uri = '/Secrets/{key}'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the AccountSecretInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the AccountSecretInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> AccountSecretInstance:
         """
         Fetch the AccountSecretInstance
-
+        
 
         :returns: The fetched AccountSecretInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AccountSecretInstance(
             self._version,
             payload,
-            key=self._solution["key"],
+            key=self._solution['key'],
+            
         )
 
     async def fetch_async(self) -> AccountSecretInstance:
         """
         Asynchronous coroutine to fetch the AccountSecretInstance
-
+        
 
         :returns: The fetched AccountSecretInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return AccountSecretInstance(
             self._version,
             payload,
-            key=self._solution["key"],
+            key=self._solution['key'],
+            
         )
-
+    
+    
     def update(self, value: str) -> AccountSecretInstance:
         """
         Update the AccountSecretInstance
-
+        
         :param value: The secret value; up to 4096 characters.
 
         :returns: The updated AccountSecretInstance
         """
-        data = values.of(
-            {
-                "Value": value,
-            }
-        )
+        data = values.of({ 
+            'Value': value,
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
-        return AccountSecretInstance(self._version, payload, key=self._solution["key"])
+        return AccountSecretInstance(
+            self._version,
+            payload,
+            key=self._solution['key']
+        )
 
     async def update_async(self, value: str) -> AccountSecretInstance:
         """
         Asynchronous coroutine to update the AccountSecretInstance
-
+        
         :param value: The secret value; up to 4096 characters.
 
         :returns: The updated AccountSecretInstance
         """
-        data = values.of(
-            {
-                "Value": value,
-            }
+        data = values.of({ 
+            'Value': value,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return AccountSecretInstance(
+            self._version,
+            payload,
+            key=self._solution['key']
         )
-
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AccountSecretInstance(self._version, payload, key=self._solution["key"])
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Microvisor.V1.AccountSecretContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Microvisor.V1.AccountSecretContext {}>'.format(context)
+
+
+
+
+
+
+
+
+
 
 
 class AccountSecretPage(Page):
@@ -282,40 +280,48 @@ class AccountSecretPage(Page):
         return "<Twilio.Microvisor.V1.AccountSecretPage>"
 
 
-class AccountSecretList(ListResource):
 
+
+
+class AccountSecretList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the AccountSecretList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/Secrets"
-
+        
+        self._uri = '/Secrets'
+        
+        
+    
+    
+    
+    
     def create(self, key: str, value: str) -> AccountSecretInstance:
         """
         Create the AccountSecretInstance
 
         :param key: The secret key; up to 100 characters.
         :param value: The secret value; up to 4096 characters.
-
+        
         :returns: The created AccountSecretInstance
         """
-
-        data = values.of(
-            {
-                "Key": key,
-                "Value": value,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'Key': key,
+            'Value': value,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
         return AccountSecretInstance(self._version, payload)
 
@@ -325,26 +331,26 @@ class AccountSecretList(ListResource):
 
         :param key: The secret key; up to 100 characters.
         :param value: The secret value; up to 4096 characters.
-
+        
         :returns: The created AccountSecretInstance
         """
-
-        data = values.of(
-            {
-                "Key": key,
-                "Value": value,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'Key': key,
+            'Value': value,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return AccountSecretInstance(self._version, payload)
-
-    def stream(
-        self,
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[AccountSecretInstance]:
@@ -353,7 +359,7 @@ class AccountSecretList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -364,12 +370,14 @@ class AccountSecretList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[AccountSecretInstance]:
@@ -378,7 +386,7 @@ class AccountSecretList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -389,12 +397,14 @@ class AccountSecretList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[AccountSecretInstance]:
@@ -402,7 +412,7 @@ class AccountSecretList(ListResource):
         Lists AccountSecretInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -412,15 +422,13 @@ class AccountSecretList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[AccountSecretInstance]:
@@ -428,7 +436,7 @@ class AccountSecretList(ListResource):
         Asynchronously lists AccountSecretInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -438,16 +446,13 @@ class AccountSecretList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -455,26 +460,24 @@ class AccountSecretList(ListResource):
         """
         Retrieve a single page of AccountSecretInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AccountSecretInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return AccountSecretPage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -482,24 +485,20 @@ class AccountSecretList(ListResource):
         """
         Asynchronously retrieve a single page of AccountSecretInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AccountSecretInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return AccountSecretPage(self._version, response)
 
     def get_page(self, target_url: str) -> AccountSecretPage:
@@ -511,7 +510,10 @@ class AccountSecretList(ListResource):
 
         :returns: Page of AccountSecretInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return AccountSecretPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> AccountSecretPage:
@@ -523,13 +525,18 @@ class AccountSecretList(ListResource):
 
         :returns: Page of AccountSecretInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return AccountSecretPage(self._version, response)
+
+
 
     def get(self, key: str) -> AccountSecretContext:
         """
         Constructs a AccountSecretContext
-
+        
         :param key: The secret key; up to 100 characters.
         """
         return AccountSecretContext(self._version, key=key)
@@ -537,7 +544,7 @@ class AccountSecretList(ListResource):
     def __call__(self, key: str) -> AccountSecretContext:
         """
         Constructs a AccountSecretContext
-
+        
         :param key: The secret key; up to 100 characters.
         """
         return AccountSecretContext(self._version, key=key)
@@ -548,4 +555,5 @@ class AccountSecretList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Microvisor.V1.AccountSecretList>"
+        return '<Twilio.Microvisor.V1.AccountSecretList>'
+

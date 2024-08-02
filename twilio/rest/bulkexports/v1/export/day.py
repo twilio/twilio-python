@@ -12,8 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -22,8 +25,9 @@ from twilio.base.page import Page
 
 
 class DayInstance(InstanceResource):
+
     """
-    :ivar redirect_to:
+    :ivar redirect_to: 
     :ivar day: The ISO 8601 format date of the resources in the file, for a UTC day
     :ivar size: The size of the day's data file in bytes
     :ivar create_date: The ISO 8601 format date when resources is created
@@ -31,15 +35,10 @@ class DayInstance(InstanceResource):
     :ivar resource_type: The type of communication – Messages, Calls, Conferences, and Participants
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        resource_type: str,
-        day: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], resource_type: str, day: Optional[str] = None):
         super().__init__(version)
 
+        
         self.redirect_to: Optional[str] = payload.get("redirect_to")
         self.day: Optional[str] = payload.get("day")
         self.size: Optional[int] = deserialize.integer(payload.get("size"))
@@ -47,7 +46,8 @@ class DayInstance(InstanceResource):
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.resource_type: Optional[str] = payload.get("resource_type")
 
-        self._solution = {
+        
+        self._solution = { 
             "resource_type": resource_type,
             "day": day or self.day,
         }
@@ -62,17 +62,14 @@ class DayInstance(InstanceResource):
         :returns: DayContext for this DayInstance
         """
         if self._context is None:
-            self._context = DayContext(
-                self._version,
-                resource_type=self._solution["resource_type"],
-                day=self._solution["day"],
-            )
+            self._context = DayContext(self._version, resource_type=self._solution['resource_type'], day=self._solution['day'],)
         return self._context
-
+    
+    
     def fetch(self) -> "DayInstance":
         """
         Fetch the DayInstance
-
+        
 
         :returns: The fetched DayInstance
         """
@@ -81,21 +78,20 @@ class DayInstance(InstanceResource):
     async def fetch_async(self) -> "DayInstance":
         """
         Asynchronous coroutine to fetch the DayInstance
-
+        
 
         :returns: The fetched DayInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Bulkexports.V1.DayInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Bulkexports.V1.DayInstance {}>'.format(context)
 
 class DayContext(InstanceContext):
 
@@ -109,61 +105,64 @@ class DayContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "resource_type": resource_type,
-            "day": day,
+        self._solution = { 
+            'resource_type': resource_type,
+            'day': day,
         }
-        self._uri = "/Exports/{resource_type}/Days/{day}".format(**self._solution)
-
+        self._uri = '/Exports/{resource_type}/Days/{day}'.format(**self._solution)
+        
+    
+    
     def fetch(self) -> DayInstance:
         """
         Fetch the DayInstance
-
+        
 
         :returns: The fetched DayInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DayInstance(
             self._version,
             payload,
-            resource_type=self._solution["resource_type"],
-            day=self._solution["day"],
+            resource_type=self._solution['resource_type'],
+            day=self._solution['day'],
+            
         )
 
     async def fetch_async(self) -> DayInstance:
         """
         Asynchronous coroutine to fetch the DayInstance
-
+        
 
         :returns: The fetched DayInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return DayInstance(
             self._version,
             payload,
-            resource_type=self._solution["resource_type"],
-            day=self._solution["day"],
+            resource_type=self._solution['resource_type'],
+            day=self._solution['day'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Bulkexports.V1.DayContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Bulkexports.V1.DayContext {}>'.format(context)
+
+
+
 
 
 class DayPage(Page):
@@ -174,9 +173,7 @@ class DayPage(Page):
 
         :param payload: Payload response from the API
         """
-        return DayInstance(
-            self._version, payload, resource_type=self._solution["resource_type"]
-        )
+        return DayInstance(self._version, payload, resource_type=self._solution["resource_type"])
 
     def __repr__(self) -> str:
         """
@@ -187,26 +184,31 @@ class DayPage(Page):
         return "<Twilio.Bulkexports.V1.DayPage>"
 
 
-class DayList(ListResource):
 
+
+
+class DayList(ListResource):
+    
     def __init__(self, version: Version, resource_type: str):
         """
         Initialize the DayList
 
         :param version: Version that contains the resource
         :param resource_type: The type of communication – Messages, Calls, Conferences, and Participants
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "resource_type": resource_type,
-        }
-        self._uri = "/Exports/{resource_type}/Days".format(**self._solution)
-
-    def stream(
-        self,
+        self._solution = { 'resource_type': resource_type,  }
+        self._uri = '/Exports/{resource_type}/Days'.format(**self._solution)
+        
+        
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[DayInstance]:
@@ -215,7 +217,7 @@ class DayList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -226,12 +228,14 @@ class DayList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[DayInstance]:
@@ -240,7 +244,7 @@ class DayList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -251,12 +255,14 @@ class DayList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DayInstance]:
@@ -264,7 +270,7 @@ class DayList(ListResource):
         Lists DayInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -274,15 +280,13 @@ class DayList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DayInstance]:
@@ -290,7 +294,7 @@ class DayList(ListResource):
         Asynchronously lists DayInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -300,16 +304,13 @@ class DayList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -317,26 +318,24 @@ class DayList(ListResource):
         """
         Retrieve a single page of DayInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DayInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return DayPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -344,24 +343,20 @@ class DayList(ListResource):
         """
         Asynchronously retrieve a single page of DayInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DayInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return DayPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> DayPage:
@@ -373,7 +368,10 @@ class DayList(ListResource):
 
         :returns: Page of DayInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return DayPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> DayPage:
@@ -385,28 +383,29 @@ class DayList(ListResource):
 
         :returns: Page of DayInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return DayPage(self._version, response, self._solution)
+
+
 
     def get(self, day: str) -> DayContext:
         """
         Constructs a DayContext
-
+        
         :param day: The ISO 8601 format date of the resources in the file, for a UTC day
         """
-        return DayContext(
-            self._version, resource_type=self._solution["resource_type"], day=day
-        )
+        return DayContext(self._version, resource_type=self._solution['resource_type'], day=day)
 
     def __call__(self, day: str) -> DayContext:
         """
         Constructs a DayContext
-
+        
         :param day: The ISO 8601 format date of the resources in the file, for a UTC day
         """
-        return DayContext(
-            self._version, resource_type=self._solution["resource_type"], day=day
-        )
+        return DayContext(self._version, resource_type=self._solution['resource_type'], day=day)
 
     def __repr__(self) -> str:
         """
@@ -414,4 +413,5 @@ class DayList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Bulkexports.V1.DayList>"
+        return '<Twilio.Bulkexports.V1.DayList>'
+

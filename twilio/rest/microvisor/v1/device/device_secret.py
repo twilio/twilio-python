@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,30 +25,25 @@ from twilio.base.page import Page
 
 
 class DeviceSecretInstance(InstanceResource):
+
     """
     :ivar device_sid: A 34-character string that uniquely identifies the parent Device.
     :ivar key: The secret key; up to 100 characters.
-    :ivar date_rotated:
+    :ivar date_rotated: 
     :ivar url: The absolute URL of the Secret.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        device_sid: str,
-        key: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], device_sid: str, key: Optional[str] = None):
         super().__init__(version)
 
+        
         self.device_sid: Optional[str] = payload.get("device_sid")
         self.key: Optional[str] = payload.get("key")
-        self.date_rotated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_rotated")
-        )
+        self.date_rotated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_rotated"))
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "device_sid": device_sid,
             "key": key or self.key,
         }
@@ -61,35 +58,32 @@ class DeviceSecretInstance(InstanceResource):
         :returns: DeviceSecretContext for this DeviceSecretInstance
         """
         if self._context is None:
-            self._context = DeviceSecretContext(
-                self._version,
-                device_sid=self._solution["device_sid"],
-                key=self._solution["key"],
-            )
+            self._context = DeviceSecretContext(self._version, device_sid=self._solution['device_sid'], key=self._solution['key'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the DeviceSecretInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the DeviceSecretInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "DeviceSecretInstance":
         """
         Fetch the DeviceSecretInstance
-
+        
 
         :returns: The fetched DeviceSecretInstance
         """
@@ -98,45 +92,41 @@ class DeviceSecretInstance(InstanceResource):
     async def fetch_async(self) -> "DeviceSecretInstance":
         """
         Asynchronous coroutine to fetch the DeviceSecretInstance
-
+        
 
         :returns: The fetched DeviceSecretInstance
         """
         return await self._proxy.fetch_async()
-
+    
+    
     def update(self, value: str) -> "DeviceSecretInstance":
         """
         Update the DeviceSecretInstance
-
+        
         :param value: The secret value; up to 4096 characters.
 
         :returns: The updated DeviceSecretInstance
         """
-        return self._proxy.update(
-            value=value,
-        )
+        return self._proxy.update(value=value, )
 
     async def update_async(self, value: str) -> "DeviceSecretInstance":
         """
         Asynchronous coroutine to update the DeviceSecretInstance
-
+        
         :param value: The secret value; up to 4096 characters.
 
         :returns: The updated DeviceSecretInstance
         """
-        return await self._proxy.update_async(
-            value=value,
-        )
-
+        return await self._proxy.update_async(value=value, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Microvisor.V1.DeviceSecretInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Microvisor.V1.DeviceSecretInstance {}>'.format(context)
 
 class DeviceSecretContext(InstanceContext):
 
@@ -150,139 +140,134 @@ class DeviceSecretContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "device_sid": device_sid,
-            "key": key,
+        self._solution = { 
+            'device_sid': device_sid,
+            'key': key,
         }
-        self._uri = "/Devices/{device_sid}/Secrets/{key}".format(**self._solution)
-
+        self._uri = '/Devices/{device_sid}/Secrets/{key}'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the DeviceSecretInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the DeviceSecretInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> DeviceSecretInstance:
         """
         Fetch the DeviceSecretInstance
-
+        
 
         :returns: The fetched DeviceSecretInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return DeviceSecretInstance(
             self._version,
             payload,
-            device_sid=self._solution["device_sid"],
-            key=self._solution["key"],
+            device_sid=self._solution['device_sid'],
+            key=self._solution['key'],
+            
         )
 
     async def fetch_async(self) -> DeviceSecretInstance:
         """
         Asynchronous coroutine to fetch the DeviceSecretInstance
-
+        
 
         :returns: The fetched DeviceSecretInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return DeviceSecretInstance(
             self._version,
             payload,
-            device_sid=self._solution["device_sid"],
-            key=self._solution["key"],
+            device_sid=self._solution['device_sid'],
+            key=self._solution['key'],
+            
         )
-
+    
+    
     def update(self, value: str) -> DeviceSecretInstance:
         """
         Update the DeviceSecretInstance
-
+        
         :param value: The secret value; up to 4096 characters.
 
         :returns: The updated DeviceSecretInstance
         """
-        data = values.of(
-            {
-                "Value": value,
-            }
-        )
+        data = values.of({ 
+            'Value': value,
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return DeviceSecretInstance(
             self._version,
             payload,
-            device_sid=self._solution["device_sid"],
-            key=self._solution["key"],
+            device_sid=self._solution['device_sid'],
+            key=self._solution['key']
         )
 
     async def update_async(self, value: str) -> DeviceSecretInstance:
         """
         Asynchronous coroutine to update the DeviceSecretInstance
-
+        
         :param value: The secret value; up to 4096 characters.
 
         :returns: The updated DeviceSecretInstance
         """
-        data = values.of(
-            {
-                "Value": value,
-            }
-        )
+        data = values.of({ 
+            'Value': value,
+        })
+        
 
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
 
         return DeviceSecretInstance(
             self._version,
             payload,
-            device_sid=self._solution["device_sid"],
-            key=self._solution["key"],
+            device_sid=self._solution['device_sid'],
+            key=self._solution['key']
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Microvisor.V1.DeviceSecretContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Microvisor.V1.DeviceSecretContext {}>'.format(context)
+
+
+
+
+
+
+
+
+
 
 
 class DeviceSecretPage(Page):
@@ -293,9 +278,7 @@ class DeviceSecretPage(Page):
 
         :param payload: Payload response from the API
         """
-        return DeviceSecretInstance(
-            self._version, payload, device_sid=self._solution["device_sid"]
-        )
+        return DeviceSecretInstance(self._version, payload, device_sid=self._solution["device_sid"])
 
     def __repr__(self) -> str:
         """
@@ -306,49 +289,53 @@ class DeviceSecretPage(Page):
         return "<Twilio.Microvisor.V1.DeviceSecretPage>"
 
 
-class DeviceSecretList(ListResource):
 
+
+
+class DeviceSecretList(ListResource):
+    
     def __init__(self, version: Version, device_sid: str):
         """
         Initialize the DeviceSecretList
 
         :param version: Version that contains the resource
         :param device_sid: A 34-character string that uniquely identifies the Device.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "device_sid": device_sid,
-        }
-        self._uri = "/Devices/{device_sid}/Secrets".format(**self._solution)
-
+        self._solution = { 'device_sid': device_sid,  }
+        self._uri = '/Devices/{device_sid}/Secrets'.format(**self._solution)
+        
+        
+    
+    
+    
+    
     def create(self, key: str, value: str) -> DeviceSecretInstance:
         """
         Create the DeviceSecretInstance
 
         :param key: The secret key; up to 100 characters.
         :param value: The secret value; up to 4096 characters.
-
+        
         :returns: The created DeviceSecretInstance
         """
+        
+        data = values.of({ 
+            'Key': key,
+            'Value': value,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Key": key,
-                "Value": value,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return DeviceSecretInstance(
-            self._version, payload, device_sid=self._solution["device_sid"]
-        )
+        return DeviceSecretInstance(self._version, payload, device_sid=self._solution['device_sid'])
 
     async def create_async(self, key: str, value: str) -> DeviceSecretInstance:
         """
@@ -356,28 +343,26 @@ class DeviceSecretList(ListResource):
 
         :param key: The secret key; up to 100 characters.
         :param value: The secret value; up to 4096 characters.
-
+        
         :returns: The created DeviceSecretInstance
         """
+        
+        data = values.of({ 
+            'Key': key,
+            'Value': value,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Key": key,
-                "Value": value,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return DeviceSecretInstance(
-            self._version, payload, device_sid=self._solution["device_sid"]
-        )
-
-    def stream(
-        self,
+        return DeviceSecretInstance(self._version, payload, device_sid=self._solution['device_sid'])
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[DeviceSecretInstance]:
@@ -386,7 +371,7 @@ class DeviceSecretList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -397,12 +382,14 @@ class DeviceSecretList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[DeviceSecretInstance]:
@@ -411,7 +398,7 @@ class DeviceSecretList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -422,12 +409,14 @@ class DeviceSecretList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DeviceSecretInstance]:
@@ -435,7 +424,7 @@ class DeviceSecretList(ListResource):
         Lists DeviceSecretInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -445,15 +434,13 @@ class DeviceSecretList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DeviceSecretInstance]:
@@ -461,7 +448,7 @@ class DeviceSecretList(ListResource):
         Asynchronously lists DeviceSecretInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -471,16 +458,13 @@ class DeviceSecretList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -488,26 +472,24 @@ class DeviceSecretList(ListResource):
         """
         Retrieve a single page of DeviceSecretInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceSecretInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return DeviceSecretPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -515,24 +497,20 @@ class DeviceSecretList(ListResource):
         """
         Asynchronously retrieve a single page of DeviceSecretInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of DeviceSecretInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return DeviceSecretPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> DeviceSecretPage:
@@ -544,7 +522,10 @@ class DeviceSecretList(ListResource):
 
         :returns: Page of DeviceSecretInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return DeviceSecretPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> DeviceSecretPage:
@@ -556,28 +537,29 @@ class DeviceSecretList(ListResource):
 
         :returns: Page of DeviceSecretInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return DeviceSecretPage(self._version, response, self._solution)
+
+
 
     def get(self, key: str) -> DeviceSecretContext:
         """
         Constructs a DeviceSecretContext
-
+        
         :param key: The secret key; up to 100 characters.
         """
-        return DeviceSecretContext(
-            self._version, device_sid=self._solution["device_sid"], key=key
-        )
+        return DeviceSecretContext(self._version, device_sid=self._solution['device_sid'], key=key)
 
     def __call__(self, key: str) -> DeviceSecretContext:
         """
         Constructs a DeviceSecretContext
-
+        
         :param key: The secret key; up to 100 characters.
         """
-        return DeviceSecretContext(
-            self._version, device_sid=self._solution["device_sid"], key=key
-        )
+        return DeviceSecretContext(self._version, device_sid=self._solution['device_sid'], key=key)
 
     def __repr__(self) -> str:
         """
@@ -585,4 +567,5 @@ class DeviceSecretList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Microvisor.V1.DeviceSecretList>"
+        return '<Twilio.Microvisor.V1.DeviceSecretList>'
+

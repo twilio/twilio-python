@@ -12,7 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Optional
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 
 
 from twilio.base.list_resource import ListResource
@@ -22,33 +26,37 @@ from twilio.rest.numbers.v2.regulatory_compliance.bundle import BundleList
 from twilio.rest.numbers.v2.regulatory_compliance.end_user import EndUserList
 from twilio.rest.numbers.v2.regulatory_compliance.end_user_type import EndUserTypeList
 from twilio.rest.numbers.v2.regulatory_compliance.regulation import RegulationList
-from twilio.rest.numbers.v2.regulatory_compliance.supporting_document import (
-    SupportingDocumentList,
-)
-from twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type import (
-    SupportingDocumentTypeList,
-)
+from twilio.rest.numbers.v2.regulatory_compliance.supporting_document import SupportingDocumentList
+from twilio.rest.numbers.v2.regulatory_compliance.supporting_document_type import SupportingDocumentTypeList
+
+
+
+
 
 
 class RegulatoryComplianceList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the RegulatoryComplianceList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/RegulatoryCompliance"
-
+        
+        self._uri = '/RegulatoryCompliance'
+        
         self._bundles: Optional[BundleList] = None
         self._end_users: Optional[EndUserList] = None
         self._end_user_types: Optional[EndUserTypeList] = None
         self._regulations: Optional[RegulationList] = None
         self._supporting_documents: Optional[SupportingDocumentList] = None
         self._supporting_document_types: Optional[SupportingDocumentTypeList] = None
+        
+
+
 
     @property
     def bundles(self) -> BundleList:
@@ -59,6 +67,8 @@ class RegulatoryComplianceList(ListResource):
             self._bundles = BundleList(self._version)
         return self._bundles
 
+
+
     @property
     def end_users(self) -> EndUserList:
         """
@@ -67,6 +77,8 @@ class RegulatoryComplianceList(ListResource):
         if self._end_users is None:
             self._end_users = EndUserList(self._version)
         return self._end_users
+
+
 
     @property
     def end_user_types(self) -> EndUserTypeList:
@@ -77,6 +89,8 @@ class RegulatoryComplianceList(ListResource):
             self._end_user_types = EndUserTypeList(self._version)
         return self._end_user_types
 
+
+
     @property
     def regulations(self) -> RegulationList:
         """
@@ -85,6 +99,8 @@ class RegulatoryComplianceList(ListResource):
         if self._regulations is None:
             self._regulations = RegulationList(self._version)
         return self._regulations
+
+
 
     @property
     def supporting_documents(self) -> SupportingDocumentList:
@@ -95,6 +111,8 @@ class RegulatoryComplianceList(ListResource):
             self._supporting_documents = SupportingDocumentList(self._version)
         return self._supporting_documents
 
+
+
     @property
     def supporting_document_types(self) -> SupportingDocumentTypeList:
         """
@@ -104,10 +122,13 @@ class RegulatoryComplianceList(ListResource):
             self._supporting_document_types = SupportingDocumentTypeList(self._version)
         return self._supporting_document_types
 
+
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Numbers.V2.RegulatoryComplianceList>"
+        return '<Twilio.Numbers.V2.RegulatoryComplianceList>'
+

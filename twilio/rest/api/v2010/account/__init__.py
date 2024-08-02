@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -22,12 +24,8 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.api.v2010.account.address import AddressList
 from twilio.rest.api.v2010.account.application import ApplicationList
-from twilio.rest.api.v2010.account.authorized_connect_app import (
-    AuthorizedConnectAppList,
-)
-from twilio.rest.api.v2010.account.available_phone_number_country import (
-    AvailablePhoneNumberCountryList,
-)
+from twilio.rest.api.v2010.account.authorized_connect_app import AuthorizedConnectAppList
+from twilio.rest.api.v2010.account.available_phone_number_country import AvailablePhoneNumberCountryList
 from twilio.rest.api.v2010.account.balance import BalanceList
 from twilio.rest.api.v2010.account.call import CallList
 from twilio.rest.api.v2010.account.conference import ConferenceList
@@ -74,29 +72,23 @@ class AccountInstance(InstanceResource):
     :ivar uri: The URI for this resource, relative to `https://api.twilio.com`
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.auth_token: Optional[str] = payload.get("auth_token")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.owner_account_sid: Optional[str] = payload.get("owner_account_sid")
         self.sid: Optional[str] = payload.get("sid")
         self.status: Optional["AccountInstance.Status"] = payload.get("status")
-        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
-            "subresource_uris"
-        )
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get("subresource_uris")
         self.type: Optional["AccountInstance.Type"] = payload.get("type")
         self.uri: Optional[str] = payload.get("uri")
 
-        self._solution = {
+        
+        self._solution = { 
             "sid": sid or self.sid,
         }
         self._context: Optional[AccountContext] = None
@@ -110,16 +102,14 @@ class AccountInstance(InstanceResource):
         :returns: AccountContext for this AccountInstance
         """
         if self._context is None:
-            self._context = AccountContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
+            self._context = AccountContext(self._version, sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def fetch(self) -> "AccountInstance":
         """
         Fetch the AccountInstance
-
+        
 
         :returns: The fetched AccountInstance
         """
@@ -128,225 +118,211 @@ class AccountInstance(InstanceResource):
     async def fetch_async(self) -> "AccountInstance":
         """
         Asynchronous coroutine to fetch the AccountInstance
-
+        
 
         :returns: The fetched AccountInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        friendly_name: Union[str, object] = values.unset,
-        status: Union["AccountInstance.Status", object] = values.unset,
-    ) -> "AccountInstance":
+    
+    
+    def update(self, friendly_name: Union[str, object]=values.unset, status: Union["AccountInstance.Status", object]=values.unset) -> "AccountInstance":
         """
         Update the AccountInstance
-
+        
         :param friendly_name: Update the human-readable description of this Account
-        :param status:
+        :param status: 
 
         :returns: The updated AccountInstance
         """
-        return self._proxy.update(
-            friendly_name=friendly_name,
-            status=status,
-        )
+        return self._proxy.update(friendly_name=friendly_name, status=status, )
 
-    async def update_async(
-        self,
-        friendly_name: Union[str, object] = values.unset,
-        status: Union["AccountInstance.Status", object] = values.unset,
-    ) -> "AccountInstance":
+    async def update_async(self, friendly_name: Union[str, object]=values.unset, status: Union["AccountInstance.Status", object]=values.unset) -> "AccountInstance":
         """
         Asynchronous coroutine to update the AccountInstance
-
+        
         :param friendly_name: Update the human-readable description of this Account
-        :param status:
+        :param status: 
 
         :returns: The updated AccountInstance
         """
-        return await self._proxy.update_async(
-            friendly_name=friendly_name,
-            status=status,
-        )
-
+        return await self._proxy.update_async(friendly_name=friendly_name, status=status, )
+    
     @property
     def addresses(self) -> AddressList:
         """
         Access the addresses
         """
         return self._proxy.addresses
-
+    
     @property
     def applications(self) -> ApplicationList:
         """
         Access the applications
         """
         return self._proxy.applications
-
+    
     @property
     def authorized_connect_apps(self) -> AuthorizedConnectAppList:
         """
         Access the authorized_connect_apps
         """
         return self._proxy.authorized_connect_apps
-
+    
     @property
     def available_phone_numbers(self) -> AvailablePhoneNumberCountryList:
         """
         Access the available_phone_numbers
         """
         return self._proxy.available_phone_numbers
-
+    
     @property
     def balance(self) -> BalanceList:
         """
         Access the balance
         """
         return self._proxy.balance
-
+    
     @property
     def calls(self) -> CallList:
         """
         Access the calls
         """
         return self._proxy.calls
-
+    
     @property
     def conferences(self) -> ConferenceList:
         """
         Access the conferences
         """
         return self._proxy.conferences
-
+    
     @property
     def connect_apps(self) -> ConnectAppList:
         """
         Access the connect_apps
         """
         return self._proxy.connect_apps
-
+    
     @property
     def incoming_phone_numbers(self) -> IncomingPhoneNumberList:
         """
         Access the incoming_phone_numbers
         """
         return self._proxy.incoming_phone_numbers
-
+    
     @property
     def keys(self) -> KeyList:
         """
         Access the keys
         """
         return self._proxy.keys
-
+    
     @property
     def messages(self) -> MessageList:
         """
         Access the messages
         """
         return self._proxy.messages
-
+    
     @property
     def new_keys(self) -> NewKeyList:
         """
         Access the new_keys
         """
         return self._proxy.new_keys
-
+    
     @property
     def new_signing_keys(self) -> NewSigningKeyList:
         """
         Access the new_signing_keys
         """
         return self._proxy.new_signing_keys
-
+    
     @property
     def notifications(self) -> NotificationList:
         """
         Access the notifications
         """
         return self._proxy.notifications
-
+    
     @property
     def outgoing_caller_ids(self) -> OutgoingCallerIdList:
         """
         Access the outgoing_caller_ids
         """
         return self._proxy.outgoing_caller_ids
-
+    
     @property
     def queues(self) -> QueueList:
         """
         Access the queues
         """
         return self._proxy.queues
-
+    
     @property
     def recordings(self) -> RecordingList:
         """
         Access the recordings
         """
         return self._proxy.recordings
-
+    
     @property
     def short_codes(self) -> ShortCodeList:
         """
         Access the short_codes
         """
         return self._proxy.short_codes
-
+    
     @property
     def signing_keys(self) -> SigningKeyList:
         """
         Access the signing_keys
         """
         return self._proxy.signing_keys
-
+    
     @property
     def sip(self) -> SipList:
         """
         Access the sip
         """
         return self._proxy.sip
-
+    
     @property
     def tokens(self) -> TokenList:
         """
         Access the tokens
         """
         return self._proxy.tokens
-
+    
     @property
     def transcriptions(self) -> TranscriptionList:
         """
         Access the transcriptions
         """
         return self._proxy.transcriptions
-
+    
     @property
     def usage(self) -> UsageList:
         """
         Access the usage
         """
         return self._proxy.usage
-
+    
     @property
     def validation_requests(self) -> ValidationRequestList:
         """
         Access the validation_requests
         """
         return self._proxy.validation_requests
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.AccountInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.AccountInstance {}>'.format(context)
 
 class AccountContext(InstanceContext):
 
@@ -359,12 +335,13 @@ class AccountContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
+        self._solution = { 
+            'sid': sid,
         }
-        self._uri = "/Accounts/{sid}.json".format(**self._solution)
-
+        self._uri = '/Accounts/{sid}.json'.format(**self._solution)
+        
         self._addresses: Optional[AddressList] = None
         self._applications: Optional[ApplicationList] = None
         self._authorized_connect_apps: Optional[AuthorizedConnectAppList] = None
@@ -389,101 +366,90 @@ class AccountContext(InstanceContext):
         self._transcriptions: Optional[TranscriptionList] = None
         self._usage: Optional[UsageList] = None
         self._validation_requests: Optional[ValidationRequestList] = None
-
+    
+    
     def fetch(self) -> AccountInstance:
         """
         Fetch the AccountInstance
-
+        
 
         :returns: The fetched AccountInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AccountInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> AccountInstance:
         """
         Asynchronous coroutine to fetch the AccountInstance
-
+        
 
         :returns: The fetched AccountInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return AccountInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
-
-    def update(
-        self,
-        friendly_name: Union[str, object] = values.unset,
-        status: Union["AccountInstance.Status", object] = values.unset,
-    ) -> AccountInstance:
+    
+    
+    def update(self, friendly_name: Union[str, object]=values.unset, status: Union["AccountInstance.Status", object]=values.unset) -> AccountInstance:
         """
         Update the AccountInstance
-
+        
         :param friendly_name: Update the human-readable description of this Account
-        :param status:
+        :param status: 
 
         :returns: The updated AccountInstance
         """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Status": status,
-            }
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Status': status,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return AccountInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
         )
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AccountInstance(self._version, payload, sid=self._solution["sid"])
-
-    async def update_async(
-        self,
-        friendly_name: Union[str, object] = values.unset,
-        status: Union["AccountInstance.Status", object] = values.unset,
-    ) -> AccountInstance:
+    async def update_async(self, friendly_name: Union[str, object]=values.unset, status: Union["AccountInstance.Status", object]=values.unset) -> AccountInstance:
         """
         Asynchronous coroutine to update the AccountInstance
-
+        
         :param friendly_name: Update the human-readable description of this Account
-        :param status:
+        :param status: 
 
         :returns: The updated AccountInstance
         """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Status": status,
-            }
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Status': status,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return AccountInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
         )
-
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return AccountInstance(self._version, payload, sid=self._solution["sid"])
-
+    
+    
     @property
     def addresses(self) -> AddressList:
         """
@@ -491,11 +457,11 @@ class AccountContext(InstanceContext):
         """
         if self._addresses is None:
             self._addresses = AddressList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._addresses
-
+    
     @property
     def applications(self) -> ApplicationList:
         """
@@ -503,11 +469,11 @@ class AccountContext(InstanceContext):
         """
         if self._applications is None:
             self._applications = ApplicationList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._applications
-
+    
     @property
     def authorized_connect_apps(self) -> AuthorizedConnectAppList:
         """
@@ -515,11 +481,11 @@ class AccountContext(InstanceContext):
         """
         if self._authorized_connect_apps is None:
             self._authorized_connect_apps = AuthorizedConnectAppList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._authorized_connect_apps
-
+    
     @property
     def available_phone_numbers(self) -> AvailablePhoneNumberCountryList:
         """
@@ -527,11 +493,11 @@ class AccountContext(InstanceContext):
         """
         if self._available_phone_numbers is None:
             self._available_phone_numbers = AvailablePhoneNumberCountryList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._available_phone_numbers
-
+    
     @property
     def balance(self) -> BalanceList:
         """
@@ -539,11 +505,11 @@ class AccountContext(InstanceContext):
         """
         if self._balance is None:
             self._balance = BalanceList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._balance
-
+    
     @property
     def calls(self) -> CallList:
         """
@@ -551,11 +517,11 @@ class AccountContext(InstanceContext):
         """
         if self._calls is None:
             self._calls = CallList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._calls
-
+    
     @property
     def conferences(self) -> ConferenceList:
         """
@@ -563,11 +529,11 @@ class AccountContext(InstanceContext):
         """
         if self._conferences is None:
             self._conferences = ConferenceList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._conferences
-
+    
     @property
     def connect_apps(self) -> ConnectAppList:
         """
@@ -575,11 +541,11 @@ class AccountContext(InstanceContext):
         """
         if self._connect_apps is None:
             self._connect_apps = ConnectAppList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._connect_apps
-
+    
     @property
     def incoming_phone_numbers(self) -> IncomingPhoneNumberList:
         """
@@ -587,11 +553,11 @@ class AccountContext(InstanceContext):
         """
         if self._incoming_phone_numbers is None:
             self._incoming_phone_numbers = IncomingPhoneNumberList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._incoming_phone_numbers
-
+    
     @property
     def keys(self) -> KeyList:
         """
@@ -599,11 +565,11 @@ class AccountContext(InstanceContext):
         """
         if self._keys is None:
             self._keys = KeyList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._keys
-
+    
     @property
     def messages(self) -> MessageList:
         """
@@ -611,11 +577,11 @@ class AccountContext(InstanceContext):
         """
         if self._messages is None:
             self._messages = MessageList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._messages
-
+    
     @property
     def new_keys(self) -> NewKeyList:
         """
@@ -623,11 +589,11 @@ class AccountContext(InstanceContext):
         """
         if self._new_keys is None:
             self._new_keys = NewKeyList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._new_keys
-
+    
     @property
     def new_signing_keys(self) -> NewSigningKeyList:
         """
@@ -635,11 +601,11 @@ class AccountContext(InstanceContext):
         """
         if self._new_signing_keys is None:
             self._new_signing_keys = NewSigningKeyList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._new_signing_keys
-
+    
     @property
     def notifications(self) -> NotificationList:
         """
@@ -647,11 +613,11 @@ class AccountContext(InstanceContext):
         """
         if self._notifications is None:
             self._notifications = NotificationList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._notifications
-
+    
     @property
     def outgoing_caller_ids(self) -> OutgoingCallerIdList:
         """
@@ -659,11 +625,11 @@ class AccountContext(InstanceContext):
         """
         if self._outgoing_caller_ids is None:
             self._outgoing_caller_ids = OutgoingCallerIdList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._outgoing_caller_ids
-
+    
     @property
     def queues(self) -> QueueList:
         """
@@ -671,11 +637,11 @@ class AccountContext(InstanceContext):
         """
         if self._queues is None:
             self._queues = QueueList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._queues
-
+    
     @property
     def recordings(self) -> RecordingList:
         """
@@ -683,11 +649,11 @@ class AccountContext(InstanceContext):
         """
         if self._recordings is None:
             self._recordings = RecordingList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._recordings
-
+    
     @property
     def short_codes(self) -> ShortCodeList:
         """
@@ -695,11 +661,11 @@ class AccountContext(InstanceContext):
         """
         if self._short_codes is None:
             self._short_codes = ShortCodeList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._short_codes
-
+    
     @property
     def signing_keys(self) -> SigningKeyList:
         """
@@ -707,11 +673,11 @@ class AccountContext(InstanceContext):
         """
         if self._signing_keys is None:
             self._signing_keys = SigningKeyList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._signing_keys
-
+    
     @property
     def sip(self) -> SipList:
         """
@@ -719,11 +685,11 @@ class AccountContext(InstanceContext):
         """
         if self._sip is None:
             self._sip = SipList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._sip
-
+    
     @property
     def tokens(self) -> TokenList:
         """
@@ -731,11 +697,11 @@ class AccountContext(InstanceContext):
         """
         if self._tokens is None:
             self._tokens = TokenList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._tokens
-
+    
     @property
     def transcriptions(self) -> TranscriptionList:
         """
@@ -743,11 +709,11 @@ class AccountContext(InstanceContext):
         """
         if self._transcriptions is None:
             self._transcriptions = TranscriptionList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._transcriptions
-
+    
     @property
     def usage(self) -> UsageList:
         """
@@ -755,11 +721,11 @@ class AccountContext(InstanceContext):
         """
         if self._usage is None:
             self._usage = UsageList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._usage
-
+    
     @property
     def validation_requests(self) -> ValidationRequestList:
         """
@@ -767,19 +733,26 @@ class AccountContext(InstanceContext):
         """
         if self._validation_requests is None:
             self._validation_requests = ValidationRequestList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._validation_requests
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.AccountContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.AccountContext {}>'.format(context)
+
+
+
+
+
+
+
 
 
 class AccountPage(Page):
@@ -801,71 +774,74 @@ class AccountPage(Page):
         return "<Twilio.Api.V2010.AccountPage>"
 
 
-class AccountList(ListResource):
 
+
+
+class AccountList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the AccountList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/Accounts.json"
-
-    def create(
-        self, friendly_name: Union[str, object] = values.unset
-    ) -> AccountInstance:
+        
+        self._uri = '/Accounts.json'
+        
+        
+    
+    
+    
+    def create(self, friendly_name: Union[str, object]=values.unset) -> AccountInstance:
         """
         Create the AccountInstance
 
         :param friendly_name: A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
-
+        
         :returns: The created AccountInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
         return AccountInstance(self._version, payload)
 
-    async def create_async(
-        self, friendly_name: Union[str, object] = values.unset
-    ) -> AccountInstance:
+    async def create_async(self, friendly_name: Union[str, object]=values.unset) -> AccountInstance:
         """
         Asynchronously create the AccountInstance
 
         :param friendly_name: A human readable description of the account to create, defaults to `SubAccount Created at {YYYY-MM-DD HH:MM meridian}`
-
+        
         :returns: The created AccountInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return AccountInstance(self._version, payload)
-
-    def stream(
-        self,
+    
+    
+    def stream(self, 
         friendly_name: Union[str, object] = values.unset,
         status: Union["AccountInstance.Status", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[AccountInstance]:
@@ -874,7 +850,7 @@ class AccountList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
         :param &quot;AccountInstance.Status&quot; status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
         :param limit: Upper limit for the number of records to return. stream()
@@ -888,15 +864,17 @@ class AccountList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = self.page(
-            friendly_name=friendly_name, status=status, page_size=limits["page_size"]
+            friendly_name=friendly_name,
+            status=status,
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         friendly_name: Union[str, object] = values.unset,
         status: Union["AccountInstance.Status", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[AccountInstance]:
@@ -905,7 +883,7 @@ class AccountList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
         :param &quot;AccountInstance.Status&quot; status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
         :param limit: Upper limit for the number of records to return. stream()
@@ -919,15 +897,17 @@ class AccountList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            friendly_name=friendly_name, status=status, page_size=limits["page_size"]
+            friendly_name=friendly_name,
+            status=status,
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         friendly_name: Union[str, object] = values.unset,
         status: Union["AccountInstance.Status", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[AccountInstance]:
@@ -935,7 +915,7 @@ class AccountList(ListResource):
         Lists AccountInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
         :param &quot;AccountInstance.Status&quot; status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -947,19 +927,17 @@ class AccountList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                friendly_name=friendly_name,
-                status=status,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            friendly_name=friendly_name,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         friendly_name: Union[str, object] = values.unset,
         status: Union["AccountInstance.Status", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[AccountInstance]:
@@ -967,7 +945,7 @@ class AccountList(ListResource):
         Asynchronously lists AccountInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str friendly_name: Only return the Account resources with friendly names that exactly match this name.
         :param &quot;AccountInstance.Status&quot; status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -979,20 +957,17 @@ class AccountList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                friendly_name=friendly_name,
-                status=status,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            friendly_name=friendly_name,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         friendly_name: Union[str, object] = values.unset,
         status: Union["AccountInstance.Status", object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1000,7 +975,7 @@ class AccountList(ListResource):
         """
         Retrieve a single page of AccountInstance records from the API.
         Request is executed immediately
-
+        
         :param friendly_name: Only return the Account resources with friendly names that exactly match this name.
         :param status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
         :param page_token: PageToken provided by the API
@@ -1009,23 +984,21 @@ class AccountList(ListResource):
 
         :returns: Page of AccountInstance
         """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Status": status,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Status': status,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return AccountPage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         friendly_name: Union[str, object] = values.unset,
         status: Union["AccountInstance.Status", object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1033,7 +1006,7 @@ class AccountList(ListResource):
         """
         Asynchronously retrieve a single page of AccountInstance records from the API.
         Request is executed immediately
-
+        
         :param friendly_name: Only return the Account resources with friendly names that exactly match this name.
         :param status: Only return Account resources with the given status. Can be `closed`, `suspended` or `active`.
         :param page_token: PageToken provided by the API
@@ -1042,19 +1015,15 @@ class AccountList(ListResource):
 
         :returns: Page of AccountInstance
         """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Status": status,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'Status': status,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return AccountPage(self._version, response)
 
     def get_page(self, target_url: str) -> AccountPage:
@@ -1066,7 +1035,10 @@ class AccountList(ListResource):
 
         :returns: Page of AccountInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return AccountPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> AccountPage:
@@ -1078,13 +1050,66 @@ class AccountList(ListResource):
 
         :returns: Page of AccountInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return AccountPage(self._version, response)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def get(self, sid: str) -> AccountContext:
         """
         Constructs a AccountContext
-
+        
         :param sid: The Account Sid that uniquely identifies the account to update
         """
         return AccountContext(self._version, sid=sid)
@@ -1092,7 +1117,7 @@ class AccountList(ListResource):
     def __call__(self, sid: str) -> AccountContext:
         """
         Constructs a AccountContext
-
+        
         :param sid: The Account Sid that uniquely identifies the account to update
         """
         return AccountContext(self._version, sid=sid)
@@ -1103,4 +1128,5 @@ class AccountList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Api.V2010.AccountList>"
+        return '<Twilio.Api.V2010.AccountList>'
+

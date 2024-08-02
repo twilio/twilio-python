@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -20,9 +22,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on import (
-    AssignedAddOnList,
-)
+from twilio.rest.api.v2010.account.incoming_phone_number.assigned_add_on import AssignedAddOnList
 from twilio.rest.api.v2010.account.incoming_phone_number.local import LocalList
 from twilio.rest.api.v2010.account.incoming_phone_number.mobile import MobileList
 from twilio.rest.api.v2010.account.incoming_phone_number.toll_free import TollFreeList
@@ -89,29 +89,18 @@ class IncomingPhoneNumberInstance(InstanceResource):
     :ivar status: 
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        account_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.address_sid: Optional[str] = payload.get("address_sid")
-        self.address_requirements: Optional[
-            "IncomingPhoneNumberInstance.AddressRequirement"
-        ] = payload.get("address_requirements")
+        self.address_requirements: Optional["IncomingPhoneNumberInstance.AddressRequirement"] = payload.get("address_requirements")
         self.api_version: Optional[str] = payload.get("api_version")
         self.beta: Optional[bool] = payload.get("beta")
         self.capabilities: Optional[str] = payload.get("capabilities")
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.identity_sid: Optional[str] = payload.get("identity_sid")
         self.phone_number: Optional[str] = payload.get("phone_number")
@@ -123,33 +112,24 @@ class IncomingPhoneNumberInstance(InstanceResource):
         self.sms_method: Optional[str] = payload.get("sms_method")
         self.sms_url: Optional[str] = payload.get("sms_url")
         self.status_callback: Optional[str] = payload.get("status_callback")
-        self.status_callback_method: Optional[str] = payload.get(
-            "status_callback_method"
-        )
+        self.status_callback_method: Optional[str] = payload.get("status_callback_method")
         self.trunk_sid: Optional[str] = payload.get("trunk_sid")
         self.uri: Optional[str] = payload.get("uri")
-        self.voice_receive_mode: Optional[
-            "IncomingPhoneNumberInstance.VoiceReceiveMode"
-        ] = payload.get("voice_receive_mode")
+        self.voice_receive_mode: Optional["IncomingPhoneNumberInstance.VoiceReceiveMode"] = payload.get("voice_receive_mode")
         self.voice_application_sid: Optional[str] = payload.get("voice_application_sid")
-        self.voice_caller_id_lookup: Optional[bool] = payload.get(
-            "voice_caller_id_lookup"
-        )
+        self.voice_caller_id_lookup: Optional[bool] = payload.get("voice_caller_id_lookup")
         self.voice_fallback_method: Optional[str] = payload.get("voice_fallback_method")
         self.voice_fallback_url: Optional[str] = payload.get("voice_fallback_url")
         self.voice_method: Optional[str] = payload.get("voice_method")
         self.voice_url: Optional[str] = payload.get("voice_url")
-        self.emergency_status: Optional[
-            "IncomingPhoneNumberInstance.EmergencyStatus"
-        ] = payload.get("emergency_status")
+        self.emergency_status: Optional["IncomingPhoneNumberInstance.EmergencyStatus"] = payload.get("emergency_status")
         self.emergency_address_sid: Optional[str] = payload.get("emergency_address_sid")
-        self.emergency_address_status: Optional[
-            "IncomingPhoneNumberInstance.EmergencyAddressStatus"
-        ] = payload.get("emergency_address_status")
+        self.emergency_address_status: Optional["IncomingPhoneNumberInstance.EmergencyAddressStatus"] = payload.get("emergency_address_status")
         self.bundle_sid: Optional[str] = payload.get("bundle_sid")
         self.status: Optional[str] = payload.get("status")
 
-        self._solution = {
+        
+        self._solution = { 
             "account_sid": account_sid,
             "sid": sid or self.sid,
         }
@@ -164,35 +144,32 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :returns: IncomingPhoneNumberContext for this IncomingPhoneNumberInstance
         """
         if self._context is None:
-            self._context = IncomingPhoneNumberContext(
-                self._version,
-                account_sid=self._solution["account_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = IncomingPhoneNumberContext(self._version, account_sid=self._solution['account_sid'], sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the IncomingPhoneNumberInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the IncomingPhoneNumberInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "IncomingPhoneNumberInstance":
         """
         Fetch the IncomingPhoneNumberInstance
-
+        
 
         :returns: The fetched IncomingPhoneNumberInstance
         """
@@ -201,45 +178,17 @@ class IncomingPhoneNumberInstance(InstanceResource):
     async def fetch_async(self) -> "IncomingPhoneNumberInstance":
         """
         Asynchronous coroutine to fetch the IncomingPhoneNumberInstance
-
+        
 
         :returns: The fetched IncomingPhoneNumberInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        account_sid: Union[str, object] = values.unset,
-        api_version: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        sms_application_sid: Union[str, object] = values.unset,
-        sms_fallback_method: Union[str, object] = values.unset,
-        sms_fallback_url: Union[str, object] = values.unset,
-        sms_method: Union[str, object] = values.unset,
-        sms_url: Union[str, object] = values.unset,
-        status_callback: Union[str, object] = values.unset,
-        status_callback_method: Union[str, object] = values.unset,
-        voice_application_sid: Union[str, object] = values.unset,
-        voice_caller_id_lookup: Union[bool, object] = values.unset,
-        voice_fallback_method: Union[str, object] = values.unset,
-        voice_fallback_url: Union[str, object] = values.unset,
-        voice_method: Union[str, object] = values.unset,
-        voice_url: Union[str, object] = values.unset,
-        emergency_status: Union[
-            "IncomingPhoneNumberInstance.EmergencyStatus", object
-        ] = values.unset,
-        emergency_address_sid: Union[str, object] = values.unset,
-        trunk_sid: Union[str, object] = values.unset,
-        voice_receive_mode: Union[
-            "IncomingPhoneNumberInstance.VoiceReceiveMode", object
-        ] = values.unset,
-        identity_sid: Union[str, object] = values.unset,
-        address_sid: Union[str, object] = values.unset,
-        bundle_sid: Union[str, object] = values.unset,
-    ) -> "IncomingPhoneNumberInstance":
+    
+    
+    def update(self, account_sid: Union[str, object]=values.unset, api_version: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, sms_application_sid: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_url: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, voice_application_sid: Union[str, object]=values.unset, voice_caller_id_lookup: Union[bool, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, emergency_status: Union["IncomingPhoneNumberInstance.EmergencyStatus", object]=values.unset, emergency_address_sid: Union[str, object]=values.unset, trunk_sid: Union[str, object]=values.unset, voice_receive_mode: Union["IncomingPhoneNumberInstance.VoiceReceiveMode", object]=values.unset, identity_sid: Union[str, object]=values.unset, address_sid: Union[str, object]=values.unset, bundle_sid: Union[str, object]=values.unset) -> "IncomingPhoneNumberInstance":
         """
         Update the IncomingPhoneNumberInstance
-
+        
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
         :param api_version: The API version to use for incoming calls made to the phone number. The default is `2010-04-01`.
         :param friendly_name: A descriptive string that you created to describe this phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
@@ -256,75 +205,22 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :param voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
         :param voice_method: The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
         :param voice_url: The URL that we should call to answer a call to the phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
-        :param emergency_status:
+        :param emergency_status: 
         :param emergency_address_sid: The SID of the emergency address configuration to use for emergency calling from this phone number.
         :param trunk_sid: The SID of the Trunk we should use to handle phone calls to the phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-        :param voice_receive_mode:
+        :param voice_receive_mode: 
         :param identity_sid: The SID of the Identity resource that we should associate with the phone number. Some regions require an identity to meet local regulations.
         :param address_sid: The SID of the Address resource we should associate with the phone number. Some regions require addresses to meet local regulations.
         :param bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
 
         :returns: The updated IncomingPhoneNumberInstance
         """
-        return self._proxy.update(
-            account_sid=account_sid,
-            api_version=api_version,
-            friendly_name=friendly_name,
-            sms_application_sid=sms_application_sid,
-            sms_fallback_method=sms_fallback_method,
-            sms_fallback_url=sms_fallback_url,
-            sms_method=sms_method,
-            sms_url=sms_url,
-            status_callback=status_callback,
-            status_callback_method=status_callback_method,
-            voice_application_sid=voice_application_sid,
-            voice_caller_id_lookup=voice_caller_id_lookup,
-            voice_fallback_method=voice_fallback_method,
-            voice_fallback_url=voice_fallback_url,
-            voice_method=voice_method,
-            voice_url=voice_url,
-            emergency_status=emergency_status,
-            emergency_address_sid=emergency_address_sid,
-            trunk_sid=trunk_sid,
-            voice_receive_mode=voice_receive_mode,
-            identity_sid=identity_sid,
-            address_sid=address_sid,
-            bundle_sid=bundle_sid,
-        )
+        return self._proxy.update(account_sid=account_sid, api_version=api_version, friendly_name=friendly_name, sms_application_sid=sms_application_sid, sms_fallback_method=sms_fallback_method, sms_fallback_url=sms_fallback_url, sms_method=sms_method, sms_url=sms_url, status_callback=status_callback, status_callback_method=status_callback_method, voice_application_sid=voice_application_sid, voice_caller_id_lookup=voice_caller_id_lookup, voice_fallback_method=voice_fallback_method, voice_fallback_url=voice_fallback_url, voice_method=voice_method, voice_url=voice_url, emergency_status=emergency_status, emergency_address_sid=emergency_address_sid, trunk_sid=trunk_sid, voice_receive_mode=voice_receive_mode, identity_sid=identity_sid, address_sid=address_sid, bundle_sid=bundle_sid, )
 
-    async def update_async(
-        self,
-        account_sid: Union[str, object] = values.unset,
-        api_version: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        sms_application_sid: Union[str, object] = values.unset,
-        sms_fallback_method: Union[str, object] = values.unset,
-        sms_fallback_url: Union[str, object] = values.unset,
-        sms_method: Union[str, object] = values.unset,
-        sms_url: Union[str, object] = values.unset,
-        status_callback: Union[str, object] = values.unset,
-        status_callback_method: Union[str, object] = values.unset,
-        voice_application_sid: Union[str, object] = values.unset,
-        voice_caller_id_lookup: Union[bool, object] = values.unset,
-        voice_fallback_method: Union[str, object] = values.unset,
-        voice_fallback_url: Union[str, object] = values.unset,
-        voice_method: Union[str, object] = values.unset,
-        voice_url: Union[str, object] = values.unset,
-        emergency_status: Union[
-            "IncomingPhoneNumberInstance.EmergencyStatus", object
-        ] = values.unset,
-        emergency_address_sid: Union[str, object] = values.unset,
-        trunk_sid: Union[str, object] = values.unset,
-        voice_receive_mode: Union[
-            "IncomingPhoneNumberInstance.VoiceReceiveMode", object
-        ] = values.unset,
-        identity_sid: Union[str, object] = values.unset,
-        address_sid: Union[str, object] = values.unset,
-        bundle_sid: Union[str, object] = values.unset,
-    ) -> "IncomingPhoneNumberInstance":
+    async def update_async(self, account_sid: Union[str, object]=values.unset, api_version: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, sms_application_sid: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_url: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, voice_application_sid: Union[str, object]=values.unset, voice_caller_id_lookup: Union[bool, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, emergency_status: Union["IncomingPhoneNumberInstance.EmergencyStatus", object]=values.unset, emergency_address_sid: Union[str, object]=values.unset, trunk_sid: Union[str, object]=values.unset, voice_receive_mode: Union["IncomingPhoneNumberInstance.VoiceReceiveMode", object]=values.unset, identity_sid: Union[str, object]=values.unset, address_sid: Union[str, object]=values.unset, bundle_sid: Union[str, object]=values.unset) -> "IncomingPhoneNumberInstance":
         """
         Asynchronous coroutine to update the IncomingPhoneNumberInstance
-
+        
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
         :param api_version: The API version to use for incoming calls made to the phone number. The default is `2010-04-01`.
         :param friendly_name: A descriptive string that you created to describe this phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
@@ -341,58 +237,33 @@ class IncomingPhoneNumberInstance(InstanceResource):
         :param voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
         :param voice_method: The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
         :param voice_url: The URL that we should call to answer a call to the phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
-        :param emergency_status:
+        :param emergency_status: 
         :param emergency_address_sid: The SID of the emergency address configuration to use for emergency calling from this phone number.
         :param trunk_sid: The SID of the Trunk we should use to handle phone calls to the phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-        :param voice_receive_mode:
+        :param voice_receive_mode: 
         :param identity_sid: The SID of the Identity resource that we should associate with the phone number. Some regions require an identity to meet local regulations.
         :param address_sid: The SID of the Address resource we should associate with the phone number. Some regions require addresses to meet local regulations.
         :param bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
 
         :returns: The updated IncomingPhoneNumberInstance
         """
-        return await self._proxy.update_async(
-            account_sid=account_sid,
-            api_version=api_version,
-            friendly_name=friendly_name,
-            sms_application_sid=sms_application_sid,
-            sms_fallback_method=sms_fallback_method,
-            sms_fallback_url=sms_fallback_url,
-            sms_method=sms_method,
-            sms_url=sms_url,
-            status_callback=status_callback,
-            status_callback_method=status_callback_method,
-            voice_application_sid=voice_application_sid,
-            voice_caller_id_lookup=voice_caller_id_lookup,
-            voice_fallback_method=voice_fallback_method,
-            voice_fallback_url=voice_fallback_url,
-            voice_method=voice_method,
-            voice_url=voice_url,
-            emergency_status=emergency_status,
-            emergency_address_sid=emergency_address_sid,
-            trunk_sid=trunk_sid,
-            voice_receive_mode=voice_receive_mode,
-            identity_sid=identity_sid,
-            address_sid=address_sid,
-            bundle_sid=bundle_sid,
-        )
-
+        return await self._proxy.update_async(account_sid=account_sid, api_version=api_version, friendly_name=friendly_name, sms_application_sid=sms_application_sid, sms_fallback_method=sms_fallback_method, sms_fallback_url=sms_fallback_url, sms_method=sms_method, sms_url=sms_url, status_callback=status_callback, status_callback_method=status_callback_method, voice_application_sid=voice_application_sid, voice_caller_id_lookup=voice_caller_id_lookup, voice_fallback_method=voice_fallback_method, voice_fallback_url=voice_fallback_url, voice_method=voice_method, voice_url=voice_url, emergency_status=emergency_status, emergency_address_sid=emergency_address_sid, trunk_sid=trunk_sid, voice_receive_mode=voice_receive_mode, identity_sid=identity_sid, address_sid=address_sid, bundle_sid=bundle_sid, )
+    
     @property
     def assigned_add_ons(self) -> AssignedAddOnList:
         """
         Access the assigned_add_ons
         """
         return self._proxy.assigned_add_ons
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.IncomingPhoneNumberInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.IncomingPhoneNumberInstance {}>'.format(context)
 
 class IncomingPhoneNumberContext(InstanceContext):
 
@@ -406,114 +277,77 @@ class IncomingPhoneNumberContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-            "sid": sid,
+        self._solution = { 
+            'account_sid': account_sid,
+            'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/IncomingPhoneNumbers/{sid}.json".format(
-            **self._solution
-        )
-
+        self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers/{sid}.json'.format(**self._solution)
+        
         self._assigned_add_ons: Optional[AssignedAddOnList] = None
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the IncomingPhoneNumberInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the IncomingPhoneNumberInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> IncomingPhoneNumberInstance:
         """
         Fetch the IncomingPhoneNumberInstance
-
+        
 
         :returns: The fetched IncomingPhoneNumberInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return IncomingPhoneNumberInstance(
             self._version,
             payload,
-            account_sid=self._solution["account_sid"],
-            sid=self._solution["sid"],
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> IncomingPhoneNumberInstance:
         """
         Asynchronous coroutine to fetch the IncomingPhoneNumberInstance
-
+        
 
         :returns: The fetched IncomingPhoneNumberInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return IncomingPhoneNumberInstance(
             self._version,
             payload,
-            account_sid=self._solution["account_sid"],
-            sid=self._solution["sid"],
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
         )
-
-    def update(
-        self,
-        account_sid: Union[str, object] = values.unset,
-        api_version: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        sms_application_sid: Union[str, object] = values.unset,
-        sms_fallback_method: Union[str, object] = values.unset,
-        sms_fallback_url: Union[str, object] = values.unset,
-        sms_method: Union[str, object] = values.unset,
-        sms_url: Union[str, object] = values.unset,
-        status_callback: Union[str, object] = values.unset,
-        status_callback_method: Union[str, object] = values.unset,
-        voice_application_sid: Union[str, object] = values.unset,
-        voice_caller_id_lookup: Union[bool, object] = values.unset,
-        voice_fallback_method: Union[str, object] = values.unset,
-        voice_fallback_url: Union[str, object] = values.unset,
-        voice_method: Union[str, object] = values.unset,
-        voice_url: Union[str, object] = values.unset,
-        emergency_status: Union[
-            "IncomingPhoneNumberInstance.EmergencyStatus", object
-        ] = values.unset,
-        emergency_address_sid: Union[str, object] = values.unset,
-        trunk_sid: Union[str, object] = values.unset,
-        voice_receive_mode: Union[
-            "IncomingPhoneNumberInstance.VoiceReceiveMode", object
-        ] = values.unset,
-        identity_sid: Union[str, object] = values.unset,
-        address_sid: Union[str, object] = values.unset,
-        bundle_sid: Union[str, object] = values.unset,
-    ) -> IncomingPhoneNumberInstance:
+    
+    
+    def update(self, account_sid: Union[str, object]=values.unset, api_version: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, sms_application_sid: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_url: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, voice_application_sid: Union[str, object]=values.unset, voice_caller_id_lookup: Union[bool, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, emergency_status: Union["IncomingPhoneNumberInstance.EmergencyStatus", object]=values.unset, emergency_address_sid: Union[str, object]=values.unset, trunk_sid: Union[str, object]=values.unset, voice_receive_mode: Union["IncomingPhoneNumberInstance.VoiceReceiveMode", object]=values.unset, identity_sid: Union[str, object]=values.unset, address_sid: Union[str, object]=values.unset, bundle_sid: Union[str, object]=values.unset) -> IncomingPhoneNumberInstance:
         """
         Update the IncomingPhoneNumberInstance
-
+        
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
         :param api_version: The API version to use for incoming calls made to the phone number. The default is `2010-04-01`.
         :param friendly_name: A descriptive string that you created to describe this phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
@@ -530,92 +364,56 @@ class IncomingPhoneNumberContext(InstanceContext):
         :param voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
         :param voice_method: The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
         :param voice_url: The URL that we should call to answer a call to the phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
-        :param emergency_status:
+        :param emergency_status: 
         :param emergency_address_sid: The SID of the emergency address configuration to use for emergency calling from this phone number.
         :param trunk_sid: The SID of the Trunk we should use to handle phone calls to the phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-        :param voice_receive_mode:
+        :param voice_receive_mode: 
         :param identity_sid: The SID of the Identity resource that we should associate with the phone number. Some regions require an identity to meet local regulations.
         :param address_sid: The SID of the Address resource we should associate with the phone number. Some regions require addresses to meet local regulations.
         :param bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
 
         :returns: The updated IncomingPhoneNumberInstance
         """
-        data = values.of(
-            {
-                "AccountSid": account_sid,
-                "ApiVersion": api_version,
-                "FriendlyName": friendly_name,
-                "SmsApplicationSid": sms_application_sid,
-                "SmsFallbackMethod": sms_fallback_method,
-                "SmsFallbackUrl": sms_fallback_url,
-                "SmsMethod": sms_method,
-                "SmsUrl": sms_url,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-                "VoiceApplicationSid": voice_application_sid,
-                "VoiceCallerIdLookup": serialize.boolean_to_string(
-                    voice_caller_id_lookup
-                ),
-                "VoiceFallbackMethod": voice_fallback_method,
-                "VoiceFallbackUrl": voice_fallback_url,
-                "VoiceMethod": voice_method,
-                "VoiceUrl": voice_url,
-                "EmergencyStatus": emergency_status,
-                "EmergencyAddressSid": emergency_address_sid,
-                "TrunkSid": trunk_sid,
-                "VoiceReceiveMode": voice_receive_mode,
-                "IdentitySid": identity_sid,
-                "AddressSid": address_sid,
-                "BundleSid": bundle_sid,
-            }
-        )
+        data = values.of({ 
+            'AccountSid': account_sid,
+            'ApiVersion': api_version,
+            'FriendlyName': friendly_name,
+            'SmsApplicationSid': sms_application_sid,
+            'SmsFallbackMethod': sms_fallback_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsMethod': sms_method,
+            'SmsUrl': sms_url,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'VoiceApplicationSid': voice_application_sid,
+            'VoiceCallerIdLookup': serialize.boolean_to_string(voice_caller_id_lookup),
+            'VoiceFallbackMethod': voice_fallback_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceMethod': voice_method,
+            'VoiceUrl': voice_url,
+            'EmergencyStatus': emergency_status,
+            'EmergencyAddressSid': emergency_address_sid,
+            'TrunkSid': trunk_sid,
+            'VoiceReceiveMode': voice_receive_mode,
+            'IdentitySid': identity_sid,
+            'AddressSid': address_sid,
+            'BundleSid': bundle_sid,
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return IncomingPhoneNumberInstance(
             self._version,
             payload,
-            account_sid=self._solution["account_sid"],
-            sid=self._solution["sid"],
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
         )
 
-    async def update_async(
-        self,
-        account_sid: Union[str, object] = values.unset,
-        api_version: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        sms_application_sid: Union[str, object] = values.unset,
-        sms_fallback_method: Union[str, object] = values.unset,
-        sms_fallback_url: Union[str, object] = values.unset,
-        sms_method: Union[str, object] = values.unset,
-        sms_url: Union[str, object] = values.unset,
-        status_callback: Union[str, object] = values.unset,
-        status_callback_method: Union[str, object] = values.unset,
-        voice_application_sid: Union[str, object] = values.unset,
-        voice_caller_id_lookup: Union[bool, object] = values.unset,
-        voice_fallback_method: Union[str, object] = values.unset,
-        voice_fallback_url: Union[str, object] = values.unset,
-        voice_method: Union[str, object] = values.unset,
-        voice_url: Union[str, object] = values.unset,
-        emergency_status: Union[
-            "IncomingPhoneNumberInstance.EmergencyStatus", object
-        ] = values.unset,
-        emergency_address_sid: Union[str, object] = values.unset,
-        trunk_sid: Union[str, object] = values.unset,
-        voice_receive_mode: Union[
-            "IncomingPhoneNumberInstance.VoiceReceiveMode", object
-        ] = values.unset,
-        identity_sid: Union[str, object] = values.unset,
-        address_sid: Union[str, object] = values.unset,
-        bundle_sid: Union[str, object] = values.unset,
-    ) -> IncomingPhoneNumberInstance:
+    async def update_async(self, account_sid: Union[str, object]=values.unset, api_version: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, sms_application_sid: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_url: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, voice_application_sid: Union[str, object]=values.unset, voice_caller_id_lookup: Union[bool, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, emergency_status: Union["IncomingPhoneNumberInstance.EmergencyStatus", object]=values.unset, emergency_address_sid: Union[str, object]=values.unset, trunk_sid: Union[str, object]=values.unset, voice_receive_mode: Union["IncomingPhoneNumberInstance.VoiceReceiveMode", object]=values.unset, identity_sid: Union[str, object]=values.unset, address_sid: Union[str, object]=values.unset, bundle_sid: Union[str, object]=values.unset) -> IncomingPhoneNumberInstance:
         """
         Asynchronous coroutine to update the IncomingPhoneNumberInstance
-
+        
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resource to update.  For more information, see [Exchanging Numbers Between Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers).
         :param api_version: The API version to use for incoming calls made to the phone number. The default is `2010-04-01`.
         :param friendly_name: A descriptive string that you created to describe this phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
@@ -632,59 +430,53 @@ class IncomingPhoneNumberContext(InstanceContext):
         :param voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
         :param voice_method: The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
         :param voice_url: The URL that we should call to answer a call to the phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
-        :param emergency_status:
+        :param emergency_status: 
         :param emergency_address_sid: The SID of the emergency address configuration to use for emergency calling from this phone number.
         :param trunk_sid: The SID of the Trunk we should use to handle phone calls to the phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
-        :param voice_receive_mode:
+        :param voice_receive_mode: 
         :param identity_sid: The SID of the Identity resource that we should associate with the phone number. Some regions require an identity to meet local regulations.
         :param address_sid: The SID of the Address resource we should associate with the phone number. Some regions require addresses to meet local regulations.
         :param bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
 
         :returns: The updated IncomingPhoneNumberInstance
         """
-        data = values.of(
-            {
-                "AccountSid": account_sid,
-                "ApiVersion": api_version,
-                "FriendlyName": friendly_name,
-                "SmsApplicationSid": sms_application_sid,
-                "SmsFallbackMethod": sms_fallback_method,
-                "SmsFallbackUrl": sms_fallback_url,
-                "SmsMethod": sms_method,
-                "SmsUrl": sms_url,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-                "VoiceApplicationSid": voice_application_sid,
-                "VoiceCallerIdLookup": serialize.boolean_to_string(
-                    voice_caller_id_lookup
-                ),
-                "VoiceFallbackMethod": voice_fallback_method,
-                "VoiceFallbackUrl": voice_fallback_url,
-                "VoiceMethod": voice_method,
-                "VoiceUrl": voice_url,
-                "EmergencyStatus": emergency_status,
-                "EmergencyAddressSid": emergency_address_sid,
-                "TrunkSid": trunk_sid,
-                "VoiceReceiveMode": voice_receive_mode,
-                "IdentitySid": identity_sid,
-                "AddressSid": address_sid,
-                "BundleSid": bundle_sid,
-            }
-        )
+        data = values.of({ 
+            'AccountSid': account_sid,
+            'ApiVersion': api_version,
+            'FriendlyName': friendly_name,
+            'SmsApplicationSid': sms_application_sid,
+            'SmsFallbackMethod': sms_fallback_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsMethod': sms_method,
+            'SmsUrl': sms_url,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'VoiceApplicationSid': voice_application_sid,
+            'VoiceCallerIdLookup': serialize.boolean_to_string(voice_caller_id_lookup),
+            'VoiceFallbackMethod': voice_fallback_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceMethod': voice_method,
+            'VoiceUrl': voice_url,
+            'EmergencyStatus': emergency_status,
+            'EmergencyAddressSid': emergency_address_sid,
+            'TrunkSid': trunk_sid,
+            'VoiceReceiveMode': voice_receive_mode,
+            'IdentitySid': identity_sid,
+            'AddressSid': address_sid,
+            'BundleSid': bundle_sid,
+        })
+        
 
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
 
         return IncomingPhoneNumberInstance(
             self._version,
             payload,
-            account_sid=self._solution["account_sid"],
-            sid=self._solution["sid"],
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
         )
-
+    
+    
     @property
     def assigned_add_ons(self) -> AssignedAddOnList:
         """
@@ -692,20 +484,29 @@ class IncomingPhoneNumberContext(InstanceContext):
         """
         if self._assigned_add_ons is None:
             self._assigned_add_ons = AssignedAddOnList(
-                self._version,
-                self._solution["account_sid"],
-                self._solution["sid"],
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._assigned_add_ons
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.IncomingPhoneNumberContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.IncomingPhoneNumberContext {}>'.format(context)
+
+
+
+
+
+
+
+
+
 
 
 class IncomingPhoneNumberPage(Page):
@@ -716,9 +517,7 @@ class IncomingPhoneNumberPage(Page):
 
         :param payload: Payload response from the API
         """
-        return IncomingPhoneNumberInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
+        return IncomingPhoneNumberInstance(self._version, payload, account_sid=self._solution["account_sid"])
 
     def __repr__(self) -> str:
         """
@@ -729,61 +528,35 @@ class IncomingPhoneNumberPage(Page):
         return "<Twilio.Api.V2010.IncomingPhoneNumberPage>"
 
 
-class IncomingPhoneNumberList(ListResource):
 
+
+
+class IncomingPhoneNumberList(ListResource):
+    
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the IncomingPhoneNumberList
 
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IncomingPhoneNumber resources to read.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/IncomingPhoneNumbers.json".format(
-            **self._solution
-        )
-
+        self._solution = { 'account_sid': account_sid,  }
+        self._uri = '/Accounts/{account_sid}/IncomingPhoneNumbers.json'.format(**self._solution)
+        
         self._local: Optional[LocalList] = None
         self._mobile: Optional[MobileList] = None
         self._toll_free: Optional[TollFreeList] = None
-
-    def create(
-        self,
-        api_version: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        sms_application_sid: Union[str, object] = values.unset,
-        sms_fallback_method: Union[str, object] = values.unset,
-        sms_fallback_url: Union[str, object] = values.unset,
-        sms_method: Union[str, object] = values.unset,
-        sms_url: Union[str, object] = values.unset,
-        status_callback: Union[str, object] = values.unset,
-        status_callback_method: Union[str, object] = values.unset,
-        voice_application_sid: Union[str, object] = values.unset,
-        voice_caller_id_lookup: Union[bool, object] = values.unset,
-        voice_fallback_method: Union[str, object] = values.unset,
-        voice_fallback_url: Union[str, object] = values.unset,
-        voice_method: Union[str, object] = values.unset,
-        voice_url: Union[str, object] = values.unset,
-        emergency_status: Union[
-            "IncomingPhoneNumberInstance.EmergencyStatus", object
-        ] = values.unset,
-        emergency_address_sid: Union[str, object] = values.unset,
-        trunk_sid: Union[str, object] = values.unset,
-        identity_sid: Union[str, object] = values.unset,
-        address_sid: Union[str, object] = values.unset,
-        voice_receive_mode: Union[
-            "IncomingPhoneNumberInstance.VoiceReceiveMode", object
-        ] = values.unset,
-        bundle_sid: Union[str, object] = values.unset,
-        phone_number: Union[str, object] = values.unset,
-        area_code: Union[str, object] = values.unset,
-    ) -> IncomingPhoneNumberInstance:
+        
+    
+    
+    
+    
+    def create(self, api_version: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, sms_application_sid: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_url: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, voice_application_sid: Union[str, object]=values.unset, voice_caller_id_lookup: Union[bool, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, emergency_status: Union["IncomingPhoneNumberInstance.EmergencyStatus", object]=values.unset, emergency_address_sid: Union[str, object]=values.unset, trunk_sid: Union[str, object]=values.unset, identity_sid: Union[str, object]=values.unset, address_sid: Union[str, object]=values.unset, voice_receive_mode: Union["IncomingPhoneNumberInstance.VoiceReceiveMode", object]=values.unset, bundle_sid: Union[str, object]=values.unset, phone_number: Union[str, object]=values.unset, area_code: Union[str, object]=values.unset) -> IncomingPhoneNumberInstance:
         """
         Create the IncomingPhoneNumberInstance
 
@@ -802,90 +575,55 @@ class IncomingPhoneNumberList(ListResource):
         :param voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
         :param voice_method: The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
         :param voice_url: The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
-        :param emergency_status:
+        :param emergency_status: 
         :param emergency_address_sid: The SID of the emergency address configuration to use for emergency calling from the new phone number.
         :param trunk_sid: The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
         :param identity_sid: The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
         :param address_sid: The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
-        :param voice_receive_mode:
+        :param voice_receive_mode: 
         :param bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
         :param phone_number: The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
         :param area_code: The desired area code for your new incoming phone number. Can be any three-digit, US or Canada area code. We will provision an available phone number within this area code for you. **You must provide an `area_code` or a `phone_number`.** (US and Canada only).
-
+        
         :returns: The created IncomingPhoneNumberInstance
         """
+        
+        data = values.of({ 
+            'ApiVersion': api_version,
+            'FriendlyName': friendly_name,
+            'SmsApplicationSid': sms_application_sid,
+            'SmsFallbackMethod': sms_fallback_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsMethod': sms_method,
+            'SmsUrl': sms_url,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'VoiceApplicationSid': voice_application_sid,
+            'VoiceCallerIdLookup': serialize.boolean_to_string(voice_caller_id_lookup),
+            'VoiceFallbackMethod': voice_fallback_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceMethod': voice_method,
+            'VoiceUrl': voice_url,
+            'EmergencyStatus': emergency_status,
+            'EmergencyAddressSid': emergency_address_sid,
+            'TrunkSid': trunk_sid,
+            'IdentitySid': identity_sid,
+            'AddressSid': address_sid,
+            'VoiceReceiveMode': voice_receive_mode,
+            'BundleSid': bundle_sid,
+            'PhoneNumber': phone_number,
+            'AreaCode': area_code,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "ApiVersion": api_version,
-                "FriendlyName": friendly_name,
-                "SmsApplicationSid": sms_application_sid,
-                "SmsFallbackMethod": sms_fallback_method,
-                "SmsFallbackUrl": sms_fallback_url,
-                "SmsMethod": sms_method,
-                "SmsUrl": sms_url,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-                "VoiceApplicationSid": voice_application_sid,
-                "VoiceCallerIdLookup": serialize.boolean_to_string(
-                    voice_caller_id_lookup
-                ),
-                "VoiceFallbackMethod": voice_fallback_method,
-                "VoiceFallbackUrl": voice_fallback_url,
-                "VoiceMethod": voice_method,
-                "VoiceUrl": voice_url,
-                "EmergencyStatus": emergency_status,
-                "EmergencyAddressSid": emergency_address_sid,
-                "TrunkSid": trunk_sid,
-                "IdentitySid": identity_sid,
-                "AddressSid": address_sid,
-                "VoiceReceiveMode": voice_receive_mode,
-                "BundleSid": bundle_sid,
-                "PhoneNumber": phone_number,
-                "AreaCode": area_code,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return IncomingPhoneNumberInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return IncomingPhoneNumberInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    async def create_async(
-        self,
-        api_version: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        sms_application_sid: Union[str, object] = values.unset,
-        sms_fallback_method: Union[str, object] = values.unset,
-        sms_fallback_url: Union[str, object] = values.unset,
-        sms_method: Union[str, object] = values.unset,
-        sms_url: Union[str, object] = values.unset,
-        status_callback: Union[str, object] = values.unset,
-        status_callback_method: Union[str, object] = values.unset,
-        voice_application_sid: Union[str, object] = values.unset,
-        voice_caller_id_lookup: Union[bool, object] = values.unset,
-        voice_fallback_method: Union[str, object] = values.unset,
-        voice_fallback_url: Union[str, object] = values.unset,
-        voice_method: Union[str, object] = values.unset,
-        voice_url: Union[str, object] = values.unset,
-        emergency_status: Union[
-            "IncomingPhoneNumberInstance.EmergencyStatus", object
-        ] = values.unset,
-        emergency_address_sid: Union[str, object] = values.unset,
-        trunk_sid: Union[str, object] = values.unset,
-        identity_sid: Union[str, object] = values.unset,
-        address_sid: Union[str, object] = values.unset,
-        voice_receive_mode: Union[
-            "IncomingPhoneNumberInstance.VoiceReceiveMode", object
-        ] = values.unset,
-        bundle_sid: Union[str, object] = values.unset,
-        phone_number: Union[str, object] = values.unset,
-        area_code: Union[str, object] = values.unset,
-    ) -> IncomingPhoneNumberInstance:
+    async def create_async(self, api_version: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, sms_application_sid: Union[str, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_url: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, voice_application_sid: Union[str, object]=values.unset, voice_caller_id_lookup: Union[bool, object]=values.unset, voice_fallback_method: Union[str, object]=values.unset, voice_fallback_url: Union[str, object]=values.unset, voice_method: Union[str, object]=values.unset, voice_url: Union[str, object]=values.unset, emergency_status: Union["IncomingPhoneNumberInstance.EmergencyStatus", object]=values.unset, emergency_address_sid: Union[str, object]=values.unset, trunk_sid: Union[str, object]=values.unset, identity_sid: Union[str, object]=values.unset, address_sid: Union[str, object]=values.unset, voice_receive_mode: Union["IncomingPhoneNumberInstance.VoiceReceiveMode", object]=values.unset, bundle_sid: Union[str, object]=values.unset, phone_number: Union[str, object]=values.unset, area_code: Union[str, object]=values.unset) -> IncomingPhoneNumberInstance:
         """
         Asynchronously create the IncomingPhoneNumberInstance
 
@@ -904,65 +642,61 @@ class IncomingPhoneNumberList(ListResource):
         :param voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
         :param voice_method: The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
         :param voice_url: The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
-        :param emergency_status:
+        :param emergency_status: 
         :param emergency_address_sid: The SID of the emergency address configuration to use for emergency calling from the new phone number.
         :param trunk_sid: The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
         :param identity_sid: The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
         :param address_sid: The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
-        :param voice_receive_mode:
+        :param voice_receive_mode: 
         :param bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
         :param phone_number: The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
         :param area_code: The desired area code for your new incoming phone number. Can be any three-digit, US or Canada area code. We will provision an available phone number within this area code for you. **You must provide an `area_code` or a `phone_number`.** (US and Canada only).
-
+        
         :returns: The created IncomingPhoneNumberInstance
         """
+        
+        data = values.of({ 
+            'ApiVersion': api_version,
+            'FriendlyName': friendly_name,
+            'SmsApplicationSid': sms_application_sid,
+            'SmsFallbackMethod': sms_fallback_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsMethod': sms_method,
+            'SmsUrl': sms_url,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'VoiceApplicationSid': voice_application_sid,
+            'VoiceCallerIdLookup': serialize.boolean_to_string(voice_caller_id_lookup),
+            'VoiceFallbackMethod': voice_fallback_method,
+            'VoiceFallbackUrl': voice_fallback_url,
+            'VoiceMethod': voice_method,
+            'VoiceUrl': voice_url,
+            'EmergencyStatus': emergency_status,
+            'EmergencyAddressSid': emergency_address_sid,
+            'TrunkSid': trunk_sid,
+            'IdentitySid': identity_sid,
+            'AddressSid': address_sid,
+            'VoiceReceiveMode': voice_receive_mode,
+            'BundleSid': bundle_sid,
+            'PhoneNumber': phone_number,
+            'AreaCode': area_code,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "ApiVersion": api_version,
-                "FriendlyName": friendly_name,
-                "SmsApplicationSid": sms_application_sid,
-                "SmsFallbackMethod": sms_fallback_method,
-                "SmsFallbackUrl": sms_fallback_url,
-                "SmsMethod": sms_method,
-                "SmsUrl": sms_url,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-                "VoiceApplicationSid": voice_application_sid,
-                "VoiceCallerIdLookup": serialize.boolean_to_string(
-                    voice_caller_id_lookup
-                ),
-                "VoiceFallbackMethod": voice_fallback_method,
-                "VoiceFallbackUrl": voice_fallback_url,
-                "VoiceMethod": voice_method,
-                "VoiceUrl": voice_url,
-                "EmergencyStatus": emergency_status,
-                "EmergencyAddressSid": emergency_address_sid,
-                "TrunkSid": trunk_sid,
-                "IdentitySid": identity_sid,
-                "AddressSid": address_sid,
-                "VoiceReceiveMode": voice_receive_mode,
-                "BundleSid": bundle_sid,
-                "PhoneNumber": phone_number,
-                "AreaCode": area_code,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return IncomingPhoneNumberInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def stream(
-        self,
+        return IncomingPhoneNumberInstance(self._version, payload, account_sid=self._solution['account_sid'])
+    
+    
+    def stream(self, 
         beta: Union[bool, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         origin: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[IncomingPhoneNumberInstance]:
@@ -971,7 +705,7 @@ class IncomingPhoneNumberList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param bool beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
         :param str friendly_name: A string that identifies the IncomingPhoneNumber resources to read.
         :param str phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
@@ -991,17 +725,17 @@ class IncomingPhoneNumberList(ListResource):
             friendly_name=friendly_name,
             phone_number=phone_number,
             origin=origin,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         beta: Union[bool, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         origin: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[IncomingPhoneNumberInstance]:
@@ -1010,7 +744,7 @@ class IncomingPhoneNumberList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param bool beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
         :param str friendly_name: A string that identifies the IncomingPhoneNumber resources to read.
         :param str phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
@@ -1030,17 +764,17 @@ class IncomingPhoneNumberList(ListResource):
             friendly_name=friendly_name,
             phone_number=phone_number,
             origin=origin,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         beta: Union[bool, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         origin: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[IncomingPhoneNumberInstance]:
@@ -1048,7 +782,7 @@ class IncomingPhoneNumberList(ListResource):
         Lists IncomingPhoneNumberInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param bool beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
         :param str friendly_name: A string that identifies the IncomingPhoneNumber resources to read.
         :param str phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
@@ -1062,23 +796,21 @@ class IncomingPhoneNumberList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                beta=beta,
-                friendly_name=friendly_name,
-                phone_number=phone_number,
-                origin=origin,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            beta=beta,
+            friendly_name=friendly_name,
+            phone_number=phone_number,
+            origin=origin,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         beta: Union[bool, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         origin: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[IncomingPhoneNumberInstance]:
@@ -1086,7 +818,7 @@ class IncomingPhoneNumberList(ListResource):
         Asynchronously lists IncomingPhoneNumberInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param bool beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
         :param str friendly_name: A string that identifies the IncomingPhoneNumber resources to read.
         :param str phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
@@ -1100,24 +832,21 @@ class IncomingPhoneNumberList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                beta=beta,
-                friendly_name=friendly_name,
-                phone_number=phone_number,
-                origin=origin,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            beta=beta,
+            friendly_name=friendly_name,
+            phone_number=phone_number,
+            origin=origin,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         beta: Union[bool, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         origin: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1125,7 +854,7 @@ class IncomingPhoneNumberList(ListResource):
         """
         Retrieve a single page of IncomingPhoneNumberInstance records from the API.
         Request is executed immediately
-
+        
         :param beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
         :param friendly_name: A string that identifies the IncomingPhoneNumber resources to read.
         :param phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
@@ -1136,27 +865,25 @@ class IncomingPhoneNumberList(ListResource):
 
         :returns: Page of IncomingPhoneNumberInstance
         """
-        data = values.of(
-            {
-                "Beta": serialize.boolean_to_string(beta),
-                "FriendlyName": friendly_name,
-                "PhoneNumber": phone_number,
-                "Origin": origin,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Beta': serialize.boolean_to_string(beta),
+            'FriendlyName': friendly_name,
+            'PhoneNumber': phone_number,
+            'Origin': origin,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return IncomingPhoneNumberPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         beta: Union[bool, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         origin: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1164,7 +891,7 @@ class IncomingPhoneNumberList(ListResource):
         """
         Asynchronously retrieve a single page of IncomingPhoneNumberInstance records from the API.
         Request is executed immediately
-
+        
         :param beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
         :param friendly_name: A string that identifies the IncomingPhoneNumber resources to read.
         :param phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
@@ -1175,21 +902,17 @@ class IncomingPhoneNumberList(ListResource):
 
         :returns: Page of IncomingPhoneNumberInstance
         """
-        data = values.of(
-            {
-                "Beta": serialize.boolean_to_string(beta),
-                "FriendlyName": friendly_name,
-                "PhoneNumber": phone_number,
-                "Origin": origin,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Beta': serialize.boolean_to_string(beta),
+            'FriendlyName': friendly_name,
+            'PhoneNumber': phone_number,
+            'Origin': origin,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return IncomingPhoneNumberPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> IncomingPhoneNumberPage:
@@ -1201,7 +924,10 @@ class IncomingPhoneNumberList(ListResource):
 
         :returns: Page of IncomingPhoneNumberInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return IncomingPhoneNumberPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> IncomingPhoneNumberPage:
@@ -1213,8 +939,16 @@ class IncomingPhoneNumberList(ListResource):
 
         :returns: Page of IncomingPhoneNumberInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return IncomingPhoneNumberPage(self._version, response, self._solution)
+
+
+
+
+
 
     @property
     def local(self) -> LocalList:
@@ -1222,10 +956,10 @@ class IncomingPhoneNumberList(ListResource):
         Access the local
         """
         if self._local is None:
-            self._local = LocalList(
-                self._version, account_sid=self._solution["account_sid"]
-            )
+            self._local = LocalList(self._version, account_sid=self._solution['account_sid'])
         return self._local
+
+
 
     @property
     def mobile(self) -> MobileList:
@@ -1233,10 +967,10 @@ class IncomingPhoneNumberList(ListResource):
         Access the mobile
         """
         if self._mobile is None:
-            self._mobile = MobileList(
-                self._version, account_sid=self._solution["account_sid"]
-            )
+            self._mobile = MobileList(self._version, account_sid=self._solution['account_sid'])
         return self._mobile
+
+
 
     @property
     def toll_free(self) -> TollFreeList:
@@ -1244,30 +978,25 @@ class IncomingPhoneNumberList(ListResource):
         Access the toll_free
         """
         if self._toll_free is None:
-            self._toll_free = TollFreeList(
-                self._version, account_sid=self._solution["account_sid"]
-            )
+            self._toll_free = TollFreeList(self._version, account_sid=self._solution['account_sid'])
         return self._toll_free
+
 
     def get(self, sid: str) -> IncomingPhoneNumberContext:
         """
         Constructs a IncomingPhoneNumberContext
-
+        
         :param sid: The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to update.
         """
-        return IncomingPhoneNumberContext(
-            self._version, account_sid=self._solution["account_sid"], sid=sid
-        )
+        return IncomingPhoneNumberContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __call__(self, sid: str) -> IncomingPhoneNumberContext:
         """
         Constructs a IncomingPhoneNumberContext
-
+        
         :param sid: The Twilio-provided string that uniquely identifies the IncomingPhoneNumber resource to update.
         """
-        return IncomingPhoneNumberContext(
-            self._version, account_sid=self._solution["account_sid"], sid=sid
-        )
+        return IncomingPhoneNumberContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -1275,4 +1004,5 @@ class IncomingPhoneNumberList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Api.V2010.IncomingPhoneNumberList>"
+        return '<Twilio.Api.V2010.IncomingPhoneNumberList>'
+

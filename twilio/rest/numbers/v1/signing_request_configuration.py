@@ -12,29 +12,35 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, Optional, Union
-from twilio.base import values
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
 class SigningRequestConfigurationInstance(InstanceResource):
+
     """
-    :ivar logo_sid: The SID of the document  that includes the logo that will appear in the LOA. To upload documents follow the following guide: https://www.twilio.com/docs/phone-numbers/regulatory/getting-started/create-new-bundle-public-rest-apis#supporting-document-create
+    :ivar logo_sid: The SID of the document  that includes the logo that will appear in the LOA. To upload documents follow the following guide: https://www.twilio.com/docs/phone-numbers/regulatory/getting-started/create-new-bundle-public-rest-apis#supporting-document-create 
     :ivar friendly_name: This is the string that you assigned as a friendly name for describing the creation of the configuration.
     :ivar product: The product or service for which is requesting the signature.
     :ivar country: The country ISO code to apply the configuration.
     :ivar email_subject: Subject of the email that the end client will receive ex: “Twilio Hosting Request”, maximum length of 255 characters.
     :ivar email_message: Content of the email that the end client will receive ex: “This is a Hosting request from Twilio, please check the document and sign it”, maximum length of 5,000 characters.
     :ivar url_redirection: Url the end client will be redirected after signing a document.
-    :ivar url:
+    :ivar url: 
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
+        
         self.logo_sid: Optional[str] = payload.get("logo_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.product: Optional[str] = payload.get("product")
@@ -44,70 +50,77 @@ class SigningRequestConfigurationInstance(InstanceResource):
         self.url_redirection: Optional[str] = payload.get("url_redirection")
         self.url: Optional[str] = payload.get("url")
 
+        
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
+        
+        return '<Twilio.Numbers.V1.SigningRequestConfigurationInstance>'
 
-        return "<Twilio.Numbers.V1.SigningRequestConfigurationInstance>"
+
 
 
 class SigningRequestConfigurationList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the SigningRequestConfigurationList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/SigningRequest/Configuration"
-
-    def create(
-        self, body: Union[object, object] = values.unset
-    ) -> SigningRequestConfigurationInstance:
+        
+        self._uri = '/SigningRequest/Configuration'
+        
+        
+    
+    def create(self, body: Union[object, object]=values.unset) -> SigningRequestConfigurationInstance:
         """
         Create the SigningRequestConfigurationInstance
 
-        :param body:
-
+        :param body: 
+        
         :returns: The created SigningRequestConfigurationInstance
         """
         data = body.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-        headers["Content-Type"] = "application/json"
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        headers['Content-Type'] = 'application/json'
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
         return SigningRequestConfigurationInstance(self._version, payload)
 
-    async def create_async(
-        self, body: Union[object, object] = values.unset
-    ) -> SigningRequestConfigurationInstance:
+    async def create_async(self, body: Union[object, object]=values.unset) -> SigningRequestConfigurationInstance:
         """
         Asynchronously create the SigningRequestConfigurationInstance
 
-        :param body:
-
+        :param body: 
+        
         :returns: The created SigningRequestConfigurationInstance
         """
         data = body.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-        headers["Content-Type"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        headers['Content-Type'] = 'application/json'
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return SigningRequestConfigurationInstance(self._version, payload)
+    
+
+
 
     def __repr__(self) -> str:
         """
@@ -115,4 +128,5 @@ class SigningRequestConfigurationList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Numbers.V1.SigningRequestConfigurationList>"
+        return '<Twilio.Numbers.V1.SigningRequestConfigurationList>'
+

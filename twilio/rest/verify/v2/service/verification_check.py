@@ -12,13 +12,16 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
-from typing import Any, Dict, List, Optional, Union
-from twilio.base import deserialize, values
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
+
 
 
 class VerificationCheckInstance(InstanceResource):
@@ -48,67 +51,58 @@ class VerificationCheckInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.to: Optional[str] = payload.get("to")
-        self.channel: Optional["VerificationCheckInstance.Channel"] = payload.get(
-            "channel"
-        )
+        self.channel: Optional["VerificationCheckInstance.Channel"] = payload.get("channel")
         self.status: Optional[str] = payload.get("status")
         self.valid: Optional[bool] = payload.get("valid")
         self.amount: Optional[str] = payload.get("amount")
         self.payee: Optional[str] = payload.get("payee")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
-        self.sna_attempts_error_codes: Optional[List[Dict[str, object]]] = payload.get(
-            "sna_attempts_error_codes"
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.sna_attempts_error_codes: Optional[List[Dict[str, object]]] = payload.get("sna_attempts_error_codes")
 
-        self._solution = {
+        
+        self._solution = { 
             "service_sid": service_sid,
         }
-
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.VerificationCheckInstance {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.VerificationCheckInstance {}>'.format(context)
+
+
 
 
 class VerificationCheckList(ListResource):
-
+    
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the VerificationCheckList
 
         :param version: Version that contains the resource
         :param service_sid: The SID of the verification [Service](https://www.twilio.com/docs/verify/api/service) to create the resource under.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-        }
-        self._uri = "/Services/{service_sid}/VerificationCheck".format(**self._solution)
-
-    def create(
-        self,
-        code: Union[str, object] = values.unset,
-        to: Union[str, object] = values.unset,
-        verification_sid: Union[str, object] = values.unset,
-        amount: Union[str, object] = values.unset,
-        payee: Union[str, object] = values.unset,
-    ) -> VerificationCheckInstance:
+        self._solution = { 'service_sid': service_sid,  }
+        self._uri = '/Services/{service_sid}/VerificationCheck'.format(**self._solution)
+        
+        
+    
+    def create(self, code: Union[str, object]=values.unset, to: Union[str, object]=values.unset, verification_sid: Union[str, object]=values.unset, amount: Union[str, object]=values.unset, payee: Union[str, object]=values.unset) -> VerificationCheckInstance:
         """
         Create the VerificationCheckInstance
 
@@ -117,37 +111,27 @@ class VerificationCheckList(ListResource):
         :param verification_sid: A SID that uniquely identifies the Verification Check. Either this parameter or the `to` phone number/[email](https://www.twilio.com/docs/verify/email) must be specified.
         :param amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
         :param payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-
+        
         :returns: The created VerificationCheckInstance
         """
+        
+        data = values.of({ 
+            'Code': code,
+            'To': to,
+            'VerificationSid': verification_sid,
+            'Amount': amount,
+            'Payee': payee,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Code": code,
-                "To": to,
-                "VerificationSid": verification_sid,
-                "Amount": amount,
-                "Payee": payee,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return VerificationCheckInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return VerificationCheckInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    async def create_async(
-        self,
-        code: Union[str, object] = values.unset,
-        to: Union[str, object] = values.unset,
-        verification_sid: Union[str, object] = values.unset,
-        amount: Union[str, object] = values.unset,
-        payee: Union[str, object] = values.unset,
-    ) -> VerificationCheckInstance:
+    async def create_async(self, code: Union[str, object]=values.unset, to: Union[str, object]=values.unset, verification_sid: Union[str, object]=values.unset, amount: Union[str, object]=values.unset, payee: Union[str, object]=values.unset) -> VerificationCheckInstance:
         """
         Asynchronously create the VerificationCheckInstance
 
@@ -156,28 +140,28 @@ class VerificationCheckList(ListResource):
         :param verification_sid: A SID that uniquely identifies the Verification Check. Either this parameter or the `to` phone number/[email](https://www.twilio.com/docs/verify/email) must be specified.
         :param amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
         :param payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
-
+        
         :returns: The created VerificationCheckInstance
         """
+        
+        data = values.of({ 
+            'Code': code,
+            'To': to,
+            'VerificationSid': verification_sid,
+            'Amount': amount,
+            'Payee': payee,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Code": code,
-                "To": to,
-                "VerificationSid": verification_sid,
-                "Amount": amount,
-                "Payee": payee,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return VerificationCheckInstance(self._version, payload, service_sid=self._solution['service_sid'])
+    
 
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
 
-        return VerificationCheckInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
 
     def __repr__(self) -> str:
         """
@@ -185,4 +169,5 @@ class VerificationCheckList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Verify.V2.VerificationCheckList>"
+        return '<Twilio.Verify.V2.VerificationCheckList>'
+

@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -55,42 +57,32 @@ class HostedNumberOrderInstance(InstanceResource):
     :ivar next_step: The next step you need to take to complete the hosted number order and request it successfully.
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.incoming_phone_number_sid: Optional[str] = payload.get(
-            "incoming_phone_number_sid"
-        )
+        self.incoming_phone_number_sid: Optional[str] = payload.get("incoming_phone_number_sid")
         self.address_sid: Optional[str] = payload.get("address_sid")
         self.signing_document_sid: Optional[str] = payload.get("signing_document_sid")
         self.phone_number: Optional[str] = payload.get("phone_number")
         self.capabilities: Optional[str] = payload.get("capabilities")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
-        self.status: Optional["HostedNumberOrderInstance.Status"] = payload.get(
-            "status"
-        )
+        self.status: Optional["HostedNumberOrderInstance.Status"] = payload.get("status")
         self.failure_reason: Optional[str] = payload.get("failure_reason")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.email: Optional[str] = payload.get("email")
         self.cc_emails: Optional[List[str]] = payload.get("cc_emails")
         self.url: Optional[str] = payload.get("url")
         self.contact_title: Optional[str] = payload.get("contact_title")
         self.contact_phone_number: Optional[str] = payload.get("contact_phone_number")
-        self.bulk_hosting_request_sid: Optional[str] = payload.get(
-            "bulk_hosting_request_sid"
-        )
+        self.bulk_hosting_request_sid: Optional[str] = payload.get("bulk_hosting_request_sid")
         self.next_step: Optional[str] = payload.get("next_step")
 
-        self._solution = {
+        
+        self._solution = { 
             "sid": sid or self.sid,
         }
         self._context: Optional[HostedNumberOrderContext] = None
@@ -104,34 +96,32 @@ class HostedNumberOrderInstance(InstanceResource):
         :returns: HostedNumberOrderContext for this HostedNumberOrderInstance
         """
         if self._context is None:
-            self._context = HostedNumberOrderContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
+            self._context = HostedNumberOrderContext(self._version, sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the HostedNumberOrderInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the HostedNumberOrderInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "HostedNumberOrderInstance":
         """
         Fetch the HostedNumberOrderInstance
-
+        
 
         :returns: The fetched HostedNumberOrderInstance
         """
@@ -140,21 +130,20 @@ class HostedNumberOrderInstance(InstanceResource):
     async def fetch_async(self) -> "HostedNumberOrderInstance":
         """
         Asynchronous coroutine to fetch the HostedNumberOrderInstance
-
+        
 
         :returns: The fetched HostedNumberOrderInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.HostedNumberOrderInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Numbers.V2.HostedNumberOrderInstance {}>'.format(context)
 
 class HostedNumberOrderContext(InstanceContext):
 
@@ -167,82 +156,84 @@ class HostedNumberOrderContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
+        self._solution = { 
+            'sid': sid,
         }
-        self._uri = "/HostedNumber/Orders/{sid}".format(**self._solution)
-
+        self._uri = '/HostedNumber/Orders/{sid}'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the HostedNumberOrderInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the HostedNumberOrderInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> HostedNumberOrderInstance:
         """
         Fetch the HostedNumberOrderInstance
-
+        
 
         :returns: The fetched HostedNumberOrderInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return HostedNumberOrderInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> HostedNumberOrderInstance:
         """
         Asynchronous coroutine to fetch the HostedNumberOrderInstance
-
+        
 
         :returns: The fetched HostedNumberOrderInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return HostedNumberOrderInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.HostedNumberOrderContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Numbers.V2.HostedNumberOrderContext {}>'.format(context)
+
+
+
+
+
+
+
 
 
 class HostedNumberOrderPage(Page):
@@ -264,38 +255,28 @@ class HostedNumberOrderPage(Page):
         return "<Twilio.Numbers.V2.HostedNumberOrderPage>"
 
 
-class HostedNumberOrderList(ListResource):
 
+
+
+class HostedNumberOrderList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the HostedNumberOrderList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/HostedNumber/Orders"
-
-    def create(
-        self,
-        phone_number: str,
-        contact_phone_number: str,
-        address_sid: str,
-        email: str,
-        account_sid: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        cc_emails: Union[List[str], object] = values.unset,
-        sms_url: Union[str, object] = values.unset,
-        sms_method: Union[str, object] = values.unset,
-        sms_fallback_url: Union[str, object] = values.unset,
-        sms_capability: Union[bool, object] = values.unset,
-        sms_fallback_method: Union[str, object] = values.unset,
-        status_callback_url: Union[str, object] = values.unset,
-        status_callback_method: Union[str, object] = values.unset,
-        sms_application_sid: Union[str, object] = values.unset,
-        contact_title: Union[str, object] = values.unset,
-    ) -> HostedNumberOrderInstance:
+        
+        self._uri = '/HostedNumber/Orders'
+        
+        
+    
+    
+    
+    def create(self, phone_number: str, contact_phone_number: str, address_sid: str, email: str, account_sid: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, cc_emails: Union[List[str], object]=values.unset, sms_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_capability: Union[bool, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, status_callback_url: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, sms_application_sid: Union[str, object]=values.unset, contact_title: Union[str, object]=values.unset) -> HostedNumberOrderInstance:
         """
         Create the HostedNumberOrderInstance
 
@@ -315,57 +296,38 @@ class HostedNumberOrderList(ListResource):
         :param status_callback_method: Optional. The Status Callback Method attached to the IncomingPhoneNumber resource.
         :param sms_application_sid: Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
         :param contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
-
+        
         :returns: The created HostedNumberOrderInstance
         """
-
-        data = values.of(
-            {
-                "PhoneNumber": phone_number,
-                "ContactPhoneNumber": contact_phone_number,
-                "AddressSid": address_sid,
-                "Email": email,
-                "AccountSid": account_sid,
-                "FriendlyName": friendly_name,
-                "CcEmails": serialize.map(cc_emails, lambda e: e),
-                "SmsUrl": sms_url,
-                "SmsMethod": sms_method,
-                "SmsFallbackUrl": sms_fallback_url,
-                "SmsCapability": serialize.boolean_to_string(sms_capability),
-                "SmsFallbackMethod": sms_fallback_method,
-                "StatusCallbackUrl": status_callback_url,
-                "StatusCallbackMethod": status_callback_method,
-                "SmsApplicationSid": sms_application_sid,
-                "ContactTitle": contact_title,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'PhoneNumber': phone_number,
+            'ContactPhoneNumber': contact_phone_number,
+            'AddressSid': address_sid,
+            'Email': email,
+            'AccountSid': account_sid,
+            'FriendlyName': friendly_name,
+            'CcEmails': serialize.map(cc_emails, lambda e: e),
+            'SmsUrl': sms_url,
+            'SmsMethod': sms_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsCapability': serialize.boolean_to_string(sms_capability),
+            'SmsFallbackMethod': sms_fallback_method,
+            'StatusCallbackUrl': status_callback_url,
+            'StatusCallbackMethod': status_callback_method,
+            'SmsApplicationSid': sms_application_sid,
+            'ContactTitle': contact_title,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
         return HostedNumberOrderInstance(self._version, payload)
 
-    async def create_async(
-        self,
-        phone_number: str,
-        contact_phone_number: str,
-        address_sid: str,
-        email: str,
-        account_sid: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        cc_emails: Union[List[str], object] = values.unset,
-        sms_url: Union[str, object] = values.unset,
-        sms_method: Union[str, object] = values.unset,
-        sms_fallback_url: Union[str, object] = values.unset,
-        sms_capability: Union[bool, object] = values.unset,
-        sms_fallback_method: Union[str, object] = values.unset,
-        status_callback_url: Union[str, object] = values.unset,
-        status_callback_method: Union[str, object] = values.unset,
-        sms_application_sid: Union[str, object] = values.unset,
-        contact_title: Union[str, object] = values.unset,
-    ) -> HostedNumberOrderInstance:
+    async def create_async(self, phone_number: str, contact_phone_number: str, address_sid: str, email: str, account_sid: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset, cc_emails: Union[List[str], object]=values.unset, sms_url: Union[str, object]=values.unset, sms_method: Union[str, object]=values.unset, sms_fallback_url: Union[str, object]=values.unset, sms_capability: Union[bool, object]=values.unset, sms_fallback_method: Union[str, object]=values.unset, status_callback_url: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, sms_application_sid: Union[str, object]=values.unset, contact_title: Union[str, object]=values.unset) -> HostedNumberOrderInstance:
         """
         Asynchronously create the HostedNumberOrderInstance
 
@@ -385,45 +347,45 @@ class HostedNumberOrderList(ListResource):
         :param status_callback_method: Optional. The Status Callback Method attached to the IncomingPhoneNumber resource.
         :param sms_application_sid: Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
         :param contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
-
+        
         :returns: The created HostedNumberOrderInstance
         """
-
-        data = values.of(
-            {
-                "PhoneNumber": phone_number,
-                "ContactPhoneNumber": contact_phone_number,
-                "AddressSid": address_sid,
-                "Email": email,
-                "AccountSid": account_sid,
-                "FriendlyName": friendly_name,
-                "CcEmails": serialize.map(cc_emails, lambda e: e),
-                "SmsUrl": sms_url,
-                "SmsMethod": sms_method,
-                "SmsFallbackUrl": sms_fallback_url,
-                "SmsCapability": serialize.boolean_to_string(sms_capability),
-                "SmsFallbackMethod": sms_fallback_method,
-                "StatusCallbackUrl": status_callback_url,
-                "StatusCallbackMethod": status_callback_method,
-                "SmsApplicationSid": sms_application_sid,
-                "ContactTitle": contact_title,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'PhoneNumber': phone_number,
+            'ContactPhoneNumber': contact_phone_number,
+            'AddressSid': address_sid,
+            'Email': email,
+            'AccountSid': account_sid,
+            'FriendlyName': friendly_name,
+            'CcEmails': serialize.map(cc_emails, lambda e: e),
+            'SmsUrl': sms_url,
+            'SmsMethod': sms_method,
+            'SmsFallbackUrl': sms_fallback_url,
+            'SmsCapability': serialize.boolean_to_string(sms_capability),
+            'SmsFallbackMethod': sms_fallback_method,
+            'StatusCallbackUrl': status_callback_url,
+            'StatusCallbackMethod': status_callback_method,
+            'SmsApplicationSid': sms_application_sid,
+            'ContactTitle': contact_title,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return HostedNumberOrderInstance(self._version, payload)
-
-    def stream(
-        self,
+    
+    
+    def stream(self, 
         status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
         sms_capability: Union[bool, object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[HostedNumberOrderInstance]:
@@ -432,7 +394,7 @@ class HostedNumberOrderList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;HostedNumberOrderInstance.Status&quot; status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
         :param bool sms_capability: Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
@@ -454,18 +416,18 @@ class HostedNumberOrderList(ListResource):
             phone_number=phone_number,
             incoming_phone_number_sid=incoming_phone_number_sid,
             friendly_name=friendly_name,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
         sms_capability: Union[bool, object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[HostedNumberOrderInstance]:
@@ -474,7 +436,7 @@ class HostedNumberOrderList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;HostedNumberOrderInstance.Status&quot; status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
         :param bool sms_capability: Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
@@ -496,18 +458,18 @@ class HostedNumberOrderList(ListResource):
             phone_number=phone_number,
             incoming_phone_number_sid=incoming_phone_number_sid,
             friendly_name=friendly_name,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
         sms_capability: Union[bool, object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[HostedNumberOrderInstance]:
@@ -515,7 +477,7 @@ class HostedNumberOrderList(ListResource):
         Lists HostedNumberOrderInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;HostedNumberOrderInstance.Status&quot; status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
         :param bool sms_capability: Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
@@ -530,25 +492,23 @@ class HostedNumberOrderList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                status=status,
-                sms_capability=sms_capability,
-                phone_number=phone_number,
-                incoming_phone_number_sid=incoming_phone_number_sid,
-                friendly_name=friendly_name,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            status=status,
+            sms_capability=sms_capability,
+            phone_number=phone_number,
+            incoming_phone_number_sid=incoming_phone_number_sid,
+            friendly_name=friendly_name,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
         sms_capability: Union[bool, object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[HostedNumberOrderInstance]:
@@ -556,7 +516,7 @@ class HostedNumberOrderList(ListResource):
         Asynchronously lists HostedNumberOrderInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;HostedNumberOrderInstance.Status&quot; status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
         :param bool sms_capability: Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
         :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
@@ -571,26 +531,23 @@ class HostedNumberOrderList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                status=status,
-                sms_capability=sms_capability,
-                phone_number=phone_number,
-                incoming_phone_number_sid=incoming_phone_number_sid,
-                friendly_name=friendly_name,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            status=status,
+            sms_capability=sms_capability,
+            phone_number=phone_number,
+            incoming_phone_number_sid=incoming_phone_number_sid,
+            friendly_name=friendly_name,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
         sms_capability: Union[bool, object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -598,7 +555,7 @@ class HostedNumberOrderList(ListResource):
         """
         Retrieve a single page of HostedNumberOrderInstance records from the API.
         Request is executed immediately
-
+        
         :param status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
         :param sms_capability: Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
         :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
@@ -610,29 +567,27 @@ class HostedNumberOrderList(ListResource):
 
         :returns: Page of HostedNumberOrderInstance
         """
-        data = values.of(
-            {
-                "Status": status,
-                "SmsCapability": serialize.boolean_to_string(sms_capability),
-                "PhoneNumber": phone_number,
-                "IncomingPhoneNumberSid": incoming_phone_number_sid,
-                "FriendlyName": friendly_name,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Status': status,
+            'SmsCapability': serialize.boolean_to_string(sms_capability),
+            'PhoneNumber': phone_number,
+            'IncomingPhoneNumberSid': incoming_phone_number_sid,
+            'FriendlyName': friendly_name,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return HostedNumberOrderPage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
         sms_capability: Union[bool, object] = values.unset,
         phone_number: Union[str, object] = values.unset,
         incoming_phone_number_sid: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -640,7 +595,7 @@ class HostedNumberOrderList(ListResource):
         """
         Asynchronously retrieve a single page of HostedNumberOrderInstance records from the API.
         Request is executed immediately
-
+        
         :param status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
         :param sms_capability: Whether the SMS capability will be hosted on our platform. Can be `true` of `false`.
         :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
@@ -652,22 +607,18 @@ class HostedNumberOrderList(ListResource):
 
         :returns: Page of HostedNumberOrderInstance
         """
-        data = values.of(
-            {
-                "Status": status,
-                "SmsCapability": serialize.boolean_to_string(sms_capability),
-                "PhoneNumber": phone_number,
-                "IncomingPhoneNumberSid": incoming_phone_number_sid,
-                "FriendlyName": friendly_name,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Status': status,
+            'SmsCapability': serialize.boolean_to_string(sms_capability),
+            'PhoneNumber': phone_number,
+            'IncomingPhoneNumberSid': incoming_phone_number_sid,
+            'FriendlyName': friendly_name,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return HostedNumberOrderPage(self._version, response)
 
     def get_page(self, target_url: str) -> HostedNumberOrderPage:
@@ -679,7 +630,10 @@ class HostedNumberOrderList(ListResource):
 
         :returns: Page of HostedNumberOrderInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return HostedNumberOrderPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> HostedNumberOrderPage:
@@ -691,13 +645,18 @@ class HostedNumberOrderList(ListResource):
 
         :returns: Page of HostedNumberOrderInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return HostedNumberOrderPage(self._version, response)
+
+
 
     def get(self, sid: str) -> HostedNumberOrderContext:
         """
         Constructs a HostedNumberOrderContext
-
+        
         :param sid: A 34 character string that uniquely identifies this HostedNumberOrder.
         """
         return HostedNumberOrderContext(self._version, sid=sid)
@@ -705,7 +664,7 @@ class HostedNumberOrderList(ListResource):
     def __call__(self, sid: str) -> HostedNumberOrderContext:
         """
         Constructs a HostedNumberOrderContext
-
+        
         :param sid: A 34 character string that uniquely identifies this HostedNumberOrder.
         """
         return HostedNumberOrderContext(self._version, sid=sid)
@@ -716,4 +675,5 @@ class HostedNumberOrderList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Numbers.V2.HostedNumberOrderList>"
+        return '<Twilio.Numbers.V2.HostedNumberOrderList>'
+

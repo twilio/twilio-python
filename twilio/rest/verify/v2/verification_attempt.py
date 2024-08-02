@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -48,32 +50,24 @@ class VerificationAttemptInstance(InstanceResource):
     :ivar url: 
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
         self.verification_sid: Optional[str] = payload.get("verification_sid")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
-        self.conversion_status: Optional[
-            "VerificationAttemptInstance.ConversionStatus"
-        ] = payload.get("conversion_status")
-        self.channel: Optional["VerificationAttemptInstance.Channels"] = payload.get(
-            "channel"
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.conversion_status: Optional["VerificationAttemptInstance.ConversionStatus"] = payload.get("conversion_status")
+        self.channel: Optional["VerificationAttemptInstance.Channels"] = payload.get("channel")
         self.price: Optional[Dict[str, object]] = payload.get("price")
         self.channel_data: Optional[Dict[str, object]] = payload.get("channel_data")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "sid": sid or self.sid,
         }
         self._context: Optional[VerificationAttemptContext] = None
@@ -87,16 +81,14 @@ class VerificationAttemptInstance(InstanceResource):
         :returns: VerificationAttemptContext for this VerificationAttemptInstance
         """
         if self._context is None:
-            self._context = VerificationAttemptContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
+            self._context = VerificationAttemptContext(self._version, sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def fetch(self) -> "VerificationAttemptInstance":
         """
         Fetch the VerificationAttemptInstance
-
+        
 
         :returns: The fetched VerificationAttemptInstance
         """
@@ -105,21 +97,20 @@ class VerificationAttemptInstance(InstanceResource):
     async def fetch_async(self) -> "VerificationAttemptInstance":
         """
         Asynchronous coroutine to fetch the VerificationAttemptInstance
-
+        
 
         :returns: The fetched VerificationAttemptInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.VerificationAttemptInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.VerificationAttemptInstance {}>'.format(context)
 
 class VerificationAttemptContext(InstanceContext):
 
@@ -132,58 +123,61 @@ class VerificationAttemptContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
+        self._solution = { 
+            'sid': sid,
         }
-        self._uri = "/Attempts/{sid}".format(**self._solution)
-
+        self._uri = '/Attempts/{sid}'.format(**self._solution)
+        
+    
+    
     def fetch(self) -> VerificationAttemptInstance:
         """
         Fetch the VerificationAttemptInstance
-
+        
 
         :returns: The fetched VerificationAttemptInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return VerificationAttemptInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> VerificationAttemptInstance:
         """
         Asynchronous coroutine to fetch the VerificationAttemptInstance
-
+        
 
         :returns: The fetched VerificationAttemptInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return VerificationAttemptInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.VerificationAttemptContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.VerificationAttemptContext {}>'.format(context)
+
+
+
 
 
 class VerificationAttemptPage(Page):
@@ -205,21 +199,27 @@ class VerificationAttemptPage(Page):
         return "<Twilio.Verify.V2.VerificationAttemptPage>"
 
 
-class VerificationAttemptList(ListResource):
 
+
+
+class VerificationAttemptList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the VerificationAttemptList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/Attempts"
-
-    def stream(
-        self,
+        
+        self._uri = '/Attempts'
+        
+        
+    
+    
+    def stream(self, 
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         channel_data_to: Union[str, object] = values.unset,
@@ -227,9 +227,8 @@ class VerificationAttemptList(ListResource):
         channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
         verify_service_sid: Union[str, object] = values.unset,
         verification_sid: Union[str, object] = values.unset,
-        status: Union[
-            "VerificationAttemptInstance.ConversionStatus", object
-        ] = values.unset,
+        status: Union["VerificationAttemptInstance.ConversionStatus", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[VerificationAttemptInstance]:
@@ -238,7 +237,7 @@ class VerificationAttemptList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
@@ -266,13 +265,12 @@ class VerificationAttemptList(ListResource):
             verify_service_sid=verify_service_sid,
             verification_sid=verification_sid,
             status=status,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         channel_data_to: Union[str, object] = values.unset,
@@ -280,9 +278,8 @@ class VerificationAttemptList(ListResource):
         channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
         verify_service_sid: Union[str, object] = values.unset,
         verification_sid: Union[str, object] = values.unset,
-        status: Union[
-            "VerificationAttemptInstance.ConversionStatus", object
-        ] = values.unset,
+        status: Union["VerificationAttemptInstance.ConversionStatus", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[VerificationAttemptInstance]:
@@ -291,7 +288,7 @@ class VerificationAttemptList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
@@ -319,13 +316,12 @@ class VerificationAttemptList(ListResource):
             verify_service_sid=verify_service_sid,
             verification_sid=verification_sid,
             status=status,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         channel_data_to: Union[str, object] = values.unset,
@@ -333,9 +329,8 @@ class VerificationAttemptList(ListResource):
         channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
         verify_service_sid: Union[str, object] = values.unset,
         verification_sid: Union[str, object] = values.unset,
-        status: Union[
-            "VerificationAttemptInstance.ConversionStatus", object
-        ] = values.unset,
+        status: Union["VerificationAttemptInstance.ConversionStatus", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[VerificationAttemptInstance]:
@@ -343,7 +338,7 @@ class VerificationAttemptList(ListResource):
         Lists VerificationAttemptInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
@@ -361,23 +356,20 @@ class VerificationAttemptList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                date_created_after=date_created_after,
-                date_created_before=date_created_before,
-                channel_data_to=channel_data_to,
-                country=country,
-                channel=channel,
-                verify_service_sid=verify_service_sid,
-                verification_sid=verification_sid,
-                status=status,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            channel_data_to=channel_data_to,
+            country=country,
+            channel=channel,
+            verify_service_sid=verify_service_sid,
+            verification_sid=verification_sid,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         channel_data_to: Union[str, object] = values.unset,
@@ -385,9 +377,8 @@ class VerificationAttemptList(ListResource):
         channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
         verify_service_sid: Union[str, object] = values.unset,
         verification_sid: Union[str, object] = values.unset,
-        status: Union[
-            "VerificationAttemptInstance.ConversionStatus", object
-        ] = values.unset,
+        status: Union["VerificationAttemptInstance.ConversionStatus", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[VerificationAttemptInstance]:
@@ -395,7 +386,7 @@ class VerificationAttemptList(ListResource):
         Asynchronously lists VerificationAttemptInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
@@ -413,24 +404,20 @@ class VerificationAttemptList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                date_created_after=date_created_after,
-                date_created_before=date_created_before,
-                channel_data_to=channel_data_to,
-                country=country,
-                channel=channel,
-                verify_service_sid=verify_service_sid,
-                verification_sid=verification_sid,
-                status=status,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            channel_data_to=channel_data_to,
+            country=country,
+            channel=channel,
+            verify_service_sid=verify_service_sid,
+            verification_sid=verification_sid,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         channel_data_to: Union[str, object] = values.unset,
@@ -438,9 +425,8 @@ class VerificationAttemptList(ListResource):
         channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
         verify_service_sid: Union[str, object] = values.unset,
         verification_sid: Union[str, object] = values.unset,
-        status: Union[
-            "VerificationAttemptInstance.ConversionStatus", object
-        ] = values.unset,
+        status: Union["VerificationAttemptInstance.ConversionStatus", object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -448,7 +434,7 @@ class VerificationAttemptList(ListResource):
         """
         Retrieve a single page of VerificationAttemptInstance records from the API.
         Request is executed immediately
-
+        
         :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param channel_data_to: Destination of a verification. It is phone number in E.164 format.
@@ -463,27 +449,24 @@ class VerificationAttemptList(ListResource):
 
         :returns: Page of VerificationAttemptInstance
         """
-        data = values.of(
-            {
-                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
-                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
-                "ChannelData.To": channel_data_to,
-                "Country": country,
-                "Channel": channel,
-                "VerifyServiceSid": verify_service_sid,
-                "VerificationSid": verification_sid,
-                "Status": status,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
+            'ChannelData.To': channel_data_to,
+            'Country': country,
+            'Channel': channel,
+            'VerifyServiceSid': verify_service_sid,
+            'VerificationSid': verification_sid,
+            'Status': status,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return VerificationAttemptPage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         channel_data_to: Union[str, object] = values.unset,
@@ -491,9 +474,8 @@ class VerificationAttemptList(ListResource):
         channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
         verify_service_sid: Union[str, object] = values.unset,
         verification_sid: Union[str, object] = values.unset,
-        status: Union[
-            "VerificationAttemptInstance.ConversionStatus", object
-        ] = values.unset,
+        status: Union["VerificationAttemptInstance.ConversionStatus", object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -501,7 +483,7 @@ class VerificationAttemptList(ListResource):
         """
         Asynchronously retrieve a single page of VerificationAttemptInstance records from the API.
         Request is executed immediately
-
+        
         :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param channel_data_to: Destination of a verification. It is phone number in E.164 format.
@@ -516,25 +498,21 @@ class VerificationAttemptList(ListResource):
 
         :returns: Page of VerificationAttemptInstance
         """
-        data = values.of(
-            {
-                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
-                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
-                "ChannelData.To": channel_data_to,
-                "Country": country,
-                "Channel": channel,
-                "VerifyServiceSid": verify_service_sid,
-                "VerificationSid": verification_sid,
-                "Status": status,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
+            'ChannelData.To': channel_data_to,
+            'Country': country,
+            'Channel': channel,
+            'VerifyServiceSid': verify_service_sid,
+            'VerificationSid': verification_sid,
+            'Status': status,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return VerificationAttemptPage(self._version, response)
 
     def get_page(self, target_url: str) -> VerificationAttemptPage:
@@ -546,7 +524,10 @@ class VerificationAttemptList(ListResource):
 
         :returns: Page of VerificationAttemptInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return VerificationAttemptPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> VerificationAttemptPage:
@@ -558,13 +539,18 @@ class VerificationAttemptList(ListResource):
 
         :returns: Page of VerificationAttemptInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return VerificationAttemptPage(self._version, response)
+
+
 
     def get(self, sid: str) -> VerificationAttemptContext:
         """
         Constructs a VerificationAttemptContext
-
+        
         :param sid: The unique SID identifier of a Verification Attempt
         """
         return VerificationAttemptContext(self._version, sid=sid)
@@ -572,7 +558,7 @@ class VerificationAttemptList(ListResource):
     def __call__(self, sid: str) -> VerificationAttemptContext:
         """
         Constructs a VerificationAttemptContext
-
+        
         :param sid: The unique SID identifier of a Verification Attempt
         """
         return VerificationAttemptContext(self._version, sid=sid)
@@ -583,4 +569,5 @@ class VerificationAttemptList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Verify.V2.VerificationAttemptList>"
+        return '<Twilio.Verify.V2.VerificationAttemptList>'
+

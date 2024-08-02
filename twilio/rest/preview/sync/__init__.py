@@ -28,7 +28,7 @@ class Sync(Version):
         """
         super().__init__(domain, "Sync")
         self._services: Optional[ServiceList] = None
-
+        
     @property
     def services(self) -> ServiceList:
         if self._services is None:

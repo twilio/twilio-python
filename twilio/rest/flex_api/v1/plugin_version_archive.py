@@ -12,16 +12,20 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
-from typing import Any, Dict, Optional, Union
-from twilio.base import deserialize, values
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
 class PluginVersionArchiveInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the Flex Plugin Version resource.
     :ivar plugin_sid: The SID of the Flex Plugin resource this Flex Plugin Version belongs to.
@@ -35,15 +39,10 @@ class PluginVersionArchiveInstance(InstanceResource):
     :ivar url: The absolute URL of the Flex Plugin Version resource.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        plugin_sid: Optional[str] = None,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], plugin_sid: Optional[str] = None, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.plugin_sid: Optional[str] = payload.get("plugin_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
@@ -52,12 +51,11 @@ class PluginVersionArchiveInstance(InstanceResource):
         self.changelog: Optional[str] = payload.get("changelog")
         self.private: Optional[bool] = payload.get("private")
         self.archived: Optional[bool] = payload.get("archived")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "plugin_sid": plugin_sid or self.plugin_sid,
             "sid": sid or self.sid,
         }
@@ -72,50 +70,38 @@ class PluginVersionArchiveInstance(InstanceResource):
         :returns: PluginVersionArchiveContext for this PluginVersionArchiveInstance
         """
         if self._context is None:
-            self._context = PluginVersionArchiveContext(
-                self._version,
-                plugin_sid=self._solution["plugin_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = PluginVersionArchiveContext(self._version, plugin_sid=self._solution['plugin_sid'], sid=self._solution['sid'],)
         return self._context
-
-    def update(
-        self, flex_metadata: Union[str, object] = values.unset
-    ) -> "PluginVersionArchiveInstance":
+    
+    
+    def update(self, flex_metadata: Union[str, object]=values.unset) -> "PluginVersionArchiveInstance":
         """
         Update the PluginVersionArchiveInstance
-
+        
         :param flex_metadata: The Flex-Metadata HTTP request header
 
         :returns: The updated PluginVersionArchiveInstance
         """
-        return self._proxy.update(
-            flex_metadata=flex_metadata,
-        )
+        return self._proxy.update(flex_metadata=flex_metadata, )
 
-    async def update_async(
-        self, flex_metadata: Union[str, object] = values.unset
-    ) -> "PluginVersionArchiveInstance":
+    async def update_async(self, flex_metadata: Union[str, object]=values.unset) -> "PluginVersionArchiveInstance":
         """
         Asynchronous coroutine to update the PluginVersionArchiveInstance
-
+        
         :param flex_metadata: The Flex-Metadata HTTP request header
 
         :returns: The updated PluginVersionArchiveInstance
         """
-        return await self._proxy.update_async(
-            flex_metadata=flex_metadata,
-        )
-
+        return await self._proxy.update_async(flex_metadata=flex_metadata, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.PluginVersionArchiveInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.PluginVersionArchiveInstance {}>'.format(context)
 
 class PluginVersionArchiveContext(InstanceContext):
 
@@ -129,113 +115,103 @@ class PluginVersionArchiveContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "plugin_sid": plugin_sid,
-            "sid": sid,
+        self._solution = { 
+            'plugin_sid': plugin_sid,
+            'sid': sid,
         }
-        self._uri = "/PluginService/Plugins/{plugin_sid}/Versions/{sid}/Archive".format(
-            **self._solution
-        )
-
-    def update(
-        self, flex_metadata: Union[str, object] = values.unset
-    ) -> PluginVersionArchiveInstance:
+        self._uri = '/PluginService/Plugins/{plugin_sid}/Versions/{sid}/Archive'.format(**self._solution)
+        
+    
+    
+    def update(self, flex_metadata: Union[str, object]=values.unset) -> PluginVersionArchiveInstance:
         """
         Update the PluginVersionArchiveInstance
-
+        
         :param flex_metadata: The Flex-Metadata HTTP request header
 
         :returns: The updated PluginVersionArchiveInstance
         """
-        data = values.of({})
-        headers = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-            }
-        )
+        data = values.of({ 
+        })
+        headers = values.of({'Flex-Metadata': flex_metadata, })
 
-        payload = self._version.update(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return PluginVersionArchiveInstance(
             self._version,
             payload,
-            plugin_sid=self._solution["plugin_sid"],
-            sid=self._solution["sid"],
+            plugin_sid=self._solution['plugin_sid'],
+            sid=self._solution['sid']
         )
 
-    async def update_async(
-        self, flex_metadata: Union[str, object] = values.unset
-    ) -> PluginVersionArchiveInstance:
+    async def update_async(self, flex_metadata: Union[str, object]=values.unset) -> PluginVersionArchiveInstance:
         """
         Asynchronous coroutine to update the PluginVersionArchiveInstance
-
+        
         :param flex_metadata: The Flex-Metadata HTTP request header
 
         :returns: The updated PluginVersionArchiveInstance
         """
-        data = values.of({})
-        headers = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-            }
-        )
+        data = values.of({ 
+        })
+        headers = values.of({'Flex-Metadata': flex_metadata, })
 
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return PluginVersionArchiveInstance(
             self._version,
             payload,
-            plugin_sid=self._solution["plugin_sid"],
-            sid=self._solution["sid"],
+            plugin_sid=self._solution['plugin_sid'],
+            sid=self._solution['sid']
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.PluginVersionArchiveContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.PluginVersionArchiveContext {}>'.format(context)
+
 
 
 class PluginVersionArchiveList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the PluginVersionArchiveList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
+
+        
+        
+        
+        
 
     def get(self, plugin_sid: str, sid: str) -> PluginVersionArchiveContext:
         """
         Constructs a PluginVersionArchiveContext
-
+        
         :param plugin_sid: The SID of the Flex Plugin the resource to belongs to.
         :param sid: The SID of the Flex Plugin Version resource to archive.
         """
-        return PluginVersionArchiveContext(
-            self._version, plugin_sid=plugin_sid, sid=sid
-        )
+        return PluginVersionArchiveContext(self._version, plugin_sid=plugin_sid, sid=sid)
 
     def __call__(self, plugin_sid: str, sid: str) -> PluginVersionArchiveContext:
         """
         Constructs a PluginVersionArchiveContext
-
+        
         :param plugin_sid: The SID of the Flex Plugin the resource to belongs to.
         :param sid: The SID of the Flex Plugin Version resource to archive.
         """
-        return PluginVersionArchiveContext(
-            self._version, plugin_sid=plugin_sid, sid=sid
-        )
+        return PluginVersionArchiveContext(self._version, plugin_sid=plugin_sid, sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -243,4 +219,5 @@ class PluginVersionArchiveList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.FlexApi.V1.PluginVersionArchiveList>"
+        return '<Twilio.FlexApi.V1.PluginVersionArchiveList>'
+

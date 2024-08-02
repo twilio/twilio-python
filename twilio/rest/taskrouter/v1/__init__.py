@@ -28,7 +28,7 @@ class V1(Version):
         """
         super().__init__(domain, "v1")
         self._workspaces: Optional[WorkspaceList] = None
-
+        
     @property
     def workspaces(self) -> WorkspaceList:
         if self._workspaces is None:

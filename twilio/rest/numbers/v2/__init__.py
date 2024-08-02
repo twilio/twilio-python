@@ -34,7 +34,7 @@ class V2(Version):
         self._bulk_hosted_number_orders: Optional[BulkHostedNumberOrderList] = None
         self._hosted_number_orders: Optional[HostedNumberOrderList] = None
         self._regulatory_compliance: Optional[RegulatoryComplianceList] = None
-
+        
     @property
     def authorization_documents(self) -> AuthorizationDocumentList:
         if self._authorization_documents is None:

@@ -28,7 +28,7 @@ class V1(Version):
         """
         super().__init__(domain, "v1")
         self._trunks: Optional[TrunkList] = None
-
+        
     @property
     def trunks(self) -> TrunkList:
         if self._trunks is None:

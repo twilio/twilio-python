@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,6 +25,7 @@ from twilio.base.page import Page
 
 
 class IpRecordInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the IP Record resource.
     :ivar sid: The unique string that we created to identify the IP Record resource.
@@ -34,27 +37,21 @@ class IpRecordInstance(InstanceResource):
     :ivar url: The absolute URL of the resource.
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.sid: Optional[str] = payload.get("sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.ip_address: Optional[str] = payload.get("ip_address")
-        self.cidr_prefix_length: Optional[int] = deserialize.integer(
-            payload.get("cidr_prefix_length")
-        )
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.cidr_prefix_length: Optional[int] = deserialize.integer(payload.get("cidr_prefix_length"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "sid": sid or self.sid,
         }
         self._context: Optional[IpRecordContext] = None
@@ -68,34 +65,32 @@ class IpRecordInstance(InstanceResource):
         :returns: IpRecordContext for this IpRecordInstance
         """
         if self._context is None:
-            self._context = IpRecordContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
+            self._context = IpRecordContext(self._version, sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the IpRecordInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the IpRecordInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "IpRecordInstance":
         """
         Fetch the IpRecordInstance
-
+        
 
         :returns: The fetched IpRecordInstance
         """
@@ -104,49 +99,41 @@ class IpRecordInstance(InstanceResource):
     async def fetch_async(self) -> "IpRecordInstance":
         """
         Asynchronous coroutine to fetch the IpRecordInstance
-
+        
 
         :returns: The fetched IpRecordInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self, friendly_name: Union[str, object] = values.unset
-    ) -> "IpRecordInstance":
+    
+    
+    def update(self, friendly_name: Union[str, object]=values.unset) -> "IpRecordInstance":
         """
         Update the IpRecordInstance
-
+        
         :param friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 
         :returns: The updated IpRecordInstance
         """
-        return self._proxy.update(
-            friendly_name=friendly_name,
-        )
+        return self._proxy.update(friendly_name=friendly_name, )
 
-    async def update_async(
-        self, friendly_name: Union[str, object] = values.unset
-    ) -> "IpRecordInstance":
+    async def update_async(self, friendly_name: Union[str, object]=values.unset) -> "IpRecordInstance":
         """
         Asynchronous coroutine to update the IpRecordInstance
-
+        
         :param friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 
         :returns: The updated IpRecordInstance
         """
-        return await self._proxy.update_async(
-            friendly_name=friendly_name,
-        )
-
+        return await self._proxy.update_async(friendly_name=friendly_name, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.IpRecordInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Voice.V1.IpRecordInstance {}>'.format(context)
 
 class IpRecordContext(InstanceContext):
 
@@ -159,130 +146,129 @@ class IpRecordContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
+        self._solution = { 
+            'sid': sid,
         }
-        self._uri = "/IpRecords/{sid}".format(**self._solution)
-
+        self._uri = '/IpRecords/{sid}'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the IpRecordInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the IpRecordInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> IpRecordInstance:
         """
         Fetch the IpRecordInstance
-
+        
 
         :returns: The fetched IpRecordInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return IpRecordInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> IpRecordInstance:
         """
         Asynchronous coroutine to fetch the IpRecordInstance
-
+        
 
         :returns: The fetched IpRecordInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return IpRecordInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
-
-    def update(
-        self, friendly_name: Union[str, object] = values.unset
-    ) -> IpRecordInstance:
+    
+    
+    def update(self, friendly_name: Union[str, object]=values.unset) -> IpRecordInstance:
         """
         Update the IpRecordInstance
-
+        
         :param friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 
         :returns: The updated IpRecordInstance
         """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-            }
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
+
+        return IpRecordInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
         )
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return IpRecordInstance(self._version, payload, sid=self._solution["sid"])
-
-    async def update_async(
-        self, friendly_name: Union[str, object] = values.unset
-    ) -> IpRecordInstance:
+    async def update_async(self, friendly_name: Union[str, object]=values.unset) -> IpRecordInstance:
         """
         Asynchronous coroutine to update the IpRecordInstance
-
+        
         :param friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
 
         :returns: The updated IpRecordInstance
         """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-            }
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+        })
+        
+
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
+
+        return IpRecordInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
         )
-
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
-
-        return IpRecordInstance(self._version, payload, sid=self._solution["sid"])
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.IpRecordContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Voice.V1.IpRecordContext {}>'.format(context)
+
+
+
+
+
+
+
+
+
 
 
 class IpRecordPage(Page):
@@ -304,83 +290,81 @@ class IpRecordPage(Page):
         return "<Twilio.Voice.V1.IpRecordPage>"
 
 
-class IpRecordList(ListResource):
 
+
+
+class IpRecordList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the IpRecordList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/IpRecords"
-
-    def create(
-        self,
-        ip_address: str,
-        friendly_name: Union[str, object] = values.unset,
-        cidr_prefix_length: Union[int, object] = values.unset,
-    ) -> IpRecordInstance:
+        
+        self._uri = '/IpRecords'
+        
+        
+    
+    
+    
+    
+    def create(self, ip_address: str, friendly_name: Union[str, object]=values.unset, cidr_prefix_length: Union[int, object]=values.unset) -> IpRecordInstance:
         """
         Create the IpRecordInstance
 
         :param ip_address: An IP address in dotted decimal notation, IPv4 only.
         :param friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
         :param cidr_prefix_length: An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
-
+        
         :returns: The created IpRecordInstance
         """
-
-        data = values.of(
-            {
-                "IpAddress": ip_address,
-                "FriendlyName": friendly_name,
-                "CidrPrefixLength": cidr_prefix_length,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'IpAddress': ip_address,
+            'FriendlyName': friendly_name,
+            'CidrPrefixLength': cidr_prefix_length,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
         return IpRecordInstance(self._version, payload)
 
-    async def create_async(
-        self,
-        ip_address: str,
-        friendly_name: Union[str, object] = values.unset,
-        cidr_prefix_length: Union[int, object] = values.unset,
-    ) -> IpRecordInstance:
+    async def create_async(self, ip_address: str, friendly_name: Union[str, object]=values.unset, cidr_prefix_length: Union[int, object]=values.unset) -> IpRecordInstance:
         """
         Asynchronously create the IpRecordInstance
 
         :param ip_address: An IP address in dotted decimal notation, IPv4 only.
         :param friendly_name: A descriptive string that you create to describe the resource. It is not unique and can be up to 255 characters long.
         :param cidr_prefix_length: An integer representing the length of the [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP address. By default the entire IP address is used, which for IPv4 is value 32.
-
+        
         :returns: The created IpRecordInstance
         """
-
-        data = values.of(
-            {
-                "IpAddress": ip_address,
-                "FriendlyName": friendly_name,
-                "CidrPrefixLength": cidr_prefix_length,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'IpAddress': ip_address,
+            'FriendlyName': friendly_name,
+            'CidrPrefixLength': cidr_prefix_length,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return IpRecordInstance(self._version, payload)
-
-    def stream(
-        self,
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[IpRecordInstance]:
@@ -389,7 +373,7 @@ class IpRecordList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -400,12 +384,14 @@ class IpRecordList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[IpRecordInstance]:
@@ -414,7 +400,7 @@ class IpRecordList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -425,12 +411,14 @@ class IpRecordList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[IpRecordInstance]:
@@ -438,7 +426,7 @@ class IpRecordList(ListResource):
         Lists IpRecordInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -448,15 +436,13 @@ class IpRecordList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[IpRecordInstance]:
@@ -464,7 +450,7 @@ class IpRecordList(ListResource):
         Asynchronously lists IpRecordInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -474,16 +460,13 @@ class IpRecordList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -491,26 +474,24 @@ class IpRecordList(ListResource):
         """
         Retrieve a single page of IpRecordInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of IpRecordInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return IpRecordPage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -518,24 +499,20 @@ class IpRecordList(ListResource):
         """
         Asynchronously retrieve a single page of IpRecordInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of IpRecordInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return IpRecordPage(self._version, response)
 
     def get_page(self, target_url: str) -> IpRecordPage:
@@ -547,7 +524,10 @@ class IpRecordList(ListResource):
 
         :returns: Page of IpRecordInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return IpRecordPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> IpRecordPage:
@@ -559,13 +539,18 @@ class IpRecordList(ListResource):
 
         :returns: Page of IpRecordInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return IpRecordPage(self._version, response)
+
+
 
     def get(self, sid: str) -> IpRecordContext:
         """
         Constructs a IpRecordContext
-
+        
         :param sid: The Twilio-provided string that uniquely identifies the IP Record resource to update.
         """
         return IpRecordContext(self._version, sid=sid)
@@ -573,7 +558,7 @@ class IpRecordList(ListResource):
     def __call__(self, sid: str) -> IpRecordContext:
         """
         Constructs a IpRecordContext
-
+        
         :param sid: The Twilio-provided string that uniquely identifies the IP Record resource to update.
         """
         return IpRecordContext(self._version, sid=sid)
@@ -584,4 +569,5 @@ class IpRecordList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Voice.V1.IpRecordList>"
+        return '<Twilio.Voice.V1.IpRecordList>'
+

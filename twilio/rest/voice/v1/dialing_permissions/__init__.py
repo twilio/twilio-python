@@ -12,35 +12,45 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Optional
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 
 
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
-from twilio.rest.voice.v1.dialing_permissions.bulk_country_update import (
-    BulkCountryUpdateList,
-)
+from twilio.rest.voice.v1.dialing_permissions.bulk_country_update import BulkCountryUpdateList
 from twilio.rest.voice.v1.dialing_permissions.country import CountryList
 from twilio.rest.voice.v1.dialing_permissions.settings import SettingsList
 
 
-class DialingPermissionsList(ListResource):
 
+
+
+
+class DialingPermissionsList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the DialingPermissionsList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/DialingPermissions"
-
+        
+        self._uri = '/DialingPermissions'
+        
         self._bulk_country_updates: Optional[BulkCountryUpdateList] = None
         self._countries: Optional[CountryList] = None
         self._settings: Optional[SettingsList] = None
+        
+
+
 
     @property
     def bulk_country_updates(self) -> BulkCountryUpdateList:
@@ -51,6 +61,8 @@ class DialingPermissionsList(ListResource):
             self._bulk_country_updates = BulkCountryUpdateList(self._version)
         return self._bulk_country_updates
 
+
+
     @property
     def countries(self) -> CountryList:
         """
@@ -59,6 +71,8 @@ class DialingPermissionsList(ListResource):
         if self._countries is None:
             self._countries = CountryList(self._version)
         return self._countries
+
+
 
     @property
     def settings(self) -> SettingsList:
@@ -69,10 +83,13 @@ class DialingPermissionsList(ListResource):
             self._settings = SettingsList(self._version)
         return self._settings
 
+
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Voice.V1.DialingPermissionsList>"
+        return '<Twilio.Voice.V1.DialingPermissionsList>'
+

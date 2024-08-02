@@ -12,19 +12,21 @@ r"""
     Do not edit the class manually.
 """
 
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import serialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix import (
-    HighriskSpecialPrefixList,
-)
+from twilio.rest.voice.v1.dialing_permissions.country.highrisk_special_prefix import HighriskSpecialPrefixList
 
 
 class CountryInstance(InstanceResource):
+
     """
     :ivar iso_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
     :ivar name: The name of the country.
@@ -37,28 +39,22 @@ class CountryInstance(InstanceResource):
     :ivar links: A list of URLs related to this resource.
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], iso_code: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], iso_code: Optional[str] = None):
         super().__init__(version)
 
+        
         self.iso_code: Optional[str] = payload.get("iso_code")
         self.name: Optional[str] = payload.get("name")
         self.continent: Optional[str] = payload.get("continent")
         self.country_codes: Optional[List[str]] = payload.get("country_codes")
-        self.low_risk_numbers_enabled: Optional[bool] = payload.get(
-            "low_risk_numbers_enabled"
-        )
-        self.high_risk_special_numbers_enabled: Optional[bool] = payload.get(
-            "high_risk_special_numbers_enabled"
-        )
-        self.high_risk_tollfraud_numbers_enabled: Optional[bool] = payload.get(
-            "high_risk_tollfraud_numbers_enabled"
-        )
+        self.low_risk_numbers_enabled: Optional[bool] = payload.get("low_risk_numbers_enabled")
+        self.high_risk_special_numbers_enabled: Optional[bool] = payload.get("high_risk_special_numbers_enabled")
+        self.high_risk_tollfraud_numbers_enabled: Optional[bool] = payload.get("high_risk_tollfraud_numbers_enabled")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        self._solution = {
+        
+        self._solution = { 
             "iso_code": iso_code or self.iso_code,
         }
         self._context: Optional[CountryContext] = None
@@ -72,16 +68,14 @@ class CountryInstance(InstanceResource):
         :returns: CountryContext for this CountryInstance
         """
         if self._context is None:
-            self._context = CountryContext(
-                self._version,
-                iso_code=self._solution["iso_code"],
-            )
+            self._context = CountryContext(self._version, iso_code=self._solution['iso_code'],)
         return self._context
-
+    
+    
     def fetch(self) -> "CountryInstance":
         """
         Fetch the CountryInstance
-
+        
 
         :returns: The fetched CountryInstance
         """
@@ -90,28 +84,27 @@ class CountryInstance(InstanceResource):
     async def fetch_async(self) -> "CountryInstance":
         """
         Asynchronous coroutine to fetch the CountryInstance
-
+        
 
         :returns: The fetched CountryInstance
         """
         return await self._proxy.fetch_async()
-
+    
     @property
     def highrisk_special_prefixes(self) -> HighriskSpecialPrefixList:
         """
         Access the highrisk_special_prefixes
         """
         return self._proxy.highrisk_special_prefixes
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.CountryInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Voice.V1.CountryInstance {}>'.format(context)
 
 class CountryContext(InstanceContext):
 
@@ -124,52 +117,51 @@ class CountryContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "iso_code": iso_code,
+        self._solution = { 
+            'iso_code': iso_code,
         }
-        self._uri = "/DialingPermissions/Countries/{iso_code}".format(**self._solution)
-
+        self._uri = '/DialingPermissions/Countries/{iso_code}'.format(**self._solution)
+        
         self._highrisk_special_prefixes: Optional[HighriskSpecialPrefixList] = None
-
+    
+    
     def fetch(self) -> CountryInstance:
         """
         Fetch the CountryInstance
-
+        
 
         :returns: The fetched CountryInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CountryInstance(
             self._version,
             payload,
-            iso_code=self._solution["iso_code"],
+            iso_code=self._solution['iso_code'],
+            
         )
 
     async def fetch_async(self) -> CountryInstance:
         """
         Asynchronous coroutine to fetch the CountryInstance
-
+        
 
         :returns: The fetched CountryInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return CountryInstance(
             self._version,
             payload,
-            iso_code=self._solution["iso_code"],
+            iso_code=self._solution['iso_code'],
+            
         )
-
+    
+    
     @property
     def highrisk_special_prefixes(self) -> HighriskSpecialPrefixList:
         """
@@ -177,19 +169,22 @@ class CountryContext(InstanceContext):
         """
         if self._highrisk_special_prefixes is None:
             self._highrisk_special_prefixes = HighriskSpecialPrefixList(
-                self._version,
-                self._solution["iso_code"],
+                self._version, 
+                self._solution['iso_code'],
             )
         return self._highrisk_special_prefixes
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Voice.V1.CountryContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Voice.V1.CountryContext {}>'.format(context)
+
+
+
 
 
 class CountryPage(Page):
@@ -211,27 +206,34 @@ class CountryPage(Page):
         return "<Twilio.Voice.V1.CountryPage>"
 
 
-class CountryList(ListResource):
 
+
+
+class CountryList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the CountryList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/DialingPermissions/Countries"
-
-    def stream(
-        self,
+        
+        self._uri = '/DialingPermissions/Countries'
+        
+        
+    
+    
+    def stream(self, 
         iso_code: Union[str, object] = values.unset,
         continent: Union[str, object] = values.unset,
         country_code: Union[str, object] = values.unset,
         low_risk_numbers_enabled: Union[bool, object] = values.unset,
         high_risk_special_numbers_enabled: Union[bool, object] = values.unset,
         high_risk_tollfraud_numbers_enabled: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[CountryInstance]:
@@ -240,7 +242,7 @@ class CountryList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str iso_code: Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
         :param str continent: Filter to retrieve the country permissions by specifying the continent
         :param str country_code: Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
@@ -264,19 +266,19 @@ class CountryList(ListResource):
             low_risk_numbers_enabled=low_risk_numbers_enabled,
             high_risk_special_numbers_enabled=high_risk_special_numbers_enabled,
             high_risk_tollfraud_numbers_enabled=high_risk_tollfraud_numbers_enabled,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         iso_code: Union[str, object] = values.unset,
         continent: Union[str, object] = values.unset,
         country_code: Union[str, object] = values.unset,
         low_risk_numbers_enabled: Union[bool, object] = values.unset,
         high_risk_special_numbers_enabled: Union[bool, object] = values.unset,
         high_risk_tollfraud_numbers_enabled: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[CountryInstance]:
@@ -285,7 +287,7 @@ class CountryList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str iso_code: Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
         :param str continent: Filter to retrieve the country permissions by specifying the continent
         :param str country_code: Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
@@ -309,19 +311,19 @@ class CountryList(ListResource):
             low_risk_numbers_enabled=low_risk_numbers_enabled,
             high_risk_special_numbers_enabled=high_risk_special_numbers_enabled,
             high_risk_tollfraud_numbers_enabled=high_risk_tollfraud_numbers_enabled,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         iso_code: Union[str, object] = values.unset,
         continent: Union[str, object] = values.unset,
         country_code: Union[str, object] = values.unset,
         low_risk_numbers_enabled: Union[bool, object] = values.unset,
         high_risk_special_numbers_enabled: Union[bool, object] = values.unset,
         high_risk_tollfraud_numbers_enabled: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CountryInstance]:
@@ -329,7 +331,7 @@ class CountryList(ListResource):
         Lists CountryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str iso_code: Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
         :param str continent: Filter to retrieve the country permissions by specifying the continent
         :param str country_code: Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
@@ -345,27 +347,25 @@ class CountryList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                iso_code=iso_code,
-                continent=continent,
-                country_code=country_code,
-                low_risk_numbers_enabled=low_risk_numbers_enabled,
-                high_risk_special_numbers_enabled=high_risk_special_numbers_enabled,
-                high_risk_tollfraud_numbers_enabled=high_risk_tollfraud_numbers_enabled,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            iso_code=iso_code,
+            continent=continent,
+            country_code=country_code,
+            low_risk_numbers_enabled=low_risk_numbers_enabled,
+            high_risk_special_numbers_enabled=high_risk_special_numbers_enabled,
+            high_risk_tollfraud_numbers_enabled=high_risk_tollfraud_numbers_enabled,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         iso_code: Union[str, object] = values.unset,
         continent: Union[str, object] = values.unset,
         country_code: Union[str, object] = values.unset,
         low_risk_numbers_enabled: Union[bool, object] = values.unset,
         high_risk_special_numbers_enabled: Union[bool, object] = values.unset,
         high_risk_tollfraud_numbers_enabled: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CountryInstance]:
@@ -373,7 +373,7 @@ class CountryList(ListResource):
         Asynchronously lists CountryInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str iso_code: Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
         :param str continent: Filter to retrieve the country permissions by specifying the continent
         :param str country_code: Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
@@ -389,28 +389,25 @@ class CountryList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                iso_code=iso_code,
-                continent=continent,
-                country_code=country_code,
-                low_risk_numbers_enabled=low_risk_numbers_enabled,
-                high_risk_special_numbers_enabled=high_risk_special_numbers_enabled,
-                high_risk_tollfraud_numbers_enabled=high_risk_tollfraud_numbers_enabled,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            iso_code=iso_code,
+            continent=continent,
+            country_code=country_code,
+            low_risk_numbers_enabled=low_risk_numbers_enabled,
+            high_risk_special_numbers_enabled=high_risk_special_numbers_enabled,
+            high_risk_tollfraud_numbers_enabled=high_risk_tollfraud_numbers_enabled,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         iso_code: Union[str, object] = values.unset,
         continent: Union[str, object] = values.unset,
         country_code: Union[str, object] = values.unset,
         low_risk_numbers_enabled: Union[bool, object] = values.unset,
         high_risk_special_numbers_enabled: Union[bool, object] = values.unset,
         high_risk_tollfraud_numbers_enabled: Union[bool, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -418,7 +415,7 @@ class CountryList(ListResource):
         """
         Retrieve a single page of CountryInstance records from the API.
         Request is executed immediately
-
+        
         :param iso_code: Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
         :param continent: Filter to retrieve the country permissions by specifying the continent
         :param country_code: Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
@@ -431,37 +428,29 @@ class CountryList(ListResource):
 
         :returns: Page of CountryInstance
         """
-        data = values.of(
-            {
-                "IsoCode": iso_code,
-                "Continent": continent,
-                "CountryCode": country_code,
-                "LowRiskNumbersEnabled": serialize.boolean_to_string(
-                    low_risk_numbers_enabled
-                ),
-                "HighRiskSpecialNumbersEnabled": serialize.boolean_to_string(
-                    high_risk_special_numbers_enabled
-                ),
-                "HighRiskTollfraudNumbersEnabled": serialize.boolean_to_string(
-                    high_risk_tollfraud_numbers_enabled
-                ),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'IsoCode': iso_code,
+            'Continent': continent,
+            'CountryCode': country_code,
+            'LowRiskNumbersEnabled': serialize.boolean_to_string(low_risk_numbers_enabled),
+            'HighRiskSpecialNumbersEnabled': serialize.boolean_to_string(high_risk_special_numbers_enabled),
+            'HighRiskTollfraudNumbersEnabled': serialize.boolean_to_string(high_risk_tollfraud_numbers_enabled),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return CountryPage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         iso_code: Union[str, object] = values.unset,
         continent: Union[str, object] = values.unset,
         country_code: Union[str, object] = values.unset,
         low_risk_numbers_enabled: Union[bool, object] = values.unset,
         high_risk_special_numbers_enabled: Union[bool, object] = values.unset,
         high_risk_tollfraud_numbers_enabled: Union[bool, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -469,7 +458,7 @@ class CountryList(ListResource):
         """
         Asynchronously retrieve a single page of CountryInstance records from the API.
         Request is executed immediately
-
+        
         :param iso_code: Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
         :param continent: Filter to retrieve the country permissions by specifying the continent
         :param country_code: Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
@@ -482,29 +471,19 @@ class CountryList(ListResource):
 
         :returns: Page of CountryInstance
         """
-        data = values.of(
-            {
-                "IsoCode": iso_code,
-                "Continent": continent,
-                "CountryCode": country_code,
-                "LowRiskNumbersEnabled": serialize.boolean_to_string(
-                    low_risk_numbers_enabled
-                ),
-                "HighRiskSpecialNumbersEnabled": serialize.boolean_to_string(
-                    high_risk_special_numbers_enabled
-                ),
-                "HighRiskTollfraudNumbersEnabled": serialize.boolean_to_string(
-                    high_risk_tollfraud_numbers_enabled
-                ),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'IsoCode': iso_code,
+            'Continent': continent,
+            'CountryCode': country_code,
+            'LowRiskNumbersEnabled': serialize.boolean_to_string(low_risk_numbers_enabled),
+            'HighRiskSpecialNumbersEnabled': serialize.boolean_to_string(high_risk_special_numbers_enabled),
+            'HighRiskTollfraudNumbersEnabled': serialize.boolean_to_string(high_risk_tollfraud_numbers_enabled),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return CountryPage(self._version, response)
 
     def get_page(self, target_url: str) -> CountryPage:
@@ -516,7 +495,10 @@ class CountryList(ListResource):
 
         :returns: Page of CountryInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return CountryPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> CountryPage:
@@ -528,13 +510,20 @@ class CountryList(ListResource):
 
         :returns: Page of CountryInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return CountryPage(self._version, response)
+
+
+
+
 
     def get(self, iso_code: str) -> CountryContext:
         """
         Constructs a CountryContext
-
+        
         :param iso_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch
         """
         return CountryContext(self._version, iso_code=iso_code)
@@ -542,7 +531,7 @@ class CountryList(ListResource):
     def __call__(self, iso_code: str) -> CountryContext:
         """
         Constructs a CountryContext
-
+        
         :param iso_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the DialingPermissions Country resource to fetch
         """
         return CountryContext(self._version, iso_code=iso_code)
@@ -553,4 +542,5 @@ class CountryList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Voice.V1.CountryList>"
+        return '<Twilio.Voice.V1.CountryList>'
+

@@ -12,8 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -22,6 +25,7 @@ from twilio.base.page import Page
 
 
 class SubscribedEventInstance(InstanceResource):
+
     """
     :ivar account_sid: The unique SID identifier of the Account.
     :ivar type: Type of event being subscribed to.
@@ -30,24 +34,18 @@ class SubscribedEventInstance(InstanceResource):
     :ivar url: The URL of this resource.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        subscription_sid: str,
-        type: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], subscription_sid: str, type: Optional[str] = None):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.type: Optional[str] = payload.get("type")
-        self.schema_version: Optional[int] = deserialize.integer(
-            payload.get("schema_version")
-        )
+        self.schema_version: Optional[int] = deserialize.integer(payload.get("schema_version"))
         self.subscription_sid: Optional[str] = payload.get("subscription_sid")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "subscription_sid": subscription_sid,
             "type": type or self.type,
         }
@@ -62,35 +60,32 @@ class SubscribedEventInstance(InstanceResource):
         :returns: SubscribedEventContext for this SubscribedEventInstance
         """
         if self._context is None:
-            self._context = SubscribedEventContext(
-                self._version,
-                subscription_sid=self._solution["subscription_sid"],
-                type=self._solution["type"],
-            )
+            self._context = SubscribedEventContext(self._version, subscription_sid=self._solution['subscription_sid'], type=self._solution['type'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the SubscribedEventInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SubscribedEventInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "SubscribedEventInstance":
         """
         Fetch the SubscribedEventInstance
-
+        
 
         :returns: The fetched SubscribedEventInstance
         """
@@ -99,49 +94,41 @@ class SubscribedEventInstance(InstanceResource):
     async def fetch_async(self) -> "SubscribedEventInstance":
         """
         Asynchronous coroutine to fetch the SubscribedEventInstance
-
+        
 
         :returns: The fetched SubscribedEventInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self, schema_version: Union[int, object] = values.unset
-    ) -> "SubscribedEventInstance":
+    
+    
+    def update(self, schema_version: Union[int, object]=values.unset) -> "SubscribedEventInstance":
         """
         Update the SubscribedEventInstance
-
+        
         :param schema_version: The schema version that the Subscription should use.
 
         :returns: The updated SubscribedEventInstance
         """
-        return self._proxy.update(
-            schema_version=schema_version,
-        )
+        return self._proxy.update(schema_version=schema_version, )
 
-    async def update_async(
-        self, schema_version: Union[int, object] = values.unset
-    ) -> "SubscribedEventInstance":
+    async def update_async(self, schema_version: Union[int, object]=values.unset) -> "SubscribedEventInstance":
         """
         Asynchronous coroutine to update the SubscribedEventInstance
-
+        
         :param schema_version: The schema version that the Subscription should use.
 
         :returns: The updated SubscribedEventInstance
         """
-        return await self._proxy.update_async(
-            schema_version=schema_version,
-        )
-
+        return await self._proxy.update_async(schema_version=schema_version, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.SubscribedEventInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Events.V1.SubscribedEventInstance {}>'.format(context)
 
 class SubscribedEventContext(InstanceContext):
 
@@ -155,145 +142,134 @@ class SubscribedEventContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "subscription_sid": subscription_sid,
-            "type": type,
+        self._solution = { 
+            'subscription_sid': subscription_sid,
+            'type': type,
         }
-        self._uri = "/Subscriptions/{subscription_sid}/SubscribedEvents/{type}".format(
-            **self._solution
-        )
-
+        self._uri = '/Subscriptions/{subscription_sid}/SubscribedEvents/{type}'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the SubscribedEventInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SubscribedEventInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> SubscribedEventInstance:
         """
         Fetch the SubscribedEventInstance
-
+        
 
         :returns: The fetched SubscribedEventInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SubscribedEventInstance(
             self._version,
             payload,
-            subscription_sid=self._solution["subscription_sid"],
-            type=self._solution["type"],
+            subscription_sid=self._solution['subscription_sid'],
+            type=self._solution['type'],
+            
         )
 
     async def fetch_async(self) -> SubscribedEventInstance:
         """
         Asynchronous coroutine to fetch the SubscribedEventInstance
-
+        
 
         :returns: The fetched SubscribedEventInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return SubscribedEventInstance(
             self._version,
             payload,
-            subscription_sid=self._solution["subscription_sid"],
-            type=self._solution["type"],
+            subscription_sid=self._solution['subscription_sid'],
+            type=self._solution['type'],
+            
         )
-
-    def update(
-        self, schema_version: Union[int, object] = values.unset
-    ) -> SubscribedEventInstance:
+    
+    
+    def update(self, schema_version: Union[int, object]=values.unset) -> SubscribedEventInstance:
         """
         Update the SubscribedEventInstance
-
+        
         :param schema_version: The schema version that the Subscription should use.
 
         :returns: The updated SubscribedEventInstance
         """
-        data = values.of(
-            {
-                "SchemaVersion": schema_version,
-            }
-        )
+        data = values.of({ 
+            'SchemaVersion': schema_version,
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SubscribedEventInstance(
             self._version,
             payload,
-            subscription_sid=self._solution["subscription_sid"],
-            type=self._solution["type"],
+            subscription_sid=self._solution['subscription_sid'],
+            type=self._solution['type']
         )
 
-    async def update_async(
-        self, schema_version: Union[int, object] = values.unset
-    ) -> SubscribedEventInstance:
+    async def update_async(self, schema_version: Union[int, object]=values.unset) -> SubscribedEventInstance:
         """
         Asynchronous coroutine to update the SubscribedEventInstance
-
+        
         :param schema_version: The schema version that the Subscription should use.
 
         :returns: The updated SubscribedEventInstance
         """
-        data = values.of(
-            {
-                "SchemaVersion": schema_version,
-            }
-        )
+        data = values.of({ 
+            'SchemaVersion': schema_version,
+        })
+        
 
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
 
         return SubscribedEventInstance(
             self._version,
             payload,
-            subscription_sid=self._solution["subscription_sid"],
-            type=self._solution["type"],
+            subscription_sid=self._solution['subscription_sid'],
+            type=self._solution['type']
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.SubscribedEventContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Events.V1.SubscribedEventContext {}>'.format(context)
+
+
+
+
+
+
+
+
+
 
 
 class SubscribedEventPage(Page):
@@ -304,9 +280,7 @@ class SubscribedEventPage(Page):
 
         :param payload: Payload response from the API
         """
-        return SubscribedEventInstance(
-            self._version, payload, subscription_sid=self._solution["subscription_sid"]
-        )
+        return SubscribedEventInstance(self._version, payload, subscription_sid=self._solution["subscription_sid"])
 
     def __repr__(self) -> str:
         """
@@ -317,84 +291,80 @@ class SubscribedEventPage(Page):
         return "<Twilio.Events.V1.SubscribedEventPage>"
 
 
-class SubscribedEventList(ListResource):
 
+
+
+class SubscribedEventList(ListResource):
+    
     def __init__(self, version: Version, subscription_sid: str):
         """
         Initialize the SubscribedEventList
 
         :param version: Version that contains the resource
         :param subscription_sid: The unique SID identifier of the Subscription.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "subscription_sid": subscription_sid,
-        }
-        self._uri = "/Subscriptions/{subscription_sid}/SubscribedEvents".format(
-            **self._solution
-        )
-
-    def create(
-        self, type: str, schema_version: Union[int, object] = values.unset
-    ) -> SubscribedEventInstance:
+        self._solution = { 'subscription_sid': subscription_sid,  }
+        self._uri = '/Subscriptions/{subscription_sid}/SubscribedEvents'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, type: str, schema_version: Union[int, object]=values.unset) -> SubscribedEventInstance:
         """
         Create the SubscribedEventInstance
 
         :param type: Type of event being subscribed to.
         :param schema_version: The schema version that the Subscription should use.
-
+        
         :returns: The created SubscribedEventInstance
         """
+        
+        data = values.of({ 
+            'Type': type,
+            'SchemaVersion': schema_version,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Type": type,
-                "SchemaVersion": schema_version,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return SubscribedEventInstance(self._version, payload, subscription_sid=self._solution['subscription_sid'])
 
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return SubscribedEventInstance(
-            self._version, payload, subscription_sid=self._solution["subscription_sid"]
-        )
-
-    async def create_async(
-        self, type: str, schema_version: Union[int, object] = values.unset
-    ) -> SubscribedEventInstance:
+    async def create_async(self, type: str, schema_version: Union[int, object]=values.unset) -> SubscribedEventInstance:
         """
         Asynchronously create the SubscribedEventInstance
 
         :param type: Type of event being subscribed to.
         :param schema_version: The schema version that the Subscription should use.
-
+        
         :returns: The created SubscribedEventInstance
         """
+        
+        data = values.of({ 
+            'Type': type,
+            'SchemaVersion': schema_version,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Type": type,
-                "SchemaVersion": schema_version,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return SubscribedEventInstance(
-            self._version, payload, subscription_sid=self._solution["subscription_sid"]
-        )
-
-    def stream(
-        self,
+        return SubscribedEventInstance(self._version, payload, subscription_sid=self._solution['subscription_sid'])
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[SubscribedEventInstance]:
@@ -403,7 +373,7 @@ class SubscribedEventList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -414,12 +384,14 @@ class SubscribedEventList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[SubscribedEventInstance]:
@@ -428,7 +400,7 @@ class SubscribedEventList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -439,12 +411,14 @@ class SubscribedEventList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[SubscribedEventInstance]:
@@ -452,7 +426,7 @@ class SubscribedEventList(ListResource):
         Lists SubscribedEventInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -462,15 +436,13 @@ class SubscribedEventList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[SubscribedEventInstance]:
@@ -478,7 +450,7 @@ class SubscribedEventList(ListResource):
         Asynchronously lists SubscribedEventInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -488,16 +460,13 @@ class SubscribedEventList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -505,26 +474,24 @@ class SubscribedEventList(ListResource):
         """
         Retrieve a single page of SubscribedEventInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SubscribedEventInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return SubscribedEventPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -532,24 +499,20 @@ class SubscribedEventList(ListResource):
         """
         Asynchronously retrieve a single page of SubscribedEventInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of SubscribedEventInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return SubscribedEventPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> SubscribedEventPage:
@@ -561,7 +524,10 @@ class SubscribedEventList(ListResource):
 
         :returns: Page of SubscribedEventInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return SubscribedEventPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> SubscribedEventPage:
@@ -573,32 +539,29 @@ class SubscribedEventList(ListResource):
 
         :returns: Page of SubscribedEventInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return SubscribedEventPage(self._version, response, self._solution)
+
+
 
     def get(self, type: str) -> SubscribedEventContext:
         """
         Constructs a SubscribedEventContext
-
+        
         :param type: Type of event being subscribed to.
         """
-        return SubscribedEventContext(
-            self._version,
-            subscription_sid=self._solution["subscription_sid"],
-            type=type,
-        )
+        return SubscribedEventContext(self._version, subscription_sid=self._solution['subscription_sid'], type=type)
 
     def __call__(self, type: str) -> SubscribedEventContext:
         """
         Constructs a SubscribedEventContext
-
+        
         :param type: Type of event being subscribed to.
         """
-        return SubscribedEventContext(
-            self._version,
-            subscription_sid=self._solution["subscription_sid"],
-            type=type,
-        )
+        return SubscribedEventContext(self._version, subscription_sid=self._solution['subscription_sid'], type=type)
 
     def __repr__(self) -> str:
         """
@@ -606,4 +569,5 @@ class SubscribedEventList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Events.V1.SubscribedEventList>"
+        return '<Twilio.Events.V1.SubscribedEventList>'
+

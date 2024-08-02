@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -44,29 +46,29 @@ class SettingsUpdateInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.iccid: Optional[str] = payload.get("iccid")
         self.sim_sid: Optional[str] = payload.get("sim_sid")
         self.status: Optional["SettingsUpdateInstance.Status"] = payload.get("status")
         self.packages: Optional[List[Dict[str, object]]] = payload.get("packages")
-        self.date_completed: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_completed")
-        )
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_completed: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_completed"))
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
 
+        
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
+        
+        return '<Twilio.Supersim.V1.SettingsUpdateInstance>'
 
-        return "<Twilio.Supersim.V1.SettingsUpdateInstance>"
+
 
 
 class SettingsUpdatePage(Page):
@@ -88,23 +90,29 @@ class SettingsUpdatePage(Page):
         return "<Twilio.Supersim.V1.SettingsUpdatePage>"
 
 
-class SettingsUpdateList(ListResource):
 
+
+
+class SettingsUpdateList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the SettingsUpdateList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/SettingsUpdates"
-
-    def stream(
-        self,
+        
+        self._uri = '/SettingsUpdates'
+        
+        
+    
+    def stream(self, 
         sim: Union[str, object] = values.unset,
         status: Union["SettingsUpdateInstance.Status", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[SettingsUpdateInstance]:
@@ -113,7 +121,7 @@ class SettingsUpdateList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
         :param &quot;SettingsUpdateInstance.Status&quot; status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
         :param limit: Upper limit for the number of records to return. stream()
@@ -126,14 +134,18 @@ class SettingsUpdateList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(sim=sim, status=status, page_size=limits["page_size"])
+        page = self.page(
+            sim=sim,
+            status=status,
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         sim: Union[str, object] = values.unset,
         status: Union["SettingsUpdateInstance.Status", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[SettingsUpdateInstance]:
@@ -142,7 +154,7 @@ class SettingsUpdateList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
         :param &quot;SettingsUpdateInstance.Status&quot; status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
         :param limit: Upper limit for the number of records to return. stream()
@@ -156,15 +168,17 @@ class SettingsUpdateList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            sim=sim, status=status, page_size=limits["page_size"]
+            sim=sim,
+            status=status,
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         sim: Union[str, object] = values.unset,
         status: Union["SettingsUpdateInstance.Status", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[SettingsUpdateInstance]:
@@ -172,7 +186,7 @@ class SettingsUpdateList(ListResource):
         Lists SettingsUpdateInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
         :param &quot;SettingsUpdateInstance.Status&quot; status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -184,19 +198,17 @@ class SettingsUpdateList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                sim=sim,
-                status=status,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            sim=sim,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         sim: Union[str, object] = values.unset,
         status: Union["SettingsUpdateInstance.Status", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[SettingsUpdateInstance]:
@@ -204,7 +216,7 @@ class SettingsUpdateList(ListResource):
         Asynchronously lists SettingsUpdateInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
         :param &quot;SettingsUpdateInstance.Status&quot; status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -216,20 +228,17 @@ class SettingsUpdateList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                sim=sim,
-                status=status,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            sim=sim,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         sim: Union[str, object] = values.unset,
         status: Union["SettingsUpdateInstance.Status", object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -237,7 +246,7 @@ class SettingsUpdateList(ListResource):
         """
         Retrieve a single page of SettingsUpdateInstance records from the API.
         Request is executed immediately
-
+        
         :param sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
         :param status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
         :param page_token: PageToken provided by the API
@@ -246,23 +255,21 @@ class SettingsUpdateList(ListResource):
 
         :returns: Page of SettingsUpdateInstance
         """
-        data = values.of(
-            {
-                "Sim": sim,
-                "Status": status,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Sim': sim,
+            'Status': status,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return SettingsUpdatePage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         sim: Union[str, object] = values.unset,
         status: Union["SettingsUpdateInstance.Status", object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -270,7 +277,7 @@ class SettingsUpdateList(ListResource):
         """
         Asynchronously retrieve a single page of SettingsUpdateInstance records from the API.
         Request is executed immediately
-
+        
         :param sim: Filter the Settings Updates by a Super SIM's SID or UniqueName.
         :param status: Filter the Settings Updates by status. Can be `scheduled`, `in-progress`, `successful`, or `failed`.
         :param page_token: PageToken provided by the API
@@ -279,19 +286,15 @@ class SettingsUpdateList(ListResource):
 
         :returns: Page of SettingsUpdateInstance
         """
-        data = values.of(
-            {
-                "Sim": sim,
-                "Status": status,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Sim': sim,
+            'Status': status,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return SettingsUpdatePage(self._version, response)
 
     def get_page(self, target_url: str) -> SettingsUpdatePage:
@@ -303,7 +306,10 @@ class SettingsUpdateList(ListResource):
 
         :returns: Page of SettingsUpdateInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return SettingsUpdatePage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> SettingsUpdatePage:
@@ -315,8 +321,14 @@ class SettingsUpdateList(ListResource):
 
         :returns: Page of SettingsUpdateInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return SettingsUpdatePage(self._version, response)
+
+
+
 
     def __repr__(self) -> str:
         """
@@ -324,4 +336,5 @@ class SettingsUpdateList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Supersim.V1.SettingsUpdateList>"
+        return '<Twilio.Supersim.V1.SettingsUpdateList>'
+

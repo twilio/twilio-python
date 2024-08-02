@@ -12,15 +12,20 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, Optional, Union
-from twilio.base import values
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
 class ComplianceInquiriesInstance(InstanceResource):
+
     """
     :ivar inquiry_id: The unique ID used to start an embedded compliance registration session.
     :ivar inquiry_session_token: The session token used to start an embedded compliance registration session.
@@ -28,20 +33,17 @@ class ComplianceInquiriesInstance(InstanceResource):
     :ivar url: The URL of this resource.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        customer_id: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], customer_id: Optional[str] = None):
         super().__init__(version)
 
+        
         self.inquiry_id: Optional[str] = payload.get("inquiry_id")
         self.inquiry_session_token: Optional[str] = payload.get("inquiry_session_token")
         self.customer_id: Optional[str] = payload.get("customer_id")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "customer_id": customer_id or self.customer_id,
         }
         self._context: Optional[ComplianceInquiriesContext] = None
@@ -55,47 +57,38 @@ class ComplianceInquiriesInstance(InstanceResource):
         :returns: ComplianceInquiriesContext for this ComplianceInquiriesInstance
         """
         if self._context is None:
-            self._context = ComplianceInquiriesContext(
-                self._version,
-                customer_id=self._solution["customer_id"],
-            )
+            self._context = ComplianceInquiriesContext(self._version, customer_id=self._solution['customer_id'],)
         return self._context
-
+    
+    
     def update(self, primary_profile_sid: str) -> "ComplianceInquiriesInstance":
         """
         Update the ComplianceInquiriesInstance
-
+        
         :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
 
         :returns: The updated ComplianceInquiriesInstance
         """
-        return self._proxy.update(
-            primary_profile_sid=primary_profile_sid,
-        )
+        return self._proxy.update(primary_profile_sid=primary_profile_sid, )
 
-    async def update_async(
-        self, primary_profile_sid: str
-    ) -> "ComplianceInquiriesInstance":
+    async def update_async(self, primary_profile_sid: str) -> "ComplianceInquiriesInstance":
         """
         Asynchronous coroutine to update the ComplianceInquiriesInstance
-
+        
         :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
 
         :returns: The updated ComplianceInquiriesInstance
         """
-        return await self._proxy.update_async(
-            primary_profile_sid=primary_profile_sid,
-        )
-
+        return await self._proxy.update_async(primary_profile_sid=primary_profile_sid, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.ComplianceInquiriesInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trusthub.V1.ComplianceInquiriesInstance {}>'.format(context)
 
 class ComplianceInquiriesContext(InstanceContext):
 
@@ -108,147 +101,138 @@ class ComplianceInquiriesContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "customer_id": customer_id,
+        self._solution = { 
+            'customer_id': customer_id,
         }
-        self._uri = "/ComplianceInquiries/Customers/{customer_id}/Initialize".format(
-            **self._solution
-        )
-
+        self._uri = '/ComplianceInquiries/Customers/{customer_id}/Initialize'.format(**self._solution)
+        
+    
+    
     def update(self, primary_profile_sid: str) -> ComplianceInquiriesInstance:
         """
         Update the ComplianceInquiriesInstance
-
+        
         :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
 
         :returns: The updated ComplianceInquiriesInstance
         """
-        data = values.of(
-            {
-                "PrimaryProfileSid": primary_profile_sid,
-            }
-        )
+        data = values.of({ 
+            'PrimaryProfileSid': primary_profile_sid,
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return ComplianceInquiriesInstance(
-            self._version, payload, customer_id=self._solution["customer_id"]
+            self._version,
+            payload,
+            customer_id=self._solution['customer_id']
         )
 
-    async def update_async(
-        self, primary_profile_sid: str
-    ) -> ComplianceInquiriesInstance:
+    async def update_async(self, primary_profile_sid: str) -> ComplianceInquiriesInstance:
         """
         Asynchronous coroutine to update the ComplianceInquiriesInstance
-
+        
         :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
 
         :returns: The updated ComplianceInquiriesInstance
         """
-        data = values.of(
-            {
-                "PrimaryProfileSid": primary_profile_sid,
-            }
-        )
+        data = values.of({ 
+            'PrimaryProfileSid': primary_profile_sid,
+        })
+        
 
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
 
         return ComplianceInquiriesInstance(
-            self._version, payload, customer_id=self._solution["customer_id"]
+            self._version,
+            payload,
+            customer_id=self._solution['customer_id']
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.ComplianceInquiriesContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trusthub.V1.ComplianceInquiriesContext {}>'.format(context)
+
 
 
 class ComplianceInquiriesList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the ComplianceInquiriesList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/ComplianceInquiries/Customers/Initialize"
-
-    def create(
-        self,
-        primary_profile_sid: str,
-        notification_email: Union[str, object] = values.unset,
-    ) -> ComplianceInquiriesInstance:
+        
+        self._uri = '/ComplianceInquiries/Customers/Initialize'
+        
+        
+    
+    
+    def create(self, primary_profile_sid: str, notification_email: Union[str, object]=values.unset) -> ComplianceInquiriesInstance:
         """
         Create the ComplianceInquiriesInstance
 
         :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
         :param notification_email: The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used.
-
+        
         :returns: The created ComplianceInquiriesInstance
         """
-
-        data = values.of(
-            {
-                "PrimaryProfileSid": primary_profile_sid,
-                "NotificationEmail": notification_email,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'PrimaryProfileSid': primary_profile_sid,
+            'NotificationEmail': notification_email,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
         return ComplianceInquiriesInstance(self._version, payload)
 
-    async def create_async(
-        self,
-        primary_profile_sid: str,
-        notification_email: Union[str, object] = values.unset,
-    ) -> ComplianceInquiriesInstance:
+    async def create_async(self, primary_profile_sid: str, notification_email: Union[str, object]=values.unset) -> ComplianceInquiriesInstance:
         """
         Asynchronously create the ComplianceInquiriesInstance
 
         :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
         :param notification_email: The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used.
-
+        
         :returns: The created ComplianceInquiriesInstance
         """
-
-        data = values.of(
-            {
-                "PrimaryProfileSid": primary_profile_sid,
-                "NotificationEmail": notification_email,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'PrimaryProfileSid': primary_profile_sid,
+            'NotificationEmail': notification_email,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return ComplianceInquiriesInstance(self._version, payload)
+    
+
 
     def get(self, customer_id: str) -> ComplianceInquiriesContext:
         """
         Constructs a ComplianceInquiriesContext
-
+        
         :param customer_id: The unique CustomerId matching the Customer Profile/Compliance Inquiry that should be resumed or resubmitted. This value will have been returned by the initial Compliance Inquiry creation call.
         """
         return ComplianceInquiriesContext(self._version, customer_id=customer_id)
@@ -256,7 +240,7 @@ class ComplianceInquiriesList(ListResource):
     def __call__(self, customer_id: str) -> ComplianceInquiriesContext:
         """
         Constructs a ComplianceInquiriesContext
-
+        
         :param customer_id: The unique CustomerId matching the Customer Profile/Compliance Inquiry that should be resumed or resubmitted. This value will have been returned by the initial Compliance Inquiry creation call.
         """
         return ComplianceInquiriesContext(self._version, customer_id=customer_id)
@@ -267,4 +251,5 @@ class ComplianceInquiriesList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Trusthub.V1.ComplianceInquiriesList>"
+        return '<Twilio.Trusthub.V1.ComplianceInquiriesList>'
+

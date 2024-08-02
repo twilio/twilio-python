@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -59,28 +61,19 @@ class CompositionInstance(InstanceResource):
     :ivar links: The URL of the media file associated with the composition.
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.status: Optional["CompositionInstance.Status"] = payload.get("status")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_completed: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_completed")
-        )
-        self.date_deleted: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_deleted")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_completed: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_completed"))
+        self.date_deleted: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_deleted"))
         self.sid: Optional[str] = payload.get("sid")
         self.room_sid: Optional[str] = payload.get("room_sid")
         self.audio_sources: Optional[List[str]] = payload.get("audio_sources")
-        self.audio_sources_excluded: Optional[List[str]] = payload.get(
-            "audio_sources_excluded"
-        )
+        self.audio_sources_excluded: Optional[List[str]] = payload.get("audio_sources_excluded")
         self.video_layout: Optional[Dict[str, object]] = payload.get("video_layout")
         self.resolution: Optional[str] = payload.get("resolution")
         self.trim: Optional[bool] = payload.get("trim")
@@ -88,17 +81,14 @@ class CompositionInstance(InstanceResource):
         self.bitrate: Optional[int] = deserialize.integer(payload.get("bitrate"))
         self.size: Optional[int] = payload.get("size")
         self.duration: Optional[int] = deserialize.integer(payload.get("duration"))
-        self.media_external_location: Optional[str] = payload.get(
-            "media_external_location"
-        )
+        self.media_external_location: Optional[str] = payload.get("media_external_location")
         self.status_callback: Optional[str] = payload.get("status_callback")
-        self.status_callback_method: Optional[str] = payload.get(
-            "status_callback_method"
-        )
+        self.status_callback_method: Optional[str] = payload.get("status_callback_method")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        self._solution = {
+        
+        self._solution = { 
             "sid": sid or self.sid,
         }
         self._context: Optional[CompositionContext] = None
@@ -112,34 +102,32 @@ class CompositionInstance(InstanceResource):
         :returns: CompositionContext for this CompositionInstance
         """
         if self._context is None:
-            self._context = CompositionContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
+            self._context = CompositionContext(self._version, sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the CompositionInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CompositionInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "CompositionInstance":
         """
         Fetch the CompositionInstance
-
+        
 
         :returns: The fetched CompositionInstance
         """
@@ -148,21 +136,20 @@ class CompositionInstance(InstanceResource):
     async def fetch_async(self) -> "CompositionInstance":
         """
         Asynchronous coroutine to fetch the CompositionInstance
-
+        
 
         :returns: The fetched CompositionInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.CompositionInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Video.V1.CompositionInstance {}>'.format(context)
 
 class CompositionContext(InstanceContext):
 
@@ -175,82 +162,84 @@ class CompositionContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
+        self._solution = { 
+            'sid': sid,
         }
-        self._uri = "/Compositions/{sid}".format(**self._solution)
-
+        self._uri = '/Compositions/{sid}'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the CompositionInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the CompositionInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> CompositionInstance:
         """
         Fetch the CompositionInstance
-
+        
 
         :returns: The fetched CompositionInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return CompositionInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> CompositionInstance:
         """
         Asynchronous coroutine to fetch the CompositionInstance
-
+        
 
         :returns: The fetched CompositionInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return CompositionInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.CompositionContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Video.V1.CompositionContext {}>'.format(context)
+
+
+
+
+
+
+
 
 
 class CompositionPage(Page):
@@ -272,31 +261,28 @@ class CompositionPage(Page):
         return "<Twilio.Video.V1.CompositionPage>"
 
 
-class CompositionList(ListResource):
 
+
+
+class CompositionList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the CompositionList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/Compositions"
-
-    def create(
-        self,
-        room_sid: str,
-        video_layout: Union[object, object] = values.unset,
-        audio_sources: Union[List[str], object] = values.unset,
-        audio_sources_excluded: Union[List[str], object] = values.unset,
-        resolution: Union[str, object] = values.unset,
-        format: Union["CompositionInstance.Format", object] = values.unset,
-        status_callback: Union[str, object] = values.unset,
-        status_callback_method: Union[str, object] = values.unset,
-        trim: Union[bool, object] = values.unset,
-    ) -> CompositionInstance:
+        
+        self._uri = '/Compositions'
+        
+        
+    
+    
+    
+    def create(self, room_sid: str, video_layout: Union[object, object]=values.unset, audio_sources: Union[List[str], object]=values.unset, audio_sources_excluded: Union[List[str], object]=values.unset, resolution: Union[str, object]=values.unset, format: Union["CompositionInstance.Format", object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, trim: Union[bool, object]=values.unset) -> CompositionInstance:
         """
         Create the CompositionInstance
 
@@ -305,49 +291,35 @@ class CompositionList(ListResource):
         :param audio_sources: An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
         :param audio_sources_excluded: An array of track names to exclude. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
         :param resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param format:
+        :param format: 
         :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
         :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
         :param trim: Whether to clip the intervals where there is no active media in the composition. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-
+        
         :returns: The created CompositionInstance
         """
-
-        data = values.of(
-            {
-                "RoomSid": room_sid,
-                "VideoLayout": serialize.object(video_layout),
-                "AudioSources": serialize.map(audio_sources, lambda e: e),
-                "AudioSourcesExcluded": serialize.map(
-                    audio_sources_excluded, lambda e: e
-                ),
-                "Resolution": resolution,
-                "Format": format,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-                "Trim": serialize.boolean_to_string(trim),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'RoomSid': room_sid,
+            'VideoLayout': serialize.object(video_layout),
+            'AudioSources': serialize.map(audio_sources, lambda e: e),
+            'AudioSourcesExcluded': serialize.map(audio_sources_excluded, lambda e: e),
+            'Resolution': resolution,
+            'Format': format,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'Trim': serialize.boolean_to_string(trim),
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
         return CompositionInstance(self._version, payload)
 
-    async def create_async(
-        self,
-        room_sid: str,
-        video_layout: Union[object, object] = values.unset,
-        audio_sources: Union[List[str], object] = values.unset,
-        audio_sources_excluded: Union[List[str], object] = values.unset,
-        resolution: Union[str, object] = values.unset,
-        format: Union["CompositionInstance.Format", object] = values.unset,
-        status_callback: Union[str, object] = values.unset,
-        status_callback_method: Union[str, object] = values.unset,
-        trim: Union[bool, object] = values.unset,
-    ) -> CompositionInstance:
+    async def create_async(self, room_sid: str, video_layout: Union[object, object]=values.unset, audio_sources: Union[List[str], object]=values.unset, audio_sources_excluded: Union[List[str], object]=values.unset, resolution: Union[str, object]=values.unset, format: Union["CompositionInstance.Format", object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, trim: Union[bool, object]=values.unset) -> CompositionInstance:
         """
         Asynchronously create the CompositionInstance
 
@@ -356,43 +328,41 @@ class CompositionList(ListResource):
         :param audio_sources: An array of track names from the same group room to merge into the new composition. Can include zero or more track names. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` includes `student` as well as `studentTeam`. Please, be aware that either video_layout or audio_sources have to be provided to get a valid creation request
         :param audio_sources_excluded: An array of track names to exclude. The new composition includes all audio sources specified in `audio_sources` except for those specified in `audio_sources_excluded`. The track names in this parameter can include an asterisk as a wild card character, which will match zero or more characters in a track name. For example, `student*` excludes `student` as well as `studentTeam`. This parameter can also be empty.
         :param resolution: A string that describes the columns (width) and rows (height) of the generated composed video in pixels. Defaults to `640x480`.  The string's format is `{width}x{height}` where:   * 16 <= `{width}` <= 1280 * 16 <= `{height}` <= 1280 * `{width}` * `{height}` <= 921,600  Typical values are:   * HD = `1280x720` * PAL = `1024x576` * VGA = `640x480` * CIF = `320x240`  Note that the `resolution` imposes an aspect ratio to the resulting composition. When the original video tracks are constrained by the aspect ratio, they are scaled to fit. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-        :param format:
+        :param format: 
         :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every composition event. If not provided, status callback events will not be dispatched.
         :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
         :param trim: Whether to clip the intervals where there is no active media in the composition. The default is `true`. Compositions with `trim` enabled are shorter when the Room is created and no Participant joins for a while as well as if all the Participants leave the room and join later, because those gaps will be removed. See [Specifying Video Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info.
-
+        
         :returns: The created CompositionInstance
         """
-
-        data = values.of(
-            {
-                "RoomSid": room_sid,
-                "VideoLayout": serialize.object(video_layout),
-                "AudioSources": serialize.map(audio_sources, lambda e: e),
-                "AudioSourcesExcluded": serialize.map(
-                    audio_sources_excluded, lambda e: e
-                ),
-                "Resolution": resolution,
-                "Format": format,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-                "Trim": serialize.boolean_to_string(trim),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'RoomSid': room_sid,
+            'VideoLayout': serialize.object(video_layout),
+            'AudioSources': serialize.map(audio_sources, lambda e: e),
+            'AudioSourcesExcluded': serialize.map(audio_sources_excluded, lambda e: e),
+            'Resolution': resolution,
+            'Format': format,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'Trim': serialize.boolean_to_string(trim),
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return CompositionInstance(self._version, payload)
-
-    def stream(
-        self,
+    
+    
+    def stream(self, 
         status: Union["CompositionInstance.Status", object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         room_sid: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[CompositionInstance]:
@@ -401,7 +371,7 @@ class CompositionList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;CompositionInstance.Status&quot; status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
         :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
@@ -421,17 +391,17 @@ class CompositionList(ListResource):
             date_created_after=date_created_after,
             date_created_before=date_created_before,
             room_sid=room_sid,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         status: Union["CompositionInstance.Status", object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         room_sid: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[CompositionInstance]:
@@ -440,7 +410,7 @@ class CompositionList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;CompositionInstance.Status&quot; status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
         :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
@@ -460,17 +430,17 @@ class CompositionList(ListResource):
             date_created_after=date_created_after,
             date_created_before=date_created_before,
             room_sid=room_sid,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         status: Union["CompositionInstance.Status", object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         room_sid: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CompositionInstance]:
@@ -478,7 +448,7 @@ class CompositionList(ListResource):
         Lists CompositionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;CompositionInstance.Status&quot; status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
         :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
@@ -492,23 +462,21 @@ class CompositionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                status=status,
-                date_created_after=date_created_after,
-                date_created_before=date_created_before,
-                room_sid=room_sid,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            status=status,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            room_sid=room_sid,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         status: Union["CompositionInstance.Status", object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         room_sid: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CompositionInstance]:
@@ -516,7 +484,7 @@ class CompositionList(ListResource):
         Asynchronously lists CompositionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;CompositionInstance.Status&quot; status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
         :param datetime date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param datetime date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
@@ -530,24 +498,21 @@ class CompositionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                status=status,
-                date_created_after=date_created_after,
-                date_created_before=date_created_before,
-                room_sid=room_sid,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            status=status,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            room_sid=room_sid,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         status: Union["CompositionInstance.Status", object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         room_sid: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -555,7 +520,7 @@ class CompositionList(ListResource):
         """
         Retrieve a single page of CompositionInstance records from the API.
         Request is executed immediately
-
+        
         :param status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
         :param date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
@@ -566,27 +531,25 @@ class CompositionList(ListResource):
 
         :returns: Page of CompositionInstance
         """
-        data = values.of(
-            {
-                "Status": status,
-                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
-                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
-                "RoomSid": room_sid,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Status': status,
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
+            'RoomSid': room_sid,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return CompositionPage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         status: Union["CompositionInstance.Status", object] = values.unset,
         date_created_after: Union[datetime, object] = values.unset,
         date_created_before: Union[datetime, object] = values.unset,
         room_sid: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -594,7 +557,7 @@ class CompositionList(ListResource):
         """
         Asynchronously retrieve a single page of CompositionInstance records from the API.
         Request is executed immediately
-
+        
         :param status: Read only Composition resources with this status. Can be: `enqueued`, `processing`, `completed`, `deleted`, or `failed`.
         :param date_created_after: Read only Composition resources created on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone.
         :param date_created_before: Read only Composition resources created before this ISO 8601 date-time with time zone.
@@ -605,21 +568,17 @@ class CompositionList(ListResource):
 
         :returns: Page of CompositionInstance
         """
-        data = values.of(
-            {
-                "Status": status,
-                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
-                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
-                "RoomSid": room_sid,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Status': status,
+            'DateCreatedAfter': serialize.iso8601_datetime(date_created_after),
+            'DateCreatedBefore': serialize.iso8601_datetime(date_created_before),
+            'RoomSid': room_sid,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return CompositionPage(self._version, response)
 
     def get_page(self, target_url: str) -> CompositionPage:
@@ -631,7 +590,10 @@ class CompositionList(ListResource):
 
         :returns: Page of CompositionInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return CompositionPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> CompositionPage:
@@ -643,13 +605,18 @@ class CompositionList(ListResource):
 
         :returns: Page of CompositionInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return CompositionPage(self._version, response)
+
+
 
     def get(self, sid: str) -> CompositionContext:
         """
         Constructs a CompositionContext
-
+        
         :param sid: The SID of the Composition resource to fetch.
         """
         return CompositionContext(self._version, sid=sid)
@@ -657,7 +624,7 @@ class CompositionList(ListResource):
     def __call__(self, sid: str) -> CompositionContext:
         """
         Constructs a CompositionContext
-
+        
         :param sid: The SID of the Composition resource to fetch.
         """
         return CompositionContext(self._version, sid=sid)
@@ -668,4 +635,5 @@ class CompositionList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Video.V1.CompositionList>"
+        return '<Twilio.Video.V1.CompositionList>'
+

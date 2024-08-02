@@ -12,15 +12,20 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, List, Optional
-from twilio.base import values
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
 class UsecaseInstance(InstanceResource):
+
     """
     :ivar usecases: Human readable use case details (usecase, description and purpose) of Messaging Service Use Cases.
     """
@@ -28,41 +33,53 @@ class UsecaseInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
+        
         self.usecases: Optional[List[Dict[str, object]]] = payload.get("usecases")
 
+        
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
+        
+        return '<Twilio.Messaging.V1.UsecaseInstance>'
 
-        return "<Twilio.Messaging.V1.UsecaseInstance>"
+
 
 
 class UsecaseList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the UsecaseList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/Services/Usecases"
-
+        
+        self._uri = '/Services/Usecases'
+        
+        
+    
     def fetch(self) -> UsecaseInstance:
         """
         Asynchronously fetch the UsecaseInstance
 
-
+        
         :returns: The fetched UsecaseInstance
         """
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, headers=headers)
 
         return UsecaseInstance(self._version, payload)
 
@@ -70,16 +87,19 @@ class UsecaseList(ListResource):
         """
         Asynchronously fetch the UsecaseInstance
 
-
+        
         :returns: The fetched UsecaseInstance
         """
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, headers=headers)
 
         return UsecaseInstance(self._version, payload)
+
+
 
     def __repr__(self) -> str:
         """
@@ -87,4 +107,5 @@ class UsecaseList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Messaging.V1.UsecaseList>"
+        return '<Twilio.Messaging.V1.UsecaseList>'
+

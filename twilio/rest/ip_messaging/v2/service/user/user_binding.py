@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -44,36 +46,25 @@ class UserBindingInstance(InstanceResource):
     :ivar url: 
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        service_sid: str,
-        user_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, user_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.endpoint: Optional[str] = payload.get("endpoint")
         self.identity: Optional[str] = payload.get("identity")
         self.user_sid: Optional[str] = payload.get("user_sid")
         self.credential_sid: Optional[str] = payload.get("credential_sid")
-        self.binding_type: Optional["UserBindingInstance.BindingType"] = payload.get(
-            "binding_type"
-        )
+        self.binding_type: Optional["UserBindingInstance.BindingType"] = payload.get("binding_type")
         self.message_types: Optional[List[str]] = payload.get("message_types")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "service_sid": service_sid,
             "user_sid": user_sid,
             "sid": sid or self.sid,
@@ -89,36 +80,32 @@ class UserBindingInstance(InstanceResource):
         :returns: UserBindingContext for this UserBindingInstance
         """
         if self._context is None:
-            self._context = UserBindingContext(
-                self._version,
-                service_sid=self._solution["service_sid"],
-                user_sid=self._solution["user_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = UserBindingContext(self._version, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'], sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the UserBindingInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the UserBindingInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "UserBindingInstance":
         """
         Fetch the UserBindingInstance
-
+        
 
         :returns: The fetched UserBindingInstance
         """
@@ -127,21 +114,20 @@ class UserBindingInstance(InstanceResource):
     async def fetch_async(self) -> "UserBindingInstance":
         """
         Asynchronous coroutine to fetch the UserBindingInstance
-
+        
 
         :returns: The fetched UserBindingInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V2.UserBindingInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.IpMessaging.V2.UserBindingInstance {}>'.format(context)
 
 class UserBindingContext(InstanceContext):
 
@@ -150,96 +136,94 @@ class UserBindingContext(InstanceContext):
         Initialize the UserBindingContext
 
         :param version: Version that contains the resource
-        :param service_sid:
-        :param user_sid:
-        :param sid:
+        :param service_sid: 
+        :param user_sid: 
+        :param sid: 
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "user_sid": user_sid,
-            "sid": sid,
+        self._solution = { 
+            'service_sid': service_sid,
+            'user_sid': user_sid,
+            'sid': sid,
         }
-        self._uri = "/Services/{service_sid}/Users/{user_sid}/Bindings/{sid}".format(
-            **self._solution
-        )
-
+        self._uri = '/Services/{service_sid}/Users/{user_sid}/Bindings/{sid}'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the UserBindingInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the UserBindingInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> UserBindingInstance:
         """
         Fetch the UserBindingInstance
-
+        
 
         :returns: The fetched UserBindingInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return UserBindingInstance(
             self._version,
             payload,
-            service_sid=self._solution["service_sid"],
-            user_sid=self._solution["user_sid"],
-            sid=self._solution["sid"],
+            service_sid=self._solution['service_sid'],
+            user_sid=self._solution['user_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> UserBindingInstance:
         """
         Asynchronous coroutine to fetch the UserBindingInstance
-
+        
 
         :returns: The fetched UserBindingInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return UserBindingInstance(
             self._version,
             payload,
-            service_sid=self._solution["service_sid"],
-            user_sid=self._solution["user_sid"],
-            sid=self._solution["sid"],
+            service_sid=self._solution['service_sid'],
+            user_sid=self._solution['user_sid'],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V2.UserBindingContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.IpMessaging.V2.UserBindingContext {}>'.format(context)
+
+
+
+
+
 
 
 class UserBindingPage(Page):
@@ -250,12 +234,7 @@ class UserBindingPage(Page):
 
         :param payload: Payload response from the API
         """
-        return UserBindingInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            user_sid=self._solution["user_sid"],
-        )
+        return UserBindingInstance(self._version, payload, service_sid=self._solution["service_sid"], user_sid=self._solution["user_sid"])
 
     def __repr__(self) -> str:
         """
@@ -266,33 +245,34 @@ class UserBindingPage(Page):
         return "<Twilio.IpMessaging.V2.UserBindingPage>"
 
 
-class UserBindingList(ListResource):
 
+
+
+class UserBindingList(ListResource):
+    
     def __init__(self, version: Version, service_sid: str, user_sid: str):
         """
         Initialize the UserBindingList
 
         :param version: Version that contains the resource
-        :param service_sid:
-        :param user_sid:
-
+        :param service_sid: 
+        :param user_sid: 
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "user_sid": user_sid,
-        }
-        self._uri = "/Services/{service_sid}/Users/{user_sid}/Bindings".format(
-            **self._solution
-        )
-
-    def stream(
-        self,
-        binding_type: Union[
-            List["UserBindingInstance.BindingType"], object
-        ] = values.unset,
+        self._solution = { 'service_sid': service_sid, 'user_sid': user_sid,  }
+        self._uri = '/Services/{service_sid}/Users/{user_sid}/Bindings'.format(**self._solution)
+        
+        
+    
+    
+    
+    def stream(self, 
+        binding_type: Union[List["UserBindingInstance.BindingType"], object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[UserBindingInstance]:
@@ -301,8 +281,8 @@ class UserBindingList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
-        :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type:
+        
+        :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type: 
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -313,15 +293,16 @@ class UserBindingList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(binding_type=binding_type, page_size=limits["page_size"])
+        page = self.page(
+            binding_type=binding_type,
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
-        binding_type: Union[
-            List["UserBindingInstance.BindingType"], object
-        ] = values.unset,
+    async def stream_async(self, 
+        binding_type: Union[List["UserBindingInstance.BindingType"], object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[UserBindingInstance]:
@@ -330,8 +311,8 @@ class UserBindingList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
-        :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type:
+        
+        :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type: 
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -343,16 +324,15 @@ class UserBindingList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            binding_type=binding_type, page_size=limits["page_size"]
+            binding_type=binding_type,
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
-        binding_type: Union[
-            List["UserBindingInstance.BindingType"], object
-        ] = values.unset,
+    def list(self, 
+        binding_type: Union[List["UserBindingInstance.BindingType"], object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[UserBindingInstance]:
@@ -360,8 +340,8 @@ class UserBindingList(ListResource):
         Lists UserBindingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
-        :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type:
+        
+        :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type: 
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -371,19 +351,15 @@ class UserBindingList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                binding_type=binding_type,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            binding_type=binding_type,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
-        binding_type: Union[
-            List["UserBindingInstance.BindingType"], object
-        ] = values.unset,
+    async def list_async(self, 
+        binding_type: Union[List["UserBindingInstance.BindingType"], object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[UserBindingInstance]:
@@ -391,8 +367,8 @@ class UserBindingList(ListResource):
         Asynchronously lists UserBindingInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
-        :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type:
+        
+        :param List[&quot;UserBindingInstance.BindingType&quot;] binding_type: 
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -402,20 +378,15 @@ class UserBindingList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                binding_type=binding_type,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            binding_type=binding_type,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
-        binding_type: Union[
-            List["UserBindingInstance.BindingType"], object
-        ] = values.unset,
+    def page(self, 
+        binding_type: Union[List["UserBindingInstance.BindingType"], object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -423,31 +394,27 @@ class UserBindingList(ListResource):
         """
         Retrieve a single page of UserBindingInstance records from the API.
         Request is executed immediately
-
-        :param binding_type:
+        
+        :param binding_type: 
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserBindingInstance
         """
-        data = values.of(
-            {
-                "BindingType": serialize.map(binding_type, lambda e: e),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'BindingType': serialize.map(binding_type, lambda e: e),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return UserBindingPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
-        binding_type: Union[
-            List["UserBindingInstance.BindingType"], object
-        ] = values.unset,
+    async def page_async(self, 
+        binding_type: Union[List["UserBindingInstance.BindingType"], object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -455,26 +422,22 @@ class UserBindingList(ListResource):
         """
         Asynchronously retrieve a single page of UserBindingInstance records from the API.
         Request is executed immediately
-
-        :param binding_type:
+        
+        :param binding_type: 
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserBindingInstance
         """
-        data = values.of(
-            {
-                "BindingType": serialize.map(binding_type, lambda e: e),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'BindingType': serialize.map(binding_type, lambda e: e),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return UserBindingPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> UserBindingPage:
@@ -486,7 +449,10 @@ class UserBindingList(ListResource):
 
         :returns: Page of UserBindingInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return UserBindingPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> UserBindingPage:
@@ -498,34 +464,29 @@ class UserBindingList(ListResource):
 
         :returns: Page of UserBindingInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return UserBindingPage(self._version, response, self._solution)
+
+
 
     def get(self, sid: str) -> UserBindingContext:
         """
         Constructs a UserBindingContext
-
-        :param sid:
+        
+        :param sid: 
         """
-        return UserBindingContext(
-            self._version,
-            service_sid=self._solution["service_sid"],
-            user_sid=self._solution["user_sid"],
-            sid=sid,
-        )
+        return UserBindingContext(self._version, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'], sid=sid)
 
     def __call__(self, sid: str) -> UserBindingContext:
         """
         Constructs a UserBindingContext
-
-        :param sid:
+        
+        :param sid: 
         """
-        return UserBindingContext(
-            self._version,
-            service_sid=self._solution["service_sid"],
-            user_sid=self._solution["user_sid"],
-            sid=sid,
-        )
+        return UserBindingContext(self._version, service_sid=self._solution['service_sid'], user_sid=self._solution['user_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -533,4 +494,5 @@ class UserBindingList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.IpMessaging.V2.UserBindingList>"
+        return '<Twilio.IpMessaging.V2.UserBindingList>'
+

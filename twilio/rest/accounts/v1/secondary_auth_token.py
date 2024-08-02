@@ -12,16 +12,20 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
-from typing import Any, Dict, Optional
-from twilio.base import deserialize, values
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
 class SecondaryAuthTokenInstance(InstanceResource):
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that the secondary Auth Token was created for.
     :ivar date_created: The date and time in UTC when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -33,16 +37,14 @@ class SecondaryAuthTokenInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.secondary_auth_token: Optional[str] = payload.get("secondary_auth_token")
         self.url: Optional[str] = payload.get("url")
 
+        
         self._context: Optional[SecondaryAuthTokenContext] = None
 
     @property
@@ -54,56 +56,53 @@ class SecondaryAuthTokenInstance(InstanceResource):
         :returns: SecondaryAuthTokenContext for this SecondaryAuthTokenInstance
         """
         if self._context is None:
-            self._context = SecondaryAuthTokenContext(
-                self._version,
-            )
+            self._context = SecondaryAuthTokenContext(self._version,)
         return self._context
-
+    
+    
     def create(self) -> "SecondaryAuthTokenInstance":
         """
         Create the SecondaryAuthTokenInstance
-
+        
 
         :returns: The created SecondaryAuthTokenInstance
         """
         return self._proxy.create()
-
     async def create_async(self) -> "SecondaryAuthTokenInstance":
         """
         Asynchronous coroutine to create the SecondaryAuthTokenInstance
-
+        
 
         :returns: The created SecondaryAuthTokenInstance
         """
         return await self._proxy.create_async()
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the SecondaryAuthTokenInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SecondaryAuthTokenInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-
-        return "<Twilio.Accounts.V1.SecondaryAuthTokenInstance>"
-
+        
+        return '<Twilio.Accounts.V1.SecondaryAuthTokenInstance>'
 
 class SecondaryAuthTokenContext(InstanceContext):
 
@@ -115,92 +114,103 @@ class SecondaryAuthTokenContext(InstanceContext):
         """
         super().__init__(version)
 
-        self._uri = "/AuthTokens/Secondary"
-
+        
+        self._uri = '/AuthTokens/Secondary'
+        
+    
+    
     def create(self) -> SecondaryAuthTokenInstance:
         """
         Create the SecondaryAuthTokenInstance
-
+        
 
         :returns: The created SecondaryAuthTokenInstance
         """
-        data = values.of({})
+        data = values.of({ 
+        })
 
-        payload = self._version.create(method="POST", uri=self._uri, data=data)
+        payload = self._version.create(method='POST', uri=self._uri, data=data)
 
-        return SecondaryAuthTokenInstance(self._version, payload)
+        return SecondaryAuthTokenInstance(
+            self._version,
+            payload
+        )
 
     async def create_async(self) -> SecondaryAuthTokenInstance:
         """
         Asynchronous coroutine to create the SecondaryAuthTokenInstance
-
+        
 
         :returns: The created SecondaryAuthTokenInstance
         """
-        data = values.of({})
+        data = values.of({ 
+        })
 
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data)
+
+        return SecondaryAuthTokenInstance(
+            self._version,
+            payload
         )
-
-        return SecondaryAuthTokenInstance(self._version, payload)
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the SecondaryAuthTokenInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the SecondaryAuthTokenInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
+        
+        return '<Twilio.Accounts.V1.SecondaryAuthTokenContext>'
 
-        return "<Twilio.Accounts.V1.SecondaryAuthTokenContext>"
 
 
 class SecondaryAuthTokenList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the SecondaryAuthTokenList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
+
+        
+        
+        
+        
 
     def get(self) -> SecondaryAuthTokenContext:
         """
         Constructs a SecondaryAuthTokenContext
-
+        
         """
         return SecondaryAuthTokenContext(self._version)
 
     def __call__(self) -> SecondaryAuthTokenContext:
         """
         Constructs a SecondaryAuthTokenContext
-
+        
         """
         return SecondaryAuthTokenContext(self._version)
 
@@ -210,4 +220,5 @@ class SecondaryAuthTokenList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Accounts.V1.SecondaryAuthTokenList>"
+        return '<Twilio.Accounts.V1.SecondaryAuthTokenList>'
+

@@ -30,7 +30,7 @@ class V1(Version):
         super().__init__(domain, "v1")
         self._alerts: Optional[AlertList] = None
         self._events: Optional[EventList] = None
-
+        
     @property
     def alerts(self) -> AlertList:
         if self._alerts is None:

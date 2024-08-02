@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -48,37 +50,29 @@ class ServiceInstance(InstanceResource):
     :ivar version: The version number of this Service.
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.auto_redaction: Optional[bool] = payload.get("auto_redaction")
         self.media_redaction: Optional[bool] = payload.get("media_redaction")
         self.auto_transcribe: Optional[bool] = payload.get("auto_transcribe")
         self.data_logging: Optional[bool] = payload.get("data_logging")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.language_code: Optional[str] = payload.get("language_code")
         self.sid: Optional[str] = payload.get("sid")
         self.unique_name: Optional[str] = payload.get("unique_name")
         self.url: Optional[str] = payload.get("url")
         self.webhook_url: Optional[str] = payload.get("webhook_url")
-        self.webhook_http_method: Optional["ServiceInstance.HttpMethod"] = payload.get(
-            "webhook_http_method"
-        )
-        self.read_only_attached_operator_sids: Optional[List[str]] = payload.get(
-            "read_only_attached_operator_sids"
-        )
+        self.webhook_http_method: Optional["ServiceInstance.HttpMethod"] = payload.get("webhook_http_method")
+        self.read_only_attached_operator_sids: Optional[List[str]] = payload.get("read_only_attached_operator_sids")
         self.version: Optional[int] = deserialize.integer(payload.get("version"))
 
-        self._solution = {
+        
+        self._solution = { 
             "sid": sid or self.sid,
         }
         self._context: Optional[ServiceContext] = None
@@ -92,34 +86,32 @@ class ServiceInstance(InstanceResource):
         :returns: ServiceContext for this ServiceInstance
         """
         if self._context is None:
-            self._context = ServiceContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
+            self._context = ServiceContext(self._version, sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the ServiceInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "ServiceInstance":
         """
         Fetch the ServiceInstance
-
+        
 
         :returns: The fetched ServiceInstance
         """
@@ -128,27 +120,17 @@ class ServiceInstance(InstanceResource):
     async def fetch_async(self) -> "ServiceInstance":
         """
         Asynchronous coroutine to fetch the ServiceInstance
-
+        
 
         :returns: The fetched ServiceInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        if_match: Union[str, object] = values.unset,
-        auto_transcribe: Union[bool, object] = values.unset,
-        data_logging: Union[bool, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        unique_name: Union[str, object] = values.unset,
-        auto_redaction: Union[bool, object] = values.unset,
-        media_redaction: Union[bool, object] = values.unset,
-        webhook_url: Union[str, object] = values.unset,
-        webhook_http_method: Union["ServiceInstance.HttpMethod", object] = values.unset,
-    ) -> "ServiceInstance":
+    
+    
+    def update(self, if_match: Union[str, object]=values.unset, auto_transcribe: Union[bool, object]=values.unset, data_logging: Union[bool, object]=values.unset, friendly_name: Union[str, object]=values.unset, unique_name: Union[str, object]=values.unset, auto_redaction: Union[bool, object]=values.unset, media_redaction: Union[bool, object]=values.unset, webhook_url: Union[str, object]=values.unset, webhook_http_method: Union["ServiceInstance.HttpMethod", object]=values.unset) -> "ServiceInstance":
         """
         Update the ServiceInstance
-
+        
         :param if_match: The If-Match HTTP request header
         :param auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
         :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
@@ -157,37 +139,16 @@ class ServiceInstance(InstanceResource):
         :param auto_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
         :param webhook_url: The URL Twilio will request when executing the Webhook.
-        :param webhook_http_method:
+        :param webhook_http_method: 
 
         :returns: The updated ServiceInstance
         """
-        return self._proxy.update(
-            if_match=if_match,
-            auto_transcribe=auto_transcribe,
-            data_logging=data_logging,
-            friendly_name=friendly_name,
-            unique_name=unique_name,
-            auto_redaction=auto_redaction,
-            media_redaction=media_redaction,
-            webhook_url=webhook_url,
-            webhook_http_method=webhook_http_method,
-        )
+        return self._proxy.update(if_match=if_match, auto_transcribe=auto_transcribe, data_logging=data_logging, friendly_name=friendly_name, unique_name=unique_name, auto_redaction=auto_redaction, media_redaction=media_redaction, webhook_url=webhook_url, webhook_http_method=webhook_http_method, )
 
-    async def update_async(
-        self,
-        if_match: Union[str, object] = values.unset,
-        auto_transcribe: Union[bool, object] = values.unset,
-        data_logging: Union[bool, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        unique_name: Union[str, object] = values.unset,
-        auto_redaction: Union[bool, object] = values.unset,
-        media_redaction: Union[bool, object] = values.unset,
-        webhook_url: Union[str, object] = values.unset,
-        webhook_http_method: Union["ServiceInstance.HttpMethod", object] = values.unset,
-    ) -> "ServiceInstance":
+    async def update_async(self, if_match: Union[str, object]=values.unset, auto_transcribe: Union[bool, object]=values.unset, data_logging: Union[bool, object]=values.unset, friendly_name: Union[str, object]=values.unset, unique_name: Union[str, object]=values.unset, auto_redaction: Union[bool, object]=values.unset, media_redaction: Union[bool, object]=values.unset, webhook_url: Union[str, object]=values.unset, webhook_http_method: Union["ServiceInstance.HttpMethod", object]=values.unset) -> "ServiceInstance":
         """
         Asynchronous coroutine to update the ServiceInstance
-
+        
         :param if_match: The If-Match HTTP request header
         :param auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
         :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
@@ -196,31 +157,20 @@ class ServiceInstance(InstanceResource):
         :param auto_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
         :param webhook_url: The URL Twilio will request when executing the Webhook.
-        :param webhook_http_method:
+        :param webhook_http_method: 
 
         :returns: The updated ServiceInstance
         """
-        return await self._proxy.update_async(
-            if_match=if_match,
-            auto_transcribe=auto_transcribe,
-            data_logging=data_logging,
-            friendly_name=friendly_name,
-            unique_name=unique_name,
-            auto_redaction=auto_redaction,
-            media_redaction=media_redaction,
-            webhook_url=webhook_url,
-            webhook_http_method=webhook_http_method,
-        )
-
+        return await self._proxy.update_async(if_match=if_match, auto_transcribe=auto_transcribe, data_logging=data_logging, friendly_name=friendly_name, unique_name=unique_name, auto_redaction=auto_redaction, media_redaction=media_redaction, webhook_url=webhook_url, webhook_http_method=webhook_http_method, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.ServiceInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Intelligence.V2.ServiceInstance {}>'.format(context)
 
 class ServiceContext(InstanceContext):
 
@@ -233,89 +183,73 @@ class ServiceContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
+        self._solution = { 
+            'sid': sid,
         }
-        self._uri = "/Services/{sid}".format(**self._solution)
-
+        self._uri = '/Services/{sid}'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the ServiceInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ServiceInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> ServiceInstance:
         """
         Fetch the ServiceInstance
-
+        
 
         :returns: The fetched ServiceInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ServiceInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> ServiceInstance:
         """
         Asynchronous coroutine to fetch the ServiceInstance
-
+        
 
         :returns: The fetched ServiceInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return ServiceInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
-
-    def update(
-        self,
-        if_match: Union[str, object] = values.unset,
-        auto_transcribe: Union[bool, object] = values.unset,
-        data_logging: Union[bool, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        unique_name: Union[str, object] = values.unset,
-        auto_redaction: Union[bool, object] = values.unset,
-        media_redaction: Union[bool, object] = values.unset,
-        webhook_url: Union[str, object] = values.unset,
-        webhook_http_method: Union["ServiceInstance.HttpMethod", object] = values.unset,
-    ) -> ServiceInstance:
+    
+    
+    def update(self, if_match: Union[str, object]=values.unset, auto_transcribe: Union[bool, object]=values.unset, data_logging: Union[bool, object]=values.unset, friendly_name: Union[str, object]=values.unset, unique_name: Union[str, object]=values.unset, auto_redaction: Union[bool, object]=values.unset, media_redaction: Union[bool, object]=values.unset, webhook_url: Union[str, object]=values.unset, webhook_http_method: Union["ServiceInstance.HttpMethod", object]=values.unset) -> ServiceInstance:
         """
         Update the ServiceInstance
-
+        
         :param if_match: The If-Match HTTP request header
         :param auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
         :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
@@ -324,49 +258,34 @@ class ServiceContext(InstanceContext):
         :param auto_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
         :param webhook_url: The URL Twilio will request when executing the Webhook.
-        :param webhook_http_method:
+        :param webhook_http_method: 
 
         :returns: The updated ServiceInstance
         """
-        data = values.of(
-            {
-                "AutoTranscribe": serialize.boolean_to_string(auto_transcribe),
-                "DataLogging": serialize.boolean_to_string(data_logging),
-                "FriendlyName": friendly_name,
-                "UniqueName": unique_name,
-                "AutoRedaction": serialize.boolean_to_string(auto_redaction),
-                "MediaRedaction": serialize.boolean_to_string(media_redaction),
-                "WebhookUrl": webhook_url,
-                "WebhookHttpMethod": webhook_http_method,
-            }
-        )
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
+        data = values.of({ 
+            'AutoTranscribe': serialize.boolean_to_string(auto_transcribe),
+            'DataLogging': serialize.boolean_to_string(data_logging),
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'AutoRedaction': serialize.boolean_to_string(auto_redaction),
+            'MediaRedaction': serialize.boolean_to_string(media_redaction),
+            'WebhookUrl': webhook_url,
+            'WebhookHttpMethod': webhook_http_method,
+        })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(
-            method="POST", uri=self._uri, data=data, headers=headers
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
         )
 
-        return ServiceInstance(self._version, payload, sid=self._solution["sid"])
-
-    async def update_async(
-        self,
-        if_match: Union[str, object] = values.unset,
-        auto_transcribe: Union[bool, object] = values.unset,
-        data_logging: Union[bool, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        unique_name: Union[str, object] = values.unset,
-        auto_redaction: Union[bool, object] = values.unset,
-        media_redaction: Union[bool, object] = values.unset,
-        webhook_url: Union[str, object] = values.unset,
-        webhook_http_method: Union["ServiceInstance.HttpMethod", object] = values.unset,
-    ) -> ServiceInstance:
+    async def update_async(self, if_match: Union[str, object]=values.unset, auto_transcribe: Union[bool, object]=values.unset, data_logging: Union[bool, object]=values.unset, friendly_name: Union[str, object]=values.unset, unique_name: Union[str, object]=values.unset, auto_redaction: Union[bool, object]=values.unset, media_redaction: Union[bool, object]=values.unset, webhook_url: Union[str, object]=values.unset, webhook_http_method: Union["ServiceInstance.HttpMethod", object]=values.unset) -> ServiceInstance:
         """
         Asynchronous coroutine to update the ServiceInstance
-
+        
         :param if_match: The If-Match HTTP request header
         :param auto_transcribe: Instructs the Speech Recognition service to automatically transcribe all recordings made on the account.
         :param data_logging: Data logging allows Twilio to improve the quality of the speech recognition & language understanding services through using customer data to refine, fine tune and evaluate machine learning models. Note: Data logging cannot be activated via API, only via www.twilio.com, as it requires additional consent.
@@ -375,42 +294,48 @@ class ServiceContext(InstanceContext):
         :param auto_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
         :param webhook_url: The URL Twilio will request when executing the Webhook.
-        :param webhook_http_method:
+        :param webhook_http_method: 
 
         :returns: The updated ServiceInstance
         """
-        data = values.of(
-            {
-                "AutoTranscribe": serialize.boolean_to_string(auto_transcribe),
-                "DataLogging": serialize.boolean_to_string(data_logging),
-                "FriendlyName": friendly_name,
-                "UniqueName": unique_name,
-                "AutoRedaction": serialize.boolean_to_string(auto_redaction),
-                "MediaRedaction": serialize.boolean_to_string(media_redaction),
-                "WebhookUrl": webhook_url,
-                "WebhookHttpMethod": webhook_http_method,
-            }
-        )
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
+        data = values.of({ 
+            'AutoTranscribe': serialize.boolean_to_string(auto_transcribe),
+            'DataLogging': serialize.boolean_to_string(data_logging),
+            'FriendlyName': friendly_name,
+            'UniqueName': unique_name,
+            'AutoRedaction': serialize.boolean_to_string(auto_redaction),
+            'MediaRedaction': serialize.boolean_to_string(media_redaction),
+            'WebhookUrl': webhook_url,
+            'WebhookHttpMethod': webhook_http_method,
+        })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
+
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution['sid']
         )
-
-        return ServiceInstance(self._version, payload, sid=self._solution["sid"])
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.ServiceContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Intelligence.V2.ServiceContext {}>'.format(context)
+
+
+
+
+
+
+
+
+
 
 
 class ServicePage(Page):
@@ -432,31 +357,29 @@ class ServicePage(Page):
         return "<Twilio.Intelligence.V2.ServicePage>"
 
 
-class ServiceList(ListResource):
 
+
+
+class ServiceList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the ServiceList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/Services"
-
-    def create(
-        self,
-        unique_name: str,
-        auto_transcribe: Union[bool, object] = values.unset,
-        data_logging: Union[bool, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        language_code: Union[str, object] = values.unset,
-        auto_redaction: Union[bool, object] = values.unset,
-        media_redaction: Union[bool, object] = values.unset,
-        webhook_url: Union[str, object] = values.unset,
-        webhook_http_method: Union["ServiceInstance.HttpMethod", object] = values.unset,
-    ) -> ServiceInstance:
+        
+        self._uri = '/Services'
+        
+        
+    
+    
+    
+    
+    def create(self, unique_name: str, auto_transcribe: Union[bool, object]=values.unset, data_logging: Union[bool, object]=values.unset, friendly_name: Union[str, object]=values.unset, language_code: Union[str, object]=values.unset, auto_redaction: Union[bool, object]=values.unset, media_redaction: Union[bool, object]=values.unset, webhook_url: Union[str, object]=values.unset, webhook_http_method: Union["ServiceInstance.HttpMethod", object]=values.unset) -> ServiceInstance:
         """
         Create the ServiceInstance
 
@@ -468,44 +391,32 @@ class ServiceList(ListResource):
         :param auto_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
         :param webhook_url: The URL Twilio will request when executing the Webhook.
-        :param webhook_http_method:
-
+        :param webhook_http_method: 
+        
         :returns: The created ServiceInstance
         """
-
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-                "AutoTranscribe": serialize.boolean_to_string(auto_transcribe),
-                "DataLogging": serialize.boolean_to_string(data_logging),
-                "FriendlyName": friendly_name,
-                "LanguageCode": language_code,
-                "AutoRedaction": serialize.boolean_to_string(auto_redaction),
-                "MediaRedaction": serialize.boolean_to_string(media_redaction),
-                "WebhookUrl": webhook_url,
-                "WebhookHttpMethod": webhook_http_method,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'AutoTranscribe': serialize.boolean_to_string(auto_transcribe),
+            'DataLogging': serialize.boolean_to_string(data_logging),
+            'FriendlyName': friendly_name,
+            'LanguageCode': language_code,
+            'AutoRedaction': serialize.boolean_to_string(auto_redaction),
+            'MediaRedaction': serialize.boolean_to_string(media_redaction),
+            'WebhookUrl': webhook_url,
+            'WebhookHttpMethod': webhook_http_method,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
         return ServiceInstance(self._version, payload)
 
-    async def create_async(
-        self,
-        unique_name: str,
-        auto_transcribe: Union[bool, object] = values.unset,
-        data_logging: Union[bool, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-        language_code: Union[str, object] = values.unset,
-        auto_redaction: Union[bool, object] = values.unset,
-        media_redaction: Union[bool, object] = values.unset,
-        webhook_url: Union[str, object] = values.unset,
-        webhook_http_method: Union["ServiceInstance.HttpMethod", object] = values.unset,
-    ) -> ServiceInstance:
+    async def create_async(self, unique_name: str, auto_transcribe: Union[bool, object]=values.unset, data_logging: Union[bool, object]=values.unset, friendly_name: Union[str, object]=values.unset, language_code: Union[str, object]=values.unset, auto_redaction: Union[bool, object]=values.unset, media_redaction: Union[bool, object]=values.unset, webhook_url: Union[str, object]=values.unset, webhook_http_method: Union["ServiceInstance.HttpMethod", object]=values.unset) -> ServiceInstance:
         """
         Asynchronously create the ServiceInstance
 
@@ -517,34 +428,34 @@ class ServiceList(ListResource):
         :param auto_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts made on this service.
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
         :param webhook_url: The URL Twilio will request when executing the Webhook.
-        :param webhook_http_method:
-
+        :param webhook_http_method: 
+        
         :returns: The created ServiceInstance
         """
-
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-                "AutoTranscribe": serialize.boolean_to_string(auto_transcribe),
-                "DataLogging": serialize.boolean_to_string(data_logging),
-                "FriendlyName": friendly_name,
-                "LanguageCode": language_code,
-                "AutoRedaction": serialize.boolean_to_string(auto_redaction),
-                "MediaRedaction": serialize.boolean_to_string(media_redaction),
-                "WebhookUrl": webhook_url,
-                "WebhookHttpMethod": webhook_http_method,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'UniqueName': unique_name,
+            'AutoTranscribe': serialize.boolean_to_string(auto_transcribe),
+            'DataLogging': serialize.boolean_to_string(data_logging),
+            'FriendlyName': friendly_name,
+            'LanguageCode': language_code,
+            'AutoRedaction': serialize.boolean_to_string(auto_redaction),
+            'MediaRedaction': serialize.boolean_to_string(media_redaction),
+            'WebhookUrl': webhook_url,
+            'WebhookHttpMethod': webhook_http_method,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return ServiceInstance(self._version, payload)
-
-    def stream(
-        self,
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ServiceInstance]:
@@ -553,7 +464,7 @@ class ServiceList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -564,12 +475,14 @@ class ServiceList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ServiceInstance]:
@@ -578,7 +491,7 @@ class ServiceList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -589,12 +502,14 @@ class ServiceList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ServiceInstance]:
@@ -602,7 +517,7 @@ class ServiceList(ListResource):
         Lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -612,15 +527,13 @@ class ServiceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ServiceInstance]:
@@ -628,7 +541,7 @@ class ServiceList(ListResource):
         Asynchronously lists ServiceInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -638,16 +551,13 @@ class ServiceList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -655,26 +565,24 @@ class ServiceList(ListResource):
         """
         Retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return ServicePage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -682,24 +590,20 @@ class ServiceList(ListResource):
         """
         Asynchronously retrieve a single page of ServiceInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ServiceInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return ServicePage(self._version, response)
 
     def get_page(self, target_url: str) -> ServicePage:
@@ -711,7 +615,10 @@ class ServiceList(ListResource):
 
         :returns: Page of ServiceInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return ServicePage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> ServicePage:
@@ -723,13 +630,18 @@ class ServiceList(ListResource):
 
         :returns: Page of ServiceInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return ServicePage(self._version, response)
+
+
 
     def get(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
-
+        
         :param sid: A 34 character string that uniquely identifies this Service.
         """
         return ServiceContext(self._version, sid=sid)
@@ -737,7 +649,7 @@ class ServiceList(ListResource):
     def __call__(self, sid: str) -> ServiceContext:
         """
         Constructs a ServiceContext
-
+        
         :param sid: A 34 character string that uniquely identifies this Service.
         """
         return ServiceContext(self._version, sid=sid)
@@ -748,4 +660,5 @@ class ServiceList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Intelligence.V2.ServiceList>"
+        return '<Twilio.Intelligence.V2.ServiceList>'
+

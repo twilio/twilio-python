@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -68,26 +70,14 @@ class ReservationInstance(InstanceResource):
     :ivar links: The URLs of related resources.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        workspace_sid: str,
-        task_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], workspace_sid: str, task_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
-        self.reservation_status: Optional["ReservationInstance.Status"] = payload.get(
-            "reservation_status"
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
+        self.reservation_status: Optional["ReservationInstance.Status"] = payload.get("reservation_status")
         self.sid: Optional[str] = payload.get("sid")
         self.task_sid: Optional[str] = payload.get("task_sid")
         self.worker_name: Optional[str] = payload.get("worker_name")
@@ -96,7 +86,8 @@ class ReservationInstance(InstanceResource):
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        self._solution = {
+        
+        self._solution = { 
             "workspace_sid": workspace_sid,
             "task_sid": task_sid,
             "sid": sid or self.sid,
@@ -112,18 +103,14 @@ class ReservationInstance(InstanceResource):
         :returns: ReservationContext for this ReservationInstance
         """
         if self._context is None:
-            self._context = ReservationContext(
-                self._version,
-                workspace_sid=self._solution["workspace_sid"],
-                task_sid=self._solution["task_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = ReservationContext(self._version, workspace_sid=self._solution['workspace_sid'], task_sid=self._solution['task_sid'], sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def fetch(self) -> "ReservationInstance":
         """
         Fetch the ReservationInstance
-
+        
 
         :returns: The fetched ReservationInstance
         """
@@ -132,81 +119,19 @@ class ReservationInstance(InstanceResource):
     async def fetch_async(self) -> "ReservationInstance":
         """
         Asynchronous coroutine to fetch the ReservationInstance
-
+        
 
         :returns: The fetched ReservationInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        if_match: Union[str, object] = values.unset,
-        reservation_status: Union["ReservationInstance.Status", object] = values.unset,
-        worker_activity_sid: Union[str, object] = values.unset,
-        instruction: Union[str, object] = values.unset,
-        dequeue_post_work_activity_sid: Union[str, object] = values.unset,
-        dequeue_from: Union[str, object] = values.unset,
-        dequeue_record: Union[str, object] = values.unset,
-        dequeue_timeout: Union[int, object] = values.unset,
-        dequeue_to: Union[str, object] = values.unset,
-        dequeue_status_callback_url: Union[str, object] = values.unset,
-        call_from: Union[str, object] = values.unset,
-        call_record: Union[str, object] = values.unset,
-        call_timeout: Union[int, object] = values.unset,
-        call_to: Union[str, object] = values.unset,
-        call_url: Union[str, object] = values.unset,
-        call_status_callback_url: Union[str, object] = values.unset,
-        call_accept: Union[bool, object] = values.unset,
-        redirect_call_sid: Union[str, object] = values.unset,
-        redirect_accept: Union[bool, object] = values.unset,
-        redirect_url: Union[str, object] = values.unset,
-        to: Union[str, object] = values.unset,
-        from_: Union[str, object] = values.unset,
-        status_callback: Union[str, object] = values.unset,
-        status_callback_method: Union[str, object] = values.unset,
-        status_callback_event: Union[
-            List["ReservationInstance.CallStatus"], object
-        ] = values.unset,
-        timeout: Union[int, object] = values.unset,
-        record: Union[bool, object] = values.unset,
-        muted: Union[bool, object] = values.unset,
-        beep: Union[str, object] = values.unset,
-        start_conference_on_enter: Union[bool, object] = values.unset,
-        end_conference_on_exit: Union[bool, object] = values.unset,
-        wait_url: Union[str, object] = values.unset,
-        wait_method: Union[str, object] = values.unset,
-        early_media: Union[bool, object] = values.unset,
-        max_participants: Union[int, object] = values.unset,
-        conference_status_callback: Union[str, object] = values.unset,
-        conference_status_callback_method: Union[str, object] = values.unset,
-        conference_status_callback_event: Union[
-            List["ReservationInstance.ConferenceEvent"], object
-        ] = values.unset,
-        conference_record: Union[str, object] = values.unset,
-        conference_trim: Union[str, object] = values.unset,
-        recording_channels: Union[str, object] = values.unset,
-        recording_status_callback: Union[str, object] = values.unset,
-        recording_status_callback_method: Union[str, object] = values.unset,
-        conference_recording_status_callback: Union[str, object] = values.unset,
-        conference_recording_status_callback_method: Union[str, object] = values.unset,
-        region: Union[str, object] = values.unset,
-        sip_auth_username: Union[str, object] = values.unset,
-        sip_auth_password: Union[str, object] = values.unset,
-        dequeue_status_callback_event: Union[List[str], object] = values.unset,
-        post_work_activity_sid: Union[str, object] = values.unset,
-        supervisor_mode: Union[
-            "ReservationInstance.SupervisorMode", object
-        ] = values.unset,
-        supervisor: Union[str, object] = values.unset,
-        end_conference_on_customer_exit: Union[bool, object] = values.unset,
-        beep_on_customer_entrance: Union[bool, object] = values.unset,
-        jitter_buffer_size: Union[str, object] = values.unset,
-    ) -> "ReservationInstance":
+    
+    
+    def update(self, if_match: Union[str, object]=values.unset, reservation_status: Union["ReservationInstance.Status", object]=values.unset, worker_activity_sid: Union[str, object]=values.unset, instruction: Union[str, object]=values.unset, dequeue_post_work_activity_sid: Union[str, object]=values.unset, dequeue_from: Union[str, object]=values.unset, dequeue_record: Union[str, object]=values.unset, dequeue_timeout: Union[int, object]=values.unset, dequeue_to: Union[str, object]=values.unset, dequeue_status_callback_url: Union[str, object]=values.unset, call_from: Union[str, object]=values.unset, call_record: Union[str, object]=values.unset, call_timeout: Union[int, object]=values.unset, call_to: Union[str, object]=values.unset, call_url: Union[str, object]=values.unset, call_status_callback_url: Union[str, object]=values.unset, call_accept: Union[bool, object]=values.unset, redirect_call_sid: Union[str, object]=values.unset, redirect_accept: Union[bool, object]=values.unset, redirect_url: Union[str, object]=values.unset, to: Union[str, object]=values.unset, from_: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, status_callback_event: Union[List["ReservationInstance.CallStatus"], object]=values.unset, timeout: Union[int, object]=values.unset, record: Union[bool, object]=values.unset, muted: Union[bool, object]=values.unset, beep: Union[str, object]=values.unset, start_conference_on_enter: Union[bool, object]=values.unset, end_conference_on_exit: Union[bool, object]=values.unset, wait_url: Union[str, object]=values.unset, wait_method: Union[str, object]=values.unset, early_media: Union[bool, object]=values.unset, max_participants: Union[int, object]=values.unset, conference_status_callback: Union[str, object]=values.unset, conference_status_callback_method: Union[str, object]=values.unset, conference_status_callback_event: Union[List["ReservationInstance.ConferenceEvent"], object]=values.unset, conference_record: Union[str, object]=values.unset, conference_trim: Union[str, object]=values.unset, recording_channels: Union[str, object]=values.unset, recording_status_callback: Union[str, object]=values.unset, recording_status_callback_method: Union[str, object]=values.unset, conference_recording_status_callback: Union[str, object]=values.unset, conference_recording_status_callback_method: Union[str, object]=values.unset, region: Union[str, object]=values.unset, sip_auth_username: Union[str, object]=values.unset, sip_auth_password: Union[str, object]=values.unset, dequeue_status_callback_event: Union[List[str], object]=values.unset, post_work_activity_sid: Union[str, object]=values.unset, supervisor_mode: Union["ReservationInstance.SupervisorMode", object]=values.unset, supervisor: Union[str, object]=values.unset, end_conference_on_customer_exit: Union[bool, object]=values.unset, beep_on_customer_entrance: Union[bool, object]=values.unset, jitter_buffer_size: Union[str, object]=values.unset) -> "ReservationInstance":
         """
         Update the ReservationInstance
-
+        
         :param if_match: The If-Match HTTP request header
-        :param reservation_status:
+        :param reservation_status: 
         :param worker_activity_sid: The new worker activity SID if rejecting a reservation.
         :param instruction: The assignment instruction for reservation.
         :param dequeue_post_work_activity_sid: The SID of the Activity resource to start after executing a Dequeue instruction.
@@ -255,7 +180,7 @@ class ReservationInstance(InstanceResource):
         :param sip_auth_password: The SIP password for authentication.
         :param dequeue_status_callback_event: The Call progress events sent via webhooks as a result of a Dequeue instruction.
         :param post_work_activity_sid: The new worker activity SID after executing a Conference instruction.
-        :param supervisor_mode:
+        :param supervisor_mode: 
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
@@ -263,133 +188,14 @@ class ReservationInstance(InstanceResource):
 
         :returns: The updated ReservationInstance
         """
-        return self._proxy.update(
-            if_match=if_match,
-            reservation_status=reservation_status,
-            worker_activity_sid=worker_activity_sid,
-            instruction=instruction,
-            dequeue_post_work_activity_sid=dequeue_post_work_activity_sid,
-            dequeue_from=dequeue_from,
-            dequeue_record=dequeue_record,
-            dequeue_timeout=dequeue_timeout,
-            dequeue_to=dequeue_to,
-            dequeue_status_callback_url=dequeue_status_callback_url,
-            call_from=call_from,
-            call_record=call_record,
-            call_timeout=call_timeout,
-            call_to=call_to,
-            call_url=call_url,
-            call_status_callback_url=call_status_callback_url,
-            call_accept=call_accept,
-            redirect_call_sid=redirect_call_sid,
-            redirect_accept=redirect_accept,
-            redirect_url=redirect_url,
-            to=to,
-            from_=from_,
-            status_callback=status_callback,
-            status_callback_method=status_callback_method,
-            status_callback_event=status_callback_event,
-            timeout=timeout,
-            record=record,
-            muted=muted,
-            beep=beep,
-            start_conference_on_enter=start_conference_on_enter,
-            end_conference_on_exit=end_conference_on_exit,
-            wait_url=wait_url,
-            wait_method=wait_method,
-            early_media=early_media,
-            max_participants=max_participants,
-            conference_status_callback=conference_status_callback,
-            conference_status_callback_method=conference_status_callback_method,
-            conference_status_callback_event=conference_status_callback_event,
-            conference_record=conference_record,
-            conference_trim=conference_trim,
-            recording_channels=recording_channels,
-            recording_status_callback=recording_status_callback,
-            recording_status_callback_method=recording_status_callback_method,
-            conference_recording_status_callback=conference_recording_status_callback,
-            conference_recording_status_callback_method=conference_recording_status_callback_method,
-            region=region,
-            sip_auth_username=sip_auth_username,
-            sip_auth_password=sip_auth_password,
-            dequeue_status_callback_event=dequeue_status_callback_event,
-            post_work_activity_sid=post_work_activity_sid,
-            supervisor_mode=supervisor_mode,
-            supervisor=supervisor,
-            end_conference_on_customer_exit=end_conference_on_customer_exit,
-            beep_on_customer_entrance=beep_on_customer_entrance,
-            jitter_buffer_size=jitter_buffer_size,
-        )
+        return self._proxy.update(if_match=if_match, reservation_status=reservation_status, worker_activity_sid=worker_activity_sid, instruction=instruction, dequeue_post_work_activity_sid=dequeue_post_work_activity_sid, dequeue_from=dequeue_from, dequeue_record=dequeue_record, dequeue_timeout=dequeue_timeout, dequeue_to=dequeue_to, dequeue_status_callback_url=dequeue_status_callback_url, call_from=call_from, call_record=call_record, call_timeout=call_timeout, call_to=call_to, call_url=call_url, call_status_callback_url=call_status_callback_url, call_accept=call_accept, redirect_call_sid=redirect_call_sid, redirect_accept=redirect_accept, redirect_url=redirect_url, to=to, from_=from_, status_callback=status_callback, status_callback_method=status_callback_method, status_callback_event=status_callback_event, timeout=timeout, record=record, muted=muted, beep=beep, start_conference_on_enter=start_conference_on_enter, end_conference_on_exit=end_conference_on_exit, wait_url=wait_url, wait_method=wait_method, early_media=early_media, max_participants=max_participants, conference_status_callback=conference_status_callback, conference_status_callback_method=conference_status_callback_method, conference_status_callback_event=conference_status_callback_event, conference_record=conference_record, conference_trim=conference_trim, recording_channels=recording_channels, recording_status_callback=recording_status_callback, recording_status_callback_method=recording_status_callback_method, conference_recording_status_callback=conference_recording_status_callback, conference_recording_status_callback_method=conference_recording_status_callback_method, region=region, sip_auth_username=sip_auth_username, sip_auth_password=sip_auth_password, dequeue_status_callback_event=dequeue_status_callback_event, post_work_activity_sid=post_work_activity_sid, supervisor_mode=supervisor_mode, supervisor=supervisor, end_conference_on_customer_exit=end_conference_on_customer_exit, beep_on_customer_entrance=beep_on_customer_entrance, jitter_buffer_size=jitter_buffer_size, )
 
-    async def update_async(
-        self,
-        if_match: Union[str, object] = values.unset,
-        reservation_status: Union["ReservationInstance.Status", object] = values.unset,
-        worker_activity_sid: Union[str, object] = values.unset,
-        instruction: Union[str, object] = values.unset,
-        dequeue_post_work_activity_sid: Union[str, object] = values.unset,
-        dequeue_from: Union[str, object] = values.unset,
-        dequeue_record: Union[str, object] = values.unset,
-        dequeue_timeout: Union[int, object] = values.unset,
-        dequeue_to: Union[str, object] = values.unset,
-        dequeue_status_callback_url: Union[str, object] = values.unset,
-        call_from: Union[str, object] = values.unset,
-        call_record: Union[str, object] = values.unset,
-        call_timeout: Union[int, object] = values.unset,
-        call_to: Union[str, object] = values.unset,
-        call_url: Union[str, object] = values.unset,
-        call_status_callback_url: Union[str, object] = values.unset,
-        call_accept: Union[bool, object] = values.unset,
-        redirect_call_sid: Union[str, object] = values.unset,
-        redirect_accept: Union[bool, object] = values.unset,
-        redirect_url: Union[str, object] = values.unset,
-        to: Union[str, object] = values.unset,
-        from_: Union[str, object] = values.unset,
-        status_callback: Union[str, object] = values.unset,
-        status_callback_method: Union[str, object] = values.unset,
-        status_callback_event: Union[
-            List["ReservationInstance.CallStatus"], object
-        ] = values.unset,
-        timeout: Union[int, object] = values.unset,
-        record: Union[bool, object] = values.unset,
-        muted: Union[bool, object] = values.unset,
-        beep: Union[str, object] = values.unset,
-        start_conference_on_enter: Union[bool, object] = values.unset,
-        end_conference_on_exit: Union[bool, object] = values.unset,
-        wait_url: Union[str, object] = values.unset,
-        wait_method: Union[str, object] = values.unset,
-        early_media: Union[bool, object] = values.unset,
-        max_participants: Union[int, object] = values.unset,
-        conference_status_callback: Union[str, object] = values.unset,
-        conference_status_callback_method: Union[str, object] = values.unset,
-        conference_status_callback_event: Union[
-            List["ReservationInstance.ConferenceEvent"], object
-        ] = values.unset,
-        conference_record: Union[str, object] = values.unset,
-        conference_trim: Union[str, object] = values.unset,
-        recording_channels: Union[str, object] = values.unset,
-        recording_status_callback: Union[str, object] = values.unset,
-        recording_status_callback_method: Union[str, object] = values.unset,
-        conference_recording_status_callback: Union[str, object] = values.unset,
-        conference_recording_status_callback_method: Union[str, object] = values.unset,
-        region: Union[str, object] = values.unset,
-        sip_auth_username: Union[str, object] = values.unset,
-        sip_auth_password: Union[str, object] = values.unset,
-        dequeue_status_callback_event: Union[List[str], object] = values.unset,
-        post_work_activity_sid: Union[str, object] = values.unset,
-        supervisor_mode: Union[
-            "ReservationInstance.SupervisorMode", object
-        ] = values.unset,
-        supervisor: Union[str, object] = values.unset,
-        end_conference_on_customer_exit: Union[bool, object] = values.unset,
-        beep_on_customer_entrance: Union[bool, object] = values.unset,
-        jitter_buffer_size: Union[str, object] = values.unset,
-    ) -> "ReservationInstance":
+    async def update_async(self, if_match: Union[str, object]=values.unset, reservation_status: Union["ReservationInstance.Status", object]=values.unset, worker_activity_sid: Union[str, object]=values.unset, instruction: Union[str, object]=values.unset, dequeue_post_work_activity_sid: Union[str, object]=values.unset, dequeue_from: Union[str, object]=values.unset, dequeue_record: Union[str, object]=values.unset, dequeue_timeout: Union[int, object]=values.unset, dequeue_to: Union[str, object]=values.unset, dequeue_status_callback_url: Union[str, object]=values.unset, call_from: Union[str, object]=values.unset, call_record: Union[str, object]=values.unset, call_timeout: Union[int, object]=values.unset, call_to: Union[str, object]=values.unset, call_url: Union[str, object]=values.unset, call_status_callback_url: Union[str, object]=values.unset, call_accept: Union[bool, object]=values.unset, redirect_call_sid: Union[str, object]=values.unset, redirect_accept: Union[bool, object]=values.unset, redirect_url: Union[str, object]=values.unset, to: Union[str, object]=values.unset, from_: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, status_callback_event: Union[List["ReservationInstance.CallStatus"], object]=values.unset, timeout: Union[int, object]=values.unset, record: Union[bool, object]=values.unset, muted: Union[bool, object]=values.unset, beep: Union[str, object]=values.unset, start_conference_on_enter: Union[bool, object]=values.unset, end_conference_on_exit: Union[bool, object]=values.unset, wait_url: Union[str, object]=values.unset, wait_method: Union[str, object]=values.unset, early_media: Union[bool, object]=values.unset, max_participants: Union[int, object]=values.unset, conference_status_callback: Union[str, object]=values.unset, conference_status_callback_method: Union[str, object]=values.unset, conference_status_callback_event: Union[List["ReservationInstance.ConferenceEvent"], object]=values.unset, conference_record: Union[str, object]=values.unset, conference_trim: Union[str, object]=values.unset, recording_channels: Union[str, object]=values.unset, recording_status_callback: Union[str, object]=values.unset, recording_status_callback_method: Union[str, object]=values.unset, conference_recording_status_callback: Union[str, object]=values.unset, conference_recording_status_callback_method: Union[str, object]=values.unset, region: Union[str, object]=values.unset, sip_auth_username: Union[str, object]=values.unset, sip_auth_password: Union[str, object]=values.unset, dequeue_status_callback_event: Union[List[str], object]=values.unset, post_work_activity_sid: Union[str, object]=values.unset, supervisor_mode: Union["ReservationInstance.SupervisorMode", object]=values.unset, supervisor: Union[str, object]=values.unset, end_conference_on_customer_exit: Union[bool, object]=values.unset, beep_on_customer_entrance: Union[bool, object]=values.unset, jitter_buffer_size: Union[str, object]=values.unset) -> "ReservationInstance":
         """
         Asynchronous coroutine to update the ReservationInstance
-
+        
         :param if_match: The If-Match HTTP request header
-        :param reservation_status:
+        :param reservation_status: 
         :param worker_activity_sid: The new worker activity SID if rejecting a reservation.
         :param instruction: The assignment instruction for reservation.
         :param dequeue_post_work_activity_sid: The SID of the Activity resource to start after executing a Dequeue instruction.
@@ -438,7 +244,7 @@ class ReservationInstance(InstanceResource):
         :param sip_auth_password: The SIP password for authentication.
         :param dequeue_status_callback_event: The Call progress events sent via webhooks as a result of a Dequeue instruction.
         :param post_work_activity_sid: The new worker activity SID after executing a Conference instruction.
-        :param supervisor_mode:
+        :param supervisor_mode: 
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
@@ -446,73 +252,16 @@ class ReservationInstance(InstanceResource):
 
         :returns: The updated ReservationInstance
         """
-        return await self._proxy.update_async(
-            if_match=if_match,
-            reservation_status=reservation_status,
-            worker_activity_sid=worker_activity_sid,
-            instruction=instruction,
-            dequeue_post_work_activity_sid=dequeue_post_work_activity_sid,
-            dequeue_from=dequeue_from,
-            dequeue_record=dequeue_record,
-            dequeue_timeout=dequeue_timeout,
-            dequeue_to=dequeue_to,
-            dequeue_status_callback_url=dequeue_status_callback_url,
-            call_from=call_from,
-            call_record=call_record,
-            call_timeout=call_timeout,
-            call_to=call_to,
-            call_url=call_url,
-            call_status_callback_url=call_status_callback_url,
-            call_accept=call_accept,
-            redirect_call_sid=redirect_call_sid,
-            redirect_accept=redirect_accept,
-            redirect_url=redirect_url,
-            to=to,
-            from_=from_,
-            status_callback=status_callback,
-            status_callback_method=status_callback_method,
-            status_callback_event=status_callback_event,
-            timeout=timeout,
-            record=record,
-            muted=muted,
-            beep=beep,
-            start_conference_on_enter=start_conference_on_enter,
-            end_conference_on_exit=end_conference_on_exit,
-            wait_url=wait_url,
-            wait_method=wait_method,
-            early_media=early_media,
-            max_participants=max_participants,
-            conference_status_callback=conference_status_callback,
-            conference_status_callback_method=conference_status_callback_method,
-            conference_status_callback_event=conference_status_callback_event,
-            conference_record=conference_record,
-            conference_trim=conference_trim,
-            recording_channels=recording_channels,
-            recording_status_callback=recording_status_callback,
-            recording_status_callback_method=recording_status_callback_method,
-            conference_recording_status_callback=conference_recording_status_callback,
-            conference_recording_status_callback_method=conference_recording_status_callback_method,
-            region=region,
-            sip_auth_username=sip_auth_username,
-            sip_auth_password=sip_auth_password,
-            dequeue_status_callback_event=dequeue_status_callback_event,
-            post_work_activity_sid=post_work_activity_sid,
-            supervisor_mode=supervisor_mode,
-            supervisor=supervisor,
-            end_conference_on_customer_exit=end_conference_on_customer_exit,
-            beep_on_customer_entrance=beep_on_customer_entrance,
-            jitter_buffer_size=jitter_buffer_size,
-        )
-
+        return await self._proxy.update_async(if_match=if_match, reservation_status=reservation_status, worker_activity_sid=worker_activity_sid, instruction=instruction, dequeue_post_work_activity_sid=dequeue_post_work_activity_sid, dequeue_from=dequeue_from, dequeue_record=dequeue_record, dequeue_timeout=dequeue_timeout, dequeue_to=dequeue_to, dequeue_status_callback_url=dequeue_status_callback_url, call_from=call_from, call_record=call_record, call_timeout=call_timeout, call_to=call_to, call_url=call_url, call_status_callback_url=call_status_callback_url, call_accept=call_accept, redirect_call_sid=redirect_call_sid, redirect_accept=redirect_accept, redirect_url=redirect_url, to=to, from_=from_, status_callback=status_callback, status_callback_method=status_callback_method, status_callback_event=status_callback_event, timeout=timeout, record=record, muted=muted, beep=beep, start_conference_on_enter=start_conference_on_enter, end_conference_on_exit=end_conference_on_exit, wait_url=wait_url, wait_method=wait_method, early_media=early_media, max_participants=max_participants, conference_status_callback=conference_status_callback, conference_status_callback_method=conference_status_callback_method, conference_status_callback_event=conference_status_callback_event, conference_record=conference_record, conference_trim=conference_trim, recording_channels=recording_channels, recording_status_callback=recording_status_callback, recording_status_callback_method=recording_status_callback_method, conference_recording_status_callback=conference_recording_status_callback, conference_recording_status_callback_method=conference_recording_status_callback_method, region=region, sip_auth_username=sip_auth_username, sip_auth_password=sip_auth_password, dequeue_status_callback_event=dequeue_status_callback_event, post_work_activity_sid=post_work_activity_sid, supervisor_mode=supervisor_mode, supervisor=supervisor, end_conference_on_customer_exit=end_conference_on_customer_exit, beep_on_customer_entrance=beep_on_customer_entrance, jitter_buffer_size=jitter_buffer_size, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.ReservationInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.ReservationInstance {}>'.format(context)
 
 class ReservationContext(InstanceContext):
 
@@ -527,129 +276,62 @@ class ReservationContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "workspace_sid": workspace_sid,
-            "task_sid": task_sid,
-            "sid": sid,
+        self._solution = { 
+            'workspace_sid': workspace_sid,
+            'task_sid': task_sid,
+            'sid': sid,
         }
-        self._uri = (
-            "/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations/{sid}".format(
-                **self._solution
-            )
-        )
-
+        self._uri = '/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations/{sid}'.format(**self._solution)
+        
+    
+    
     def fetch(self) -> ReservationInstance:
         """
         Fetch the ReservationInstance
-
+        
 
         :returns: The fetched ReservationInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ReservationInstance(
             self._version,
             payload,
-            workspace_sid=self._solution["workspace_sid"],
-            task_sid=self._solution["task_sid"],
-            sid=self._solution["sid"],
+            workspace_sid=self._solution['workspace_sid'],
+            task_sid=self._solution['task_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> ReservationInstance:
         """
         Asynchronous coroutine to fetch the ReservationInstance
-
+        
 
         :returns: The fetched ReservationInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return ReservationInstance(
             self._version,
             payload,
-            workspace_sid=self._solution["workspace_sid"],
-            task_sid=self._solution["task_sid"],
-            sid=self._solution["sid"],
+            workspace_sid=self._solution['workspace_sid'],
+            task_sid=self._solution['task_sid'],
+            sid=self._solution['sid'],
+            
         )
-
-    def update(
-        self,
-        if_match: Union[str, object] = values.unset,
-        reservation_status: Union["ReservationInstance.Status", object] = values.unset,
-        worker_activity_sid: Union[str, object] = values.unset,
-        instruction: Union[str, object] = values.unset,
-        dequeue_post_work_activity_sid: Union[str, object] = values.unset,
-        dequeue_from: Union[str, object] = values.unset,
-        dequeue_record: Union[str, object] = values.unset,
-        dequeue_timeout: Union[int, object] = values.unset,
-        dequeue_to: Union[str, object] = values.unset,
-        dequeue_status_callback_url: Union[str, object] = values.unset,
-        call_from: Union[str, object] = values.unset,
-        call_record: Union[str, object] = values.unset,
-        call_timeout: Union[int, object] = values.unset,
-        call_to: Union[str, object] = values.unset,
-        call_url: Union[str, object] = values.unset,
-        call_status_callback_url: Union[str, object] = values.unset,
-        call_accept: Union[bool, object] = values.unset,
-        redirect_call_sid: Union[str, object] = values.unset,
-        redirect_accept: Union[bool, object] = values.unset,
-        redirect_url: Union[str, object] = values.unset,
-        to: Union[str, object] = values.unset,
-        from_: Union[str, object] = values.unset,
-        status_callback: Union[str, object] = values.unset,
-        status_callback_method: Union[str, object] = values.unset,
-        status_callback_event: Union[
-            List["ReservationInstance.CallStatus"], object
-        ] = values.unset,
-        timeout: Union[int, object] = values.unset,
-        record: Union[bool, object] = values.unset,
-        muted: Union[bool, object] = values.unset,
-        beep: Union[str, object] = values.unset,
-        start_conference_on_enter: Union[bool, object] = values.unset,
-        end_conference_on_exit: Union[bool, object] = values.unset,
-        wait_url: Union[str, object] = values.unset,
-        wait_method: Union[str, object] = values.unset,
-        early_media: Union[bool, object] = values.unset,
-        max_participants: Union[int, object] = values.unset,
-        conference_status_callback: Union[str, object] = values.unset,
-        conference_status_callback_method: Union[str, object] = values.unset,
-        conference_status_callback_event: Union[
-            List["ReservationInstance.ConferenceEvent"], object
-        ] = values.unset,
-        conference_record: Union[str, object] = values.unset,
-        conference_trim: Union[str, object] = values.unset,
-        recording_channels: Union[str, object] = values.unset,
-        recording_status_callback: Union[str, object] = values.unset,
-        recording_status_callback_method: Union[str, object] = values.unset,
-        conference_recording_status_callback: Union[str, object] = values.unset,
-        conference_recording_status_callback_method: Union[str, object] = values.unset,
-        region: Union[str, object] = values.unset,
-        sip_auth_username: Union[str, object] = values.unset,
-        sip_auth_password: Union[str, object] = values.unset,
-        dequeue_status_callback_event: Union[List[str], object] = values.unset,
-        post_work_activity_sid: Union[str, object] = values.unset,
-        supervisor_mode: Union[
-            "ReservationInstance.SupervisorMode", object
-        ] = values.unset,
-        supervisor: Union[str, object] = values.unset,
-        end_conference_on_customer_exit: Union[bool, object] = values.unset,
-        beep_on_customer_entrance: Union[bool, object] = values.unset,
-        jitter_buffer_size: Union[str, object] = values.unset,
-    ) -> ReservationInstance:
+    
+    
+    def update(self, if_match: Union[str, object]=values.unset, reservation_status: Union["ReservationInstance.Status", object]=values.unset, worker_activity_sid: Union[str, object]=values.unset, instruction: Union[str, object]=values.unset, dequeue_post_work_activity_sid: Union[str, object]=values.unset, dequeue_from: Union[str, object]=values.unset, dequeue_record: Union[str, object]=values.unset, dequeue_timeout: Union[int, object]=values.unset, dequeue_to: Union[str, object]=values.unset, dequeue_status_callback_url: Union[str, object]=values.unset, call_from: Union[str, object]=values.unset, call_record: Union[str, object]=values.unset, call_timeout: Union[int, object]=values.unset, call_to: Union[str, object]=values.unset, call_url: Union[str, object]=values.unset, call_status_callback_url: Union[str, object]=values.unset, call_accept: Union[bool, object]=values.unset, redirect_call_sid: Union[str, object]=values.unset, redirect_accept: Union[bool, object]=values.unset, redirect_url: Union[str, object]=values.unset, to: Union[str, object]=values.unset, from_: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, status_callback_event: Union[List["ReservationInstance.CallStatus"], object]=values.unset, timeout: Union[int, object]=values.unset, record: Union[bool, object]=values.unset, muted: Union[bool, object]=values.unset, beep: Union[str, object]=values.unset, start_conference_on_enter: Union[bool, object]=values.unset, end_conference_on_exit: Union[bool, object]=values.unset, wait_url: Union[str, object]=values.unset, wait_method: Union[str, object]=values.unset, early_media: Union[bool, object]=values.unset, max_participants: Union[int, object]=values.unset, conference_status_callback: Union[str, object]=values.unset, conference_status_callback_method: Union[str, object]=values.unset, conference_status_callback_event: Union[List["ReservationInstance.ConferenceEvent"], object]=values.unset, conference_record: Union[str, object]=values.unset, conference_trim: Union[str, object]=values.unset, recording_channels: Union[str, object]=values.unset, recording_status_callback: Union[str, object]=values.unset, recording_status_callback_method: Union[str, object]=values.unset, conference_recording_status_callback: Union[str, object]=values.unset, conference_recording_status_callback_method: Union[str, object]=values.unset, region: Union[str, object]=values.unset, sip_auth_username: Union[str, object]=values.unset, sip_auth_password: Union[str, object]=values.unset, dequeue_status_callback_event: Union[List[str], object]=values.unset, post_work_activity_sid: Union[str, object]=values.unset, supervisor_mode: Union["ReservationInstance.SupervisorMode", object]=values.unset, supervisor: Union[str, object]=values.unset, end_conference_on_customer_exit: Union[bool, object]=values.unset, beep_on_customer_entrance: Union[bool, object]=values.unset, jitter_buffer_size: Union[str, object]=values.unset) -> ReservationInstance:
         """
         Update the ReservationInstance
-
+        
         :param if_match: The If-Match HTTP request header
-        :param reservation_status:
+        :param reservation_status: 
         :param worker_activity_sid: The new worker activity SID if rejecting a reservation.
         :param instruction: The assignment instruction for reservation.
         :param dequeue_post_work_activity_sid: The SID of the Activity resource to start after executing a Dequeue instruction.
@@ -698,7 +380,7 @@ class ReservationContext(InstanceContext):
         :param sip_auth_password: The SIP password for authentication.
         :param dequeue_status_callback_event: The Call progress events sent via webhooks as a result of a Dequeue instruction.
         :param post_work_activity_sid: The new worker activity SID after executing a Conference instruction.
-        :param supervisor_mode:
+        :param supervisor_mode: 
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
@@ -706,165 +388,80 @@ class ReservationContext(InstanceContext):
 
         :returns: The updated ReservationInstance
         """
-        data = values.of(
-            {
-                "ReservationStatus": reservation_status,
-                "WorkerActivitySid": worker_activity_sid,
-                "Instruction": instruction,
-                "DequeuePostWorkActivitySid": dequeue_post_work_activity_sid,
-                "DequeueFrom": dequeue_from,
-                "DequeueRecord": dequeue_record,
-                "DequeueTimeout": dequeue_timeout,
-                "DequeueTo": dequeue_to,
-                "DequeueStatusCallbackUrl": dequeue_status_callback_url,
-                "CallFrom": call_from,
-                "CallRecord": call_record,
-                "CallTimeout": call_timeout,
-                "CallTo": call_to,
-                "CallUrl": call_url,
-                "CallStatusCallbackUrl": call_status_callback_url,
-                "CallAccept": serialize.boolean_to_string(call_accept),
-                "RedirectCallSid": redirect_call_sid,
-                "RedirectAccept": serialize.boolean_to_string(redirect_accept),
-                "RedirectUrl": redirect_url,
-                "To": to,
-                "From": from_,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-                "StatusCallbackEvent": serialize.map(
-                    status_callback_event, lambda e: e
-                ),
-                "Timeout": timeout,
-                "Record": serialize.boolean_to_string(record),
-                "Muted": serialize.boolean_to_string(muted),
-                "Beep": beep,
-                "StartConferenceOnEnter": serialize.boolean_to_string(
-                    start_conference_on_enter
-                ),
-                "EndConferenceOnExit": serialize.boolean_to_string(
-                    end_conference_on_exit
-                ),
-                "WaitUrl": wait_url,
-                "WaitMethod": wait_method,
-                "EarlyMedia": serialize.boolean_to_string(early_media),
-                "MaxParticipants": max_participants,
-                "ConferenceStatusCallback": conference_status_callback,
-                "ConferenceStatusCallbackMethod": conference_status_callback_method,
-                "ConferenceStatusCallbackEvent": serialize.map(
-                    conference_status_callback_event, lambda e: e
-                ),
-                "ConferenceRecord": conference_record,
-                "ConferenceTrim": conference_trim,
-                "RecordingChannels": recording_channels,
-                "RecordingStatusCallback": recording_status_callback,
-                "RecordingStatusCallbackMethod": recording_status_callback_method,
-                "ConferenceRecordingStatusCallback": conference_recording_status_callback,
-                "ConferenceRecordingStatusCallbackMethod": conference_recording_status_callback_method,
-                "Region": region,
-                "SipAuthUsername": sip_auth_username,
-                "SipAuthPassword": sip_auth_password,
-                "DequeueStatusCallbackEvent": serialize.map(
-                    dequeue_status_callback_event, lambda e: e
-                ),
-                "PostWorkActivitySid": post_work_activity_sid,
-                "SupervisorMode": supervisor_mode,
-                "Supervisor": supervisor,
-                "EndConferenceOnCustomerExit": serialize.boolean_to_string(
-                    end_conference_on_customer_exit
-                ),
-                "BeepOnCustomerEntrance": serialize.boolean_to_string(
-                    beep_on_customer_entrance
-                ),
-                "JitterBufferSize": jitter_buffer_size,
-            }
-        )
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
+        data = values.of({ 
+            'ReservationStatus': reservation_status,
+            'WorkerActivitySid': worker_activity_sid,
+            'Instruction': instruction,
+            'DequeuePostWorkActivitySid': dequeue_post_work_activity_sid,
+            'DequeueFrom': dequeue_from,
+            'DequeueRecord': dequeue_record,
+            'DequeueTimeout': dequeue_timeout,
+            'DequeueTo': dequeue_to,
+            'DequeueStatusCallbackUrl': dequeue_status_callback_url,
+            'CallFrom': call_from,
+            'CallRecord': call_record,
+            'CallTimeout': call_timeout,
+            'CallTo': call_to,
+            'CallUrl': call_url,
+            'CallStatusCallbackUrl': call_status_callback_url,
+            'CallAccept': serialize.boolean_to_string(call_accept),
+            'RedirectCallSid': redirect_call_sid,
+            'RedirectAccept': serialize.boolean_to_string(redirect_accept),
+            'RedirectUrl': redirect_url,
+            'To': to,
+            'From': from_,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'StatusCallbackEvent': serialize.map(status_callback_event, lambda e: e),
+            'Timeout': timeout,
+            'Record': serialize.boolean_to_string(record),
+            'Muted': serialize.boolean_to_string(muted),
+            'Beep': beep,
+            'StartConferenceOnEnter': serialize.boolean_to_string(start_conference_on_enter),
+            'EndConferenceOnExit': serialize.boolean_to_string(end_conference_on_exit),
+            'WaitUrl': wait_url,
+            'WaitMethod': wait_method,
+            'EarlyMedia': serialize.boolean_to_string(early_media),
+            'MaxParticipants': max_participants,
+            'ConferenceStatusCallback': conference_status_callback,
+            'ConferenceStatusCallbackMethod': conference_status_callback_method,
+            'ConferenceStatusCallbackEvent': serialize.map(conference_status_callback_event, lambda e: e),
+            'ConferenceRecord': conference_record,
+            'ConferenceTrim': conference_trim,
+            'RecordingChannels': recording_channels,
+            'RecordingStatusCallback': recording_status_callback,
+            'RecordingStatusCallbackMethod': recording_status_callback_method,
+            'ConferenceRecordingStatusCallback': conference_recording_status_callback,
+            'ConferenceRecordingStatusCallbackMethod': conference_recording_status_callback_method,
+            'Region': region,
+            'SipAuthUsername': sip_auth_username,
+            'SipAuthPassword': sip_auth_password,
+            'DequeueStatusCallbackEvent': serialize.map(dequeue_status_callback_event, lambda e: e),
+            'PostWorkActivitySid': post_work_activity_sid,
+            'SupervisorMode': supervisor_mode,
+            'Supervisor': supervisor,
+            'EndConferenceOnCustomerExit': serialize.boolean_to_string(end_conference_on_customer_exit),
+            'BeepOnCustomerEntrance': serialize.boolean_to_string(beep_on_customer_entrance),
+            'JitterBufferSize': jitter_buffer_size,
+        })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = self._version.update(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return ReservationInstance(
             self._version,
             payload,
-            workspace_sid=self._solution["workspace_sid"],
-            task_sid=self._solution["task_sid"],
-            sid=self._solution["sid"],
+            workspace_sid=self._solution['workspace_sid'],
+            task_sid=self._solution['task_sid'],
+            sid=self._solution['sid']
         )
 
-    async def update_async(
-        self,
-        if_match: Union[str, object] = values.unset,
-        reservation_status: Union["ReservationInstance.Status", object] = values.unset,
-        worker_activity_sid: Union[str, object] = values.unset,
-        instruction: Union[str, object] = values.unset,
-        dequeue_post_work_activity_sid: Union[str, object] = values.unset,
-        dequeue_from: Union[str, object] = values.unset,
-        dequeue_record: Union[str, object] = values.unset,
-        dequeue_timeout: Union[int, object] = values.unset,
-        dequeue_to: Union[str, object] = values.unset,
-        dequeue_status_callback_url: Union[str, object] = values.unset,
-        call_from: Union[str, object] = values.unset,
-        call_record: Union[str, object] = values.unset,
-        call_timeout: Union[int, object] = values.unset,
-        call_to: Union[str, object] = values.unset,
-        call_url: Union[str, object] = values.unset,
-        call_status_callback_url: Union[str, object] = values.unset,
-        call_accept: Union[bool, object] = values.unset,
-        redirect_call_sid: Union[str, object] = values.unset,
-        redirect_accept: Union[bool, object] = values.unset,
-        redirect_url: Union[str, object] = values.unset,
-        to: Union[str, object] = values.unset,
-        from_: Union[str, object] = values.unset,
-        status_callback: Union[str, object] = values.unset,
-        status_callback_method: Union[str, object] = values.unset,
-        status_callback_event: Union[
-            List["ReservationInstance.CallStatus"], object
-        ] = values.unset,
-        timeout: Union[int, object] = values.unset,
-        record: Union[bool, object] = values.unset,
-        muted: Union[bool, object] = values.unset,
-        beep: Union[str, object] = values.unset,
-        start_conference_on_enter: Union[bool, object] = values.unset,
-        end_conference_on_exit: Union[bool, object] = values.unset,
-        wait_url: Union[str, object] = values.unset,
-        wait_method: Union[str, object] = values.unset,
-        early_media: Union[bool, object] = values.unset,
-        max_participants: Union[int, object] = values.unset,
-        conference_status_callback: Union[str, object] = values.unset,
-        conference_status_callback_method: Union[str, object] = values.unset,
-        conference_status_callback_event: Union[
-            List["ReservationInstance.ConferenceEvent"], object
-        ] = values.unset,
-        conference_record: Union[str, object] = values.unset,
-        conference_trim: Union[str, object] = values.unset,
-        recording_channels: Union[str, object] = values.unset,
-        recording_status_callback: Union[str, object] = values.unset,
-        recording_status_callback_method: Union[str, object] = values.unset,
-        conference_recording_status_callback: Union[str, object] = values.unset,
-        conference_recording_status_callback_method: Union[str, object] = values.unset,
-        region: Union[str, object] = values.unset,
-        sip_auth_username: Union[str, object] = values.unset,
-        sip_auth_password: Union[str, object] = values.unset,
-        dequeue_status_callback_event: Union[List[str], object] = values.unset,
-        post_work_activity_sid: Union[str, object] = values.unset,
-        supervisor_mode: Union[
-            "ReservationInstance.SupervisorMode", object
-        ] = values.unset,
-        supervisor: Union[str, object] = values.unset,
-        end_conference_on_customer_exit: Union[bool, object] = values.unset,
-        beep_on_customer_entrance: Union[bool, object] = values.unset,
-        jitter_buffer_size: Union[str, object] = values.unset,
-    ) -> ReservationInstance:
+    async def update_async(self, if_match: Union[str, object]=values.unset, reservation_status: Union["ReservationInstance.Status", object]=values.unset, worker_activity_sid: Union[str, object]=values.unset, instruction: Union[str, object]=values.unset, dequeue_post_work_activity_sid: Union[str, object]=values.unset, dequeue_from: Union[str, object]=values.unset, dequeue_record: Union[str, object]=values.unset, dequeue_timeout: Union[int, object]=values.unset, dequeue_to: Union[str, object]=values.unset, dequeue_status_callback_url: Union[str, object]=values.unset, call_from: Union[str, object]=values.unset, call_record: Union[str, object]=values.unset, call_timeout: Union[int, object]=values.unset, call_to: Union[str, object]=values.unset, call_url: Union[str, object]=values.unset, call_status_callback_url: Union[str, object]=values.unset, call_accept: Union[bool, object]=values.unset, redirect_call_sid: Union[str, object]=values.unset, redirect_accept: Union[bool, object]=values.unset, redirect_url: Union[str, object]=values.unset, to: Union[str, object]=values.unset, from_: Union[str, object]=values.unset, status_callback: Union[str, object]=values.unset, status_callback_method: Union[str, object]=values.unset, status_callback_event: Union[List["ReservationInstance.CallStatus"], object]=values.unset, timeout: Union[int, object]=values.unset, record: Union[bool, object]=values.unset, muted: Union[bool, object]=values.unset, beep: Union[str, object]=values.unset, start_conference_on_enter: Union[bool, object]=values.unset, end_conference_on_exit: Union[bool, object]=values.unset, wait_url: Union[str, object]=values.unset, wait_method: Union[str, object]=values.unset, early_media: Union[bool, object]=values.unset, max_participants: Union[int, object]=values.unset, conference_status_callback: Union[str, object]=values.unset, conference_status_callback_method: Union[str, object]=values.unset, conference_status_callback_event: Union[List["ReservationInstance.ConferenceEvent"], object]=values.unset, conference_record: Union[str, object]=values.unset, conference_trim: Union[str, object]=values.unset, recording_channels: Union[str, object]=values.unset, recording_status_callback: Union[str, object]=values.unset, recording_status_callback_method: Union[str, object]=values.unset, conference_recording_status_callback: Union[str, object]=values.unset, conference_recording_status_callback_method: Union[str, object]=values.unset, region: Union[str, object]=values.unset, sip_auth_username: Union[str, object]=values.unset, sip_auth_password: Union[str, object]=values.unset, dequeue_status_callback_event: Union[List[str], object]=values.unset, post_work_activity_sid: Union[str, object]=values.unset, supervisor_mode: Union["ReservationInstance.SupervisorMode", object]=values.unset, supervisor: Union[str, object]=values.unset, end_conference_on_customer_exit: Union[bool, object]=values.unset, beep_on_customer_entrance: Union[bool, object]=values.unset, jitter_buffer_size: Union[str, object]=values.unset) -> ReservationInstance:
         """
         Asynchronous coroutine to update the ReservationInstance
-
+        
         :param if_match: The If-Match HTTP request header
-        :param reservation_status:
+        :param reservation_status: 
         :param worker_activity_sid: The new worker activity SID if rejecting a reservation.
         :param instruction: The assignment instruction for reservation.
         :param dequeue_post_work_activity_sid: The SID of the Activity resource to start after executing a Dequeue instruction.
@@ -913,7 +510,7 @@ class ReservationContext(InstanceContext):
         :param sip_auth_password: The SIP password for authentication.
         :param dequeue_status_callback_event: The Call progress events sent via webhooks as a result of a Dequeue instruction.
         :param post_work_activity_sid: The new worker activity SID after executing a Conference instruction.
-        :param supervisor_mode:
+        :param supervisor_mode: 
         :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
         :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
         :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
@@ -921,104 +518,88 @@ class ReservationContext(InstanceContext):
 
         :returns: The updated ReservationInstance
         """
-        data = values.of(
-            {
-                "ReservationStatus": reservation_status,
-                "WorkerActivitySid": worker_activity_sid,
-                "Instruction": instruction,
-                "DequeuePostWorkActivitySid": dequeue_post_work_activity_sid,
-                "DequeueFrom": dequeue_from,
-                "DequeueRecord": dequeue_record,
-                "DequeueTimeout": dequeue_timeout,
-                "DequeueTo": dequeue_to,
-                "DequeueStatusCallbackUrl": dequeue_status_callback_url,
-                "CallFrom": call_from,
-                "CallRecord": call_record,
-                "CallTimeout": call_timeout,
-                "CallTo": call_to,
-                "CallUrl": call_url,
-                "CallStatusCallbackUrl": call_status_callback_url,
-                "CallAccept": serialize.boolean_to_string(call_accept),
-                "RedirectCallSid": redirect_call_sid,
-                "RedirectAccept": serialize.boolean_to_string(redirect_accept),
-                "RedirectUrl": redirect_url,
-                "To": to,
-                "From": from_,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-                "StatusCallbackEvent": serialize.map(
-                    status_callback_event, lambda e: e
-                ),
-                "Timeout": timeout,
-                "Record": serialize.boolean_to_string(record),
-                "Muted": serialize.boolean_to_string(muted),
-                "Beep": beep,
-                "StartConferenceOnEnter": serialize.boolean_to_string(
-                    start_conference_on_enter
-                ),
-                "EndConferenceOnExit": serialize.boolean_to_string(
-                    end_conference_on_exit
-                ),
-                "WaitUrl": wait_url,
-                "WaitMethod": wait_method,
-                "EarlyMedia": serialize.boolean_to_string(early_media),
-                "MaxParticipants": max_participants,
-                "ConferenceStatusCallback": conference_status_callback,
-                "ConferenceStatusCallbackMethod": conference_status_callback_method,
-                "ConferenceStatusCallbackEvent": serialize.map(
-                    conference_status_callback_event, lambda e: e
-                ),
-                "ConferenceRecord": conference_record,
-                "ConferenceTrim": conference_trim,
-                "RecordingChannels": recording_channels,
-                "RecordingStatusCallback": recording_status_callback,
-                "RecordingStatusCallbackMethod": recording_status_callback_method,
-                "ConferenceRecordingStatusCallback": conference_recording_status_callback,
-                "ConferenceRecordingStatusCallbackMethod": conference_recording_status_callback_method,
-                "Region": region,
-                "SipAuthUsername": sip_auth_username,
-                "SipAuthPassword": sip_auth_password,
-                "DequeueStatusCallbackEvent": serialize.map(
-                    dequeue_status_callback_event, lambda e: e
-                ),
-                "PostWorkActivitySid": post_work_activity_sid,
-                "SupervisorMode": supervisor_mode,
-                "Supervisor": supervisor,
-                "EndConferenceOnCustomerExit": serialize.boolean_to_string(
-                    end_conference_on_customer_exit
-                ),
-                "BeepOnCustomerEntrance": serialize.boolean_to_string(
-                    beep_on_customer_entrance
-                ),
-                "JitterBufferSize": jitter_buffer_size,
-            }
-        )
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
+        data = values.of({ 
+            'ReservationStatus': reservation_status,
+            'WorkerActivitySid': worker_activity_sid,
+            'Instruction': instruction,
+            'DequeuePostWorkActivitySid': dequeue_post_work_activity_sid,
+            'DequeueFrom': dequeue_from,
+            'DequeueRecord': dequeue_record,
+            'DequeueTimeout': dequeue_timeout,
+            'DequeueTo': dequeue_to,
+            'DequeueStatusCallbackUrl': dequeue_status_callback_url,
+            'CallFrom': call_from,
+            'CallRecord': call_record,
+            'CallTimeout': call_timeout,
+            'CallTo': call_to,
+            'CallUrl': call_url,
+            'CallStatusCallbackUrl': call_status_callback_url,
+            'CallAccept': serialize.boolean_to_string(call_accept),
+            'RedirectCallSid': redirect_call_sid,
+            'RedirectAccept': serialize.boolean_to_string(redirect_accept),
+            'RedirectUrl': redirect_url,
+            'To': to,
+            'From': from_,
+            'StatusCallback': status_callback,
+            'StatusCallbackMethod': status_callback_method,
+            'StatusCallbackEvent': serialize.map(status_callback_event, lambda e: e),
+            'Timeout': timeout,
+            'Record': serialize.boolean_to_string(record),
+            'Muted': serialize.boolean_to_string(muted),
+            'Beep': beep,
+            'StartConferenceOnEnter': serialize.boolean_to_string(start_conference_on_enter),
+            'EndConferenceOnExit': serialize.boolean_to_string(end_conference_on_exit),
+            'WaitUrl': wait_url,
+            'WaitMethod': wait_method,
+            'EarlyMedia': serialize.boolean_to_string(early_media),
+            'MaxParticipants': max_participants,
+            'ConferenceStatusCallback': conference_status_callback,
+            'ConferenceStatusCallbackMethod': conference_status_callback_method,
+            'ConferenceStatusCallbackEvent': serialize.map(conference_status_callback_event, lambda e: e),
+            'ConferenceRecord': conference_record,
+            'ConferenceTrim': conference_trim,
+            'RecordingChannels': recording_channels,
+            'RecordingStatusCallback': recording_status_callback,
+            'RecordingStatusCallbackMethod': recording_status_callback_method,
+            'ConferenceRecordingStatusCallback': conference_recording_status_callback,
+            'ConferenceRecordingStatusCallbackMethod': conference_recording_status_callback_method,
+            'Region': region,
+            'SipAuthUsername': sip_auth_username,
+            'SipAuthPassword': sip_auth_password,
+            'DequeueStatusCallbackEvent': serialize.map(dequeue_status_callback_event, lambda e: e),
+            'PostWorkActivitySid': post_work_activity_sid,
+            'SupervisorMode': supervisor_mode,
+            'Supervisor': supervisor,
+            'EndConferenceOnCustomerExit': serialize.boolean_to_string(end_conference_on_customer_exit),
+            'BeepOnCustomerEntrance': serialize.boolean_to_string(beep_on_customer_entrance),
+            'JitterBufferSize': jitter_buffer_size,
+        })
+        headers = values.of({'If-Match': if_match, })
 
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return ReservationInstance(
             self._version,
             payload,
-            workspace_sid=self._solution["workspace_sid"],
-            task_sid=self._solution["task_sid"],
-            sid=self._solution["sid"],
+            workspace_sid=self._solution['workspace_sid'],
+            task_sid=self._solution['task_sid'],
+            sid=self._solution['sid']
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.ReservationContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Taskrouter.V1.ReservationContext {}>'.format(context)
+
+
+
+
+
 
 
 class ReservationPage(Page):
@@ -1029,12 +610,7 @@ class ReservationPage(Page):
 
         :param payload: Payload response from the API
         """
-        return ReservationInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution["workspace_sid"],
-            task_sid=self._solution["task_sid"],
-        )
+        return ReservationInstance(self._version, payload, workspace_sid=self._solution["workspace_sid"], task_sid=self._solution["task_sid"])
 
     def __repr__(self) -> str:
         """
@@ -1045,8 +621,11 @@ class ReservationPage(Page):
         return "<Twilio.Taskrouter.V1.ReservationPage>"
 
 
-class ReservationList(ListResource):
 
+
+
+class ReservationList(ListResource):
+    
     def __init__(self, version: Version, workspace_sid: str, task_sid: str):
         """
         Initialize the ReservationList
@@ -1054,23 +633,23 @@ class ReservationList(ListResource):
         :param version: Version that contains the resource
         :param workspace_sid: The SID of the Workspace with the TaskReservation resources to read.
         :param task_sid: The SID of the reserved Task resource with the TaskReservation resources to read.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "workspace_sid": workspace_sid,
-            "task_sid": task_sid,
-        }
-        self._uri = "/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations".format(
-            **self._solution
-        )
-
-    def stream(
-        self,
+        self._solution = { 'workspace_sid': workspace_sid, 'task_sid': task_sid,  }
+        self._uri = '/Workspaces/{workspace_sid}/Tasks/{task_sid}/Reservations'.format(**self._solution)
+        
+        
+    
+    
+    
+    def stream(self, 
         reservation_status: Union["ReservationInstance.Status", object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ReservationInstance]:
@@ -1079,7 +658,7 @@ class ReservationList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;ReservationInstance.Status&quot; reservation_status: Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
         :param str worker_sid: The SID of the reserved Worker resource to read.
         :param limit: Upper limit for the number of records to return. stream()
@@ -1095,15 +674,15 @@ class ReservationList(ListResource):
         page = self.page(
             reservation_status=reservation_status,
             worker_sid=worker_sid,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         reservation_status: Union["ReservationInstance.Status", object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ReservationInstance]:
@@ -1112,7 +691,7 @@ class ReservationList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;ReservationInstance.Status&quot; reservation_status: Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
         :param str worker_sid: The SID of the reserved Worker resource to read.
         :param limit: Upper limit for the number of records to return. stream()
@@ -1128,15 +707,15 @@ class ReservationList(ListResource):
         page = await self.page_async(
             reservation_status=reservation_status,
             worker_sid=worker_sid,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         reservation_status: Union["ReservationInstance.Status", object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ReservationInstance]:
@@ -1144,7 +723,7 @@ class ReservationList(ListResource):
         Lists ReservationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;ReservationInstance.Status&quot; reservation_status: Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
         :param str worker_sid: The SID of the reserved Worker resource to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -1156,19 +735,17 @@ class ReservationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                reservation_status=reservation_status,
-                worker_sid=worker_sid,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            reservation_status=reservation_status,
+            worker_sid=worker_sid,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         reservation_status: Union["ReservationInstance.Status", object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ReservationInstance]:
@@ -1176,7 +753,7 @@ class ReservationList(ListResource):
         Asynchronously lists ReservationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;ReservationInstance.Status&quot; reservation_status: Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
         :param str worker_sid: The SID of the reserved Worker resource to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
@@ -1188,20 +765,17 @@ class ReservationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                reservation_status=reservation_status,
-                worker_sid=worker_sid,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            reservation_status=reservation_status,
+            worker_sid=worker_sid,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         reservation_status: Union["ReservationInstance.Status", object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1209,7 +783,7 @@ class ReservationList(ListResource):
         """
         Retrieve a single page of ReservationInstance records from the API.
         Request is executed immediately
-
+        
         :param reservation_status: Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
         :param worker_sid: The SID of the reserved Worker resource to read.
         :param page_token: PageToken provided by the API
@@ -1218,23 +792,21 @@ class ReservationList(ListResource):
 
         :returns: Page of ReservationInstance
         """
-        data = values.of(
-            {
-                "ReservationStatus": reservation_status,
-                "WorkerSid": worker_sid,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'ReservationStatus': reservation_status,
+            'WorkerSid': worker_sid,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return ReservationPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         reservation_status: Union["ReservationInstance.Status", object] = values.unset,
         worker_sid: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -1242,7 +814,7 @@ class ReservationList(ListResource):
         """
         Asynchronously retrieve a single page of ReservationInstance records from the API.
         Request is executed immediately
-
+        
         :param reservation_status: Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
         :param worker_sid: The SID of the reserved Worker resource to read.
         :param page_token: PageToken provided by the API
@@ -1251,19 +823,15 @@ class ReservationList(ListResource):
 
         :returns: Page of ReservationInstance
         """
-        data = values.of(
-            {
-                "ReservationStatus": reservation_status,
-                "WorkerSid": worker_sid,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'ReservationStatus': reservation_status,
+            'WorkerSid': worker_sid,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return ReservationPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> ReservationPage:
@@ -1275,7 +843,10 @@ class ReservationList(ListResource):
 
         :returns: Page of ReservationInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return ReservationPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> ReservationPage:
@@ -1287,34 +858,29 @@ class ReservationList(ListResource):
 
         :returns: Page of ReservationInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return ReservationPage(self._version, response, self._solution)
+
+
 
     def get(self, sid: str) -> ReservationContext:
         """
         Constructs a ReservationContext
-
+        
         :param sid: The SID of the TaskReservation resource to update.
         """
-        return ReservationContext(
-            self._version,
-            workspace_sid=self._solution["workspace_sid"],
-            task_sid=self._solution["task_sid"],
-            sid=sid,
-        )
+        return ReservationContext(self._version, workspace_sid=self._solution['workspace_sid'], task_sid=self._solution['task_sid'], sid=sid)
 
     def __call__(self, sid: str) -> ReservationContext:
         """
         Constructs a ReservationContext
-
+        
         :param sid: The SID of the TaskReservation resource to update.
         """
-        return ReservationContext(
-            self._version,
-            workspace_sid=self._solution["workspace_sid"],
-            task_sid=self._solution["task_sid"],
-            sid=sid,
-        )
+        return ReservationContext(self._version, workspace_sid=self._solution['workspace_sid'], task_sid=self._solution['task_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -1322,4 +888,5 @@ class ReservationList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Taskrouter.V1.ReservationList>"
+        return '<Twilio.Taskrouter.V1.ReservationList>'
+

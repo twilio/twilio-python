@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -40,30 +42,21 @@ class AssetVersionInstance(InstanceResource):
     :ivar url: The absolute URL of the Asset Version resource.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        service_sid: str,
-        asset_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, asset_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
         self.asset_sid: Optional[str] = payload.get("asset_sid")
         self.path: Optional[str] = payload.get("path")
-        self.visibility: Optional["AssetVersionInstance.Visibility"] = payload.get(
-            "visibility"
-        )
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
+        self.visibility: Optional["AssetVersionInstance.Visibility"] = payload.get("visibility")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "service_sid": service_sid,
             "asset_sid": asset_sid,
             "sid": sid or self.sid,
@@ -79,18 +72,14 @@ class AssetVersionInstance(InstanceResource):
         :returns: AssetVersionContext for this AssetVersionInstance
         """
         if self._context is None:
-            self._context = AssetVersionContext(
-                self._version,
-                service_sid=self._solution["service_sid"],
-                asset_sid=self._solution["asset_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = AssetVersionContext(self._version, service_sid=self._solution['service_sid'], asset_sid=self._solution['asset_sid'], sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def fetch(self) -> "AssetVersionInstance":
         """
         Fetch the AssetVersionInstance
-
+        
 
         :returns: The fetched AssetVersionInstance
         """
@@ -99,21 +88,20 @@ class AssetVersionInstance(InstanceResource):
     async def fetch_async(self) -> "AssetVersionInstance":
         """
         Asynchronous coroutine to fetch the AssetVersionInstance
-
+        
 
         :returns: The fetched AssetVersionInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.AssetVersionInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Serverless.V1.AssetVersionInstance {}>'.format(context)
 
 class AssetVersionContext(InstanceContext):
 
@@ -128,66 +116,67 @@ class AssetVersionContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "asset_sid": asset_sid,
-            "sid": sid,
+        self._solution = { 
+            'service_sid': service_sid,
+            'asset_sid': asset_sid,
+            'sid': sid,
         }
-        self._uri = "/Services/{service_sid}/Assets/{asset_sid}/Versions/{sid}".format(
-            **self._solution
-        )
-
+        self._uri = '/Services/{service_sid}/Assets/{asset_sid}/Versions/{sid}'.format(**self._solution)
+        
+    
+    
     def fetch(self) -> AssetVersionInstance:
         """
         Fetch the AssetVersionInstance
-
+        
 
         :returns: The fetched AssetVersionInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return AssetVersionInstance(
             self._version,
             payload,
-            service_sid=self._solution["service_sid"],
-            asset_sid=self._solution["asset_sid"],
-            sid=self._solution["sid"],
+            service_sid=self._solution['service_sid'],
+            asset_sid=self._solution['asset_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> AssetVersionInstance:
         """
         Asynchronous coroutine to fetch the AssetVersionInstance
-
+        
 
         :returns: The fetched AssetVersionInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return AssetVersionInstance(
             self._version,
             payload,
-            service_sid=self._solution["service_sid"],
-            asset_sid=self._solution["asset_sid"],
-            sid=self._solution["sid"],
+            service_sid=self._solution['service_sid'],
+            asset_sid=self._solution['asset_sid'],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.AssetVersionContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Serverless.V1.AssetVersionContext {}>'.format(context)
+
+
+
 
 
 class AssetVersionPage(Page):
@@ -198,12 +187,7 @@ class AssetVersionPage(Page):
 
         :param payload: Payload response from the API
         """
-        return AssetVersionInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            asset_sid=self._solution["asset_sid"],
-        )
+        return AssetVersionInstance(self._version, payload, service_sid=self._solution["service_sid"], asset_sid=self._solution["asset_sid"])
 
     def __repr__(self) -> str:
         """
@@ -214,8 +198,11 @@ class AssetVersionPage(Page):
         return "<Twilio.Serverless.V1.AssetVersionPage>"
 
 
-class AssetVersionList(ListResource):
 
+
+
+class AssetVersionList(ListResource):
+    
     def __init__(self, version: Version, service_sid: str, asset_sid: str):
         """
         Initialize the AssetVersionList
@@ -223,21 +210,20 @@ class AssetVersionList(ListResource):
         :param version: Version that contains the resource
         :param service_sid: The SID of the Service to read the Asset Version resource from.
         :param asset_sid: The SID of the Asset resource that is the parent of the Asset Version resources to read.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "asset_sid": asset_sid,
-        }
-        self._uri = "/Services/{service_sid}/Assets/{asset_sid}/Versions".format(
-            **self._solution
-        )
-
-    def stream(
-        self,
+        self._solution = { 'service_sid': service_sid, 'asset_sid': asset_sid,  }
+        self._uri = '/Services/{service_sid}/Assets/{asset_sid}/Versions'.format(**self._solution)
+        
+        
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[AssetVersionInstance]:
@@ -246,7 +232,7 @@ class AssetVersionList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -257,12 +243,14 @@ class AssetVersionList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[AssetVersionInstance]:
@@ -271,7 +259,7 @@ class AssetVersionList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -282,12 +270,14 @@ class AssetVersionList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[AssetVersionInstance]:
@@ -295,7 +285,7 @@ class AssetVersionList(ListResource):
         Lists AssetVersionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -305,15 +295,13 @@ class AssetVersionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[AssetVersionInstance]:
@@ -321,7 +309,7 @@ class AssetVersionList(ListResource):
         Asynchronously lists AssetVersionInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -331,16 +319,13 @@ class AssetVersionList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -348,26 +333,24 @@ class AssetVersionList(ListResource):
         """
         Retrieve a single page of AssetVersionInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssetVersionInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return AssetVersionPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -375,24 +358,20 @@ class AssetVersionList(ListResource):
         """
         Asynchronously retrieve a single page of AssetVersionInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of AssetVersionInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return AssetVersionPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> AssetVersionPage:
@@ -404,7 +383,10 @@ class AssetVersionList(ListResource):
 
         :returns: Page of AssetVersionInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return AssetVersionPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> AssetVersionPage:
@@ -416,34 +398,29 @@ class AssetVersionList(ListResource):
 
         :returns: Page of AssetVersionInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return AssetVersionPage(self._version, response, self._solution)
+
+
 
     def get(self, sid: str) -> AssetVersionContext:
         """
         Constructs a AssetVersionContext
-
+        
         :param sid: The SID of the Asset Version resource to fetch.
         """
-        return AssetVersionContext(
-            self._version,
-            service_sid=self._solution["service_sid"],
-            asset_sid=self._solution["asset_sid"],
-            sid=sid,
-        )
+        return AssetVersionContext(self._version, service_sid=self._solution['service_sid'], asset_sid=self._solution['asset_sid'], sid=sid)
 
     def __call__(self, sid: str) -> AssetVersionContext:
         """
         Constructs a AssetVersionContext
-
+        
         :param sid: The SID of the Asset Version resource to fetch.
         """
-        return AssetVersionContext(
-            self._version,
-            service_sid=self._solution["service_sid"],
-            asset_sid=self._solution["asset_sid"],
-            sid=sid,
-        )
+        return AssetVersionContext(self._version, service_sid=self._solution['service_sid'], asset_sid=self._solution['asset_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -451,4 +428,5 @@ class AssetVersionList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Serverless.V1.AssetVersionList>"
+        return '<Twilio.Serverless.V1.AssetVersionList>'
+

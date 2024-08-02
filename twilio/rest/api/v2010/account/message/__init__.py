@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -88,23 +90,16 @@ class MessageInstance(InstanceResource):
     :ivar subresource_uris: A list of related resources identified by their URIs relative to `https://api.twilio.com`
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        account_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.body: Optional[str] = payload.get("body")
         self.num_segments: Optional[str] = payload.get("num_segments")
         self.direction: Optional["MessageInstance.Direction"] = payload.get("direction")
         self.from_: Optional[str] = payload.get("from")
         self.to: Optional[str] = payload.get("to")
-        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_updated")
-        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_updated"))
         self.price: Optional[str] = payload.get("price")
         self.error_message: Optional[str] = payload.get("error_message")
         self.uri: Optional[str] = payload.get("uri")
@@ -113,20 +108,15 @@ class MessageInstance(InstanceResource):
         self.status: Optional["MessageInstance.Status"] = payload.get("status")
         self.messaging_service_sid: Optional[str] = payload.get("messaging_service_sid")
         self.sid: Optional[str] = payload.get("sid")
-        self.date_sent: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_sent")
-        )
-        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_created")
-        )
+        self.date_sent: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_sent"))
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_created"))
         self.error_code: Optional[int] = deserialize.integer(payload.get("error_code"))
         self.price_unit: Optional[str] = payload.get("price_unit")
         self.api_version: Optional[str] = payload.get("api_version")
-        self.subresource_uris: Optional[Dict[str, object]] = payload.get(
-            "subresource_uris"
-        )
+        self.subresource_uris: Optional[Dict[str, object]] = payload.get("subresource_uris")
 
-        self._solution = {
+        
+        self._solution = { 
             "account_sid": account_sid,
             "sid": sid or self.sid,
         }
@@ -141,35 +131,32 @@ class MessageInstance(InstanceResource):
         :returns: MessageContext for this MessageInstance
         """
         if self._context is None:
-            self._context = MessageContext(
-                self._version,
-                account_sid=self._solution["account_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = MessageContext(self._version, account_sid=self._solution['account_sid'], sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the MessageInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the MessageInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "MessageInstance":
         """
         Fetch the MessageInstance
-
+        
 
         :returns: The fetched MessageInstance
         """
@@ -178,71 +165,57 @@ class MessageInstance(InstanceResource):
     async def fetch_async(self) -> "MessageInstance":
         """
         Asynchronous coroutine to fetch the MessageInstance
-
+        
 
         :returns: The fetched MessageInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        body: Union[str, object] = values.unset,
-        status: Union["MessageInstance.UpdateStatus", object] = values.unset,
-    ) -> "MessageInstance":
+    
+    
+    def update(self, body: Union[str, object]=values.unset, status: Union["MessageInstance.UpdateStatus", object]=values.unset) -> "MessageInstance":
         """
         Update the MessageInstance
-
+        
         :param body: The new `body` of the Message resource. To redact the text content of a Message, this parameter's value must be an empty string
-        :param status:
+        :param status: 
 
         :returns: The updated MessageInstance
         """
-        return self._proxy.update(
-            body=body,
-            status=status,
-        )
+        return self._proxy.update(body=body, status=status, )
 
-    async def update_async(
-        self,
-        body: Union[str, object] = values.unset,
-        status: Union["MessageInstance.UpdateStatus", object] = values.unset,
-    ) -> "MessageInstance":
+    async def update_async(self, body: Union[str, object]=values.unset, status: Union["MessageInstance.UpdateStatus", object]=values.unset) -> "MessageInstance":
         """
         Asynchronous coroutine to update the MessageInstance
-
+        
         :param body: The new `body` of the Message resource. To redact the text content of a Message, this parameter's value must be an empty string
-        :param status:
+        :param status: 
 
         :returns: The updated MessageInstance
         """
-        return await self._proxy.update_async(
-            body=body,
-            status=status,
-        )
-
+        return await self._proxy.update_async(body=body, status=status, )
+    
     @property
     def feedback(self) -> FeedbackList:
         """
         Access the feedback
         """
         return self._proxy.feedback
-
+    
     @property
     def media(self) -> MediaList:
         """
         Access the media
         """
         return self._proxy.media
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.MessageInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.MessageInstance {}>'.format(context)
 
 class MessageContext(InstanceContext):
 
@@ -256,148 +229,123 @@ class MessageContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-            "sid": sid,
+        self._solution = { 
+            'account_sid': account_sid,
+            'sid': sid,
         }
-        self._uri = "/Accounts/{account_sid}/Messages/{sid}.json".format(
-            **self._solution
-        )
-
+        self._uri = '/Accounts/{account_sid}/Messages/{sid}.json'.format(**self._solution)
+        
         self._feedback: Optional[FeedbackList] = None
         self._media: Optional[MediaList] = None
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the MessageInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the MessageInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> MessageInstance:
         """
         Fetch the MessageInstance
-
+        
 
         :returns: The fetched MessageInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MessageInstance(
             self._version,
             payload,
-            account_sid=self._solution["account_sid"],
-            sid=self._solution["sid"],
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> MessageInstance:
         """
         Asynchronous coroutine to fetch the MessageInstance
-
+        
 
         :returns: The fetched MessageInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return MessageInstance(
             self._version,
             payload,
-            account_sid=self._solution["account_sid"],
-            sid=self._solution["sid"],
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid'],
+            
         )
-
-    def update(
-        self,
-        body: Union[str, object] = values.unset,
-        status: Union["MessageInstance.UpdateStatus", object] = values.unset,
-    ) -> MessageInstance:
+    
+    
+    def update(self, body: Union[str, object]=values.unset, status: Union["MessageInstance.UpdateStatus", object]=values.unset) -> MessageInstance:
         """
         Update the MessageInstance
-
+        
         :param body: The new `body` of the Message resource. To redact the text content of a Message, this parameter's value must be an empty string
-        :param status:
+        :param status: 
 
         :returns: The updated MessageInstance
         """
-        data = values.of(
-            {
-                "Body": body,
-                "Status": status,
-            }
-        )
+        data = values.of({ 
+            'Body': body,
+            'Status': status,
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return MessageInstance(
             self._version,
             payload,
-            account_sid=self._solution["account_sid"],
-            sid=self._solution["sid"],
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
         )
 
-    async def update_async(
-        self,
-        body: Union[str, object] = values.unset,
-        status: Union["MessageInstance.UpdateStatus", object] = values.unset,
-    ) -> MessageInstance:
+    async def update_async(self, body: Union[str, object]=values.unset, status: Union["MessageInstance.UpdateStatus", object]=values.unset) -> MessageInstance:
         """
         Asynchronous coroutine to update the MessageInstance
-
+        
         :param body: The new `body` of the Message resource. To redact the text content of a Message, this parameter's value must be an empty string
-        :param status:
+        :param status: 
 
         :returns: The updated MessageInstance
         """
-        data = values.of(
-            {
-                "Body": body,
-                "Status": status,
-            }
-        )
+        data = values.of({ 
+            'Body': body,
+            'Status': status,
+        })
+        
 
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
 
         return MessageInstance(
             self._version,
             payload,
-            account_sid=self._solution["account_sid"],
-            sid=self._solution["sid"],
+            account_sid=self._solution['account_sid'],
+            sid=self._solution['sid']
         )
-
+    
+    
     @property
     def feedback(self) -> FeedbackList:
         """
@@ -405,12 +353,12 @@ class MessageContext(InstanceContext):
         """
         if self._feedback is None:
             self._feedback = FeedbackList(
-                self._version,
-                self._solution["account_sid"],
-                self._solution["sid"],
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._feedback
-
+    
     @property
     def media(self) -> MediaList:
         """
@@ -418,20 +366,29 @@ class MessageContext(InstanceContext):
         """
         if self._media is None:
             self._media = MediaList(
-                self._version,
-                self._solution["account_sid"],
-                self._solution["sid"],
+                self._version, 
+                self._solution['account_sid'],
+                self._solution['sid'],
             )
         return self._media
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.MessageContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.MessageContext {}>'.format(context)
+
+
+
+
+
+
+
+
+
 
 
 class MessagePage(Page):
@@ -442,9 +399,7 @@ class MessagePage(Page):
 
         :param payload: Payload response from the API
         """
-        return MessageInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
+        return MessageInstance(self._version, payload, account_sid=self._solution["account_sid"])
 
     def __repr__(self) -> str:
         """
@@ -455,225 +410,169 @@ class MessagePage(Page):
         return "<Twilio.Api.V2010.MessagePage>"
 
 
-class MessageList(ListResource):
 
+
+
+class MessageList(ListResource):
+    
     def __init__(self, version: Version, account_sid: str):
         """
         Initialize the MessageList
 
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) associated with the Message resources.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/Messages.json".format(**self._solution)
-
-    def create(
-        self,
-        to: str,
-        status_callback: Union[str, object] = values.unset,
-        application_sid: Union[str, object] = values.unset,
-        max_price: Union[float, object] = values.unset,
-        provide_feedback: Union[bool, object] = values.unset,
-        attempt: Union[int, object] = values.unset,
-        validity_period: Union[int, object] = values.unset,
-        force_delivery: Union[bool, object] = values.unset,
-        content_retention: Union[
-            "MessageInstance.ContentRetention", object
-        ] = values.unset,
-        address_retention: Union[
-            "MessageInstance.AddressRetention", object
-        ] = values.unset,
-        smart_encoded: Union[bool, object] = values.unset,
-        persistent_action: Union[List[str], object] = values.unset,
-        shorten_urls: Union[bool, object] = values.unset,
-        schedule_type: Union["MessageInstance.ScheduleType", object] = values.unset,
-        send_at: Union[datetime, object] = values.unset,
-        send_as_mms: Union[bool, object] = values.unset,
-        content_variables: Union[str, object] = values.unset,
-        risk_check: Union["MessageInstance.RiskCheck", object] = values.unset,
-        from_: Union[str, object] = values.unset,
-        messaging_service_sid: Union[str, object] = values.unset,
-        body: Union[str, object] = values.unset,
-        media_url: Union[List[str], object] = values.unset,
-        content_sid: Union[str, object] = values.unset,
-    ) -> MessageInstance:
+        self._solution = { 'account_sid': account_sid,  }
+        self._uri = '/Accounts/{account_sid}/Messages.json'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, to: str, status_callback: Union[str, object]=values.unset, application_sid: Union[str, object]=values.unset, max_price: Union[float, object]=values.unset, provide_feedback: Union[bool, object]=values.unset, attempt: Union[int, object]=values.unset, validity_period: Union[int, object]=values.unset, force_delivery: Union[bool, object]=values.unset, content_retention: Union["MessageInstance.ContentRetention", object]=values.unset, address_retention: Union["MessageInstance.AddressRetention", object]=values.unset, smart_encoded: Union[bool, object]=values.unset, persistent_action: Union[List[str], object]=values.unset, shorten_urls: Union[bool, object]=values.unset, schedule_type: Union["MessageInstance.ScheduleType", object]=values.unset, send_at: Union[datetime, object]=values.unset, send_as_mms: Union[bool, object]=values.unset, content_variables: Union[str, object]=values.unset, risk_check: Union["MessageInstance.RiskCheck", object]=values.unset, from_: Union[str, object]=values.unset, messaging_service_sid: Union[str, object]=values.unset, body: Union[str, object]=values.unset, media_url: Union[List[str], object]=values.unset, content_sid: Union[str, object]=values.unset) -> MessageInstance:
         """
         Create the MessageInstance
 
         :param to: The recipient's phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (for SMS/MMS) or [channel address](https://www.twilio.com/docs/messaging/channels), e.g. `whatsapp:+15552229999`.
-        :param status_callback: The URL of the endpoint to which Twilio sends [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url). URL must contain a valid hostname and underscores are not allowed. If you include this parameter with the `messaging_service_sid`, Twilio uses this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource).
+        :param status_callback: The URL of the endpoint to which Twilio sends [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url). URL must contain a valid hostname and underscores are not allowed. If you include this parameter with the `messaging_service_sid`, Twilio uses this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource). 
         :param application_sid: The SID of the associated [TwiML Application](https://www.twilio.com/docs/usage/api/applications). [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url) are sent to the TwiML App's `message_status_callback` URL. Note that the `status_callback` parameter of a request takes priority over the `application_sid` parameter; if both are included `application_sid` is ignored.
         :param max_price: [OBSOLETE] This parameter will no longer have any effect as of 2024-06-03.
         :param provide_feedback: Boolean indicating whether or not you intend to provide delivery confirmation feedback to Twilio (used in conjunction with the [Message Feedback subresource](https://www.twilio.com/docs/sms/api/message-feedback-resource)). Default value is `false`.
         :param attempt: Total number of attempts made (including this request) to send the message regardless of the provider used
         :param validity_period: The maximum length in seconds that the Message can remain in Twilio's outgoing message queue. If a queued Message exceeds the `validity_period`, the Message is not sent. Accepted values are integers from `1` to `36000`. Default value is `36000`. A `validity_period` greater than `5` is recommended. [Learn more about the validity period](https://www.twilio.com/blog/take-more-control-of-outbound-messages-using-validity-period-html)
         :param force_delivery: Reserved
-        :param content_retention:
-        :param address_retention:
+        :param content_retention: 
+        :param address_retention: 
         :param smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
         :param persistent_action: Rich actions for non-SMS/MMS channels. Used for [sending location in WhatsApp messages](https://www.twilio.com/docs/whatsapp/message-features#location-messages-with-whatsapp).
         :param shorten_urls: For Messaging Services with [Link Shortening configured](https://www.twilio.com/docs/messaging/features/link-shortening) only: A Boolean indicating whether or not Twilio should shorten links in the `body` of the Message. Default value is `false`. If `true`, the `messaging_service_sid` parameter must also be provided.
-        :param schedule_type:
+        :param schedule_type: 
         :param send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
         :param send_as_mms: If set to `true`, Twilio delivers the message as a single MMS message, regardless of the presence of media.
         :param content_variables: For [Content Editor/API](https://www.twilio.com/docs/content) only: Key-value pairs of [Template variables](https://www.twilio.com/docs/content/using-variables-with-content-api) and their substitution values. `content_sid` parameter must also be provided. If values are not defined in the `content_variables` parameter, the [Template's default placeholder values](https://www.twilio.com/docs/content/content-api-resources#create-templates) are used.
-        :param risk_check:
+        :param risk_check: 
         :param from_: The sender's Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belongs to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service's Sender Pool) or you can provide a specific sender from your Sender Pool.
         :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) you want to associate with the Message. When this parameter is provided and the `from` parameter is omitted, Twilio selects the optimal sender from the Messaging Service's Sender Pool. You may also provide a `from` parameter if you want to use a specific Sender from the Sender Pool.
         :param body: The text content of the outgoing message. Can be up to 1,600 characters in length. SMS only: If the `body` contains more than 160 [GSM-7](https://www.twilio.com/docs/glossary/what-is-gsm-7-character-encoding) characters (or 70 [UCS-2](https://www.twilio.com/docs/glossary/what-is-ucs-2-character-encoding) characters), the message is segmented and charged accordingly. For long `body` text, consider using the [send_as_mms parameter](https://www.twilio.com/blog/mms-for-long-text-messages).
         :param media_url: The URL of media to include in the Message content. `jpeg`, `jpg`, `gif`, and `png` file types are fully supported by Twilio and content is formatted for delivery on destination devices. The media size limit is 5 MB for supported file types (`jpeg`, `jpg`, `png`, `gif`) and 500 KB for [other types](https://www.twilio.com/docs/messaging/guides/accepted-mime-types) of accepted media. To send more than one image in the message, provide multiple `media_url` parameters in the POST request. You can include up to ten `media_url` parameters per message. [International](https://support.twilio.com/hc/en-us/articles/223179808-Sending-and-receiving-MMS-messages) and [carrier](https://support.twilio.com/hc/en-us/articles/223133707-Is-MMS-supported-for-all-carriers-in-US-and-Canada-) limits apply.
         :param content_sid: For [Content Editor/API](https://www.twilio.com/docs/content) only: The SID of the Content Template to be used with the Message, e.g., `HXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`. If this parameter is not provided, a Content Template is not used. Find the SID in the Console on the Content Editor page. For Content API users, the SID is found in Twilio's response when [creating the Template](https://www.twilio.com/docs/content/content-api-resources#create-templates) or by [fetching your Templates](https://www.twilio.com/docs/content/content-api-resources#fetch-all-content-resources).
-
+        
         :returns: The created MessageInstance
         """
+        
+        data = values.of({ 
+            'To': to,
+            'StatusCallback': status_callback,
+            'ApplicationSid': application_sid,
+            'MaxPrice': max_price,
+            'ProvideFeedback': serialize.boolean_to_string(provide_feedback),
+            'Attempt': attempt,
+            'ValidityPeriod': validity_period,
+            'ForceDelivery': serialize.boolean_to_string(force_delivery),
+            'ContentRetention': content_retention,
+            'AddressRetention': address_retention,
+            'SmartEncoded': serialize.boolean_to_string(smart_encoded),
+            'PersistentAction': serialize.map(persistent_action, lambda e: e),
+            'ShortenUrls': serialize.boolean_to_string(shorten_urls),
+            'ScheduleType': schedule_type,
+            'SendAt': serialize.iso8601_datetime(send_at),
+            'SendAsMms': serialize.boolean_to_string(send_as_mms),
+            'ContentVariables': content_variables,
+            'RiskCheck': risk_check,
+            'From': from_,
+            'MessagingServiceSid': messaging_service_sid,
+            'Body': body,
+            'MediaUrl': serialize.map(media_url, lambda e: e),
+            'ContentSid': content_sid,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "To": to,
-                "StatusCallback": status_callback,
-                "ApplicationSid": application_sid,
-                "MaxPrice": max_price,
-                "ProvideFeedback": serialize.boolean_to_string(provide_feedback),
-                "Attempt": attempt,
-                "ValidityPeriod": validity_period,
-                "ForceDelivery": serialize.boolean_to_string(force_delivery),
-                "ContentRetention": content_retention,
-                "AddressRetention": address_retention,
-                "SmartEncoded": serialize.boolean_to_string(smart_encoded),
-                "PersistentAction": serialize.map(persistent_action, lambda e: e),
-                "ShortenUrls": serialize.boolean_to_string(shorten_urls),
-                "ScheduleType": schedule_type,
-                "SendAt": serialize.iso8601_datetime(send_at),
-                "SendAsMms": serialize.boolean_to_string(send_as_mms),
-                "ContentVariables": content_variables,
-                "RiskCheck": risk_check,
-                "From": from_,
-                "MessagingServiceSid": messaging_service_sid,
-                "Body": body,
-                "MediaUrl": serialize.map(media_url, lambda e: e),
-                "ContentSid": content_sid,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return MessageInstance(self._version, payload, account_sid=self._solution['account_sid'])
 
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return MessageInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    async def create_async(
-        self,
-        to: str,
-        status_callback: Union[str, object] = values.unset,
-        application_sid: Union[str, object] = values.unset,
-        max_price: Union[float, object] = values.unset,
-        provide_feedback: Union[bool, object] = values.unset,
-        attempt: Union[int, object] = values.unset,
-        validity_period: Union[int, object] = values.unset,
-        force_delivery: Union[bool, object] = values.unset,
-        content_retention: Union[
-            "MessageInstance.ContentRetention", object
-        ] = values.unset,
-        address_retention: Union[
-            "MessageInstance.AddressRetention", object
-        ] = values.unset,
-        smart_encoded: Union[bool, object] = values.unset,
-        persistent_action: Union[List[str], object] = values.unset,
-        shorten_urls: Union[bool, object] = values.unset,
-        schedule_type: Union["MessageInstance.ScheduleType", object] = values.unset,
-        send_at: Union[datetime, object] = values.unset,
-        send_as_mms: Union[bool, object] = values.unset,
-        content_variables: Union[str, object] = values.unset,
-        risk_check: Union["MessageInstance.RiskCheck", object] = values.unset,
-        from_: Union[str, object] = values.unset,
-        messaging_service_sid: Union[str, object] = values.unset,
-        body: Union[str, object] = values.unset,
-        media_url: Union[List[str], object] = values.unset,
-        content_sid: Union[str, object] = values.unset,
-    ) -> MessageInstance:
+    async def create_async(self, to: str, status_callback: Union[str, object]=values.unset, application_sid: Union[str, object]=values.unset, max_price: Union[float, object]=values.unset, provide_feedback: Union[bool, object]=values.unset, attempt: Union[int, object]=values.unset, validity_period: Union[int, object]=values.unset, force_delivery: Union[bool, object]=values.unset, content_retention: Union["MessageInstance.ContentRetention", object]=values.unset, address_retention: Union["MessageInstance.AddressRetention", object]=values.unset, smart_encoded: Union[bool, object]=values.unset, persistent_action: Union[List[str], object]=values.unset, shorten_urls: Union[bool, object]=values.unset, schedule_type: Union["MessageInstance.ScheduleType", object]=values.unset, send_at: Union[datetime, object]=values.unset, send_as_mms: Union[bool, object]=values.unset, content_variables: Union[str, object]=values.unset, risk_check: Union["MessageInstance.RiskCheck", object]=values.unset, from_: Union[str, object]=values.unset, messaging_service_sid: Union[str, object]=values.unset, body: Union[str, object]=values.unset, media_url: Union[List[str], object]=values.unset, content_sid: Union[str, object]=values.unset) -> MessageInstance:
         """
         Asynchronously create the MessageInstance
 
         :param to: The recipient's phone number in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (for SMS/MMS) or [channel address](https://www.twilio.com/docs/messaging/channels), e.g. `whatsapp:+15552229999`.
-        :param status_callback: The URL of the endpoint to which Twilio sends [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url). URL must contain a valid hostname and underscores are not allowed. If you include this parameter with the `messaging_service_sid`, Twilio uses this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource).
+        :param status_callback: The URL of the endpoint to which Twilio sends [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url). URL must contain a valid hostname and underscores are not allowed. If you include this parameter with the `messaging_service_sid`, Twilio uses this URL instead of the Status Callback URL of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource). 
         :param application_sid: The SID of the associated [TwiML Application](https://www.twilio.com/docs/usage/api/applications). [Message status callback requests](https://www.twilio.com/docs/sms/api/message-resource#twilios-request-to-the-statuscallback-url) are sent to the TwiML App's `message_status_callback` URL. Note that the `status_callback` parameter of a request takes priority over the `application_sid` parameter; if both are included `application_sid` is ignored.
         :param max_price: [OBSOLETE] This parameter will no longer have any effect as of 2024-06-03.
         :param provide_feedback: Boolean indicating whether or not you intend to provide delivery confirmation feedback to Twilio (used in conjunction with the [Message Feedback subresource](https://www.twilio.com/docs/sms/api/message-feedback-resource)). Default value is `false`.
         :param attempt: Total number of attempts made (including this request) to send the message regardless of the provider used
         :param validity_period: The maximum length in seconds that the Message can remain in Twilio's outgoing message queue. If a queued Message exceeds the `validity_period`, the Message is not sent. Accepted values are integers from `1` to `36000`. Default value is `36000`. A `validity_period` greater than `5` is recommended. [Learn more about the validity period](https://www.twilio.com/blog/take-more-control-of-outbound-messages-using-validity-period-html)
         :param force_delivery: Reserved
-        :param content_retention:
-        :param address_retention:
+        :param content_retention: 
+        :param address_retention: 
         :param smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
         :param persistent_action: Rich actions for non-SMS/MMS channels. Used for [sending location in WhatsApp messages](https://www.twilio.com/docs/whatsapp/message-features#location-messages-with-whatsapp).
         :param shorten_urls: For Messaging Services with [Link Shortening configured](https://www.twilio.com/docs/messaging/features/link-shortening) only: A Boolean indicating whether or not Twilio should shorten links in the `body` of the Message. Default value is `false`. If `true`, the `messaging_service_sid` parameter must also be provided.
-        :param schedule_type:
+        :param schedule_type: 
         :param send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
         :param send_as_mms: If set to `true`, Twilio delivers the message as a single MMS message, regardless of the presence of media.
         :param content_variables: For [Content Editor/API](https://www.twilio.com/docs/content) only: Key-value pairs of [Template variables](https://www.twilio.com/docs/content/using-variables-with-content-api) and their substitution values. `content_sid` parameter must also be provided. If values are not defined in the `content_variables` parameter, the [Template's default placeholder values](https://www.twilio.com/docs/content/content-api-resources#create-templates) are used.
-        :param risk_check:
+        :param risk_check: 
         :param from_: The sender's Twilio phone number (in [E.164](https://en.wikipedia.org/wiki/E.164) format), [alphanumeric sender ID](https://www.twilio.com/docs/sms/quickstart), [Wireless SIM](https://www.twilio.com/docs/iot/wireless/programmable-wireless-send-machine-machine-sms-commands), [short code](https://www.twilio.com/en-us/messaging/channels/sms/short-codes), or [channel address](https://www.twilio.com/docs/messaging/channels) (e.g., `whatsapp:+15554449999`). The value of the `from` parameter must be a sender that is hosted within Twilio and belongs to the Account creating the Message. If you are using `messaging_service_sid`, this parameter can be empty (Twilio assigns a `from` value from the Messaging Service's Sender Pool) or you can provide a specific sender from your Sender Pool.
         :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) you want to associate with the Message. When this parameter is provided and the `from` parameter is omitted, Twilio selects the optimal sender from the Messaging Service's Sender Pool. You may also provide a `from` parameter if you want to use a specific Sender from the Sender Pool.
         :param body: The text content of the outgoing message. Can be up to 1,600 characters in length. SMS only: If the `body` contains more than 160 [GSM-7](https://www.twilio.com/docs/glossary/what-is-gsm-7-character-encoding) characters (or 70 [UCS-2](https://www.twilio.com/docs/glossary/what-is-ucs-2-character-encoding) characters), the message is segmented and charged accordingly. For long `body` text, consider using the [send_as_mms parameter](https://www.twilio.com/blog/mms-for-long-text-messages).
         :param media_url: The URL of media to include in the Message content. `jpeg`, `jpg`, `gif`, and `png` file types are fully supported by Twilio and content is formatted for delivery on destination devices. The media size limit is 5 MB for supported file types (`jpeg`, `jpg`, `png`, `gif`) and 500 KB for [other types](https://www.twilio.com/docs/messaging/guides/accepted-mime-types) of accepted media. To send more than one image in the message, provide multiple `media_url` parameters in the POST request. You can include up to ten `media_url` parameters per message. [International](https://support.twilio.com/hc/en-us/articles/223179808-Sending-and-receiving-MMS-messages) and [carrier](https://support.twilio.com/hc/en-us/articles/223133707-Is-MMS-supported-for-all-carriers-in-US-and-Canada-) limits apply.
         :param content_sid: For [Content Editor/API](https://www.twilio.com/docs/content) only: The SID of the Content Template to be used with the Message, e.g., `HXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`. If this parameter is not provided, a Content Template is not used. Find the SID in the Console on the Content Editor page. For Content API users, the SID is found in Twilio's response when [creating the Template](https://www.twilio.com/docs/content/content-api-resources#create-templates) or by [fetching your Templates](https://www.twilio.com/docs/content/content-api-resources#fetch-all-content-resources).
-
+        
         :returns: The created MessageInstance
         """
+        
+        data = values.of({ 
+            'To': to,
+            'StatusCallback': status_callback,
+            'ApplicationSid': application_sid,
+            'MaxPrice': max_price,
+            'ProvideFeedback': serialize.boolean_to_string(provide_feedback),
+            'Attempt': attempt,
+            'ValidityPeriod': validity_period,
+            'ForceDelivery': serialize.boolean_to_string(force_delivery),
+            'ContentRetention': content_retention,
+            'AddressRetention': address_retention,
+            'SmartEncoded': serialize.boolean_to_string(smart_encoded),
+            'PersistentAction': serialize.map(persistent_action, lambda e: e),
+            'ShortenUrls': serialize.boolean_to_string(shorten_urls),
+            'ScheduleType': schedule_type,
+            'SendAt': serialize.iso8601_datetime(send_at),
+            'SendAsMms': serialize.boolean_to_string(send_as_mms),
+            'ContentVariables': content_variables,
+            'RiskCheck': risk_check,
+            'From': from_,
+            'MessagingServiceSid': messaging_service_sid,
+            'Body': body,
+            'MediaUrl': serialize.map(media_url, lambda e: e),
+            'ContentSid': content_sid,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "To": to,
-                "StatusCallback": status_callback,
-                "ApplicationSid": application_sid,
-                "MaxPrice": max_price,
-                "ProvideFeedback": serialize.boolean_to_string(provide_feedback),
-                "Attempt": attempt,
-                "ValidityPeriod": validity_period,
-                "ForceDelivery": serialize.boolean_to_string(force_delivery),
-                "ContentRetention": content_retention,
-                "AddressRetention": address_retention,
-                "SmartEncoded": serialize.boolean_to_string(smart_encoded),
-                "PersistentAction": serialize.map(persistent_action, lambda e: e),
-                "ShortenUrls": serialize.boolean_to_string(shorten_urls),
-                "ScheduleType": schedule_type,
-                "SendAt": serialize.iso8601_datetime(send_at),
-                "SendAsMms": serialize.boolean_to_string(send_as_mms),
-                "ContentVariables": content_variables,
-                "RiskCheck": risk_check,
-                "From": from_,
-                "MessagingServiceSid": messaging_service_sid,
-                "Body": body,
-                "MediaUrl": serialize.map(media_url, lambda e: e),
-                "ContentSid": content_sid,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return MessageInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
-        )
-
-    def stream(
-        self,
+        return MessageInstance(self._version, payload, account_sid=self._solution['account_sid'])
+    
+    
+    def stream(self, 
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
         date_sent_before: Union[datetime, object] = values.unset,
         date_sent_after: Union[datetime, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[MessageInstance]:
@@ -682,7 +581,7 @@ class MessageList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param str from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param datetime date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
@@ -704,18 +603,18 @@ class MessageList(ListResource):
             date_sent=date_sent,
             date_sent_before=date_sent_before,
             date_sent_after=date_sent_after,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
         date_sent_before: Union[datetime, object] = values.unset,
         date_sent_after: Union[datetime, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[MessageInstance]:
@@ -724,7 +623,7 @@ class MessageList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param str from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param datetime date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
@@ -746,18 +645,18 @@ class MessageList(ListResource):
             date_sent=date_sent,
             date_sent_before=date_sent_before,
             date_sent_after=date_sent_after,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
         date_sent_before: Union[datetime, object] = values.unset,
         date_sent_after: Union[datetime, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[MessageInstance]:
@@ -765,7 +664,7 @@ class MessageList(ListResource):
         Lists MessageInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param str from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param datetime date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
@@ -780,25 +679,23 @@ class MessageList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                to=to,
-                from_=from_,
-                date_sent=date_sent,
-                date_sent_before=date_sent_before,
-                date_sent_after=date_sent_after,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            to=to,
+            from_=from_,
+            date_sent=date_sent,
+            date_sent_before=date_sent_before,
+            date_sent_after=date_sent_after,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
         date_sent_before: Union[datetime, object] = values.unset,
         date_sent_after: Union[datetime, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[MessageInstance]:
@@ -806,7 +703,7 @@ class MessageList(ListResource):
         Asynchronously lists MessageInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param str from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param datetime date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
@@ -821,26 +718,23 @@ class MessageList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                to=to,
-                from_=from_,
-                date_sent=date_sent,
-                date_sent_before=date_sent_before,
-                date_sent_after=date_sent_after,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            to=to,
+            from_=from_,
+            date_sent=date_sent,
+            date_sent_before=date_sent_before,
+            date_sent_after=date_sent_after,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
         date_sent_before: Union[datetime, object] = values.unset,
         date_sent_after: Union[datetime, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -848,7 +742,7 @@ class MessageList(ListResource):
         """
         Retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
-
+        
         :param to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
@@ -860,29 +754,27 @@ class MessageList(ListResource):
 
         :returns: Page of MessageInstance
         """
-        data = values.of(
-            {
-                "To": to,
-                "From": from_,
-                "DateSent": serialize.iso8601_datetime(date_sent),
-                "DateSent<": serialize.iso8601_datetime(date_sent_before),
-                "DateSent>": serialize.iso8601_datetime(date_sent_after),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'To': to,
+            'From': from_,
+            'DateSent': serialize.iso8601_datetime(date_sent),
+            'DateSent<': serialize.iso8601_datetime(date_sent_before),
+            'DateSent>': serialize.iso8601_datetime(date_sent_after),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return MessagePage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         to: Union[str, object] = values.unset,
         from_: Union[str, object] = values.unset,
         date_sent: Union[datetime, object] = values.unset,
         date_sent_before: Union[datetime, object] = values.unset,
         date_sent_after: Union[datetime, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -890,7 +782,7 @@ class MessageList(ListResource):
         """
         Asynchronously retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
-
+        
         :param to: Filter by recipient. For example: Set this `to` parameter to `+15558881111` to retrieve a list of Message resources with `to` properties of `+15558881111`
         :param from_: Filter by sender. For example: Set this `from` parameter to `+15552229999` to retrieve a list of Message resources with `from` properties of `+15552229999`
         :param date_sent: Filter by Message `sent_date`. Accepts GMT dates in the following formats: `YYYY-MM-DD` (to find Messages with a specific `sent_date`), `<=YYYY-MM-DD` (to find Messages with `sent_date`s on and before a specific date), and `>=YYYY-MM-DD` (to find Messages with `sent_dates` on and after a specific date).
@@ -902,22 +794,18 @@ class MessageList(ListResource):
 
         :returns: Page of MessageInstance
         """
-        data = values.of(
-            {
-                "To": to,
-                "From": from_,
-                "DateSent": serialize.iso8601_datetime(date_sent),
-                "DateSent<": serialize.iso8601_datetime(date_sent_before),
-                "DateSent>": serialize.iso8601_datetime(date_sent_after),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'To': to,
+            'From': from_,
+            'DateSent': serialize.iso8601_datetime(date_sent),
+            'DateSent<': serialize.iso8601_datetime(date_sent_before),
+            'DateSent>': serialize.iso8601_datetime(date_sent_after),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return MessagePage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> MessagePage:
@@ -929,7 +817,10 @@ class MessageList(ListResource):
 
         :returns: Page of MessageInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return MessagePage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> MessagePage:
@@ -941,28 +832,33 @@ class MessageList(ListResource):
 
         :returns: Page of MessageInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return MessagePage(self._version, response, self._solution)
+
+
+
+
+
+
 
     def get(self, sid: str) -> MessageContext:
         """
         Constructs a MessageContext
-
+        
         :param sid: The SID of the Message resource to be updated
         """
-        return MessageContext(
-            self._version, account_sid=self._solution["account_sid"], sid=sid
-        )
+        return MessageContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __call__(self, sid: str) -> MessageContext:
         """
         Constructs a MessageContext
-
+        
         :param sid: The SID of the Message resource to be updated
         """
-        return MessageContext(
-            self._version, account_sid=self._solution["account_sid"], sid=sid
-        )
+        return MessageContext(self._version, account_sid=self._solution['account_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -970,4 +866,5 @@ class MessageList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Api.V2010.MessageList>"
+        return '<Twilio.Api.V2010.MessageList>'
+

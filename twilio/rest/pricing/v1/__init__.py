@@ -32,7 +32,7 @@ class V1(Version):
         self._messaging: Optional[MessagingList] = None
         self._phone_numbers: Optional[PhoneNumberList] = None
         self._voice: Optional[VoiceList] = None
-
+        
     @property
     def messaging(self) -> MessagingList:
         if self._messaging is None:

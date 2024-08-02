@@ -12,19 +12,22 @@ r"""
     Do not edit the class manually.
 """
 
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
+
 class PortingWebhookConfigurationDeleteContext(InstanceContext):
 
-    def __init__(
-        self,
-        version: Version,
-        webhook_type: "PortingWebhookConfigurationDeleteInstance.WebhookType",
-    ):
+    def __init__(self, version: Version, webhook_type: "PortingWebhookConfigurationDeleteInstance.WebhookType"):
         """
         Initialize the PortingWebhookConfigurationDeleteContext
 
@@ -33,84 +36,76 @@ class PortingWebhookConfigurationDeleteContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "webhook_type": webhook_type,
+        self._solution = { 
+            'webhook_type': webhook_type,
         }
-        self._uri = "/Porting/Configuration/Webhook/{webhook_type}".format(
-            **self._solution
-        )
-
+        self._uri = '/Porting/Configuration/Webhook/{webhook_type}'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the PortingWebhookConfigurationDeleteInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the PortingWebhookConfigurationDeleteInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V1.PortingWebhookConfigurationDeleteContext {}>".format(
-            context
-        )
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Numbers.V1.PortingWebhookConfigurationDeleteContext {}>'.format(context)
+
 
 
 class PortingWebhookConfigurationDeleteList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the PortingWebhookConfigurationDeleteList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-    def get(
-        self, webhook_type: "PortingWebhookConfigurationDeleteInstance.WebhookType"
-    ) -> PortingWebhookConfigurationDeleteContext:
+        
+        
+        
+        
+
+    def get(self, webhook_type: "PortingWebhookConfigurationDeleteInstance.WebhookType") -> PortingWebhookConfigurationDeleteContext:
         """
         Constructs a PortingWebhookConfigurationDeleteContext
-
+        
         :param webhook_type: The of the webhook type of the configuration to be deleted
         """
-        return PortingWebhookConfigurationDeleteContext(
-            self._version, webhook_type=webhook_type
-        )
+        return PortingWebhookConfigurationDeleteContext(self._version, webhook_type=webhook_type)
 
-    def __call__(
-        self, webhook_type: "PortingWebhookConfigurationDeleteInstance.WebhookType"
-    ) -> PortingWebhookConfigurationDeleteContext:
+    def __call__(self, webhook_type: "PortingWebhookConfigurationDeleteInstance.WebhookType") -> PortingWebhookConfigurationDeleteContext:
         """
         Constructs a PortingWebhookConfigurationDeleteContext
-
+        
         :param webhook_type: The of the webhook type of the configuration to be deleted
         """
-        return PortingWebhookConfigurationDeleteContext(
-            self._version, webhook_type=webhook_type
-        )
+        return PortingWebhookConfigurationDeleteContext(self._version, webhook_type=webhook_type)
 
     def __repr__(self) -> str:
         """
@@ -118,4 +113,5 @@ class PortingWebhookConfigurationDeleteList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Numbers.V1.PortingWebhookConfigurationDeleteList>"
+        return '<Twilio.Numbers.V1.PortingWebhookConfigurationDeleteList>'
+

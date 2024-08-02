@@ -32,7 +32,7 @@ class V1(Version):
         self._available_add_ons: Optional[AvailableAddOnList] = None
         self._installed_add_ons: Optional[InstalledAddOnList] = None
         self._module_data_management: Optional[ModuleDataManagementList] = None
-
+        
     @property
     def available_add_ons(self) -> AvailableAddOnList:
         if self._available_add_ons is None:

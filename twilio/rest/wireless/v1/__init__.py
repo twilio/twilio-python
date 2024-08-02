@@ -34,7 +34,7 @@ class V1(Version):
         self._rate_plans: Optional[RatePlanList] = None
         self._sims: Optional[SimList] = None
         self._usage_records: Optional[UsageRecordList] = None
-
+        
     @property
     def commands(self) -> CommandList:
         if self._commands is None:

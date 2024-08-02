@@ -12,8 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import serialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -37,22 +40,20 @@ class RegulationInstance(InstanceResource):
     :ivar url: The absolute URL of the Regulation resource.
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.iso_country: Optional[str] = payload.get("iso_country")
         self.number_type: Optional[str] = payload.get("number_type")
-        self.end_user_type: Optional["RegulationInstance.EndUserType"] = payload.get(
-            "end_user_type"
-        )
+        self.end_user_type: Optional["RegulationInstance.EndUserType"] = payload.get("end_user_type")
         self.requirements: Optional[Dict[str, object]] = payload.get("requirements")
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "sid": sid or self.sid,
         }
         self._context: Optional[RegulationContext] = None
@@ -66,49 +67,38 @@ class RegulationInstance(InstanceResource):
         :returns: RegulationContext for this RegulationInstance
         """
         if self._context is None:
-            self._context = RegulationContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
+            self._context = RegulationContext(self._version, sid=self._solution['sid'],)
         return self._context
-
-    def fetch(
-        self, include_constraints: Union[bool, object] = values.unset
-    ) -> "RegulationInstance":
+    
+    
+    def fetch(self, include_constraints: Union[bool, object]=values.unset) -> "RegulationInstance":
         """
         Fetch the RegulationInstance
-
+        
         :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
 
         :returns: The fetched RegulationInstance
         """
-        return self._proxy.fetch(
-            include_constraints=include_constraints,
-        )
+        return self._proxy.fetch(include_constraints=include_constraints, )
 
-    async def fetch_async(
-        self, include_constraints: Union[bool, object] = values.unset
-    ) -> "RegulationInstance":
+    async def fetch_async(self, include_constraints: Union[bool, object]=values.unset) -> "RegulationInstance":
         """
         Asynchronous coroutine to fetch the RegulationInstance
-
+        
         :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
 
         :returns: The fetched RegulationInstance
         """
-        return await self._proxy.fetch_async(
-            include_constraints=include_constraints,
-        )
-
+        return await self._proxy.fetch_async(include_constraints=include_constraints, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.RegulationInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Numbers.V2.RegulationInstance {}>'.format(context)
 
 class RegulationContext(InstanceContext):
 
@@ -121,72 +111,71 @@ class RegulationContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
+        self._solution = { 
+            'sid': sid,
         }
-        self._uri = "/RegulatoryCompliance/Regulations/{sid}".format(**self._solution)
-
-    def fetch(
-        self, include_constraints: Union[bool, object] = values.unset
-    ) -> RegulationInstance:
+        self._uri = '/RegulatoryCompliance/Regulations/{sid}'.format(**self._solution)
+        
+    
+    
+    def fetch(self, include_constraints: Union[bool, object]=values.unset) -> RegulationInstance:
         """
         Fetch the RegulationInstance
-
+        
         :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
 
         :returns: The fetched RegulationInstance
         """
-
-        data = values.of(
-            {
-                "IncludeConstraints": serialize.boolean_to_string(include_constraints),
-            }
-        )
-
-        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
+        
+        data = values.of({ 
+            'IncludeConstraints': serialize.boolean_to_string(include_constraints),
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return RegulationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
 
-    async def fetch_async(
-        self, include_constraints: Union[bool, object] = values.unset
-    ) -> RegulationInstance:
+    async def fetch_async(self, include_constraints: Union[bool, object]=values.unset) -> RegulationInstance:
         """
         Asynchronous coroutine to fetch the RegulationInstance
-
+        
         :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
 
         :returns: The fetched RegulationInstance
         """
-
-        data = values.of(
-            {
-                "IncludeConstraints": serialize.boolean_to_string(include_constraints),
-            }
-        )
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data
-        )
+        
+        data = values.of({ 
+            'IncludeConstraints': serialize.boolean_to_string(include_constraints),
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
 
         return RegulationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.RegulationContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Numbers.V2.RegulationContext {}>'.format(context)
+
+
+
 
 
 class RegulationPage(Page):
@@ -208,25 +197,32 @@ class RegulationPage(Page):
         return "<Twilio.Numbers.V2.RegulationPage>"
 
 
-class RegulationList(ListResource):
 
+
+
+class RegulationList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the RegulationList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/RegulatoryCompliance/Regulations"
-
-    def stream(
-        self,
+        
+        self._uri = '/RegulatoryCompliance/Regulations'
+        
+        
+    
+    
+    def stream(self, 
         end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
         include_constraints: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[RegulationInstance]:
@@ -235,7 +231,7 @@ class RegulationList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
@@ -255,17 +251,17 @@ class RegulationList(ListResource):
             iso_country=iso_country,
             number_type=number_type,
             include_constraints=include_constraints,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
         include_constraints: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[RegulationInstance]:
@@ -274,7 +270,7 @@ class RegulationList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
@@ -294,17 +290,17 @@ class RegulationList(ListResource):
             iso_country=iso_country,
             number_type=number_type,
             include_constraints=include_constraints,
-            page_size=limits["page_size"],
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
         include_constraints: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[RegulationInstance]:
@@ -312,7 +308,7 @@ class RegulationList(ListResource):
         Lists RegulationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
@@ -326,23 +322,21 @@ class RegulationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                end_user_type=end_user_type,
-                iso_country=iso_country,
-                number_type=number_type,
-                include_constraints=include_constraints,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            end_user_type=end_user_type,
+            iso_country=iso_country,
+            number_type=number_type,
+            include_constraints=include_constraints,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
         include_constraints: Union[bool, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[RegulationInstance]:
@@ -350,7 +344,7 @@ class RegulationList(ListResource):
         Asynchronously lists RegulationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
@@ -364,24 +358,21 @@ class RegulationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                end_user_type=end_user_type,
-                iso_country=iso_country,
-                number_type=number_type,
-                include_constraints=include_constraints,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            end_user_type=end_user_type,
+            iso_country=iso_country,
+            number_type=number_type,
+            include_constraints=include_constraints,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
         include_constraints: Union[bool, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -389,7 +380,7 @@ class RegulationList(ListResource):
         """
         Retrieve a single page of RegulationInstance records from the API.
         Request is executed immediately
-
+        
         :param end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param iso_country: The ISO country code of the phone number's country.
         :param number_type: The type of phone number that the regulatory requiremnt is restricting.
@@ -400,27 +391,25 @@ class RegulationList(ListResource):
 
         :returns: Page of RegulationInstance
         """
-        data = values.of(
-            {
-                "EndUserType": end_user_type,
-                "IsoCountry": iso_country,
-                "NumberType": number_type,
-                "IncludeConstraints": serialize.boolean_to_string(include_constraints),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'EndUserType': end_user_type,
+            'IsoCountry': iso_country,
+            'NumberType': number_type,
+            'IncludeConstraints': serialize.boolean_to_string(include_constraints),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return RegulationPage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
         include_constraints: Union[bool, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -428,7 +417,7 @@ class RegulationList(ListResource):
         """
         Asynchronously retrieve a single page of RegulationInstance records from the API.
         Request is executed immediately
-
+        
         :param end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param iso_country: The ISO country code of the phone number's country.
         :param number_type: The type of phone number that the regulatory requiremnt is restricting.
@@ -439,21 +428,17 @@ class RegulationList(ListResource):
 
         :returns: Page of RegulationInstance
         """
-        data = values.of(
-            {
-                "EndUserType": end_user_type,
-                "IsoCountry": iso_country,
-                "NumberType": number_type,
-                "IncludeConstraints": serialize.boolean_to_string(include_constraints),
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'EndUserType': end_user_type,
+            'IsoCountry': iso_country,
+            'NumberType': number_type,
+            'IncludeConstraints': serialize.boolean_to_string(include_constraints),
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return RegulationPage(self._version, response)
 
     def get_page(self, target_url: str) -> RegulationPage:
@@ -465,7 +450,10 @@ class RegulationList(ListResource):
 
         :returns: Page of RegulationInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return RegulationPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> RegulationPage:
@@ -477,13 +465,18 @@ class RegulationList(ListResource):
 
         :returns: Page of RegulationInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return RegulationPage(self._version, response)
+
+
 
     def get(self, sid: str) -> RegulationContext:
         """
         Constructs a RegulationContext
-
+        
         :param sid: The unique string that identifies the Regulation resource.
         """
         return RegulationContext(self._version, sid=sid)
@@ -491,7 +484,7 @@ class RegulationList(ListResource):
     def __call__(self, sid: str) -> RegulationContext:
         """
         Constructs a RegulationContext
-
+        
         :param sid: The unique string that identifies the Regulation resource.
         """
         return RegulationContext(self._version, sid=sid)
@@ -502,4 +495,5 @@ class RegulationList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Numbers.V2.RegulationList>"
+        return '<Twilio.Numbers.V2.RegulationList>'
+

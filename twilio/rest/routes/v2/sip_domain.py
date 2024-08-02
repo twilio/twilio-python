@@ -12,49 +12,46 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
-from typing import Any, Dict, Optional, Union
-from twilio.base import deserialize, values
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
+
 class SipDomainInstance(InstanceResource):
+
     """
-    :ivar sip_domain:
-    :ivar url:
-    :ivar sid:
-    :ivar account_sid:
-    :ivar friendly_name:
-    :ivar voice_region:
-    :ivar date_created:
-    :ivar date_updated:
+    :ivar sip_domain: 
+    :ivar url: 
+    :ivar sid: 
+    :ivar account_sid: 
+    :ivar friendly_name: 
+    :ivar voice_region: 
+    :ivar date_created: 
+    :ivar date_updated: 
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        sip_domain: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], sip_domain: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sip_domain: Optional[str] = payload.get("sip_domain")
         self.url: Optional[str] = payload.get("url")
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.voice_region: Optional[str] = payload.get("voice_region")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
 
-        self._solution = {
+        
+        self._solution = { 
             "sip_domain": sip_domain or self.sip_domain,
         }
         self._context: Optional[SipDomainContext] = None
@@ -68,16 +65,14 @@ class SipDomainInstance(InstanceResource):
         :returns: SipDomainContext for this SipDomainInstance
         """
         if self._context is None:
-            self._context = SipDomainContext(
-                self._version,
-                sip_domain=self._solution["sip_domain"],
-            )
+            self._context = SipDomainContext(self._version, sip_domain=self._solution['sip_domain'],)
         return self._context
-
+    
+    
     def fetch(self) -> "SipDomainInstance":
         """
         Fetch the SipDomainInstance
-
+        
 
         :returns: The fetched SipDomainInstance
         """
@@ -86,57 +81,43 @@ class SipDomainInstance(InstanceResource):
     async def fetch_async(self) -> "SipDomainInstance":
         """
         Asynchronous coroutine to fetch the SipDomainInstance
-
+        
 
         :returns: The fetched SipDomainInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        voice_region: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-    ) -> "SipDomainInstance":
+    
+    
+    def update(self, voice_region: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset) -> "SipDomainInstance":
         """
         Update the SipDomainInstance
-
-        :param voice_region:
-        :param friendly_name:
+        
+        :param voice_region: 
+        :param friendly_name: 
 
         :returns: The updated SipDomainInstance
         """
-        return self._proxy.update(
-            voice_region=voice_region,
-            friendly_name=friendly_name,
-        )
+        return self._proxy.update(voice_region=voice_region, friendly_name=friendly_name, )
 
-    async def update_async(
-        self,
-        voice_region: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-    ) -> "SipDomainInstance":
+    async def update_async(self, voice_region: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset) -> "SipDomainInstance":
         """
         Asynchronous coroutine to update the SipDomainInstance
-
-        :param voice_region:
-        :param friendly_name:
+        
+        :param voice_region: 
+        :param friendly_name: 
 
         :returns: The updated SipDomainInstance
         """
-        return await self._proxy.update_async(
-            voice_region=voice_region,
-            friendly_name=friendly_name,
-        )
-
+        return await self._proxy.update_async(voice_region=voice_region, friendly_name=friendly_name, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Routes.V2.SipDomainInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Routes.V2.SipDomainInstance {}>'.format(context)
 
 class SipDomainContext(InstanceContext):
 
@@ -145,148 +126,141 @@ class SipDomainContext(InstanceContext):
         Initialize the SipDomainContext
 
         :param version: Version that contains the resource
-        :param sip_domain:
+        :param sip_domain: 
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sip_domain": sip_domain,
+        self._solution = { 
+            'sip_domain': sip_domain,
         }
-        self._uri = "/SipDomains/{sip_domain}".format(**self._solution)
-
+        self._uri = '/SipDomains/{sip_domain}'.format(**self._solution)
+        
+    
+    
     def fetch(self) -> SipDomainInstance:
         """
         Fetch the SipDomainInstance
-
+        
 
         :returns: The fetched SipDomainInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return SipDomainInstance(
             self._version,
             payload,
-            sip_domain=self._solution["sip_domain"],
+            sip_domain=self._solution['sip_domain'],
+            
         )
 
     async def fetch_async(self) -> SipDomainInstance:
         """
         Asynchronous coroutine to fetch the SipDomainInstance
-
+        
 
         :returns: The fetched SipDomainInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return SipDomainInstance(
             self._version,
             payload,
-            sip_domain=self._solution["sip_domain"],
+            sip_domain=self._solution['sip_domain'],
+            
         )
-
-    def update(
-        self,
-        voice_region: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-    ) -> SipDomainInstance:
+    
+    
+    def update(self, voice_region: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset) -> SipDomainInstance:
         """
         Update the SipDomainInstance
-
-        :param voice_region:
-        :param friendly_name:
+        
+        :param voice_region: 
+        :param friendly_name: 
 
         :returns: The updated SipDomainInstance
         """
-        data = values.of(
-            {
-                "VoiceRegion": voice_region,
-                "FriendlyName": friendly_name,
-            }
-        )
+        data = values.of({ 
+            'VoiceRegion': voice_region,
+            'FriendlyName': friendly_name,
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return SipDomainInstance(
-            self._version, payload, sip_domain=self._solution["sip_domain"]
+            self._version,
+            payload,
+            sip_domain=self._solution['sip_domain']
         )
 
-    async def update_async(
-        self,
-        voice_region: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
-    ) -> SipDomainInstance:
+    async def update_async(self, voice_region: Union[str, object]=values.unset, friendly_name: Union[str, object]=values.unset) -> SipDomainInstance:
         """
         Asynchronous coroutine to update the SipDomainInstance
-
-        :param voice_region:
-        :param friendly_name:
+        
+        :param voice_region: 
+        :param friendly_name: 
 
         :returns: The updated SipDomainInstance
         """
-        data = values.of(
-            {
-                "VoiceRegion": voice_region,
-                "FriendlyName": friendly_name,
-            }
-        )
+        data = values.of({ 
+            'VoiceRegion': voice_region,
+            'FriendlyName': friendly_name,
+        })
+        
 
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
 
         return SipDomainInstance(
-            self._version, payload, sip_domain=self._solution["sip_domain"]
+            self._version,
+            payload,
+            sip_domain=self._solution['sip_domain']
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Routes.V2.SipDomainContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Routes.V2.SipDomainContext {}>'.format(context)
+
 
 
 class SipDomainList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the SipDomainList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
+
+        
+        
+        
+        
 
     def get(self, sip_domain: str) -> SipDomainContext:
         """
         Constructs a SipDomainContext
-
-        :param sip_domain:
+        
+        :param sip_domain: 
         """
         return SipDomainContext(self._version, sip_domain=sip_domain)
 
     def __call__(self, sip_domain: str) -> SipDomainContext:
         """
         Constructs a SipDomainContext
-
-        :param sip_domain:
+        
+        :param sip_domain: 
         """
         return SipDomainContext(self._version, sip_domain=sip_domain)
 
@@ -296,4 +270,5 @@ class SipDomainList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Routes.V2.SipDomainList>"
+        return '<Twilio.Routes.V2.SipDomainList>'
+

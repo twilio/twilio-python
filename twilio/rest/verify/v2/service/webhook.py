@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -51,15 +53,10 @@ class WebhookInstance(InstanceResource):
     :ivar url: The absolute URL of the Webhook resource.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        service_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.service_sid: Optional[str] = payload.get("service_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
@@ -68,18 +65,13 @@ class WebhookInstance(InstanceResource):
         self.status: Optional["WebhookInstance.Status"] = payload.get("status")
         self.version: Optional["WebhookInstance.Version"] = payload.get("version")
         self.webhook_url: Optional[str] = payload.get("webhook_url")
-        self.webhook_method: Optional["WebhookInstance.Methods"] = payload.get(
-            "webhook_method"
-        )
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.webhook_method: Optional["WebhookInstance.Methods"] = payload.get("webhook_method")
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "service_sid": service_sid,
             "sid": sid or self.sid,
         }
@@ -94,35 +86,32 @@ class WebhookInstance(InstanceResource):
         :returns: WebhookContext for this WebhookInstance
         """
         if self._context is None:
-            self._context = WebhookContext(
-                self._version,
-                service_sid=self._solution["service_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = WebhookContext(self._version, service_sid=self._solution['service_sid'], sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the WebhookInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the WebhookInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "WebhookInstance":
         """
         Fetch the WebhookInstance
-
+        
 
         :returns: The fetched WebhookInstance
         """
@@ -131,75 +120,49 @@ class WebhookInstance(InstanceResource):
     async def fetch_async(self) -> "WebhookInstance":
         """
         Asynchronous coroutine to fetch the WebhookInstance
-
+        
 
         :returns: The fetched WebhookInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        friendly_name: Union[str, object] = values.unset,
-        event_types: Union[List[str], object] = values.unset,
-        webhook_url: Union[str, object] = values.unset,
-        status: Union["WebhookInstance.Status", object] = values.unset,
-        version: Union["WebhookInstance.Version", object] = values.unset,
-    ) -> "WebhookInstance":
+    
+    
+    def update(self, friendly_name: Union[str, object]=values.unset, event_types: Union[List[str], object]=values.unset, webhook_url: Union[str, object]=values.unset, status: Union["WebhookInstance.Status", object]=values.unset, version: Union["WebhookInstance.Version", object]=values.unset) -> "WebhookInstance":
         """
         Update the WebhookInstance
-
+        
         :param friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
         :param event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
         :param webhook_url: The URL associated with this Webhook.
-        :param status:
-        :param version:
+        :param status: 
+        :param version: 
 
         :returns: The updated WebhookInstance
         """
-        return self._proxy.update(
-            friendly_name=friendly_name,
-            event_types=event_types,
-            webhook_url=webhook_url,
-            status=status,
-            version=version,
-        )
+        return self._proxy.update(friendly_name=friendly_name, event_types=event_types, webhook_url=webhook_url, status=status, version=version, )
 
-    async def update_async(
-        self,
-        friendly_name: Union[str, object] = values.unset,
-        event_types: Union[List[str], object] = values.unset,
-        webhook_url: Union[str, object] = values.unset,
-        status: Union["WebhookInstance.Status", object] = values.unset,
-        version: Union["WebhookInstance.Version", object] = values.unset,
-    ) -> "WebhookInstance":
+    async def update_async(self, friendly_name: Union[str, object]=values.unset, event_types: Union[List[str], object]=values.unset, webhook_url: Union[str, object]=values.unset, status: Union["WebhookInstance.Status", object]=values.unset, version: Union["WebhookInstance.Version", object]=values.unset) -> "WebhookInstance":
         """
         Asynchronous coroutine to update the WebhookInstance
-
+        
         :param friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
         :param event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
         :param webhook_url: The URL associated with this Webhook.
-        :param status:
-        :param version:
+        :param status: 
+        :param version: 
 
         :returns: The updated WebhookInstance
         """
-        return await self._proxy.update_async(
-            friendly_name=friendly_name,
-            event_types=event_types,
-            webhook_url=webhook_url,
-            status=status,
-            version=version,
-        )
-
+        return await self._proxy.update_async(friendly_name=friendly_name, event_types=event_types, webhook_url=webhook_url, status=status, version=version, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.WebhookInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.WebhookInstance {}>'.format(context)
 
 class WebhookContext(InstanceContext):
 
@@ -213,169 +176,150 @@ class WebhookContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-            "sid": sid,
+        self._solution = { 
+            'service_sid': service_sid,
+            'sid': sid,
         }
-        self._uri = "/Services/{service_sid}/Webhooks/{sid}".format(**self._solution)
-
+        self._uri = '/Services/{service_sid}/Webhooks/{sid}'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the WebhookInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the WebhookInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> WebhookInstance:
         """
         Fetch the WebhookInstance
-
+        
 
         :returns: The fetched WebhookInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return WebhookInstance(
             self._version,
             payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> WebhookInstance:
         """
         Asynchronous coroutine to fetch the WebhookInstance
-
+        
 
         :returns: The fetched WebhookInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return WebhookInstance(
             self._version,
             payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
         )
-
-    def update(
-        self,
-        friendly_name: Union[str, object] = values.unset,
-        event_types: Union[List[str], object] = values.unset,
-        webhook_url: Union[str, object] = values.unset,
-        status: Union["WebhookInstance.Status", object] = values.unset,
-        version: Union["WebhookInstance.Version", object] = values.unset,
-    ) -> WebhookInstance:
+    
+    
+    def update(self, friendly_name: Union[str, object]=values.unset, event_types: Union[List[str], object]=values.unset, webhook_url: Union[str, object]=values.unset, status: Union["WebhookInstance.Status", object]=values.unset, version: Union["WebhookInstance.Version", object]=values.unset) -> WebhookInstance:
         """
         Update the WebhookInstance
-
+        
         :param friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
         :param event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
         :param webhook_url: The URL associated with this Webhook.
-        :param status:
-        :param version:
+        :param status: 
+        :param version: 
 
         :returns: The updated WebhookInstance
         """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "EventTypes": serialize.map(event_types, lambda e: e),
-                "WebhookUrl": webhook_url,
-                "Status": status,
-                "Version": version,
-            }
-        )
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'EventTypes': serialize.map(event_types, lambda e: e),
+            'WebhookUrl': webhook_url,
+            'Status': status,
+            'Version': version,
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return WebhookInstance(
             self._version,
             payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
         )
 
-    async def update_async(
-        self,
-        friendly_name: Union[str, object] = values.unset,
-        event_types: Union[List[str], object] = values.unset,
-        webhook_url: Union[str, object] = values.unset,
-        status: Union["WebhookInstance.Status", object] = values.unset,
-        version: Union["WebhookInstance.Version", object] = values.unset,
-    ) -> WebhookInstance:
+    async def update_async(self, friendly_name: Union[str, object]=values.unset, event_types: Union[List[str], object]=values.unset, webhook_url: Union[str, object]=values.unset, status: Union["WebhookInstance.Status", object]=values.unset, version: Union["WebhookInstance.Version", object]=values.unset) -> WebhookInstance:
         """
         Asynchronous coroutine to update the WebhookInstance
-
+        
         :param friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
         :param event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
         :param webhook_url: The URL associated with this Webhook.
-        :param status:
-        :param version:
+        :param status: 
+        :param version: 
 
         :returns: The updated WebhookInstance
         """
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "EventTypes": serialize.map(event_types, lambda e: e),
-                "WebhookUrl": webhook_url,
-                "Status": status,
-                "Version": version,
-            }
-        )
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'EventTypes': serialize.map(event_types, lambda e: e),
+            'WebhookUrl': webhook_url,
+            'Status': status,
+            'Version': version,
+        })
+        
 
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
 
         return WebhookInstance(
             self._version,
             payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid']
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.WebhookContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Verify.V2.WebhookContext {}>'.format(context)
+
+
+
+
+
+
+
+
+
 
 
 class WebhookPage(Page):
@@ -386,9 +330,7 @@ class WebhookPage(Page):
 
         :param payload: Payload response from the API
         """
-        return WebhookInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
+        return WebhookInstance(self._version, payload, service_sid=self._solution["service_sid"])
 
     def __repr__(self) -> str:
         """
@@ -399,104 +341,92 @@ class WebhookPage(Page):
         return "<Twilio.Verify.V2.WebhookPage>"
 
 
-class WebhookList(ListResource):
 
+
+
+class WebhookList(ListResource):
+    
     def __init__(self, version: Version, service_sid: str):
         """
         Initialize the WebhookList
 
         :param version: Version that contains the resource
         :param service_sid: The unique SID identifier of the Service.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "service_sid": service_sid,
-        }
-        self._uri = "/Services/{service_sid}/Webhooks".format(**self._solution)
-
-    def create(
-        self,
-        friendly_name: str,
-        event_types: List[str],
-        webhook_url: str,
-        status: Union["WebhookInstance.Status", object] = values.unset,
-        version: Union["WebhookInstance.Version", object] = values.unset,
-    ) -> WebhookInstance:
+        self._solution = { 'service_sid': service_sid,  }
+        self._uri = '/Services/{service_sid}/Webhooks'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, friendly_name: str, event_types: List[str], webhook_url: str, status: Union["WebhookInstance.Status", object]=values.unset, version: Union["WebhookInstance.Version", object]=values.unset) -> WebhookInstance:
         """
         Create the WebhookInstance
 
         :param friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
         :param event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
         :param webhook_url: The URL associated with this Webhook.
-        :param status:
-        :param version:
-
+        :param status: 
+        :param version: 
+        
         :returns: The created WebhookInstance
         """
+        
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'EventTypes': serialize.map(event_types, lambda e: e),
+            'WebhookUrl': webhook_url,
+            'Status': status,
+            'Version': version,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "EventTypes": serialize.map(event_types, lambda e: e),
-                "WebhookUrl": webhook_url,
-                "Status": status,
-                "Version": version,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return WebhookInstance(self._version, payload, service_sid=self._solution['service_sid'])
 
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return WebhookInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    async def create_async(
-        self,
-        friendly_name: str,
-        event_types: List[str],
-        webhook_url: str,
-        status: Union["WebhookInstance.Status", object] = values.unset,
-        version: Union["WebhookInstance.Version", object] = values.unset,
-    ) -> WebhookInstance:
+    async def create_async(self, friendly_name: str, event_types: List[str], webhook_url: str, status: Union["WebhookInstance.Status", object]=values.unset, version: Union["WebhookInstance.Version", object]=values.unset) -> WebhookInstance:
         """
         Asynchronously create the WebhookInstance
 
         :param friendly_name: The string that you assigned to describe the webhook. **This value should not contain PII.**
         :param event_types: The array of events that this Webhook is subscribed to. Possible event types: `*, factor.deleted, factor.created, factor.verified, challenge.approved, challenge.denied`
         :param webhook_url: The URL associated with this Webhook.
-        :param status:
-        :param version:
-
+        :param status: 
+        :param version: 
+        
         :returns: The created WebhookInstance
         """
+        
+        data = values.of({ 
+            'FriendlyName': friendly_name,
+            'EventTypes': serialize.map(event_types, lambda e: e),
+            'WebhookUrl': webhook_url,
+            'Status': status,
+            'Version': version,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "EventTypes": serialize.map(event_types, lambda e: e),
-                "WebhookUrl": webhook_url,
-                "Status": status,
-                "Version": version,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return WebhookInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
-        )
-
-    def stream(
-        self,
+        return WebhookInstance(self._version, payload, service_sid=self._solution['service_sid'])
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[WebhookInstance]:
@@ -505,7 +435,7 @@ class WebhookList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -516,12 +446,14 @@ class WebhookList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[WebhookInstance]:
@@ -530,7 +462,7 @@ class WebhookList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -541,12 +473,14 @@ class WebhookList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[WebhookInstance]:
@@ -554,7 +488,7 @@ class WebhookList(ListResource):
         Lists WebhookInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -564,15 +498,13 @@ class WebhookList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[WebhookInstance]:
@@ -580,7 +512,7 @@ class WebhookList(ListResource):
         Asynchronously lists WebhookInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -590,16 +522,13 @@ class WebhookList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -607,26 +536,24 @@ class WebhookList(ListResource):
         """
         Retrieve a single page of WebhookInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of WebhookInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return WebhookPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -634,24 +561,20 @@ class WebhookList(ListResource):
         """
         Asynchronously retrieve a single page of WebhookInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of WebhookInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return WebhookPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> WebhookPage:
@@ -663,7 +586,10 @@ class WebhookList(ListResource):
 
         :returns: Page of WebhookInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return WebhookPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> WebhookPage:
@@ -675,28 +601,29 @@ class WebhookList(ListResource):
 
         :returns: Page of WebhookInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return WebhookPage(self._version, response, self._solution)
+
+
 
     def get(self, sid: str) -> WebhookContext:
         """
         Constructs a WebhookContext
-
+        
         :param sid: The Twilio-provided string that uniquely identifies the Webhook resource to update.
         """
-        return WebhookContext(
-            self._version, service_sid=self._solution["service_sid"], sid=sid
-        )
+        return WebhookContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __call__(self, sid: str) -> WebhookContext:
         """
         Constructs a WebhookContext
-
+        
         :param sid: The Twilio-provided string that uniquely identifies the Webhook resource to update.
         """
-        return WebhookContext(
-            self._version, service_sid=self._solution["service_sid"], sid=sid
-        )
+        return WebhookContext(self._version, service_sid=self._solution['service_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -704,4 +631,5 @@ class WebhookList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Verify.V2.WebhookList>"
+        return '<Twilio.Verify.V2.WebhookList>'
+

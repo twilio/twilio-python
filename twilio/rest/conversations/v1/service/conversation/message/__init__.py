@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -20,9 +22,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.conversations.v1.service.conversation.message.delivery_receipt import (
-    DeliveryReceiptList,
-)
+from twilio.rest.conversations.v1.service.conversation.message.delivery_receipt import DeliveryReceiptList
 
 
 class MessageInstance(InstanceResource):
@@ -54,16 +54,10 @@ class MessageInstance(InstanceResource):
     :ivar content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        chat_service_sid: str,
-        conversation_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], chat_service_sid: str, conversation_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.chat_service_sid: Optional[str] = payload.get("chat_service_sid")
         self.conversation_sid: Optional[str] = payload.get("conversation_sid")
@@ -74,18 +68,15 @@ class MessageInstance(InstanceResource):
         self.media: Optional[List[Dict[str, object]]] = payload.get("media")
         self.attributes: Optional[str] = payload.get("attributes")
         self.participant_sid: Optional[str] = payload.get("participant_sid")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
-        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_updated")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
+        self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_updated"))
         self.delivery: Optional[Dict[str, object]] = payload.get("delivery")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
         self.content_sid: Optional[str] = payload.get("content_sid")
 
-        self._solution = {
+        
+        self._solution = { 
             "chat_service_sid": chat_service_sid,
             "conversation_sid": conversation_sid,
             "sid": sid or self.sid,
@@ -101,52 +92,34 @@ class MessageInstance(InstanceResource):
         :returns: MessageContext for this MessageInstance
         """
         if self._context is None:
-            self._context = MessageContext(
-                self._version,
-                chat_service_sid=self._solution["chat_service_sid"],
-                conversation_sid=self._solution["conversation_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = MessageContext(self._version, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'], sid=self._solution['sid'],)
         return self._context
-
-    def delete(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "MessageInstance.WebhookEnabledType", object
-        ] = values.unset,
-    ) -> bool:
+    
+    
+    def delete(self, x_twilio_webhook_enabled: Union["MessageInstance.WebhookEnabledType", object]=values.unset) -> bool:
         """
         Deletes the MessageInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._proxy.delete(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-        )
-
-    async def delete_async(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "MessageInstance.WebhookEnabledType", object
-        ] = values.unset,
-    ) -> bool:
+        return self._proxy.delete(x_twilio_webhook_enabled=x_twilio_webhook_enabled, )
+    async def delete_async(self, x_twilio_webhook_enabled: Union["MessageInstance.WebhookEnabledType", object]=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the MessageInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
 
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._proxy.delete_async(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-        )
-
+        return await self._proxy.delete_async(x_twilio_webhook_enabled=x_twilio_webhook_enabled, )
+    
+    
     def fetch(self) -> "MessageInstance":
         """
         Fetch the MessageInstance
-
+        
 
         :returns: The fetched MessageInstance
         """
@@ -155,27 +128,17 @@ class MessageInstance(InstanceResource):
     async def fetch_async(self) -> "MessageInstance":
         """
         Asynchronous coroutine to fetch the MessageInstance
-
+        
 
         :returns: The fetched MessageInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "MessageInstance.WebhookEnabledType", object
-        ] = values.unset,
-        author: Union[str, object] = values.unset,
-        body: Union[str, object] = values.unset,
-        date_created: Union[datetime, object] = values.unset,
-        date_updated: Union[datetime, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        subject: Union[str, object] = values.unset,
-    ) -> "MessageInstance":
+    
+    
+    def update(self, x_twilio_webhook_enabled: Union["MessageInstance.WebhookEnabledType", object]=values.unset, author: Union[str, object]=values.unset, body: Union[str, object]=values.unset, date_created: Union[datetime, object]=values.unset, date_updated: Union[datetime, object]=values.unset, attributes: Union[str, object]=values.unset, subject: Union[str, object]=values.unset) -> "MessageInstance":
         """
         Update the MessageInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param author: The channel specific identifier of the message's author. Defaults to `system`.
         :param body: The content of the message, can be up to 1,600 characters long.
@@ -186,31 +149,12 @@ class MessageInstance(InstanceResource):
 
         :returns: The updated MessageInstance
         """
-        return self._proxy.update(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-            author=author,
-            body=body,
-            date_created=date_created,
-            date_updated=date_updated,
-            attributes=attributes,
-            subject=subject,
-        )
+        return self._proxy.update(x_twilio_webhook_enabled=x_twilio_webhook_enabled, author=author, body=body, date_created=date_created, date_updated=date_updated, attributes=attributes, subject=subject, )
 
-    async def update_async(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "MessageInstance.WebhookEnabledType", object
-        ] = values.unset,
-        author: Union[str, object] = values.unset,
-        body: Union[str, object] = values.unset,
-        date_created: Union[datetime, object] = values.unset,
-        date_updated: Union[datetime, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        subject: Union[str, object] = values.unset,
-    ) -> "MessageInstance":
+    async def update_async(self, x_twilio_webhook_enabled: Union["MessageInstance.WebhookEnabledType", object]=values.unset, author: Union[str, object]=values.unset, body: Union[str, object]=values.unset, date_created: Union[datetime, object]=values.unset, date_updated: Union[datetime, object]=values.unset, attributes: Union[str, object]=values.unset, subject: Union[str, object]=values.unset) -> "MessageInstance":
         """
         Asynchronous coroutine to update the MessageInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param author: The channel specific identifier of the message's author. Defaults to `system`.
         :param body: The content of the message, can be up to 1,600 characters long.
@@ -221,38 +165,27 @@ class MessageInstance(InstanceResource):
 
         :returns: The updated MessageInstance
         """
-        return await self._proxy.update_async(
-            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
-            author=author,
-            body=body,
-            date_created=date_created,
-            date_updated=date_updated,
-            attributes=attributes,
-            subject=subject,
-        )
-
+        return await self._proxy.update_async(x_twilio_webhook_enabled=x_twilio_webhook_enabled, author=author, body=body, date_created=date_created, date_updated=date_updated, attributes=attributes, subject=subject, )
+    
     @property
     def delivery_receipts(self) -> DeliveryReceiptList:
         """
         Access the delivery_receipts
         """
         return self._proxy.delivery_receipts
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.MessageInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.MessageInstance {}>'.format(context)
 
 class MessageContext(InstanceContext):
 
-    def __init__(
-        self, version: Version, chat_service_sid: str, conversation_sid: str, sid: str
-    ):
+    def __init__(self, version: Version, chat_service_sid: str, conversation_sid: str, sid: str):
         """
         Initialize the MessageContext
 
@@ -263,119 +196,86 @@ class MessageContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
-            "conversation_sid": conversation_sid,
-            "sid": sid,
+        self._solution = { 
+            'chat_service_sid': chat_service_sid,
+            'conversation_sid': conversation_sid,
+            'sid': sid,
         }
-        self._uri = "/Services/{chat_service_sid}/Conversations/{conversation_sid}/Messages/{sid}".format(
-            **self._solution
-        )
-
+        self._uri = '/Services/{chat_service_sid}/Conversations/{conversation_sid}/Messages/{sid}'.format(**self._solution)
+        
         self._delivery_receipts: Optional[DeliveryReceiptList] = None
-
-    def delete(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "MessageInstance.WebhookEnabledType", object
-        ] = values.unset,
-    ) -> bool:
+    
+    
+    def delete(self, x_twilio_webhook_enabled: Union["MessageInstance.WebhookEnabledType", object]=values.unset) -> bool:
         """
         Deletes the MessageInstance
 
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
-
-    async def delete_async(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "MessageInstance.WebhookEnabledType", object
-        ] = values.unset,
-    ) -> bool:
+    async def delete_async(self, x_twilio_webhook_enabled: Union["MessageInstance.WebhookEnabledType", object]=values.unset) -> bool:
         """
         Asynchronous coroutine that deletes the MessageInstance
 
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
-
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
-        )
-
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
+        
+        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
+    
+    
     def fetch(self) -> MessageInstance:
         """
         Fetch the MessageInstance
-
+        
 
         :returns: The fetched MessageInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MessageInstance(
             self._version,
             payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            conversation_sid=self._solution["conversation_sid"],
-            sid=self._solution["sid"],
+            chat_service_sid=self._solution['chat_service_sid'],
+            conversation_sid=self._solution['conversation_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> MessageInstance:
         """
         Asynchronous coroutine to fetch the MessageInstance
-
+        
 
         :returns: The fetched MessageInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return MessageInstance(
             self._version,
             payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            conversation_sid=self._solution["conversation_sid"],
-            sid=self._solution["sid"],
+            chat_service_sid=self._solution['chat_service_sid'],
+            conversation_sid=self._solution['conversation_sid'],
+            sid=self._solution['sid'],
+            
         )
-
-    def update(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "MessageInstance.WebhookEnabledType", object
-        ] = values.unset,
-        author: Union[str, object] = values.unset,
-        body: Union[str, object] = values.unset,
-        date_created: Union[datetime, object] = values.unset,
-        date_updated: Union[datetime, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        subject: Union[str, object] = values.unset,
-    ) -> MessageInstance:
+    
+    
+    def update(self, x_twilio_webhook_enabled: Union["MessageInstance.WebhookEnabledType", object]=values.unset, author: Union[str, object]=values.unset, body: Union[str, object]=values.unset, date_created: Union[datetime, object]=values.unset, date_updated: Union[datetime, object]=values.unset, attributes: Union[str, object]=values.unset, subject: Union[str, object]=values.unset) -> MessageInstance:
         """
         Update the MessageInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param author: The channel specific identifier of the message's author. Defaults to `system`.
         :param body: The content of the message, can be up to 1,600 characters long.
@@ -386,49 +286,30 @@ class MessageContext(InstanceContext):
 
         :returns: The updated MessageInstance
         """
-        data = values.of(
-            {
-                "Author": author,
-                "Body": body,
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateUpdated": serialize.iso8601_datetime(date_updated),
-                "Attributes": attributes,
-                "Subject": subject,
-            }
-        )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
+        data = values.of({ 
+            'Author': author,
+            'Body': body,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
+            'Subject': subject,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = self._version.update(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data, headers=headers)
 
         return MessageInstance(
             self._version,
             payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            conversation_sid=self._solution["conversation_sid"],
-            sid=self._solution["sid"],
+            chat_service_sid=self._solution['chat_service_sid'],
+            conversation_sid=self._solution['conversation_sid'],
+            sid=self._solution['sid']
         )
 
-    async def update_async(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "MessageInstance.WebhookEnabledType", object
-        ] = values.unset,
-        author: Union[str, object] = values.unset,
-        body: Union[str, object] = values.unset,
-        date_created: Union[datetime, object] = values.unset,
-        date_updated: Union[datetime, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        subject: Union[str, object] = values.unset,
-    ) -> MessageInstance:
+    async def update_async(self, x_twilio_webhook_enabled: Union["MessageInstance.WebhookEnabledType", object]=values.unset, author: Union[str, object]=values.unset, body: Union[str, object]=values.unset, date_created: Union[datetime, object]=values.unset, date_updated: Union[datetime, object]=values.unset, attributes: Union[str, object]=values.unset, subject: Union[str, object]=values.unset) -> MessageInstance:
         """
         Asynchronous coroutine to update the MessageInstance
-
+        
         :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
         :param author: The channel specific identifier of the message's author. Defaults to `system`.
         :param body: The content of the message, can be up to 1,600 characters long.
@@ -439,34 +320,27 @@ class MessageContext(InstanceContext):
 
         :returns: The updated MessageInstance
         """
-        data = values.of(
-            {
-                "Author": author,
-                "Body": body,
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateUpdated": serialize.iso8601_datetime(date_updated),
-                "Attributes": attributes,
-                "Subject": subject,
-            }
-        )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
+        data = values.of({ 
+            'Author': author,
+            'Body': body,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
+            'Subject': subject,
+        })
+        headers = values.of({'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled, })
 
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return MessageInstance(
             self._version,
             payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            conversation_sid=self._solution["conversation_sid"],
-            sid=self._solution["sid"],
+            chat_service_sid=self._solution['chat_service_sid'],
+            conversation_sid=self._solution['conversation_sid'],
+            sid=self._solution['sid']
         )
-
+    
+    
     @property
     def delivery_receipts(self) -> DeliveryReceiptList:
         """
@@ -474,21 +348,30 @@ class MessageContext(InstanceContext):
         """
         if self._delivery_receipts is None:
             self._delivery_receipts = DeliveryReceiptList(
-                self._version,
-                self._solution["chat_service_sid"],
-                self._solution["conversation_sid"],
-                self._solution["sid"],
+                self._version, 
+                self._solution['chat_service_sid'],
+                self._solution['conversation_sid'],
+                self._solution['sid'],
             )
         return self._delivery_receipts
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.MessageContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Conversations.V1.MessageContext {}>'.format(context)
+
+
+
+
+
+
+
+
+
 
 
 class MessagePage(Page):
@@ -499,12 +382,7 @@ class MessagePage(Page):
 
         :param payload: Payload response from the API
         """
-        return MessageInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            conversation_sid=self._solution["conversation_sid"],
-        )
+        return MessageInstance(self._version, payload, chat_service_sid=self._solution["chat_service_sid"], conversation_sid=self._solution["conversation_sid"])
 
     def __repr__(self) -> str:
         """
@@ -515,8 +393,11 @@ class MessagePage(Page):
         return "<Twilio.Conversations.V1.MessagePage>"
 
 
-class MessageList(ListResource):
 
+
+
+class MessageList(ListResource):
+    
     def __init__(self, version: Version, chat_service_sid: str, conversation_sid: str):
         """
         Initialize the MessageList
@@ -524,34 +405,21 @@ class MessageList(ListResource):
         :param version: Version that contains the resource
         :param chat_service_sid: The SID of the [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) the Participant resource is associated with.
         :param conversation_sid: The unique ID of the [Conversation](https://www.twilio.com/docs/conversations/api/conversation-resource) for messages.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "chat_service_sid": chat_service_sid,
-            "conversation_sid": conversation_sid,
-        }
-        self._uri = "/Services/{chat_service_sid}/Conversations/{conversation_sid}/Messages".format(
-            **self._solution
-        )
-
-    def create(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "MessageInstance.WebhookEnabledType", object
-        ] = values.unset,
-        author: Union[str, object] = values.unset,
-        body: Union[str, object] = values.unset,
-        date_created: Union[datetime, object] = values.unset,
-        date_updated: Union[datetime, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        media_sid: Union[str, object] = values.unset,
-        content_sid: Union[str, object] = values.unset,
-        content_variables: Union[str, object] = values.unset,
-        subject: Union[str, object] = values.unset,
-    ) -> MessageInstance:
+        self._solution = { 'chat_service_sid': chat_service_sid, 'conversation_sid': conversation_sid,  }
+        self._uri = '/Services/{chat_service_sid}/Conversations/{conversation_sid}/Messages'.format(**self._solution)
+        
+        
+    
+    
+    
+    
+    def create(self, x_twilio_webhook_enabled: Union["MessageInstance.WebhookEnabledType", object]=values.unset, author: Union[str, object]=values.unset, body: Union[str, object]=values.unset, date_created: Union[datetime, object]=values.unset, date_updated: Union[datetime, object]=values.unset, attributes: Union[str, object]=values.unset, media_sid: Union[str, object]=values.unset, content_sid: Union[str, object]=values.unset, content_variables: Union[str, object]=values.unset, subject: Union[str, object]=values.unset) -> MessageInstance:
         """
         Create the MessageInstance
 
@@ -565,56 +433,32 @@ class MessageList(ListResource):
         :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
         :param content_variables: A structurally valid JSON string that contains values to resolve Rich Content template variables.
         :param subject: The subject of the message, can be up to 256 characters long.
-
+        
         :returns: The created MessageInstance
         """
+        
+        data = values.of({ 
+            'Author': author,
+            'Body': body,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
+            'MediaSid': media_sid,
+            'ContentSid': content_sid,
+            'ContentVariables': content_variables,
+            'Subject': subject,
+        })
+        headers = values.of({
+                'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Author": author,
-                "Body": body,
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateUpdated": serialize.iso8601_datetime(date_updated),
-                "Attributes": attributes,
-                "MediaSid": media_sid,
-                "ContentSid": content_sid,
-                "ContentVariables": content_variables,
-                "Subject": subject,
-            }
-        )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
+        return MessageInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'])
 
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return MessageInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            conversation_sid=self._solution["conversation_sid"],
-        )
-
-    async def create_async(
-        self,
-        x_twilio_webhook_enabled: Union[
-            "MessageInstance.WebhookEnabledType", object
-        ] = values.unset,
-        author: Union[str, object] = values.unset,
-        body: Union[str, object] = values.unset,
-        date_created: Union[datetime, object] = values.unset,
-        date_updated: Union[datetime, object] = values.unset,
-        attributes: Union[str, object] = values.unset,
-        media_sid: Union[str, object] = values.unset,
-        content_sid: Union[str, object] = values.unset,
-        content_variables: Union[str, object] = values.unset,
-        subject: Union[str, object] = values.unset,
-    ) -> MessageInstance:
+    async def create_async(self, x_twilio_webhook_enabled: Union["MessageInstance.WebhookEnabledType", object]=values.unset, author: Union[str, object]=values.unset, body: Union[str, object]=values.unset, date_created: Union[datetime, object]=values.unset, date_updated: Union[datetime, object]=values.unset, attributes: Union[str, object]=values.unset, media_sid: Union[str, object]=values.unset, content_sid: Union[str, object]=values.unset, content_variables: Union[str, object]=values.unset, subject: Union[str, object]=values.unset) -> MessageInstance:
         """
         Asynchronously create the MessageInstance
 
@@ -628,44 +472,35 @@ class MessageList(ListResource):
         :param content_sid: The unique ID of the multi-channel [Rich Content](https://www.twilio.com/docs/content) template, required for template-generated messages.  **Note** that if this field is set, `Body` and `MediaSid` parameters are ignored.
         :param content_variables: A structurally valid JSON string that contains values to resolve Rich Content template variables.
         :param subject: The subject of the message, can be up to 256 characters long.
-
+        
         :returns: The created MessageInstance
         """
+        
+        data = values.of({ 
+            'Author': author,
+            'Body': body,
+            'DateCreated': serialize.iso8601_datetime(date_created),
+            'DateUpdated': serialize.iso8601_datetime(date_updated),
+            'Attributes': attributes,
+            'MediaSid': media_sid,
+            'ContentSid': content_sid,
+            'ContentVariables': content_variables,
+            'Subject': subject,
+        })
+        headers = values.of({
+                'X-Twilio-Webhook-Enabled': x_twilio_webhook_enabled,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "Author": author,
-                "Body": body,
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateUpdated": serialize.iso8601_datetime(date_updated),
-                "Attributes": attributes,
-                "MediaSid": media_sid,
-                "ContentSid": content_sid,
-                "ContentVariables": content_variables,
-                "Subject": subject,
-            }
-        )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return MessageInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
-            conversation_sid=self._solution["conversation_sid"],
-        )
-
-    def stream(
-        self,
+        return MessageInstance(self._version, payload, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'])
+    
+    
+    def stream(self, 
         order: Union["MessageInstance.OrderType", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[MessageInstance]:
@@ -674,7 +509,7 @@ class MessageList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;MessageInstance.OrderType&quot; order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -686,13 +521,16 @@ class MessageList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(order=order, page_size=limits["page_size"])
+        page = self.page(
+            order=order,
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         order: Union["MessageInstance.OrderType", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[MessageInstance]:
@@ -701,7 +539,7 @@ class MessageList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param &quot;MessageInstance.OrderType&quot; order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -713,13 +551,16 @@ class MessageList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(order=order, page_size=limits["page_size"])
+        page = await self.page_async(
+            order=order,
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         order: Union["MessageInstance.OrderType", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[MessageInstance]:
@@ -727,7 +568,7 @@ class MessageList(ListResource):
         Lists MessageInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;MessageInstance.OrderType&quot; order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -738,17 +579,15 @@ class MessageList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                order=order,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            order=order,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         order: Union["MessageInstance.OrderType", object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[MessageInstance]:
@@ -756,7 +595,7 @@ class MessageList(ListResource):
         Asynchronously lists MessageInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param &quot;MessageInstance.OrderType&quot; order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -767,18 +606,15 @@ class MessageList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                order=order,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            order=order,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         order: Union["MessageInstance.OrderType", object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -786,7 +622,7 @@ class MessageList(ListResource):
         """
         Retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
-
+        
         :param order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -794,21 +630,19 @@ class MessageList(ListResource):
 
         :returns: Page of MessageInstance
         """
-        data = values.of(
-            {
-                "Order": order,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Order': order,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return MessagePage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         order: Union["MessageInstance.OrderType", object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -816,7 +650,7 @@ class MessageList(ListResource):
         """
         Asynchronously retrieve a single page of MessageInstance records from the API.
         Request is executed immediately
-
+        
         :param order: The sort order of the returned messages. Can be: `asc` (ascending) or `desc` (descending), with `asc` as the default.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -824,18 +658,14 @@ class MessageList(ListResource):
 
         :returns: Page of MessageInstance
         """
-        data = values.of(
-            {
-                "Order": order,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Order': order,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return MessagePage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> MessagePage:
@@ -847,7 +677,10 @@ class MessageList(ListResource):
 
         :returns: Page of MessageInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return MessagePage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> MessagePage:
@@ -859,34 +692,31 @@ class MessageList(ListResource):
 
         :returns: Page of MessageInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return MessagePage(self._version, response, self._solution)
+
+
+
+
 
     def get(self, sid: str) -> MessageContext:
         """
         Constructs a MessageContext
-
+        
         :param sid: A 34 character string that uniquely identifies this resource.
         """
-        return MessageContext(
-            self._version,
-            chat_service_sid=self._solution["chat_service_sid"],
-            conversation_sid=self._solution["conversation_sid"],
-            sid=sid,
-        )
+        return MessageContext(self._version, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'], sid=sid)
 
     def __call__(self, sid: str) -> MessageContext:
         """
         Constructs a MessageContext
-
+        
         :param sid: A 34 character string that uniquely identifies this resource.
         """
-        return MessageContext(
-            self._version,
-            chat_service_sid=self._solution["chat_service_sid"],
-            conversation_sid=self._solution["conversation_sid"],
-            sid=sid,
-        )
+        return MessageContext(self._version, chat_service_sid=self._solution['chat_service_sid'], conversation_sid=self._solution['conversation_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -894,4 +724,5 @@ class MessageList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Conversations.V1.MessageList>"
+        return '<Twilio.Conversations.V1.MessageList>'
+

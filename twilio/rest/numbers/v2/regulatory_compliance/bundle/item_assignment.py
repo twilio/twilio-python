@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,6 +25,7 @@ from twilio.base.page import Page
 
 
 class ItemAssignmentInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the Item Assignment resource.
     :ivar bundle_sid: The unique string that we created to identify the Bundle resource.
@@ -32,25 +35,19 @@ class ItemAssignmentInstance(InstanceResource):
     :ivar url: The absolute URL of the Identity resource.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        bundle_sid: str,
-        sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], bundle_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.bundle_sid: Optional[str] = payload.get("bundle_sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.object_sid: Optional[str] = payload.get("object_sid")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
         self.url: Optional[str] = payload.get("url")
 
-        self._solution = {
+        
+        self._solution = { 
             "bundle_sid": bundle_sid,
             "sid": sid or self.sid,
         }
@@ -65,35 +62,32 @@ class ItemAssignmentInstance(InstanceResource):
         :returns: ItemAssignmentContext for this ItemAssignmentInstance
         """
         if self._context is None:
-            self._context = ItemAssignmentContext(
-                self._version,
-                bundle_sid=self._solution["bundle_sid"],
-                sid=self._solution["sid"],
-            )
+            self._context = ItemAssignmentContext(self._version, bundle_sid=self._solution['bundle_sid'], sid=self._solution['sid'],)
         return self._context
-
+    
+    
     def delete(self) -> bool:
         """
         Deletes the ItemAssignmentInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
-
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ItemAssignmentInstance
-
+        
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-
+    
+    
     def fetch(self) -> "ItemAssignmentInstance":
         """
         Fetch the ItemAssignmentInstance
-
+        
 
         :returns: The fetched ItemAssignmentInstance
         """
@@ -102,21 +96,20 @@ class ItemAssignmentInstance(InstanceResource):
     async def fetch_async(self) -> "ItemAssignmentInstance":
         """
         Asynchronous coroutine to fetch the ItemAssignmentInstance
-
+        
 
         :returns: The fetched ItemAssignmentInstance
         """
         return await self._proxy.fetch_async()
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.ItemAssignmentInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Numbers.V2.ItemAssignmentInstance {}>'.format(context)
 
 class ItemAssignmentContext(InstanceContext):
 
@@ -130,89 +123,87 @@ class ItemAssignmentContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "bundle_sid": bundle_sid,
-            "sid": sid,
+        self._solution = { 
+            'bundle_sid': bundle_sid,
+            'sid': sid,
         }
-        self._uri = (
-            "/RegulatoryCompliance/Bundles/{bundle_sid}/ItemAssignments/{sid}".format(
-                **self._solution
-            )
-        )
-
+        self._uri = '/RegulatoryCompliance/Bundles/{bundle_sid}/ItemAssignments/{sid}'.format(**self._solution)
+        
+    
+    
     def delete(self) -> bool:
         """
         Deletes the ItemAssignmentInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+        return self._version.delete(method='DELETE', uri=self._uri,)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the ItemAssignmentInstance
 
-
+        
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
-        )
-
+        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+    
+    
     def fetch(self) -> ItemAssignmentInstance:
         """
         Fetch the ItemAssignmentInstance
-
+        
 
         :returns: The fetched ItemAssignmentInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return ItemAssignmentInstance(
             self._version,
             payload,
-            bundle_sid=self._solution["bundle_sid"],
-            sid=self._solution["sid"],
+            bundle_sid=self._solution['bundle_sid'],
+            sid=self._solution['sid'],
+            
         )
 
     async def fetch_async(self) -> ItemAssignmentInstance:
         """
         Asynchronous coroutine to fetch the ItemAssignmentInstance
-
+        
 
         :returns: The fetched ItemAssignmentInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return ItemAssignmentInstance(
             self._version,
             payload,
-            bundle_sid=self._solution["bundle_sid"],
-            sid=self._solution["sid"],
+            bundle_sid=self._solution['bundle_sid'],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.ItemAssignmentContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Numbers.V2.ItemAssignmentContext {}>'.format(context)
+
+
+
+
+
+
+
 
 
 class ItemAssignmentPage(Page):
@@ -223,9 +214,7 @@ class ItemAssignmentPage(Page):
 
         :param payload: Payload response from the API
         """
-        return ItemAssignmentInstance(
-            self._version, payload, bundle_sid=self._solution["bundle_sid"]
-        )
+        return ItemAssignmentInstance(self._version, payload, bundle_sid=self._solution["bundle_sid"])
 
     def __repr__(self) -> str:
         """
@@ -236,76 +225,75 @@ class ItemAssignmentPage(Page):
         return "<Twilio.Numbers.V2.ItemAssignmentPage>"
 
 
-class ItemAssignmentList(ListResource):
 
+
+
+class ItemAssignmentList(ListResource):
+    
     def __init__(self, version: Version, bundle_sid: str):
         """
         Initialize the ItemAssignmentList
 
         :param version: Version that contains the resource
         :param bundle_sid: The unique string that we created to identify the Bundle resource.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "bundle_sid": bundle_sid,
-        }
-        self._uri = "/RegulatoryCompliance/Bundles/{bundle_sid}/ItemAssignments".format(
-            **self._solution
-        )
-
+        self._solution = { 'bundle_sid': bundle_sid,  }
+        self._uri = '/RegulatoryCompliance/Bundles/{bundle_sid}/ItemAssignments'.format(**self._solution)
+        
+        
+    
+    
+    
     def create(self, object_sid: str) -> ItemAssignmentInstance:
         """
         Create the ItemAssignmentInstance
 
         :param object_sid: The SID of an object bag that holds information of the different items.
-
+        
         :returns: The created ItemAssignmentInstance
         """
+        
+        data = values.of({ 
+            'ObjectSid': object_sid,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "ObjectSid": object_sid,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ItemAssignmentInstance(
-            self._version, payload, bundle_sid=self._solution["bundle_sid"]
-        )
+        return ItemAssignmentInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
 
     async def create_async(self, object_sid: str) -> ItemAssignmentInstance:
         """
         Asynchronously create the ItemAssignmentInstance
 
         :param object_sid: The SID of an object bag that holds information of the different items.
-
+        
         :returns: The created ItemAssignmentInstance
         """
+        
+        data = values.of({ 
+            'ObjectSid': object_sid,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        data = values.of(
-            {
-                "ObjectSid": object_sid,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ItemAssignmentInstance(
-            self._version, payload, bundle_sid=self._solution["bundle_sid"]
-        )
-
-    def stream(
-        self,
+        return ItemAssignmentInstance(self._version, payload, bundle_sid=self._solution['bundle_sid'])
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[ItemAssignmentInstance]:
@@ -314,7 +302,7 @@ class ItemAssignmentList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -325,12 +313,14 @@ class ItemAssignmentList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[ItemAssignmentInstance]:
@@ -339,7 +329,7 @@ class ItemAssignmentList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -350,12 +340,14 @@ class ItemAssignmentList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ItemAssignmentInstance]:
@@ -363,7 +355,7 @@ class ItemAssignmentList(ListResource):
         Lists ItemAssignmentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -373,15 +365,13 @@ class ItemAssignmentList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[ItemAssignmentInstance]:
@@ -389,7 +379,7 @@ class ItemAssignmentList(ListResource):
         Asynchronously lists ItemAssignmentInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -399,16 +389,13 @@ class ItemAssignmentList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -416,26 +403,24 @@ class ItemAssignmentList(ListResource):
         """
         Retrieve a single page of ItemAssignmentInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ItemAssignmentInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return ItemAssignmentPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -443,24 +428,20 @@ class ItemAssignmentList(ListResource):
         """
         Asynchronously retrieve a single page of ItemAssignmentInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of ItemAssignmentInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return ItemAssignmentPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> ItemAssignmentPage:
@@ -472,7 +453,10 @@ class ItemAssignmentList(ListResource):
 
         :returns: Page of ItemAssignmentInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return ItemAssignmentPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> ItemAssignmentPage:
@@ -484,28 +468,29 @@ class ItemAssignmentList(ListResource):
 
         :returns: Page of ItemAssignmentInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return ItemAssignmentPage(self._version, response, self._solution)
+
+
 
     def get(self, sid: str) -> ItemAssignmentContext:
         """
         Constructs a ItemAssignmentContext
-
+        
         :param sid: The unique string that we created to identify the Identity resource.
         """
-        return ItemAssignmentContext(
-            self._version, bundle_sid=self._solution["bundle_sid"], sid=sid
-        )
+        return ItemAssignmentContext(self._version, bundle_sid=self._solution['bundle_sid'], sid=sid)
 
     def __call__(self, sid: str) -> ItemAssignmentContext:
         """
         Constructs a ItemAssignmentContext
-
+        
         :param sid: The unique string that we created to identify the Identity resource.
         """
-        return ItemAssignmentContext(
-            self._version, bundle_sid=self._solution["bundle_sid"], sid=sid
-        )
+        return ItemAssignmentContext(self._version, bundle_sid=self._solution['bundle_sid'], sid=sid)
 
     def __repr__(self) -> str:
         """
@@ -513,4 +498,5 @@ class ItemAssignmentList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Numbers.V2.ItemAssignmentList>"
+        return '<Twilio.Numbers.V2.ItemAssignmentList>'
+

@@ -12,12 +12,16 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, Optional, Union
-from twilio.base import values
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
+
 
 
 class RecordingInstance(InstanceResource):
@@ -41,10 +45,12 @@ class RecordingInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any], trunk_sid: str):
         super().__init__(version)
 
+        
         self.mode: Optional["RecordingInstance.RecordingMode"] = payload.get("mode")
         self.trim: Optional["RecordingInstance.RecordingTrim"] = payload.get("trim")
 
-        self._solution = {
+        
+        self._solution = { 
             "trunk_sid": trunk_sid,
         }
         self._context: Optional[RecordingContext] = None
@@ -58,16 +64,14 @@ class RecordingInstance(InstanceResource):
         :returns: RecordingContext for this RecordingInstance
         """
         if self._context is None:
-            self._context = RecordingContext(
-                self._version,
-                trunk_sid=self._solution["trunk_sid"],
-            )
+            self._context = RecordingContext(self._version, trunk_sid=self._solution['trunk_sid'],)
         return self._context
-
+    
+    
     def fetch(self) -> "RecordingInstance":
         """
         Fetch the RecordingInstance
-
+        
 
         :returns: The fetched RecordingInstance
         """
@@ -76,57 +80,43 @@ class RecordingInstance(InstanceResource):
     async def fetch_async(self) -> "RecordingInstance":
         """
         Asynchronous coroutine to fetch the RecordingInstance
-
+        
 
         :returns: The fetched RecordingInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self,
-        mode: Union["RecordingInstance.RecordingMode", object] = values.unset,
-        trim: Union["RecordingInstance.RecordingTrim", object] = values.unset,
-    ) -> "RecordingInstance":
+    
+    
+    def update(self, mode: Union["RecordingInstance.RecordingMode", object]=values.unset, trim: Union["RecordingInstance.RecordingTrim", object]=values.unset) -> "RecordingInstance":
         """
         Update the RecordingInstance
-
-        :param mode:
-        :param trim:
+        
+        :param mode: 
+        :param trim: 
 
         :returns: The updated RecordingInstance
         """
-        return self._proxy.update(
-            mode=mode,
-            trim=trim,
-        )
+        return self._proxy.update(mode=mode, trim=trim, )
 
-    async def update_async(
-        self,
-        mode: Union["RecordingInstance.RecordingMode", object] = values.unset,
-        trim: Union["RecordingInstance.RecordingTrim", object] = values.unset,
-    ) -> "RecordingInstance":
+    async def update_async(self, mode: Union["RecordingInstance.RecordingMode", object]=values.unset, trim: Union["RecordingInstance.RecordingTrim", object]=values.unset) -> "RecordingInstance":
         """
         Asynchronous coroutine to update the RecordingInstance
-
-        :param mode:
-        :param trim:
+        
+        :param mode: 
+        :param trim: 
 
         :returns: The updated RecordingInstance
         """
-        return await self._proxy.update_async(
-            mode=mode,
-            trim=trim,
-        )
-
+        return await self._proxy.update_async(mode=mode, trim=trim, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trunking.V1.RecordingInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trunking.V1.RecordingInstance {}>'.format(context)
 
 class RecordingContext(InstanceContext):
 
@@ -139,150 +129,140 @@ class RecordingContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "trunk_sid": trunk_sid,
+        self._solution = { 
+            'trunk_sid': trunk_sid,
         }
-        self._uri = "/Trunks/{trunk_sid}/Recording".format(**self._solution)
-
+        self._uri = '/Trunks/{trunk_sid}/Recording'.format(**self._solution)
+        
+    
+    
     def fetch(self) -> RecordingInstance:
         """
         Fetch the RecordingInstance
-
+        
 
         :returns: The fetched RecordingInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return RecordingInstance(
             self._version,
             payload,
-            trunk_sid=self._solution["trunk_sid"],
+            trunk_sid=self._solution['trunk_sid'],
+            
         )
 
     async def fetch_async(self) -> RecordingInstance:
         """
         Asynchronous coroutine to fetch the RecordingInstance
-
+        
 
         :returns: The fetched RecordingInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return RecordingInstance(
             self._version,
             payload,
-            trunk_sid=self._solution["trunk_sid"],
+            trunk_sid=self._solution['trunk_sid'],
+            
         )
-
-    def update(
-        self,
-        mode: Union["RecordingInstance.RecordingMode", object] = values.unset,
-        trim: Union["RecordingInstance.RecordingTrim", object] = values.unset,
-    ) -> RecordingInstance:
+    
+    
+    def update(self, mode: Union["RecordingInstance.RecordingMode", object]=values.unset, trim: Union["RecordingInstance.RecordingTrim", object]=values.unset) -> RecordingInstance:
         """
         Update the RecordingInstance
-
-        :param mode:
-        :param trim:
+        
+        :param mode: 
+        :param trim: 
 
         :returns: The updated RecordingInstance
         """
-        data = values.of(
-            {
-                "Mode": mode,
-                "Trim": trim,
-            }
-        )
+        data = values.of({ 
+            'Mode': mode,
+            'Trim': trim,
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return RecordingInstance(
-            self._version, payload, trunk_sid=self._solution["trunk_sid"]
+            self._version,
+            payload,
+            trunk_sid=self._solution['trunk_sid']
         )
 
-    async def update_async(
-        self,
-        mode: Union["RecordingInstance.RecordingMode", object] = values.unset,
-        trim: Union["RecordingInstance.RecordingTrim", object] = values.unset,
-    ) -> RecordingInstance:
+    async def update_async(self, mode: Union["RecordingInstance.RecordingMode", object]=values.unset, trim: Union["RecordingInstance.RecordingTrim", object]=values.unset) -> RecordingInstance:
         """
         Asynchronous coroutine to update the RecordingInstance
-
-        :param mode:
-        :param trim:
+        
+        :param mode: 
+        :param trim: 
 
         :returns: The updated RecordingInstance
         """
-        data = values.of(
-            {
-                "Mode": mode,
-                "Trim": trim,
-            }
-        )
+        data = values.of({ 
+            'Mode': mode,
+            'Trim': trim,
+        })
+        
 
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
 
         return RecordingInstance(
-            self._version, payload, trunk_sid=self._solution["trunk_sid"]
+            self._version,
+            payload,
+            trunk_sid=self._solution['trunk_sid']
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trunking.V1.RecordingContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Trunking.V1.RecordingContext {}>'.format(context)
+
 
 
 class RecordingList(ListResource):
-
+    
     def __init__(self, version: Version, trunk_sid: str):
         """
         Initialize the RecordingList
 
         :param version: Version that contains the resource
         :param trunk_sid: The SID of the Trunk from which to fetch the recording settings.
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "trunk_sid": trunk_sid,
-        }
+        self._solution = { 'trunk_sid': trunk_sid,  }
+        
+        
+        
 
     def get(self) -> RecordingContext:
         """
         Constructs a RecordingContext
-
+        
         """
-        return RecordingContext(self._version, trunk_sid=self._solution["trunk_sid"])
+        return RecordingContext(self._version, trunk_sid=self._solution['trunk_sid'])
 
     def __call__(self) -> RecordingContext:
         """
         Constructs a RecordingContext
-
+        
         """
-        return RecordingContext(self._version, trunk_sid=self._solution["trunk_sid"])
+        return RecordingContext(self._version, trunk_sid=self._solution['trunk_sid'])
 
     def __repr__(self) -> str:
         """
@@ -290,4 +270,5 @@ class RecordingList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Trunking.V1.RecordingList>"
+        return '<Twilio.Trunking.V1.RecordingList>'
+

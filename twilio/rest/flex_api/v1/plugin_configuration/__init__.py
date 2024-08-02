@@ -12,7 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
@@ -20,12 +22,11 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
-from twilio.rest.flex_api.v1.plugin_configuration.configured_plugin import (
-    ConfiguredPluginList,
-)
+from twilio.rest.flex_api.v1.plugin_configuration.configured_plugin import ConfiguredPluginList
 
 
 class PluginConfigurationInstance(InstanceResource):
+
     """
     :ivar sid: The unique string that we created to identify the Flex Plugin Configuration resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Flex Plugin Configuration resource and owns this resource.
@@ -34,26 +35,24 @@ class PluginConfigurationInstance(InstanceResource):
     :ivar archived: Whether the Flex Plugin Configuration is archived. The default value is false.
     :ivar date_created: The date and time in GMT when the Flex Plugin Configuration was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar url: The absolute URL of the Flex Plugin Configuration resource.
-    :ivar links:
+    :ivar links: 
     """
 
-    def __init__(
-        self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.sid: Optional[str] = payload.get("sid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.name: Optional[str] = payload.get("name")
         self.description: Optional[str] = payload.get("description")
         self.archived: Optional[bool] = payload.get("archived")
-        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
-            payload.get("date_created")
-        )
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(payload.get("date_created"))
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
-        self._solution = {
+        
+        self._solution = { 
             "sid": sid or self.sid,
         }
         self._context: Optional[PluginConfigurationContext] = None
@@ -67,56 +66,45 @@ class PluginConfigurationInstance(InstanceResource):
         :returns: PluginConfigurationContext for this PluginConfigurationInstance
         """
         if self._context is None:
-            self._context = PluginConfigurationContext(
-                self._version,
-                sid=self._solution["sid"],
-            )
+            self._context = PluginConfigurationContext(self._version, sid=self._solution['sid'],)
         return self._context
-
-    def fetch(
-        self, flex_metadata: Union[str, object] = values.unset
-    ) -> "PluginConfigurationInstance":
+    
+    
+    def fetch(self, flex_metadata: Union[str, object]=values.unset) -> "PluginConfigurationInstance":
         """
         Fetch the PluginConfigurationInstance
-
+        
         :param flex_metadata: The Flex-Metadata HTTP request header
 
         :returns: The fetched PluginConfigurationInstance
         """
-        return self._proxy.fetch(
-            flex_metadata=flex_metadata,
-        )
+        return self._proxy.fetch(flex_metadata=flex_metadata, )
 
-    async def fetch_async(
-        self, flex_metadata: Union[str, object] = values.unset
-    ) -> "PluginConfigurationInstance":
+    async def fetch_async(self, flex_metadata: Union[str, object]=values.unset) -> "PluginConfigurationInstance":
         """
         Asynchronous coroutine to fetch the PluginConfigurationInstance
-
+        
         :param flex_metadata: The Flex-Metadata HTTP request header
 
         :returns: The fetched PluginConfigurationInstance
         """
-        return await self._proxy.fetch_async(
-            flex_metadata=flex_metadata,
-        )
-
+        return await self._proxy.fetch_async(flex_metadata=flex_metadata, )
+    
     @property
     def plugins(self) -> ConfiguredPluginList:
         """
         Access the plugins
         """
         return self._proxy.plugins
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.PluginConfigurationInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.PluginConfigurationInstance {}>'.format(context)
 
 class PluginConfigurationContext(InstanceContext):
 
@@ -129,66 +117,61 @@ class PluginConfigurationContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "sid": sid,
+        self._solution = { 
+            'sid': sid,
         }
-        self._uri = "/PluginService/Configurations/{sid}".format(**self._solution)
-
+        self._uri = '/PluginService/Configurations/{sid}'.format(**self._solution)
+        
         self._plugins: Optional[ConfiguredPluginList] = None
-
-    def fetch(
-        self, flex_metadata: Union[str, object] = values.unset
-    ) -> PluginConfigurationInstance:
+    
+    
+    def fetch(self, flex_metadata: Union[str, object]=values.unset) -> PluginConfigurationInstance:
         """
         Fetch the PluginConfigurationInstance
-
+        
         :param flex_metadata: The Flex-Metadata HTTP request header
 
         :returns: The fetched PluginConfigurationInstance
         """
-
-        data = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-            }
-        )
-
-        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
+        
+        data = values.of({ 
+            'Flex-Metadata': flex_metadata,
+        })
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, params=data)
 
         return PluginConfigurationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
 
-    async def fetch_async(
-        self, flex_metadata: Union[str, object] = values.unset
-    ) -> PluginConfigurationInstance:
+    async def fetch_async(self, flex_metadata: Union[str, object]=values.unset) -> PluginConfigurationInstance:
         """
         Asynchronous coroutine to fetch the PluginConfigurationInstance
-
+        
         :param flex_metadata: The Flex-Metadata HTTP request header
 
         :returns: The fetched PluginConfigurationInstance
         """
-
-        data = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-            }
-        )
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data
-        )
+        
+        data = values.of({ 
+            'Flex-Metadata': flex_metadata,
+        })
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, params=data)
 
         return PluginConfigurationInstance(
             self._version,
             payload,
-            sid=self._solution["sid"],
+            sid=self._solution['sid'],
+            
         )
-
+    
+    
     @property
     def plugins(self) -> ConfiguredPluginList:
         """
@@ -196,19 +179,24 @@ class PluginConfigurationContext(InstanceContext):
         """
         if self._plugins is None:
             self._plugins = ConfiguredPluginList(
-                self._version,
-                self._solution["sid"],
+                self._version, 
+                self._solution['sid'],
             )
         return self._plugins
-
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.PluginConfigurationContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.FlexApi.V1.PluginConfigurationContext {}>'.format(context)
+
+
+
+
+
 
 
 class PluginConfigurationPage(Page):
@@ -230,26 +218,27 @@ class PluginConfigurationPage(Page):
         return "<Twilio.FlexApi.V1.PluginConfigurationPage>"
 
 
-class PluginConfigurationList(ListResource):
 
+
+
+class PluginConfigurationList(ListResource):
+    
     def __init__(self, version: Version):
         """
         Initialize the PluginConfigurationList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/PluginService/Configurations"
-
-    def create(
-        self,
-        name: str,
-        flex_metadata: Union[str, object] = values.unset,
-        plugins: Union[List[object], object] = values.unset,
-        description: Union[str, object] = values.unset,
-    ) -> PluginConfigurationInstance:
+        
+        self._uri = '/PluginService/Configurations'
+        
+        
+    
+    
+    def create(self, name: str, flex_metadata: Union[str, object]=values.unset, plugins: Union[List[object], object]=values.unset, description: Union[str, object]=values.unset) -> PluginConfigurationInstance:
         """
         Create the PluginConfigurationInstance
 
@@ -257,37 +246,26 @@ class PluginConfigurationList(ListResource):
         :param flex_metadata: The Flex-Metadata HTTP request header
         :param plugins: A list of objects that describe the plugin versions included in the configuration. Each object contains the sid of the plugin version.
         :param description: The Flex Plugin Configuration's description.
-
+        
         :returns: The created PluginConfigurationInstance
         """
-
-        data = values.of(
-            {
-                "Name": name,
-                "Plugins": serialize.map(plugins, lambda e: serialize.object(e)),
-                "Description": description,
-            }
-        )
-        headers = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'Name': name,
+            'Plugins': serialize.map(plugins, lambda e: serialize.object(e)),
+            'Description': description,
+        })
+        headers = values.of({
+                'Flex-Metadata': flex_metadata,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
         return PluginConfigurationInstance(self._version, payload)
 
-    async def create_async(
-        self,
-        name: str,
-        flex_metadata: Union[str, object] = values.unset,
-        plugins: Union[List[object], object] = values.unset,
-        description: Union[str, object] = values.unset,
-    ) -> PluginConfigurationInstance:
+    async def create_async(self, name: str, flex_metadata: Union[str, object]=values.unset, plugins: Union[List[object], object]=values.unset, description: Union[str, object]=values.unset) -> PluginConfigurationInstance:
         """
         Asynchronously create the PluginConfigurationInstance
 
@@ -295,33 +273,29 @@ class PluginConfigurationList(ListResource):
         :param flex_metadata: The Flex-Metadata HTTP request header
         :param plugins: A list of objects that describe the plugin versions included in the configuration. Each object contains the sid of the plugin version.
         :param description: The Flex Plugin Configuration's description.
-
+        
         :returns: The created PluginConfigurationInstance
         """
-
-        data = values.of(
-            {
-                "Name": name,
-                "Plugins": serialize.map(plugins, lambda e: serialize.object(e)),
-                "Description": description,
-            }
-        )
-        headers = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'Name': name,
+            'Plugins': serialize.map(plugins, lambda e: serialize.object(e)),
+            'Description': description,
+        })
+        headers = values.of({
+                'Flex-Metadata': flex_metadata,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return PluginConfigurationInstance(self._version, payload)
-
-    def stream(
-        self,
+    
+    
+    def stream(self, 
         flex_metadata: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[PluginConfigurationInstance]:
@@ -330,7 +304,7 @@ class PluginConfigurationList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str flex_metadata: The Flex-Metadata HTTP request header
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -342,13 +316,16 @@ class PluginConfigurationList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(flex_metadata=flex_metadata, page_size=limits["page_size"])
+        page = self.page(
+            flex_metadata=flex_metadata,
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
         flex_metadata: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[PluginConfigurationInstance]:
@@ -357,7 +334,7 @@ class PluginConfigurationList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param str flex_metadata: The Flex-Metadata HTTP request header
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -370,14 +347,15 @@ class PluginConfigurationList(ListResource):
         """
         limits = self._version.read_limits(limit, page_size)
         page = await self.page_async(
-            flex_metadata=flex_metadata, page_size=limits["page_size"]
+            flex_metadata=flex_metadata,
+            page_size=limits['page_size']
         )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
         flex_metadata: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[PluginConfigurationInstance]:
@@ -385,7 +363,7 @@ class PluginConfigurationList(ListResource):
         Lists PluginConfigurationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str flex_metadata: The Flex-Metadata HTTP request header
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -396,17 +374,15 @@ class PluginConfigurationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                flex_metadata=flex_metadata,
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            flex_metadata=flex_metadata,
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
         flex_metadata: Union[str, object] = values.unset,
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[PluginConfigurationInstance]:
@@ -414,7 +390,7 @@ class PluginConfigurationList(ListResource):
         Asynchronously lists PluginConfigurationInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param str flex_metadata: The Flex-Metadata HTTP request header
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -425,18 +401,15 @@ class PluginConfigurationList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                flex_metadata=flex_metadata,
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            flex_metadata=flex_metadata,
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
         flex_metadata: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -444,7 +417,7 @@ class PluginConfigurationList(ListResource):
         """
         Retrieve a single page of PluginConfigurationInstance records from the API.
         Request is executed immediately
-
+        
         :param flex_metadata: The Flex-Metadata HTTP request header
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -452,21 +425,19 @@ class PluginConfigurationList(ListResource):
 
         :returns: Page of PluginConfigurationInstance
         """
-        data = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Flex-Metadata': flex_metadata,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return PluginConfigurationPage(self._version, response)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
         flex_metadata: Union[str, object] = values.unset,
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -474,7 +445,7 @@ class PluginConfigurationList(ListResource):
         """
         Asynchronously retrieve a single page of PluginConfigurationInstance records from the API.
         Request is executed immediately
-
+        
         :param flex_metadata: The Flex-Metadata HTTP request header
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -482,18 +453,14 @@ class PluginConfigurationList(ListResource):
 
         :returns: Page of PluginConfigurationInstance
         """
-        data = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'Flex-Metadata': flex_metadata,
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return PluginConfigurationPage(self._version, response)
 
     def get_page(self, target_url: str) -> PluginConfigurationPage:
@@ -505,7 +472,10 @@ class PluginConfigurationList(ListResource):
 
         :returns: Page of PluginConfigurationInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return PluginConfigurationPage(self._version, response)
 
     async def get_page_async(self, target_url: str) -> PluginConfigurationPage:
@@ -517,13 +487,20 @@ class PluginConfigurationList(ListResource):
 
         :returns: Page of PluginConfigurationInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return PluginConfigurationPage(self._version, response)
+
+
+
+
 
     def get(self, sid: str) -> PluginConfigurationContext:
         """
         Constructs a PluginConfigurationContext
-
+        
         :param sid: The SID of the Flex Plugin Configuration resource to fetch.
         """
         return PluginConfigurationContext(self._version, sid=sid)
@@ -531,7 +508,7 @@ class PluginConfigurationList(ListResource):
     def __call__(self, sid: str) -> PluginConfigurationContext:
         """
         Constructs a PluginConfigurationContext
-
+        
         :param sid: The SID of the Flex Plugin Configuration resource to fetch.
         """
         return PluginConfigurationContext(self._version, sid=sid)
@@ -542,4 +519,5 @@ class PluginConfigurationList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.FlexApi.V1.PluginConfigurationList>"
+        return '<Twilio.FlexApi.V1.PluginConfigurationList>'
+

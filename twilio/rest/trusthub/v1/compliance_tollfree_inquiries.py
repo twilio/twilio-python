@@ -12,12 +12,16 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, List, Optional, Union
-from twilio.base import serialize, values
+
+from datetime import date, datetime
+from decimal import Decimal
+from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
+from twilio.base import deserialize, serialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
+
 
 
 class ComplianceTollfreeInquiriesInstance(InstanceResource):
@@ -39,62 +43,44 @@ class ComplianceTollfreeInquiriesInstance(InstanceResource):
     def __init__(self, version: Version, payload: Dict[str, Any]):
         super().__init__(version)
 
+        
         self.inquiry_id: Optional[str] = payload.get("inquiry_id")
         self.inquiry_session_token: Optional[str] = payload.get("inquiry_session_token")
         self.registration_id: Optional[str] = payload.get("registration_id")
         self.url: Optional[str] = payload.get("url")
 
+        
+        
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
+        
+        return '<Twilio.Trusthub.V1.ComplianceTollfreeInquiriesInstance>'
 
-        return "<Twilio.Trusthub.V1.ComplianceTollfreeInquiriesInstance>"
+
 
 
 class ComplianceTollfreeInquiriesList(ListResource):
-
+    
     def __init__(self, version: Version):
         """
         Initialize the ComplianceTollfreeInquiriesList
 
         :param version: Version that contains the resource
-
+        
         """
         super().__init__(version)
 
-        self._uri = "/ComplianceInquiries/Tollfree/Initialize"
-
-    def create(
-        self,
-        tollfree_phone_number: str,
-        notification_email: str,
-        business_name: Union[str, object] = values.unset,
-        business_website: Union[str, object] = values.unset,
-        use_case_categories: Union[List[str], object] = values.unset,
-        use_case_summary: Union[str, object] = values.unset,
-        production_message_sample: Union[str, object] = values.unset,
-        opt_in_image_urls: Union[List[str], object] = values.unset,
-        opt_in_type: Union[
-            "ComplianceTollfreeInquiriesInstance.OptInType", object
-        ] = values.unset,
-        message_volume: Union[str, object] = values.unset,
-        business_street_address: Union[str, object] = values.unset,
-        business_street_address2: Union[str, object] = values.unset,
-        business_city: Union[str, object] = values.unset,
-        business_state_province_region: Union[str, object] = values.unset,
-        business_postal_code: Union[str, object] = values.unset,
-        business_country: Union[str, object] = values.unset,
-        additional_information: Union[str, object] = values.unset,
-        business_contact_first_name: Union[str, object] = values.unset,
-        business_contact_last_name: Union[str, object] = values.unset,
-        business_contact_email: Union[str, object] = values.unset,
-        business_contact_phone: Union[str, object] = values.unset,
-        theme_set_id: Union[str, object] = values.unset,
-        skip_messaging_use_case: Union[bool, object] = values.unset,
-    ) -> ComplianceTollfreeInquiriesInstance:
+        
+        self._uri = '/ComplianceInquiries/Tollfree/Initialize'
+        
+        
+    
+    def create(self, tollfree_phone_number: str, notification_email: str, business_name: Union[str, object]=values.unset, business_website: Union[str, object]=values.unset, use_case_categories: Union[List[str], object]=values.unset, use_case_summary: Union[str, object]=values.unset, production_message_sample: Union[str, object]=values.unset, opt_in_image_urls: Union[List[str], object]=values.unset, opt_in_type: Union["ComplianceTollfreeInquiriesInstance.OptInType", object]=values.unset, message_volume: Union[str, object]=values.unset, business_street_address: Union[str, object]=values.unset, business_street_address2: Union[str, object]=values.unset, business_city: Union[str, object]=values.unset, business_state_province_region: Union[str, object]=values.unset, business_postal_code: Union[str, object]=values.unset, business_country: Union[str, object]=values.unset, additional_information: Union[str, object]=values.unset, business_contact_first_name: Union[str, object]=values.unset, business_contact_last_name: Union[str, object]=values.unset, business_contact_email: Union[str, object]=values.unset, business_contact_phone: Union[str, object]=values.unset, theme_set_id: Union[str, object]=values.unset, skip_messaging_use_case: Union[bool, object]=values.unset) -> ComplianceTollfreeInquiriesInstance:
         """
         Create the ComplianceTollfreeInquiriesInstance
 
@@ -106,7 +92,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
         :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param production_message_sample: An example of message content, i.e. a sample message.
         :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
-        :param opt_in_type:
+        :param opt_in_type: 
         :param message_volume: Estimate monthly volume of messages from the Tollfree Number.
         :param business_street_address: The address of the business or organization using the Tollfree number.
         :param business_street_address2: The address of the business or organization using the Tollfree number.
@@ -121,75 +107,45 @@ class ComplianceTollfreeInquiriesList(ListResource):
         :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
         :param theme_set_id: Theme id for styling the inquiry form.
         :param skip_messaging_use_case: Skip the messaging use case screen of the inquiry form.
-
+        
         :returns: The created ComplianceTollfreeInquiriesInstance
         """
-
-        data = values.of(
-            {
-                "TollfreePhoneNumber": tollfree_phone_number,
-                "NotificationEmail": notification_email,
-                "BusinessName": business_name,
-                "BusinessWebsite": business_website,
-                "UseCaseCategories": serialize.map(use_case_categories, lambda e: e),
-                "UseCaseSummary": use_case_summary,
-                "ProductionMessageSample": production_message_sample,
-                "OptInImageUrls": serialize.map(opt_in_image_urls, lambda e: e),
-                "OptInType": opt_in_type,
-                "MessageVolume": message_volume,
-                "BusinessStreetAddress": business_street_address,
-                "BusinessStreetAddress2": business_street_address2,
-                "BusinessCity": business_city,
-                "BusinessStateProvinceRegion": business_state_province_region,
-                "BusinessPostalCode": business_postal_code,
-                "BusinessCountry": business_country,
-                "AdditionalInformation": additional_information,
-                "BusinessContactFirstName": business_contact_first_name,
-                "BusinessContactLastName": business_contact_last_name,
-                "BusinessContactEmail": business_contact_email,
-                "BusinessContactPhone": business_contact_phone,
-                "ThemeSetId": theme_set_id,
-                "SkipMessagingUseCase": serialize.boolean_to_string(
-                    skip_messaging_use_case
-                ),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'TollfreePhoneNumber': tollfree_phone_number,
+            'NotificationEmail': notification_email,
+            'BusinessName': business_name,
+            'BusinessWebsite': business_website,
+            'UseCaseCategories': serialize.map(use_case_categories, lambda e: e),
+            'UseCaseSummary': use_case_summary,
+            'ProductionMessageSample': production_message_sample,
+            'OptInImageUrls': serialize.map(opt_in_image_urls, lambda e: e),
+            'OptInType': opt_in_type,
+            'MessageVolume': message_volume,
+            'BusinessStreetAddress': business_street_address,
+            'BusinessStreetAddress2': business_street_address2,
+            'BusinessCity': business_city,
+            'BusinessStateProvinceRegion': business_state_province_region,
+            'BusinessPostalCode': business_postal_code,
+            'BusinessCountry': business_country,
+            'AdditionalInformation': additional_information,
+            'BusinessContactFirstName': business_contact_first_name,
+            'BusinessContactLastName': business_contact_last_name,
+            'BusinessContactEmail': business_contact_email,
+            'BusinessContactPhone': business_contact_phone,
+            'ThemeSetId': theme_set_id,
+            'SkipMessagingUseCase': serialize.boolean_to_string(skip_messaging_use_case),
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
         return ComplianceTollfreeInquiriesInstance(self._version, payload)
 
-    async def create_async(
-        self,
-        tollfree_phone_number: str,
-        notification_email: str,
-        business_name: Union[str, object] = values.unset,
-        business_website: Union[str, object] = values.unset,
-        use_case_categories: Union[List[str], object] = values.unset,
-        use_case_summary: Union[str, object] = values.unset,
-        production_message_sample: Union[str, object] = values.unset,
-        opt_in_image_urls: Union[List[str], object] = values.unset,
-        opt_in_type: Union[
-            "ComplianceTollfreeInquiriesInstance.OptInType", object
-        ] = values.unset,
-        message_volume: Union[str, object] = values.unset,
-        business_street_address: Union[str, object] = values.unset,
-        business_street_address2: Union[str, object] = values.unset,
-        business_city: Union[str, object] = values.unset,
-        business_state_province_region: Union[str, object] = values.unset,
-        business_postal_code: Union[str, object] = values.unset,
-        business_country: Union[str, object] = values.unset,
-        additional_information: Union[str, object] = values.unset,
-        business_contact_first_name: Union[str, object] = values.unset,
-        business_contact_last_name: Union[str, object] = values.unset,
-        business_contact_email: Union[str, object] = values.unset,
-        business_contact_phone: Union[str, object] = values.unset,
-        theme_set_id: Union[str, object] = values.unset,
-        skip_messaging_use_case: Union[bool, object] = values.unset,
-    ) -> ComplianceTollfreeInquiriesInstance:
+    async def create_async(self, tollfree_phone_number: str, notification_email: str, business_name: Union[str, object]=values.unset, business_website: Union[str, object]=values.unset, use_case_categories: Union[List[str], object]=values.unset, use_case_summary: Union[str, object]=values.unset, production_message_sample: Union[str, object]=values.unset, opt_in_image_urls: Union[List[str], object]=values.unset, opt_in_type: Union["ComplianceTollfreeInquiriesInstance.OptInType", object]=values.unset, message_volume: Union[str, object]=values.unset, business_street_address: Union[str, object]=values.unset, business_street_address2: Union[str, object]=values.unset, business_city: Union[str, object]=values.unset, business_state_province_region: Union[str, object]=values.unset, business_postal_code: Union[str, object]=values.unset, business_country: Union[str, object]=values.unset, additional_information: Union[str, object]=values.unset, business_contact_first_name: Union[str, object]=values.unset, business_contact_last_name: Union[str, object]=values.unset, business_contact_email: Union[str, object]=values.unset, business_contact_phone: Union[str, object]=values.unset, theme_set_id: Union[str, object]=values.unset, skip_messaging_use_case: Union[bool, object]=values.unset) -> ComplianceTollfreeInquiriesInstance:
         """
         Asynchronously create the ComplianceTollfreeInquiriesInstance
 
@@ -201,7 +157,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
         :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
         :param production_message_sample: An example of message content, i.e. a sample message.
         :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
-        :param opt_in_type:
+        :param opt_in_type: 
         :param message_volume: Estimate monthly volume of messages from the Tollfree Number.
         :param business_street_address: The address of the business or organization using the Tollfree number.
         :param business_street_address2: The address of the business or organization using the Tollfree number.
@@ -216,46 +172,46 @@ class ComplianceTollfreeInquiriesList(ListResource):
         :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
         :param theme_set_id: Theme id for styling the inquiry form.
         :param skip_messaging_use_case: Skip the messaging use case screen of the inquiry form.
-
+        
         :returns: The created ComplianceTollfreeInquiriesInstance
         """
-
-        data = values.of(
-            {
-                "TollfreePhoneNumber": tollfree_phone_number,
-                "NotificationEmail": notification_email,
-                "BusinessName": business_name,
-                "BusinessWebsite": business_website,
-                "UseCaseCategories": serialize.map(use_case_categories, lambda e: e),
-                "UseCaseSummary": use_case_summary,
-                "ProductionMessageSample": production_message_sample,
-                "OptInImageUrls": serialize.map(opt_in_image_urls, lambda e: e),
-                "OptInType": opt_in_type,
-                "MessageVolume": message_volume,
-                "BusinessStreetAddress": business_street_address,
-                "BusinessStreetAddress2": business_street_address2,
-                "BusinessCity": business_city,
-                "BusinessStateProvinceRegion": business_state_province_region,
-                "BusinessPostalCode": business_postal_code,
-                "BusinessCountry": business_country,
-                "AdditionalInformation": additional_information,
-                "BusinessContactFirstName": business_contact_first_name,
-                "BusinessContactLastName": business_contact_last_name,
-                "BusinessContactEmail": business_contact_email,
-                "BusinessContactPhone": business_contact_phone,
-                "ThemeSetId": theme_set_id,
-                "SkipMessagingUseCase": serialize.boolean_to_string(
-                    skip_messaging_use_case
-                ),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
+        
+        data = values.of({ 
+            'TollfreePhoneNumber': tollfree_phone_number,
+            'NotificationEmail': notification_email,
+            'BusinessName': business_name,
+            'BusinessWebsite': business_website,
+            'UseCaseCategories': serialize.map(use_case_categories, lambda e: e),
+            'UseCaseSummary': use_case_summary,
+            'ProductionMessageSample': production_message_sample,
+            'OptInImageUrls': serialize.map(opt_in_image_urls, lambda e: e),
+            'OptInType': opt_in_type,
+            'MessageVolume': message_volume,
+            'BusinessStreetAddress': business_street_address,
+            'BusinessStreetAddress2': business_street_address2,
+            'BusinessCity': business_city,
+            'BusinessStateProvinceRegion': business_state_province_region,
+            'BusinessPostalCode': business_postal_code,
+            'BusinessCountry': business_country,
+            'AdditionalInformation': additional_information,
+            'BusinessContactFirstName': business_contact_first_name,
+            'BusinessContactLastName': business_contact_last_name,
+            'BusinessContactEmail': business_contact_email,
+            'BusinessContactPhone': business_contact_phone,
+            'ThemeSetId': theme_set_id,
+            'SkipMessagingUseCase': serialize.boolean_to_string(skip_messaging_use_case),
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        
+        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
         return ComplianceTollfreeInquiriesInstance(self._version, payload)
+    
+
+
 
     def __repr__(self) -> str:
         """
@@ -263,4 +219,5 @@ class ComplianceTollfreeInquiriesList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Trusthub.V1.ComplianceTollfreeInquiriesList>"
+        return '<Twilio.Trusthub.V1.ComplianceTollfreeInquiriesList>'
+

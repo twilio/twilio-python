@@ -12,9 +12,11 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
+
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,6 +25,7 @@ from twilio.base.page import Page
 
 
 class MemberInstance(InstanceResource):
+
     """
     :ivar call_sid: The SID of the [Call](https://www.twilio.com/docs/voice/api/call-resource) the Member resource is associated with.
     :ivar date_enqueued: The date that the member was enqueued, given in RFC 2822 format.
@@ -32,26 +35,19 @@ class MemberInstance(InstanceResource):
     :ivar queue_sid: The SID of the Queue the member is in.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        account_sid: str,
-        queue_sid: str,
-        call_sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], account_sid: str, queue_sid: str, call_sid: Optional[str] = None):
         super().__init__(version)
 
+        
         self.call_sid: Optional[str] = payload.get("call_sid")
-        self.date_enqueued: Optional[datetime] = deserialize.rfc2822_datetime(
-            payload.get("date_enqueued")
-        )
+        self.date_enqueued: Optional[datetime] = deserialize.rfc2822_datetime(payload.get("date_enqueued"))
         self.position: Optional[int] = deserialize.integer(payload.get("position"))
         self.uri: Optional[str] = payload.get("uri")
         self.wait_time: Optional[int] = deserialize.integer(payload.get("wait_time"))
         self.queue_sid: Optional[str] = payload.get("queue_sid")
 
-        self._solution = {
+        
+        self._solution = { 
             "account_sid": account_sid,
             "queue_sid": queue_sid,
             "call_sid": call_sid or self.call_sid,
@@ -67,18 +63,14 @@ class MemberInstance(InstanceResource):
         :returns: MemberContext for this MemberInstance
         """
         if self._context is None:
-            self._context = MemberContext(
-                self._version,
-                account_sid=self._solution["account_sid"],
-                queue_sid=self._solution["queue_sid"],
-                call_sid=self._solution["call_sid"],
-            )
+            self._context = MemberContext(self._version, account_sid=self._solution['account_sid'], queue_sid=self._solution['queue_sid'], call_sid=self._solution['call_sid'],)
         return self._context
-
+    
+    
     def fetch(self) -> "MemberInstance":
         """
         Fetch the MemberInstance
-
+        
 
         :returns: The fetched MemberInstance
         """
@@ -87,59 +79,47 @@ class MemberInstance(InstanceResource):
     async def fetch_async(self) -> "MemberInstance":
         """
         Asynchronous coroutine to fetch the MemberInstance
-
+        
 
         :returns: The fetched MemberInstance
         """
         return await self._proxy.fetch_async()
-
-    def update(
-        self, url: str, method: Union[str, object] = values.unset
-    ) -> "MemberInstance":
+    
+    
+    def update(self, url: str, method: Union[str, object]=values.unset) -> "MemberInstance":
         """
         Update the MemberInstance
-
+        
         :param url: The absolute URL of the Queue resource.
         :param method: How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
 
         :returns: The updated MemberInstance
         """
-        return self._proxy.update(
-            url=url,
-            method=method,
-        )
+        return self._proxy.update(url=url, method=method, )
 
-    async def update_async(
-        self, url: str, method: Union[str, object] = values.unset
-    ) -> "MemberInstance":
+    async def update_async(self, url: str, method: Union[str, object]=values.unset) -> "MemberInstance":
         """
         Asynchronous coroutine to update the MemberInstance
-
+        
         :param url: The absolute URL of the Queue resource.
         :param method: How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
 
         :returns: The updated MemberInstance
         """
-        return await self._proxy.update_async(
-            url=url,
-            method=method,
-        )
-
+        return await self._proxy.update_async(url=url, method=method, )
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.MemberInstance {}>".format(context)
-
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.MemberInstance {}>'.format(context)
 
 class MemberContext(InstanceContext):
 
-    def __init__(
-        self, version: Version, account_sid: str, queue_sid: str, call_sid: str
-    ):
+    def __init__(self, version: Version, account_sid: str, queue_sid: str, call_sid: str):
         """
         Initialize the MemberContext
 
@@ -150,132 +130,120 @@ class MemberContext(InstanceContext):
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-            "queue_sid": queue_sid,
-            "call_sid": call_sid,
+        self._solution = { 
+            'account_sid': account_sid,
+            'queue_sid': queue_sid,
+            'call_sid': call_sid,
         }
-        self._uri = (
-            "/Accounts/{account_sid}/Queues/{queue_sid}/Members/{call_sid}.json".format(
-                **self._solution
-            )
-        )
-
+        self._uri = '/Accounts/{account_sid}/Queues/{queue_sid}/Members/{call_sid}.json'.format(**self._solution)
+        
+    
+    
     def fetch(self) -> MemberInstance:
         """
         Fetch the MemberInstance
-
+        
 
         :returns: The fetched MemberInstance
         """
-
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = self._version.fetch(method='GET', uri=self._uri, )
 
         return MemberInstance(
             self._version,
             payload,
-            account_sid=self._solution["account_sid"],
-            queue_sid=self._solution["queue_sid"],
-            call_sid=self._solution["call_sid"],
+            account_sid=self._solution['account_sid'],
+            queue_sid=self._solution['queue_sid'],
+            call_sid=self._solution['call_sid'],
+            
         )
 
     async def fetch_async(self) -> MemberInstance:
         """
         Asynchronous coroutine to fetch the MemberInstance
-
+        
 
         :returns: The fetched MemberInstance
         """
-
-        payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
-        )
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
 
         return MemberInstance(
             self._version,
             payload,
-            account_sid=self._solution["account_sid"],
-            queue_sid=self._solution["queue_sid"],
-            call_sid=self._solution["call_sid"],
+            account_sid=self._solution['account_sid'],
+            queue_sid=self._solution['queue_sid'],
+            call_sid=self._solution['call_sid'],
+            
         )
-
-    def update(
-        self, url: str, method: Union[str, object] = values.unset
-    ) -> MemberInstance:
+    
+    
+    def update(self, url: str, method: Union[str, object]=values.unset) -> MemberInstance:
         """
         Update the MemberInstance
-
+        
         :param url: The absolute URL of the Queue resource.
         :param method: How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
 
         :returns: The updated MemberInstance
         """
-        data = values.of(
-            {
-                "Url": url,
-                "Method": method,
-            }
-        )
+        data = values.of({ 
+            'Url': url,
+            'Method': method,
+        })
+        
 
-        payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = self._version.update(method='POST', uri=self._uri, data=data,)
 
         return MemberInstance(
             self._version,
             payload,
-            account_sid=self._solution["account_sid"],
-            queue_sid=self._solution["queue_sid"],
-            call_sid=self._solution["call_sid"],
+            account_sid=self._solution['account_sid'],
+            queue_sid=self._solution['queue_sid'],
+            call_sid=self._solution['call_sid']
         )
 
-    async def update_async(
-        self, url: str, method: Union[str, object] = values.unset
-    ) -> MemberInstance:
+    async def update_async(self, url: str, method: Union[str, object]=values.unset) -> MemberInstance:
         """
         Asynchronous coroutine to update the MemberInstance
-
+        
         :param url: The absolute URL of the Queue resource.
         :param method: How to pass the update request data. Can be `GET` or `POST` and the default is `POST`. `POST` sends the data as encoded form data and `GET` sends the data as query parameters.
 
         :returns: The updated MemberInstance
         """
-        data = values.of(
-            {
-                "Url": url,
-                "Method": method,
-            }
-        )
+        data = values.of({ 
+            'Url': url,
+            'Method': method,
+        })
+        
 
-        payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
-        )
+        payload = await self._version.update_async(method='POST', uri=self._uri, data=data,)
 
         return MemberInstance(
             self._version,
             payload,
-            account_sid=self._solution["account_sid"],
-            queue_sid=self._solution["queue_sid"],
-            call_sid=self._solution["call_sid"],
+            account_sid=self._solution['account_sid'],
+            queue_sid=self._solution['queue_sid'],
+            call_sid=self._solution['call_sid']
         )
-
+    
+    
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.MemberContext {}>".format(context)
+        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
+        return '<Twilio.Api.V2010.MemberContext {}>'.format(context)
+
+
+
+
+
 
 
 class MemberPage(Page):
@@ -286,12 +254,7 @@ class MemberPage(Page):
 
         :param payload: Payload response from the API
         """
-        return MemberInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            queue_sid=self._solution["queue_sid"],
-        )
+        return MemberInstance(self._version, payload, account_sid=self._solution["account_sid"], queue_sid=self._solution["queue_sid"])
 
     def __repr__(self) -> str:
         """
@@ -302,8 +265,11 @@ class MemberPage(Page):
         return "<Twilio.Api.V2010.MemberPage>"
 
 
-class MemberList(ListResource):
 
+
+
+class MemberList(ListResource):
+    
     def __init__(self, version: Version, account_sid: str, queue_sid: str):
         """
         Initialize the MemberList
@@ -311,21 +277,21 @@ class MemberList(ListResource):
         :param version: Version that contains the resource
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Member resource(s) to read.
         :param queue_sid: The SID of the Queue in which to find the members
-
+        
         """
         super().__init__(version)
 
+        
         # Path Solution
-        self._solution = {
-            "account_sid": account_sid,
-            "queue_sid": queue_sid,
-        }
-        self._uri = "/Accounts/{account_sid}/Queues/{queue_sid}/Members.json".format(
-            **self._solution
-        )
-
-    def stream(
-        self,
+        self._solution = { 'account_sid': account_sid, 'queue_sid': queue_sid,  }
+        self._uri = '/Accounts/{account_sid}/Queues/{queue_sid}/Members.json'.format(**self._solution)
+        
+        
+    
+    
+    
+    def stream(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[MemberInstance]:
@@ -334,7 +300,7 @@ class MemberList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -345,12 +311,14 @@ class MemberList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream(page, limits["limit"])
+        return self._version.stream(page, limits['limit'])
 
-    async def stream_async(
-        self,
+    async def stream_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[MemberInstance]:
@@ -359,7 +327,7 @@ class MemberList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-
+        
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -370,12 +338,14 @@ class MemberList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            page_size=limits['page_size']
+        )
 
-        return self._version.stream_async(page, limits["limit"])
+        return self._version.stream_async(page, limits['limit'])
 
-    def list(
-        self,
+    def list(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[MemberInstance]:
@@ -383,7 +353,7 @@ class MemberList(ListResource):
         Lists MemberInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -393,15 +363,13 @@ class MemberList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(
-            self.stream(
-                limit=limit,
-                page_size=page_size,
-            )
-        )
+        return list(self.stream(
+            limit=limit,
+            page_size=page_size,
+        ))
 
-    async def list_async(
-        self,
+    async def list_async(self, 
+        
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[MemberInstance]:
@@ -409,7 +377,7 @@ class MemberList(ListResource):
         Asynchronously lists MemberInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-
+        
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -419,16 +387,13 @@ class MemberList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [
-            record
-            async for record in await self.stream_async(
-                limit=limit,
-                page_size=page_size,
-            )
-        ]
+        return [record async for record in await self.stream_async(
+            limit=limit,
+            page_size=page_size,
+        )]
 
-    def page(
-        self,
+    def page(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -436,26 +401,24 @@ class MemberList(ListResource):
         """
         Retrieve a single page of MemberInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of MemberInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        response = self._version.page(method='GET', uri=self._uri, params=data)
         return MemberPage(self._version, response, self._solution)
 
-    async def page_async(
-        self,
+    async def page_async(self, 
+        
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -463,24 +426,20 @@ class MemberList(ListResource):
         """
         Asynchronously retrieve a single page of MemberInstance records from the API.
         Request is executed immediately
-
+        
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of MemberInstance
         """
-        data = values.of(
-            {
-                "PageToken": page_token,
-                "Page": page_number,
-                "PageSize": page_size,
-            }
-        )
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
 
-        response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
-        )
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
         return MemberPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> MemberPage:
@@ -492,7 +451,10 @@ class MemberList(ListResource):
 
         :returns: Page of MemberInstance
         """
-        response = self._version.domain.twilio.request("GET", target_url)
+        response = self._version.domain.twilio.request(
+            'GET',
+            target_url
+        )
         return MemberPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> MemberPage:
@@ -504,34 +466,29 @@ class MemberList(ListResource):
 
         :returns: Page of MemberInstance
         """
-        response = await self._version.domain.twilio.request_async("GET", target_url)
+        response = await self._version.domain.twilio.request_async(
+            'GET',
+            target_url
+        )
         return MemberPage(self._version, response, self._solution)
+
+
 
     def get(self, call_sid: str) -> MemberContext:
         """
         Constructs a MemberContext
-
+        
         :param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to update.
         """
-        return MemberContext(
-            self._version,
-            account_sid=self._solution["account_sid"],
-            queue_sid=self._solution["queue_sid"],
-            call_sid=call_sid,
-        )
+        return MemberContext(self._version, account_sid=self._solution['account_sid'], queue_sid=self._solution['queue_sid'], call_sid=call_sid)
 
     def __call__(self, call_sid: str) -> MemberContext:
         """
         Constructs a MemberContext
-
+        
         :param call_sid: The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the resource(s) to update.
         """
-        return MemberContext(
-            self._version,
-            account_sid=self._solution["account_sid"],
-            queue_sid=self._solution["queue_sid"],
-            call_sid=call_sid,
-        )
+        return MemberContext(self._version, account_sid=self._solution['account_sid'], queue_sid=self._solution['queue_sid'], call_sid=call_sid)
 
     def __repr__(self) -> str:
         """
@@ -539,4 +496,5 @@ class MemberList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Api.V2010.MemberList>"
+        return '<Twilio.Api.V2010.MemberList>'
+
