@@ -50,8 +50,8 @@ class TaskQueuesStatisticsInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Taskrouter.V1.TaskQueuesStatisticsInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Taskrouter.V1.TaskQueuesStatisticsInstance {context}>"
 
 
 class TaskQueuesStatisticsPage(Page):

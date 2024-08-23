@@ -52,13 +52,13 @@ class ApprovalCreateInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Content.V1.ApprovalCreateInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Content.V1.ApprovalCreateInstance {context}>"
 
 
 class ApprovalCreateList(ListResource):
 
-    class ContentApprovalRequest(object):
+    class ContentApprovalRequest:
         """
         :ivar name: Name of the template.
         :ivar category: A WhatsApp recognized template category.

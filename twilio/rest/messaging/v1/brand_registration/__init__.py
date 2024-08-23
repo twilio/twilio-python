@@ -28,20 +28,20 @@ from twilio.rest.messaging.v1.brand_registration.brand_vetting import BrandVetti
 
 class BrandRegistrationInstance(InstanceResource):
 
-    class BrandFeedback(object):
+    class BrandFeedback:
         TAX_ID = "TAX_ID"
         STOCK_SYMBOL = "STOCK_SYMBOL"
         NONPROFIT = "NONPROFIT"
         GOVERNMENT_ENTITY = "GOVERNMENT_ENTITY"
         OTHERS = "OTHERS"
 
-    class IdentityStatus(object):
+    class IdentityStatus:
         SELF_DECLARED = "SELF_DECLARED"
         UNVERIFIED = "UNVERIFIED"
         VERIFIED = "VERIFIED"
         VETTED_VERIFIED = "VETTED_VERIFIED"
 
-    class Status(object):
+    class Status:
         PENDING = "PENDING"
         APPROVED = "APPROVED"
         FAILED = "FAILED"
@@ -193,8 +193,8 @@ class BrandRegistrationInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.BrandRegistrationInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.BrandRegistrationInstance {context}>"
 
 
 class BrandRegistrationContext(InstanceContext):
@@ -323,8 +323,8 @@ class BrandRegistrationContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Messaging.V1.BrandRegistrationContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Messaging.V1.BrandRegistrationContext {context}>"
 
 
 class BrandRegistrationPage(Page):

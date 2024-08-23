@@ -26,19 +26,19 @@ from twilio.rest.content.v1.content.approval_fetch import ApprovalFetchList
 
 class ContentInstance(InstanceResource):
 
-    class AuthenticationActionType(object):
+    class AuthenticationActionType:
         COPY_CODE = "COPY_CODE"
 
-    class CallToActionActionType(object):
+    class CallToActionActionType:
         URL = "URL"
         PHONE_NUMBER = "PHONE_NUMBER"
 
-    class CardActionType(object):
+    class CardActionType:
         URL = "URL"
         PHONE_NUMBER = "PHONE_NUMBER"
         QUICK_REPLY = "QUICK_REPLY"
 
-    class QuickReplyActionType(object):
+    class QuickReplyActionType:
         QUICK_REPLY = "QUICK_REPLY"
 
     """
@@ -150,8 +150,8 @@ class ContentInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Content.V1.ContentInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Content.V1.ContentInstance {context}>"
 
 
 class ContentContext(InstanceContext):
@@ -266,8 +266,8 @@ class ContentContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Content.V1.ContentContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Content.V1.ContentContext {context}>"
 
 
 class ContentPage(Page):
@@ -291,7 +291,7 @@ class ContentPage(Page):
 
 class ContentList(ListResource):
 
-    class AuthenticationAction(object):
+    class AuthenticationAction:
         """
         :ivar type:
         :ivar copy_code_text:
@@ -310,7 +310,7 @@ class ContentList(ListResource):
                 "copy_code_text": self.copy_code_text,
             }
 
-    class CallToActionAction(object):
+    class CallToActionAction:
         """
         :ivar type:
         :ivar title:
@@ -338,7 +338,7 @@ class ContentList(ListResource):
                 "id": self.id,
             }
 
-    class CardAction(object):
+    class CardAction:
         """
         :ivar type:
         :ivar title:
@@ -364,7 +364,7 @@ class ContentList(ListResource):
                 "id": self.id,
             }
 
-    class CatalogItem(object):
+    class CatalogItem:
         """
         :ivar id:
         :ivar section_title:
@@ -393,7 +393,7 @@ class ContentList(ListResource):
                 "description": self.description,
             }
 
-    class ContentCreateRequest(object):
+    class ContentCreateRequest:
         """
         :ivar friendly_name: User defined name of the content
         :ivar variables: Key value pairs of variable name to value
@@ -416,7 +416,7 @@ class ContentList(ListResource):
                 "types": self.types.to_dict(),
             }
 
-    class ListItem(object):
+    class ListItem:
         """
         :ivar id:
         :ivar item:
@@ -436,7 +436,7 @@ class ContentList(ListResource):
                 "description": self.description,
             }
 
-    class QuickReplyAction(object):
+    class QuickReplyAction:
         """
         :ivar type:
         :ivar title:
@@ -458,7 +458,7 @@ class ContentList(ListResource):
                 "id": self.id,
             }
 
-    class TwilioCallToAction(object):
+    class TwilioCallToAction:
         """
         :ivar body:
         :ivar actions:
@@ -477,7 +477,7 @@ class ContentList(ListResource):
                 "actions": [actions.to_dict() for actions in self.actions],
             }
 
-    class TwilioCard(object):
+    class TwilioCard:
         """
         :ivar title:
         :ivar subtitle:
@@ -502,7 +502,7 @@ class ContentList(ListResource):
                 "actions": [actions.to_dict() for actions in self.actions],
             }
 
-    class TwilioCatalog(object):
+    class TwilioCatalog:
         """
         :ivar title:
         :ivar body:
@@ -531,7 +531,7 @@ class ContentList(ListResource):
                 "dynamic_items": self.dynamic_items,
             }
 
-    class TwilioListPicker(object):
+    class TwilioListPicker:
         """
         :ivar body:
         :ivar button:
@@ -551,7 +551,7 @@ class ContentList(ListResource):
                 "items": [items.to_dict() for items in self.items],
             }
 
-    class TwilioLocation(object):
+    class TwilioLocation:
         """
         :ivar latitude:
         :ivar longitude:
@@ -571,7 +571,7 @@ class ContentList(ListResource):
                 "label": self.label,
             }
 
-    class TwilioMedia(object):
+    class TwilioMedia:
         """
         :ivar body:
         :ivar media:
@@ -588,7 +588,7 @@ class ContentList(ListResource):
                 "media": self.media,
             }
 
-    class TwilioQuickReply(object):
+    class TwilioQuickReply:
         """
         :ivar body:
         :ivar actions:
@@ -607,7 +607,7 @@ class ContentList(ListResource):
                 "actions": [actions.to_dict() for actions in self.actions],
             }
 
-    class TwilioText(object):
+    class TwilioText:
         """
         :ivar body:
         """
@@ -621,7 +621,7 @@ class ContentList(ListResource):
                 "body": self.body,
             }
 
-    class Types(object):
+    class Types:
         """
         :ivar twilio_text:
         :ivar twilio_media:
@@ -682,7 +682,7 @@ class ContentList(ListResource):
                 "whatsapp_authentication": self.whatsapp_authentication.to_dict(),
             }
 
-    class WhatsappAuthentication(object):
+    class WhatsappAuthentication:
         """
         :ivar add_security_recommendation:
         :ivar code_expiration_minutes:
@@ -708,7 +708,7 @@ class ContentList(ListResource):
                 "actions": [actions.to_dict() for actions in self.actions],
             }
 
-    class WhatsappCard(object):
+    class WhatsappCard:
         """
         :ivar body:
         :ivar footer:

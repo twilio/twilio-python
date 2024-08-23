@@ -254,8 +254,8 @@ class SimInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Wireless.SimInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Wireless.SimInstance {context}>"
 
 
 class SimContext(InstanceContext):
@@ -473,8 +473,8 @@ class SimContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Wireless.SimContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Wireless.SimContext {context}>"
 
 
 class SimPage(Page):

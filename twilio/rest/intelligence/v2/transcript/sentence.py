@@ -61,8 +61,8 @@ class SentenceInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.SentenceInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Intelligence.V2.SentenceInstance {context}>"
 
 
 class SentencePage(Page):

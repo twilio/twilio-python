@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class EsimProfileInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         NEW = "new"
         RESERVING = "reserving"
         AVAILABLE = "available"
@@ -117,8 +117,8 @@ class EsimProfileInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.EsimProfileInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Supersim.V1.EsimProfileInstance {context}>"
 
 
 class EsimProfileContext(InstanceContext):
@@ -182,8 +182,8 @@ class EsimProfileContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.EsimProfileContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Supersim.V1.EsimProfileContext {context}>"
 
 
 class EsimProfilePage(Page):

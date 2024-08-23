@@ -24,11 +24,11 @@ from twilio.base.page import Page
 
 class MessageInstance(InstanceResource):
 
-    class OrderType(object):
+    class OrderType:
         ASC = "asc"
         DESC = "desc"
 
-    class WebhookEnabledType(object):
+    class WebhookEnabledType:
         TRUE = "true"
         FALSE = "false"
 
@@ -234,8 +234,8 @@ class MessageInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V2.MessageInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.IpMessaging.V2.MessageInstance {context}>"
 
 
 class MessageContext(InstanceContext):
@@ -461,8 +461,8 @@ class MessageContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V2.MessageContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.IpMessaging.V2.MessageContext {context}>"
 
 
 class MessagePage(Page):

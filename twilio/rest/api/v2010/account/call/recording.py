@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class RecordingInstance(InstanceResource):
 
-    class Source(object):
+    class Source:
         DIALVERB = "DialVerb"
         CONFERENCE = "Conference"
         OUTBOUNDAPI = "OutboundAPI"
@@ -33,7 +33,7 @@ class RecordingInstance(InstanceResource):
         STARTCALLRECORDINGAPI = "StartCallRecordingAPI"
         STARTCONFERENCERECORDINGAPI = "StartConferenceRecordingAPI"
 
-    class Status(object):
+    class Status:
         IN_PROGRESS = "in-progress"
         PAUSED = "paused"
         STOPPED = "stopped"
@@ -201,8 +201,8 @@ class RecordingInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.RecordingInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.RecordingInstance {context}>"
 
 
 class RecordingContext(InstanceContext):
@@ -370,8 +370,8 @@ class RecordingContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.RecordingContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.RecordingContext {context}>"
 
 
 class RecordingPage(Page):

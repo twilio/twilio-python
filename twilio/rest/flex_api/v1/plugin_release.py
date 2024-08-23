@@ -98,8 +98,8 @@ class PluginReleaseInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.PluginReleaseInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.PluginReleaseInstance {context}>"
 
 
 class PluginReleaseContext(InstanceContext):
@@ -177,8 +177,8 @@ class PluginReleaseContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.FlexApi.V1.PluginReleaseContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.FlexApi.V1.PluginReleaseContext {context}>"
 
 
 class PluginReleasePage(Page):

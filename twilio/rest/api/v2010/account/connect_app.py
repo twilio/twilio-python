@@ -23,7 +23,7 @@ from twilio.base.page import Page
 
 class ConnectAppInstance(InstanceResource):
 
-    class Permission(object):
+    class Permission:
         GET_ALL = "get-all"
         POST_ALL = "post-all"
 
@@ -210,8 +210,8 @@ class ConnectAppInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.ConnectAppInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.ConnectAppInstance {context}>"
 
 
 class ConnectAppContext(InstanceContext):
@@ -411,8 +411,8 @@ class ConnectAppContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.ConnectAppContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.ConnectAppContext {context}>"
 
 
 class ConnectAppPage(Page):

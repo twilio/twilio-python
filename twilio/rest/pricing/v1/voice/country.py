@@ -94,8 +94,8 @@ class CountryInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Pricing.V1.CountryInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Pricing.V1.CountryInstance {context}>"
 
 
 class CountryContext(InstanceContext):
@@ -159,8 +159,8 @@ class CountryContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Pricing.V1.CountryContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Pricing.V1.CountryContext {context}>"
 
 
 class CountryPage(Page):

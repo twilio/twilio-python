@@ -33,7 +33,7 @@ from twilio.rest.trusthub.v1.customer_profiles.customer_profiles_evaluations imp
 
 class CustomerProfilesInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         DRAFT = "draft"
         PENDING_REVIEW = "pending-review"
         IN_REVIEW = "in-review"
@@ -216,8 +216,8 @@ class CustomerProfilesInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.CustomerProfilesInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trusthub.V1.CustomerProfilesInstance {context}>"
 
 
 class CustomerProfilesContext(InstanceContext):
@@ -431,8 +431,8 @@ class CustomerProfilesContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Trusthub.V1.CustomerProfilesContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Trusthub.V1.CustomerProfilesContext {context}>"
 
 
 class CustomerProfilesPage(Page):

@@ -149,8 +149,8 @@ class PortingPortInPhoneNumberInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V1.PortingPortInPhoneNumberInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V1.PortingPortInPhoneNumberInstance {context}>"
 
 
 class PortingPortInPhoneNumberContext(InstanceContext):
@@ -246,8 +246,8 @@ class PortingPortInPhoneNumberContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V1.PortingPortInPhoneNumberContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V1.PortingPortInPhoneNumberContext {context}>"
 
 
 class PortingPortInPhoneNumberList(ListResource):

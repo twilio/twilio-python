@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class RoleInstance(InstanceResource):
 
-    class RoleType(object):
+    class RoleType:
         CHANNEL = "channel"
         DEPLOYMENT = "deployment"
 
@@ -151,8 +151,8 @@ class RoleInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V1.RoleInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.IpMessaging.V1.RoleInstance {context}>"
 
 
 class RoleContext(InstanceContext):
@@ -298,8 +298,8 @@ class RoleContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.IpMessaging.V1.RoleContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.IpMessaging.V1.RoleContext {context}>"
 
 
 class RolePage(Page):

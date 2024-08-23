@@ -9,7 +9,7 @@ from twilio.http.request import Request as TwilioRequest
 from twilio.http.response import Response as TwilioResponse
 
 
-class HttpClient(object):
+class HttpClient:
     def __init__(self, logger: Logger, is_async: bool, timeout: Optional[float] = None):
         """
         Constructor for the abstract HTTP client
@@ -70,7 +70,7 @@ class HttpClient(object):
             for key, value in kwargs["headers"].items():
                 # Do not log authorization headers
                 if "authorization" not in key.lower():
-                    self.logger.info("{} : {}".format(key, value))
+                    self.logger.info(f"{key} : {value}")
 
         self.logger.info("-- END Twilio API Request --")
 
@@ -78,8 +78,8 @@ class HttpClient(object):
         """
         Logs the HTTP response
         """
-        self.logger.info("Response Status Code: {}".format(status_code))
-        self.logger.info("Response Headers: {}".format(response.headers))
+        self.logger.info(f"Response Status Code: {status_code}")
+        self.logger.info(f"Response Headers: {response.headers}")
 
 
 class AsyncHttpClient(HttpClient):

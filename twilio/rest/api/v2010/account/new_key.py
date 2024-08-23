@@ -53,8 +53,8 @@ class NewKeyInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.NewKeyInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.NewKeyInstance {context}>"
 
 
 class NewKeyList(ListResource):

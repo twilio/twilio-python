@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class ServiceInstance(InstanceResource):
 
-    class HttpMethod(object):
+    class HttpMethod:
         GET = "GET"
         POST = "POST"
         NULL = "NULL"
@@ -218,8 +218,8 @@ class ServiceInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.ServiceInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Intelligence.V2.ServiceInstance {context}>"
 
 
 class ServiceContext(InstanceContext):
@@ -409,8 +409,8 @@ class ServiceContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Intelligence.V2.ServiceContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Intelligence.V2.ServiceContext {context}>"
 
 
 class ServicePage(Page):

@@ -10,7 +10,7 @@ from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response
 
 
-class ClientBase(object):
+class ClientBase:
     """A client for accessing the Twilio API."""
 
     def __init__(
@@ -179,8 +179,8 @@ class ClientBase(object):
         )
         # Extensions
         for extension in self.user_agent_extensions:
-            headers["User-Agent"] += " {}".format(extension)
-        headers["X-Twilio-Client"] = "python-{}".format(__version__)
+            headers["User-Agent"] += f" {extension}"
+        headers["X-Twilio-Client"] = f"python-{__version__}"
 
         # Types, encodings, etc.
         headers["Accept-Charset"] = "utf-8"
@@ -231,4 +231,4 @@ class ClientBase(object):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio {}>".format(self.account_sid)
+        return f"<Twilio {self.account_sid}>"

@@ -85,8 +85,8 @@ class NetworkInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.NetworkInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Supersim.V1.NetworkInstance {context}>"
 
 
 class NetworkContext(InstanceContext):
@@ -150,8 +150,8 @@ class NetworkContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.NetworkContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Supersim.V1.NetworkContext {context}>"
 
 
 class NetworkPage(Page):

@@ -142,8 +142,8 @@ class SyncMapInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Sync.SyncMapInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Sync.SyncMapInstance {context}>"
 
 
 class SyncMapContext(InstanceContext):
@@ -264,8 +264,8 @@ class SyncMapContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.Sync.SyncMapContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.Sync.SyncMapContext {context}>"
 
 
 class SyncMapPage(Page):

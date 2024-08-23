@@ -63,8 +63,8 @@ class ExportCustomJobInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Bulkexports.V1.ExportCustomJobInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Bulkexports.V1.ExportCustomJobInstance {context}>"
 
 
 class ExportCustomJobPage(Page):

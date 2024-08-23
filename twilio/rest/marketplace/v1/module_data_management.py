@@ -142,8 +142,8 @@ class ModuleDataManagementInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Marketplace.V1.ModuleDataManagementInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Marketplace.V1.ModuleDataManagementInstance {context}>"
 
 
 class ModuleDataManagementContext(InstanceContext):
@@ -285,8 +285,8 @@ class ModuleDataManagementContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Marketplace.V1.ModuleDataManagementContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Marketplace.V1.ModuleDataManagementContext {context}>"
 
 
 class ModuleDataManagementList(ListResource):

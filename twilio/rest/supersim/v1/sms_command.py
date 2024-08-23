@@ -24,11 +24,11 @@ from twilio.base.page import Page
 
 class SmsCommandInstance(InstanceResource):
 
-    class Direction(object):
+    class Direction:
         TO_SIM = "to_sim"
         FROM_SIM = "from_sim"
 
-    class Status(object):
+    class Status:
         QUEUED = "queued"
         SENT = "sent"
         DELIVERED = "delivered"
@@ -112,8 +112,8 @@ class SmsCommandInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.SmsCommandInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Supersim.V1.SmsCommandInstance {context}>"
 
 
 class SmsCommandContext(InstanceContext):
@@ -177,8 +177,8 @@ class SmsCommandContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.SmsCommandContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Supersim.V1.SmsCommandContext {context}>"
 
 
 class SmsCommandPage(Page):

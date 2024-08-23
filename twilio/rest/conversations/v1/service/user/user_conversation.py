@@ -24,11 +24,11 @@ from twilio.base.page import Page
 
 class UserConversationInstance(InstanceResource):
 
-    class NotificationLevel(object):
+    class NotificationLevel:
         DEFAULT = "default"
         MUTED = "muted"
 
-    class State(object):
+    class State:
         INACTIVE = "inactive"
         ACTIVE = "active"
         CLOSED = "closed"
@@ -207,8 +207,8 @@ class UserConversationInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.UserConversationInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Conversations.V1.UserConversationInstance {context}>"
 
 
 class UserConversationContext(InstanceContext):
@@ -390,8 +390,8 @@ class UserConversationContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Conversations.V1.UserConversationContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Conversations.V1.UserConversationContext {context}>"
 
 
 class UserConversationPage(Page):

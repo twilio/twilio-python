@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class HostedNumberOrderInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         RECEIVED = "received"
         VERIFIED = "verified"
         PENDING_LOA = "pending-loa"
@@ -152,8 +152,8 @@ class HostedNumberOrderInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.HostedNumberOrderInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.HostedNumberOrderInstance {context}>"
 
 
 class HostedNumberOrderContext(InstanceContext):
@@ -241,8 +241,8 @@ class HostedNumberOrderContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Numbers.V2.HostedNumberOrderContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Numbers.V2.HostedNumberOrderContext {context}>"
 
 
 class HostedNumberOrderPage(Page):

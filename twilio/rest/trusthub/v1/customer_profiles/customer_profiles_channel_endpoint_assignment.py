@@ -116,7 +116,7 @@ class CustomerProfilesChannelEndpointAssignmentInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.CustomerProfilesChannelEndpointAssignmentInstance {}>".format(
             context
         )
@@ -213,7 +213,7 @@ class CustomerProfilesChannelEndpointAssignmentContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.CustomerProfilesChannelEndpointAssignmentContext {}>".format(
             context
         )

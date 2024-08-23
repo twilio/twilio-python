@@ -11,7 +11,7 @@ class TestPage(Page):
 
 class StreamTestCase(IntegrationTestCase):
     def setUp(self):
-        super(StreamTestCase, self).setUp()
+        super().setUp()
 
         self.holodeck.mock(
             Response(

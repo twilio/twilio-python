@@ -23,13 +23,13 @@ from twilio.base.page import Page
 
 class MetricInstance(InstanceResource):
 
-    class StreamDirection(object):
+    class StreamDirection:
         UNKNOWN = "unknown"
         INBOUND = "inbound"
         OUTBOUND = "outbound"
         BOTH = "both"
 
-    class TwilioEdge(object):
+    class TwilioEdge:
         UNKNOWN_EDGE = "unknown_edge"
         CARRIER_EDGE = "carrier_edge"
         SIP_EDGE = "sip_edge"
@@ -73,8 +73,8 @@ class MetricInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Insights.V1.MetricInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Insights.V1.MetricInstance {context}>"
 
 
 class MetricPage(Page):

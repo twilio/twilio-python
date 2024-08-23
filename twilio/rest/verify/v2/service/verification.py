@@ -23,18 +23,18 @@ from twilio.base.version import Version
 
 class VerificationInstance(InstanceResource):
 
-    class Channel(object):
+    class Channel:
         SMS = "sms"
         CALL = "call"
         EMAIL = "email"
         WHATSAPP = "whatsapp"
         SNA = "sna"
 
-    class RiskCheck(object):
+    class RiskCheck:
         ENABLE = "enable"
         DISABLE = "disable"
 
-    class Status(object):
+    class Status:
         CANCELED = "canceled"
         APPROVED = "approved"
 
@@ -159,8 +159,8 @@ class VerificationInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.VerificationInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.VerificationInstance {context}>"
 
 
 class VerificationContext(InstanceContext):
@@ -286,8 +286,8 @@ class VerificationContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Verify.V2.VerificationContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Verify.V2.VerificationContext {context}>"
 
 
 class VerificationList(ListResource):

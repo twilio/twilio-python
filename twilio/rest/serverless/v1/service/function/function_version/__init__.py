@@ -27,7 +27,7 @@ from twilio.rest.serverless.v1.service.function.function_version.function_versio
 
 class FunctionVersionInstance(InstanceResource):
 
-    class Visibility(object):
+    class Visibility:
         PUBLIC = "public"
         PRIVATE = "private"
         PROTECTED = "protected"
@@ -123,8 +123,8 @@ class FunctionVersionInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.FunctionVersionInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Serverless.V1.FunctionVersionInstance {context}>"
 
 
 class FunctionVersionContext(InstanceContext):
@@ -216,8 +216,8 @@ class FunctionVersionContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.FunctionVersionContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Serverless.V1.FunctionVersionContext {context}>"
 
 
 class FunctionVersionPage(Page):

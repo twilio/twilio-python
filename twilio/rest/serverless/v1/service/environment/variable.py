@@ -161,8 +161,8 @@ class VariableInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.VariableInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Serverless.V1.VariableInstance {context}>"
 
 
 class VariableContext(InstanceContext):
@@ -330,8 +330,8 @@ class VariableContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Serverless.V1.VariableContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Serverless.V1.VariableContext {context}>"
 
 
 class VariablePage(Page):

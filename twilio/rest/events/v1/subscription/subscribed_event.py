@@ -139,8 +139,8 @@ class SubscribedEventInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.SubscribedEventInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Events.V1.SubscribedEventInstance {context}>"
 
 
 class SubscribedEventContext(InstanceContext):
@@ -292,8 +292,8 @@ class SubscribedEventContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.SubscribedEventContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Events.V1.SubscribedEventContext {context}>"
 
 
 class SubscribedEventPage(Page):

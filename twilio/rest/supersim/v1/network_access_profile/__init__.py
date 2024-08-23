@@ -132,8 +132,8 @@ class NetworkAccessProfileInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.NetworkAccessProfileInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Supersim.V1.NetworkAccessProfileInstance {context}>"
 
 
 class NetworkAccessProfileContext(InstanceContext):
@@ -263,8 +263,8 @@ class NetworkAccessProfileContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.NetworkAccessProfileContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Supersim.V1.NetworkAccessProfileContext {context}>"
 
 
 class NetworkAccessProfilePage(Page):

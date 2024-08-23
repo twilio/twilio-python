@@ -178,8 +178,8 @@ class DeviceInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.DeployedDevices.DeviceInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.DeployedDevices.DeviceInstance {context}>"
 
 
 class DeviceContext(InstanceContext):
@@ -349,8 +349,8 @@ class DeviceContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Preview.DeployedDevices.DeviceContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Preview.DeployedDevices.DeviceContext {context}>"
 
 
 class DevicePage(Page):

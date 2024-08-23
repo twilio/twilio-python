@@ -22,23 +22,23 @@ from twilio.base.version import Version
 
 class ComplianceRegistrationInquiriesInstance(InstanceResource):
 
-    class BusinessIdentityType(object):
+    class BusinessIdentityType:
         DIRECT_CUSTOMER = "direct_customer"
         ISV_RESELLER_OR_PARTNER = "isv_reseller_or_partner"
         UNKNOWN = "unknown"
 
-    class BusinessRegistrationAuthority(object):
+    class BusinessRegistrationAuthority:
         UK_CRN = "UK:CRN"
         US_EIN = "US:EIN"
         CA_CBN = "CA:CBN"
         AU_ACN = "AU:ACN"
         OTHER = "Other"
 
-    class EndUserType(object):
+    class EndUserType:
         INDIVIDUAL = "Individual"
         BUSINESS = "Business"
 
-    class PhoneNumberType(object):
+    class PhoneNumberType:
         LOCAL = "local"
         NATIONAL = "national"
         MOBILE = "mobile"
@@ -126,7 +126,7 @@ class ComplianceRegistrationInquiriesInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.ComplianceRegistrationInquiriesInstance {}>".format(
             context
         )
@@ -217,7 +217,7 @@ class ComplianceRegistrationInquiriesContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Trusthub.V1.ComplianceRegistrationInquiriesContext {}>".format(
             context
         )

@@ -141,8 +141,8 @@ class AssignedAddOnInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.AssignedAddOnInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.AssignedAddOnInstance {context}>"
 
 
 class AssignedAddOnContext(InstanceContext):
@@ -256,8 +256,8 @@ class AssignedAddOnContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.AssignedAddOnContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.AssignedAddOnContext {context}>"
 
 
 class AssignedAddOnPage(Page):

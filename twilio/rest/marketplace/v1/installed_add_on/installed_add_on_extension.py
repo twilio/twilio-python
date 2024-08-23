@@ -119,7 +119,7 @@ class InstalledAddOnExtensionInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Marketplace.V1.InstalledAddOnExtensionInstance {}>".format(
             context
         )
@@ -246,7 +246,7 @@ class InstalledAddOnExtensionContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
         return "<Twilio.Marketplace.V1.InstalledAddOnExtensionContext {}>".format(
             context
         )

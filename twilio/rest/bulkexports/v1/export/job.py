@@ -117,8 +117,8 @@ class JobInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Bulkexports.V1.JobInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Bulkexports.V1.JobInstance {context}>"
 
 
 class JobContext(InstanceContext):
@@ -206,8 +206,8 @@ class JobContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Bulkexports.V1.JobContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Bulkexports.V1.JobContext {context}>"
 
 
 class JobList(ListResource):

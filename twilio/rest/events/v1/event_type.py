@@ -98,8 +98,8 @@ class EventTypeInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.EventTypeInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Events.V1.EventTypeInstance {context}>"
 
 
 class EventTypeContext(InstanceContext):
@@ -163,8 +163,8 @@ class EventTypeContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Events.V1.EventTypeContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Events.V1.EventTypeContext {context}>"
 
 
 class EventTypePage(Page):

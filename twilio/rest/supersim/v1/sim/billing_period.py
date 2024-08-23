@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class BillingPeriodInstance(InstanceResource):
 
-    class BpType(object):
+    class BpType:
         READY = "ready"
         ACTIVE = "active"
 
@@ -71,8 +71,8 @@ class BillingPeriodInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Supersim.V1.BillingPeriodInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Supersim.V1.BillingPeriodInstance {context}>"
 
 
 class BillingPeriodPage(Page):

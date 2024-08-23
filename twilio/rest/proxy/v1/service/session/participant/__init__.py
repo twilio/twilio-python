@@ -145,8 +145,8 @@ class ParticipantInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Proxy.V1.ParticipantInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Proxy.V1.ParticipantInstance {context}>"
 
 
 class ParticipantContext(InstanceContext):
@@ -262,8 +262,8 @@ class ParticipantContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Proxy.V1.ParticipantContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Proxy.V1.ParticipantContext {context}>"
 
 
 class ParticipantPage(Page):

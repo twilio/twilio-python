@@ -24,12 +24,12 @@ from twilio.base.page import Page
 
 class UsageRecordInstance(InstanceResource):
 
-    class Granularity(object):
+    class Granularity:
         HOUR = "hour"
         DAY = "day"
         ALL = "all"
 
-    class Group(object):
+    class Group:
         SIM = "sim"
         FLEET = "fleet"
         NETWORK = "network"

@@ -24,7 +24,7 @@ from twilio.base.page import Page
 
 class SubscribedTrackInstance(InstanceResource):
 
-    class Kind(object):
+    class Kind:
         AUDIO = "audio"
         VIDEO = "video"
         DATA = "data"
@@ -115,8 +115,8 @@ class SubscribedTrackInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.SubscribedTrackInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Video.V1.SubscribedTrackInstance {context}>"
 
 
 class SubscribedTrackContext(InstanceContext):
@@ -190,8 +190,8 @@ class SubscribedTrackContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Video.V1.SubscribedTrackContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Video.V1.SubscribedTrackContext {context}>"
 
 
 class SubscribedTrackPage(Page):

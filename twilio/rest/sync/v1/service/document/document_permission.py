@@ -154,8 +154,8 @@ class DocumentPermissionInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Sync.V1.DocumentPermissionInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Sync.V1.DocumentPermissionInstance {context}>"
 
 
 class DocumentPermissionContext(InstanceContext):
@@ -323,8 +323,8 @@ class DocumentPermissionContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Sync.V1.DocumentPermissionContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Sync.V1.DocumentPermissionContext {context}>"
 
 
 class DocumentPermissionPage(Page):

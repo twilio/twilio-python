@@ -52,12 +52,12 @@ from twilio.rest.api.v2010.account.validation_request import ValidationRequestLi
 
 class AccountInstance(InstanceResource):
 
-    class Status(object):
+    class Status:
         ACTIVE = "active"
         SUSPENDED = "suspended"
         CLOSED = "closed"
 
-    class Type(object):
+    class Type:
         TRIAL = "Trial"
         FULL = "Full"
 
@@ -344,8 +344,8 @@ class AccountInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.AccountInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.AccountInstance {context}>"
 
 
 class AccountContext(InstanceContext):
@@ -778,8 +778,8 @@ class AccountContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.AccountContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.AccountContext {context}>"
 
 
 class AccountPage(Page):

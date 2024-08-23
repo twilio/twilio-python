@@ -121,8 +121,8 @@ class CredentialListMappingInstance(InstanceResource):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.CredentialListMappingInstance {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.CredentialListMappingInstance {context}>"
 
 
 class CredentialListMappingContext(InstanceContext):
@@ -220,8 +220,8 @@ class CredentialListMappingContext(InstanceContext):
 
         :returns: Machine friendly representation
         """
-        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
-        return "<Twilio.Api.V2010.CredentialListMappingContext {}>".format(context)
+        context = " ".join(f"{k}={v}" for k, v in self._solution.items())
+        return f"<Twilio.Api.V2010.CredentialListMappingContext {context}>"
 
 
 class CredentialListMappingPage(Page):
