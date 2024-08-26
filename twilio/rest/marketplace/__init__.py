@@ -7,4 +7,3 @@ class Marketplace(MarketplaceBase):
 
     def installed_add_ons(self):
         return self.v1.installed_add_ons
-

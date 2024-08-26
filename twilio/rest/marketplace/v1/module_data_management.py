@@ -22,13 +22,14 @@ from twilio.base.version import Version
 
 class ModuleDataManagementInstance(InstanceResource):
     """
-    :ivar url:
-    :ivar sid:
-    :ivar description:
-    :ivar support:
-    :ivar policies:
-    :ivar module_info:
-    :ivar documentation:
+    :ivar url: URL to query the subresource.
+    :ivar sid: ModuleSid that identifies this Listing.
+    :ivar description: A JSON object describing the module and is displayed under the Description tab of the Module detail page. You can define the main body of the description, highlight key features or aspects of the module and if applicable, provide code samples for developers
+    :ivar support: A JSON object containing information on how customers can obtain support for the module. Use this parameter to provide details such as contact information and support description.
+    :ivar policies: A JSON object describing the module's privacy and legal policies and is displayed under the Policies tab of the Module detail page. The maximum file size for Policies is 5MB
+    :ivar module_info: A JSON object containing essential attributes that define a module. This information is presented on the Module detail page in the Twilio Marketplace Catalog. You can pass the following attributes in the JSON object
+    :ivar documentation: A JSON object for providing comprehensive information, instructions, and resources related to the module
+    :ivar configuration: A JSON object for providing listing specific configuration. Contains button setup, notification url, among others.
     """
 
     def __init__(
@@ -43,6 +44,7 @@ class ModuleDataManagementInstance(InstanceResource):
         self.policies: Optional[Dict[str, object]] = payload.get("policies")
         self.module_info: Optional[Dict[str, object]] = payload.get("module_info")
         self.documentation: Optional[Dict[str, object]] = payload.get("documentation")
+        self.configuration: Optional[Dict[str, object]] = payload.get("configuration")
 
         self._solution = {
             "sid": sid or self.sid,
@@ -89,6 +91,7 @@ class ModuleDataManagementInstance(InstanceResource):
         documentation: Union[str, object] = values.unset,
         policies: Union[str, object] = values.unset,
         support: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
     ) -> "ModuleDataManagementInstance":
         """
         Update the ModuleDataManagementInstance
@@ -98,6 +101,7 @@ class ModuleDataManagementInstance(InstanceResource):
         :param documentation:
         :param policies:
         :param support:
+        :param configuration:
 
         :returns: The updated ModuleDataManagementInstance
         """
@@ -107,6 +111,7 @@ class ModuleDataManagementInstance(InstanceResource):
             documentation=documentation,
             policies=policies,
             support=support,
+            configuration=configuration,
         )
 
     async def update_async(
@@ -116,6 +121,7 @@ class ModuleDataManagementInstance(InstanceResource):
         documentation: Union[str, object] = values.unset,
         policies: Union[str, object] = values.unset,
         support: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
     ) -> "ModuleDataManagementInstance":
         """
         Asynchronous coroutine to update the ModuleDataManagementInstance
@@ -125,6 +131,7 @@ class ModuleDataManagementInstance(InstanceResource):
         :param documentation:
         :param policies:
         :param support:
+        :param configuration:
 
         :returns: The updated ModuleDataManagementInstance
         """
@@ -134,6 +141,7 @@ class ModuleDataManagementInstance(InstanceResource):
             documentation=documentation,
             policies=policies,
             support=support,
+            configuration=configuration,
         )
 
     def __repr__(self) -> str:
@@ -208,6 +216,7 @@ class ModuleDataManagementContext(InstanceContext):
         documentation: Union[str, object] = values.unset,
         policies: Union[str, object] = values.unset,
         support: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
     ) -> ModuleDataManagementInstance:
         """
         Update the ModuleDataManagementInstance
@@ -217,6 +226,7 @@ class ModuleDataManagementContext(InstanceContext):
         :param documentation:
         :param policies:
         :param support:
+        :param configuration:
 
         :returns: The updated ModuleDataManagementInstance
         """
@@ -227,6 +237,7 @@ class ModuleDataManagementContext(InstanceContext):
                 "Documentation": documentation,
                 "Policies": policies,
                 "Support": support,
+                "Configuration": configuration,
             }
         )
 
@@ -247,6 +258,7 @@ class ModuleDataManagementContext(InstanceContext):
         documentation: Union[str, object] = values.unset,
         policies: Union[str, object] = values.unset,
         support: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
     ) -> ModuleDataManagementInstance:
         """
         Asynchronous coroutine to update the ModuleDataManagementInstance
@@ -256,6 +268,7 @@ class ModuleDataManagementContext(InstanceContext):
         :param documentation:
         :param policies:
         :param support:
+        :param configuration:
 
         :returns: The updated ModuleDataManagementInstance
         """
@@ -266,6 +279,7 @@ class ModuleDataManagementContext(InstanceContext):
                 "Documentation": documentation,
                 "Policies": policies,
                 "Support": support,
+                "Configuration": configuration,
             }
         )
 

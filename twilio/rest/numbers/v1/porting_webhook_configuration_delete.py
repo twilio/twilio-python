@@ -29,7 +29,7 @@ class PortingWebhookConfigurationDeleteContext(InstanceContext):
         Initialize the PortingWebhookConfigurationDeleteContext
 
         :param version: Version that contains the resource
-        :param webhook_type: The of the webhook type of the configuration to be deleted
+        :param webhook_type: The webhook type for the configuration to be delete. `PORT_IN`, `PORT_OUT`
         """
         super().__init__(version)
 
@@ -94,7 +94,7 @@ class PortingWebhookConfigurationDeleteList(ListResource):
         """
         Constructs a PortingWebhookConfigurationDeleteContext
 
-        :param webhook_type: The of the webhook type of the configuration to be deleted
+        :param webhook_type: The webhook type for the configuration to be delete. `PORT_IN`, `PORT_OUT`
         """
         return PortingWebhookConfigurationDeleteContext(
             self._version, webhook_type=webhook_type
@@ -106,7 +106,7 @@ class PortingWebhookConfigurationDeleteList(ListResource):
         """
         Constructs a PortingWebhookConfigurationDeleteContext
 
-        :param webhook_type: The of the webhook type of the configuration to be deleted
+        :param webhook_type: The webhook type for the configuration to be delete. `PORT_IN`, `PORT_OUT`
         """
         return PortingWebhookConfigurationDeleteContext(
             self._version, webhook_type=webhook_type

@@ -52,15 +52,17 @@ class InstalledAddOnUsageInstance(InstanceResource):
 
 class InstalledAddOnUsageList(ListResource):
 
-    class CreateBillingUsageRequest(object):
+    class MarketplaceV1InstalledAddOnInstalledAddOnUsage(object):
         """
         :ivar billable_items:
         """
 
-        def __init__(self, payload: Dict[str, Any], installed_add_on_sid: str):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.billable_items: Optional[
-                List[InstalledAddOnUsageList.CreateBillingUsageRequestBillableItems]
+                List[
+                    InstalledAddOnUsageList.MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
+                ]
             ] = payload.get("billable_items")
 
         def to_dict(self):
@@ -70,13 +72,13 @@ class InstalledAddOnUsageList(ListResource):
                 ],
             }
 
-    class CreateBillingUsageRequestBillableItems(object):
+    class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems(object):
         """
-        :ivar quantity:
-        :ivar sid:
+        :ivar quantity: Any floating number greater than 0.
+        :ivar sid: BillingSid to use for billing.
         """
 
-        def __init__(self, payload: Dict[str, Any], installed_add_on_sid: str):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.quantity: Optional[float] = payload.get("quantity")
             self.sid: Optional[str] = payload.get("sid")
@@ -106,16 +108,17 @@ class InstalledAddOnUsageList(ListResource):
         )
 
     def create(
-        self, create_billing_usage_request: CreateBillingUsageRequest
+        self,
+        marketplace_v1_installed_add_on_installed_add_on_usage: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
     ) -> InstalledAddOnUsageInstance:
         """
         Create the InstalledAddOnUsageInstance
 
-        :param create_billing_usage_request:
+        :param marketplace_v1_installed_add_on_installed_add_on_usage:
 
         :returns: The created InstalledAddOnUsageInstance
         """
-        data = create_billing_usage_request.to_dict()
+        data = marketplace_v1_installed_add_on_installed_add_on_usage.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
         headers["Content-Type"] = "application/json"
@@ -131,16 +134,17 @@ class InstalledAddOnUsageList(ListResource):
         )
 
     async def create_async(
-        self, create_billing_usage_request: CreateBillingUsageRequest
+        self,
+        marketplace_v1_installed_add_on_installed_add_on_usage: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
     ) -> InstalledAddOnUsageInstance:
         """
         Asynchronously create the InstalledAddOnUsageInstance
 
-        :param create_billing_usage_request:
+        :param marketplace_v1_installed_add_on_installed_add_on_usage:
 
         :returns: The created InstalledAddOnUsageInstance
         """
-        data = create_billing_usage_request.to_dict()
+        data = marketplace_v1_installed_add_on_installed_add_on_usage.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
         headers["Content-Type"] = "application/json"

@@ -80,6 +80,24 @@ class ChannelSenderInstance(InstanceResource):
             )
         return self._context
 
+    def delete(self) -> bool:
+        """
+        Deletes the ChannelSenderInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self) -> bool:
+        """
+        Asynchronous coroutine that deletes the ChannelSenderInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        return await self._proxy.delete_async()
+
     def fetch(self) -> "ChannelSenderInstance":
         """
         Fetch the ChannelSenderInstance
@@ -127,6 +145,30 @@ class ChannelSenderContext(InstanceContext):
         }
         self._uri = "/Services/{messaging_service_sid}/ChannelSenders/{sid}".format(
             **self._solution
+        )
+
+    def delete(self) -> bool:
+        """
+        Deletes the ChannelSenderInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        return self._version.delete(
+            method="DELETE",
+            uri=self._uri,
+        )
+
+    async def delete_async(self) -> bool:
+        """
+        Asynchronous coroutine that deletes the ChannelSenderInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        return await self._version.delete_async(
+            method="DELETE",
+            uri=self._uri,
         )
 
     def fetch(self) -> ChannelSenderInstance:
@@ -220,6 +262,58 @@ class ChannelSenderList(ListResource):
         }
         self._uri = "/Services/{messaging_service_sid}/ChannelSenders".format(
             **self._solution
+        )
+
+    def create(self, sid: str) -> ChannelSenderInstance:
+        """
+        Create the ChannelSenderInstance
+
+        :param sid: The SID of the Channel Sender being added to the Service.
+
+        :returns: The created ChannelSenderInstance
+        """
+
+        data = values.of(
+            {
+                "Sid": sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ChannelSenderInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution["messaging_service_sid"],
+        )
+
+    async def create_async(self, sid: str) -> ChannelSenderInstance:
+        """
+        Asynchronously create the ChannelSenderInstance
+
+        :param sid: The SID of the Channel Sender being added to the Service.
+
+        :returns: The created ChannelSenderInstance
+        """
+
+        data = values.of(
+            {
+                "Sid": sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ChannelSenderInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution["messaging_service_sid"],
         )
 
     def stream(

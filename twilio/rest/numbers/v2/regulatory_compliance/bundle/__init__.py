@@ -488,6 +488,7 @@ class BundleList(ListResource):
         iso_country: Union[str, object] = values.unset,
         end_user_type: Union["BundleInstance.EndUserType", object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        is_test: Union[bool, object] = values.unset,
     ) -> BundleInstance:
         """
         Create the BundleInstance
@@ -499,6 +500,7 @@ class BundleList(ListResource):
         :param iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param end_user_type:
         :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
+        :param is_test: Indicates that Bundle is a Test Bundle and will be Auto-Rejected
 
         :returns: The created BundleInstance
         """
@@ -512,6 +514,7 @@ class BundleList(ListResource):
                 "IsoCountry": iso_country,
                 "EndUserType": end_user_type,
                 "NumberType": number_type,
+                "IsTest": serialize.boolean_to_string(is_test),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -531,6 +534,7 @@ class BundleList(ListResource):
         iso_country: Union[str, object] = values.unset,
         end_user_type: Union["BundleInstance.EndUserType", object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        is_test: Union[bool, object] = values.unset,
     ) -> BundleInstance:
         """
         Asynchronously create the BundleInstance
@@ -542,6 +546,7 @@ class BundleList(ListResource):
         :param iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param end_user_type:
         :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
+        :param is_test: Indicates that Bundle is a Test Bundle and will be Auto-Rejected
 
         :returns: The created BundleInstance
         """
@@ -555,6 +560,7 @@ class BundleList(ListResource):
                 "IsoCountry": iso_country,
                 "EndUserType": end_user_type,
                 "NumberType": number_type,
+                "IsTest": serialize.boolean_to_string(is_test),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})

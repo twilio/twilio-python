@@ -20,6 +20,7 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+from twilio.rest.api.v2010.account.recording.add_on_result.payload.data import DataList
 
 
 class PayloadInstance(InstanceResource):
@@ -130,6 +131,13 @@ class PayloadInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    @property
+    def data(self) -> DataList:
+        """
+        Access the data
+        """
+        return self._proxy.data
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -171,6 +179,8 @@ class PayloadContext(InstanceContext):
         self._uri = "/Accounts/{account_sid}/Recordings/{reference_sid}/AddOnResults/{add_on_result_sid}/Payloads/{sid}.json".format(
             **self._solution
         )
+
+        self._data: Optional[DataList] = None
 
     def delete(self) -> bool:
         """
@@ -239,6 +249,21 @@ class PayloadContext(InstanceContext):
             add_on_result_sid=self._solution["add_on_result_sid"],
             sid=self._solution["sid"],
         )
+
+    @property
+    def data(self) -> DataList:
+        """
+        Access the data
+        """
+        if self._data is None:
+            self._data = DataList(
+                self._version,
+                self._solution["account_sid"],
+                self._solution["reference_sid"],
+                self._solution["add_on_result_sid"],
+                self._solution["sid"],
+            )
+        return self._data
 
     def __repr__(self) -> str:
         """

@@ -38,6 +38,11 @@ class ContentInstance(InstanceResource):
         PHONE_NUMBER = "PHONE_NUMBER"
         QUICK_REPLY = "QUICK_REPLY"
 
+    class CarouselActionType(object):
+        URL = "URL"
+        PHONE_NUMBER = "PHONE_NUMBER"
+        QUICK_REPLY = "QUICK_REPLY"
+
     class QuickReplyActionType(object):
         QUICK_REPLY = "QUICK_REPLY"
 
@@ -297,7 +302,7 @@ class ContentList(ListResource):
         :ivar copy_code_text:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.type: Optional["ContentInstance.AuthenticationActionType"] = (
                 payload.get("type")
@@ -319,7 +324,7 @@ class ContentList(ListResource):
         :ivar id:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.type: Optional["ContentInstance.CallToActionActionType"] = payload.get(
                 "type"
@@ -347,7 +352,7 @@ class ContentList(ListResource):
         :ivar id:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.type: Optional["ContentInstance.CardActionType"] = payload.get("type")
             self.title: Optional[str] = payload.get("title")
@@ -364,6 +369,59 @@ class ContentList(ListResource):
                 "id": self.id,
             }
 
+    class CarouselAction(object):
+        """
+        :ivar type:
+        :ivar title:
+        :ivar url:
+        :ivar phone:
+        :ivar id:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.type: Optional["ContentInstance.CarouselActionType"] = payload.get(
+                "type"
+            )
+            self.title: Optional[str] = payload.get("title")
+            self.url: Optional[str] = payload.get("url")
+            self.phone: Optional[str] = payload.get("phone")
+            self.id: Optional[str] = payload.get("id")
+
+        def to_dict(self):
+            return {
+                "type": self.type,
+                "title": self.title,
+                "url": self.url,
+                "phone": self.phone,
+                "id": self.id,
+            }
+
+    class CarouselCard(object):
+        """
+        :ivar title:
+        :ivar body:
+        :ivar media:
+        :ivar actions:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.title: Optional[str] = payload.get("title")
+            self.body: Optional[str] = payload.get("body")
+            self.media: Optional[str] = payload.get("media")
+            self.actions: Optional[List[ContentList.CarouselAction]] = payload.get(
+                "actions"
+            )
+
+        def to_dict(self):
+            return {
+                "title": self.title,
+                "body": self.body,
+                "media": self.media,
+                "actions": [actions.to_dict() for actions in self.actions],
+            }
+
     class CatalogItem(object):
         """
         :ivar id:
@@ -374,7 +432,7 @@ class ContentList(ListResource):
         :ivar description:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.id: Optional[str] = payload.get("id")
             self.section_title: Optional[str] = payload.get("section_title")
@@ -401,7 +459,7 @@ class ContentList(ListResource):
         :ivar types:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.friendly_name: Optional[str] = payload.get("friendly_name")
             self.variables: Optional[dict[str, str]] = payload.get("variables")
@@ -423,7 +481,7 @@ class ContentList(ListResource):
         :ivar description:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.id: Optional[str] = payload.get("id")
             self.item: Optional[str] = payload.get("item")
@@ -443,7 +501,7 @@ class ContentList(ListResource):
         :ivar id:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.type: Optional["ContentInstance.QuickReplyActionType"] = payload.get(
                 "type"
@@ -464,7 +522,7 @@ class ContentList(ListResource):
         :ivar actions:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.body: Optional[str] = payload.get("body")
             self.actions: Optional[List[ContentList.CallToActionAction]] = payload.get(
@@ -485,7 +543,7 @@ class ContentList(ListResource):
         :ivar actions:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.title: Optional[str] = payload.get("title")
             self.subtitle: Optional[str] = payload.get("subtitle")
@@ -502,6 +560,23 @@ class ContentList(ListResource):
                 "actions": [actions.to_dict() for actions in self.actions],
             }
 
+    class TwilioCarousel(object):
+        """
+        :ivar body:
+        :ivar cards:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.cards: Optional[List[ContentList.CarouselCard]] = payload.get("cards")
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "cards": [cards.to_dict() for cards in self.cards],
+            }
+
     class TwilioCatalog(object):
         """
         :ivar title:
@@ -512,7 +587,7 @@ class ContentList(ListResource):
         :ivar dynamic_items:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.title: Optional[str] = payload.get("title")
             self.body: Optional[str] = payload.get("body")
@@ -538,7 +613,7 @@ class ContentList(ListResource):
         :ivar items:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.body: Optional[str] = payload.get("body")
             self.button: Optional[str] = payload.get("button")
@@ -558,7 +633,7 @@ class ContentList(ListResource):
         :ivar label:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.latitude: Optional[float] = payload.get("latitude")
             self.longitude: Optional[float] = payload.get("longitude")
@@ -577,7 +652,7 @@ class ContentList(ListResource):
         :ivar media:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.body: Optional[str] = payload.get("body")
             self.media: Optional[List[str]] = payload.get("media")
@@ -594,7 +669,7 @@ class ContentList(ListResource):
         :ivar actions:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.body: Optional[str] = payload.get("body")
             self.actions: Optional[List[ContentList.QuickReplyAction]] = payload.get(
@@ -612,7 +687,7 @@ class ContentList(ListResource):
         :ivar body:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.body: Optional[str] = payload.get("body")
 
@@ -631,11 +706,12 @@ class ContentList(ListResource):
         :ivar twilio_quick_reply:
         :ivar twilio_card:
         :ivar twilio_catalog:
+        :ivar twilio_carousel:
         :ivar whatsapp_card:
         :ivar whatsapp_authentication:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.twilio_text: Optional[ContentList.TwilioText] = payload.get(
                 "twilio_text"
@@ -661,6 +737,9 @@ class ContentList(ListResource):
             self.twilio_catalog: Optional[ContentList.TwilioCatalog] = payload.get(
                 "twilio_catalog"
             )
+            self.twilio_carousel: Optional[ContentList.TwilioCarousel] = payload.get(
+                "twilio_carousel"
+            )
             self.whatsapp_card: Optional[ContentList.WhatsappCard] = payload.get(
                 "whatsapp_card"
             )
@@ -678,6 +757,7 @@ class ContentList(ListResource):
                 "twilio_quick_reply": self.twilio_quick_reply.to_dict(),
                 "twilio_card": self.twilio_card.to_dict(),
                 "twilio_catalog": self.twilio_catalog.to_dict(),
+                "twilio_carousel": self.twilio_carousel.to_dict(),
                 "whatsapp_card": self.whatsapp_card.to_dict(),
                 "whatsapp_authentication": self.whatsapp_authentication.to_dict(),
             }
@@ -689,7 +769,7 @@ class ContentList(ListResource):
         :ivar actions:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.add_security_recommendation: Optional[bool] = payload.get(
                 "add_security_recommendation"
@@ -717,7 +797,7 @@ class ContentList(ListResource):
         :ivar actions:
         """
 
-        def __init__(self, payload: Dict[str, Any], sid: Optional[str] = None):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.body: Optional[str] = payload.get("body")
             self.footer: Optional[str] = payload.get("footer")

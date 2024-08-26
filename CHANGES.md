@@ -3,6 +3,49 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-08-26] Version 9.2.4
+--------------------------
+**Library - Chore**
+- [PR #810](https://github.com/twilio/twilio-python/pull/810): add license identifier to project metadata. Thanks to [@mschoettle](https://github.com/mschoettle)!
+- [PR #808](https://github.com/twilio/twilio-python/pull/808): preview iam removal. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #807](https://github.com/twilio/twilio-python/pull/807): update intersphinx_mapping. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #804](https://github.com/twilio/twilio-python/pull/804): add init file. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Api**
+- Update documentation of `error_code` and `error_message` on the Message resource.
+- Remove generic parameters from `transcription` resource
+- Added public documentation for Payload Data retrieval API
+
+**Flex**
+- Adding update Flex User api
+
+**Insights**
+- Added 'branded', 'business_profile' and 'voice_integrity' fields in List Call Summary
+
+**Intelligence**
+- Add `words` array information to the Sentences v2 entity.
+- Add `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Config` headers for Operator Results.
+- Change the path parameter when fetching an `/OperatorType/{}` from `sid<EY>` to `string` to support searching by SID or by name
+- Add `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Config` headers for Transcript and Service endpoints.
+
+**Messaging**
+- Adds two new channel senders api to add/remove channel senders to/from a messaging service
+- Extend ERC api to accept an optional attribute in request body to indicate CNP migration for an ERC
+
+**Numbers**
+- Modify visibility to public in bundle clone API
+- Add `port_date` field to Port In Request and Port In Phone Numbers Fetch APIs
+- Change properties docs for port in phone numbers api
+- Add is_test body param to the Bundle Create API
+- Change properties docs for port in api
+
+**Trusthub**
+- Add new field in themeSetId in compliance_inquiry.
+
+**Verify**
+- Update `custom_code_enabled` description on verification docs
+
+
 [2024-07-02] Version 9.2.3
 --------------------------
 **Intelligence**

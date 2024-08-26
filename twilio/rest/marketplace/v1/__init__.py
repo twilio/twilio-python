@@ -18,6 +18,7 @@ from twilio.base.domain import Domain
 from twilio.rest.marketplace.v1.available_add_on import AvailableAddOnList
 from twilio.rest.marketplace.v1.installed_add_on import InstalledAddOnList
 from twilio.rest.marketplace.v1.module_data_management import ModuleDataManagementList
+from twilio.rest.marketplace.v1.referral_conversion import ReferralConversionList
 
 
 class V1(Version):
@@ -32,6 +33,7 @@ class V1(Version):
         self._available_add_ons: Optional[AvailableAddOnList] = None
         self._installed_add_ons: Optional[InstalledAddOnList] = None
         self._module_data_management: Optional[ModuleDataManagementList] = None
+        self._referral_conversion: Optional[ReferralConversionList] = None
 
     @property
     def available_add_ons(self) -> AvailableAddOnList:
@@ -50,6 +52,12 @@ class V1(Version):
         if self._module_data_management is None:
             self._module_data_management = ModuleDataManagementList(self)
         return self._module_data_management
+
+    @property
+    def referral_conversion(self) -> ReferralConversionList:
+        if self._referral_conversion is None:
+            self._referral_conversion = ReferralConversionList(self)
+        return self._referral_conversion
 
     def __repr__(self) -> str:
         """

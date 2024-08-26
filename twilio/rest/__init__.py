@@ -275,7 +275,6 @@ class Client(ClientBase):
             self._frontline_api = FrontlineApi(self)
         return self._frontline_api
 
-
     @property
     def insights(self) -> "Insights":
         """

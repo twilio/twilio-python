@@ -30,11 +30,11 @@ class PortingPortabilityInstance(InstanceResource):
 
     """
     :ivar phone_number: The phone number which portability is to be checked. Phone numbers are in E.164 format (e.g. +16175551212).
-    :ivar account_sid: The target account sid to which the number will be ported
-    :ivar portable: Boolean flag specifying if phone number is portable or not.
-    :ivar pin_and_account_number_required: Boolean flag specifying if PIN and account number is required for the phone number.
+    :ivar account_sid: Account Sid that the phone number belongs to in Twilio. This is only returned for phone numbers that already exist in Twilio’s inventory and belong to your account or sub account.
+    :ivar portable: Boolean flag indicates if the phone number can be ported into Twilio through the Porting API or not.
+    :ivar pin_and_account_number_required: Indicates if the port in process will require a personal identification number (PIN) and an account number for this phone number. If this is true you will be required to submit both a PIN and account number from the losing carrier for this number when opening a port in request. These fields will be required in order to complete the port in process to Twilio.
     :ivar not_portable_reason: Reason why the phone number cannot be ported into Twilio, `null` otherwise.
-    :ivar not_portable_reason_code: The Portability Reason Code for the phone number if it cannot be ported into Twilio, `null` otherwise. One of `22131`, `22132`, `22130`, `22133`, `22102` or `22135`.
+    :ivar not_portable_reason_code: The Portability Reason Code for the phone number if it cannot be ported into Twilio, `null` otherwise.
     :ivar number_type: 
     :ivar country: Country the phone number belongs to.
     :ivar url: This is the url of the request that you're trying to reach out to locate the resource.
@@ -90,7 +90,7 @@ class PortingPortabilityInstance(InstanceResource):
         """
         Fetch the PortingPortabilityInstance
 
-        :param target_account_sid: The SID of the account where the phone number(s) will be ported.
+        :param target_account_sid: Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
 
         :returns: The fetched PortingPortabilityInstance
         """
@@ -104,7 +104,7 @@ class PortingPortabilityInstance(InstanceResource):
         """
         Asynchronous coroutine to fetch the PortingPortabilityInstance
 
-        :param target_account_sid: The SID of the account where the phone number(s) will be ported.
+        :param target_account_sid: Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
 
         :returns: The fetched PortingPortabilityInstance
         """
@@ -129,7 +129,7 @@ class PortingPortabilityContext(InstanceContext):
         Initialize the PortingPortabilityContext
 
         :param version: Version that contains the resource
-        :param phone_number: The phone number which portability is to be checked. Phone numbers are in E.164 format (e.g. +16175551212).
+        :param phone_number: Phone number to check portability in e164 format.
         """
         super().__init__(version)
 
@@ -147,7 +147,7 @@ class PortingPortabilityContext(InstanceContext):
         """
         Fetch the PortingPortabilityInstance
 
-        :param target_account_sid: The SID of the account where the phone number(s) will be ported.
+        :param target_account_sid: Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
 
         :returns: The fetched PortingPortabilityInstance
         """
@@ -172,7 +172,7 @@ class PortingPortabilityContext(InstanceContext):
         """
         Asynchronous coroutine to fetch the PortingPortabilityInstance
 
-        :param target_account_sid: The SID of the account where the phone number(s) will be ported.
+        :param target_account_sid: Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
 
         :returns: The fetched PortingPortabilityInstance
         """
@@ -218,7 +218,7 @@ class PortingPortabilityList(ListResource):
         """
         Constructs a PortingPortabilityContext
 
-        :param phone_number: The phone number which portability is to be checked. Phone numbers are in E.164 format (e.g. +16175551212).
+        :param phone_number: Phone number to check portability in e164 format.
         """
         return PortingPortabilityContext(self._version, phone_number=phone_number)
 
@@ -226,7 +226,7 @@ class PortingPortabilityList(ListResource):
         """
         Constructs a PortingPortabilityContext
 
-        :param phone_number: The phone number which portability is to be checked. Phone numbers are in E.164 format (e.g. +16175551212).
+        :param phone_number: Phone number to check portability in e164 format.
         """
         return PortingPortabilityContext(self._version, phone_number=phone_number)
 
