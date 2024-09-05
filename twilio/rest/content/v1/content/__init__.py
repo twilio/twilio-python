@@ -32,11 +32,15 @@ class ContentInstance(InstanceResource):
     class CallToActionActionType(object):
         URL = "URL"
         PHONE_NUMBER = "PHONE_NUMBER"
+        COPY_CODE = "COPY_CODE"
+        VOICE_CALL = "VOICE_CALL"
 
     class CardActionType(object):
         URL = "URL"
         PHONE_NUMBER = "PHONE_NUMBER"
         QUICK_REPLY = "QUICK_REPLY"
+        COPY_CODE = "COPY_CODE"
+        VOICE_CALL = "VOICE_CALL"
 
     class CarouselActionType(object):
         URL = "URL"
@@ -321,7 +325,7 @@ class ContentList(ListResource):
         :ivar title:
         :ivar url:
         :ivar phone:
-        :ivar id:
+        :ivar code:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -332,7 +336,7 @@ class ContentList(ListResource):
             self.title: Optional[str] = payload.get("title")
             self.url: Optional[str] = payload.get("url")
             self.phone: Optional[str] = payload.get("phone")
-            self.id: Optional[str] = payload.get("id")
+            self.code: Optional[str] = payload.get("code")
 
         def to_dict(self):
             return {
@@ -340,7 +344,7 @@ class ContentList(ListResource):
                 "title": self.title,
                 "url": self.url,
                 "phone": self.phone,
-                "id": self.id,
+                "code": self.code,
             }
 
     class CardAction(object):
@@ -350,6 +354,7 @@ class ContentList(ListResource):
         :ivar url:
         :ivar phone:
         :ivar id:
+        :ivar code:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -359,6 +364,7 @@ class ContentList(ListResource):
             self.url: Optional[str] = payload.get("url")
             self.phone: Optional[str] = payload.get("phone")
             self.id: Optional[str] = payload.get("id")
+            self.code: Optional[str] = payload.get("code")
 
         def to_dict(self):
             return {
@@ -367,6 +373,7 @@ class ContentList(ListResource):
                 "url": self.url,
                 "phone": self.phone,
                 "id": self.id,
+                "code": self.code,
             }
 
     class CarouselAction(object):
@@ -472,6 +479,76 @@ class ContentList(ListResource):
                 "variables": self.variables,
                 "language": self.language,
                 "types": self.types.to_dict(),
+            }
+
+    class FlowsPage(object):
+        """
+        :ivar id:
+        :ivar next_page_id:
+        :ivar title:
+        :ivar subtitle:
+        :ivar layout:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.id: Optional[str] = payload.get("id")
+            self.next_page_id: Optional[str] = payload.get("next_page_id")
+            self.title: Optional[str] = payload.get("title")
+            self.subtitle: Optional[str] = payload.get("subtitle")
+            self.layout: Optional[List[ContentList.FlowsPageComponent]] = payload.get(
+                "layout"
+            )
+
+        def to_dict(self):
+            return {
+                "id": self.id,
+                "next_page_id": self.next_page_id,
+                "title": self.title,
+                "subtitle": self.subtitle,
+                "layout": [layout.to_dict() for layout in self.layout],
+            }
+
+    class FlowsPageComponent(object):
+        """
+        :ivar label:
+        :ivar type:
+        :ivar text:
+        :ivar options:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.label: Optional[str] = payload.get("label")
+            self.type: Optional[str] = payload.get("type")
+            self.text: Optional[str] = payload.get("text")
+            self.options: Optional[List[ContentList.FlowsPageComponentSelectItem]] = (
+                payload.get("options")
+            )
+
+        def to_dict(self):
+            return {
+                "label": self.label,
+                "type": self.type,
+                "text": self.text,
+                "options": [options.to_dict() for options in self.options],
+            }
+
+    class FlowsPageComponentSelectItem(object):
+        """
+        :ivar id:
+        :ivar title:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.id: Optional[str] = payload.get("id")
+            self.title: Optional[str] = payload.get("title")
+
+        def to_dict(self):
+            return {
+                "id": self.id,
+                "title": self.title,
             }
 
     class ListItem(object):
@@ -606,6 +683,35 @@ class ContentList(ListResource):
                 "dynamic_items": self.dynamic_items,
             }
 
+    class TwilioFlows(object):
+        """
+        :ivar body:
+        :ivar button_text:
+        :ivar subtitle:
+        :ivar media_url:
+        :ivar pages:
+        :ivar type:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.button_text: Optional[str] = payload.get("button_text")
+            self.subtitle: Optional[str] = payload.get("subtitle")
+            self.media_url: Optional[str] = payload.get("media_url")
+            self.pages: Optional[List[ContentList.FlowsPage]] = payload.get("pages")
+            self.type: Optional[str] = payload.get("type")
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "button_text": self.button_text,
+                "subtitle": self.subtitle,
+                "media_url": self.media_url,
+                "pages": [pages.to_dict() for pages in self.pages],
+                "type": self.type,
+            }
+
     class TwilioListPicker(object):
         """
         :ivar body:
@@ -707,6 +813,7 @@ class ContentList(ListResource):
         :ivar twilio_card:
         :ivar twilio_catalog:
         :ivar twilio_carousel:
+        :ivar twilio_flows:
         :ivar whatsapp_card:
         :ivar whatsapp_authentication:
         """
@@ -740,6 +847,9 @@ class ContentList(ListResource):
             self.twilio_carousel: Optional[ContentList.TwilioCarousel] = payload.get(
                 "twilio_carousel"
             )
+            self.twilio_flows: Optional[ContentList.TwilioFlows] = payload.get(
+                "twilio_flows"
+            )
             self.whatsapp_card: Optional[ContentList.WhatsappCard] = payload.get(
                 "whatsapp_card"
             )
@@ -758,6 +868,7 @@ class ContentList(ListResource):
                 "twilio_card": self.twilio_card.to_dict(),
                 "twilio_catalog": self.twilio_catalog.to_dict(),
                 "twilio_carousel": self.twilio_carousel.to_dict(),
+                "twilio_flows": self.twilio_flows.to_dict(),
                 "whatsapp_card": self.whatsapp_card.to_dict(),
                 "whatsapp_authentication": self.whatsapp_authentication.to_dict(),
             }

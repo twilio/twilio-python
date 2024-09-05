@@ -39,6 +39,7 @@ class SupportingDocumentInstance(InstanceResource):
     :ivar mime_type: The image type uploaded in the Supporting Document container.
     :ivar status: 
     :ivar failure_reason: The failure reason of the Supporting Document Resource.
+    :ivar errors: A list of errors that occurred during the registering RC Bundle
     :ivar type: The type of the Supporting Document.
     :ivar attributes: The set of parameters that are the attributes of the Supporting Documents resource which are listed in the Supporting Document Types.
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -59,6 +60,7 @@ class SupportingDocumentInstance(InstanceResource):
             "status"
         )
         self.failure_reason: Optional[str] = payload.get("failure_reason")
+        self.errors: Optional[List[Dict[str, object]]] = payload.get("errors")
         self.type: Optional[str] = payload.get("type")
         self.attributes: Optional[Dict[str, object]] = payload.get("attributes")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(

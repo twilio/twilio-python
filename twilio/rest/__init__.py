@@ -23,6 +23,7 @@ if TYPE_CHECKING:
     from twilio.rest.events import Events
     from twilio.rest.flex_api import FlexApi
     from twilio.rest.frontline_api import FrontlineApi
+    from twilio.rest.iam import Iam
     from twilio.rest.insights import Insights
     from twilio.rest.intelligence import Intelligence
     from twilio.rest.ip_messaging import IpMessaging
@@ -131,6 +132,7 @@ class Client(ClientBase):
         self._events: Optional["Events"] = None
         self._flex_api: Optional["FlexApi"] = None
         self._frontline_api: Optional["FrontlineApi"] = None
+        self._iam: Optional["Iam"] = None
         self._insights: Optional["Insights"] = None
         self._intelligence: Optional["Intelligence"] = None
         self._ip_messaging: Optional["IpMessaging"] = None
@@ -274,6 +276,19 @@ class Client(ClientBase):
 
             self._frontline_api = FrontlineApi(self)
         return self._frontline_api
+
+    @property
+    def iam(self) -> "Iam":
+        """
+        Access the Iam Twilio Domain
+
+        :returns: Iam Twilio Domain
+        """
+        if self._iam is None:
+            from twilio.rest.iam import Iam
+
+            self._iam = Iam(self)
+        return self._iam
 
     @property
     def insights(self) -> "Insights":

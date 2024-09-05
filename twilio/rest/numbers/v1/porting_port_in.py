@@ -12,7 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import date
+from datetime import date, datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -70,7 +70,7 @@ class PortingPortInInstance(InstanceResource):
             "phone_numbers"
         )
         self.documents: Optional[List[str]] = payload.get("documents")
-        self.date_created: Optional[date] = deserialize.iso8601_date(
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
 
