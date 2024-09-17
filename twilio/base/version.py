@@ -44,7 +44,6 @@ class Version(object):
         """
         Make an HTTP request.
         """
-        print('88888')
         url = self.relative_uri(uri)
         return self.domain.request(
             method,
@@ -449,7 +448,6 @@ class Version(object):
         """
         Parse create response JSON
         """
-        print('99999')
         if response.status_code < 200 or response.status_code >= 300:
             raise self.exception(method, uri, response, "Unable to create record")
 
