@@ -470,7 +470,6 @@ class Version(object):
         """
         Create a resource instance.
         """
-        print('******')
         response = self.request(
             method,
             uri,
@@ -481,7 +480,6 @@ class Version(object):
             timeout=timeout,
             allow_redirects=allow_redirects,
         )
-        print('******')
         return self._parse_create(method, uri, response)
 
     async def create_async(
@@ -499,7 +497,6 @@ class Version(object):
         """
         Asynchronously create a resource instance.
         """
-        print('******')
         response = await self.request_async(
             method,
             uri,
@@ -511,5 +508,4 @@ class Version(object):
             allow_redirects=allow_redirects,
             is_oauth=is_oauth,
         )
-        print('******')
         return self._parse_create(method, uri, response)
