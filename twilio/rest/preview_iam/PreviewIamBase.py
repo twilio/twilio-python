@@ -8,13 +8,14 @@ r"""
   https://openapi-generator.tech
   Do not edit the class manually.
 """
+
 from twilio.base.domain import Domain
+from typing import Optional
 from twilio.rest import Client
-from twilio.rest.preview_iam.organizations_openapi.token import Token
-from twilio.rest.preview_iam.organizations_openapi.account import Account
-from twilio.rest.preview_iam.organizations_openapi.authorize import AuthorizeList
-from twilio.rest.preview_iam.organizations_openapi.resource_type import ResourceTypeList
-from twilio.rest.preview_iam.organizations_openapi.role_assignment import RoleAssignmentList
+
+from twilio.rest.preview_iam.organizations import Organizations
+from twilio.rest.preview_iam.v1 import V1
+
 
 class PreviewIamBase(Domain):
     def __init__(self, twilio: Client):
@@ -24,6 +25,26 @@ class PreviewIamBase(Domain):
         :returns: Domain for PreviewIam
         """
         super().__init__(twilio, "https://preview.twilio.com/iam")
-        self._token: Optional[TokenList] = None
-        self._service_accounts: Optional[ServiceAccounts] = None
-        self._service_roles: Optional[ServiceRoles] = None
+        self._organizations: Optional[Organizations] = None
+        self._v1: Optional[V1] = None
+        # self._token: Optional[TokenList] = None
+        # self._service_accounts: Optional[ServiceAccounts] = None
+        # self._service_roles: Optional[ServiceRoles] = None
+
+    @property
+    def organizations(self) -> Organizations:
+        """
+        :returns: Organizations of PreviewIam
+        """
+        if self._organizations is None:
+            self._organizations = Organizations(self)
+        return self._organizations
+
+    @property
+    def v1(self) -> V1:
+        """
+        :returns: Organizations of PreviewIam
+        """
+        if self._v1 is None:
+            self._v1 = V1(self)
+        return self._v1

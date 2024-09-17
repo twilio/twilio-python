@@ -62,7 +62,8 @@ class TwilioRestException(TwilioException):
                 "\n\n{twilio_returned}\n\n{message}\n".format(
                     red_error=red("HTTP Error"),
                     request_was=white("Your request was:"),
-                    http_line=teal("%s %s" % (self.method, self.uri)),
+                    http_line=teal("%s %s" % (self.method, self.uri, self.data, self.uri)),
+                    http_line=teal("%s %s" % (self.data, self.headers)),
                     twilio_returned=white("Twilio returned the following information:"),
                     message=blue(str(self.msg)),
                 )

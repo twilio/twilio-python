@@ -44,6 +44,7 @@ class Version(object):
         """
         Make an HTTP request.
         """
+        print('88888')
         url = self.relative_uri(uri)
         return self.domain.request(
             method,
@@ -54,7 +55,7 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
-            is_oauth=is_oauth
+            is_oauth=is_oauth,
         )
 
     async def request_async(
@@ -82,7 +83,7 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
-            is_oauth=is_oauth
+            is_oauth=is_oauth,
         )
 
     @classmethod
@@ -141,7 +142,7 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
-            is_oauth=is_oauth
+            is_oauth=is_oauth,
         )
 
         return self._parse_fetch(method, uri, response)
@@ -170,7 +171,7 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
-            is_oauth=is_oauth
+            is_oauth=is_oauth,
         )
 
         return self._parse_fetch(method, uri, response)
@@ -236,7 +237,7 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
-            is_oauth=is_oauth
+            is_oauth=is_oauth,
         )
 
         return self._parse_update(method, uri, response)
@@ -302,7 +303,7 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
-            is_oauth=is_oauth
+            is_oauth=is_oauth,
         )
 
         return self._parse_delete(method, uri, response)
@@ -375,7 +376,7 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
-            is_oauth=is_oauth
+            is_oauth=is_oauth,
         )
 
     def stream(
@@ -448,6 +449,7 @@ class Version(object):
         """
         Parse create response JSON
         """
+        print('99999')
         if response.status_code < 200 or response.status_code >= 300:
             raise self.exception(method, uri, response, "Unable to create record")
 
@@ -468,6 +470,7 @@ class Version(object):
         """
         Create a resource instance.
         """
+        print('******')
         response = self.request(
             method,
             uri,
@@ -478,7 +481,7 @@ class Version(object):
             timeout=timeout,
             allow_redirects=allow_redirects,
         )
-
+        print('******')
         return self._parse_create(method, uri, response)
 
     async def create_async(
@@ -496,6 +499,7 @@ class Version(object):
         """
         Asynchronously create a resource instance.
         """
+        print('******')
         response = await self.request_async(
             method,
             uri,
@@ -505,7 +509,7 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
-            is_oauth=is_oauth
+            is_oauth=is_oauth,
         )
-
+        print('******')
         return self._parse_create(method, uri, response)

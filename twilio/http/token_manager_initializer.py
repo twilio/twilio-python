@@ -12,5 +12,5 @@ class TokenManagerInitializer:
     @classmethod
     def get_token_manager(cls):
         if cls.org_token_manager is None:
-            raise Exception('Token Manager not initialized')
+            raise Exception("Token Manager not initialized")
         return cls.org_token_manager

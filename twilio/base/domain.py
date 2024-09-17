@@ -94,5 +94,5 @@ class Domain(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
-            is_oauth=is_oauth
+            is_oauth=is_oauth,
         )
