@@ -100,11 +100,8 @@ class TokenList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-        print('.......')
         print(f'{data}')
-        print('.......')
         print(f'{headers}')
-        print('.......')
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
