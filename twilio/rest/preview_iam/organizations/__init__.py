@@ -27,7 +27,7 @@ class Organizations(Version):
 
         :param domain: The Twilio.preview_iam domain
         """
-        super().__init__(domain, "Organizations")
+        super().__init__(domain, "organizations")
         self._accounts: Optional[AccountList] = None
         self._role_assignments: Optional[RoleAssignmentList] = None
         self._users: Optional[UserList] = None

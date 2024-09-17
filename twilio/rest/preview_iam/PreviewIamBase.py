@@ -24,7 +24,7 @@ class PreviewIamBase(Domain):
 
         :returns: Domain for PreviewIam
         """
-        super().__init__(twilio, "https://preview.twilio.com/iam")
+        super().__init__(twilio, "https://preview-iam.twilio.com")
         self._organizations: Optional[Organizations] = None
         self._v1: Optional[V1] = None
         # self._token: Optional[TokenList] = None

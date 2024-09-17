@@ -1,6 +1,6 @@
 from twilio.base.version import Version
 from twilio.http.token_manager import TokenManager
-from twilio.rest.preview_iam.organizations.token import TokenList
+from twilio.rest.preview_iam.v1.token import TokenList
 
 
 class OrgTokenManager(TokenManager):

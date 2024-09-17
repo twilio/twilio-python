@@ -27,7 +27,7 @@ class V1(Version):
 
         :param domain: The Twilio.preview_iam domain
         """
-        super().__init__(domain, "V1")
+        super().__init__(domain, "v1")
         self._token: Optional[TokenList] = None
         self._authorize: Optional[AuthorizeList] = None
 

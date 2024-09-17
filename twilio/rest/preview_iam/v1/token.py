@@ -59,7 +59,7 @@ class TokenList(ListResource):
         """
         super().__init__(version)
 
-        self._uri = "https://preview-iam.twilio.com/v1/token"
+        self._uri = "/token"
 
     def create(
         self,
@@ -100,12 +100,9 @@ class TokenList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-        print(f'{data}')
-        print(f'{headers}')
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-        print('rest method output...')
         return TokenInstance(self._version, payload)
 
     async def create_async(

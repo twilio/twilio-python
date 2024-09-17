@@ -13,45 +13,20 @@ class PreviewIam(PreviewIamBase):
 
     @property
     def accounts(self) -> AccountList:
-        warn(
-            "accounts is deprecated. Use organizations.accounts instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
         return self.organizations.accounts
 
     @property
     def role_assignments(self) -> RoleAssignmentList:
-        warn(
-            "role_assignments is deprecated. Use organizations.role_assignments instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
         return self.organizations.role_assignments
 
     # @property
     # def users(self) -> UserList:
-    #     warn(
-    #         "users is deprecated. Use organizations.users instead.",
-    #         DeprecationWarning,
-    #         stacklevel=2,
-    #     )
     #     return self.organizations.users
 
     @property
     def token(self) -> TokenList:
-        warn(
-            "token is deprecated. Use v1.token instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
         return self.v1.token
 
     @property
     def authorize(self) -> AuthorizeList:
-        warn(
-            "authorize is deprecated. Use v1.authorize instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
         return self.v1.authorize
