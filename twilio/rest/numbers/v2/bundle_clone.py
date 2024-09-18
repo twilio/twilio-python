@@ -101,7 +101,7 @@ class BundleCloneInstance(InstanceResource):
         Create the BundleCloneInstance
 
         :param target_account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) where the bundle needs to be cloned.
-        :param move_to_draft: This is to determine whether the cloned bundle needs to be in draft state or not.
+        :param move_to_draft: If set to true, the cloned bundle will be in the DRAFT state, else it will be twilio-approved
         :param friendly_name: The string that you assigned to describe the cloned bundle.
 
         :returns: The created BundleCloneInstance
@@ -122,7 +122,7 @@ class BundleCloneInstance(InstanceResource):
         Asynchronous coroutine to create the BundleCloneInstance
 
         :param target_account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) where the bundle needs to be cloned.
-        :param move_to_draft: This is to determine whether the cloned bundle needs to be in draft state or not.
+        :param move_to_draft: If set to true, the cloned bundle will be in the DRAFT state, else it will be twilio-approved
         :param friendly_name: The string that you assigned to describe the cloned bundle.
 
         :returns: The created BundleCloneInstance
@@ -172,7 +172,7 @@ class BundleCloneContext(InstanceContext):
         Create the BundleCloneInstance
 
         :param target_account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) where the bundle needs to be cloned.
-        :param move_to_draft: This is to determine whether the cloned bundle needs to be in draft state or not.
+        :param move_to_draft: If set to true, the cloned bundle will be in the DRAFT state, else it will be twilio-approved
         :param friendly_name: The string that you assigned to describe the cloned bundle.
 
         :returns: The created BundleCloneInstance
@@ -201,7 +201,7 @@ class BundleCloneContext(InstanceContext):
         Asynchronous coroutine to create the BundleCloneInstance
 
         :param target_account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) where the bundle needs to be cloned.
-        :param move_to_draft: This is to determine whether the cloned bundle needs to be in draft state or not.
+        :param move_to_draft: If set to true, the cloned bundle will be in the DRAFT state, else it will be twilio-approved
         :param friendly_name: The string that you assigned to describe the cloned bundle.
 
         :returns: The created BundleCloneInstance

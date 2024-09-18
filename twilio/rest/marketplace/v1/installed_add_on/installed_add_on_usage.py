@@ -22,8 +22,8 @@ from twilio.base.version import Version
 
 class InstalledAddOnUsageInstance(InstanceResource):
     """
+    :ivar total_submitted: Total amount in local currency that was billed in this request. Aggregates all billable_items that were successfully submitted.
     :ivar billable_items:
-    :ivar total_submitted: Represents the total quantity submitted.
     """
 
     def __init__(
@@ -31,9 +31,11 @@ class InstalledAddOnUsageInstance(InstanceResource):
     ):
         super().__init__(version)
 
-        self.billable_items: Optional[List[str]] = payload.get("billable_items")
         self.total_submitted: Optional[float] = deserialize.decimal(
             payload.get("total_submitted")
+        )
+        self.billable_items: Optional[List[InstalledAddOnUsageList.str]] = payload.get(
+            "billable_items"
         )
 
         self._solution = {
@@ -54,11 +56,15 @@ class InstalledAddOnUsageList(ListResource):
 
     class MarketplaceV1InstalledAddOnInstalledAddOnUsage(object):
         """
+        :ivar total_submitted: Total amount in local currency that was billed in this request. Aggregates all billable_items that were successfully submitted.
         :ivar billable_items:
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
+            self.total_submitted: Optional[float] = deserialize.decimal(
+                payload.get("total_submitted")
+            )
             self.billable_items: Optional[
                 List[
                     InstalledAddOnUsageList.MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
@@ -67,26 +73,10 @@ class InstalledAddOnUsageList(ListResource):
 
         def to_dict(self):
             return {
+                "total_submitted": self.total_submitted,
                 "billable_items": [
                     billable_items.to_dict() for billable_items in self.billable_items
                 ],
-            }
-
-    class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems(object):
-        """
-        :ivar quantity: Any floating number greater than 0.
-        :ivar sid: BillingSid to use for billing.
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.quantity: Optional[float] = payload.get("quantity")
-            self.sid: Optional[str] = payload.get("sid")
-
-        def to_dict(self):
-            return {
-                "quantity": self.quantity,
-                "sid": self.sid,
             }
 
     def __init__(self, version: Version, installed_add_on_sid: str):
@@ -94,7 +84,7 @@ class InstalledAddOnUsageList(ListResource):
         Initialize the InstalledAddOnUsageList
 
         :param version: Version that contains the resource
-        :param installed_add_on_sid:
+        :param installed_add_on_sid: Customer Installation SID to report usage on.
 
         """
         super().__init__(version)

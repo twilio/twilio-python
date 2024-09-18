@@ -30,6 +30,7 @@ class ModuleDataManagementInstance(InstanceResource):
     :ivar module_info: A JSON object containing essential attributes that define a module. This information is presented on the Module detail page in the Twilio Marketplace Catalog. You can pass the following attributes in the JSON object
     :ivar documentation: A JSON object for providing comprehensive information, instructions, and resources related to the module
     :ivar configuration: A JSON object for providing listing specific configuration. Contains button setup, notification url, among others.
+    :ivar pricing: A JSON object for providing Listing specific pricing information.
     """
 
     def __init__(
@@ -45,6 +46,7 @@ class ModuleDataManagementInstance(InstanceResource):
         self.module_info: Optional[Dict[str, object]] = payload.get("module_info")
         self.documentation: Optional[Dict[str, object]] = payload.get("documentation")
         self.configuration: Optional[Dict[str, object]] = payload.get("configuration")
+        self.pricing: Optional[Dict[str, object]] = payload.get("pricing")
 
         self._solution = {
             "sid": sid or self.sid,
@@ -92,16 +94,18 @@ class ModuleDataManagementInstance(InstanceResource):
         policies: Union[str, object] = values.unset,
         support: Union[str, object] = values.unset,
         configuration: Union[str, object] = values.unset,
+        pricing: Union[str, object] = values.unset,
     ) -> "ModuleDataManagementInstance":
         """
         Update the ModuleDataManagementInstance
 
-        :param module_info:
-        :param description:
-        :param documentation:
-        :param policies:
-        :param support:
-        :param configuration:
+        :param module_info: A JSON object containing essential attributes that define a Listing.
+        :param description: A JSON object describing the Listing. You can define the main body of the description, highlight key features or aspects of the Listing, and provide code samples for developers if applicable.
+        :param documentation: A JSON object for providing comprehensive information, instructions, and resources related to the Listing.
+        :param policies: A JSON object describing the Listing's privacy and legal policies. The maximum file size for Policies is 5MB.
+        :param support: A JSON object containing information on how Marketplace users can obtain support for the Listing. Use this parameter to provide details such as contact information and support description.
+        :param configuration: A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
+        :param pricing: A JSON object for providing Listing's purchase options.
 
         :returns: The updated ModuleDataManagementInstance
         """
@@ -112,6 +116,7 @@ class ModuleDataManagementInstance(InstanceResource):
             policies=policies,
             support=support,
             configuration=configuration,
+            pricing=pricing,
         )
 
     async def update_async(
@@ -122,16 +127,18 @@ class ModuleDataManagementInstance(InstanceResource):
         policies: Union[str, object] = values.unset,
         support: Union[str, object] = values.unset,
         configuration: Union[str, object] = values.unset,
+        pricing: Union[str, object] = values.unset,
     ) -> "ModuleDataManagementInstance":
         """
         Asynchronous coroutine to update the ModuleDataManagementInstance
 
-        :param module_info:
-        :param description:
-        :param documentation:
-        :param policies:
-        :param support:
-        :param configuration:
+        :param module_info: A JSON object containing essential attributes that define a Listing.
+        :param description: A JSON object describing the Listing. You can define the main body of the description, highlight key features or aspects of the Listing, and provide code samples for developers if applicable.
+        :param documentation: A JSON object for providing comprehensive information, instructions, and resources related to the Listing.
+        :param policies: A JSON object describing the Listing's privacy and legal policies. The maximum file size for Policies is 5MB.
+        :param support: A JSON object containing information on how Marketplace users can obtain support for the Listing. Use this parameter to provide details such as contact information and support description.
+        :param configuration: A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
+        :param pricing: A JSON object for providing Listing's purchase options.
 
         :returns: The updated ModuleDataManagementInstance
         """
@@ -142,6 +149,7 @@ class ModuleDataManagementInstance(InstanceResource):
             policies=policies,
             support=support,
             configuration=configuration,
+            pricing=pricing,
         )
 
     def __repr__(self) -> str:
@@ -161,7 +169,7 @@ class ModuleDataManagementContext(InstanceContext):
         Initialize the ModuleDataManagementContext
 
         :param version: Version that contains the resource
-        :param sid:
+        :param sid: SID that uniquely identifies the Listing.
         """
         super().__init__(version)
 
@@ -217,16 +225,18 @@ class ModuleDataManagementContext(InstanceContext):
         policies: Union[str, object] = values.unset,
         support: Union[str, object] = values.unset,
         configuration: Union[str, object] = values.unset,
+        pricing: Union[str, object] = values.unset,
     ) -> ModuleDataManagementInstance:
         """
         Update the ModuleDataManagementInstance
 
-        :param module_info:
-        :param description:
-        :param documentation:
-        :param policies:
-        :param support:
-        :param configuration:
+        :param module_info: A JSON object containing essential attributes that define a Listing.
+        :param description: A JSON object describing the Listing. You can define the main body of the description, highlight key features or aspects of the Listing, and provide code samples for developers if applicable.
+        :param documentation: A JSON object for providing comprehensive information, instructions, and resources related to the Listing.
+        :param policies: A JSON object describing the Listing's privacy and legal policies. The maximum file size for Policies is 5MB.
+        :param support: A JSON object containing information on how Marketplace users can obtain support for the Listing. Use this parameter to provide details such as contact information and support description.
+        :param configuration: A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
+        :param pricing: A JSON object for providing Listing's purchase options.
 
         :returns: The updated ModuleDataManagementInstance
         """
@@ -238,6 +248,7 @@ class ModuleDataManagementContext(InstanceContext):
                 "Policies": policies,
                 "Support": support,
                 "Configuration": configuration,
+                "Pricing": pricing,
             }
         )
 
@@ -259,16 +270,18 @@ class ModuleDataManagementContext(InstanceContext):
         policies: Union[str, object] = values.unset,
         support: Union[str, object] = values.unset,
         configuration: Union[str, object] = values.unset,
+        pricing: Union[str, object] = values.unset,
     ) -> ModuleDataManagementInstance:
         """
         Asynchronous coroutine to update the ModuleDataManagementInstance
 
-        :param module_info:
-        :param description:
-        :param documentation:
-        :param policies:
-        :param support:
-        :param configuration:
+        :param module_info: A JSON object containing essential attributes that define a Listing.
+        :param description: A JSON object describing the Listing. You can define the main body of the description, highlight key features or aspects of the Listing, and provide code samples for developers if applicable.
+        :param documentation: A JSON object for providing comprehensive information, instructions, and resources related to the Listing.
+        :param policies: A JSON object describing the Listing's privacy and legal policies. The maximum file size for Policies is 5MB.
+        :param support: A JSON object containing information on how Marketplace users can obtain support for the Listing. Use this parameter to provide details such as contact information and support description.
+        :param configuration: A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
+        :param pricing: A JSON object for providing Listing's purchase options.
 
         :returns: The updated ModuleDataManagementInstance
         """
@@ -280,6 +293,7 @@ class ModuleDataManagementContext(InstanceContext):
                 "Policies": policies,
                 "Support": support,
                 "Configuration": configuration,
+                "Pricing": pricing,
             }
         )
 
@@ -318,7 +332,7 @@ class ModuleDataManagementList(ListResource):
         """
         Constructs a ModuleDataManagementContext
 
-        :param sid:
+        :param sid: SID that uniquely identifies the Listing.
         """
         return ModuleDataManagementContext(self._version, sid=sid)
 
@@ -326,7 +340,7 @@ class ModuleDataManagementList(ListResource):
         """
         Constructs a ModuleDataManagementContext
 
-        :param sid:
+        :param sid: SID that uniquely identifies the Listing.
         """
         return ModuleDataManagementContext(self._version, sid=sid)
 

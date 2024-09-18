@@ -16,6 +16,7 @@ from twilio.base.client_base import ClientBase
 if TYPE_CHECKING:
     from twilio.rest.accounts import Accounts
     from twilio.rest.api import Api
+    from twilio.rest.assistants import Assistants
     from twilio.rest.bulkexports import Bulkexports
     from twilio.rest.chat import Chat
     from twilio.rest.content import Content
@@ -125,6 +126,7 @@ class Client(ClientBase):
         # Domains
         self._accounts: Optional["Accounts"] = None
         self._api: Optional["Api"] = None
+        self._assistants: Optional["Assistants"] = None
         self._bulkexports: Optional["Bulkexports"] = None
         self._chat: Optional["Chat"] = None
         self._content: Optional["Content"] = None
@@ -185,6 +187,19 @@ class Client(ClientBase):
 
             self._api = Api(self)
         return self._api
+
+    @property
+    def assistants(self) -> "Assistants":
+        """
+        Access the Assistants Twilio Domain
+
+        :returns: Assistants Twilio Domain
+        """
+        if self._assistants is None:
+            from twilio.rest.assistants import Assistants
+
+            self._assistants = Assistants(self)
+        return self._assistants
 
     @property
     def bulkexports(self) -> "Bulkexports":
