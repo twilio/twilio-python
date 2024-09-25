@@ -21,6 +21,7 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.assistants.v1.knowledge.chunk import ChunkList
+from twilio.rest.assistants.v1.knowledge.knowledge_status import KnowledgeStatusList
 
 
 class KnowledgeInstance(InstanceResource):
@@ -32,6 +33,7 @@ class KnowledgeInstance(InstanceResource):
     :ivar name: The name of the knowledge source.
     :ivar status: The status of processing the knowledge source ('QUEUED', 'PROCESSING', 'COMPLETED', 'FAILED')
     :ivar type: The type of knowledge source ('Web', 'Database', 'Text', 'File')
+    :ivar url: The url of the knowledge resource.
     :ivar date_created: The date and time in GMT when the Knowledge was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the Knowledge was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     """
@@ -50,6 +52,7 @@ class KnowledgeInstance(InstanceResource):
         self.name: Optional[str] = payload.get("name")
         self.status: Optional[str] = payload.get("status")
         self.type: Optional[str] = payload.get("type")
+        self.url: Optional[str] = payload.get("url")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
@@ -154,6 +157,13 @@ class KnowledgeInstance(InstanceResource):
         """
         return self._proxy.chunks
 
+    @property
+    def knowledge_status(self) -> KnowledgeStatusList:
+        """
+        Access the knowledge_status
+        """
+        return self._proxy.knowledge_status
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -182,6 +192,7 @@ class KnowledgeContext(InstanceContext):
         self._uri = "/Knowledge/{id}".format(**self._solution)
 
         self._chunks: Optional[ChunkList] = None
+        self._knowledge_status: Optional[KnowledgeStatusList] = None
 
     def delete(self) -> bool:
         """
@@ -308,6 +319,18 @@ class KnowledgeContext(InstanceContext):
                 self._solution["id"],
             )
         return self._chunks
+
+    @property
+    def knowledge_status(self) -> KnowledgeStatusList:
+        """
+        Access the knowledge_status
+        """
+        if self._knowledge_status is None:
+            self._knowledge_status = KnowledgeStatusList(
+                self._version,
+                self._solution["id"],
+            )
+        return self._knowledge_status
 
     def __repr__(self) -> str:
         """

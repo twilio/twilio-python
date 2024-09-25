@@ -32,8 +32,10 @@ class ToolInstance(InstanceResource):
     :ivar name: The name of the tool.
     :ivar requires_auth: The authentication requirement for the tool.
     :ivar type: The type of the tool. ('WEBHOOK')
+    :ivar url: The url of the tool resource.
     :ivar date_created: The date and time in GMT when the Tool was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the Tool was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+    :ivar policies: The Policies associated with the tool.
     """
 
     def __init__(
@@ -49,12 +51,14 @@ class ToolInstance(InstanceResource):
         self.name: Optional[str] = payload.get("name")
         self.requires_auth: Optional[bool] = payload.get("requires_auth")
         self.type: Optional[str] = payload.get("type")
+        self.url: Optional[str] = payload.get("url")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
         self.date_updated: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_updated")
         )
+        self.policies: Optional[List[str]] = payload.get("policies")
 
         self._solution = {
             "id": id or self.id,
@@ -93,6 +97,24 @@ class ToolInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
+
+    def fetch(self) -> "ToolInstance":
+        """
+        Fetch the ToolInstance
+
+
+        :returns: The fetched ToolInstance
+        """
+        return self._proxy.fetch()
+
+    async def fetch_async(self) -> "ToolInstance":
+        """
+        Asynchronous coroutine to fetch the ToolInstance
+
+
+        :returns: The fetched ToolInstance
+        """
+        return await self._proxy.fetch_async()
 
     def update(
         self,
@@ -177,6 +199,44 @@ class ToolContext(InstanceContext):
         return await self._version.delete_async(
             method="DELETE",
             uri=self._uri,
+        )
+
+    def fetch(self) -> ToolInstance:
+        """
+        Fetch the ToolInstance
+
+
+        :returns: The fetched ToolInstance
+        """
+
+        payload = self._version.fetch(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return ToolInstance(
+            self._version,
+            payload,
+            id=self._solution["id"],
+        )
+
+    async def fetch_async(self) -> ToolInstance:
+        """
+        Asynchronous coroutine to fetch the ToolInstance
+
+
+        :returns: The fetched ToolInstance
+        """
+
+        payload = await self._version.fetch_async(
+            method="GET",
+            uri=self._uri,
+        )
+
+        return ToolInstance(
+            self._version,
+            payload,
+            id=self._solution["id"],
         )
 
     def update(

@@ -20,7 +20,12 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+from twilio.rest.assistants.v1.assistant.assistants_knowledge import (
+    AssistantsKnowledgeList,
+)
+from twilio.rest.assistants.v1.assistant.assistants_tool import AssistantsToolList
 from twilio.rest.assistants.v1.assistant.feedback import FeedbackList
+from twilio.rest.assistants.v1.assistant.message import MessageList
 
 
 class AssistantInstance(InstanceResource):
@@ -31,6 +36,7 @@ class AssistantInstance(InstanceResource):
     :ivar model: The default model used by the assistant.
     :ivar name: The name of the assistant.
     :ivar owner: The owner/company of the assistant.
+    :ivar url: The url of the assistant resource.
     :ivar personality_prompt: The personality prompt to be used for assistant.
     :ivar date_created: The date and time in GMT when the Assistant was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the Assistant was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -49,6 +55,7 @@ class AssistantInstance(InstanceResource):
         self.model: Optional[str] = payload.get("model")
         self.name: Optional[str] = payload.get("name")
         self.owner: Optional[str] = payload.get("owner")
+        self.url: Optional[str] = payload.get("url")
         self.personality_prompt: Optional[str] = payload.get("personality_prompt")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
@@ -150,11 +157,32 @@ class AssistantInstance(InstanceResource):
         )
 
     @property
+    def assistants_knowledge(self) -> AssistantsKnowledgeList:
+        """
+        Access the assistants_knowledge
+        """
+        return self._proxy.assistants_knowledge
+
+    @property
+    def assistants_tools(self) -> AssistantsToolList:
+        """
+        Access the assistants_tools
+        """
+        return self._proxy.assistants_tools
+
+    @property
     def feedbacks(self) -> FeedbackList:
         """
         Access the feedbacks
         """
         return self._proxy.feedbacks
+
+    @property
+    def messages(self) -> MessageList:
+        """
+        Access the messages
+        """
+        return self._proxy.messages
 
     def __repr__(self) -> str:
         """
@@ -183,7 +211,10 @@ class AssistantContext(InstanceContext):
         }
         self._uri = "/Assistants/{id}".format(**self._solution)
 
+        self._assistants_knowledge: Optional[AssistantsKnowledgeList] = None
+        self._assistants_tools: Optional[AssistantsToolList] = None
         self._feedbacks: Optional[FeedbackList] = None
+        self._messages: Optional[MessageList] = None
 
     def delete(self) -> bool:
         """
@@ -300,6 +331,30 @@ class AssistantContext(InstanceContext):
         return AssistantInstance(self._version, payload, id=self._solution["id"])
 
     @property
+    def assistants_knowledge(self) -> AssistantsKnowledgeList:
+        """
+        Access the assistants_knowledge
+        """
+        if self._assistants_knowledge is None:
+            self._assistants_knowledge = AssistantsKnowledgeList(
+                self._version,
+                self._solution["id"],
+            )
+        return self._assistants_knowledge
+
+    @property
+    def assistants_tools(self) -> AssistantsToolList:
+        """
+        Access the assistants_tools
+        """
+        if self._assistants_tools is None:
+            self._assistants_tools = AssistantsToolList(
+                self._version,
+                self._solution["id"],
+            )
+        return self._assistants_tools
+
+    @property
     def feedbacks(self) -> FeedbackList:
         """
         Access the feedbacks
@@ -310,6 +365,18 @@ class AssistantContext(InstanceContext):
                 self._solution["id"],
             )
         return self._feedbacks
+
+    @property
+    def messages(self) -> MessageList:
+        """
+        Access the messages
+        """
+        if self._messages is None:
+            self._messages = MessageList(
+                self._version,
+                self._solution["id"],
+            )
+        return self._messages
 
     def __repr__(self) -> str:
         """
