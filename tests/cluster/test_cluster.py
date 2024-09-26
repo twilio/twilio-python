@@ -20,14 +20,6 @@ class ClusterTest(unittest.TestCase):
         self.voice_twiml = VoiceResponse()
 
 
-    def test_token_fetch(self):
-        token = self.client.preview_iam.token.create(
-            grant_type = GRANT_TYPE,
-            client_id = CLIENT_ID,
-            client_secret = CLIENT_SECRET)
-        print(f'{token}')
-
-
     def test_send_text_message(self):
         msg = self.client.messages.create(
             to=self.to_number, from_=self.from_number, body="hello world"
