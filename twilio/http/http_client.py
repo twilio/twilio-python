@@ -8,7 +8,6 @@ from requests.adapters import HTTPAdapter
 from twilio.http import HttpClient
 from twilio.http.request import Request as TwilioRequest
 from twilio.http.response import Response
-from twilio.authStrategy.authStrategy import AuthStrategy
 
 _logger = logging.getLogger("twilio.http_client")
 
