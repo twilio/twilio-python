@@ -79,9 +79,10 @@ class TwilioHttpClient(HttpClient):
         elif timeout <= 0:
             raise ValueError(timeout)
 
-        if "Requires-Authentication" in headers:
-            headers.pop("Requires-Authentication", None)
-            auth = None
+        if headers:
+            if "Requires-Authentication" in headers:
+                headers.pop("Requires-Authentication", None)
+                auth = None
 
         kwargs = {
             "method": method.upper(),
