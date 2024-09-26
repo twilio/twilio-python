@@ -95,7 +95,6 @@ class ClientBase(object):
         ##Using the auth strategy, fetch the auth string and set it to authorization header
         auth_strategy = None ##Initialization
         if self.credential_provider:
-            print(f'Reached here 2 {self.credential_provider}')
             auth_strategy = self.credential_provider.to_auth_strategy()
             if auth_strategy.auth_type == AuthType.TOKEN:
                 auth_strategy.fetch_token()
@@ -104,8 +103,6 @@ class ClientBase(object):
                 headers["Authorization"] = auth_strategy.get_auth_string()
         else:
             auth = self.get_auth(auth)
-
-            print(f'auth2 *** {auth}')
 
 
         uri = self.get_hostname(uri)
@@ -160,7 +157,6 @@ class ClientBase(object):
         ##Using the auth strategy, fetch the auth string and set it to authorization header
         auth_strategy = None ##Initialization
         if self.credential_provider:
-            print(f'Reached here 1')
             auth_strategy = self.credential_provider.to_auth_strategy()
             if auth_strategy.auth_type == AuthType.TOKEN:
                 auth_strategy.fetch_token()
@@ -169,8 +165,6 @@ class ClientBase(object):
                 headers["Authorization"] = auth_strategy.get_auth_string()
         else:
             auth = self.get_auth(auth)
-
-        print(f'auth2 *** {auth}')
 
         return await self.http_client.request(
             method,
