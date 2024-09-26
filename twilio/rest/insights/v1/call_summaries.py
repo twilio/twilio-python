@@ -182,7 +182,6 @@ class CallSummariesList(ListResource):
         to_carrier: Union[str, object] = values.unset,
         from_country_code: Union[str, object] = values.unset,
         to_country_code: Union[str, object] = values.unset,
-        branded: Union[bool, object] = values.unset,
         verified_caller: Union[bool, object] = values.unset,
         has_tag: Union[bool, object] = values.unset,
         start_time: Union[str, object] = values.unset,
@@ -202,6 +201,15 @@ class CallSummariesList(ListResource):
         quality_issue_annotation: Union[str, object] = values.unset,
         spam_annotation: Union[bool, object] = values.unset,
         call_score_annotation: Union[str, object] = values.unset,
+        branded_enabled: Union[bool, object] = values.unset,
+        voice_integrity_enabled: Union[bool, object] = values.unset,
+        branded_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_use_case: Union[str, object] = values.unset,
+        business_profile_identity: Union[str, object] = values.unset,
+        business_profile_industry: Union[str, object] = values.unset,
+        business_profile_bundle_sid: Union[str, object] = values.unset,
+        business_profile_type: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[CallSummariesInstance]:
@@ -217,8 +225,7 @@ class CallSummariesList(ListResource):
         :param str to_carrier: A destination carrier.
         :param str from_country_code: A source country code based on phone number in From.
         :param str to_country_code: A destination country code. Based on phone number in To.
-        :param bool branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
-        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of 'true' or 'false'.
         :param bool has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
         :param str start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
         :param str end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
@@ -235,6 +242,15 @@ class CallSummariesList(ListResource):
         :param str quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
         :param bool spam_annotation: A boolean flag indicating spam calls.
         :param str call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param bool branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
+        :param bool voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
+        :param str branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param str voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
+        :param str voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
+        :param str business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
+        :param str business_profile_industry: A Business Industry of the calls. Is of type enum. One of 'automotive', 'agriculture', 'banking', 'consumer', 'construction', 'education', 'engineering', 'energy', 'oil_and_gas', 'fast_moving_consumer_goods', 'financial', 'fintech', 'food_and_beverage', 'government', 'healthcare', 'hospitality', 'insurance', 'legal', 'manufacturing', 'media', 'online', 'professional_services', 'raw_materials', 'real_estate', 'religion', 'retail', 'jewelry', 'technology', 'telecommunications', 'transportation', 'travel', 'electronics', 'not_for_profit'
+        :param str business_profile_bundle_sid: A unique SID identifier of the Business Profile.
+        :param str business_profile_type: A Business Profile Type of the calls. Is of type enum. One of 'primary', 'secondary'.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -252,7 +268,6 @@ class CallSummariesList(ListResource):
             to_carrier=to_carrier,
             from_country_code=from_country_code,
             to_country_code=to_country_code,
-            branded=branded,
             verified_caller=verified_caller,
             has_tag=has_tag,
             start_time=start_time,
@@ -270,6 +285,15 @@ class CallSummariesList(ListResource):
             quality_issue_annotation=quality_issue_annotation,
             spam_annotation=spam_annotation,
             call_score_annotation=call_score_annotation,
+            branded_enabled=branded_enabled,
+            voice_integrity_enabled=voice_integrity_enabled,
+            branded_bundle_sid=branded_bundle_sid,
+            voice_integrity_bundle_sid=voice_integrity_bundle_sid,
+            voice_integrity_use_case=voice_integrity_use_case,
+            business_profile_identity=business_profile_identity,
+            business_profile_industry=business_profile_industry,
+            business_profile_bundle_sid=business_profile_bundle_sid,
+            business_profile_type=business_profile_type,
             page_size=limits["page_size"],
         )
 
@@ -283,7 +307,6 @@ class CallSummariesList(ListResource):
         to_carrier: Union[str, object] = values.unset,
         from_country_code: Union[str, object] = values.unset,
         to_country_code: Union[str, object] = values.unset,
-        branded: Union[bool, object] = values.unset,
         verified_caller: Union[bool, object] = values.unset,
         has_tag: Union[bool, object] = values.unset,
         start_time: Union[str, object] = values.unset,
@@ -303,6 +326,15 @@ class CallSummariesList(ListResource):
         quality_issue_annotation: Union[str, object] = values.unset,
         spam_annotation: Union[bool, object] = values.unset,
         call_score_annotation: Union[str, object] = values.unset,
+        branded_enabled: Union[bool, object] = values.unset,
+        voice_integrity_enabled: Union[bool, object] = values.unset,
+        branded_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_use_case: Union[str, object] = values.unset,
+        business_profile_identity: Union[str, object] = values.unset,
+        business_profile_industry: Union[str, object] = values.unset,
+        business_profile_bundle_sid: Union[str, object] = values.unset,
+        business_profile_type: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[CallSummariesInstance]:
@@ -318,8 +350,7 @@ class CallSummariesList(ListResource):
         :param str to_carrier: A destination carrier.
         :param str from_country_code: A source country code based on phone number in From.
         :param str to_country_code: A destination country code. Based on phone number in To.
-        :param bool branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
-        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of 'true' or 'false'.
         :param bool has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
         :param str start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
         :param str end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
@@ -336,6 +367,15 @@ class CallSummariesList(ListResource):
         :param str quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
         :param bool spam_annotation: A boolean flag indicating spam calls.
         :param str call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param bool branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
+        :param bool voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
+        :param str branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param str voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
+        :param str voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
+        :param str business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
+        :param str business_profile_industry: A Business Industry of the calls. Is of type enum. One of 'automotive', 'agriculture', 'banking', 'consumer', 'construction', 'education', 'engineering', 'energy', 'oil_and_gas', 'fast_moving_consumer_goods', 'financial', 'fintech', 'food_and_beverage', 'government', 'healthcare', 'hospitality', 'insurance', 'legal', 'manufacturing', 'media', 'online', 'professional_services', 'raw_materials', 'real_estate', 'religion', 'retail', 'jewelry', 'technology', 'telecommunications', 'transportation', 'travel', 'electronics', 'not_for_profit'
+        :param str business_profile_bundle_sid: A unique SID identifier of the Business Profile.
+        :param str business_profile_type: A Business Profile Type of the calls. Is of type enum. One of 'primary', 'secondary'.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -353,7 +393,6 @@ class CallSummariesList(ListResource):
             to_carrier=to_carrier,
             from_country_code=from_country_code,
             to_country_code=to_country_code,
-            branded=branded,
             verified_caller=verified_caller,
             has_tag=has_tag,
             start_time=start_time,
@@ -371,6 +410,15 @@ class CallSummariesList(ListResource):
             quality_issue_annotation=quality_issue_annotation,
             spam_annotation=spam_annotation,
             call_score_annotation=call_score_annotation,
+            branded_enabled=branded_enabled,
+            voice_integrity_enabled=voice_integrity_enabled,
+            branded_bundle_sid=branded_bundle_sid,
+            voice_integrity_bundle_sid=voice_integrity_bundle_sid,
+            voice_integrity_use_case=voice_integrity_use_case,
+            business_profile_identity=business_profile_identity,
+            business_profile_industry=business_profile_industry,
+            business_profile_bundle_sid=business_profile_bundle_sid,
+            business_profile_type=business_profile_type,
             page_size=limits["page_size"],
         )
 
@@ -384,7 +432,6 @@ class CallSummariesList(ListResource):
         to_carrier: Union[str, object] = values.unset,
         from_country_code: Union[str, object] = values.unset,
         to_country_code: Union[str, object] = values.unset,
-        branded: Union[bool, object] = values.unset,
         verified_caller: Union[bool, object] = values.unset,
         has_tag: Union[bool, object] = values.unset,
         start_time: Union[str, object] = values.unset,
@@ -404,6 +451,15 @@ class CallSummariesList(ListResource):
         quality_issue_annotation: Union[str, object] = values.unset,
         spam_annotation: Union[bool, object] = values.unset,
         call_score_annotation: Union[str, object] = values.unset,
+        branded_enabled: Union[bool, object] = values.unset,
+        voice_integrity_enabled: Union[bool, object] = values.unset,
+        branded_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_use_case: Union[str, object] = values.unset,
+        business_profile_identity: Union[str, object] = values.unset,
+        business_profile_industry: Union[str, object] = values.unset,
+        business_profile_bundle_sid: Union[str, object] = values.unset,
+        business_profile_type: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CallSummariesInstance]:
@@ -418,8 +474,7 @@ class CallSummariesList(ListResource):
         :param str to_carrier: A destination carrier.
         :param str from_country_code: A source country code based on phone number in From.
         :param str to_country_code: A destination country code. Based on phone number in To.
-        :param bool branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
-        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of 'true' or 'false'.
         :param bool has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
         :param str start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
         :param str end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
@@ -436,6 +491,15 @@ class CallSummariesList(ListResource):
         :param str quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
         :param bool spam_annotation: A boolean flag indicating spam calls.
         :param str call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param bool branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
+        :param bool voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
+        :param str branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param str voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
+        :param str voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
+        :param str business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
+        :param str business_profile_industry: A Business Industry of the calls. Is of type enum. One of 'automotive', 'agriculture', 'banking', 'consumer', 'construction', 'education', 'engineering', 'energy', 'oil_and_gas', 'fast_moving_consumer_goods', 'financial', 'fintech', 'food_and_beverage', 'government', 'healthcare', 'hospitality', 'insurance', 'legal', 'manufacturing', 'media', 'online', 'professional_services', 'raw_materials', 'real_estate', 'religion', 'retail', 'jewelry', 'technology', 'telecommunications', 'transportation', 'travel', 'electronics', 'not_for_profit'
+        :param str business_profile_bundle_sid: A unique SID identifier of the Business Profile.
+        :param str business_profile_type: A Business Profile Type of the calls. Is of type enum. One of 'primary', 'secondary'.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -453,7 +517,6 @@ class CallSummariesList(ListResource):
                 to_carrier=to_carrier,
                 from_country_code=from_country_code,
                 to_country_code=to_country_code,
-                branded=branded,
                 verified_caller=verified_caller,
                 has_tag=has_tag,
                 start_time=start_time,
@@ -471,6 +534,15 @@ class CallSummariesList(ListResource):
                 quality_issue_annotation=quality_issue_annotation,
                 spam_annotation=spam_annotation,
                 call_score_annotation=call_score_annotation,
+                branded_enabled=branded_enabled,
+                voice_integrity_enabled=voice_integrity_enabled,
+                branded_bundle_sid=branded_bundle_sid,
+                voice_integrity_bundle_sid=voice_integrity_bundle_sid,
+                voice_integrity_use_case=voice_integrity_use_case,
+                business_profile_identity=business_profile_identity,
+                business_profile_industry=business_profile_industry,
+                business_profile_bundle_sid=business_profile_bundle_sid,
+                business_profile_type=business_profile_type,
                 limit=limit,
                 page_size=page_size,
             )
@@ -484,7 +556,6 @@ class CallSummariesList(ListResource):
         to_carrier: Union[str, object] = values.unset,
         from_country_code: Union[str, object] = values.unset,
         to_country_code: Union[str, object] = values.unset,
-        branded: Union[bool, object] = values.unset,
         verified_caller: Union[bool, object] = values.unset,
         has_tag: Union[bool, object] = values.unset,
         start_time: Union[str, object] = values.unset,
@@ -504,6 +575,15 @@ class CallSummariesList(ListResource):
         quality_issue_annotation: Union[str, object] = values.unset,
         spam_annotation: Union[bool, object] = values.unset,
         call_score_annotation: Union[str, object] = values.unset,
+        branded_enabled: Union[bool, object] = values.unset,
+        voice_integrity_enabled: Union[bool, object] = values.unset,
+        branded_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_use_case: Union[str, object] = values.unset,
+        business_profile_identity: Union[str, object] = values.unset,
+        business_profile_industry: Union[str, object] = values.unset,
+        business_profile_bundle_sid: Union[str, object] = values.unset,
+        business_profile_type: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[CallSummariesInstance]:
@@ -518,8 +598,7 @@ class CallSummariesList(ListResource):
         :param str to_carrier: A destination carrier.
         :param str from_country_code: A source country code based on phone number in From.
         :param str to_country_code: A destination country code. Based on phone number in To.
-        :param bool branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
-        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of 'true' or 'false'.
         :param bool has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
         :param str start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
         :param str end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
@@ -536,6 +615,15 @@ class CallSummariesList(ListResource):
         :param str quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
         :param bool spam_annotation: A boolean flag indicating spam calls.
         :param str call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param bool branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
+        :param bool voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
+        :param str branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param str voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
+        :param str voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
+        :param str business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
+        :param str business_profile_industry: A Business Industry of the calls. Is of type enum. One of 'automotive', 'agriculture', 'banking', 'consumer', 'construction', 'education', 'engineering', 'energy', 'oil_and_gas', 'fast_moving_consumer_goods', 'financial', 'fintech', 'food_and_beverage', 'government', 'healthcare', 'hospitality', 'insurance', 'legal', 'manufacturing', 'media', 'online', 'professional_services', 'raw_materials', 'real_estate', 'religion', 'retail', 'jewelry', 'technology', 'telecommunications', 'transportation', 'travel', 'electronics', 'not_for_profit'
+        :param str business_profile_bundle_sid: A unique SID identifier of the Business Profile.
+        :param str business_profile_type: A Business Profile Type of the calls. Is of type enum. One of 'primary', 'secondary'.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -554,7 +642,6 @@ class CallSummariesList(ListResource):
                 to_carrier=to_carrier,
                 from_country_code=from_country_code,
                 to_country_code=to_country_code,
-                branded=branded,
                 verified_caller=verified_caller,
                 has_tag=has_tag,
                 start_time=start_time,
@@ -572,6 +659,15 @@ class CallSummariesList(ListResource):
                 quality_issue_annotation=quality_issue_annotation,
                 spam_annotation=spam_annotation,
                 call_score_annotation=call_score_annotation,
+                branded_enabled=branded_enabled,
+                voice_integrity_enabled=voice_integrity_enabled,
+                branded_bundle_sid=branded_bundle_sid,
+                voice_integrity_bundle_sid=voice_integrity_bundle_sid,
+                voice_integrity_use_case=voice_integrity_use_case,
+                business_profile_identity=business_profile_identity,
+                business_profile_industry=business_profile_industry,
+                business_profile_bundle_sid=business_profile_bundle_sid,
+                business_profile_type=business_profile_type,
                 limit=limit,
                 page_size=page_size,
             )
@@ -585,7 +681,6 @@ class CallSummariesList(ListResource):
         to_carrier: Union[str, object] = values.unset,
         from_country_code: Union[str, object] = values.unset,
         to_country_code: Union[str, object] = values.unset,
-        branded: Union[bool, object] = values.unset,
         verified_caller: Union[bool, object] = values.unset,
         has_tag: Union[bool, object] = values.unset,
         start_time: Union[str, object] = values.unset,
@@ -605,6 +700,15 @@ class CallSummariesList(ListResource):
         quality_issue_annotation: Union[str, object] = values.unset,
         spam_annotation: Union[bool, object] = values.unset,
         call_score_annotation: Union[str, object] = values.unset,
+        branded_enabled: Union[bool, object] = values.unset,
+        voice_integrity_enabled: Union[bool, object] = values.unset,
+        branded_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_use_case: Union[str, object] = values.unset,
+        business_profile_identity: Union[str, object] = values.unset,
+        business_profile_industry: Union[str, object] = values.unset,
+        business_profile_bundle_sid: Union[str, object] = values.unset,
+        business_profile_type: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -619,8 +723,7 @@ class CallSummariesList(ListResource):
         :param to_carrier: A destination carrier.
         :param from_country_code: A source country code based on phone number in From.
         :param to_country_code: A destination country code. Based on phone number in To.
-        :param branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
-        :param verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of 'true' or 'false'.
         :param has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
         :param start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
         :param end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
@@ -637,6 +740,15 @@ class CallSummariesList(ListResource):
         :param quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
         :param spam_annotation: A boolean flag indicating spam calls.
         :param call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
+        :param voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
+        :param branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
+        :param voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
+        :param business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
+        :param business_profile_industry: A Business Industry of the calls. Is of type enum. One of 'automotive', 'agriculture', 'banking', 'consumer', 'construction', 'education', 'engineering', 'energy', 'oil_and_gas', 'fast_moving_consumer_goods', 'financial', 'fintech', 'food_and_beverage', 'government', 'healthcare', 'hospitality', 'insurance', 'legal', 'manufacturing', 'media', 'online', 'professional_services', 'raw_materials', 'real_estate', 'religion', 'retail', 'jewelry', 'technology', 'telecommunications', 'transportation', 'travel', 'electronics', 'not_for_profit'
+        :param business_profile_bundle_sid: A unique SID identifier of the Business Profile.
+        :param business_profile_type: A Business Profile Type of the calls. Is of type enum. One of 'primary', 'secondary'.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -651,7 +763,6 @@ class CallSummariesList(ListResource):
                 "ToCarrier": to_carrier,
                 "FromCountryCode": from_country_code,
                 "ToCountryCode": to_country_code,
-                "Branded": serialize.boolean_to_string(branded),
                 "VerifiedCaller": serialize.boolean_to_string(verified_caller),
                 "HasTag": serialize.boolean_to_string(has_tag),
                 "StartTime": start_time,
@@ -669,6 +780,17 @@ class CallSummariesList(ListResource):
                 "QualityIssueAnnotation": quality_issue_annotation,
                 "SpamAnnotation": serialize.boolean_to_string(spam_annotation),
                 "CallScoreAnnotation": call_score_annotation,
+                "BrandedEnabled": serialize.boolean_to_string(branded_enabled),
+                "VoiceIntegrityEnabled": serialize.boolean_to_string(
+                    voice_integrity_enabled
+                ),
+                "BrandedBundleSid": branded_bundle_sid,
+                "VoiceIntegrityBundleSid": voice_integrity_bundle_sid,
+                "VoiceIntegrityUseCase": voice_integrity_use_case,
+                "BusinessProfileIdentity": business_profile_identity,
+                "BusinessProfileIndustry": business_profile_industry,
+                "BusinessProfileBundleSid": business_profile_bundle_sid,
+                "BusinessProfileType": business_profile_type,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -686,7 +808,6 @@ class CallSummariesList(ListResource):
         to_carrier: Union[str, object] = values.unset,
         from_country_code: Union[str, object] = values.unset,
         to_country_code: Union[str, object] = values.unset,
-        branded: Union[bool, object] = values.unset,
         verified_caller: Union[bool, object] = values.unset,
         has_tag: Union[bool, object] = values.unset,
         start_time: Union[str, object] = values.unset,
@@ -706,6 +827,15 @@ class CallSummariesList(ListResource):
         quality_issue_annotation: Union[str, object] = values.unset,
         spam_annotation: Union[bool, object] = values.unset,
         call_score_annotation: Union[str, object] = values.unset,
+        branded_enabled: Union[bool, object] = values.unset,
+        voice_integrity_enabled: Union[bool, object] = values.unset,
+        branded_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_use_case: Union[str, object] = values.unset,
+        business_profile_identity: Union[str, object] = values.unset,
+        business_profile_industry: Union[str, object] = values.unset,
+        business_profile_bundle_sid: Union[str, object] = values.unset,
+        business_profile_type: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -720,8 +850,7 @@ class CallSummariesList(ListResource):
         :param to_carrier: A destination carrier.
         :param from_country_code: A source country code based on phone number in From.
         :param to_country_code: A destination country code. Based on phone number in To.
-        :param branded: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls.
-        :param verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.
+        :param verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of 'true' or 'false'.
         :param has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
         :param start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
         :param end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
@@ -738,6 +867,15 @@ class CallSummariesList(ListResource):
         :param quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
         :param spam_annotation: A boolean flag indicating spam calls.
         :param call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
+        :param voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
+        :param branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
+        :param voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
+        :param business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
+        :param business_profile_industry: A Business Industry of the calls. Is of type enum. One of 'automotive', 'agriculture', 'banking', 'consumer', 'construction', 'education', 'engineering', 'energy', 'oil_and_gas', 'fast_moving_consumer_goods', 'financial', 'fintech', 'food_and_beverage', 'government', 'healthcare', 'hospitality', 'insurance', 'legal', 'manufacturing', 'media', 'online', 'professional_services', 'raw_materials', 'real_estate', 'religion', 'retail', 'jewelry', 'technology', 'telecommunications', 'transportation', 'travel', 'electronics', 'not_for_profit'
+        :param business_profile_bundle_sid: A unique SID identifier of the Business Profile.
+        :param business_profile_type: A Business Profile Type of the calls. Is of type enum. One of 'primary', 'secondary'.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -752,7 +890,6 @@ class CallSummariesList(ListResource):
                 "ToCarrier": to_carrier,
                 "FromCountryCode": from_country_code,
                 "ToCountryCode": to_country_code,
-                "Branded": serialize.boolean_to_string(branded),
                 "VerifiedCaller": serialize.boolean_to_string(verified_caller),
                 "HasTag": serialize.boolean_to_string(has_tag),
                 "StartTime": start_time,
@@ -770,6 +907,17 @@ class CallSummariesList(ListResource):
                 "QualityIssueAnnotation": quality_issue_annotation,
                 "SpamAnnotation": serialize.boolean_to_string(spam_annotation),
                 "CallScoreAnnotation": call_score_annotation,
+                "BrandedEnabled": serialize.boolean_to_string(branded_enabled),
+                "VoiceIntegrityEnabled": serialize.boolean_to_string(
+                    voice_integrity_enabled
+                ),
+                "BrandedBundleSid": branded_bundle_sid,
+                "VoiceIntegrityBundleSid": voice_integrity_bundle_sid,
+                "VoiceIntegrityUseCase": voice_integrity_use_case,
+                "BusinessProfileIdentity": business_profile_identity,
+                "BusinessProfileIndustry": business_profile_industry,
+                "BusinessProfileBundleSid": business_profile_bundle_sid,
+                "BusinessProfileType": business_profile_type,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

@@ -488,6 +488,7 @@ class BundleList(ListResource):
         iso_country: Union[str, object] = values.unset,
         end_user_type: Union["BundleInstance.EndUserType", object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        is_test: Union[bool, object] = values.unset,
     ) -> BundleInstance:
         """
         Create the BundleInstance
@@ -498,7 +499,8 @@ class BundleList(ListResource):
         :param regulation_sid: The unique string of a regulation that is associated to the Bundle resource.
         :param iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param end_user_type:
-        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
+        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param is_test: Indicates that Bundle is a Test Bundle and will be Auto-Rejected
 
         :returns: The created BundleInstance
         """
@@ -512,6 +514,7 @@ class BundleList(ListResource):
                 "IsoCountry": iso_country,
                 "EndUserType": end_user_type,
                 "NumberType": number_type,
+                "IsTest": serialize.boolean_to_string(is_test),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -531,6 +534,7 @@ class BundleList(ListResource):
         iso_country: Union[str, object] = values.unset,
         end_user_type: Union["BundleInstance.EndUserType", object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        is_test: Union[bool, object] = values.unset,
     ) -> BundleInstance:
         """
         Asynchronously create the BundleInstance
@@ -541,7 +545,8 @@ class BundleList(ListResource):
         :param regulation_sid: The unique string of a regulation that is associated to the Bundle resource.
         :param iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param end_user_type:
-        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
+        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param is_test: Indicates that Bundle is a Test Bundle and will be Auto-Rejected
 
         :returns: The created BundleInstance
         """
@@ -555,6 +560,7 @@ class BundleList(ListResource):
                 "IsoCountry": iso_country,
                 "EndUserType": end_user_type,
                 "NumberType": number_type,
+                "IsTest": serialize.boolean_to_string(is_test),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -591,7 +597,7 @@ class BundleList(ListResource):
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
+        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -651,7 +657,7 @@ class BundleList(ListResource):
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
+        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -710,7 +716,7 @@ class BundleList(ListResource):
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
+        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -769,7 +775,7 @@ class BundleList(ListResource):
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
+        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -829,7 +835,7 @@ class BundleList(ListResource):
         :param friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
+        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
         :param has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -889,7 +895,7 @@ class BundleList(ListResource):
         :param friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
+        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
         :param has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.

@@ -43,7 +43,7 @@ class ServiceInstance(InstanceResource):
     :ivar dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
     :ivar tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
     :ivar do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
-    :ivar custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+    :ivar custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
     :ivar push: Configurations for the Push factors (channel) created under this Service.
     :ivar totp: Configurations for the TOTP factors (channel) created under this Service.
     :ivar default_template_sid:
@@ -183,7 +183,7 @@ class ServiceInstance(InstanceResource):
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
         :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
-        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
         :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
         :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
@@ -255,7 +255,7 @@ class ServiceInstance(InstanceResource):
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
         :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
-        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
         :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
         :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
@@ -473,7 +473,7 @@ class ServiceContext(InstanceContext):
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
         :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
-        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
         :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
         :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
@@ -561,7 +561,7 @@ class ServiceContext(InstanceContext):
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
         :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
-        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
         :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
         :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
@@ -775,7 +775,7 @@ class ServiceList(ListResource):
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
         :param do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
-        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
         :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
         :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
@@ -863,7 +863,7 @@ class ServiceList(ListResource):
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
         :param do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
-        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
         :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
         :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)

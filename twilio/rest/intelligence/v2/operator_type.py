@@ -27,8 +27,9 @@ class OperatorTypeInstance(InstanceResource):
     class Availability(object):
         INTERNAL = "internal"
         BETA = "beta"
-        PUBLIC = "public"
+        GENERAL_AVAILABILITY = "general-availability"
         RETIRED = "retired"
+        DEPRECATED = "deprecated"
 
     class OutputType(object):
         TEXT_CLASSIFICATION = "text-classification"
@@ -145,7 +146,7 @@ class OperatorTypeContext(InstanceContext):
         Initialize the OperatorTypeContext
 
         :param version: Version that contains the resource
-        :param sid: A 34 character string that uniquely identifies this Operator Type.
+        :param sid: Either a 34 character string that uniquely identifies this Operator Type or the unique name that references an Operator Type.
         """
         super().__init__(version)
 
@@ -422,7 +423,7 @@ class OperatorTypeList(ListResource):
         """
         Constructs a OperatorTypeContext
 
-        :param sid: A 34 character string that uniquely identifies this Operator Type.
+        :param sid: Either a 34 character string that uniquely identifies this Operator Type or the unique name that references an Operator Type.
         """
         return OperatorTypeContext(self._version, sid=sid)
 
@@ -430,7 +431,7 @@ class OperatorTypeList(ListResource):
         """
         Constructs a OperatorTypeContext
 
-        :param sid: A 34 character string that uniquely identifies this Operator Type.
+        :param sid: Either a 34 character string that uniquely identifies this Operator Type or the unique name that references an Operator Type.
         """
         return OperatorTypeContext(self._version, sid=sid)
 

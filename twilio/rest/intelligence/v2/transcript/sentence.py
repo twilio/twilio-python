@@ -30,6 +30,7 @@ class SentenceInstance(InstanceResource):
     :ivar transcript: Transcript text.
     :ivar sid: A 34 character string that uniquely identifies this Sentence.
     :ivar confidence:
+    :ivar words: Detailed information for each of the words of the given Sentence.
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any], transcript_sid: str):
@@ -50,6 +51,7 @@ class SentenceInstance(InstanceResource):
         self.confidence: Optional[float] = deserialize.decimal(
             payload.get("confidence")
         )
+        self.words: Optional[List[Dict[str, object]]] = payload.get("words")
 
         self._solution = {
             "transcript_sid": transcript_sid,
@@ -107,6 +109,7 @@ class SentenceList(ListResource):
     def stream(
         self,
         redacted: Union[bool, object] = values.unset,
+        word_timestamps: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[SentenceInstance]:
@@ -117,6 +120,7 @@ class SentenceList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
+        :param bool word_timestamps: Returns word level timestamps information, if word_timestamps is enabled. The default is `false`.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -127,13 +131,18 @@ class SentenceList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(redacted=redacted, page_size=limits["page_size"])
+        page = self.page(
+            redacted=redacted,
+            word_timestamps=word_timestamps,
+            page_size=limits["page_size"],
+        )
 
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
         self,
         redacted: Union[bool, object] = values.unset,
+        word_timestamps: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[SentenceInstance]:
@@ -144,6 +153,7 @@ class SentenceList(ListResource):
         The results are returned as a generator, so this operation is memory efficient.
 
         :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
+        :param bool word_timestamps: Returns word level timestamps information, if word_timestamps is enabled. The default is `false`.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -154,13 +164,18 @@ class SentenceList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(redacted=redacted, page_size=limits["page_size"])
+        page = await self.page_async(
+            redacted=redacted,
+            word_timestamps=word_timestamps,
+            page_size=limits["page_size"],
+        )
 
         return self._version.stream_async(page, limits["limit"])
 
     def list(
         self,
         redacted: Union[bool, object] = values.unset,
+        word_timestamps: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[SentenceInstance]:
@@ -170,6 +185,7 @@ class SentenceList(ListResource):
         memory before returning.
 
         :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
+        :param bool word_timestamps: Returns word level timestamps information, if word_timestamps is enabled. The default is `false`.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -182,6 +198,7 @@ class SentenceList(ListResource):
         return list(
             self.stream(
                 redacted=redacted,
+                word_timestamps=word_timestamps,
                 limit=limit,
                 page_size=page_size,
             )
@@ -190,6 +207,7 @@ class SentenceList(ListResource):
     async def list_async(
         self,
         redacted: Union[bool, object] = values.unset,
+        word_timestamps: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[SentenceInstance]:
@@ -199,6 +217,7 @@ class SentenceList(ListResource):
         memory before returning.
 
         :param bool redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
+        :param bool word_timestamps: Returns word level timestamps information, if word_timestamps is enabled. The default is `false`.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -212,6 +231,7 @@ class SentenceList(ListResource):
             record
             async for record in await self.stream_async(
                 redacted=redacted,
+                word_timestamps=word_timestamps,
                 limit=limit,
                 page_size=page_size,
             )
@@ -220,6 +240,7 @@ class SentenceList(ListResource):
     def page(
         self,
         redacted: Union[bool, object] = values.unset,
+        word_timestamps: Union[bool, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -229,6 +250,7 @@ class SentenceList(ListResource):
         Request is executed immediately
 
         :param redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
+        :param word_timestamps: Returns word level timestamps information, if word_timestamps is enabled. The default is `false`.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -238,6 +260,7 @@ class SentenceList(ListResource):
         data = values.of(
             {
                 "Redacted": serialize.boolean_to_string(redacted),
+                "WordTimestamps": serialize.boolean_to_string(word_timestamps),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -250,6 +273,7 @@ class SentenceList(ListResource):
     async def page_async(
         self,
         redacted: Union[bool, object] = values.unset,
+        word_timestamps: Union[bool, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -259,6 +283,7 @@ class SentenceList(ListResource):
         Request is executed immediately
 
         :param redacted: Grant access to PII Redacted/Unredacted Sentences. If redaction is enabled, the default is `true` to access redacted sentences.
+        :param word_timestamps: Returns word level timestamps information, if word_timestamps is enabled. The default is `false`.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -268,6 +293,7 @@ class SentenceList(ListResource):
         data = values.of(
             {
                 "Redacted": serialize.boolean_to_string(redacted),
+                "WordTimestamps": serialize.boolean_to_string(word_timestamps),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
