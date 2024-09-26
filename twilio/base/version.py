@@ -447,7 +447,6 @@ class Version(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
-        is_oauth: bool = False,
     ) -> Any:
         """
         Create a resource instance.
@@ -474,7 +473,6 @@ class Version(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
-        is_oauth: bool = False,
     ) -> Any:
         """
         Asynchronously create a resource instance.
@@ -488,6 +486,5 @@ class Version(object):
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
-            is_oauth=is_oauth,
         )
         return self._parse_create(method, uri, response)

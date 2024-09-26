@@ -35,14 +35,9 @@ class Organizations(Version):
     @property
     def accounts(self) -> AccountList:
         if self._accounts is None:
-            self._accounts = AccountList(self, organization_sid="OR64adedc0f4dc99b9113305f725677b47")
+            self._accounts = AccountList(self)
         return self._accounts
 
-    # @property
-    # def accounts(self, organization_sid) -> AccountList:
-    #     if self._accounts is None:
-    #         self._accounts = AccountList(self, "OR64adedc0f4dc99b9113305f725677b47")
-    #     return self._accounts
 
     @property
     def role_assignments(self) -> RoleAssignmentList:

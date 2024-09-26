@@ -99,8 +99,6 @@ class ClientBase(object):
             if auth_strategy.auth_type == AuthType.TOKEN:
                 auth_strategy.fetch_token()
                 headers["Authorization"] = auth_strategy.get_auth_string()
-            if auth_strategy.auth_type == AuthType.BASIC:
-                headers["Authorization"] = auth_strategy.get_auth_string()
         else:
             auth = self.get_auth(auth)
 
@@ -160,8 +158,6 @@ class ClientBase(object):
             auth_strategy = self.credential_provider.to_auth_strategy()
             if auth_strategy.auth_type == AuthType.TOKEN:
                 auth_strategy.fetch_token()
-                headers["Authorization"] = auth_strategy.get_auth_string()
-            if auth_strategy.auth_type == AuthType.BASIC:
                 headers["Authorization"] = auth_strategy.get_auth_string()
         else:
             auth = self.get_auth(auth)
@@ -262,10 +258,3 @@ class ClientBase(object):
         :returns: Machine friendly representation
         """
         return "<Twilio {}>".format(self.account_sid)
-
-
-def dynamic_import(module_name, class_name):
-    from importlib import import_module
-
-    module = import_module(module_name)
-    return getattr(module, class_name)

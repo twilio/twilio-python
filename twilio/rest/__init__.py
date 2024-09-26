@@ -112,7 +112,6 @@ class Client(ClientBase):
         :returns: Twilio Client
         :rtype: twilio.rest.Client
         """
-
         super().__init__(
             username,
             password,
