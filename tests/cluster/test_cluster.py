@@ -19,7 +19,6 @@ class ClusterTest(unittest.TestCase):
         )
         self.voice_twiml = VoiceResponse()
 
-
     def test_send_text_message(self):
         msg = self.client.messages.create(
             to=self.to_number, from_=self.from_number, body="hello world"
