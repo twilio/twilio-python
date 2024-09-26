@@ -27,16 +27,22 @@ class Organizations(Version):
 
         :param domain: The Twilio.preview_iam domain
         """
-        super().__init__(domain, "organizations")
+        super().__init__(domain, "Organizations")
         self._accounts: Optional[AccountList] = None
         self._role_assignments: Optional[RoleAssignmentList] = None
-        self._users: Optional[UserList] = None
+        # self._users: Optional[UserList] = None
 
     @property
     def accounts(self) -> AccountList:
         if self._accounts is None:
-            self._accounts = AccountList(self)
+            self._accounts = AccountList(self, organization_sid="OR64adedc0f4dc99b9113305f725677b47")
         return self._accounts
+
+    # @property
+    # def accounts(self, organization_sid) -> AccountList:
+    #     if self._accounts is None:
+    #         self._accounts = AccountList(self, "OR64adedc0f4dc99b9113305f725677b47")
+    #     return self._accounts
 
     @property
     def role_assignments(self) -> RoleAssignmentList:

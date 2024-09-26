@@ -8,6 +8,7 @@ from requests.adapters import HTTPAdapter
 from twilio.http import HttpClient
 from twilio.http.request import Request as TwilioRequest
 from twilio.http.response import Response
+from twilio.authStrategy.authStrategy import AuthStrategy
 
 _logger = logging.getLogger("twilio.http_client")
 
@@ -57,7 +58,6 @@ class TwilioHttpClient(HttpClient):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
-        is_oauth: bool = False,
     ) -> Response:
         """
         Make an HTTP Request with parameters provided.
@@ -79,6 +79,12 @@ class TwilioHttpClient(HttpClient):
         elif timeout <= 0:
             raise ValueError(timeout)
 
+        print(f'auth *** {auth}')
+
+        if "Requires-Authentication" in headers:
+            headers.pop("Requires-Authentication", None)
+            auth = None
+
         kwargs = {
             "method": method.upper(),
             "url": url,
@@ -92,7 +98,7 @@ class TwilioHttpClient(HttpClient):
         else:
             kwargs["data"] = data
         self.log_request(kwargs)
-
+        print(f'kwargs {kwargs}')
         self._test_only_last_response = None
         session = self.session or Session()
         request = Request(**kwargs)
@@ -103,7 +109,6 @@ class TwilioHttpClient(HttpClient):
         settings = session.merge_environment_settings(
             prepped_request.url, self.proxy, None, None, None
         )
-
         response = session.send(
             prepped_request,
             allow_redirects=allow_redirects,

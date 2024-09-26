@@ -1,6 +1,7 @@
 from twilio.base.version import Version
 from twilio.http.token_manager import TokenManager
 from twilio.rest.preview_iam.v1.token import TokenList
+from twilio.rest import Client
 
 
 class OrgTokenManager(TokenManager):
@@ -27,10 +28,11 @@ class OrgTokenManager(TokenManager):
         self.audience = audience
         self.refreshToken = refreshToken
         self.scope = scope
+        self.client = Client()
 
-    def fetch_access_token(self, version: Version):
-        token_list = TokenList(version)
-        token_instance = token_list.create(
+    def fetch_access_token(self):
+        # token_list = TokenList(version)
+        token_instance = self.client.preview_iam.v1.token.create(
             grant_type=self.grant_type,
             client_id=self.client_id,
             client_secret=self.client_secret,

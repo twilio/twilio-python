@@ -95,6 +95,7 @@ class Client(ClientBase):
         environment=None,
         edge=None,
         user_agent_extensions=None,
+        credential_provider=None,
     ):
         """
         Initializes the Twilio Client
@@ -111,6 +112,7 @@ class Client(ClientBase):
         :returns: Twilio Client
         :rtype: twilio.rest.Client
         """
+
         super().__init__(
             username,
             password,
@@ -120,6 +122,7 @@ class Client(ClientBase):
             environment,
             edge,
             user_agent_extensions,
+            credential_provider,
         )
 
         # Domains

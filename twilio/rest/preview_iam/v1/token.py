@@ -99,7 +99,7 @@ class TokenList(ListResource):
                 "scope": scope,
             }
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded", "Requires-Authentication": "none"})
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )

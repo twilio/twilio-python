@@ -4,10 +4,11 @@ from typing import Dict, List, MutableMapping, Optional, Tuple
 from urllib.parse import urlparse, urlunparse
 
 from twilio import __version__
-from twilio.base.exceptions import TwilioException
 from twilio.http import HttpClient
 from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response
+from twilio.authStrategy.authType import AuthType
+from twilio.credential.credentialProvider import CredentialProvider
 
 
 class ClientBase(object):
@@ -23,6 +24,7 @@ class ClientBase(object):
         environment: Optional[MutableMapping[str, str]] = None,
         edge: Optional[str] = None,
         user_agent_extensions: Optional[List[str]] = None,
+        credential_provider: Optional[CredentialProvider] = None,
     ):
         """
         Initializes the Twilio Client
@@ -35,7 +37,9 @@ class ClientBase(object):
         :param environment: Environment to look for auth details, defaults to os.environ
         :param edge: Twilio Edge to make requests to, defaults to None
         :param user_agent_extensions: Additions to the user agent string
+        :param credential_provider: credential provider for authentication method that needs to be used
         """
+
         environment = environment or os.environ
 
         self.username = username or environment.get("TWILIO_ACCOUNT_SID")
@@ -48,9 +52,8 @@ class ClientBase(object):
         """ :type : str """
         self.user_agent_extensions = user_agent_extensions or []
         """ :type : list[str] """
-
-        if not self.username or not self.password:
-            raise TwilioException("Credentials are required to create a TwilioClient")
+        self.credential_provider = credential_provider or None
+        """ :type : CredentialProvider """
 
         self.account_sid = account_sid or self.username
         """ :type : str """
@@ -69,8 +72,6 @@ class ClientBase(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
-        is_oauth: bool = False,
-        domain: Optional[str] = None,
     ) -> Response:
         """
         Makes a request to the Twilio API using the configured http client
@@ -88,20 +89,26 @@ class ClientBase(object):
         :returns: Response from the Twilio API
         """
 
-        print('*****')
-        if not is_oauth:
-            auth = self.get_auth(auth)
         headers = self.get_headers(method, headers)
+
+        ##If credential provider is provided by user, get the associated auth strategy
+        ##Using the auth strategy, fetch the auth string and set it to authorization header
+        auth_strategy = None ##Initialization
+        if self.credential_provider:
+            print(f'Reached here 2 {self.credential_provider}')
+            auth_strategy = self.credential_provider.to_auth_strategy()
+            if auth_strategy.auth_type == AuthType.TOKEN:
+                auth_strategy.fetch_token()
+                headers["Authorization"] = auth_strategy.get_auth_string()
+            if auth_strategy.auth_type == AuthType.BASIC:
+                headers["Authorization"] = auth_strategy.get_auth_string()
+        else:
+            auth = self.get_auth(auth)
+
+            print(f'auth2 *** {auth}')
+
+
         uri = self.get_hostname(uri)
-        if is_oauth:
-            OauthTokenBase = dynamic_import(
-                "twilio.base.oauth_token_base", "OauthTokenBase"
-            )
-            token = OauthTokenBase().get_oauth_token(
-                domain, "v1", self.username, self.password
-            )
-            headers["Authorization"] = f"Bearer {token}"
-            headers.get("Authorization")
 
         return self.http_client.request(
             method,
@@ -124,7 +131,6 @@ class ClientBase(object):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
-        is_oauth: bool = False,
     ) -> Response:
         """
         Asynchronously makes a request to the Twilio API  using the configured http client
@@ -146,19 +152,25 @@ class ClientBase(object):
             raise RuntimeError(
                 "http_client must be asynchronous to support async API requests"
             )
-        if not is_oauth:
-            auth = self.get_auth(auth)
+
+
         headers = self.get_headers(method, headers)
-        uri = self.get_hostname(uri)
-        if is_oauth:
-            OauthTokenBase = dynamic_import(
-                "twilio.base.oauth_token_base", "OauthTokenBase"
-            )
-            token = OauthTokenBase().get_oauth_token(
-                domain, "v1", self.username, self.password
-            )
-            headers["Authorization"] = f"Bearer {token}"
-            headers.get("Authorization")
+
+        ##If credential provider is provided by user, get the associated auth strategy
+        ##Using the auth strategy, fetch the auth string and set it to authorization header
+        auth_strategy = None ##Initialization
+        if self.credential_provider:
+            print(f'Reached here 1')
+            auth_strategy = self.credential_provider.to_auth_strategy()
+            if auth_strategy.auth_type == AuthType.TOKEN:
+                auth_strategy.fetch_token()
+                headers["Authorization"] = auth_strategy.get_auth_string()
+            if auth_strategy.auth_type == AuthType.BASIC:
+                headers["Authorization"] = auth_strategy.get_auth_string()
+        else:
+            auth = self.get_auth(auth)
+
+        print(f'auth2 *** {auth}')
 
         return await self.http_client.request(
             method,
