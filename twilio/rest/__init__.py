@@ -136,6 +136,7 @@ class Client(ClientBase):
         self._events: Optional["Events"] = None
         self._flex_api: Optional["FlexApi"] = None
         self._frontline_api: Optional["FrontlineApi"] = None
+        self._preview_iam: Optional["PreviewIam"] = None
         self._insights: Optional["Insights"] = None
         self._intelligence: Optional["Intelligence"] = None
         self._ip_messaging: Optional["IpMessaging"] = None
@@ -397,6 +398,19 @@ class Client(ClientBase):
 
             self._microvisor = Microvisor(self)
         return self._microvisor
+
+    @property
+    def preview_iam(self) -> "PreviewIam":
+        """
+        Access the PreviewIam Twilio Domain
+
+        :returns: PreviewIam Twilio Domain
+        """
+        if self._preview_iam is None:
+            from twilio.rest.preview_iam import PreviewIam
+
+            self._preview_iam = PreviewIam(self)
+        return self._preview_iam
 
     @property
     def monitor(self) -> "Monitor":
