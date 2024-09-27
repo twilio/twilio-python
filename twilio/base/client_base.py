@@ -96,9 +96,7 @@ class ClientBase(object):
         auth_strategy = None ##Initialization
         if self.credential_provider:
             auth_strategy = self.credential_provider.to_auth_strategy()
-            if auth_strategy.auth_type == AuthType.TOKEN:
-                auth_strategy.fetch_token()
-                headers["Authorization"] = auth_strategy.get_auth_string()
+            headers["Authorization"] = auth_strategy.get_auth_string()
         else:
             auth = self.get_auth(auth)
 

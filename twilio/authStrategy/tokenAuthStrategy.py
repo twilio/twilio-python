@@ -15,19 +15,23 @@ class TokenAuthStrategy(AuthStrategy):
         self.lock = threading.Lock()
 
     def get_auth_string(self) -> str:
+        if self.token is None:
+            self.fetch_token()
         return f"Bearer {self.token}"
 
     def requires_authentication(self) -> bool:
         return True
 
     def fetch_token(self):
+        print(f'token is fetch_token {self.token}')
         if self.token is None or self.token == "" or self.is_token_expired(self.token):
             with self.lock:
                 if self.token is None or self.token == "" or self.is_token_expired(self.token):
                     self.token = self.token_manager.fetch_access_token()
 
     def is_token_expired(self, token):
-        decoded_jwt = jwt.decode(token, options={"verify_signature": True})
+        print(f'token is {token}')
+        decoded_jwt = jwt.decode(token, options={"verify_signature": True}, algorithms=["RS256"])
         expires_at = decoded_jwt.get("exp")
         # Add a buffer of 30 seconds
         buffer_seconds = 30
