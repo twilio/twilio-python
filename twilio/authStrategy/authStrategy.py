@@ -11,6 +11,7 @@ class AuthStrategy(object):
     def auth_type(self) -> AuthType:
         return self._auth_type
 
+    @abstractmethod
     def get_auth_string(self) -> str:
         """Return the authentication string."""
         pass
