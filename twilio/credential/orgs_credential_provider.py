@@ -12,7 +12,7 @@ class OrgsCredentialProvider(CredentialProvider):
         super().__init__(AuthType.CLIENT_CREDENTIALS)
 
         if client_id is None or client_secret is None:
-            raise TwilioException("Invalid credentials passed")
+            raise TwilioException("Client id and Client secret are mandatory")
 
         self.grant_type = "client_credentials"
         self.client_id = client_id
