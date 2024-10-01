@@ -1,4 +1,4 @@
-from twilio.authStrategy.authType import AuthType
+from twilio.auth_strategy.auth_type import AuthType
 from enum import Enum
 from abc import abstractmethod
 

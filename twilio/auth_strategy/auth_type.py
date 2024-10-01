@@ -1,7 +1,7 @@
 from enum import Enum
 
 class AuthType(Enum):
-    TOKEN = 'token'
+    ORGS_TOKEN = 'orgs_stoken'
     NO_AUTH = 'noauth'
     BASIC = 'basic'
     API_KEY = 'api_key'

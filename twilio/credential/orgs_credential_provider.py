@@ -2,9 +2,9 @@
 
 from twilio.http.orgs_token_manager import OrgTokenManager
 from twilio.base.exceptions import TwilioException
-from twilio.credential.credentialProvider import CredentialProvider
-from twilio.authStrategy.authType import AuthType
-from twilio.authStrategy.tokenAuthStrategy import TokenAuthStrategy
+from twilio.credential.credential_provider import CredentialProvider
+from twilio.auth_strategy.auth_type import AuthType
+from twilio.auth_strategy.token_auth_strategy import TokenAuthStrategy
 
 
 class OrgsCredentialProvider(CredentialProvider):

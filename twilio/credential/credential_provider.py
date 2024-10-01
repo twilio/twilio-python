@@ -1,4 +1,4 @@
-from twilio.authStrategy.authType import AuthType
+from twilio.auth_strategy.auth_type import AuthType
 
 class CredentialProvider:
     def __init__(self, auth_type: AuthType):
