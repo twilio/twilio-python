@@ -85,31 +85,39 @@ class PortingPortabilityInstance(InstanceResource):
         return self._context
 
     def fetch(
-        self, target_account_sid: Union[str, object] = values.unset
+        self,
+        target_account_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
     ) -> "PortingPortabilityInstance":
         """
         Fetch the PortingPortabilityInstance
 
         :param target_account_sid: Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
+        :param address_sid: Address Sid of customer to which the number will be ported.
 
         :returns: The fetched PortingPortabilityInstance
         """
         return self._proxy.fetch(
             target_account_sid=target_account_sid,
+            address_sid=address_sid,
         )
 
     async def fetch_async(
-        self, target_account_sid: Union[str, object] = values.unset
+        self,
+        target_account_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
     ) -> "PortingPortabilityInstance":
         """
         Asynchronous coroutine to fetch the PortingPortabilityInstance
 
         :param target_account_sid: Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
+        :param address_sid: Address Sid of customer to which the number will be ported.
 
         :returns: The fetched PortingPortabilityInstance
         """
         return await self._proxy.fetch_async(
             target_account_sid=target_account_sid,
+            address_sid=address_sid,
         )
 
     def __repr__(self) -> str:
@@ -142,12 +150,15 @@ class PortingPortabilityContext(InstanceContext):
         )
 
     def fetch(
-        self, target_account_sid: Union[str, object] = values.unset
+        self,
+        target_account_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
     ) -> PortingPortabilityInstance:
         """
         Fetch the PortingPortabilityInstance
 
         :param target_account_sid: Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
+        :param address_sid: Address Sid of customer to which the number will be ported.
 
         :returns: The fetched PortingPortabilityInstance
         """
@@ -155,6 +166,7 @@ class PortingPortabilityContext(InstanceContext):
         data = values.of(
             {
                 "TargetAccountSid": target_account_sid,
+                "AddressSid": address_sid,
             }
         )
 
@@ -167,12 +179,15 @@ class PortingPortabilityContext(InstanceContext):
         )
 
     async def fetch_async(
-        self, target_account_sid: Union[str, object] = values.unset
+        self,
+        target_account_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
     ) -> PortingPortabilityInstance:
         """
         Asynchronous coroutine to fetch the PortingPortabilityInstance
 
         :param target_account_sid: Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
+        :param address_sid: Address Sid of customer to which the number will be ported.
 
         :returns: The fetched PortingPortabilityInstance
         """
@@ -180,6 +195,7 @@ class PortingPortabilityContext(InstanceContext):
         data = values.of(
             {
                 "TargetAccountSid": target_account_sid,
+                "AddressSid": address_sid,
             }
         )
 

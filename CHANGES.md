@@ -3,6 +3,22 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-10-03] Version 9.3.3
+--------------------------
+**Library - Chore**
+- [PR #816](https://github.com/twilio/twilio-python/pull/816): add assistants init files. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Messaging**
+- Add A2P external campaign CnpMigration flag
+
+**Numbers**
+- Add address sid to portability API
+
+**Verify**
+- Add `SnaClientToken` optional parameter on Verification check.
+- Add `EnableSnaClientToken` optional parameter for Verification creation.
+
+
 [2024-09-25] Version 9.3.2
 --------------------------
 **Accounts**
