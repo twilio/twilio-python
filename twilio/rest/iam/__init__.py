@@ -6,7 +6,7 @@ from twilio.rest.iam.v1.get_api_keys import GetApiKeysList
 from twilio.rest.iam.v1.new_api_key import NewApiKeyList
 
 
-class Accounts(IamBase):
+class Iam(IamBase):
     @property
     def api_key(self) -> ApiKeyList:
         warn(
