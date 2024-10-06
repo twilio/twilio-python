@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -235,12 +235,15 @@ class DeploymentList(ListResource):
         )
 
     def create(
-        self, build_sid: Union[str, object] = values.unset
+        self,
+        build_sid: Union[str, object] = values.unset,
+        is_plugin: Union[bool, object] = values.unset,
     ) -> DeploymentInstance:
         """
         Create the DeploymentInstance
 
         :param build_sid: The SID of the Build for the Deployment.
+        :param is_plugin: Whether the Deployment is a plugin.
 
         :returns: The created DeploymentInstance
         """
@@ -248,6 +251,7 @@ class DeploymentList(ListResource):
         data = values.of(
             {
                 "BuildSid": build_sid,
+                "IsPlugin": serialize.boolean_to_string(is_plugin),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -264,12 +268,15 @@ class DeploymentList(ListResource):
         )
 
     async def create_async(
-        self, build_sid: Union[str, object] = values.unset
+        self,
+        build_sid: Union[str, object] = values.unset,
+        is_plugin: Union[bool, object] = values.unset,
     ) -> DeploymentInstance:
         """
         Asynchronously create the DeploymentInstance
 
         :param build_sid: The SID of the Build for the Deployment.
+        :param is_plugin: Whether the Deployment is a plugin.
 
         :returns: The created DeploymentInstance
         """
@@ -277,6 +284,7 @@ class DeploymentList(ListResource):
         data = values.of(
             {
                 "BuildSid": build_sid,
+                "IsPlugin": serialize.boolean_to_string(is_plugin),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})

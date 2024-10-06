@@ -64,7 +64,7 @@ class ApprovalCreateList(ListResource):
         :ivar category: A WhatsApp recognized template category.
         """
 
-        def __init__(self, payload: Dict[str, Any], content_sid: str):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.name: Optional[str] = payload.get("name")
             self.category: Optional[str] = payload.get("category")

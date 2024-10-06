@@ -13,7 +13,6 @@ from typing import Optional
 
 from twilio.base.domain import Domain
 from twilio.rest import Client
-from twilio.rest.preview.deployed_devices import DeployedDevices
 from twilio.rest.preview.hosted_numbers import HostedNumbers
 from twilio.rest.preview.sync import Sync
 from twilio.rest.preview.marketplace import Marketplace
@@ -29,20 +28,10 @@ class PreviewBase(Domain):
         :returns: Domain for Preview
         """
         super().__init__(twilio, "https://preview.twilio.com")
-        self._deployed_devices: Optional[DeployedDevices] = None
         self._hosted_numbers: Optional[HostedNumbers] = None
         self._sync: Optional[Sync] = None
         self._marketplace: Optional[Marketplace] = None
         self._wireless: Optional[Wireless] = None
-
-    @property
-    def deployed_devices(self) -> DeployedDevices:
-        """
-        :returns: Versions deployed_devices of Preview
-        """
-        if self._deployed_devices is None:
-            self._deployed_devices = DeployedDevices(self)
-        return self._deployed_devices
 
     @property
     def hosted_numbers(self) -> HostedNumbers:

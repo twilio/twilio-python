@@ -16,6 +16,8 @@ from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.accounts.v1.auth_token_promotion import AuthTokenPromotionList
+from twilio.rest.accounts.v1.bulk_consents import BulkConsentsList
+from twilio.rest.accounts.v1.bulk_contacts import BulkContactsList
 from twilio.rest.accounts.v1.credential import CredentialList
 from twilio.rest.accounts.v1.safelist import SafelistList
 from twilio.rest.accounts.v1.secondary_auth_token import SecondaryAuthTokenList
@@ -31,6 +33,8 @@ class V1(Version):
         """
         super().__init__(domain, "v1")
         self._auth_token_promotion: Optional[AuthTokenPromotionList] = None
+        self._bulk_consents: Optional[BulkConsentsList] = None
+        self._bulk_contacts: Optional[BulkContactsList] = None
         self._credentials: Optional[CredentialList] = None
         self._safelist: Optional[SafelistList] = None
         self._secondary_auth_token: Optional[SecondaryAuthTokenList] = None
@@ -40,6 +44,18 @@ class V1(Version):
         if self._auth_token_promotion is None:
             self._auth_token_promotion = AuthTokenPromotionList(self)
         return self._auth_token_promotion
+
+    @property
+    def bulk_consents(self) -> BulkConsentsList:
+        if self._bulk_consents is None:
+            self._bulk_consents = BulkConsentsList(self)
+        return self._bulk_consents
+
+    @property
+    def bulk_contacts(self) -> BulkContactsList:
+        if self._bulk_contacts is None:
+            self._bulk_contacts = BulkContactsList(self)
+        return self._bulk_contacts
 
     @property
     def credentials(self) -> CredentialList:

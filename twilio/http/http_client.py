@@ -57,7 +57,6 @@ class TwilioHttpClient(HttpClient):
         auth: Optional[Tuple[str, str]] = None,
         timeout: Optional[float] = None,
         allow_redirects: bool = False,
-        is_oauth: bool = False,
     ) -> Response:
         """
         Make an HTTP Request with parameters provided.
@@ -92,7 +91,7 @@ class TwilioHttpClient(HttpClient):
         else:
             kwargs["data"] = data
         self.log_request(kwargs)
-
+        print(f'args : {kwargs}')
         self._test_only_last_response = None
         session = self.session or Session()
         request = Request(**kwargs)
@@ -103,7 +102,6 @@ class TwilioHttpClient(HttpClient):
         settings = session.merge_environment_settings(
             prepped_request.url, self.proxy, None, None, None
         )
-
         response = session.send(
             prepped_request,
             allow_redirects=allow_redirects,

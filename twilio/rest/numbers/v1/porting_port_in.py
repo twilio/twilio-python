@@ -12,7 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import date
+from datetime import date, datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
@@ -25,15 +25,15 @@ class PortingPortInInstance(InstanceResource):
     """
     :ivar port_in_request_sid: The SID of the Port In request. This is a unique identifier of the port in request.
     :ivar url: The URL of this Port In request
-    :ivar account_sid: The Account SID that the numbers will be added to after they are ported into Twilio.
-    :ivar notification_emails: List of emails for getting notifications about the LOA signing process. Allowed Max 10 emails.
-    :ivar target_port_in_date: Minimum number of days in the future (at least 2 days) needs to be established with the Ops team for validation.
-    :ivar target_port_in_time_range_start: Minimum hour in the future needs to be established with the Ops team for validation.
-    :ivar target_port_in_time_range_end: Maximum hour in the future needs to be established with the Ops team for validation.
+    :ivar account_sid: Account Sid or subaccount where the phone number(s) will be Ported
+    :ivar notification_emails: Additional emails to send a copy of the signed LOA to.
+    :ivar target_port_in_date: Target date to port the number. We cannot guarantee that this date will be honored by the other carriers, please work with Ops to get a confirmation of the firm order commitment (FOC) date. Expected format is ISO Local Date, example: ‘2011-12-03`. This date must be at least 7 days in the future for US ports and 10 days in the future for Japanese ports. (This value is only available for custom porting customers.)
+    :ivar target_port_in_time_range_start: The earliest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'. (This value is only available for custom porting customers.)
+    :ivar target_port_in_time_range_end: The latest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'.  (This value is only available for custom porting customers.)
     :ivar port_in_request_status: The status of the port in request. The possible values are: In progress, Completed, Expired, In review, Waiting for Signature, Action Required, and Canceled.
-    :ivar losing_carrier_information: The information for the losing carrier.
-    :ivar phone_numbers: The list of phone numbers to Port in. Phone numbers are in E.164 format (e.g. +16175551212).
-    :ivar documents: The list of documents SID referencing a utility bills
+    :ivar losing_carrier_information: Details regarding the customer’s information with the losing carrier. These values will be used to generate the letter of authorization and should match the losing carrier’s data as closely as possible to ensure the port is accepted.
+    :ivar phone_numbers:
+    :ivar documents: List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
     :ivar date_created:
     """
 
@@ -70,7 +70,7 @@ class PortingPortInInstance(InstanceResource):
             "phone_numbers"
         )
         self.documents: Optional[List[str]] = payload.get("documents")
-        self.date_created: Optional[date] = deserialize.iso8601_date(
+        self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
 

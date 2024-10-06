@@ -17,6 +17,7 @@ from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.numbers.v2.authorization_document import AuthorizationDocumentList
 from twilio.rest.numbers.v2.bulk_hosted_number_order import BulkHostedNumberOrderList
+from twilio.rest.numbers.v2.bundle_clone import BundleCloneList
 from twilio.rest.numbers.v2.hosted_number_order import HostedNumberOrderList
 from twilio.rest.numbers.v2.regulatory_compliance import RegulatoryComplianceList
 
@@ -32,6 +33,7 @@ class V2(Version):
         super().__init__(domain, "v2")
         self._authorization_documents: Optional[AuthorizationDocumentList] = None
         self._bulk_hosted_number_orders: Optional[BulkHostedNumberOrderList] = None
+        self._bundle_clone: Optional[BundleCloneList] = None
         self._hosted_number_orders: Optional[HostedNumberOrderList] = None
         self._regulatory_compliance: Optional[RegulatoryComplianceList] = None
 
@@ -46,6 +48,12 @@ class V2(Version):
         if self._bulk_hosted_number_orders is None:
             self._bulk_hosted_number_orders = BulkHostedNumberOrderList(self)
         return self._bulk_hosted_number_orders
+
+    @property
+    def bundle_clone(self) -> BundleCloneList:
+        if self._bundle_clone is None:
+            self._bundle_clone = BundleCloneList(self)
+        return self._bundle_clone
 
     @property
     def hosted_number_orders(self) -> HostedNumberOrderList:

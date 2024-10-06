@@ -31,7 +31,7 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
     :ivar task_queue_sid: The SID of the TaskQueue from which these statistics were calculated.
     :ivar tasks_by_priority: The number of Tasks by priority. For example: `{\"0\": \"10\", \"99\": \"5\"}` shows 10 Tasks at priority 0 and 5 at priority 99.
     :ivar tasks_by_status: The number of Tasks by their current status. For example: `{\"pending\": \"1\", \"reserved\": \"3\", \"assigned\": \"2\", \"completed\": \"5\"}`.
-    :ivar total_available_workers: The total number of Workers available for Tasks in the TaskQueue.
+    :ivar total_available_workers: The total number of Workers in the TaskQueue with an `available` status. Workers with an `available` status may already have active interactions or may have none.
     :ivar total_eligible_workers: The total number of Workers eligible for Tasks in the TaskQueue, independent of their Activity state.
     :ivar total_tasks: The total number of Tasks.
     :ivar workspace_sid: The SID of the Workspace that contains the TaskQueue.

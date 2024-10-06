@@ -13,8 +13,8 @@ r"""
 """
 
 from datetime import datetime
-from typing import Any, Dict, Optional
-from twilio.base import deserialize
+from typing import Any, Dict, List, Optional, Union
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -35,6 +35,8 @@ class FlexUserInstance(InstanceResource):
     :ivar username: Username of the User.
     :ivar email: Email of the User.
     :ivar friendly_name: Friendly name of the User.
+    :ivar locale: The locale preference of the user.
+    :ivar roles: The roles of the user.
     :ivar created_date: The date that this user was created, given in ISO 8601 format.
     :ivar updated_date: The date that this user was updated, given in ISO 8601 format.
     :ivar version: The current version of the user.
@@ -62,6 +64,8 @@ class FlexUserInstance(InstanceResource):
         self.username: Optional[str] = payload.get("username")
         self.email: Optional[str] = payload.get("email")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
+        self.locale: Optional[str] = payload.get("locale")
+        self.roles: Optional[List[str]] = payload.get("roles")
         self.created_date: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("created_date")
         )
@@ -111,6 +115,66 @@ class FlexUserInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def update(
+        self,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        user_sid: Union[str, object] = values.unset,
+        locale: Union[str, object] = values.unset,
+    ) -> "FlexUserInstance":
+        """
+        Update the FlexUserInstance
+
+        :param first_name: First name of the User.
+        :param last_name: Last name of the User.
+        :param email: Email of the User.
+        :param friendly_name: Friendly name of the User.
+        :param user_sid: The unique SID identifier of the Twilio Unified User.
+        :param locale: The locale preference of the user.
+
+        :returns: The updated FlexUserInstance
+        """
+        return self._proxy.update(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            friendly_name=friendly_name,
+            user_sid=user_sid,
+            locale=locale,
+        )
+
+    async def update_async(
+        self,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        user_sid: Union[str, object] = values.unset,
+        locale: Union[str, object] = values.unset,
+    ) -> "FlexUserInstance":
+        """
+        Asynchronous coroutine to update the FlexUserInstance
+
+        :param first_name: First name of the User.
+        :param last_name: Last name of the User.
+        :param email: Email of the User.
+        :param friendly_name: Friendly name of the User.
+        :param user_sid: The unique SID identifier of the Twilio Unified User.
+        :param locale: The locale preference of the user.
+
+        :returns: The updated FlexUserInstance
+        """
+        return await self._proxy.update_async(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            friendly_name=friendly_name,
+            user_sid=user_sid,
+            locale=locale,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -129,7 +193,7 @@ class FlexUserContext(InstanceContext):
 
         :param version: Version that contains the resource
         :param instance_sid: The unique ID created by Twilio to identify a Flex instance.
-        :param flex_user_sid: The unique id for the flex user to be retrieved.
+        :param flex_user_sid: The unique id for the flex user.
         """
         super().__init__(version)
 
@@ -182,6 +246,96 @@ class FlexUserContext(InstanceContext):
             flex_user_sid=self._solution["flex_user_sid"],
         )
 
+    def update(
+        self,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        user_sid: Union[str, object] = values.unset,
+        locale: Union[str, object] = values.unset,
+    ) -> FlexUserInstance:
+        """
+        Update the FlexUserInstance
+
+        :param first_name: First name of the User.
+        :param last_name: Last name of the User.
+        :param email: Email of the User.
+        :param friendly_name: Friendly name of the User.
+        :param user_sid: The unique SID identifier of the Twilio Unified User.
+        :param locale: The locale preference of the user.
+
+        :returns: The updated FlexUserInstance
+        """
+        data = values.of(
+            {
+                "FirstName": first_name,
+                "LastName": last_name,
+                "Email": email,
+                "FriendlyName": friendly_name,
+                "UserSid": user_sid,
+                "Locale": locale,
+            }
+        )
+
+        payload = self._version.update(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return FlexUserInstance(
+            self._version,
+            payload,
+            instance_sid=self._solution["instance_sid"],
+            flex_user_sid=self._solution["flex_user_sid"],
+        )
+
+    async def update_async(
+        self,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        user_sid: Union[str, object] = values.unset,
+        locale: Union[str, object] = values.unset,
+    ) -> FlexUserInstance:
+        """
+        Asynchronous coroutine to update the FlexUserInstance
+
+        :param first_name: First name of the User.
+        :param last_name: Last name of the User.
+        :param email: Email of the User.
+        :param friendly_name: Friendly name of the User.
+        :param user_sid: The unique SID identifier of the Twilio Unified User.
+        :param locale: The locale preference of the user.
+
+        :returns: The updated FlexUserInstance
+        """
+        data = values.of(
+            {
+                "FirstName": first_name,
+                "LastName": last_name,
+                "Email": email,
+                "FriendlyName": friendly_name,
+                "UserSid": user_sid,
+                "Locale": locale,
+            }
+        )
+
+        payload = await self._version.update_async(
+            method="POST",
+            uri=self._uri,
+            data=data,
+        )
+
+        return FlexUserInstance(
+            self._version,
+            payload,
+            instance_sid=self._solution["instance_sid"],
+            flex_user_sid=self._solution["flex_user_sid"],
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -208,7 +362,7 @@ class FlexUserList(ListResource):
         Constructs a FlexUserContext
 
         :param instance_sid: The unique ID created by Twilio to identify a Flex instance.
-        :param flex_user_sid: The unique id for the flex user to be retrieved.
+        :param flex_user_sid: The unique id for the flex user.
         """
         return FlexUserContext(
             self._version, instance_sid=instance_sid, flex_user_sid=flex_user_sid
@@ -219,7 +373,7 @@ class FlexUserList(ListResource):
         Constructs a FlexUserContext
 
         :param instance_sid: The unique ID created by Twilio to identify a Flex instance.
-        :param flex_user_sid: The unique id for the flex user to be retrieved.
+        :param flex_user_sid: The unique id for the flex user.
         """
         return FlexUserContext(
             self._version, instance_sid=instance_sid, flex_user_sid=flex_user_sid

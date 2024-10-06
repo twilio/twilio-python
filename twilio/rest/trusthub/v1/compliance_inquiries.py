@@ -61,30 +61,36 @@ class ComplianceInquiriesInstance(InstanceResource):
             )
         return self._context
 
-    def update(self, primary_profile_sid: str) -> "ComplianceInquiriesInstance":
+    def update(
+        self, primary_profile_sid: str, theme_set_id: Union[str, object] = values.unset
+    ) -> "ComplianceInquiriesInstance":
         """
         Update the ComplianceInquiriesInstance
 
         :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+        :param theme_set_id: Theme id for styling the inquiry form.
 
         :returns: The updated ComplianceInquiriesInstance
         """
         return self._proxy.update(
             primary_profile_sid=primary_profile_sid,
+            theme_set_id=theme_set_id,
         )
 
     async def update_async(
-        self, primary_profile_sid: str
+        self, primary_profile_sid: str, theme_set_id: Union[str, object] = values.unset
     ) -> "ComplianceInquiriesInstance":
         """
         Asynchronous coroutine to update the ComplianceInquiriesInstance
 
         :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+        :param theme_set_id: Theme id for styling the inquiry form.
 
         :returns: The updated ComplianceInquiriesInstance
         """
         return await self._proxy.update_async(
             primary_profile_sid=primary_profile_sid,
+            theme_set_id=theme_set_id,
         )
 
     def __repr__(self) -> str:
@@ -116,17 +122,21 @@ class ComplianceInquiriesContext(InstanceContext):
             **self._solution
         )
 
-    def update(self, primary_profile_sid: str) -> ComplianceInquiriesInstance:
+    def update(
+        self, primary_profile_sid: str, theme_set_id: Union[str, object] = values.unset
+    ) -> ComplianceInquiriesInstance:
         """
         Update the ComplianceInquiriesInstance
 
         :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+        :param theme_set_id: Theme id for styling the inquiry form.
 
         :returns: The updated ComplianceInquiriesInstance
         """
         data = values.of(
             {
                 "PrimaryProfileSid": primary_profile_sid,
+                "ThemeSetId": theme_set_id,
             }
         )
 
@@ -141,18 +151,20 @@ class ComplianceInquiriesContext(InstanceContext):
         )
 
     async def update_async(
-        self, primary_profile_sid: str
+        self, primary_profile_sid: str, theme_set_id: Union[str, object] = values.unset
     ) -> ComplianceInquiriesInstance:
         """
         Asynchronous coroutine to update the ComplianceInquiriesInstance
 
         :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+        :param theme_set_id: Theme id for styling the inquiry form.
 
         :returns: The updated ComplianceInquiriesInstance
         """
         data = values.of(
             {
                 "PrimaryProfileSid": primary_profile_sid,
+                "ThemeSetId": theme_set_id,
             }
         )
 
@@ -193,12 +205,14 @@ class ComplianceInquiriesList(ListResource):
         self,
         primary_profile_sid: str,
         notification_email: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
     ) -> ComplianceInquiriesInstance:
         """
         Create the ComplianceInquiriesInstance
 
         :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
         :param notification_email: The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used.
+        :param theme_set_id: Theme id for styling the inquiry form.
 
         :returns: The created ComplianceInquiriesInstance
         """
@@ -207,6 +221,7 @@ class ComplianceInquiriesList(ListResource):
             {
                 "PrimaryProfileSid": primary_profile_sid,
                 "NotificationEmail": notification_email,
+                "ThemeSetId": theme_set_id,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -221,12 +236,14 @@ class ComplianceInquiriesList(ListResource):
         self,
         primary_profile_sid: str,
         notification_email: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
     ) -> ComplianceInquiriesInstance:
         """
         Asynchronously create the ComplianceInquiriesInstance
 
         :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
         :param notification_email: The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used.
+        :param theme_set_id: Theme id for styling the inquiry form.
 
         :returns: The created ComplianceInquiriesInstance
         """
@@ -235,6 +252,7 @@ class ComplianceInquiriesList(ListResource):
             {
                 "PrimaryProfileSid": primary_profile_sid,
                 "NotificationEmail": notification_email,
+                "ThemeSetId": theme_set_id,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})

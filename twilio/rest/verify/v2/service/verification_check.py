@@ -108,6 +108,7 @@ class VerificationCheckList(ListResource):
         verification_sid: Union[str, object] = values.unset,
         amount: Union[str, object] = values.unset,
         payee: Union[str, object] = values.unset,
+        sna_client_token: Union[str, object] = values.unset,
     ) -> VerificationCheckInstance:
         """
         Create the VerificationCheckInstance
@@ -117,6 +118,7 @@ class VerificationCheckList(ListResource):
         :param verification_sid: A SID that uniquely identifies the Verification Check. Either this parameter or the `to` phone number/[email](https://www.twilio.com/docs/verify/email) must be specified.
         :param amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
         :param payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+        :param sna_client_token: A sna client token received in sna url invocation response needs to be passed in Verification Check request and should match to get successful response.
 
         :returns: The created VerificationCheckInstance
         """
@@ -128,6 +130,7 @@ class VerificationCheckList(ListResource):
                 "VerificationSid": verification_sid,
                 "Amount": amount,
                 "Payee": payee,
+                "SnaClientToken": sna_client_token,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -147,6 +150,7 @@ class VerificationCheckList(ListResource):
         verification_sid: Union[str, object] = values.unset,
         amount: Union[str, object] = values.unset,
         payee: Union[str, object] = values.unset,
+        sna_client_token: Union[str, object] = values.unset,
     ) -> VerificationCheckInstance:
         """
         Asynchronously create the VerificationCheckInstance
@@ -156,6 +160,7 @@ class VerificationCheckList(ListResource):
         :param verification_sid: A SID that uniquely identifies the Verification Check. Either this parameter or the `to` phone number/[email](https://www.twilio.com/docs/verify/email) must be specified.
         :param amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
         :param payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+        :param sna_client_token: A sna client token received in sna url invocation response needs to be passed in Verification Check request and should match to get successful response.
 
         :returns: The created VerificationCheckInstance
         """
@@ -167,6 +172,7 @@ class VerificationCheckList(ListResource):
                 "VerificationSid": verification_sid,
                 "Amount": amount,
                 "Payee": payee,
+                "SnaClientToken": sna_client_token,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
