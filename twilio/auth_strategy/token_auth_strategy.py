@@ -18,8 +18,7 @@ class TokenAuthStrategy(AuthStrategy):
         self.logger = logging.getLogger(__name__)
 
     def get_auth_string(self) -> str:
-        if self.token is None:
-            self.fetch_token()
+        self.fetch_token()
         return f"Bearer {self.token}"
 
     def requires_authentication(self) -> bool:
@@ -28,15 +27,23 @@ class TokenAuthStrategy(AuthStrategy):
     def fetch_token(self):
         self.logger.info("New token fetched for accessing organization API")
         if self.token is None or self.token == "" or self.is_token_expired(self.token):
-            with self.lock:
+             with self.lock:
                 if self.token is None or self.token == "" or self.is_token_expired(self.token):
                     self.token = self.token_manager.fetch_access_token()
 
     def is_token_expired(self, token):
-        print(f'token is {token}')
-        decoded_jwt = jwt.decode(token, options={"verify_signature": True}, algorithms=["RS256"])
-        expires_at = decoded_jwt.get("exp")
-        # Add a buffer of 30 seconds
-        buffer_seconds = 30
-        buffer_expires_at = expires_at - buffer_seconds
-        return buffer_expires_at < datetime.datetime.now().timestamp()
+        try:
+            decoded = jwt.decode(token, options={"verify_signature": False})
+            exp = decoded.get('exp')
+
+            if exp is None:
+                return True  # No expiration time present, consider it expired
+
+            # Check if the expiration time has passed
+            return datetime.fromtimestamp(exp) < datetime.utcnow()
+
+        except jwt.DecodeError:
+            return True  # Token is invalid
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return True

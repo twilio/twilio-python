@@ -78,11 +78,6 @@ class TwilioHttpClient(HttpClient):
         elif timeout <= 0:
             raise ValueError(timeout)
 
-        if headers:
-            if "Requires-Authentication" in headers:
-                headers.pop("Requires-Authentication", None)
-                auth = None
-
         kwargs = {
             "method": method.upper(),
             "url": url,
@@ -96,6 +91,7 @@ class TwilioHttpClient(HttpClient):
         else:
             kwargs["data"] = data
         self.log_request(kwargs)
+        print(f'args : {kwargs}')
         self._test_only_last_response = None
         session = self.session or Session()
         request = Request(**kwargs)

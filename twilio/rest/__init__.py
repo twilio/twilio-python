@@ -136,6 +136,7 @@ class Client(ClientBase):
         self._events: Optional["Events"] = None
         self._flex_api: Optional["FlexApi"] = None
         self._frontline_api: Optional["FrontlineApi"] = None
+        self._iam: Optional["Iam"] = None
         self._preview_iam: Optional["PreviewIam"] = None
         self._insights: Optional["Insights"] = None
         self._intelligence: Optional["Intelligence"] = None

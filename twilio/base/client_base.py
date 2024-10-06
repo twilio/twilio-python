@@ -96,8 +96,10 @@ class ClientBase(object):
         if self.credential_provider:
             auth_strategy = self.credential_provider.to_auth_strategy()
             headers["Authorization"] = auth_strategy.get_auth_string()
-        else:
+        elif self.username is not None and self.password is not None:
             auth = self.get_auth(auth)
+        else:
+            auth = None
 
 
         uri = self.get_hostname(uri)
@@ -150,11 +152,14 @@ class ClientBase(object):
 
         ##If credential provider is provided by user, get the associated auth strategy
         ##Using the auth strategy, fetch the auth string and set it to authorization header
+
         if self.credential_provider:
             auth_strategy = self.credential_provider.to_auth_strategy()
             headers["Authorization"] = auth_strategy.get_auth_string()
-        else:
+        elif self.username is not None and self.password is not None:
             auth = self.get_auth(auth)
+        else:
+            auth = None
 
         uri = self.get_hostname(uri)
 

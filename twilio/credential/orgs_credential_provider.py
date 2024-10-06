@@ -18,9 +18,11 @@ class OrgsCredentialProvider(CredentialProvider):
         self.client_id = client_id
         self.client_secret = client_secret
         self.token_manager = token_manager
+        self.auth_strategy = None
 
     def to_auth_strategy(self):
         if self.token_manager is None:
             self.token_manager = OrgTokenManager(self.grant_type, self.client_id, self.client_secret)
-
-        return TokenAuthStrategy(self.token_manager)
+        if self.auth_strategy is None:
+            self.auth_strategy = TokenAuthStrategy(self.token_manager)
+        return self.auth_strategy
