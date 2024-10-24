@@ -1,7 +1,6 @@
 from warnings import warn
 
 from twilio.rest.preview.PreviewBase import PreviewBase
-from twilio.rest.preview.deployed_devices.fleet import FleetList
 from twilio.rest.preview.hosted_numbers.authorization_document import (
     AuthorizationDocumentList,
 )
@@ -15,14 +14,6 @@ from twilio.rest.preview.wireless.sim import SimList
 
 
 class Preview(PreviewBase):
-    @property
-    def fleets(self) -> FleetList:
-        warn(
-            "fleets is deprecated. Use deployed_devices.fleets instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return self.deployed_devices.fleets
 
     @property
     def authorization_documents(self) -> AuthorizationDocumentList:
