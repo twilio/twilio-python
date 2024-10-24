@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-10-24] Version 9.3.5
+--------------------------
+**Conversations**
+- Expose ConversationWithParticipants resource that allows creating a conversation with participants
+
+
 [2024-10-17] Version 9.3.4
 --------------------------
 **Api**

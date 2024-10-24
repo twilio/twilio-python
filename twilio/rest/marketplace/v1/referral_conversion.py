@@ -14,7 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional
 from twilio.base import values
-from twilio.base.instance_context import InstanceContext
+
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
@@ -30,50 +30,6 @@ class ReferralConversionInstance(InstanceResource):
 
         self.converted_account_sid: Optional[str] = payload.get("converted_account_sid")
 
-        self._context: Optional[ReferralConversionContext] = None
-
-    @property
-    def _proxy(self) -> "ReferralConversionContext":
-        """
-        Generate an instance context for the instance, the context is capable of
-        performing various actions. All instance actions are proxied to the context
-
-        :returns: ReferralConversionContext for this ReferralConversionInstance
-        """
-        if self._context is None:
-            self._context = ReferralConversionContext(
-                self._version,
-            )
-        return self._context
-
-    def create(
-        self, create_referral_conversion_request: CreateReferralConversionRequest
-    ) -> "ReferralConversionInstance":
-        """
-        Create the ReferralConversionInstance
-
-        :param create_referral_conversion_request:
-
-        :returns: The created ReferralConversionInstance
-        """
-        return self._proxy.create(
-            create_referral_conversion_request,
-        )
-
-    async def create_async(
-        self, create_referral_conversion_request: CreateReferralConversionRequest
-    ) -> "ReferralConversionInstance":
-        """
-        Asynchronous coroutine to create the ReferralConversionInstance
-
-        :param create_referral_conversion_request:
-
-        :returns: The created ReferralConversionInstance
-        """
-        return await self._proxy.create_async(
-            create_referral_conversion_request,
-        )
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -82,70 +38,6 @@ class ReferralConversionInstance(InstanceResource):
         """
 
         return "<Twilio.Marketplace.V1.ReferralConversionInstance>"
-
-
-class ReferralConversionContext(InstanceContext):
-
-    def __init__(self, version: Version):
-        """
-        Initialize the ReferralConversionContext
-
-        :param version: Version that contains the resource
-        """
-        super().__init__(version)
-
-        self._uri = "/ReferralConversion"
-
-    def create(
-        self, create_referral_conversion_request: CreateReferralConversionRequest
-    ) -> ReferralConversionInstance:
-        """
-        Create the ReferralConversionInstance
-
-        :param create_referral_conversion_request:
-
-        :returns: The created ReferralConversionInstance
-        """
-        data = values.of(
-            {
-                "CreateReferralConversionRequest": create_referral_conversion_request,
-            }
-        )
-
-        payload = self._version.create(method="POST", uri=self._uri, data=data)
-
-        return ReferralConversionInstance(self._version, payload)
-
-    async def create_async(
-        self, create_referral_conversion_request: CreateReferralConversionRequest
-    ) -> ReferralConversionInstance:
-        """
-        Asynchronous coroutine to create the ReferralConversionInstance
-
-        :param create_referral_conversion_request:
-
-        :returns: The created ReferralConversionInstance
-        """
-        data = values.of(
-            {
-                "CreateReferralConversionRequest": create_referral_conversion_request,
-            }
-        )
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data
-        )
-
-        return ReferralConversionInstance(self._version, payload)
-
-    def __repr__(self) -> str:
-        """
-        Provide a friendly representation
-
-        :returns: Machine friendly representation
-        """
-
-        return "<Twilio.Marketplace.V1.ReferralConversionContext>"
 
 
 class ReferralConversionList(ListResource):
@@ -175,19 +67,49 @@ class ReferralConversionList(ListResource):
         """
         super().__init__(version)
 
-    def get(self) -> ReferralConversionContext:
-        """
-        Constructs a ReferralConversionContext
+        self._uri = "/ReferralConversion"
 
+    def create(
+        self, create_referral_conversion_request: CreateReferralConversionRequest
+    ) -> ReferralConversionInstance:
         """
-        return ReferralConversionContext(self._version)
+        Create the ReferralConversionInstance
 
-    def __call__(self) -> ReferralConversionContext:
-        """
-        Constructs a ReferralConversionContext
+        :param create_referral_conversion_request:
 
+        :returns: The created ReferralConversionInstance
         """
-        return ReferralConversionContext(self._version)
+        data = create_referral_conversion_request.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers["Content-Type"] = "application/json"
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ReferralConversionInstance(self._version, payload)
+
+    async def create_async(
+        self, create_referral_conversion_request: CreateReferralConversionRequest
+    ) -> ReferralConversionInstance:
+        """
+        Asynchronously create the ReferralConversionInstance
+
+        :param create_referral_conversion_request:
+
+        :returns: The created ReferralConversionInstance
+        """
+        data = create_referral_conversion_request.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        headers["Content-Type"] = "application/json"
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ReferralConversionInstance(self._version, payload)
 
     def __repr__(self) -> str:
         """
