@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-10-25] Version 9.3.6
+--------------------------
+**Library - Chore**
+- [PR #818](https://github.com/twilio/twilio-python/pull/818): removing unavailable references from init files. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+
 [2024-10-24] Version 9.3.5
 --------------------------
 **Conversations**
