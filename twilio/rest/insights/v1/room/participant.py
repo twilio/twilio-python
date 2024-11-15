@@ -28,6 +28,7 @@ class ParticipantInstance(InstanceResource):
         VP8 = "VP8"
         H264 = "H264"
         VP9 = "VP9"
+        OPUS = "opus"
 
     class EdgeLocation(object):
         ASHBURN = "ashburn"
@@ -55,6 +56,8 @@ class ParticipantInstance(InstanceResource):
         IN1 = "in1"
         DE1 = "de1"
         GLL = "gll"
+        STAGE_US1 = "stage_us1"
+        DEV_US1 = "dev_us1"
 
     """
     :ivar participant_sid: Unique identifier for the participant.

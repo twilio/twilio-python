@@ -3,6 +3,20 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-11-15] Version 9.3.7
+--------------------------
+**Library - Chore**
+- [PR #819](https://github.com/twilio/twilio-python/pull/819): use older verison of aiohttp_retry. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- Added `ivr-virtual-agent-custom-voices` and `ivr-virtual-agent-genai` to `usage_record` API.
+- Add open-api file tag to realtime_transcriptions
+
+**Taskrouter**
+- Add `api-tag` property to workers reservation
+- Add `api-tag` property to task reservation
+
+
 [2024-10-25] Version 9.3.6
 --------------------------
 **Library - Chore**
