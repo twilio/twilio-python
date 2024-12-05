@@ -50,6 +50,7 @@ class VoiceResponse(TwiML):
         sequential=None,
         refer_url=None,
         refer_method=None,
+        events=None,
         **kwargs
     ):
         """
@@ -73,6 +74,7 @@ class VoiceResponse(TwiML):
         :param sequential: Used to determine if child TwiML nouns should be dialed in order, one after the other (sequential) or dial all at once (parallel). Default is false, parallel
         :param refer_url: Webhook that will receive future SIP REFER requests
         :param refer_method: The HTTP method to use for the refer Webhook
+        :param events: Subscription to events
         :param kwargs: additional attributes
 
         :returns: <Dial> element
@@ -97,6 +99,7 @@ class VoiceResponse(TwiML):
                 sequential=sequential,
                 refer_url=refer_url,
                 refer_method=refer_method,
+                events=events,
                 **kwargs
             )
         )
@@ -678,6 +681,7 @@ class Stop(TwiML):
         speech_model=None,
         hints=None,
         enable_automatic_punctuation=None,
+        intelligence_service=None,
         **kwargs
     ):
         """
@@ -696,6 +700,7 @@ class Stop(TwiML):
         :param speech_model: Speech Model used by the transcription engine
         :param hints: Hints to be provided to the transcription engine
         :param enable_automatic_punctuation: Enable Automatic Punctuation
+        :param intelligence_service: The SID or the unique name of the Intelligence Service to be used
         :param kwargs: additional attributes
 
         :returns: <Transcription> element
@@ -715,6 +720,7 @@ class Stop(TwiML):
                 speech_model=speech_model,
                 hints=hints,
                 enable_automatic_punctuation=enable_automatic_punctuation,
+                intelligence_service=intelligence_service,
                 **kwargs
             )
         )
@@ -897,6 +903,7 @@ class Start(TwiML):
         speech_model=None,
         hints=None,
         enable_automatic_punctuation=None,
+        intelligence_service=None,
         **kwargs
     ):
         """
@@ -915,6 +922,7 @@ class Start(TwiML):
         :param speech_model: Speech Model used by the transcription engine
         :param hints: Hints to be provided to the transcription engine
         :param enable_automatic_punctuation: Enable Automatic Punctuation
+        :param intelligence_service: The SID or the unique name of the Intelligence Service to be used
         :param kwargs: additional attributes
 
         :returns: <Transcription> element
@@ -934,6 +942,7 @@ class Start(TwiML):
                 speech_model=speech_model,
                 hints=hints,
                 enable_automatic_punctuation=enable_automatic_punctuation,
+                intelligence_service=intelligence_service,
                 **kwargs
             )
         )
@@ -2724,6 +2733,248 @@ class Connect(TwiML):
                 **kwargs
             )
         )
+
+    def conversation_relay(
+        self,
+        url=None,
+        language=None,
+        tts_language=None,
+        transcription_language=None,
+        tts_provider=None,
+        voice=None,
+        transcription_provider=None,
+        speech_model=None,
+        profanity_filter=None,
+        dtmf_detection=None,
+        welcome_greeting=None,
+        partial_prompts=None,
+        interruptible=None,
+        interrupt_by_dtmf=None,
+        welcome_greeting_interruptible=None,
+        debug=None,
+        **kwargs
+    ):
+        """
+        Create a <ConversationRelay> element
+
+        :param url: URL of the remote service where the session is connected to
+        :param language: Language to be used for both text-to-speech and transcription
+        :param tts_language: Language to be used for text-to-speech
+        :param transcription_language: Language to be used for transcription
+        :param tts_provider: Provider to be used for text-to-speech
+        :param voice: Voice to be used for text-to-speech
+        :param transcription_provider: Provider to be used for transcription
+        :param speech_model: Speech model to be used for transcription
+        :param profanity_filter: Whether profanities should be filtered out of the speech transcription
+        :param dtmf_detection: Whether DTMF tones should be detected and reported in speech transcription
+        :param welcome_greeting: The sentence to be played automatically when the session is connected
+        :param partial_prompts: Whether partial prompts should be reported to WebSocket server before the caller finishes speaking
+        :param interruptible: Whether caller's speaking can interrupt the play of text-to-speech
+        :param interrupt_by_dtmf: Whether DTMF tone can interrupt the play of text-to-speech
+        :param welcome_greeting_interruptible: Whether caller's speaking can interrupt the welcome greeting
+        :param debug: Whether debugging on the session is enabled
+        :param kwargs: additional attributes
+
+        :returns: <ConversationRelay> element
+        """
+        return self.nest(
+            ConversationRelay(
+                url=url,
+                language=language,
+                tts_language=tts_language,
+                transcription_language=transcription_language,
+                tts_provider=tts_provider,
+                voice=voice,
+                transcription_provider=transcription_provider,
+                speech_model=speech_model,
+                profanity_filter=profanity_filter,
+                dtmf_detection=dtmf_detection,
+                welcome_greeting=welcome_greeting,
+                partial_prompts=partial_prompts,
+                interruptible=interruptible,
+                interrupt_by_dtmf=interrupt_by_dtmf,
+                welcome_greeting_interruptible=welcome_greeting_interruptible,
+                debug=debug,
+                **kwargs
+            )
+        )
+
+    def assistant(
+        self,
+        id=None,
+        language=None,
+        tts_language=None,
+        transcription_language=None,
+        tts_provider=None,
+        voice=None,
+        transcription_provider=None,
+        speech_model=None,
+        profanity_filter=None,
+        dtmf_detection=None,
+        welcome_greeting=None,
+        partial_prompts=None,
+        interruptible=None,
+        interrupt_by_dtmf=None,
+        welcome_greeting_interruptible=None,
+        debug=None,
+        **kwargs
+    ):
+        """
+        Create a <Assistant> element
+
+        :param id: The assistant ID of the AI Assistant
+        :param language: Language to be used for both text-to-speech and transcription
+        :param tts_language: Language to be used for text-to-speech
+        :param transcription_language: Language to be used for transcription
+        :param tts_provider: Provider to be used for text-to-speech
+        :param voice: Voice to be used for text-to-speech
+        :param transcription_provider: Provider to be used for transcription
+        :param speech_model: Speech model to be used for transcription
+        :param profanity_filter: Whether profanities should be filtered out of the speech transcription
+        :param dtmf_detection: Whether DTMF tones should be detected and reported in speech transcription
+        :param welcome_greeting: The sentence to be played automatically when the session is connected
+        :param partial_prompts: Whether partial prompts should be reported to WebSocket server before the caller finishes speaking
+        :param interruptible: Whether caller's speaking can interrupt the play of text-to-speech
+        :param interrupt_by_dtmf: Whether DTMF tone can interrupt the play of text-to-speech
+        :param welcome_greeting_interruptible: Whether caller's speaking can interrupt the welcome greeting
+        :param debug: Whether debugging on the session is enabled
+        :param kwargs: additional attributes
+
+        :returns: <Assistant> element
+        """
+        return self.nest(
+            Assistant(
+                id=id,
+                language=language,
+                tts_language=tts_language,
+                transcription_language=transcription_language,
+                tts_provider=tts_provider,
+                voice=voice,
+                transcription_provider=transcription_provider,
+                speech_model=speech_model,
+                profanity_filter=profanity_filter,
+                dtmf_detection=dtmf_detection,
+                welcome_greeting=welcome_greeting,
+                partial_prompts=partial_prompts,
+                interruptible=interruptible,
+                interrupt_by_dtmf=interrupt_by_dtmf,
+                welcome_greeting_interruptible=welcome_greeting_interruptible,
+                debug=debug,
+                **kwargs
+            )
+        )
+
+
+class Assistant(TwiML):
+    """<Assistant> TwiML Noun"""
+
+    def __init__(self, **kwargs):
+        super(Assistant, self).__init__(**kwargs)
+        self.name = "Assistant"
+
+    def language(
+        self,
+        code=None,
+        tts_provider=None,
+        voice=None,
+        transcription_provider=None,
+        speech_model=None,
+        **kwargs
+    ):
+        """
+        Create a <Language> element
+
+        :param code: Language code of this language setting is for
+        :param tts_provider: Provider to be used for text-to-speech of this language
+        :param voice: Voice to be used for text-to-speech of this language
+        :param transcription_provider: Provider to be used for transcription of this language
+        :param speech_model: Speech model to be used for transcription of this language
+        :param kwargs: additional attributes
+
+        :returns: <Language> element
+        """
+        return self.nest(
+            Language(
+                code=code,
+                tts_provider=tts_provider,
+                voice=voice,
+                transcription_provider=transcription_provider,
+                speech_model=speech_model,
+                **kwargs
+            )
+        )
+
+    def parameter(self, name=None, value=None, **kwargs):
+        """
+        Create a <Parameter> element
+
+        :param name: The name of the custom parameter
+        :param value: The value of the custom parameter
+        :param kwargs: additional attributes
+
+        :returns: <Parameter> element
+        """
+        return self.nest(Parameter(name=name, value=value, **kwargs))
+
+
+class Language(TwiML):
+    """<Language> TwiML Noun"""
+
+    def __init__(self, **kwargs):
+        super(Language, self).__init__(**kwargs)
+        self.name = "Language"
+
+
+class ConversationRelay(TwiML):
+    """<ConversationRelay> TwiML Noun"""
+
+    def __init__(self, **kwargs):
+        super(ConversationRelay, self).__init__(**kwargs)
+        self.name = "ConversationRelay"
+
+    def language(
+        self,
+        code=None,
+        tts_provider=None,
+        voice=None,
+        transcription_provider=None,
+        speech_model=None,
+        **kwargs
+    ):
+        """
+        Create a <Language> element
+
+        :param code: Language code of this language setting is for
+        :param tts_provider: Provider to be used for text-to-speech of this language
+        :param voice: Voice to be used for text-to-speech of this language
+        :param transcription_provider: Provider to be used for transcription of this language
+        :param speech_model: Speech model to be used for transcription of this language
+        :param kwargs: additional attributes
+
+        :returns: <Language> element
+        """
+        return self.nest(
+            Language(
+                code=code,
+                tts_provider=tts_provider,
+                voice=voice,
+                transcription_provider=transcription_provider,
+                speech_model=speech_model,
+                **kwargs
+            )
+        )
+
+    def parameter(self, name=None, value=None, **kwargs):
+        """
+        Create a <Parameter> element
+
+        :param name: The name of the custom parameter
+        :param value: The value of the custom parameter
+        :param kwargs: additional attributes
+
+        :returns: <Parameter> element
+        """
+        return self.nest(Parameter(name=name, value=value, **kwargs))
 
 
 class Conversation(TwiML):
