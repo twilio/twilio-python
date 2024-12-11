@@ -26,7 +26,7 @@ class TokenAuthStrategy(AuthStrategy):
 
     def fetch_token(self):
         if self.token is None or self.token == "" or self.is_token_expired(self.token):
-            # with self.lock:
+            with self.lock:
                 if self.token is None or self.token == "" or self.is_token_expired(self.token):
                     self.logger.info("New token fetched for accessing organization API")
                     self.token = self.token_manager.fetch_access_token()
