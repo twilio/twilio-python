@@ -4,6 +4,7 @@ from typing import Dict, List, MutableMapping, Optional, Tuple
 from urllib.parse import urlparse, urlunparse
 
 from twilio import __version__
+from twilio.base.exceptions import TwilioException
 from twilio.http import HttpClient
 from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response
