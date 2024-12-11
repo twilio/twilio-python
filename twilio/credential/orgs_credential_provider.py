@@ -1,5 +1,3 @@
-
-
 from twilio.http.orgs_token_manager import OrgTokenManager
 from twilio.base.exceptions import TwilioException
 from twilio.credential.credential_provider import CredentialProvider
@@ -22,7 +20,9 @@ class OrgsCredentialProvider(CredentialProvider):
 
     def to_auth_strategy(self):
         if self.token_manager is None:
-            self.token_manager = OrgTokenManager(self.grant_type, self.client_id, self.client_secret)
+            self.token_manager = OrgTokenManager(
+                self.grant_type, self.client_id, self.client_secret
+            )
         if self.auth_strategy is None:
             self.auth_strategy = TokenAuthStrategy(self.token_manager)
         return self.auth_strategy

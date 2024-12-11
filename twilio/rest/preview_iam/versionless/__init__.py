@@ -15,37 +15,29 @@ r"""
 from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
-from twilio.rest.preview_iam.v1.authorize import AuthorizeList
-from twilio.rest.preview_iam.v1.token import TokenList
+from twilio.rest.preview_iam.versionless.organization import OrganizationList
 
 
-class V1(Version):
+class Versionless(Version):
 
     def __init__(self, domain: Domain):
         """
-        Initialize the V1 version of PreviewIam
+        Initialize the Versionless version of PreviewIam
 
         :param domain: The Twilio.preview_iam domain
         """
-        super().__init__(domain, "v1")
-        self._authorize: Optional[AuthorizeList] = None
-        self._token: Optional[TokenList] = None
+        super().__init__(domain, "Organizations")
+        self._organization: Optional[OrganizationList] = None
         
     @property
-    def authorize(self) -> AuthorizeList:
-        if self._authorize is None:
-            self._authorize = AuthorizeList(self)
-        return self._authorize
-
-    @property
-    def token(self) -> TokenList:
-        if self._token is None:
-            self._token = TokenList(self)
-        return self._token
+    def organization(self) -> OrganizationList:
+        if self._organization is None:
+            self._organization = OrganizationList(self)
+        return self._organization
 
     def __repr__(self) -> str:
         """
         Provide a friendly representation
         :returns: Machine friendly representation
         """
-        return "<Twilio.PreviewIam.V1>"
+        return "<Twilio.PreviewIam.Versionless>"

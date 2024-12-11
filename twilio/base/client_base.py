@@ -7,7 +7,6 @@ from twilio import __version__
 from twilio.http import HttpClient
 from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response
-from twilio.auth_strategy.auth_type import AuthType
 from twilio.credential.credential_provider import CredentialProvider
 
 
@@ -88,12 +87,12 @@ class ClientBase(object):
 
         :returns: Response from the Twilio API
         """
-
         headers = self.get_headers(method, headers)
 
         ##If credential provider is provided by user, get the associated auth strategy
         ##Using the auth strategy, fetch the auth string and set it to authorization header
         if self.credential_provider:
+
             auth_strategy = self.credential_provider.to_auth_strategy()
             headers["Authorization"] = auth_strategy.get_auth_string()
         elif self.username is not None and self.password is not None:
@@ -101,14 +100,13 @@ class ClientBase(object):
         else:
             auth = None
 
-
         uri = self.get_hostname(uri)
-
+        filtered_data = self.copy_non_none_values(data)
         return self.http_client.request(
             method,
             uri,
             params=params,
-            data=data,
+            data=filtered_data,
             headers=headers,
             auth=auth,
             timeout=timeout,
@@ -147,7 +145,6 @@ class ClientBase(object):
                 "http_client must be asynchronous to support async API requests"
             )
 
-
         headers = self.get_headers(method, headers)
 
         ##If credential provider is provided by user, get the associated auth strategy
@@ -162,17 +159,24 @@ class ClientBase(object):
             auth = None
 
         uri = self.get_hostname(uri)
-
+        filtered_data = self.copy_non_none_values(data)
         return await self.http_client.request(
             method,
             uri,
             params=params,
-            data=data,
+            data=filtered_data,
             headers=headers,
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
         )
+
+    def copy_non_none_values(self, data):
+        if isinstance(data, dict):
+            return {k: self.copy_non_none_values(v) for k, v in data.items() if v is not None}
+        elif isinstance(data, list):
+            return [self.copy_non_none_values(item) for item in data if item is not None]
+        return data
 
     def get_auth(self, auth: Optional[Tuple[str, str]]) -> Tuple[str, str]:
         """
@@ -251,6 +255,20 @@ class ClientBase(object):
             netloc=".".join([part for part in [prefix, edge, region, suffix] if part])
         )
         return str(urlunparse(parsed_url))
+
+    def remove_nulls(self, data):
+        res = {}
+        for key, sub_dict in data.items():
+            temp_dict = {}
+            if type(sub_dict) != str and sub_dict is not None:
+                for sub_key, sub_value in sub_dict.items():
+                    if sub_value is not None:
+                        temp_dict[sub_key] = sub_value
+            if  type(sub_dict) == str:
+                temp_dict = sub_dict
+            if temp_dict:
+                res[key] = temp_dict
+        return res
 
     def __repr__(self) -> str:
         """

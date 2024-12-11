@@ -1,5 +1,6 @@
 from auth_type import AuthType
 
+
 class NoAuthStrategy(AuthStrategy):
     def __init__(self):
         super().__init__(AuthType.NO_AUTH)

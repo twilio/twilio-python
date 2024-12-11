@@ -1,5 +1,6 @@
 from twilio.auth_strategy.auth_type import AuthType
 
+
 class CredentialProvider:
     def __init__(self, auth_type: AuthType):
         self._auth_type = auth_type

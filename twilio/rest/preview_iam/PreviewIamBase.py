@@ -13,9 +13,8 @@ from twilio.base.domain import Domain
 from typing import Optional
 from twilio.rest import Client
 
-from twilio.rest.preview_iam.organizations import Organizations
 from twilio.rest.preview_iam.v1 import V1
-
+from twilio.rest.preview_iam.versionless import Versionless
 
 class PreviewIamBase(Domain):
     def __init__(self, twilio: Client):
@@ -25,25 +24,23 @@ class PreviewIamBase(Domain):
         :returns: Domain for PreviewIam
         """
         super().__init__(twilio, "https://preview-iam.twilio.com")
-        self._organizations: Optional[Organizations] = None
+        self._versionless: Optional[Versionless] = None
         self._v1: Optional[V1] = None
-        # self._token: Optional[TokenList] = None
-        # self._service_accounts: Optional[ServiceAccounts] = None
-        # self._service_roles: Optional[ServiceRoles] = None
+
 
     @property
-    def organizations(self) -> Organizations:
+    def versionless(self) -> Versionless:
         """
-        :returns: Organizations of PreviewIam
+        :returns: Versionless of PreviewIam
         """
-        if self._organizations is None:
-            self._organizations = Organizations(self)
-        return self._organizations
+        if self._versionless is None:
+            self._versionless = Versionless(self)
+        return self._versionless
 
     @property
     def v1(self) -> V1:
         """
-        :returns: Organizations of PreviewIam
+        :returns: V1 of PreviewIam
         """
         if self._v1 is None:
             self._v1 = V1(self)

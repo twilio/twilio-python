@@ -1,7 +1,7 @@
 import jwt
 import threading
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from twilio.auth_strategy.auth_type import AuthType
 from twilio.auth_strategy.auth_strategy import AuthStrategy
@@ -25,16 +25,16 @@ class TokenAuthStrategy(AuthStrategy):
         return True
 
     def fetch_token(self):
-        self.logger.info("New token fetched for accessing organization API")
         if self.token is None or self.token == "" or self.is_token_expired(self.token):
-             with self.lock:
+            # with self.lock:
                 if self.token is None or self.token == "" or self.is_token_expired(self.token):
+                    self.logger.info("New token fetched for accessing organization API")
                     self.token = self.token_manager.fetch_access_token()
 
     def is_token_expired(self, token):
         try:
             decoded = jwt.decode(token, options={"verify_signature": False})
-            exp = decoded.get('exp')
+            exp = decoded.get("exp")
 
             if exp is None:
                 return True  # No expiration time present, consider it expired

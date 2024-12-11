@@ -164,6 +164,10 @@ class Version(object):
             timeout=timeout,
             allow_redirects=allow_redirects,
         )
+        print('response')
+        print(response)
+
+
 
         return self._parse_fetch(method, uri, response)
 
