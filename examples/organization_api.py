@@ -21,7 +21,7 @@ def example():
         credential_provider= OrgsCredentialProvider(CLIENT_ID,CLIENT_SECRET)
     )
 
-    accounts = self.client.preview_iam.organization(organization_sid="OR64adedc0f4dc99b9113305f725677b47").accounts.stream()
+    accounts = self.client.preview_iam.organization(organization_sid=ORGS_SID).accounts.stream()
     self.assertIsNotNone(accounts)
 
 
