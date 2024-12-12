@@ -469,7 +469,7 @@ class UserContext(InstanceContext):
     
     def fetch(self) -> UserInstance:
         """
-        Fetch1 the UserInstance
+        Fetch the UserInstance
         
 
         :returns: The fetched UserInstance

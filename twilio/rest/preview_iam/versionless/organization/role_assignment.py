@@ -298,8 +298,6 @@ class RoleAssignmentList(ListResource):
         
         headers["Accept"] = "application/json"
         
-        headers["Accept"] = "application/scim+json"
-        
         
         payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
@@ -323,8 +321,6 @@ class RoleAssignmentList(ListResource):
         
         
         headers["Accept"] = "application/json"
-        
-        headers["Accept"] = "application/scim+json"
         
         
         payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)

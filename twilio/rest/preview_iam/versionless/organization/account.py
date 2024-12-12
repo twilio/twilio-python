@@ -116,7 +116,7 @@ class AccountContext(InstanceContext):
     
     def fetch(self) -> AccountInstance:
         """
-        Fetch1 the AccountInstance
+        Fetch the AccountInstance
         
 
         :returns: The fetched AccountInstance
