@@ -1,4 +1,5 @@
 from auth_type import AuthType
+from twilio.auth_strategy.auth_strategy import AuthStrategy
 
 
 class NoAuthStrategy(AuthStrategy):
