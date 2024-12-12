@@ -158,10 +158,11 @@ class ExportConfigurationContext(InstanceContext):
         :returns: The fetched ExportConfigurationInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return ExportConfigurationInstance(
             self._version,
@@ -177,9 +178,12 @@ class ExportConfigurationContext(InstanceContext):
         :returns: The fetched ExportConfigurationInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return ExportConfigurationInstance(
@@ -203,6 +207,7 @@ class ExportConfigurationContext(InstanceContext):
 
         :returns: The updated ExportConfigurationInstance
         """
+
         data = values.of(
             {
                 "Enabled": serialize.boolean_to_string(enabled),
@@ -210,11 +215,14 @@ class ExportConfigurationContext(InstanceContext):
                 "WebhookMethod": webhook_method,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ExportConfigurationInstance(
@@ -236,6 +244,7 @@ class ExportConfigurationContext(InstanceContext):
 
         :returns: The updated ExportConfigurationInstance
         """
+
         data = values.of(
             {
                 "Enabled": serialize.boolean_to_string(enabled),
@@ -243,11 +252,14 @@ class ExportConfigurationContext(InstanceContext):
                 "WebhookMethod": webhook_method,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ExportConfigurationInstance(

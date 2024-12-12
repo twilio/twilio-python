@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-12-12] Version 9.4.0
+--------------------------
+**Library - Feature**
+- [PR #825](https://github.com/twilio/twilio-python/pull/825): Docs update and examples for organization api uptake and public oauth. Thanks to [@AsabuHere](https://github.com/AsabuHere)!
+- [PR #815](https://github.com/twilio/twilio-python/pull/815): Organizations Api uptake for twilio-python. Thanks to [@AsabuHere](https://github.com/AsabuHere)!
+
+
 [2024-12-05] Version 9.3.8
 --------------------------
 **Api**

@@ -127,10 +127,11 @@ class SchemaVersionContext(InstanceContext):
         :returns: The fetched SchemaVersionInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return SchemaVersionInstance(
             self._version,
@@ -147,9 +148,12 @@ class SchemaVersionContext(InstanceContext):
         :returns: The fetched SchemaVersionInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return SchemaVersionInstance(
@@ -333,7 +337,13 @@ class SchemaVersionList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return SchemaVersionPage(self._version, response, self._solution)
 
     async def page_async(
@@ -360,8 +370,12 @@ class SchemaVersionList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return SchemaVersionPage(self._version, response, self._solution)
 

@@ -112,10 +112,11 @@ class PoliciesContext(InstanceContext):
         :returns: The fetched PoliciesInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return PoliciesInstance(
             self._version,
@@ -131,9 +132,12 @@ class PoliciesContext(InstanceContext):
         :returns: The fetched PoliciesInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return PoliciesInstance(
@@ -311,7 +315,13 @@ class PoliciesList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return PoliciesPage(self._version, response)
 
     async def page_async(
@@ -338,8 +348,12 @@ class PoliciesList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return PoliciesPage(self._version, response)
 

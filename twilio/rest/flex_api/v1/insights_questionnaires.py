@@ -221,6 +221,8 @@ class InsightsQuestionnairesContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(
@@ -238,6 +240,8 @@ class InsightsQuestionnairesContext(InstanceContext):
                 "Authorization": authorization,
             }
         )
+
+        headers = values.of({})
 
         return await self._version.delete_async(
             method="DELETE", uri=self._uri, headers=headers
@@ -260,7 +264,13 @@ class InsightsQuestionnairesContext(InstanceContext):
             }
         )
 
-        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
 
         return InsightsQuestionnairesInstance(
             self._version,
@@ -285,8 +295,12 @@ class InsightsQuestionnairesContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
 
         return InsightsQuestionnairesInstance(
@@ -314,6 +328,7 @@ class InsightsQuestionnairesContext(InstanceContext):
 
         :returns: The updated InsightsQuestionnairesInstance
         """
+
         data = values.of(
             {
                 "Active": serialize.boolean_to_string(active),
@@ -322,11 +337,17 @@ class InsightsQuestionnairesContext(InstanceContext):
                 "QuestionSids": serialize.map(question_sids, lambda e: e),
             }
         )
-        headers = values.of(
-            {
-                "Authorization": authorization,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            authorization is values.unset
+            or (isinstance(authorization, str) and not authorization)
+        ):
+            headers["Authorization"] = authorization
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -357,6 +378,7 @@ class InsightsQuestionnairesContext(InstanceContext):
 
         :returns: The updated InsightsQuestionnairesInstance
         """
+
         data = values.of(
             {
                 "Active": serialize.boolean_to_string(active),
@@ -365,11 +387,17 @@ class InsightsQuestionnairesContext(InstanceContext):
                 "QuestionSids": serialize.map(question_sids, lambda e: e),
             }
         )
-        headers = values.of(
-            {
-                "Authorization": authorization,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            authorization is values.unset
+            or (isinstance(authorization, str) and not authorization)
+        ):
+            headers["Authorization"] = authorization
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -458,6 +486,10 @@ class InsightsQuestionnairesList(ListResource):
             }
         )
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -498,6 +530,10 @@ class InsightsQuestionnairesList(ListResource):
                 "Content-Type": "application/x-www-form-urlencoded",
             }
         )
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -666,7 +702,18 @@ class InsightsQuestionnairesList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return InsightsQuestionnairesPage(self._version, response)
 
     async def page_async(
@@ -699,8 +746,17 @@ class InsightsQuestionnairesList(ListResource):
             }
         )
 
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return InsightsQuestionnairesPage(self._version, response)
 

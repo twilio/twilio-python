@@ -9,15 +9,16 @@ r"""
   Do not edit the class manually.
 """
 
-from twilio.base.domain import Domain
 from typing import Optional
-from twilio.rest import Client
 
+from twilio.base.domain import Domain
+from twilio.rest import Client
+from twilio.rest.preview_iam.organizations import Organizations
 from twilio.rest.preview_iam.v1 import V1
-from twilio.rest.preview_iam.versionless import Versionless
 
 
 class PreviewIamBase(Domain):
+
     def __init__(self, twilio: Client):
         """
         Initialize the PreviewIam Domain
@@ -25,23 +26,30 @@ class PreviewIamBase(Domain):
         :returns: Domain for PreviewIam
         """
         super().__init__(twilio, "https://preview-iam.twilio.com")
-        self._versionless: Optional[Versionless] = None
+        self._organizations: Optional[Organizations] = None
         self._v1: Optional[V1] = None
 
     @property
-    def versionless(self) -> Versionless:
+    def organizations(self) -> Organizations:
         """
-        :returns: Versionless of PreviewIam
+        :returns: Versions organizations of PreviewIam
         """
-        if self._versionless is None:
-            self._versionless = Versionless(self)
-        return self._versionless
+        if self._organizations is None:
+            self._organizations = Organizations(self)
+        return self._organizations
 
     @property
     def v1(self) -> V1:
         """
-        :returns: V1 of PreviewIam
+        :returns: Versions v1 of PreviewIam
         """
         if self._v1 is None:
             self._v1 = V1(self)
         return self._v1
+
+    def __repr__(self) -> str:
+        """
+        Provide a friendly representation
+        :returns: Machine friendly representation
+        """
+        return "<Twilio.PreviewIam>"

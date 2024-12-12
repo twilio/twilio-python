@@ -285,6 +285,8 @@ class ParticipantContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(
@@ -306,6 +308,8 @@ class ParticipantContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
         return await self._version.delete_async(
             method="DELETE", uri=self._uri, headers=headers
         )
@@ -318,10 +322,11 @@ class ParticipantContext(InstanceContext):
         :returns: The fetched ParticipantInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return ParticipantInstance(
             self._version,
@@ -338,9 +343,12 @@ class ParticipantContext(InstanceContext):
         :returns: The fetched ParticipantInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return ParticipantInstance(
@@ -381,6 +389,7 @@ class ParticipantContext(InstanceContext):
 
         :returns: The updated ParticipantInstance
         """
+
         data = values.of(
             {
                 "DateCreated": serialize.iso8601_datetime(date_created),
@@ -394,11 +403,20 @@ class ParticipantContext(InstanceContext):
                 "LastReadTimestamp": last_read_timestamp,
             }
         )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            x_twilio_webhook_enabled is values.unset
+            or (
+                isinstance(x_twilio_webhook_enabled, str)
+                and not x_twilio_webhook_enabled
+            )
+        ):
+            headers["X-Twilio-Webhook-Enabled"] = x_twilio_webhook_enabled
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -442,6 +460,7 @@ class ParticipantContext(InstanceContext):
 
         :returns: The updated ParticipantInstance
         """
+
         data = values.of(
             {
                 "DateCreated": serialize.iso8601_datetime(date_created),
@@ -455,11 +474,20 @@ class ParticipantContext(InstanceContext):
                 "LastReadTimestamp": last_read_timestamp,
             }
         )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            x_twilio_webhook_enabled is values.unset
+            or (
+                isinstance(x_twilio_webhook_enabled, str)
+                and not x_twilio_webhook_enabled
+            )
+        ):
+            headers["X-Twilio-Webhook-Enabled"] = x_twilio_webhook_enabled
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -572,6 +600,10 @@ class ParticipantList(ListResource):
             }
         )
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -628,6 +660,10 @@ class ParticipantList(ListResource):
                 "Content-Type": "application/x-www-form-urlencoded",
             }
         )
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -764,7 +800,13 @@ class ParticipantList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return ParticipantPage(self._version, response, self._solution)
 
     async def page_async(
@@ -791,8 +833,12 @@ class ParticipantList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return ParticipantPage(self._version, response, self._solution)
 

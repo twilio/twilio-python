@@ -156,16 +156,20 @@ class SiprecContext(InstanceContext):
 
         :returns: The updated SiprecInstance
         """
+
         data = values.of(
             {
                 "Status": status,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return SiprecInstance(
@@ -186,16 +190,20 @@ class SiprecContext(InstanceContext):
 
         :returns: The updated SiprecInstance
         """
+
         data = values.of(
             {
                 "Status": status,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return SiprecInstance(
@@ -863,6 +871,10 @@ class SiprecList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -1498,6 +1510,10 @@ class SiprecList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers

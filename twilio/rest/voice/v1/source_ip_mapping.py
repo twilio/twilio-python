@@ -162,10 +162,10 @@ class SourceIpMappingContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -174,9 +174,11 @@ class SourceIpMappingContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> SourceIpMappingInstance:
@@ -187,10 +189,11 @@ class SourceIpMappingContext(InstanceContext):
         :returns: The fetched SourceIpMappingInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return SourceIpMappingInstance(
             self._version,
@@ -206,9 +209,12 @@ class SourceIpMappingContext(InstanceContext):
         :returns: The fetched SourceIpMappingInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return SourceIpMappingInstance(
@@ -225,16 +231,20 @@ class SourceIpMappingContext(InstanceContext):
 
         :returns: The updated SourceIpMappingInstance
         """
+
         data = values.of(
             {
                 "SipDomainSid": sip_domain_sid,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return SourceIpMappingInstance(
@@ -249,16 +259,20 @@ class SourceIpMappingContext(InstanceContext):
 
         :returns: The updated SourceIpMappingInstance
         """
+
         data = values.of(
             {
                 "SipDomainSid": sip_domain_sid,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return SourceIpMappingInstance(
@@ -327,6 +341,10 @@ class SourceIpMappingList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -352,6 +370,10 @@ class SourceIpMappingList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -486,7 +508,13 @@ class SourceIpMappingList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return SourceIpMappingPage(self._version, response)
 
     async def page_async(
@@ -513,8 +541,12 @@ class SourceIpMappingList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return SourceIpMappingPage(self._version, response)
 

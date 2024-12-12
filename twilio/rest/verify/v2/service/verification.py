@@ -192,10 +192,11 @@ class VerificationContext(InstanceContext):
         :returns: The fetched VerificationInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return VerificationInstance(
             self._version,
@@ -212,9 +213,12 @@ class VerificationContext(InstanceContext):
         :returns: The fetched VerificationInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return VerificationInstance(
@@ -232,16 +236,20 @@ class VerificationContext(InstanceContext):
 
         :returns: The updated VerificationInstance
         """
+
         data = values.of(
             {
                 "Status": status,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return VerificationInstance(
@@ -261,16 +269,20 @@ class VerificationContext(InstanceContext):
 
         :returns: The updated VerificationInstance
         """
+
         data = values.of(
             {
                 "Status": status,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return VerificationInstance(
@@ -380,6 +392,10 @@ class VerificationList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -459,6 +475,10 @@ class VerificationList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers

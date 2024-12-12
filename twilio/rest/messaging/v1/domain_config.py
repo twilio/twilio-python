@@ -179,10 +179,11 @@ class DomainConfigContext(InstanceContext):
         :returns: The fetched DomainConfigInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return DomainConfigInstance(
             self._version,
@@ -198,9 +199,12 @@ class DomainConfigContext(InstanceContext):
         :returns: The fetched DomainConfigInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return DomainConfigInstance(
@@ -226,6 +230,7 @@ class DomainConfigContext(InstanceContext):
 
         :returns: The updated DomainConfigInstance
         """
+
         data = values.of(
             {
                 "FallbackUrl": fallback_url,
@@ -234,11 +239,14 @@ class DomainConfigContext(InstanceContext):
                 "DisableHttps": serialize.boolean_to_string(disable_https),
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return DomainConfigInstance(
@@ -262,6 +270,7 @@ class DomainConfigContext(InstanceContext):
 
         :returns: The updated DomainConfigInstance
         """
+
         data = values.of(
             {
                 "FallbackUrl": fallback_url,
@@ -270,11 +279,14 @@ class DomainConfigContext(InstanceContext):
                 "DisableHttps": serialize.boolean_to_string(disable_https),
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return DomainConfigInstance(

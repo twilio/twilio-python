@@ -292,6 +292,8 @@ class TaskContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self, if_match: Union[str, object] = values.unset) -> bool:
@@ -308,6 +310,8 @@ class TaskContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
         return await self._version.delete_async(
             method="DELETE", uri=self._uri, headers=headers
         )
@@ -320,10 +324,11 @@ class TaskContext(InstanceContext):
         :returns: The fetched TaskInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return TaskInstance(
             self._version,
@@ -340,9 +345,12 @@ class TaskContext(InstanceContext):
         :returns: The fetched TaskInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return TaskInstance(
@@ -375,6 +383,7 @@ class TaskContext(InstanceContext):
 
         :returns: The updated TaskInstance
         """
+
         data = values.of(
             {
                 "Attributes": attributes,
@@ -385,11 +394,16 @@ class TaskContext(InstanceContext):
                 "VirtualStartTime": serialize.iso8601_datetime(virtual_start_time),
             }
         )
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            if_match is values.unset or (isinstance(if_match, str) and not if_match)
+        ):
+            headers["If-Match"] = if_match
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -425,6 +439,7 @@ class TaskContext(InstanceContext):
 
         :returns: The updated TaskInstance
         """
+
         data = values.of(
             {
                 "Attributes": attributes,
@@ -435,11 +450,16 @@ class TaskContext(InstanceContext):
                 "VirtualStartTime": serialize.iso8601_datetime(virtual_start_time),
             }
         )
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            if_match is values.unset or (isinstance(if_match, str) and not if_match)
+        ):
+            headers["If-Match"] = if_match
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -557,6 +577,10 @@ class TaskList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -607,6 +631,10 @@ class TaskList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -897,7 +925,13 @@ class TaskList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return TaskPage(self._version, response, self._solution)
 
     async def page_async(
@@ -954,8 +988,12 @@ class TaskList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return TaskPage(self._version, response, self._solution)
 

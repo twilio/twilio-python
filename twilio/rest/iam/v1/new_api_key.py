@@ -21,7 +21,7 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class KeyInstance(InstanceResource):
+class NewApiKeyInstance(InstanceResource):
 
     class Keytype(object):
         RESTRICTED = "restricted"
@@ -56,14 +56,14 @@ class KeyInstance(InstanceResource):
         :returns: Machine friendly representation
         """
 
-        return "<Twilio.Iam.V1.KeyInstance>"
+        return "<Twilio.Iam.V1.NewApiKeyInstance>"
 
 
-class KeyList(ListResource):
+class NewApiKeyList(ListResource):
 
     def __init__(self, version: Version):
         """
-        Initialize the KeyList
+        Initialize the NewApiKeyList
 
         :param version: Version that contains the resource
 
@@ -76,18 +76,18 @@ class KeyList(ListResource):
         self,
         account_sid: str,
         friendly_name: Union[str, object] = values.unset,
-        key_type: Union["KeyInstance.Keytype", object] = values.unset,
+        key_type: Union["NewApiKeyInstance.Keytype", object] = values.unset,
         policy: Union[object, object] = values.unset,
-    ) -> KeyInstance:
+    ) -> NewApiKeyInstance:
         """
-        Create the KeyInstance
+        Create the NewApiKeyInstance
 
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource.
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param key_type:
         :param policy: The \\\\`Policy\\\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys).
 
-        :returns: The created KeyInstance
+        :returns: The created NewApiKeyInstance
         """
 
         data = values.of(
@@ -99,29 +99,33 @@ class KeyList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
-        return KeyInstance(self._version, payload)
+        return NewApiKeyInstance(self._version, payload)
 
     async def create_async(
         self,
         account_sid: str,
         friendly_name: Union[str, object] = values.unset,
-        key_type: Union["KeyInstance.Keytype", object] = values.unset,
+        key_type: Union["NewApiKeyInstance.Keytype", object] = values.unset,
         policy: Union[object, object] = values.unset,
-    ) -> KeyInstance:
+    ) -> NewApiKeyInstance:
         """
-        Asynchronously create the KeyInstance
+        Asynchronously create the NewApiKeyInstance
 
         :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource.
         :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
         :param key_type:
         :param policy: The \\\\`Policy\\\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys).
 
-        :returns: The created KeyInstance
+        :returns: The created NewApiKeyInstance
         """
 
         data = values.of(
@@ -134,11 +138,15 @@ class KeyList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
-        return KeyInstance(self._version, payload)
+        return NewApiKeyInstance(self._version, payload)
 
     def __repr__(self) -> str:
         """
@@ -146,4 +154,4 @@ class KeyList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Iam.V1.KeyList>"
+        return "<Twilio.Iam.V1.NewApiKeyList>"

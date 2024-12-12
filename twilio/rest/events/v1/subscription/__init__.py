@@ -188,10 +188,10 @@ class SubscriptionContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -200,9 +200,11 @@ class SubscriptionContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> SubscriptionInstance:
@@ -213,10 +215,11 @@ class SubscriptionContext(InstanceContext):
         :returns: The fetched SubscriptionInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return SubscriptionInstance(
             self._version,
@@ -232,9 +235,12 @@ class SubscriptionContext(InstanceContext):
         :returns: The fetched SubscriptionInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return SubscriptionInstance(
@@ -256,17 +262,21 @@ class SubscriptionContext(InstanceContext):
 
         :returns: The updated SubscriptionInstance
         """
+
         data = values.of(
             {
                 "Description": description,
                 "SinkSid": sink_sid,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return SubscriptionInstance(self._version, payload, sid=self._solution["sid"])
@@ -284,17 +294,21 @@ class SubscriptionContext(InstanceContext):
 
         :returns: The updated SubscriptionInstance
         """
+
         data = values.of(
             {
                 "Description": description,
                 "SinkSid": sink_sid,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return SubscriptionInstance(self._version, payload, sid=self._solution["sid"])
@@ -375,6 +389,10 @@ class SubscriptionList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -402,6 +420,10 @@ class SubscriptionList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -549,7 +571,13 @@ class SubscriptionList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return SubscriptionPage(self._version, response)
 
     async def page_async(
@@ -579,8 +607,12 @@ class SubscriptionList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return SubscriptionPage(self._version, response)
 

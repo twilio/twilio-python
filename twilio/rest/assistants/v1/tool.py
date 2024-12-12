@@ -23,6 +23,103 @@ from twilio.base.page import Page
 
 
 class ToolInstance(InstanceResource):
+
+    class AssistantsV1ServiceCreatePolicyRequest(object):
+        """
+        :ivar description: The description of the policy.
+        :ivar id: The Policy ID.
+        :ivar name: The name of the policy.
+        :ivar policy_details:
+        :ivar type: The description of the policy.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.description: Optional[str] = payload.get("description")
+            self.id: Optional[str] = payload.get("id")
+            self.name: Optional[str] = payload.get("name")
+            self.policy_details: Optional[Dict[str, object]] = payload.get(
+                "policy_details"
+            )
+            self.type: Optional[str] = payload.get("type")
+
+        def to_dict(self):
+            return {
+                "description": self.description,
+                "id": self.id,
+                "name": self.name,
+                "policy_details": self.policy_details,
+                "type": self.type,
+            }
+
+    class AssistantsV1ServiceCreateToolRequest(object):
+        """
+        :ivar assistant_id: The Assistant ID.
+        :ivar description: The description of the tool.
+        :ivar enabled: True if the tool is enabled.
+        :ivar meta: The metadata related to method, url, input_schema to used with the Tool.
+        :ivar name: The name of the tool.
+        :ivar policy:
+        :ivar type: The description of the tool.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.assistant_id: Optional[str] = payload.get("assistant_id")
+            self.description: Optional[str] = payload.get("description")
+            self.enabled: Optional[bool] = payload.get("enabled")
+            self.meta: Optional[Dict[str, object]] = payload.get("meta")
+            self.name: Optional[str] = payload.get("name")
+            self.policy: Optional[ToolList.AssistantsV1ServiceCreatePolicyRequest] = (
+                payload.get("policy")
+            )
+            self.type: Optional[str] = payload.get("type")
+
+        def to_dict(self):
+            return {
+                "assistant_id": self.assistant_id,
+                "description": self.description,
+                "enabled": self.enabled,
+                "meta": self.meta,
+                "name": self.name,
+                "policy": self.policy.to_dict() if self.policy is not None else None,
+                "type": self.type,
+            }
+
+    class AssistantsV1ServiceUpdateToolRequest(object):
+        """
+        :ivar assistant_id: The Assistant ID.
+        :ivar description: The description of the tool.
+        :ivar enabled: True if the tool is enabled.
+        :ivar meta: The metadata related to method, url, input_schema to used with the Tool.
+        :ivar name: The name of the tool.
+        :ivar policy:
+        :ivar type: The type of the tool.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.assistant_id: Optional[str] = payload.get("assistant_id")
+            self.description: Optional[str] = payload.get("description")
+            self.enabled: Optional[bool] = payload.get("enabled")
+            self.meta: Optional[Dict[str, object]] = payload.get("meta")
+            self.name: Optional[str] = payload.get("name")
+            self.policy: Optional[ToolList.AssistantsV1ServiceCreatePolicyRequest] = (
+                payload.get("policy")
+            )
+            self.type: Optional[str] = payload.get("type")
+
+        def to_dict(self):
+            return {
+                "assistant_id": self.assistant_id,
+                "description": self.description,
+                "enabled": self.enabled,
+                "meta": self.meta,
+                "name": self.name,
+                "policy": self.policy.to_dict() if self.policy is not None else None,
+                "type": self.type,
+            }
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Tool resource.
     :ivar description: The description of the tool.
@@ -162,6 +259,102 @@ class ToolInstance(InstanceResource):
 
 class ToolContext(InstanceContext):
 
+    class AssistantsV1ServiceCreatePolicyRequest(object):
+        """
+        :ivar description: The description of the policy.
+        :ivar id: The Policy ID.
+        :ivar name: The name of the policy.
+        :ivar policy_details:
+        :ivar type: The description of the policy.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.description: Optional[str] = payload.get("description")
+            self.id: Optional[str] = payload.get("id")
+            self.name: Optional[str] = payload.get("name")
+            self.policy_details: Optional[Dict[str, object]] = payload.get(
+                "policy_details"
+            )
+            self.type: Optional[str] = payload.get("type")
+
+        def to_dict(self):
+            return {
+                "description": self.description,
+                "id": self.id,
+                "name": self.name,
+                "policy_details": self.policy_details,
+                "type": self.type,
+            }
+
+    class AssistantsV1ServiceCreateToolRequest(object):
+        """
+        :ivar assistant_id: The Assistant ID.
+        :ivar description: The description of the tool.
+        :ivar enabled: True if the tool is enabled.
+        :ivar meta: The metadata related to method, url, input_schema to used with the Tool.
+        :ivar name: The name of the tool.
+        :ivar policy:
+        :ivar type: The description of the tool.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.assistant_id: Optional[str] = payload.get("assistant_id")
+            self.description: Optional[str] = payload.get("description")
+            self.enabled: Optional[bool] = payload.get("enabled")
+            self.meta: Optional[Dict[str, object]] = payload.get("meta")
+            self.name: Optional[str] = payload.get("name")
+            self.policy: Optional[ToolList.AssistantsV1ServiceCreatePolicyRequest] = (
+                payload.get("policy")
+            )
+            self.type: Optional[str] = payload.get("type")
+
+        def to_dict(self):
+            return {
+                "assistant_id": self.assistant_id,
+                "description": self.description,
+                "enabled": self.enabled,
+                "meta": self.meta,
+                "name": self.name,
+                "policy": self.policy.to_dict() if self.policy is not None else None,
+                "type": self.type,
+            }
+
+    class AssistantsV1ServiceUpdateToolRequest(object):
+        """
+        :ivar assistant_id: The Assistant ID.
+        :ivar description: The description of the tool.
+        :ivar enabled: True if the tool is enabled.
+        :ivar meta: The metadata related to method, url, input_schema to used with the Tool.
+        :ivar name: The name of the tool.
+        :ivar policy:
+        :ivar type: The type of the tool.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.assistant_id: Optional[str] = payload.get("assistant_id")
+            self.description: Optional[str] = payload.get("description")
+            self.enabled: Optional[bool] = payload.get("enabled")
+            self.meta: Optional[Dict[str, object]] = payload.get("meta")
+            self.name: Optional[str] = payload.get("name")
+            self.policy: Optional[ToolList.AssistantsV1ServiceCreatePolicyRequest] = (
+                payload.get("policy")
+            )
+            self.type: Optional[str] = payload.get("type")
+
+        def to_dict(self):
+            return {
+                "assistant_id": self.assistant_id,
+                "description": self.description,
+                "enabled": self.enabled,
+                "meta": self.meta,
+                "name": self.name,
+                "policy": self.policy.to_dict() if self.policy is not None else None,
+                "type": self.type,
+            }
+
     def __init__(self, version: Version, id: str):
         """
         Initialize the ToolContext
@@ -184,10 +377,10 @@ class ToolContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -196,9 +389,11 @@ class ToolContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> ToolInstance:
@@ -209,10 +404,11 @@ class ToolContext(InstanceContext):
         :returns: The fetched ToolInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return ToolInstance(
             self._version,
@@ -228,9 +424,12 @@ class ToolContext(InstanceContext):
         :returns: The fetched ToolInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return ToolInstance(
@@ -252,12 +451,13 @@ class ToolContext(InstanceContext):
 
         :returns: The updated ToolInstance
         """
-        data = values.of({})
-        headers = values.of(
-            {
-                "AssistantsV1ServiceUpdateToolRequest": assistants_v1_service_update_tool_request,
-            }
-        )
+        data = assistants_v1_service_update_tool_request.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
             method="PUT", uri=self._uri, data=data, headers=headers
@@ -278,12 +478,13 @@ class ToolContext(InstanceContext):
 
         :returns: The updated ToolInstance
         """
-        data = values.of({})
-        headers = values.of(
-            {
-                "AssistantsV1ServiceUpdateToolRequest": assistants_v1_service_update_tool_request,
-            }
-        )
+        data = assistants_v1_service_update_tool_request.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
             method="PUT", uri=self._uri, data=data, headers=headers
@@ -380,7 +581,7 @@ class ToolList(ListResource):
                 "enabled": self.enabled,
                 "meta": self.meta,
                 "name": self.name,
-                "policy": self.policy.to_dict(),
+                "policy": self.policy.to_dict() if self.policy is not None else None,
                 "type": self.type,
             }
 
@@ -414,7 +615,7 @@ class ToolList(ListResource):
                 "enabled": self.enabled,
                 "meta": self.meta,
                 "name": self.name,
-                "policy": self.policy.to_dict(),
+                "policy": self.policy.to_dict() if self.policy is not None else None,
                 "type": self.type,
             }
 
@@ -443,7 +644,10 @@ class ToolList(ListResource):
         data = assistants_v1_service_create_tool_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -465,7 +669,10 @@ class ToolList(ListResource):
         data = assistants_v1_service_create_tool_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -615,7 +822,13 @@ class ToolList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return ToolPage(self._version, response)
 
     async def page_async(
@@ -645,8 +858,12 @@ class ToolList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return ToolPage(self._version, response)
 

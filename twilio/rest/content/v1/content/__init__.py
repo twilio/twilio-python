@@ -26,6 +26,725 @@ from twilio.rest.content.v1.content.approval_fetch import ApprovalFetchList
 
 class ContentInstance(InstanceResource):
 
+    class AuthenticationAction(object):
+        """
+        :ivar type:
+        :ivar copy_code_text:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.type: Optional["ContentInstance.AuthenticationActionType"] = (
+                payload.get("type")
+            )
+            self.copy_code_text: Optional[str] = payload.get("copy_code_text")
+
+        def to_dict(self):
+            return {
+                "type": self.type,
+                "copy_code_text": self.copy_code_text,
+            }
+
+    class CallToActionAction(object):
+        """
+        :ivar type:
+        :ivar title:
+        :ivar url:
+        :ivar phone:
+        :ivar code:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.type: Optional["ContentInstance.CallToActionActionType"] = payload.get(
+                "type"
+            )
+            self.title: Optional[str] = payload.get("title")
+            self.url: Optional[str] = payload.get("url")
+            self.phone: Optional[str] = payload.get("phone")
+            self.code: Optional[str] = payload.get("code")
+
+        def to_dict(self):
+            return {
+                "type": self.type,
+                "title": self.title,
+                "url": self.url,
+                "phone": self.phone,
+                "code": self.code,
+            }
+
+    class CardAction(object):
+        """
+        :ivar type:
+        :ivar title:
+        :ivar url:
+        :ivar phone:
+        :ivar id:
+        :ivar code:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.type: Optional["ContentInstance.CardActionType"] = payload.get("type")
+            self.title: Optional[str] = payload.get("title")
+            self.url: Optional[str] = payload.get("url")
+            self.phone: Optional[str] = payload.get("phone")
+            self.id: Optional[str] = payload.get("id")
+            self.code: Optional[str] = payload.get("code")
+
+        def to_dict(self):
+            return {
+                "type": self.type,
+                "title": self.title,
+                "url": self.url,
+                "phone": self.phone,
+                "id": self.id,
+                "code": self.code,
+            }
+
+    class CarouselAction(object):
+        """
+        :ivar type:
+        :ivar title:
+        :ivar url:
+        :ivar phone:
+        :ivar id:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.type: Optional["ContentInstance.CarouselActionType"] = payload.get(
+                "type"
+            )
+            self.title: Optional[str] = payload.get("title")
+            self.url: Optional[str] = payload.get("url")
+            self.phone: Optional[str] = payload.get("phone")
+            self.id: Optional[str] = payload.get("id")
+
+        def to_dict(self):
+            return {
+                "type": self.type,
+                "title": self.title,
+                "url": self.url,
+                "phone": self.phone,
+                "id": self.id,
+            }
+
+    class CarouselCard(object):
+        """
+        :ivar title:
+        :ivar body:
+        :ivar media:
+        :ivar actions:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.title: Optional[str] = payload.get("title")
+            self.body: Optional[str] = payload.get("body")
+            self.media: Optional[str] = payload.get("media")
+            self.actions: Optional[List[ContentList.CarouselAction]] = payload.get(
+                "actions"
+            )
+
+        def to_dict(self):
+            return {
+                "title": self.title,
+                "body": self.body,
+                "media": self.media,
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
+            }
+
+    class CatalogItem(object):
+        """
+        :ivar id:
+        :ivar section_title:
+        :ivar name:
+        :ivar media_url:
+        :ivar price:
+        :ivar description:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.id: Optional[str] = payload.get("id")
+            self.section_title: Optional[str] = payload.get("section_title")
+            self.name: Optional[str] = payload.get("name")
+            self.media_url: Optional[str] = payload.get("media_url")
+            self.price: Optional[float] = payload.get("price")
+            self.description: Optional[str] = payload.get("description")
+
+        def to_dict(self):
+            return {
+                "id": self.id,
+                "section_title": self.section_title,
+                "name": self.name,
+                "media_url": self.media_url,
+                "price": self.price,
+                "description": self.description,
+            }
+
+    class ContentCreateRequest(object):
+        """
+        :ivar friendly_name: User defined name of the content
+        :ivar variables: Key value pairs of variable name to value
+        :ivar language: Language code for the content
+        :ivar types:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.friendly_name: Optional[str] = payload.get("friendly_name")
+            self.variables: Optional[dict[str, str]] = payload.get("variables")
+            self.language: Optional[str] = payload.get("language")
+            self.types: Optional[ContentList.Types] = payload.get("types")
+
+        def to_dict(self):
+            return {
+                "friendly_name": self.friendly_name,
+                "variables": self.variables,
+                "language": self.language,
+                "types": self.types.to_dict() if self.types is not None else None,
+            }
+
+    class FlowsPage(object):
+        """
+        :ivar id:
+        :ivar next_page_id:
+        :ivar title:
+        :ivar subtitle:
+        :ivar layout:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.id: Optional[str] = payload.get("id")
+            self.next_page_id: Optional[str] = payload.get("next_page_id")
+            self.title: Optional[str] = payload.get("title")
+            self.subtitle: Optional[str] = payload.get("subtitle")
+            self.layout: Optional[List[ContentList.FlowsPageComponent]] = payload.get(
+                "layout"
+            )
+
+        def to_dict(self):
+            return {
+                "id": self.id,
+                "next_page_id": self.next_page_id,
+                "title": self.title,
+                "subtitle": self.subtitle,
+                "layout": (
+                    [layout.to_dict() for layout in self.layout]
+                    if self.layout is not None
+                    else None
+                ),
+            }
+
+    class FlowsPageComponent(object):
+        """
+        :ivar label:
+        :ivar type:
+        :ivar text:
+        :ivar options:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.label: Optional[str] = payload.get("label")
+            self.type: Optional[str] = payload.get("type")
+            self.text: Optional[str] = payload.get("text")
+            self.options: Optional[List[ContentList.FlowsPageComponentSelectItem]] = (
+                payload.get("options")
+            )
+
+        def to_dict(self):
+            return {
+                "label": self.label,
+                "type": self.type,
+                "text": self.text,
+                "options": (
+                    [options.to_dict() for options in self.options]
+                    if self.options is not None
+                    else None
+                ),
+            }
+
+    class FlowsPageComponentSelectItem(object):
+        """
+        :ivar id:
+        :ivar title:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.id: Optional[str] = payload.get("id")
+            self.title: Optional[str] = payload.get("title")
+
+        def to_dict(self):
+            return {
+                "id": self.id,
+                "title": self.title,
+            }
+
+    class ListItem(object):
+        """
+        :ivar id:
+        :ivar item:
+        :ivar description:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.id: Optional[str] = payload.get("id")
+            self.item: Optional[str] = payload.get("item")
+            self.description: Optional[str] = payload.get("description")
+
+        def to_dict(self):
+            return {
+                "id": self.id,
+                "item": self.item,
+                "description": self.description,
+            }
+
+    class QuickReplyAction(object):
+        """
+        :ivar type:
+        :ivar title:
+        :ivar id:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.type: Optional["ContentInstance.QuickReplyActionType"] = payload.get(
+                "type"
+            )
+            self.title: Optional[str] = payload.get("title")
+            self.id: Optional[str] = payload.get("id")
+
+        def to_dict(self):
+            return {
+                "type": self.type,
+                "title": self.title,
+                "id": self.id,
+            }
+
+    class TwilioCallToAction(object):
+        """
+        :ivar body:
+        :ivar actions:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.actions: Optional[List[ContentList.CallToActionAction]] = payload.get(
+                "actions"
+            )
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
+            }
+
+    class TwilioCard(object):
+        """
+        :ivar title:
+        :ivar subtitle:
+        :ivar media:
+        :ivar actions:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.title: Optional[str] = payload.get("title")
+            self.subtitle: Optional[str] = payload.get("subtitle")
+            self.media: Optional[List[str]] = payload.get("media")
+            self.actions: Optional[List[ContentList.CardAction]] = payload.get(
+                "actions"
+            )
+
+        def to_dict(self):
+            return {
+                "title": self.title,
+                "subtitle": self.subtitle,
+                "media": self.media,
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
+            }
+
+    class TwilioCarousel(object):
+        """
+        :ivar body:
+        :ivar cards:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.cards: Optional[List[ContentList.CarouselCard]] = payload.get("cards")
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "cards": (
+                    [cards.to_dict() for cards in self.cards]
+                    if self.cards is not None
+                    else None
+                ),
+            }
+
+    class TwilioCatalog(object):
+        """
+        :ivar title:
+        :ivar body:
+        :ivar subtitle:
+        :ivar id:
+        :ivar items:
+        :ivar dynamic_items:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.title: Optional[str] = payload.get("title")
+            self.body: Optional[str] = payload.get("body")
+            self.subtitle: Optional[str] = payload.get("subtitle")
+            self.id: Optional[str] = payload.get("id")
+            self.items: Optional[List[ContentList.CatalogItem]] = payload.get("items")
+            self.dynamic_items: Optional[str] = payload.get("dynamic_items")
+
+        def to_dict(self):
+            return {
+                "title": self.title,
+                "body": self.body,
+                "subtitle": self.subtitle,
+                "id": self.id,
+                "items": (
+                    [items.to_dict() for items in self.items]
+                    if self.items is not None
+                    else None
+                ),
+                "dynamic_items": self.dynamic_items,
+            }
+
+    class TwilioFlows(object):
+        """
+        :ivar body:
+        :ivar button_text:
+        :ivar subtitle:
+        :ivar media_url:
+        :ivar pages:
+        :ivar type:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.button_text: Optional[str] = payload.get("button_text")
+            self.subtitle: Optional[str] = payload.get("subtitle")
+            self.media_url: Optional[str] = payload.get("media_url")
+            self.pages: Optional[List[ContentList.FlowsPage]] = payload.get("pages")
+            self.type: Optional[str] = payload.get("type")
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "button_text": self.button_text,
+                "subtitle": self.subtitle,
+                "media_url": self.media_url,
+                "pages": (
+                    [pages.to_dict() for pages in self.pages]
+                    if self.pages is not None
+                    else None
+                ),
+                "type": self.type,
+            }
+
+    class TwilioListPicker(object):
+        """
+        :ivar body:
+        :ivar button:
+        :ivar items:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.button: Optional[str] = payload.get("button")
+            self.items: Optional[List[ContentList.ListItem]] = payload.get("items")
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "button": self.button,
+                "items": (
+                    [items.to_dict() for items in self.items]
+                    if self.items is not None
+                    else None
+                ),
+            }
+
+    class TwilioLocation(object):
+        """
+        :ivar latitude:
+        :ivar longitude:
+        :ivar label:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.latitude: Optional[float] = payload.get("latitude")
+            self.longitude: Optional[float] = payload.get("longitude")
+            self.label: Optional[str] = payload.get("label")
+
+        def to_dict(self):
+            return {
+                "latitude": self.latitude,
+                "longitude": self.longitude,
+                "label": self.label,
+            }
+
+    class TwilioMedia(object):
+        """
+        :ivar body:
+        :ivar media:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.media: Optional[List[str]] = payload.get("media")
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "media": self.media,
+            }
+
+    class TwilioQuickReply(object):
+        """
+        :ivar body:
+        :ivar actions:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.actions: Optional[List[ContentList.QuickReplyAction]] = payload.get(
+                "actions"
+            )
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
+            }
+
+    class TwilioText(object):
+        """
+        :ivar body:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+            }
+
+    class Types(object):
+        """
+        :ivar twilio_text:
+        :ivar twilio_media:
+        :ivar twilio_location:
+        :ivar twilio_list_picker:
+        :ivar twilio_call_to_action:
+        :ivar twilio_quick_reply:
+        :ivar twilio_card:
+        :ivar twilio_catalog:
+        :ivar twilio_carousel:
+        :ivar twilio_flows:
+        :ivar whatsapp_card:
+        :ivar whatsapp_authentication:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.twilio_text: Optional[ContentList.TwilioText] = payload.get(
+                "twilio_text"
+            )
+            self.twilio_media: Optional[ContentList.TwilioMedia] = payload.get(
+                "twilio_media"
+            )
+            self.twilio_location: Optional[ContentList.TwilioLocation] = payload.get(
+                "twilio_location"
+            )
+            self.twilio_list_picker: Optional[ContentList.TwilioListPicker] = (
+                payload.get("twilio_list_picker")
+            )
+            self.twilio_call_to_action: Optional[ContentList.TwilioCallToAction] = (
+                payload.get("twilio_call_to_action")
+            )
+            self.twilio_quick_reply: Optional[ContentList.TwilioQuickReply] = (
+                payload.get("twilio_quick_reply")
+            )
+            self.twilio_card: Optional[ContentList.TwilioCard] = payload.get(
+                "twilio_card"
+            )
+            self.twilio_catalog: Optional[ContentList.TwilioCatalog] = payload.get(
+                "twilio_catalog"
+            )
+            self.twilio_carousel: Optional[ContentList.TwilioCarousel] = payload.get(
+                "twilio_carousel"
+            )
+            self.twilio_flows: Optional[ContentList.TwilioFlows] = payload.get(
+                "twilio_flows"
+            )
+            self.whatsapp_card: Optional[ContentList.WhatsappCard] = payload.get(
+                "whatsapp_card"
+            )
+            self.whatsapp_authentication: Optional[
+                ContentList.WhatsappAuthentication
+            ] = payload.get("whatsapp_authentication")
+
+        def to_dict(self):
+            return {
+                "twilio_text": (
+                    self.twilio_text.to_dict() if self.twilio_text is not None else None
+                ),
+                "twilio_media": (
+                    self.twilio_media.to_dict()
+                    if self.twilio_media is not None
+                    else None
+                ),
+                "twilio_location": (
+                    self.twilio_location.to_dict()
+                    if self.twilio_location is not None
+                    else None
+                ),
+                "twilio_list_picker": (
+                    self.twilio_list_picker.to_dict()
+                    if self.twilio_list_picker is not None
+                    else None
+                ),
+                "twilio_call_to_action": (
+                    self.twilio_call_to_action.to_dict()
+                    if self.twilio_call_to_action is not None
+                    else None
+                ),
+                "twilio_quick_reply": (
+                    self.twilio_quick_reply.to_dict()
+                    if self.twilio_quick_reply is not None
+                    else None
+                ),
+                "twilio_card": (
+                    self.twilio_card.to_dict() if self.twilio_card is not None else None
+                ),
+                "twilio_catalog": (
+                    self.twilio_catalog.to_dict()
+                    if self.twilio_catalog is not None
+                    else None
+                ),
+                "twilio_carousel": (
+                    self.twilio_carousel.to_dict()
+                    if self.twilio_carousel is not None
+                    else None
+                ),
+                "twilio_flows": (
+                    self.twilio_flows.to_dict()
+                    if self.twilio_flows is not None
+                    else None
+                ),
+                "whatsapp_card": (
+                    self.whatsapp_card.to_dict()
+                    if self.whatsapp_card is not None
+                    else None
+                ),
+                "whatsapp_authentication": (
+                    self.whatsapp_authentication.to_dict()
+                    if self.whatsapp_authentication is not None
+                    else None
+                ),
+            }
+
+    class WhatsappAuthentication(object):
+        """
+        :ivar add_security_recommendation:
+        :ivar code_expiration_minutes:
+        :ivar actions:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.add_security_recommendation: Optional[bool] = payload.get(
+                "add_security_recommendation"
+            )
+            self.code_expiration_minutes: Optional[float] = payload.get(
+                "code_expiration_minutes"
+            )
+            self.actions: Optional[List[ContentList.AuthenticationAction]] = (
+                payload.get("actions")
+            )
+
+        def to_dict(self):
+            return {
+                "add_security_recommendation": self.add_security_recommendation,
+                "code_expiration_minutes": self.code_expiration_minutes,
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
+            }
+
+    class WhatsappCard(object):
+        """
+        :ivar body:
+        :ivar footer:
+        :ivar media:
+        :ivar header_text:
+        :ivar actions:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.footer: Optional[str] = payload.get("footer")
+            self.media: Optional[List[str]] = payload.get("media")
+            self.header_text: Optional[str] = payload.get("header_text")
+            self.actions: Optional[List[ContentList.CardAction]] = payload.get(
+                "actions"
+            )
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "footer": self.footer,
+                "media": self.media,
+                "header_text": self.header_text,
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
+            }
+
     class AuthenticationActionType(object):
         COPY_CODE = "COPY_CODE"
 
@@ -166,6 +885,725 @@ class ContentInstance(InstanceResource):
 
 class ContentContext(InstanceContext):
 
+    class AuthenticationAction(object):
+        """
+        :ivar type:
+        :ivar copy_code_text:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.type: Optional["ContentInstance.AuthenticationActionType"] = (
+                payload.get("type")
+            )
+            self.copy_code_text: Optional[str] = payload.get("copy_code_text")
+
+        def to_dict(self):
+            return {
+                "type": self.type,
+                "copy_code_text": self.copy_code_text,
+            }
+
+    class CallToActionAction(object):
+        """
+        :ivar type:
+        :ivar title:
+        :ivar url:
+        :ivar phone:
+        :ivar code:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.type: Optional["ContentInstance.CallToActionActionType"] = payload.get(
+                "type"
+            )
+            self.title: Optional[str] = payload.get("title")
+            self.url: Optional[str] = payload.get("url")
+            self.phone: Optional[str] = payload.get("phone")
+            self.code: Optional[str] = payload.get("code")
+
+        def to_dict(self):
+            return {
+                "type": self.type,
+                "title": self.title,
+                "url": self.url,
+                "phone": self.phone,
+                "code": self.code,
+            }
+
+    class CardAction(object):
+        """
+        :ivar type:
+        :ivar title:
+        :ivar url:
+        :ivar phone:
+        :ivar id:
+        :ivar code:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.type: Optional["ContentInstance.CardActionType"] = payload.get("type")
+            self.title: Optional[str] = payload.get("title")
+            self.url: Optional[str] = payload.get("url")
+            self.phone: Optional[str] = payload.get("phone")
+            self.id: Optional[str] = payload.get("id")
+            self.code: Optional[str] = payload.get("code")
+
+        def to_dict(self):
+            return {
+                "type": self.type,
+                "title": self.title,
+                "url": self.url,
+                "phone": self.phone,
+                "id": self.id,
+                "code": self.code,
+            }
+
+    class CarouselAction(object):
+        """
+        :ivar type:
+        :ivar title:
+        :ivar url:
+        :ivar phone:
+        :ivar id:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.type: Optional["ContentInstance.CarouselActionType"] = payload.get(
+                "type"
+            )
+            self.title: Optional[str] = payload.get("title")
+            self.url: Optional[str] = payload.get("url")
+            self.phone: Optional[str] = payload.get("phone")
+            self.id: Optional[str] = payload.get("id")
+
+        def to_dict(self):
+            return {
+                "type": self.type,
+                "title": self.title,
+                "url": self.url,
+                "phone": self.phone,
+                "id": self.id,
+            }
+
+    class CarouselCard(object):
+        """
+        :ivar title:
+        :ivar body:
+        :ivar media:
+        :ivar actions:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.title: Optional[str] = payload.get("title")
+            self.body: Optional[str] = payload.get("body")
+            self.media: Optional[str] = payload.get("media")
+            self.actions: Optional[List[ContentList.CarouselAction]] = payload.get(
+                "actions"
+            )
+
+        def to_dict(self):
+            return {
+                "title": self.title,
+                "body": self.body,
+                "media": self.media,
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
+            }
+
+    class CatalogItem(object):
+        """
+        :ivar id:
+        :ivar section_title:
+        :ivar name:
+        :ivar media_url:
+        :ivar price:
+        :ivar description:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.id: Optional[str] = payload.get("id")
+            self.section_title: Optional[str] = payload.get("section_title")
+            self.name: Optional[str] = payload.get("name")
+            self.media_url: Optional[str] = payload.get("media_url")
+            self.price: Optional[float] = payload.get("price")
+            self.description: Optional[str] = payload.get("description")
+
+        def to_dict(self):
+            return {
+                "id": self.id,
+                "section_title": self.section_title,
+                "name": self.name,
+                "media_url": self.media_url,
+                "price": self.price,
+                "description": self.description,
+            }
+
+    class ContentCreateRequest(object):
+        """
+        :ivar friendly_name: User defined name of the content
+        :ivar variables: Key value pairs of variable name to value
+        :ivar language: Language code for the content
+        :ivar types:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.friendly_name: Optional[str] = payload.get("friendly_name")
+            self.variables: Optional[dict[str, str]] = payload.get("variables")
+            self.language: Optional[str] = payload.get("language")
+            self.types: Optional[ContentList.Types] = payload.get("types")
+
+        def to_dict(self):
+            return {
+                "friendly_name": self.friendly_name,
+                "variables": self.variables,
+                "language": self.language,
+                "types": self.types.to_dict() if self.types is not None else None,
+            }
+
+    class FlowsPage(object):
+        """
+        :ivar id:
+        :ivar next_page_id:
+        :ivar title:
+        :ivar subtitle:
+        :ivar layout:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.id: Optional[str] = payload.get("id")
+            self.next_page_id: Optional[str] = payload.get("next_page_id")
+            self.title: Optional[str] = payload.get("title")
+            self.subtitle: Optional[str] = payload.get("subtitle")
+            self.layout: Optional[List[ContentList.FlowsPageComponent]] = payload.get(
+                "layout"
+            )
+
+        def to_dict(self):
+            return {
+                "id": self.id,
+                "next_page_id": self.next_page_id,
+                "title": self.title,
+                "subtitle": self.subtitle,
+                "layout": (
+                    [layout.to_dict() for layout in self.layout]
+                    if self.layout is not None
+                    else None
+                ),
+            }
+
+    class FlowsPageComponent(object):
+        """
+        :ivar label:
+        :ivar type:
+        :ivar text:
+        :ivar options:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.label: Optional[str] = payload.get("label")
+            self.type: Optional[str] = payload.get("type")
+            self.text: Optional[str] = payload.get("text")
+            self.options: Optional[List[ContentList.FlowsPageComponentSelectItem]] = (
+                payload.get("options")
+            )
+
+        def to_dict(self):
+            return {
+                "label": self.label,
+                "type": self.type,
+                "text": self.text,
+                "options": (
+                    [options.to_dict() for options in self.options]
+                    if self.options is not None
+                    else None
+                ),
+            }
+
+    class FlowsPageComponentSelectItem(object):
+        """
+        :ivar id:
+        :ivar title:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.id: Optional[str] = payload.get("id")
+            self.title: Optional[str] = payload.get("title")
+
+        def to_dict(self):
+            return {
+                "id": self.id,
+                "title": self.title,
+            }
+
+    class ListItem(object):
+        """
+        :ivar id:
+        :ivar item:
+        :ivar description:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.id: Optional[str] = payload.get("id")
+            self.item: Optional[str] = payload.get("item")
+            self.description: Optional[str] = payload.get("description")
+
+        def to_dict(self):
+            return {
+                "id": self.id,
+                "item": self.item,
+                "description": self.description,
+            }
+
+    class QuickReplyAction(object):
+        """
+        :ivar type:
+        :ivar title:
+        :ivar id:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.type: Optional["ContentInstance.QuickReplyActionType"] = payload.get(
+                "type"
+            )
+            self.title: Optional[str] = payload.get("title")
+            self.id: Optional[str] = payload.get("id")
+
+        def to_dict(self):
+            return {
+                "type": self.type,
+                "title": self.title,
+                "id": self.id,
+            }
+
+    class TwilioCallToAction(object):
+        """
+        :ivar body:
+        :ivar actions:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.actions: Optional[List[ContentList.CallToActionAction]] = payload.get(
+                "actions"
+            )
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
+            }
+
+    class TwilioCard(object):
+        """
+        :ivar title:
+        :ivar subtitle:
+        :ivar media:
+        :ivar actions:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.title: Optional[str] = payload.get("title")
+            self.subtitle: Optional[str] = payload.get("subtitle")
+            self.media: Optional[List[str]] = payload.get("media")
+            self.actions: Optional[List[ContentList.CardAction]] = payload.get(
+                "actions"
+            )
+
+        def to_dict(self):
+            return {
+                "title": self.title,
+                "subtitle": self.subtitle,
+                "media": self.media,
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
+            }
+
+    class TwilioCarousel(object):
+        """
+        :ivar body:
+        :ivar cards:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.cards: Optional[List[ContentList.CarouselCard]] = payload.get("cards")
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "cards": (
+                    [cards.to_dict() for cards in self.cards]
+                    if self.cards is not None
+                    else None
+                ),
+            }
+
+    class TwilioCatalog(object):
+        """
+        :ivar title:
+        :ivar body:
+        :ivar subtitle:
+        :ivar id:
+        :ivar items:
+        :ivar dynamic_items:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.title: Optional[str] = payload.get("title")
+            self.body: Optional[str] = payload.get("body")
+            self.subtitle: Optional[str] = payload.get("subtitle")
+            self.id: Optional[str] = payload.get("id")
+            self.items: Optional[List[ContentList.CatalogItem]] = payload.get("items")
+            self.dynamic_items: Optional[str] = payload.get("dynamic_items")
+
+        def to_dict(self):
+            return {
+                "title": self.title,
+                "body": self.body,
+                "subtitle": self.subtitle,
+                "id": self.id,
+                "items": (
+                    [items.to_dict() for items in self.items]
+                    if self.items is not None
+                    else None
+                ),
+                "dynamic_items": self.dynamic_items,
+            }
+
+    class TwilioFlows(object):
+        """
+        :ivar body:
+        :ivar button_text:
+        :ivar subtitle:
+        :ivar media_url:
+        :ivar pages:
+        :ivar type:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.button_text: Optional[str] = payload.get("button_text")
+            self.subtitle: Optional[str] = payload.get("subtitle")
+            self.media_url: Optional[str] = payload.get("media_url")
+            self.pages: Optional[List[ContentList.FlowsPage]] = payload.get("pages")
+            self.type: Optional[str] = payload.get("type")
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "button_text": self.button_text,
+                "subtitle": self.subtitle,
+                "media_url": self.media_url,
+                "pages": (
+                    [pages.to_dict() for pages in self.pages]
+                    if self.pages is not None
+                    else None
+                ),
+                "type": self.type,
+            }
+
+    class TwilioListPicker(object):
+        """
+        :ivar body:
+        :ivar button:
+        :ivar items:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.button: Optional[str] = payload.get("button")
+            self.items: Optional[List[ContentList.ListItem]] = payload.get("items")
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "button": self.button,
+                "items": (
+                    [items.to_dict() for items in self.items]
+                    if self.items is not None
+                    else None
+                ),
+            }
+
+    class TwilioLocation(object):
+        """
+        :ivar latitude:
+        :ivar longitude:
+        :ivar label:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.latitude: Optional[float] = payload.get("latitude")
+            self.longitude: Optional[float] = payload.get("longitude")
+            self.label: Optional[str] = payload.get("label")
+
+        def to_dict(self):
+            return {
+                "latitude": self.latitude,
+                "longitude": self.longitude,
+                "label": self.label,
+            }
+
+    class TwilioMedia(object):
+        """
+        :ivar body:
+        :ivar media:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.media: Optional[List[str]] = payload.get("media")
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "media": self.media,
+            }
+
+    class TwilioQuickReply(object):
+        """
+        :ivar body:
+        :ivar actions:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.actions: Optional[List[ContentList.QuickReplyAction]] = payload.get(
+                "actions"
+            )
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
+            }
+
+    class TwilioText(object):
+        """
+        :ivar body:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+            }
+
+    class Types(object):
+        """
+        :ivar twilio_text:
+        :ivar twilio_media:
+        :ivar twilio_location:
+        :ivar twilio_list_picker:
+        :ivar twilio_call_to_action:
+        :ivar twilio_quick_reply:
+        :ivar twilio_card:
+        :ivar twilio_catalog:
+        :ivar twilio_carousel:
+        :ivar twilio_flows:
+        :ivar whatsapp_card:
+        :ivar whatsapp_authentication:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.twilio_text: Optional[ContentList.TwilioText] = payload.get(
+                "twilio_text"
+            )
+            self.twilio_media: Optional[ContentList.TwilioMedia] = payload.get(
+                "twilio_media"
+            )
+            self.twilio_location: Optional[ContentList.TwilioLocation] = payload.get(
+                "twilio_location"
+            )
+            self.twilio_list_picker: Optional[ContentList.TwilioListPicker] = (
+                payload.get("twilio_list_picker")
+            )
+            self.twilio_call_to_action: Optional[ContentList.TwilioCallToAction] = (
+                payload.get("twilio_call_to_action")
+            )
+            self.twilio_quick_reply: Optional[ContentList.TwilioQuickReply] = (
+                payload.get("twilio_quick_reply")
+            )
+            self.twilio_card: Optional[ContentList.TwilioCard] = payload.get(
+                "twilio_card"
+            )
+            self.twilio_catalog: Optional[ContentList.TwilioCatalog] = payload.get(
+                "twilio_catalog"
+            )
+            self.twilio_carousel: Optional[ContentList.TwilioCarousel] = payload.get(
+                "twilio_carousel"
+            )
+            self.twilio_flows: Optional[ContentList.TwilioFlows] = payload.get(
+                "twilio_flows"
+            )
+            self.whatsapp_card: Optional[ContentList.WhatsappCard] = payload.get(
+                "whatsapp_card"
+            )
+            self.whatsapp_authentication: Optional[
+                ContentList.WhatsappAuthentication
+            ] = payload.get("whatsapp_authentication")
+
+        def to_dict(self):
+            return {
+                "twilio_text": (
+                    self.twilio_text.to_dict() if self.twilio_text is not None else None
+                ),
+                "twilio_media": (
+                    self.twilio_media.to_dict()
+                    if self.twilio_media is not None
+                    else None
+                ),
+                "twilio_location": (
+                    self.twilio_location.to_dict()
+                    if self.twilio_location is not None
+                    else None
+                ),
+                "twilio_list_picker": (
+                    self.twilio_list_picker.to_dict()
+                    if self.twilio_list_picker is not None
+                    else None
+                ),
+                "twilio_call_to_action": (
+                    self.twilio_call_to_action.to_dict()
+                    if self.twilio_call_to_action is not None
+                    else None
+                ),
+                "twilio_quick_reply": (
+                    self.twilio_quick_reply.to_dict()
+                    if self.twilio_quick_reply is not None
+                    else None
+                ),
+                "twilio_card": (
+                    self.twilio_card.to_dict() if self.twilio_card is not None else None
+                ),
+                "twilio_catalog": (
+                    self.twilio_catalog.to_dict()
+                    if self.twilio_catalog is not None
+                    else None
+                ),
+                "twilio_carousel": (
+                    self.twilio_carousel.to_dict()
+                    if self.twilio_carousel is not None
+                    else None
+                ),
+                "twilio_flows": (
+                    self.twilio_flows.to_dict()
+                    if self.twilio_flows is not None
+                    else None
+                ),
+                "whatsapp_card": (
+                    self.whatsapp_card.to_dict()
+                    if self.whatsapp_card is not None
+                    else None
+                ),
+                "whatsapp_authentication": (
+                    self.whatsapp_authentication.to_dict()
+                    if self.whatsapp_authentication is not None
+                    else None
+                ),
+            }
+
+    class WhatsappAuthentication(object):
+        """
+        :ivar add_security_recommendation:
+        :ivar code_expiration_minutes:
+        :ivar actions:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.add_security_recommendation: Optional[bool] = payload.get(
+                "add_security_recommendation"
+            )
+            self.code_expiration_minutes: Optional[float] = payload.get(
+                "code_expiration_minutes"
+            )
+            self.actions: Optional[List[ContentList.AuthenticationAction]] = (
+                payload.get("actions")
+            )
+
+        def to_dict(self):
+            return {
+                "add_security_recommendation": self.add_security_recommendation,
+                "code_expiration_minutes": self.code_expiration_minutes,
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
+            }
+
+    class WhatsappCard(object):
+        """
+        :ivar body:
+        :ivar footer:
+        :ivar media:
+        :ivar header_text:
+        :ivar actions:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.footer: Optional[str] = payload.get("footer")
+            self.media: Optional[List[str]] = payload.get("media")
+            self.header_text: Optional[str] = payload.get("header_text")
+            self.actions: Optional[List[ContentList.CardAction]] = payload.get(
+                "actions"
+            )
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "footer": self.footer,
+                "media": self.media,
+                "header_text": self.header_text,
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
+            }
+
     def __init__(self, version: Version, sid: str):
         """
         Initialize the ContentContext
@@ -191,10 +1629,10 @@ class ContentContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -203,9 +1641,11 @@ class ContentContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> ContentInstance:
@@ -216,10 +1656,11 @@ class ContentContext(InstanceContext):
         :returns: The fetched ContentInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return ContentInstance(
             self._version,
@@ -235,9 +1676,12 @@ class ContentContext(InstanceContext):
         :returns: The fetched ContentInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return ContentInstance(
@@ -427,7 +1871,11 @@ class ContentList(ListResource):
                 "title": self.title,
                 "body": self.body,
                 "media": self.media,
-                "actions": [actions.to_dict() for actions in self.actions],
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
             }
 
     class CatalogItem(object):
@@ -479,7 +1927,7 @@ class ContentList(ListResource):
                 "friendly_name": self.friendly_name,
                 "variables": self.variables,
                 "language": self.language,
-                "types": self.types.to_dict(),
+                "types": self.types.to_dict() if self.types is not None else None,
             }
 
     class FlowsPage(object):
@@ -507,7 +1955,11 @@ class ContentList(ListResource):
                 "next_page_id": self.next_page_id,
                 "title": self.title,
                 "subtitle": self.subtitle,
-                "layout": [layout.to_dict() for layout in self.layout],
+                "layout": (
+                    [layout.to_dict() for layout in self.layout]
+                    if self.layout is not None
+                    else None
+                ),
             }
 
     class FlowsPageComponent(object):
@@ -532,7 +1984,11 @@ class ContentList(ListResource):
                 "label": self.label,
                 "type": self.type,
                 "text": self.text,
-                "options": [options.to_dict() for options in self.options],
+                "options": (
+                    [options.to_dict() for options in self.options]
+                    if self.options is not None
+                    else None
+                ),
             }
 
     class FlowsPageComponentSelectItem(object):
@@ -610,7 +2066,11 @@ class ContentList(ListResource):
         def to_dict(self):
             return {
                 "body": self.body,
-                "actions": [actions.to_dict() for actions in self.actions],
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
             }
 
     class TwilioCard(object):
@@ -635,7 +2095,11 @@ class ContentList(ListResource):
                 "title": self.title,
                 "subtitle": self.subtitle,
                 "media": self.media,
-                "actions": [actions.to_dict() for actions in self.actions],
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
             }
 
     class TwilioCarousel(object):
@@ -652,7 +2116,11 @@ class ContentList(ListResource):
         def to_dict(self):
             return {
                 "body": self.body,
-                "cards": [cards.to_dict() for cards in self.cards],
+                "cards": (
+                    [cards.to_dict() for cards in self.cards]
+                    if self.cards is not None
+                    else None
+                ),
             }
 
     class TwilioCatalog(object):
@@ -680,7 +2148,11 @@ class ContentList(ListResource):
                 "body": self.body,
                 "subtitle": self.subtitle,
                 "id": self.id,
-                "items": [items.to_dict() for items in self.items],
+                "items": (
+                    [items.to_dict() for items in self.items]
+                    if self.items is not None
+                    else None
+                ),
                 "dynamic_items": self.dynamic_items,
             }
 
@@ -709,7 +2181,11 @@ class ContentList(ListResource):
                 "button_text": self.button_text,
                 "subtitle": self.subtitle,
                 "media_url": self.media_url,
-                "pages": [pages.to_dict() for pages in self.pages],
+                "pages": (
+                    [pages.to_dict() for pages in self.pages]
+                    if self.pages is not None
+                    else None
+                ),
                 "type": self.type,
             }
 
@@ -730,7 +2206,11 @@ class ContentList(ListResource):
             return {
                 "body": self.body,
                 "button": self.button,
-                "items": [items.to_dict() for items in self.items],
+                "items": (
+                    [items.to_dict() for items in self.items]
+                    if self.items is not None
+                    else None
+                ),
             }
 
     class TwilioLocation(object):
@@ -786,7 +2266,11 @@ class ContentList(ListResource):
         def to_dict(self):
             return {
                 "body": self.body,
-                "actions": [actions.to_dict() for actions in self.actions],
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
             }
 
     class TwilioText(object):
@@ -860,18 +2344,62 @@ class ContentList(ListResource):
 
         def to_dict(self):
             return {
-                "twilio_text": self.twilio_text.to_dict(),
-                "twilio_media": self.twilio_media.to_dict(),
-                "twilio_location": self.twilio_location.to_dict(),
-                "twilio_list_picker": self.twilio_list_picker.to_dict(),
-                "twilio_call_to_action": self.twilio_call_to_action.to_dict(),
-                "twilio_quick_reply": self.twilio_quick_reply.to_dict(),
-                "twilio_card": self.twilio_card.to_dict(),
-                "twilio_catalog": self.twilio_catalog.to_dict(),
-                "twilio_carousel": self.twilio_carousel.to_dict(),
-                "twilio_flows": self.twilio_flows.to_dict(),
-                "whatsapp_card": self.whatsapp_card.to_dict(),
-                "whatsapp_authentication": self.whatsapp_authentication.to_dict(),
+                "twilio_text": (
+                    self.twilio_text.to_dict() if self.twilio_text is not None else None
+                ),
+                "twilio_media": (
+                    self.twilio_media.to_dict()
+                    if self.twilio_media is not None
+                    else None
+                ),
+                "twilio_location": (
+                    self.twilio_location.to_dict()
+                    if self.twilio_location is not None
+                    else None
+                ),
+                "twilio_list_picker": (
+                    self.twilio_list_picker.to_dict()
+                    if self.twilio_list_picker is not None
+                    else None
+                ),
+                "twilio_call_to_action": (
+                    self.twilio_call_to_action.to_dict()
+                    if self.twilio_call_to_action is not None
+                    else None
+                ),
+                "twilio_quick_reply": (
+                    self.twilio_quick_reply.to_dict()
+                    if self.twilio_quick_reply is not None
+                    else None
+                ),
+                "twilio_card": (
+                    self.twilio_card.to_dict() if self.twilio_card is not None else None
+                ),
+                "twilio_catalog": (
+                    self.twilio_catalog.to_dict()
+                    if self.twilio_catalog is not None
+                    else None
+                ),
+                "twilio_carousel": (
+                    self.twilio_carousel.to_dict()
+                    if self.twilio_carousel is not None
+                    else None
+                ),
+                "twilio_flows": (
+                    self.twilio_flows.to_dict()
+                    if self.twilio_flows is not None
+                    else None
+                ),
+                "whatsapp_card": (
+                    self.whatsapp_card.to_dict()
+                    if self.whatsapp_card is not None
+                    else None
+                ),
+                "whatsapp_authentication": (
+                    self.whatsapp_authentication.to_dict()
+                    if self.whatsapp_authentication is not None
+                    else None
+                ),
             }
 
     class WhatsappAuthentication(object):
@@ -897,7 +2425,11 @@ class ContentList(ListResource):
             return {
                 "add_security_recommendation": self.add_security_recommendation,
                 "code_expiration_minutes": self.code_expiration_minutes,
-                "actions": [actions.to_dict() for actions in self.actions],
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
             }
 
     class WhatsappCard(object):
@@ -925,7 +2457,11 @@ class ContentList(ListResource):
                 "footer": self.footer,
                 "media": self.media,
                 "header_text": self.header_text,
-                "actions": [actions.to_dict() for actions in self.actions],
+                "actions": (
+                    [actions.to_dict() for actions in self.actions]
+                    if self.actions is not None
+                    else None
+                ),
             }
 
     def __init__(self, version: Version):
@@ -950,7 +2486,10 @@ class ContentList(ListResource):
         data = content_create_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -971,7 +2510,10 @@ class ContentList(ListResource):
         data = content_create_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -1106,7 +2648,13 @@ class ContentList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return ContentPage(self._version, response)
 
     async def page_async(
@@ -1133,8 +2681,12 @@ class ContentList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return ContentPage(self._version, response)
 

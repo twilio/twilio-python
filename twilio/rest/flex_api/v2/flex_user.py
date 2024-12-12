@@ -214,10 +214,11 @@ class FlexUserContext(InstanceContext):
         :returns: The fetched FlexUserInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return FlexUserInstance(
             self._version,
@@ -234,9 +235,12 @@ class FlexUserContext(InstanceContext):
         :returns: The fetched FlexUserInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return FlexUserInstance(
@@ -267,6 +271,7 @@ class FlexUserContext(InstanceContext):
 
         :returns: The updated FlexUserInstance
         """
+
         data = values.of(
             {
                 "FirstName": first_name,
@@ -277,11 +282,14 @@ class FlexUserContext(InstanceContext):
                 "Locale": locale,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return FlexUserInstance(
@@ -312,6 +320,7 @@ class FlexUserContext(InstanceContext):
 
         :returns: The updated FlexUserInstance
         """
+
         data = values.of(
             {
                 "FirstName": first_name,
@@ -322,11 +331,14 @@ class FlexUserContext(InstanceContext):
                 "Locale": locale,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return FlexUserInstance(

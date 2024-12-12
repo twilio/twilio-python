@@ -19,7 +19,7 @@ def example():
     """
     self.client = Client(
         account_sid=ACCOUNT_SID,
-        credential_provider= ClientCredentialProvider(CLIENT_ID,CLIENT_SECRET)
+        credential_provider=ClientCredentialProvider(CLIENT_ID, CLIENT_SECRET),
     )
 
     msg = self.client.messages.create(

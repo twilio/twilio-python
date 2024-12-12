@@ -242,10 +242,11 @@ class CompositionSettingsContext(InstanceContext):
         :returns: The fetched CompositionSettingsInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return CompositionSettingsInstance(
             self._version,
@@ -260,9 +261,12 @@ class CompositionSettingsContext(InstanceContext):
         :returns: The fetched CompositionSettingsInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return CompositionSettingsInstance(

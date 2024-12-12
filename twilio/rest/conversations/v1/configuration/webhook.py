@@ -169,10 +169,11 @@ class WebhookContext(InstanceContext):
         :returns: The fetched WebhookInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return WebhookInstance(
             self._version,
@@ -187,9 +188,12 @@ class WebhookContext(InstanceContext):
         :returns: The fetched WebhookInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return WebhookInstance(
@@ -216,6 +220,7 @@ class WebhookContext(InstanceContext):
 
         :returns: The updated WebhookInstance
         """
+
         data = values.of(
             {
                 "Method": method,
@@ -225,11 +230,14 @@ class WebhookContext(InstanceContext):
                 "Target": target,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return WebhookInstance(self._version, payload)
@@ -253,6 +261,7 @@ class WebhookContext(InstanceContext):
 
         :returns: The updated WebhookInstance
         """
+
         data = values.of(
             {
                 "Method": method,
@@ -262,11 +271,14 @@ class WebhookContext(InstanceContext):
                 "Target": target,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return WebhookInstance(self._version, payload)

@@ -219,10 +219,11 @@ class AuthorizationDocumentContext(InstanceContext):
         :returns: The fetched AuthorizationDocumentInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return AuthorizationDocumentInstance(
             self._version,
@@ -238,9 +239,12 @@ class AuthorizationDocumentContext(InstanceContext):
         :returns: The fetched AuthorizationDocumentInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return AuthorizationDocumentInstance(
@@ -272,6 +276,7 @@ class AuthorizationDocumentContext(InstanceContext):
 
         :returns: The updated AuthorizationDocumentInstance
         """
+
         data = values.of(
             {
                 "HostedNumberOrderSids": serialize.map(
@@ -285,11 +290,14 @@ class AuthorizationDocumentContext(InstanceContext):
                 "ContactPhoneNumber": contact_phone_number,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return AuthorizationDocumentInstance(
@@ -319,6 +327,7 @@ class AuthorizationDocumentContext(InstanceContext):
 
         :returns: The updated AuthorizationDocumentInstance
         """
+
         data = values.of(
             {
                 "HostedNumberOrderSids": serialize.map(
@@ -332,11 +341,14 @@ class AuthorizationDocumentContext(InstanceContext):
                 "ContactPhoneNumber": contact_phone_number,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return AuthorizationDocumentInstance(
@@ -435,6 +447,10 @@ class AuthorizationDocumentList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -476,6 +492,10 @@ class AuthorizationDocumentList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -638,7 +658,13 @@ class AuthorizationDocumentList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return AuthorizationDocumentPage(self._version, response)
 
     async def page_async(
@@ -671,8 +697,12 @@ class AuthorizationDocumentList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return AuthorizationDocumentPage(self._version, response)
 

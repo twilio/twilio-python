@@ -62,6 +62,8 @@ class UsecaseList(ListResource):
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Accept"] = "application/json"
+
         payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return UsecaseInstance(self._version, payload)
@@ -74,6 +76,8 @@ class UsecaseList(ListResource):
         :returns: The fetched UsecaseInstance
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
             method="GET", uri=self._uri, headers=headers

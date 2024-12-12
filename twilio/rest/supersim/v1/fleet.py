@@ -213,10 +213,11 @@ class FleetContext(InstanceContext):
         :returns: The fetched FleetInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return FleetInstance(
             self._version,
@@ -232,9 +233,12 @@ class FleetContext(InstanceContext):
         :returns: The fetched FleetInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return FleetInstance(
@@ -266,6 +270,7 @@ class FleetContext(InstanceContext):
 
         :returns: The updated FleetInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -277,11 +282,14 @@ class FleetContext(InstanceContext):
                 "DataLimit": data_limit,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return FleetInstance(self._version, payload, sid=self._solution["sid"])
@@ -309,6 +317,7 @@ class FleetContext(InstanceContext):
 
         :returns: The updated FleetInstance
         """
+
         data = values.of(
             {
                 "UniqueName": unique_name,
@@ -320,11 +329,14 @@ class FleetContext(InstanceContext):
                 "DataLimit": data_limit,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return FleetInstance(self._version, payload, sid=self._solution["sid"])
@@ -414,6 +426,10 @@ class FleetList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -462,6 +478,10 @@ class FleetList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -613,7 +633,13 @@ class FleetList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return FleetPage(self._version, response)
 
     async def page_async(
@@ -643,8 +669,12 @@ class FleetList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return FleetPage(self._version, response)
 

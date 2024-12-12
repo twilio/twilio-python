@@ -13,6 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, Optional
+from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -145,10 +146,10 @@ class JobContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -157,9 +158,11 @@ class JobContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> JobInstance:
@@ -170,10 +173,11 @@ class JobContext(InstanceContext):
         :returns: The fetched JobInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return JobInstance(
             self._version,
@@ -189,9 +193,12 @@ class JobContext(InstanceContext):
         :returns: The fetched JobInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return JobInstance(

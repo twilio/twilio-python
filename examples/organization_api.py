@@ -18,10 +18,12 @@ def example():
     """
     self.client = Client(
         account_sid=ACCOUNT_SID,
-        credential_provider= OrgsCredentialProvider(CLIENT_ID,CLIENT_SECRET)
+        credential_provider=OrgsCredentialProvider(CLIENT_ID, CLIENT_SECRET),
     )
 
-    accounts = self.client.preview_iam.organization(organization_sid=ORGS_SID).accounts.stream()
+    accounts = self.client.preview_iam.organization(
+        organization_sid=ORGS_SID
+    ).accounts.stream()
     for record in accounts:
         print(record)
 

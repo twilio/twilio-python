@@ -304,7 +304,13 @@ class ConfigurationContext(InstanceContext):
             }
         )
 
-        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
 
         return ConfigurationInstance(
             self._version,
@@ -328,8 +334,12 @@ class ConfigurationContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
 
         return ConfigurationInstance(
@@ -347,12 +357,13 @@ class ConfigurationContext(InstanceContext):
 
         :returns: The updated ConfigurationInstance
         """
-        data = values.of({})
-        headers = values.of(
-            {
-                "body": body,
-            }
-        )
+        data = body.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -370,12 +381,13 @@ class ConfigurationContext(InstanceContext):
 
         :returns: The updated ConfigurationInstance
         """
-        data = values.of({})
-        headers = values.of(
-            {
-                "body": body,
-            }
-        )
+        data = body.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
             method="POST", uri=self._uri, data=data, headers=headers

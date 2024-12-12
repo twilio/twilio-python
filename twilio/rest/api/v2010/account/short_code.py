@@ -203,10 +203,11 @@ class ShortCodeContext(InstanceContext):
         :returns: The fetched ShortCodeInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return ShortCodeInstance(
             self._version,
@@ -223,9 +224,12 @@ class ShortCodeContext(InstanceContext):
         :returns: The fetched ShortCodeInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return ShortCodeInstance(
@@ -256,6 +260,7 @@ class ShortCodeContext(InstanceContext):
 
         :returns: The updated ShortCodeInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -266,11 +271,14 @@ class ShortCodeContext(InstanceContext):
                 "SmsFallbackMethod": sms_fallback_method,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ShortCodeInstance(
@@ -301,6 +309,7 @@ class ShortCodeContext(InstanceContext):
 
         :returns: The updated ShortCodeInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -311,11 +320,14 @@ class ShortCodeContext(InstanceContext):
                 "SmsFallbackMethod": sms_fallback_method,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ShortCodeInstance(
@@ -537,7 +549,13 @@ class ShortCodeList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return ShortCodePage(self._version, response, self._solution)
 
     async def page_async(
@@ -570,8 +588,12 @@ class ShortCodeList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return ShortCodePage(self._version, response, self._solution)
 
