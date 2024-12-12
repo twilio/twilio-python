@@ -17,8 +17,6 @@ def example():
     Some example usage of using organization resources
     """
     self.client = Client(
-        username=API_KEY,
-        password=API_SECRET,
         account_sid=ACCOUNT_SID,
         credential_provider= OrgsCredentialProvider(CLIENT_ID,CLIENT_SECRET)
     )

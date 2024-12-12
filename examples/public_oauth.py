@@ -18,8 +18,6 @@ def example():
     Some example usage of message resources.
     """
     self.client = Client(
-        username=API_KEY,
-        password=API_SECRET,
         account_sid=ACCOUNT_SID,
         credential_provider= ClientCredentialProvider(CLIENT_ID,CLIENT_SECRET)
     )
