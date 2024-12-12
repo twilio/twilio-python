@@ -77,6 +77,8 @@ class Page(object):
             key = keys - self.META_KEYS
             if len(key) == 1:
                 return payload[key.pop()]
+            if "Resources" in payload:
+                return payload["Resources"]
 
         raise TwilioException("Page Records can not be deserialized")
 

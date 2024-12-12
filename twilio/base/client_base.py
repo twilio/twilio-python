@@ -4,10 +4,10 @@ from typing import Dict, List, MutableMapping, Optional, Tuple
 from urllib.parse import urlparse, urlunparse
 
 from twilio import __version__
-from twilio.base.exceptions import TwilioException
 from twilio.http import HttpClient
 from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response
+from twilio.credential.credential_provider import CredentialProvider
 
 
 class ClientBase(object):
@@ -23,6 +23,7 @@ class ClientBase(object):
         environment: Optional[MutableMapping[str, str]] = None,
         edge: Optional[str] = None,
         user_agent_extensions: Optional[List[str]] = None,
+        credential_provider: Optional[CredentialProvider] = None,
     ):
         """
         Initializes the Twilio Client
@@ -35,7 +36,9 @@ class ClientBase(object):
         :param environment: Environment to look for auth details, defaults to os.environ
         :param edge: Twilio Edge to make requests to, defaults to None
         :param user_agent_extensions: Additions to the user agent string
+        :param credential_provider: credential provider for authentication method that needs to be used
         """
+
         environment = environment or os.environ
 
         self.username = username or environment.get("TWILIO_ACCOUNT_SID")
@@ -48,9 +51,8 @@ class ClientBase(object):
         """ :type : str """
         self.user_agent_extensions = user_agent_extensions or []
         """ :type : list[str] """
-
-        if not self.username or not self.password:
-            raise TwilioException("Credentials are required to create a TwilioClient")
+        self.credential_provider = credential_provider or None
+        """ :type : CredentialProvider """
 
         self.account_sid = account_sid or self.username
         """ :type : str """
@@ -85,15 +87,27 @@ class ClientBase(object):
 
         :returns: Response from the Twilio API
         """
-        auth = self.get_auth(auth)
         headers = self.get_headers(method, headers)
-        uri = self.get_hostname(uri)
 
+        if self.credential_provider:
+
+            auth_strategy = self.credential_provider.to_auth_strategy()
+            headers["Authorization"] = auth_strategy.get_auth_string()
+        elif self.username is not None and self.password is not None:
+            auth = self.get_auth(auth)
+        else:
+            auth = None
+
+        if method == "DELETE":
+            del headers["Accept"]
+
+        uri = self.get_hostname(uri)
+        filtered_data = self.copy_non_none_values(data)
         return self.http_client.request(
             method,
             uri,
             params=params,
-            data=data,
+            data=filtered_data,
             headers=headers,
             auth=auth,
             timeout=timeout,
@@ -132,20 +146,43 @@ class ClientBase(object):
                 "http_client must be asynchronous to support async API requests"
             )
 
-        auth = self.get_auth(auth)
         headers = self.get_headers(method, headers)
-        uri = self.get_hostname(uri)
+        if method == "DELETE":
+            del headers["Accept"]
 
+        if self.credential_provider:
+            auth_strategy = self.credential_provider.to_auth_strategy()
+            headers["Authorization"] = auth_strategy.get_auth_string()
+        elif self.username is not None and self.password is not None:
+            auth = self.get_auth(auth)
+        else:
+            auth = None
+
+        uri = self.get_hostname(uri)
+        filtered_data = self.copy_non_none_values(data)
         return await self.http_client.request(
             method,
             uri,
             params=params,
-            data=data,
+            data=filtered_data,
             headers=headers,
             auth=auth,
             timeout=timeout,
             allow_redirects=allow_redirects,
         )
+
+    def copy_non_none_values(self, data):
+        if isinstance(data, dict):
+            return {
+                k: self.copy_non_none_values(v)
+                for k, v in data.items()
+                if v is not None
+            }
+        elif isinstance(data, list):
+            return [
+                self.copy_non_none_values(item) for item in data if item is not None
+            ]
+        return data
 
     def get_auth(self, auth: Optional[Tuple[str, str]]) -> Tuple[str, str]:
         """
