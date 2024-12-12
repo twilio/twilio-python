@@ -262,20 +262,6 @@ class ClientBase(object):
         )
         return str(urlunparse(parsed_url))
 
-    def remove_nulls(self, data):
-        res = {}
-        for key, sub_dict in data.items():
-            temp_dict = {}
-            if type(sub_dict) != str and sub_dict is not None:
-                for sub_key, sub_value in sub_dict.items():
-                    if sub_value is not None:
-                        temp_dict[sub_key] = sub_value
-            if  type(sub_dict) == str:
-                temp_dict = sub_dict
-            if temp_dict:
-                res[key] = temp_dict
-        return res
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
