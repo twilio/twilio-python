@@ -253,7 +253,7 @@ class UserInstance(InstanceResource):
     
     
     def update(self, scim_user: ScimUser, if_match: Union[str, object]=values.unset) -> "UserInstance":
-        """hello3
+        """
         Update the UserInstance
         
         :param scim_user: 

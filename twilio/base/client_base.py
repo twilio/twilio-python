@@ -101,6 +101,9 @@ class ClientBase(object):
         else:
             auth = None
 
+        if method == 'DELETE':
+            del headers["Accept"]
+
         uri = self.get_hostname(uri)
         filtered_data = self.copy_non_none_values(data)
         return self.http_client.request(
@@ -147,6 +150,8 @@ class ClientBase(object):
             )
 
         headers = self.get_headers(method, headers)
+        if method == 'DELETE':
+            del headers["Accept"]
 
         ##If credential provider is provided by user, get the associated auth strategy
         ##Using the auth strategy, fetch the auth string and set it to authorization header
