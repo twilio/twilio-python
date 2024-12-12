@@ -12,20 +12,17 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
-from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from typing import Optional
 from twilio.base.instance_context import InstanceContext
 
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 from twilio.rest.preview_iam.versionless.organization.account import AccountList
-from twilio.rest.preview_iam.versionless.organization.role_assignment import RoleAssignmentList
+from twilio.rest.preview_iam.versionless.organization.role_assignment import (
+    RoleAssignmentList,
+)
 from twilio.rest.preview_iam.versionless.organization.user import UserList
-
 
 
 class OrganizationContext(InstanceContext):
@@ -35,23 +32,20 @@ class OrganizationContext(InstanceContext):
         Initialize the OrganizationContext
 
         :param version: Version that contains the resource
-        :param organization_sid: 
+        :param organization_sid:
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'organization_sid': organization_sid,
+        self._solution = {
+            "organization_sid": organization_sid,
         }
-        self._uri = '/{organization_sid}'.format(**self._solution)
-        
+        self._uri = "/{organization_sid}".format(**self._solution)
+
         self._accounts: Optional[AccountList] = None
         self._role_assignments: Optional[RoleAssignmentList] = None
         self._users: Optional[UserList] = None
-    
-    
-    
+
     @property
     def accounts(self) -> AccountList:
         """
@@ -59,11 +53,11 @@ class OrganizationContext(InstanceContext):
         """
         if self._accounts is None:
             self._accounts = AccountList(
-                self._version, 
-                self._solution['organization_sid'],
+                self._version,
+                self._solution["organization_sid"],
             )
         return self._accounts
-    
+
     @property
     def role_assignments(self) -> RoleAssignmentList:
         """
@@ -71,11 +65,11 @@ class OrganizationContext(InstanceContext):
         """
         if self._role_assignments is None:
             self._role_assignments = RoleAssignmentList(
-                self._version, 
-                self._solution['organization_sid'],
+                self._version,
+                self._solution["organization_sid"],
             )
         return self._role_assignments
-    
+
     @property
     def users(self) -> UserList:
         """
@@ -83,57 +77,45 @@ class OrganizationContext(InstanceContext):
         """
         if self._users is None:
             self._users = UserList(
-                self._version, 
-                self._solution['organization_sid'],
+                self._version,
+                self._solution["organization_sid"],
             )
         return self._users
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.PreviewIam.Versionless.OrganizationContext {}>'.format(context)
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.PreviewIam.Versionless.OrganizationContext {}>".format(context)
 
 
 class OrganizationList(ListResource):
-    
+
     def __init__(self, version: Version):
         """
         Initialize the OrganizationList
 
         :param version: Version that contains the resource
-        
+
         """
         super().__init__(version)
-
-        
-        
-        
-        
-
-
-
-
-
-
 
     def get(self, organization_sid: str) -> OrganizationContext:
         """
         Constructs a OrganizationContext
-        
-        :param organization_sid: 
+
+        :param organization_sid:
         """
         return OrganizationContext(self._version, organization_sid=organization_sid)
 
     def __call__(self, organization_sid: str) -> OrganizationContext:
         """
         Constructs a OrganizationContext
-        
-        :param organization_sid: 
+
+        :param organization_sid:
         """
         return OrganizationContext(self._version, organization_sid=organization_sid)
 
@@ -143,5 +125,4 @@ class OrganizationList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.PreviewIam.Versionless.OrganizationList>'
-
+        return "<Twilio.PreviewIam.Versionless.OrganizationList>"

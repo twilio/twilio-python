@@ -1,12 +1,5 @@
-from warnings import warn
 from twilio.rest.preview_iam.PreviewIamBase import PreviewIamBase
 
-from twilio.rest.preview_iam.versionless.organization.account import (
-    AccountList,
-)
-from twilio.rest.preview_iam.versionless.organization.role_assignment import (
-    RoleAssignmentList,
-)
 from twilio.rest.preview_iam.v1.authorize import (
     AuthorizeList,
 )
@@ -17,11 +10,11 @@ from twilio.rest.preview_iam.versionless.organization import (
     OrganizationList,
 )
 
+
 class PreviewIam(PreviewIamBase):
     @property
     def organization(self) -> OrganizationList:
         return self.versionless.organization
-
 
     @property
     def authorize(self) -> AuthorizeList:

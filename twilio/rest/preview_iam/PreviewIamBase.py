@@ -16,6 +16,7 @@ from twilio.rest import Client
 from twilio.rest.preview_iam.v1 import V1
 from twilio.rest.preview_iam.versionless import Versionless
 
+
 class PreviewIamBase(Domain):
     def __init__(self, twilio: Client):
         """
@@ -26,7 +27,6 @@ class PreviewIamBase(Domain):
         super().__init__(twilio, "https://preview-iam.twilio.com")
         self._versionless: Optional[Versionless] = None
         self._v1: Optional[V1] = None
-
 
     @property
     def versionless(self) -> Versionless:

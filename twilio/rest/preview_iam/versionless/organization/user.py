@@ -12,11 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
-
-from datetime import date, datetime
-from decimal import Decimal
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -28,37 +26,34 @@ class UserInstance(InstanceResource):
 
     class ScimEmailAddress(object):
         """
-            :ivar primary: Indicates if this email address is the primary one
-            :ivar value: The actual email address value
-            :ivar type: The type of email address (e.g., work, home, etc.)
+        :ivar primary: Indicates if this email address is the primary one
+        :ivar value: The actual email address value
+        :ivar type: The type of email address (e.g., work, home, etc.)
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.primary: Optional[bool] = payload.get("primary")
             self.value: Optional[str] = payload.get("value")
             self.type: Optional[str] = payload.get("type")
 
         def to_dict(self):
             return {
-                
-                    "primary": self.primary,
-                    "value": self.value,
-                    "type": self.type,
+                "primary": self.primary,
+                "value": self.value,
+                "type": self.type,
             }
 
     class ScimMeta(object):
         """
-            :ivar resource_type: Indicates the type of the resource
-            :ivar created: The date and time when the resource was created in the system
-            :ivar last_modified: The date and time when the resource was last modified
-            :ivar version: A version identifier for the resource. This can be used to manage resource versioning and concurrency control.
+        :ivar resource_type: Indicates the type of the resource
+        :ivar created: The date and time when the resource was created in the system
+        :ivar last_modified: The date and time when the resource was last modified
+        :ivar version: A version identifier for the resource. This can be used to manage resource versioning and concurrency control.
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.resource_type: Optional[str] = payload.get("resource_type")
             self.created: Optional[datetime] = payload.get("created")
             self.last_modified: Optional[datetime] = payload.get("last_modified")
@@ -66,61 +61,59 @@ class UserInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                
-                    "resource_type": self.resource_type,
-                    "created": self.created,
-                    "last_modified": self.last_modified,
-                    "version": self.version,
+                "resource_type": self.resource_type,
+                "created": self.created,
+                "last_modified": self.last_modified,
+                "version": self.version,
             }
 
     class ScimName(object):
         """
-            :ivar given_name: The user's first or given name
-            :ivar family_name: The user's last or family name
+        :ivar given_name: The user's first or given name
+        :ivar family_name: The user's last or family name
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.given_name: Optional[str] = payload.get("given_name")
             self.family_name: Optional[str] = payload.get("family_name")
 
         def to_dict(self):
             return {
-                
-                    "given_name": self.given_name,
-                    "family_name": self.family_name,
+                "given_name": self.given_name,
+                "family_name": self.family_name,
             }
 
     class ScimUser(object):
         """
-            :ivar id: Unique Twilio user sid
-            :ivar external_id: External unique resource id defined by provisioning client
-            :ivar user_name: Unique username, MUST be same as primary email address
-            :ivar display_name: User friendly display name
-            :ivar name: 
-            :ivar emails: Email address list of the user. Primary email must be defined if there are more than 1 email. Primary email must match the username.
-            :ivar active: Indicates whether the user is active
-            :ivar locale: User's locale
-            :ivar timezone: User's time zone
-            :ivar schemas: An array of URIs that indicate the schemas supported for this user resource
-            :ivar meta: 
-            :ivar detail: A human-readable description of the error
-            :ivar scim_type: A scimType error code as defined in RFC7644
-            :ivar status: Http status code
-            :ivar code: Twilio-specific error code
-            :ivar more_info: Link to Error Code References
+        :ivar id: Unique Twilio user sid
+        :ivar external_id: External unique resource id defined by provisioning client
+        :ivar user_name: Unique username, MUST be same as primary email address
+        :ivar display_name: User friendly display name
+        :ivar name:
+        :ivar emails: Email address list of the user. Primary email must be defined if there are more than 1 email. Primary email must match the username.
+        :ivar active: Indicates whether the user is active
+        :ivar locale: User's locale
+        :ivar timezone: User's time zone
+        :ivar schemas: An array of URIs that indicate the schemas supported for this user resource
+        :ivar meta:
+        :ivar detail: A human-readable description of the error
+        :ivar scim_type: A scimType error code as defined in RFC7644
+        :ivar status: Http status code
+        :ivar code: Twilio-specific error code
+        :ivar more_info: Link to Error Code References
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.id: Optional[str] = payload.get("id")
             self.external_id: Optional[str] = payload.get("external_id")
             self.user_name: Optional[str] = payload.get("user_name")
             self.display_name: Optional[str] = payload.get("display_name")
             self.name: Optional[UserList.ScimName] = payload.get("name")
-            self.emails: Optional[List[UserList.ScimEmailAddress]] = payload.get("emails")
+            self.emails: Optional[List[UserList.ScimEmailAddress]] = payload.get(
+                "emails"
+            )
             self.active: Optional[bool] = payload.get("active")
             self.locale: Optional[str] = payload.get("locale")
             self.timezone: Optional[str] = payload.get("timezone")
@@ -134,26 +127,27 @@ class UserInstance(InstanceResource):
 
         def to_dict(self):
             return {
-                
-                    "id": self.id,
-                    "externalId": self.external_id,
-                    "userName": self.user_name,
-                    "displayName": self.display_name,
-                    "name": self.name.to_dict() if self.name is not None else None ,
-                    "emails": [emails.to_dict() for emails in self.emails] if self.emails is not None else None,
-                    "active": self.active,
-                    "locale": self.locale,
-                    "timezone": self.timezone,
-                    "schemas": self.schemas,
-                    "meta": self.meta.to_dict() if self.meta is not None else None ,
-                    "detail": self.detail,
-                    "scimType": self.scim_type,
-                    "status": self.status,
-                    "code": self.code,
-                    "moreInfo": self.more_info,
+                "id": self.id,
+                "externalId": self.external_id,
+                "userName": self.user_name,
+                "displayName": self.display_name,
+                "name": self.name.to_dict() if self.name is not None else None,
+                "emails": (
+                    [emails.to_dict() for emails in self.emails]
+                    if self.emails is not None
+                    else None
+                ),
+                "active": self.active,
+                "locale": self.locale,
+                "timezone": self.timezone,
+                "schemas": self.schemas,
+                "meta": self.meta.to_dict() if self.meta is not None else None,
+                "detail": self.detail,
+                "scimType": self.scim_type,
+                "status": self.status,
+                "code": self.code,
+                "moreInfo": self.more_info,
             }
-
-
 
     """
     :ivar id: Unique Twilio user sid
@@ -174,10 +168,15 @@ class UserInstance(InstanceResource):
     :ivar more_info: Link to Error Code References
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], organization_sid: str, id: Optional[str] = None):
+    def __init__(
+        self,
+        version: Version,
+        payload: Dict[str, Any],
+        organization_sid: str,
+        id: Optional[str] = None,
+    ):
         super().__init__(version)
 
-        
         self.id: Optional[str] = payload.get("id")
         self.external_id: Optional[str] = payload.get("externalId")
         self.user_name: Optional[str] = payload.get("userName")
@@ -195,8 +194,7 @@ class UserInstance(InstanceResource):
         self.code: Optional[int] = payload.get("code")
         self.more_info: Optional[str] = payload.get("moreInfo")
 
-        
-        self._solution = { 
+        self._solution = {
             "organization_sid": organization_sid,
             "id": id or self.id,
         }
@@ -211,32 +209,35 @@ class UserInstance(InstanceResource):
         :returns: UserContext for this UserInstance
         """
         if self._context is None:
-            self._context = UserContext(self._version, organization_sid=self._solution['organization_sid'], id=self._solution['id'],)
+            self._context = UserContext(
+                self._version,
+                organization_sid=self._solution["organization_sid"],
+                id=self._solution["id"],
+            )
         return self._context
-    
-    
+
     def delete(self) -> bool:
         """
         Deletes the UserInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return self._proxy.delete()
+
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the UserInstance
-        
+
 
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
-    
-    
+
     def fetch(self) -> "UserInstance":
         """
         Fetch the UserInstance
-        
+
 
         :returns: The fetched UserInstance
         """
@@ -245,79 +246,86 @@ class UserInstance(InstanceResource):
     async def fetch_async(self) -> "UserInstance":
         """
         Asynchronous coroutine to fetch the UserInstance
-        
+
 
         :returns: The fetched UserInstance
         """
         return await self._proxy.fetch_async()
-    
-    
-    def update(self, scim_user: ScimUser, if_match: Union[str, object]=values.unset) -> "UserInstance":
+
+    def update(
+        self, scim_user: ScimUser, if_match: Union[str, object] = values.unset
+    ) -> "UserInstance":
         """
         Update the UserInstance
-        
-        :param scim_user: 
-        :param if_match: 
+
+        :param scim_user:
+        :param if_match:
 
         :returns: The updated UserInstance
         """
-        return self._proxy.update(scim_user=scim_user, if_match=if_match, )
+        return self._proxy.update(
+            scim_user=scim_user,
+            if_match=if_match,
+        )
 
-    async def update_async(self, scim_user: ScimUser, if_match: Union[str, object]=values.unset) -> "UserInstance":
+    async def update_async(
+        self, scim_user: ScimUser, if_match: Union[str, object] = values.unset
+    ) -> "UserInstance":
         """
         Asynchronous coroutine to update the UserInstance
-        
-        :param scim_user: 
-        :param if_match: 
+
+        :param scim_user:
+        :param if_match:
 
         :returns: The updated UserInstance
         """
-        return await self._proxy.update_async(scim_user=scim_user, if_match=if_match, )
-    
+        return await self._proxy.update_async(
+            scim_user=scim_user,
+            if_match=if_match,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.PreviewIam.Versionless.UserInstance {}>'.format(context)
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.PreviewIam.Versionless.UserInstance {}>".format(context)
+
 
 class UserContext(InstanceContext):
 
     class ScimEmailAddress(object):
         """
-            :ivar primary: Indicates if this email address is the primary one
-            :ivar value: The actual email address value
-            :ivar type: The type of email address (e.g., work, home, etc.)
+        :ivar primary: Indicates if this email address is the primary one
+        :ivar value: The actual email address value
+        :ivar type: The type of email address (e.g., work, home, etc.)
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.primary: Optional[bool] = payload.get("primary")
             self.value: Optional[str] = payload.get("value")
             self.type: Optional[str] = payload.get("type")
 
         def to_dict(self):
             return {
-                
-                    "primary": self.primary,
-                    "value": self.value,
-                    "type": self.type,
+                "primary": self.primary,
+                "value": self.value,
+                "type": self.type,
             }
 
     class ScimMeta(object):
         """
-            :ivar resource_type: Indicates the type of the resource
-            :ivar created: The date and time when the resource was created in the system
-            :ivar last_modified: The date and time when the resource was last modified
-            :ivar version: A version identifier for the resource. This can be used to manage resource versioning and concurrency control.
+        :ivar resource_type: Indicates the type of the resource
+        :ivar created: The date and time when the resource was created in the system
+        :ivar last_modified: The date and time when the resource was last modified
+        :ivar version: A version identifier for the resource. This can be used to manage resource versioning and concurrency control.
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.resource_type: Optional[str] = payload.get("resource_type")
             self.created: Optional[datetime] = payload.get("created")
             self.last_modified: Optional[datetime] = payload.get("last_modified")
@@ -325,61 +333,59 @@ class UserContext(InstanceContext):
 
         def to_dict(self):
             return {
-                
-                    "resource_type": self.resource_type,
-                    "created": self.created,
-                    "last_modified": self.last_modified,
-                    "version": self.version,
+                "resource_type": self.resource_type,
+                "created": self.created,
+                "last_modified": self.last_modified,
+                "version": self.version,
             }
 
     class ScimName(object):
         """
-            :ivar given_name: The user's first or given name
-            :ivar family_name: The user's last or family name
+        :ivar given_name: The user's first or given name
+        :ivar family_name: The user's last or family name
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.given_name: Optional[str] = payload.get("given_name")
             self.family_name: Optional[str] = payload.get("family_name")
 
         def to_dict(self):
             return {
-                
-                    "given_name": self.given_name,
-                    "family_name": self.family_name,
+                "given_name": self.given_name,
+                "family_name": self.family_name,
             }
 
     class ScimUser(object):
         """
-            :ivar id: Unique Twilio user sid
-            :ivar external_id: External unique resource id defined by provisioning client
-            :ivar user_name: Unique username, MUST be same as primary email address
-            :ivar display_name: User friendly display name
-            :ivar name: 
-            :ivar emails: Email address list of the user. Primary email must be defined if there are more than 1 email. Primary email must match the username.
-            :ivar active: Indicates whether the user is active
-            :ivar locale: User's locale
-            :ivar timezone: User's time zone
-            :ivar schemas: An array of URIs that indicate the schemas supported for this user resource
-            :ivar meta: 
-            :ivar detail: A human-readable description of the error
-            :ivar scim_type: A scimType error code as defined in RFC7644
-            :ivar status: Http status code
-            :ivar code: Twilio-specific error code
-            :ivar more_info: Link to Error Code References
+        :ivar id: Unique Twilio user sid
+        :ivar external_id: External unique resource id defined by provisioning client
+        :ivar user_name: Unique username, MUST be same as primary email address
+        :ivar display_name: User friendly display name
+        :ivar name:
+        :ivar emails: Email address list of the user. Primary email must be defined if there are more than 1 email. Primary email must match the username.
+        :ivar active: Indicates whether the user is active
+        :ivar locale: User's locale
+        :ivar timezone: User's time zone
+        :ivar schemas: An array of URIs that indicate the schemas supported for this user resource
+        :ivar meta:
+        :ivar detail: A human-readable description of the error
+        :ivar scim_type: A scimType error code as defined in RFC7644
+        :ivar status: Http status code
+        :ivar code: Twilio-specific error code
+        :ivar more_info: Link to Error Code References
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.id: Optional[str] = payload.get("id")
             self.external_id: Optional[str] = payload.get("external_id")
             self.user_name: Optional[str] = payload.get("user_name")
             self.display_name: Optional[str] = payload.get("display_name")
             self.name: Optional[UserList.ScimName] = payload.get("name")
-            self.emails: Optional[List[UserList.ScimEmailAddress]] = payload.get("emails")
+            self.emails: Optional[List[UserList.ScimEmailAddress]] = payload.get(
+                "emails"
+            )
             self.active: Optional[bool] = payload.get("active")
             self.locale: Optional[str] = payload.get("locale")
             self.timezone: Optional[str] = payload.get("timezone")
@@ -393,216 +399,201 @@ class UserContext(InstanceContext):
 
         def to_dict(self):
             return {
-                
-                    "id": self.id,
-                    "externalId": self.external_id,
-                    "userName": self.user_name,
-                    "displayName": self.display_name,
-                    "name": self.name.to_dict() if self.name is not None else None ,
-                    "emails": [emails.to_dict() for emails in self.emails] if self.emails is not None else None,
-                    "active": self.active,
-                    "locale": self.locale,
-                    "timezone": self.timezone,
-                    "schemas": self.schemas,
-                    "meta": self.meta.to_dict() if self.meta is not None else None ,
-                    "detail": self.detail,
-                    "scimType": self.scim_type,
-                    "status": self.status,
-                    "code": self.code,
-                    "moreInfo": self.more_info,
+                "id": self.id,
+                "externalId": self.external_id,
+                "userName": self.user_name,
+                "displayName": self.display_name,
+                "name": self.name.to_dict() if self.name is not None else None,
+                "emails": (
+                    [emails.to_dict() for emails in self.emails]
+                    if self.emails is not None
+                    else None
+                ),
+                "active": self.active,
+                "locale": self.locale,
+                "timezone": self.timezone,
+                "schemas": self.schemas,
+                "meta": self.meta.to_dict() if self.meta is not None else None,
+                "detail": self.detail,
+                "scimType": self.scim_type,
+                "status": self.status,
+                "code": self.code,
+                "moreInfo": self.more_info,
             }
-
 
     def __init__(self, version: Version, organization_sid: str, id: str):
         """
         Initialize the UserContext
 
         :param version: Version that contains the resource
-        :param organization_sid: 
-        :param id: 
+        :param organization_sid:
+        :param id:
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 
-            'organization_sid': organization_sid,
-            'id': id,
+        self._solution = {
+            "organization_sid": organization_sid,
+            "id": id,
         }
-        self._uri = '/{organization_sid}/scim/Users/{id}'.format(**self._solution)
-        
-    
-    
+        self._uri = "/{organization_sid}/scim/Users/{id}".format(**self._solution)
+
     def delete(self) -> bool:
         """
         Deletes the UserInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
 
-        
         headers = values.of({})
-        
-        
-        
+
         headers["Accept"] = "application/scim+json"
-        
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
         Asynchronous coroutine that deletes the UserInstance
 
-        
+
         :returns: True if delete succeeds, False otherwise
         """
-        
+
         headers = values.of({})
-        
-        
-        
+
         headers["Accept"] = "application/scim+json"
-        
-        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
-    
-    
+
+        return await self._version.delete_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> UserInstance:
         """
         Fetch the UserInstance
-        
+
 
         :returns: The fetched UserInstance
         """
-        
 
         headers = values.of({})
-        
-        
+
         headers["Accept"] = "application/scim+json"
-        
-        payload = self._version.fetch(method='GET', uri=self._uri  , headers=headers)
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return UserInstance(
             self._version,
             payload,
-            organization_sid=self._solution['organization_sid'],
-            id=self._solution['id'],
-            
+            organization_sid=self._solution["organization_sid"],
+            id=self._solution["id"],
         )
 
     async def fetch_async(self) -> UserInstance:
         """
         Asynchronous coroutine to fetch the UserInstance
-        
+
 
         :returns: The fetched UserInstance
         """
-        
 
         headers = values.of({})
-        
-        
+
         headers["Accept"] = "application/scim+json"
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri , headers=headers)
+
+        payload = await self._version.fetch_async(
+            method="GET", uri=self._uri, headers=headers
+        )
 
         return UserInstance(
             self._version,
             payload,
-            organization_sid=self._solution['organization_sid'],
-            id=self._solution['id'],
-            
+            organization_sid=self._solution["organization_sid"],
+            id=self._solution["id"],
         )
-    
-    
-    def update(self, scim_user: ScimUser, if_match: Union[str, object]=values.unset) -> UserInstance:
+
+    def update(
+        self, scim_user: ScimUser, if_match: Union[str, object] = values.unset
+    ) -> UserInstance:
         """
         Update the UserInstance
-        
-        :param scim_user: 
-        :param if_match: 
+
+        :param scim_user:
+        :param if_match:
 
         :returns: The updated UserInstance
         """
         data = scim_user.to_dict()
-        
-        headers = values.of({})
-        
-        
-        if not (if_match is values.unset or (isinstance(if_match, str) and not if_match)):
-            headers['If-Match'] = if_match
-        
-        headers["Content-Type"] = "application/json"
-        
-        headers["Content-Type"] = "application/scim+json"
-        
-        
-        headers["Accept"] = "application/scim+json"
-        
 
-        payload = self._version.update(method='PUT', uri=self._uri, data=data, headers=headers)
+        headers = values.of({})
+
+        if not (
+            if_match is values.unset or (isinstance(if_match, str) and not if_match)
+        ):
+            headers["If-Match"] = if_match
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Content-Type"] = "application/scim+json"
+
+        headers["Accept"] = "application/scim+json"
+
+        payload = self._version.update(
+            method="PUT", uri=self._uri, data=data, headers=headers
+        )
 
         return UserInstance(
             self._version,
             payload,
-            organization_sid=self._solution['organization_sid'],
-            id=self._solution['id']
+            organization_sid=self._solution["organization_sid"],
+            id=self._solution["id"],
         )
 
-    async def update_async(self, scim_user: ScimUser, if_match: Union[str, object]=values.unset) -> UserInstance:
+    async def update_async(
+        self, scim_user: ScimUser, if_match: Union[str, object] = values.unset
+    ) -> UserInstance:
         """
         Asynchronous coroutine to update the UserInstance
-        
-        :param scim_user: 
-        :param if_match: 
+
+        :param scim_user:
+        :param if_match:
 
         :returns: The updated UserInstance
         """
         data = scim_user.to_dict()
-        
-        headers = values.of({})
-        
-        
-        if not (if_match is values.unset or (isinstance(if_match, str) and not if_match)):
-            headers['If-Match'] = if_match
-        
-        
-        headers["Content-Type"] = "application/json"
-        
-        headers["Content-Type"] = "application/scim+json"
-        
-        
-        headers["Accept"] = "application/scim+json"
-        
 
-        payload = await self._version.update_async(method='PUT', uri=self._uri, data=data, headers=headers)
+        headers = values.of({})
+
+        if not (
+            if_match is values.unset or (isinstance(if_match, str) and not if_match)
+        ):
+            headers["If-Match"] = if_match
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Content-Type"] = "application/scim+json"
+
+        headers["Accept"] = "application/scim+json"
+
+        payload = await self._version.update_async(
+            method="PUT", uri=self._uri, data=data, headers=headers
+        )
 
         return UserInstance(
             self._version,
             payload,
-            organization_sid=self._solution['organization_sid'],
-            id=self._solution['id']
+            organization_sid=self._solution["organization_sid"],
+            id=self._solution["id"],
         )
-    
-    
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
 
         :returns: Machine friendly representation
         """
-        context = ' '.join('{}={}'.format(k, v) for k, v in self._solution.items())
-        return '<Twilio.PreviewIam.Versionless.UserContext {}>'.format(context)
-
-
-
-
-
-
-
-
-
+        context = " ".join("{}={}".format(k, v) for k, v in self._solution.items())
+        return "<Twilio.PreviewIam.Versionless.UserContext {}>".format(context)
 
 
 class UserPage(Page):
@@ -613,7 +604,9 @@ class UserPage(Page):
 
         :param payload: Payload response from the API
         """
-        return UserInstance(self._version, payload, organization_sid=self._solution["organization_sid"])
+        return UserInstance(
+            self._version, payload, organization_sid=self._solution["organization_sid"]
+        )
 
     def __repr__(self) -> str:
         """
@@ -624,44 +617,38 @@ class UserPage(Page):
         return "<Twilio.PreviewIam.Versionless.UserPage>"
 
 
-
-
-
 class UserList(ListResource):
-    
+
     class ScimEmailAddress(object):
         """
-            :ivar primary: Indicates if this email address is the primary one
-            :ivar value: The actual email address value
-            :ivar type: The type of email address (e.g., work, home, etc.)
+        :ivar primary: Indicates if this email address is the primary one
+        :ivar value: The actual email address value
+        :ivar type: The type of email address (e.g., work, home, etc.)
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.primary: Optional[bool] = payload.get("primary")
             self.value: Optional[str] = payload.get("value")
             self.type: Optional[str] = payload.get("type")
 
         def to_dict(self):
             return {
-                
-                    "primary": self.primary,
-                    "value": self.value,
-                    "type": self.type,
+                "primary": self.primary,
+                "value": self.value,
+                "type": self.type,
             }
 
     class ScimMeta(object):
         """
-            :ivar resource_type: Indicates the type of the resource
-            :ivar created: The date and time when the resource was created in the system
-            :ivar last_modified: The date and time when the resource was last modified
-            :ivar version: A version identifier for the resource. This can be used to manage resource versioning and concurrency control.
+        :ivar resource_type: Indicates the type of the resource
+        :ivar created: The date and time when the resource was created in the system
+        :ivar last_modified: The date and time when the resource was last modified
+        :ivar version: A version identifier for the resource. This can be used to manage resource versioning and concurrency control.
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.resource_type: Optional[str] = payload.get("resource_type")
             self.created: Optional[datetime] = payload.get("created")
             self.last_modified: Optional[datetime] = payload.get("last_modified")
@@ -669,61 +656,59 @@ class UserList(ListResource):
 
         def to_dict(self):
             return {
-                
-                    "resource_type": self.resource_type,
-                    "created": self.created,
-                    "last_modified": self.last_modified,
-                    "version": self.version,
+                "resource_type": self.resource_type,
+                "created": self.created,
+                "last_modified": self.last_modified,
+                "version": self.version,
             }
 
     class ScimName(object):
         """
-            :ivar given_name: The user's first or given name
-            :ivar family_name: The user's last or family name
+        :ivar given_name: The user's first or given name
+        :ivar family_name: The user's last or family name
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.given_name: Optional[str] = payload.get("given_name")
             self.family_name: Optional[str] = payload.get("family_name")
 
         def to_dict(self):
             return {
-                
-                    "given_name": self.given_name,
-                    "family_name": self.family_name,
+                "given_name": self.given_name,
+                "family_name": self.family_name,
             }
 
     class ScimUser(object):
         """
-            :ivar id: Unique Twilio user sid
-            :ivar external_id: External unique resource id defined by provisioning client
-            :ivar user_name: Unique username, MUST be same as primary email address
-            :ivar display_name: User friendly display name
-            :ivar name: 
-            :ivar emails: Email address list of the user. Primary email must be defined if there are more than 1 email. Primary email must match the username.
-            :ivar active: Indicates whether the user is active
-            :ivar locale: User's locale
-            :ivar timezone: User's time zone
-            :ivar schemas: An array of URIs that indicate the schemas supported for this user resource
-            :ivar meta: 
-            :ivar detail: A human-readable description of the error
-            :ivar scim_type: A scimType error code as defined in RFC7644
-            :ivar status: Http status code
-            :ivar code: Twilio-specific error code
-            :ivar more_info: Link to Error Code References
+        :ivar id: Unique Twilio user sid
+        :ivar external_id: External unique resource id defined by provisioning client
+        :ivar user_name: Unique username, MUST be same as primary email address
+        :ivar display_name: User friendly display name
+        :ivar name:
+        :ivar emails: Email address list of the user. Primary email must be defined if there are more than 1 email. Primary email must match the username.
+        :ivar active: Indicates whether the user is active
+        :ivar locale: User's locale
+        :ivar timezone: User's time zone
+        :ivar schemas: An array of URIs that indicate the schemas supported for this user resource
+        :ivar meta:
+        :ivar detail: A human-readable description of the error
+        :ivar scim_type: A scimType error code as defined in RFC7644
+        :ivar status: Http status code
+        :ivar code: Twilio-specific error code
+        :ivar more_info: Link to Error Code References
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
-            
             self.id: Optional[str] = payload.get("id")
             self.external_id: Optional[str] = payload.get("external_id")
             self.user_name: Optional[str] = payload.get("user_name")
             self.display_name: Optional[str] = payload.get("display_name")
             self.name: Optional[UserList.ScimName] = payload.get("name")
-            self.emails: Optional[List[UserList.ScimEmailAddress]] = payload.get("emails")
+            self.emails: Optional[List[UserList.ScimEmailAddress]] = payload.get(
+                "emails"
+            )
             self.active: Optional[bool] = payload.get("active")
             self.locale: Optional[str] = payload.get("locale")
             self.timezone: Optional[str] = payload.get("timezone")
@@ -737,100 +722,98 @@ class UserList(ListResource):
 
         def to_dict(self):
             return {
-                
-                    "id": self.id,
-                    "externalId": self.external_id,
-                    "userName": self.user_name,
-                    "displayName": self.display_name,
-                    "name": self.name.to_dict() if self.name is not None else None ,
-                    "emails": [emails.to_dict() for emails in self.emails] if self.emails is not None else None,
-                    "active": self.active,
-                    "locale": self.locale,
-                    "timezone": self.timezone,
-                    "schemas": self.schemas,
-                    "meta": self.meta.to_dict() if self.meta is not None else None ,
-                    "detail": self.detail,
-                    "scimType": self.scim_type,
-                    "status": self.status,
-                    "code": self.code,
-                    "moreInfo": self.more_info,
+                "id": self.id,
+                "externalId": self.external_id,
+                "userName": self.user_name,
+                "displayName": self.display_name,
+                "name": self.name.to_dict() if self.name is not None else None,
+                "emails": (
+                    [emails.to_dict() for emails in self.emails]
+                    if self.emails is not None
+                    else None
+                ),
+                "active": self.active,
+                "locale": self.locale,
+                "timezone": self.timezone,
+                "schemas": self.schemas,
+                "meta": self.meta.to_dict() if self.meta is not None else None,
+                "detail": self.detail,
+                "scimType": self.scim_type,
+                "status": self.status,
+                "code": self.code,
+                "moreInfo": self.more_info,
             }
-
 
     def __init__(self, version: Version, organization_sid: str):
         """
         Initialize the UserList
 
         :param version: Version that contains the resource
-        :param organization_sid: 
-        
+        :param organization_sid:
+
         """
         super().__init__(version)
 
-        
         # Path Solution
-        self._solution = { 'organization_sid': organization_sid,  }
-        self._uri = '/{organization_sid}/scim/Users'.format(**self._solution)
-        
-        
-    
-    
-    
-    
+        self._solution = {
+            "organization_sid": organization_sid,
+        }
+        self._uri = "/{organization_sid}/scim/Users".format(**self._solution)
+
     def create(self, scim_user: ScimUser) -> UserInstance:
         """
         Create the UserInstance
 
-        :param scim_user: 
-        
+        :param scim_user:
+
         :returns: The created UserInstance
         """
         data = scim_user.to_dict()
-        
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        headers["Content-Type"] = "application/json"
-        
-        headers["Content-Type"] = "application/scim+json"
-        
-        
-        headers["Accept"] = "application/scim+json"
-        
-        
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return UserInstance(self._version, payload, organization_sid=self._solution['organization_sid'])
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Content-Type"] = "application/scim+json"
+
+        headers["Accept"] = "application/scim+json"
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return UserInstance(
+            self._version, payload, organization_sid=self._solution["organization_sid"]
+        )
 
     async def create_async(self, scim_user: ScimUser) -> UserInstance:
         """
         Asynchronously create the UserInstance
 
-        :param scim_user: 
-        
+        :param scim_user:
+
         :returns: The created UserInstance
         """
         data = scim_user.to_dict()
-        
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        headers["Content-Type"] = "application/json"
-        
-        headers["Content-Type"] = "application/scim+json"
-        
-        
-        headers["Accept"] = "application/scim+json"
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
 
-        return UserInstance(self._version, payload, organization_sid=self._solution['organization_sid'])
-    
-    
-    def stream(self, 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Content-Type"] = "application/scim+json"
+
+        headers["Accept"] = "application/scim+json"
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return UserInstance(
+            self._version, payload, organization_sid=self._solution["organization_sid"]
+        )
+
+    def stream(
+        self,
         filter: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -840,8 +823,8 @@ class UserList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
-        :param str filter: 
+
+        :param str filter:
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -852,14 +835,12 @@ class UserList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(
-            filter=filter,
-            page_size=limits['page_size']
-        )
+        page = self.page(filter=filter, page_size=limits["page_size"])
 
-        return self._version.stream(page, limits['limit'])
+        return self._version.stream(page, limits["limit"])
 
-    async def stream_async(self, 
+    async def stream_async(
+        self,
         filter: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -869,8 +850,8 @@ class UserList(ListResource):
         This operation lazily loads records as efficiently as possible until the limit
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
-        
-        :param str filter: 
+
+        :param str filter:
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -881,14 +862,12 @@ class UserList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(
-            filter=filter,
-            page_size=limits['page_size']
-        )
+        page = await self.page_async(filter=filter, page_size=limits["page_size"])
 
-        return self._version.stream_async(page, limits['limit'])
+        return self._version.stream_async(page, limits["limit"])
 
-    def list(self, 
+    def list(
+        self,
         filter: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -897,8 +876,8 @@ class UserList(ListResource):
         Lists UserInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
-        :param str filter: 
+
+        :param str filter:
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -908,13 +887,16 @@ class UserList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return list(self.stream(
-            filter=filter,
-            limit=limit,
-            page_size=page_size,
-        ))
+        return list(
+            self.stream(
+                filter=filter,
+                limit=limit,
+                page_size=page_size,
+            )
+        )
 
-    async def list_async(self, 
+    async def list_async(
+        self,
         filter: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -923,8 +905,8 @@ class UserList(ListResource):
         Asynchronously lists UserInstance records from the API as a list.
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
-        
-        :param str filter: 
+
+        :param str filter:
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -934,13 +916,17 @@ class UserList(ListResource):
 
         :returns: list that will contain up to limit results
         """
-        return [record async for record in await self.stream_async(
-            filter=filter,
-            limit=limit,
-            page_size=page_size,
-        )]
+        return [
+            record
+            async for record in await self.stream_async(
+                filter=filter,
+                limit=limit,
+                page_size=page_size,
+            )
+        ]
 
-    def page(self, 
+    def page(
+        self,
         filter: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
@@ -949,33 +935,34 @@ class UserList(ListResource):
         """
         Retrieve a single page of UserInstance records from the API.
         Request is executed immediately
-        
-        :param filter: 
+
+        :param filter:
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserInstance
         """
-        data = values.of({ 
-            'filter': filter,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "filter": filter,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        headers = values.of({
-        'Content-Type': 'application/x-www-form-urlencoded'
-        })
-        
-        
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Accept"] = "application/scim+json"
-        
 
-        response = self._version.page(method='GET', uri=self._uri, params=data, headers=headers)
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return UserPage(self._version, response, self._solution)
 
-    async def page_async(self, 
+    async def page_async(
+        self,
         filter: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
@@ -984,30 +971,30 @@ class UserList(ListResource):
         """
         Asynchronously retrieve a single page of UserInstance records from the API.
         Request is executed immediately
-        
-        :param filter: 
+
+        :param filter:
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
 
         :returns: Page of UserInstance
         """
-        data = values.of({ 
-            'filter': filter,
-            'PageToken': page_token,
-            'Page': page_number,
-            'PageSize': page_size,
-        })
+        data = values.of(
+            {
+                "filter": filter,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
 
-        headers = values.of({
-        'Content-Type': 'application/x-www-form-urlencoded'
-        })
-        
-        
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Accept"] = "application/scim+json"
-        
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data, headers=headers)
+        response = await self._version.page_async(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return UserPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> UserPage:
@@ -1019,10 +1006,7 @@ class UserList(ListResource):
 
         :returns: Page of UserInstance
         """
-        response = self._version.domain.twilio.request(
-            'GET',
-            target_url
-        )
+        response = self._version.domain.twilio.request("GET", target_url)
         return UserPage(self._version, response, self._solution)
 
     async def get_page_async(self, target_url: str) -> UserPage:
@@ -1034,29 +1018,28 @@ class UserList(ListResource):
 
         :returns: Page of UserInstance
         """
-        response = await self._version.domain.twilio.request_async(
-            'GET',
-            target_url
-        )
+        response = await self._version.domain.twilio.request_async("GET", target_url)
         return UserPage(self._version, response, self._solution)
-
-
 
     def get(self, id: str) -> UserContext:
         """
         Constructs a UserContext
-        
-        :param id: 
+
+        :param id:
         """
-        return UserContext(self._version, organization_sid=self._solution['organization_sid'], id=id)
+        return UserContext(
+            self._version, organization_sid=self._solution["organization_sid"], id=id
+        )
 
     def __call__(self, id: str) -> UserContext:
         """
         Constructs a UserContext
-        
-        :param id: 
+
+        :param id:
         """
-        return UserContext(self._version, organization_sid=self._solution['organization_sid'], id=id)
+        return UserContext(
+            self._version, organization_sid=self._solution["organization_sid"], id=id
+        )
 
     def __repr__(self) -> str:
         """
@@ -1064,5 +1047,4 @@ class UserList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return '<Twilio.PreviewIam.Versionless.UserList>'
-
+        return "<Twilio.PreviewIam.Versionless.UserList>"

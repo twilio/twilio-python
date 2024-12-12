@@ -15,7 +15,6 @@ from twilio.rest.preview.wireless.sim import SimList
 
 class Preview(PreviewBase):
 
-
     @property
     def authorization_documents(self) -> AuthorizationDocumentList:
         warn(

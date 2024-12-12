@@ -28,7 +28,7 @@ class Versionless(Version):
         """
         super().__init__(domain, "Organizations")
         self._organization: Optional[OrganizationList] = None
-        
+
     @property
     def organization(self) -> OrganizationList:
         if self._organization is None:

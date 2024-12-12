@@ -4,7 +4,6 @@ from typing import Dict, List, MutableMapping, Optional, Tuple
 from urllib.parse import urlparse, urlunparse
 
 from twilio import __version__
-from twilio.base.exceptions import TwilioException
 from twilio.http import HttpClient
 from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response
@@ -99,7 +98,7 @@ class ClientBase(object):
         else:
             auth = None
 
-        if method == 'DELETE':
+        if method == "DELETE":
             del headers["Accept"]
 
         uri = self.get_hostname(uri)
@@ -148,7 +147,7 @@ class ClientBase(object):
             )
 
         headers = self.get_headers(method, headers)
-        if method == 'DELETE':
+        if method == "DELETE":
             del headers["Accept"]
 
         if self.credential_provider:
@@ -174,9 +173,15 @@ class ClientBase(object):
 
     def copy_non_none_values(self, data):
         if isinstance(data, dict):
-            return {k: self.copy_non_none_values(v) for k, v in data.items() if v is not None}
+            return {
+                k: self.copy_non_none_values(v)
+                for k, v in data.items()
+                if v is not None
+            }
         elif isinstance(data, list):
-            return [self.copy_non_none_values(item) for item in data if item is not None]
+            return [
+                self.copy_non_none_values(item) for item in data if item is not None
+            ]
         return data
 
     def get_auth(self, auth: Optional[Tuple[str, str]]) -> Tuple[str, str]:
