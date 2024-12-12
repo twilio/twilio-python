@@ -25,10 +25,6 @@ def example():
     msg = self.client.messages.create(
         to=self.to_number, from_=self.from_number, body="hello world"
     )
-    self.assertEqual(msg.to, self.to_number)
-    self.assertEqual(msg.from_, self.from_number)
-    self.assertEqual(msg.body, "hello world")
-    self.assertIsNotNone(msg.sid)
 
 
 if __name__ == "__main__":

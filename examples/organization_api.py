@@ -22,7 +22,8 @@ def example():
     )
 
     accounts = self.client.preview_iam.organization(organization_sid=ORGS_SID).accounts.stream()
-    self.assertIsNotNone(accounts)
+    for record in accounts:
+        print(record)
 
 
 if __name__ == "__main__":
