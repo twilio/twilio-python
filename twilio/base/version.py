@@ -164,8 +164,6 @@ class Version(object):
             timeout=timeout,
             allow_redirects=allow_redirects,
         )
-        print('response')
-        print(response)
 
 
 

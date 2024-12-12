@@ -93,7 +93,6 @@ class TwilioHttpClient(HttpClient):
         else:
             kwargs["data"] = data
         self.log_request(kwargs)
-        print(f"\nargs : {kwargs}")
         self._test_only_last_response = None
         session = self.session or Session()
         request = Request(**kwargs)
@@ -110,9 +109,6 @@ class TwilioHttpClient(HttpClient):
             timeout=timeout,
             **settings,
         )
-
-        print(f"\nresponse : {response.text}")
-        print(f"\nresponse code : {response}")
 
         self.log_response(response.status_code, response)
 
