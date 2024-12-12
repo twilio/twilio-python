@@ -86,6 +86,13 @@ After a brief delay, you will receive the text message on your phone.
 > **Warning**
 > It's okay to hardcode your credentials when testing locally, but you should use environment variables to keep them secret before committing any code or deploying to production. Check out [How to Set Environment Variables](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html) for more information.
 
+## OAuth Feature for Twilio APIs
+We are introducing Client Credentials Flow-based OAuth 2.0 authentication. This feature is currently in beta and its implementation is subject to change.
+
+API examples [here](https://github.com/twilio/twilio-python/blob/main/examples/public_oauth.py)
+
+Organisation API examples [here](https://github.com/twilio/twilio-python/blob/main/examples/organization_api_calls.py)
+
 ## Use the helper library
 
 ### API Credentials
