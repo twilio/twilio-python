@@ -29,6 +29,7 @@ from twilio.rest.messaging.v1.linkshortening_messaging_service import (
 from twilio.rest.messaging.v1.linkshortening_messaging_service_domain_association import (
     LinkshorteningMessagingServiceDomainAssociationList,
 )
+from twilio.rest.messaging.v1.request_managed_cert import RequestManagedCertList
 from twilio.rest.messaging.v1.service import ServiceList
 from twilio.rest.messaging.v1.tollfree_verification import TollfreeVerificationList
 from twilio.rest.messaging.v1.usecase import UsecaseList
@@ -57,6 +58,7 @@ class V1(Version):
         self._linkshortening_messaging_service_domain_association: Optional[
             LinkshorteningMessagingServiceDomainAssociationList
         ] = None
+        self._request_managed_cert: Optional[RequestManagedCertList] = None
         self._services: Optional[ServiceList] = None
         self._tollfree_verifications: Optional[TollfreeVerificationList] = None
         self._usecases: Optional[UsecaseList] = None
@@ -116,6 +118,12 @@ class V1(Version):
                 LinkshorteningMessagingServiceDomainAssociationList(self)
             )
         return self._linkshortening_messaging_service_domain_association
+
+    @property
+    def request_managed_cert(self) -> RequestManagedCertList:
+        if self._request_managed_cert is None:
+            self._request_managed_cert = RequestManagedCertList(self)
+        return self._request_managed_cert
 
     @property
     def services(self) -> ServiceList:

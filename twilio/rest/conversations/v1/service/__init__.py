@@ -23,6 +23,9 @@ from twilio.base.page import Page
 from twilio.rest.conversations.v1.service.binding import BindingList
 from twilio.rest.conversations.v1.service.configuration import ConfigurationList
 from twilio.rest.conversations.v1.service.conversation import ConversationList
+from twilio.rest.conversations.v1.service.conversation_with_participants import (
+    ConversationWithParticipantsList,
+)
 from twilio.rest.conversations.v1.service.participant_conversation import (
     ParticipantConversationList,
 )
@@ -136,6 +139,13 @@ class ServiceInstance(InstanceResource):
         return self._proxy.conversations
 
     @property
+    def conversation_with_participants(self) -> ConversationWithParticipantsList:
+        """
+        Access the conversation_with_participants
+        """
+        return self._proxy.conversation_with_participants
+
+    @property
     def participant_conversations(self) -> ParticipantConversationList:
         """
         Access the participant_conversations
@@ -186,6 +196,9 @@ class ServiceContext(InstanceContext):
         self._bindings: Optional[BindingList] = None
         self._configuration: Optional[ConfigurationList] = None
         self._conversations: Optional[ConversationList] = None
+        self._conversation_with_participants: Optional[
+            ConversationWithParticipantsList
+        ] = None
         self._participant_conversations: Optional[ParticipantConversationList] = None
         self._roles: Optional[RoleList] = None
         self._users: Optional[UserList] = None
@@ -287,6 +300,18 @@ class ServiceContext(InstanceContext):
                 self._solution["sid"],
             )
         return self._conversations
+
+    @property
+    def conversation_with_participants(self) -> ConversationWithParticipantsList:
+        """
+        Access the conversation_with_participants
+        """
+        if self._conversation_with_participants is None:
+            self._conversation_with_participants = ConversationWithParticipantsList(
+                self._version,
+                self._solution["sid"],
+            )
+        return self._conversation_with_participants
 
     @property
     def participant_conversations(self) -> ParticipantConversationList:

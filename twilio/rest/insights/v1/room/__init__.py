@@ -29,6 +29,7 @@ class RoomInstance(InstanceResource):
         VP8 = "VP8"
         H264 = "H264"
         VP9 = "VP9"
+        OPUS = "opus"
 
     class CreatedMethod(object):
         SDK = "sdk"
@@ -75,6 +76,8 @@ class RoomInstance(InstanceResource):
         IN1 = "in1"
         DE1 = "de1"
         GLL = "gll"
+        STAGE_US1 = "stage_us1"
+        DEV_US1 = "dev_us1"
 
     """
     :ivar account_sid: Account SID associated with this room.

@@ -3,6 +3,57 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-12-05] Version 9.3.8
+--------------------------
+**Api**
+- Add optional parameter `intelligence_service` to `transcription`
+- Updated `phone_number_sid` to be populated for sip trunking terminating calls.
+
+**Numbers**
+- Add Update Hosted Number Order V2 API endpoint
+- Update Port in docs
+
+**Twiml**
+- Add optional parameter `intelligence_service` to `<Transcription>`
+- Add support for new `<ConversationRelay>` and `<Assistant>` noun
+- Add `events` attribute to `<Dial>` verb
+
+
+[2024-11-15] Version 9.3.7
+--------------------------
+**Library - Chore**
+- [PR #819](https://github.com/twilio/twilio-python/pull/819): use older verison of aiohttp_retry. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- Added `ivr-virtual-agent-custom-voices` and `ivr-virtual-agent-genai` to `usage_record` API.
+- Add open-api file tag to realtime_transcriptions
+
+**Taskrouter**
+- Add `api-tag` property to workers reservation
+- Add `api-tag` property to task reservation
+
+
+[2024-10-25] Version 9.3.6
+--------------------------
+**Library - Chore**
+- [PR #818](https://github.com/twilio/twilio-python/pull/818): removing unavailable references from init files. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+
+[2024-10-24] Version 9.3.5
+--------------------------
+**Conversations**
+- Expose ConversationWithParticipants resource that allows creating a conversation with participants
+
+
+[2024-10-17] Version 9.3.4
+--------------------------
+**Api**
+- Add response key `country` to fetch AvailablePhoneNumber resource by specific country.
+
+**Messaging**
+- Make library and doc public for requestManagedCert Endpoint
+
+
 [2024-10-03] Version 9.3.3
 --------------------------
 **Library - Chore**

@@ -72,6 +72,8 @@ class TodayInstance(InstanceResource):
         GROUP_ROOMS_PARTICIPANT_MINUTES = "group-rooms-participant-minutes"
         GROUP_ROOMS_RECORDED_MINUTES = "group-rooms-recorded-minutes"
         IMP_V1_USAGE = "imp-v1-usage"
+        IVR_VIRTUAL_AGENT_CUSTOM_VOICES = "ivr-virtual-agent-custom-voices"
+        IVR_VIRTUAL_AGENT_GENAI = "ivr-virtual-agent-genai"
         LOOKUPS = "lookups"
         MARKETPLACE = "marketplace"
         MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION = (

@@ -13,7 +13,7 @@ with open("README.md") as f:
 
 setup(
     name="twilio",
-    version="9.3.3",
+    version="9.3.8",
     description="Twilio API client and TwiML generator",
     author="Twilio",
     help_center="https://www.twilio.com/help/contact",
@@ -24,7 +24,7 @@ setup(
         "requests >= 2.0.0",
         "PyJWT >= 2.0.0, < 3.0.0",
         "aiohttp>=3.8.4",
-        "aiohttp-retry>=2.8.3",
+        "aiohttp-retry==2.8.3",
     ],
     packages=find_packages(exclude=["tests", "tests.*"]),
     include_package_data=True,

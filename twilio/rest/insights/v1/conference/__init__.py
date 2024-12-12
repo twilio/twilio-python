@@ -70,6 +70,7 @@ class ConferenceInstance(InstanceResource):
         HIGH_LATENCY = "high_latency"
         LOW_MOS = "low_mos"
         DETECTED_SILENCE = "detected_silence"
+        NO_CONCURRENT_PARTICIPANTS = "no_concurrent_participants"
 
     """
     :ivar conference_sid: The unique SID identifier of the Conference.
