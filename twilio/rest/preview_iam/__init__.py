@@ -9,12 +9,12 @@ from twilio.rest.preview_iam.v1.token import (
 from twilio.rest.preview_iam.versionless.organization import (
     OrganizationList,
 )
-
+from twilio.rest.preview_iam.versionless import Versionless
 
 class PreviewIam(PreviewIamBase):
     @property
     def organization(self) -> OrganizationList:
-        return self.versionless.organization
+        return Versionless(self).organization
 
     @property
     def authorize(self) -> AuthorizeList:
