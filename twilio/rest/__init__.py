@@ -97,6 +97,7 @@ class Client(ClientBase):
         environment=None,
         edge=None,
         user_agent_extensions=None,
+        credential_provider=None,
     ):
         """
         Initializes the Twilio Client
@@ -122,6 +123,7 @@ class Client(ClientBase):
             environment,
             edge,
             user_agent_extensions,
+            credential_provider,
         )
 
         # Domains

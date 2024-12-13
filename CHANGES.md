@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2024-12-13] Version 9.4.1
+--------------------------
+**Library - Fix**
+- [PR #827](https://github.com/twilio/twilio-python/pull/827): Fixing init file for preview iam domain. Thanks to [@AsabuHere](https://github.com/AsabuHere)!
+
+**Library - Chore**
+- [PR #826](https://github.com/twilio/twilio-python/pull/826): fix orgs api changes. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+
 [2024-12-12] Version 9.4.0
 --------------------------
 **Library - Feature**

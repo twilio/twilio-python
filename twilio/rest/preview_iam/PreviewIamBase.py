@@ -13,7 +13,6 @@ from typing import Optional
 
 from twilio.base.domain import Domain
 from twilio.rest import Client
-from twilio.rest.preview_iam.organizations import Organizations
 from twilio.rest.preview_iam.v1 import V1
 
 
@@ -26,17 +25,7 @@ class PreviewIamBase(Domain):
         :returns: Domain for PreviewIam
         """
         super().__init__(twilio, "https://preview-iam.twilio.com")
-        self._organizations: Optional[Organizations] = None
         self._v1: Optional[V1] = None
-
-    @property
-    def organizations(self) -> Organizations:
-        """
-        :returns: Versions organizations of PreviewIam
-        """
-        if self._organizations is None:
-            self._organizations = Organizations(self)
-        return self._organizations
 
     @property
     def v1(self) -> V1:
