@@ -247,46 +247,17 @@ class ContentInstance(InstanceResource):
         """
         :ivar label:
         :ivar type:
-        :ivar text:
-        :ivar options:
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
             self.label: Optional[str] = payload.get("label")
             self.type: Optional[str] = payload.get("type")
-            self.text: Optional[str] = payload.get("text")
-            self.options: Optional[List[ContentList.FlowsPageComponentSelectItem]] = (
-                payload.get("options")
-            )
 
         def to_dict(self):
             return {
                 "label": self.label,
                 "type": self.type,
-                "text": self.text,
-                "options": (
-                    [options.to_dict() for options in self.options]
-                    if self.options is not None
-                    else None
-                ),
-            }
-
-    class FlowsPageComponentSelectItem(object):
-        """
-        :ivar id:
-        :ivar title:
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.id: Optional[str] = payload.get("id")
-            self.title: Optional[str] = payload.get("title")
-
-        def to_dict(self):
-            return {
-                "id": self.id,
-                "title": self.title,
             }
 
     class ListItem(object):
@@ -1106,46 +1077,17 @@ class ContentContext(InstanceContext):
         """
         :ivar label:
         :ivar type:
-        :ivar text:
-        :ivar options:
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
             self.label: Optional[str] = payload.get("label")
             self.type: Optional[str] = payload.get("type")
-            self.text: Optional[str] = payload.get("text")
-            self.options: Optional[List[ContentList.FlowsPageComponentSelectItem]] = (
-                payload.get("options")
-            )
 
         def to_dict(self):
             return {
                 "label": self.label,
                 "type": self.type,
-                "text": self.text,
-                "options": (
-                    [options.to_dict() for options in self.options]
-                    if self.options is not None
-                    else None
-                ),
-            }
-
-    class FlowsPageComponentSelectItem(object):
-        """
-        :ivar id:
-        :ivar title:
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.id: Optional[str] = payload.get("id")
-            self.title: Optional[str] = payload.get("title")
-
-        def to_dict(self):
-            return {
-                "id": self.id,
-                "title": self.title,
             }
 
     class ListItem(object):
@@ -1966,46 +1908,17 @@ class ContentList(ListResource):
         """
         :ivar label:
         :ivar type:
-        :ivar text:
-        :ivar options:
         """
 
         def __init__(self, payload: Dict[str, Any]):
 
             self.label: Optional[str] = payload.get("label")
             self.type: Optional[str] = payload.get("type")
-            self.text: Optional[str] = payload.get("text")
-            self.options: Optional[List[ContentList.FlowsPageComponentSelectItem]] = (
-                payload.get("options")
-            )
 
         def to_dict(self):
             return {
                 "label": self.label,
                 "type": self.type,
-                "text": self.text,
-                "options": (
-                    [options.to_dict() for options in self.options]
-                    if self.options is not None
-                    else None
-                ),
-            }
-
-    class FlowsPageComponentSelectItem(object):
-        """
-        :ivar id:
-        :ivar title:
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.id: Optional[str] = payload.get("id")
-            self.title: Optional[str] = payload.get("title")
-
-        def to_dict(self):
-            return {
-                "id": self.id,
-                "title": self.title,
             }
 
     class ListItem(object):

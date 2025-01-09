@@ -48,6 +48,7 @@ class CallSummariesInstance(InstanceResource):
         SIP = "sip"
         TRUNKING = "trunking"
         CLIENT = "client"
+        WHATSAPP = "whatsapp"
 
     class ProcessingState(object):
         COMPLETE = "complete"

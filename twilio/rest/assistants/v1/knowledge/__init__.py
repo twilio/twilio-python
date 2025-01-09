@@ -34,6 +34,7 @@ class KnowledgeInstance(InstanceResource):
         :ivar name: The name of the tool.
         :ivar policy:
         :ivar type: The type of the knowledge source.
+        :ivar embedding_model: The embedding model to be used for the knowledge source. It's required for 'Database' type but disallowed for other types.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -48,6 +49,7 @@ class KnowledgeInstance(InstanceResource):
                 KnowledgeList.AssistantsV1ServiceCreatePolicyRequest
             ] = payload.get("policy")
             self.type: Optional[str] = payload.get("type")
+            self.embedding_model: Optional[str] = payload.get("embedding_model")
 
         def to_dict(self):
             return {
@@ -57,6 +59,7 @@ class KnowledgeInstance(InstanceResource):
                 "name": self.name,
                 "policy": self.policy.to_dict() if self.policy is not None else None,
                 "type": self.type,
+                "embedding_model": self.embedding_model,
             }
 
     class AssistantsV1ServiceCreatePolicyRequest(object):
@@ -94,6 +97,7 @@ class KnowledgeInstance(InstanceResource):
         :ivar name: The name of the knowledge source.
         :ivar policy:
         :ivar type: The description of the knowledge source.
+        :ivar embedding_model: The embedding model to be used for the knowledge source. It's only applicable to 'Database' type.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -107,6 +111,7 @@ class KnowledgeInstance(InstanceResource):
                 KnowledgeList.AssistantsV1ServiceCreatePolicyRequest
             ] = payload.get("policy")
             self.type: Optional[str] = payload.get("type")
+            self.embedding_model: Optional[str] = payload.get("embedding_model")
 
         def to_dict(self):
             return {
@@ -115,6 +120,7 @@ class KnowledgeInstance(InstanceResource):
                 "name": self.name,
                 "policy": self.policy.to_dict() if self.policy is not None else None,
                 "type": self.type,
+                "embedding_model": self.embedding_model,
             }
 
     """
@@ -126,6 +132,7 @@ class KnowledgeInstance(InstanceResource):
     :ivar status: The status of processing the knowledge source ('QUEUED', 'PROCESSING', 'COMPLETED', 'FAILED')
     :ivar type: The type of knowledge source ('Web', 'Database', 'Text', 'File')
     :ivar url: The url of the knowledge resource.
+    :ivar embedding_model: The embedding model to be used for the knowledge source.
     :ivar date_created: The date and time in GMT when the Knowledge was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the Knowledge was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     """
@@ -145,6 +152,7 @@ class KnowledgeInstance(InstanceResource):
         self.status: Optional[str] = payload.get("status")
         self.type: Optional[str] = payload.get("type")
         self.url: Optional[str] = payload.get("url")
+        self.embedding_model: Optional[str] = payload.get("embedding_model")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
@@ -276,6 +284,7 @@ class KnowledgeContext(InstanceContext):
         :ivar name: The name of the tool.
         :ivar policy:
         :ivar type: The type of the knowledge source.
+        :ivar embedding_model: The embedding model to be used for the knowledge source. It's required for 'Database' type but disallowed for other types.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -290,6 +299,7 @@ class KnowledgeContext(InstanceContext):
                 KnowledgeList.AssistantsV1ServiceCreatePolicyRequest
             ] = payload.get("policy")
             self.type: Optional[str] = payload.get("type")
+            self.embedding_model: Optional[str] = payload.get("embedding_model")
 
         def to_dict(self):
             return {
@@ -299,6 +309,7 @@ class KnowledgeContext(InstanceContext):
                 "name": self.name,
                 "policy": self.policy.to_dict() if self.policy is not None else None,
                 "type": self.type,
+                "embedding_model": self.embedding_model,
             }
 
     class AssistantsV1ServiceCreatePolicyRequest(object):
@@ -336,6 +347,7 @@ class KnowledgeContext(InstanceContext):
         :ivar name: The name of the knowledge source.
         :ivar policy:
         :ivar type: The description of the knowledge source.
+        :ivar embedding_model: The embedding model to be used for the knowledge source. It's only applicable to 'Database' type.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -349,6 +361,7 @@ class KnowledgeContext(InstanceContext):
                 KnowledgeList.AssistantsV1ServiceCreatePolicyRequest
             ] = payload.get("policy")
             self.type: Optional[str] = payload.get("type")
+            self.embedding_model: Optional[str] = payload.get("embedding_model")
 
         def to_dict(self):
             return {
@@ -357,6 +370,7 @@ class KnowledgeContext(InstanceContext):
                 "name": self.name,
                 "policy": self.policy.to_dict() if self.policy is not None else None,
                 "type": self.type,
+                "embedding_model": self.embedding_model,
             }
 
     def __init__(self, version: Version, id: str):
@@ -562,6 +576,7 @@ class KnowledgeList(ListResource):
         :ivar name: The name of the tool.
         :ivar policy:
         :ivar type: The type of the knowledge source.
+        :ivar embedding_model: The embedding model to be used for the knowledge source. It's required for 'Database' type but disallowed for other types.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -576,6 +591,7 @@ class KnowledgeList(ListResource):
                 KnowledgeList.AssistantsV1ServiceCreatePolicyRequest
             ] = payload.get("policy")
             self.type: Optional[str] = payload.get("type")
+            self.embedding_model: Optional[str] = payload.get("embedding_model")
 
         def to_dict(self):
             return {
@@ -585,6 +601,7 @@ class KnowledgeList(ListResource):
                 "name": self.name,
                 "policy": self.policy.to_dict() if self.policy is not None else None,
                 "type": self.type,
+                "embedding_model": self.embedding_model,
             }
 
     class AssistantsV1ServiceCreatePolicyRequest(object):
@@ -622,6 +639,7 @@ class KnowledgeList(ListResource):
         :ivar name: The name of the knowledge source.
         :ivar policy:
         :ivar type: The description of the knowledge source.
+        :ivar embedding_model: The embedding model to be used for the knowledge source. It's only applicable to 'Database' type.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -635,6 +653,7 @@ class KnowledgeList(ListResource):
                 KnowledgeList.AssistantsV1ServiceCreatePolicyRequest
             ] = payload.get("policy")
             self.type: Optional[str] = payload.get("type")
+            self.embedding_model: Optional[str] = payload.get("embedding_model")
 
         def to_dict(self):
             return {
@@ -643,6 +662,7 @@ class KnowledgeList(ListResource):
                 "name": self.name,
                 "policy": self.policy.to_dict() if self.policy is not None else None,
                 "type": self.type,
+                "embedding_model": self.embedding_model,
             }
 
     def __init__(self, version: Version):

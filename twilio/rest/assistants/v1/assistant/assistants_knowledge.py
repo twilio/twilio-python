@@ -32,6 +32,7 @@ class AssistantsKnowledgeInstance(InstanceResource):
     :ivar status: The status of processing the knowledge source ('QUEUED', 'PROCESSING', 'COMPLETED', 'FAILED')
     :ivar type: The type of knowledge source ('Web', 'Database', 'Text', 'File')
     :ivar url: The url of the knowledge resource.
+    :ivar embedding_model: The embedding model to be used for the knowledge source.
     :ivar date_created: The date and time in GMT when the Knowledge was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the Knowledge was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     """
@@ -55,6 +56,7 @@ class AssistantsKnowledgeInstance(InstanceResource):
         self.status: Optional[str] = payload.get("status")
         self.type: Optional[str] = payload.get("type")
         self.url: Optional[str] = payload.get("url")
+        self.embedding_model: Optional[str] = payload.get("embedding_model")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )

@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-01-09] Version 9.4.2
+--------------------------
+**Library - Chore**
+- [PR #832](https://github.com/twilio/twilio-python/pull/832): remove test for 3.7. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Numbers**
+- Change beta feature flag to use v2/BulkHostedNumberOrders
+
+
 [2024-12-13] Version 9.4.1
 --------------------------
 **Library - Fix**
