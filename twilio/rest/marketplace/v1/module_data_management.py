@@ -12,7 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -31,6 +31,7 @@ class ModuleDataManagementInstance(InstanceResource):
     :ivar documentation: A JSON object for providing comprehensive information, instructions, and resources related to the module
     :ivar configuration: A JSON object for providing listing specific configuration. Contains button setup, notification url, among others.
     :ivar pricing: A JSON object for providing Listing specific pricing information.
+    :ivar listings:
     """
 
     def __init__(
@@ -47,6 +48,7 @@ class ModuleDataManagementInstance(InstanceResource):
         self.documentation: Optional[Dict[str, object]] = payload.get("documentation")
         self.configuration: Optional[Dict[str, object]] = payload.get("configuration")
         self.pricing: Optional[Dict[str, object]] = payload.get("pricing")
+        self.listings: Optional[List[Dict[str, object]]] = payload.get("listings")
 
         self._solution = {
             "sid": sid or self.sid,

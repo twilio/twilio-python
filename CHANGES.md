@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-01-13] Version 9.4.3
+--------------------------
+**Messaging**
+- Adds validity period Default value in service resource documentation
+
+
 [2025-01-09] Version 9.4.2
 --------------------------
 **Library - Chore**

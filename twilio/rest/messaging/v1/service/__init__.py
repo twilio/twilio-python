@@ -55,7 +55,7 @@ class ServiceInstance(InstanceResource):
     :ivar fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
     :ivar area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
     :ivar synchronous_validation: Reserved.
-    :ivar validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
+    :ivar validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. Default value is `14,400`.
     :ivar url: The absolute URL of the Service resource.
     :ivar links: The absolute URLs of related resources.
     :ivar usecase: A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`.
@@ -200,7 +200,7 @@ class ServiceInstance(InstanceResource):
         :param scan_message_content:
         :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
-        :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
+        :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. Default value is `14,400`.
         :param synchronous_validation: Reserved.
         :param usecase: A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`.
         :param use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
@@ -262,7 +262,7 @@ class ServiceInstance(InstanceResource):
         :param scan_message_content:
         :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
-        :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
+        :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. Default value is `14,400`.
         :param synchronous_validation: Reserved.
         :param usecase: A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`.
         :param use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
@@ -468,7 +468,7 @@ class ServiceContext(InstanceContext):
         :param scan_message_content:
         :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
-        :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
+        :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. Default value is `14,400`.
         :param synchronous_validation: Reserved.
         :param usecase: A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`.
         :param use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
@@ -550,7 +550,7 @@ class ServiceContext(InstanceContext):
         :param scan_message_content:
         :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
-        :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
+        :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. Default value is `14,400`.
         :param synchronous_validation: Reserved.
         :param usecase: A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`.
         :param use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
@@ -746,7 +746,7 @@ class ServiceList(ListResource):
         :param scan_message_content:
         :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
-        :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
+        :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. Default value is `14,400`.
         :param synchronous_validation: Reserved.
         :param usecase: A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`.
         :param use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.
@@ -828,7 +828,7 @@ class ServiceList(ListResource):
         :param scan_message_content:
         :param fallback_to_long_code: [OBSOLETE] Former feature used to fallback to long code sender after certain short code message failures.
         :param area_code_geomatch: Whether to enable [Area Code Geomatch](https://www.twilio.com/docs/messaging/services#area-code-geomatch) on the Service Instance.
-        :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`.
+        :param validity_period: How long, in seconds, messages sent from the Service are valid. Can be an integer from `1` to `14,400`. Default value is `14,400`.
         :param synchronous_validation: Reserved.
         :param usecase: A string that describes the scenario in which the Messaging Service will be used. Possible values are `notifications`, `marketing`, `verification`, `discussion`, `poll`, `undeclared`.
         :param use_inbound_webhook_on_number: A boolean value that indicates either the webhook url configured on the phone number will be used or `inbound_request_url`/`fallback_url` url will be called when a message is received from the phone number. If this field is enabled then the webhook url defined on the phone number will override the `inbound_request_url`/`fallback_url` defined for the Messaging Service.

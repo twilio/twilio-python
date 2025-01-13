@@ -17,7 +17,7 @@ from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.iam.v1.api_key import ApiKeyList
 from twilio.rest.iam.v1.get_api_keys import GetApiKeysList
-from twilio.rest.iam.v1.new_api_key import NewApiKeyList
+from twilio.rest.iam.v1.key import KeyList
 
 
 class V1(Version):
@@ -31,7 +31,7 @@ class V1(Version):
         super().__init__(domain, "v1")
         self._api_key: Optional[ApiKeyList] = None
         self._get_api_keys: Optional[GetApiKeysList] = None
-        self._new_api_key: Optional[NewApiKeyList] = None
+        self._keys: Optional[KeyList] = None
 
     @property
     def api_key(self) -> ApiKeyList:
@@ -46,10 +46,10 @@ class V1(Version):
         return self._get_api_keys
 
     @property
-    def new_api_key(self) -> NewApiKeyList:
-        if self._new_api_key is None:
-            self._new_api_key = NewApiKeyList(self)
-        return self._new_api_key
+    def keys(self) -> KeyList:
+        if self._keys is None:
+            self._keys = KeyList(self)
+        return self._keys
 
     def __repr__(self) -> str:
         """
