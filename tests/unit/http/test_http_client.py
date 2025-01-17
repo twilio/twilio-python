@@ -292,6 +292,13 @@ class TestHttpClientSession(unittest.TestCase):
         self.assertEqual(response_1.content, "response_1")
         self.assertEqual(response_2.content, "response_2")
 
+    def test_session_max_retries(self):
+        client = TwilioHttpClient(max_retries=10)
+        self.assertEqual(10, client.session.get_adapter("https://").max_retries.total)
+        client = TwilioHttpClient()
+        self.assertEqual(12, client.session.get_adapter("https://").poolmanager.connection_pool_kw['maxsize'])
+
+
 
 class MyVersion(Version):
     def __init__(self, domain):
