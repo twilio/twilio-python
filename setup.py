@@ -24,7 +24,7 @@ setup(
         "requests >= 2.0.0",
         "PyJWT >= 2.0.0, < 3.0.0",
         "aiohttp>=3.8.4",
-        "aiohttp-retry==2.8.3",
+        "aiohttp-retry>=2.8.3",
     ],
     packages=find_packages(exclude=["tests", "tests.*"]),
     include_package_data=True,
