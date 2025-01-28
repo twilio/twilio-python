@@ -28,6 +28,7 @@ class ParticipantInstance(InstanceResource):
         VP8 = "VP8"
         H264 = "H264"
         VP9 = "VP9"
+        OPUS = "opus"
 
     class EdgeLocation(object):
         ASHBURN = "ashburn"
@@ -55,6 +56,8 @@ class ParticipantInstance(InstanceResource):
         IN1 = "in1"
         DE1 = "de1"
         GLL = "gll"
+        STAGE_US1 = "stage_us1"
+        DEV_US1 = "dev_us1"
 
     """
     :ivar participant_sid: Unique identifier for the participant.
@@ -190,10 +193,11 @@ class ParticipantContext(InstanceContext):
         :returns: The fetched ParticipantInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return ParticipantInstance(
             self._version,
@@ -210,9 +214,12 @@ class ParticipantContext(InstanceContext):
         :returns: The fetched ParticipantInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return ParticipantInstance(
@@ -398,7 +405,13 @@ class ParticipantList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return ParticipantPage(self._version, response, self._solution)
 
     async def page_async(
@@ -425,8 +438,12 @@ class ParticipantList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return ParticipantPage(self._version, response, self._solution)
 

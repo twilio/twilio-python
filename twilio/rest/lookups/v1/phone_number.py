@@ -167,9 +167,16 @@ class PhoneNumberContext(InstanceContext):
                 "AddOns": serialize.map(add_ons, lambda e: e),
             }
         )
+
         data.update(serialize.prefixed_collapsible_map(add_ons_data, "AddOns"))
 
-        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
 
         return PhoneNumberInstance(
             self._version,
@@ -202,10 +209,15 @@ class PhoneNumberContext(InstanceContext):
                 "AddOns": serialize.map(add_ons, lambda e: e),
             }
         )
+
         data.update(serialize.prefixed_collapsible_map(add_ons_data, "AddOns"))
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
 
         return PhoneNumberInstance(

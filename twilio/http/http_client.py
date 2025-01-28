@@ -88,10 +88,11 @@ class TwilioHttpClient(HttpClient):
         }
         if headers and headers.get("Content-Type") == "application/json":
             kwargs["json"] = data
+        elif headers and headers.get("Content-Type") == "application/scim+json":
+            kwargs["json"] = data
         else:
             kwargs["data"] = data
         self.log_request(kwargs)
-
         self._test_only_last_response = None
         session = self.session or Session()
         request = Request(**kwargs)
@@ -102,12 +103,11 @@ class TwilioHttpClient(HttpClient):
         settings = session.merge_environment_settings(
             prepped_request.url, self.proxy, None, None, None
         )
-
         response = session.send(
             prepped_request,
             allow_redirects=allow_redirects,
             timeout=timeout,
-            **settings
+            **settings,
         )
 
         self.log_response(response.status_code, response)

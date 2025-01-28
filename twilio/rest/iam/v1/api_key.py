@@ -171,10 +171,10 @@ class ApiKeyContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -183,9 +183,11 @@ class ApiKeyContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> ApiKeyInstance:
@@ -196,10 +198,11 @@ class ApiKeyContext(InstanceContext):
         :returns: The fetched ApiKeyInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return ApiKeyInstance(
             self._version,
@@ -215,9 +218,12 @@ class ApiKeyContext(InstanceContext):
         :returns: The fetched ApiKeyInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return ApiKeyInstance(
@@ -239,17 +245,21 @@ class ApiKeyContext(InstanceContext):
 
         :returns: The updated ApiKeyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "Policy": serialize.object(policy),
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ApiKeyInstance(self._version, payload, sid=self._solution["sid"])
@@ -267,17 +277,21 @@ class ApiKeyContext(InstanceContext):
 
         :returns: The updated ApiKeyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "Policy": serialize.object(policy),
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ApiKeyInstance(self._version, payload, sid=self._solution["sid"])

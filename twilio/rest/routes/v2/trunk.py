@@ -163,10 +163,11 @@ class TrunkContext(InstanceContext):
         :returns: The fetched TrunkInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return TrunkInstance(
             self._version,
@@ -182,9 +183,12 @@ class TrunkContext(InstanceContext):
         :returns: The fetched TrunkInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return TrunkInstance(
@@ -206,17 +210,21 @@ class TrunkContext(InstanceContext):
 
         :returns: The updated TrunkInstance
         """
+
         data = values.of(
             {
                 "VoiceRegion": voice_region,
                 "FriendlyName": friendly_name,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return TrunkInstance(
@@ -236,17 +244,21 @@ class TrunkContext(InstanceContext):
 
         :returns: The updated TrunkInstance
         """
+
         data = values.of(
             {
                 "VoiceRegion": voice_region,
                 "FriendlyName": friendly_name,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return TrunkInstance(

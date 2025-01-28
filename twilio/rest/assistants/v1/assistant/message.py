@@ -21,6 +21,33 @@ from twilio.base.version import Version
 
 
 class MessageInstance(InstanceResource):
+
+    class AssistantsV1ServiceAssistantSendMessageRequest(object):
+        """
+        :ivar identity: The unique identity of user for the session.
+        :ivar session_id: The unique name for the session.
+        :ivar body: The query to ask the assistant.
+        :ivar webhook: The webhook url to call after the assistant has generated a response or report an error.
+        :ivar mode: one of the modes 'chat', 'email' or 'voice'
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.identity: Optional[str] = payload.get("identity")
+            self.session_id: Optional[str] = payload.get("session_id")
+            self.body: Optional[str] = payload.get("body")
+            self.webhook: Optional[str] = payload.get("webhook")
+            self.mode: Optional[str] = payload.get("mode")
+
+        def to_dict(self):
+            return {
+                "identity": self.identity,
+                "session_id": self.session_id,
+                "body": self.body,
+                "webhook": self.webhook,
+                "mode": self.mode,
+            }
+
     """
     :ivar status: success or failure based on whether the request successfully generated a response.
     :ivar flagged: If successful, this property will denote whether the response was flagged or not.
@@ -114,7 +141,10 @@ class MessageList(ListResource):
         data = assistants_v1_service_assistant_send_message_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -136,7 +166,10 @@ class MessageList(ListResource):
         data = assistants_v1_service_assistant_send_message_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers

@@ -131,7 +131,7 @@ class ConversationWithParticipantsList(ListResource):
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
         :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
         :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
-        :param participant: The participant to be added to the conversation in JSON format. The parameters are as in [Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource). The maximum number of participants that can be added in a single request is 10.
+        :param participant: The participant to be added to the conversation in JSON format. The JSON object attributes are as parameters in [Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource). The maximum number of participants that can be added in a single request is 10.
 
         :returns: The created ConversationWithParticipantsInstance
         """
@@ -158,6 +158,10 @@ class ConversationWithParticipantsList(ListResource):
                 "Content-Type": "application/x-www-form-urlencoded",
             }
         )
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -200,7 +204,7 @@ class ConversationWithParticipantsList(ListResource):
         :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
         :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
         :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
-        :param participant: The participant to be added to the conversation in JSON format. The parameters are as in [Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource). The maximum number of participants that can be added in a single request is 10.
+        :param participant: The participant to be added to the conversation in JSON format. The JSON object attributes are as parameters in [Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource). The maximum number of participants that can be added in a single request is 10.
 
         :returns: The created ConversationWithParticipantsInstance
         """
@@ -227,6 +231,10 @@ class ConversationWithParticipantsList(ListResource):
                 "Content-Type": "application/x-www-form-urlencoded",
             }
         )
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers

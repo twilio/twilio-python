@@ -194,17 +194,27 @@ class ChannelContext(InstanceContext):
 
         :returns: The updated ChannelInstance
         """
+
         data = values.of(
             {
                 "Type": type,
                 "MessagingServiceSid": messaging_service_sid,
             }
         )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            x_twilio_webhook_enabled is values.unset
+            or (
+                isinstance(x_twilio_webhook_enabled, str)
+                and not x_twilio_webhook_enabled
+            )
+        ):
+            headers["X-Twilio-Webhook-Enabled"] = x_twilio_webhook_enabled
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -234,17 +244,27 @@ class ChannelContext(InstanceContext):
 
         :returns: The updated ChannelInstance
         """
+
         data = values.of(
             {
                 "Type": type,
                 "MessagingServiceSid": messaging_service_sid,
             }
         )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            x_twilio_webhook_enabled is values.unset
+            or (
+                isinstance(x_twilio_webhook_enabled, str)
+                and not x_twilio_webhook_enabled
+            )
+        ):
+            headers["X-Twilio-Webhook-Enabled"] = x_twilio_webhook_enabled
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
             method="POST", uri=self._uri, data=data, headers=headers

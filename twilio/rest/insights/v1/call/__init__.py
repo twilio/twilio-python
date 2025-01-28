@@ -13,6 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, Optional
+from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -146,10 +147,11 @@ class CallContext(InstanceContext):
         :returns: The fetched CallInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return CallInstance(
             self._version,
@@ -165,9 +167,12 @@ class CallContext(InstanceContext):
         :returns: The fetched CallInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return CallInstance(

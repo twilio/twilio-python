@@ -70,6 +70,7 @@ class ConferenceInstance(InstanceResource):
         HIGH_LATENCY = "high_latency"
         LOW_MOS = "low_mos"
         DETECTED_SILENCE = "detected_silence"
+        NO_CONCURRENT_PARTICIPANTS = "no_concurrent_participants"
 
     """
     :ivar conference_sid: The unique SID identifier of the Conference.
@@ -239,10 +240,11 @@ class ConferenceContext(InstanceContext):
         :returns: The fetched ConferenceInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return ConferenceInstance(
             self._version,
@@ -258,9 +260,12 @@ class ConferenceContext(InstanceContext):
         :returns: The fetched ConferenceInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return ConferenceInstance(
@@ -604,7 +609,13 @@ class ConferenceList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return ConferencePage(self._version, response)
 
     async def page_async(
@@ -661,8 +672,12 @@ class ConferenceList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return ConferencePage(self._version, response)
 

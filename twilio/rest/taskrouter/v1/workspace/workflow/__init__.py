@@ -262,10 +262,10 @@ class WorkflowContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -274,9 +274,11 @@ class WorkflowContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> WorkflowInstance:
@@ -287,10 +289,11 @@ class WorkflowContext(InstanceContext):
         :returns: The fetched WorkflowInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return WorkflowInstance(
             self._version,
@@ -307,9 +310,12 @@ class WorkflowContext(InstanceContext):
         :returns: The fetched WorkflowInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return WorkflowInstance(
@@ -340,6 +346,7 @@ class WorkflowContext(InstanceContext):
 
         :returns: The updated WorkflowInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -350,11 +357,14 @@ class WorkflowContext(InstanceContext):
                 "ReEvaluateTasks": re_evaluate_tasks,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return WorkflowInstance(
@@ -385,6 +395,7 @@ class WorkflowContext(InstanceContext):
 
         :returns: The updated WorkflowInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -395,11 +406,14 @@ class WorkflowContext(InstanceContext):
                 "ReEvaluateTasks": re_evaluate_tasks,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return WorkflowInstance(
@@ -528,6 +542,10 @@ class WorkflowList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -566,6 +584,10 @@ class WorkflowList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -717,7 +739,13 @@ class WorkflowList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return WorkflowPage(self._version, response, self._solution)
 
     async def page_async(
@@ -747,8 +775,12 @@ class WorkflowList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return WorkflowPage(self._version, response, self._solution)
 

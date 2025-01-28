@@ -190,10 +190,10 @@ class DocumentPermissionContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -202,9 +202,11 @@ class DocumentPermissionContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> DocumentPermissionInstance:
@@ -215,10 +217,11 @@ class DocumentPermissionContext(InstanceContext):
         :returns: The fetched DocumentPermissionInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return DocumentPermissionInstance(
             self._version,
@@ -236,9 +239,12 @@ class DocumentPermissionContext(InstanceContext):
         :returns: The fetched DocumentPermissionInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return DocumentPermissionInstance(
@@ -261,6 +267,7 @@ class DocumentPermissionContext(InstanceContext):
 
         :returns: The updated DocumentPermissionInstance
         """
+
         data = values.of(
             {
                 "Read": serialize.boolean_to_string(read),
@@ -268,11 +275,14 @@ class DocumentPermissionContext(InstanceContext):
                 "Manage": serialize.boolean_to_string(manage),
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return DocumentPermissionInstance(
@@ -295,6 +305,7 @@ class DocumentPermissionContext(InstanceContext):
 
         :returns: The updated DocumentPermissionInstance
         """
+
         data = values.of(
             {
                 "Read": serialize.boolean_to_string(read),
@@ -302,11 +313,14 @@ class DocumentPermissionContext(InstanceContext):
                 "Manage": serialize.boolean_to_string(manage),
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return DocumentPermissionInstance(
@@ -502,7 +516,13 @@ class DocumentPermissionList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return DocumentPermissionPage(self._version, response, self._solution)
 
     async def page_async(
@@ -529,8 +549,12 @@ class DocumentPermissionList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return DocumentPermissionPage(self._version, response, self._solution)
 

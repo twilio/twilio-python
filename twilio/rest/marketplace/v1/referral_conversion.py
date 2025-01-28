@@ -21,8 +21,25 @@ from twilio.base.version import Version
 
 
 class ReferralConversionInstance(InstanceResource):
+
+    class CreateReferralConversionRequest(object):
+        """
+        :ivar referral_account_sid:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.referral_account_sid: Optional[str] = payload.get(
+                "referral_account_sid"
+            )
+
+        def to_dict(self):
+            return {
+                "referral_account_sid": self.referral_account_sid,
+            }
+
     """
-    :ivar converted_account_sid:
+    :ivar converted_account_sid: 
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any]):
@@ -82,7 +99,10 @@ class ReferralConversionList(ListResource):
         data = create_referral_conversion_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -103,7 +123,10 @@ class ReferralConversionList(ListResource):
         data = create_referral_conversion_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers

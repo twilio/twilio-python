@@ -21,13 +21,31 @@ from twilio.base.version import Version
 
 
 class ApprovalCreateInstance(InstanceResource):
+
+    class ContentApprovalRequest(object):
+        """
+        :ivar name: Name of the template.
+        :ivar category: A WhatsApp recognized template category.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.name: Optional[str] = payload.get("name")
+            self.category: Optional[str] = payload.get("category")
+
+        def to_dict(self):
+            return {
+                "name": self.name,
+                "category": self.category,
+            }
+
     """
-    :ivar name:
-    :ivar category:
-    :ivar content_type:
-    :ivar status:
-    :ivar rejection_reason:
-    :ivar allow_category_change:
+    :ivar name: 
+    :ivar category: 
+    :ivar content_type: 
+    :ivar status: 
+    :ivar rejection_reason: 
+    :ivar allow_category_change: 
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any], content_sid: str):
@@ -106,7 +124,10 @@ class ApprovalCreateList(ListResource):
         data = content_approval_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -129,7 +150,10 @@ class ApprovalCreateList(ListResource):
         data = content_approval_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers

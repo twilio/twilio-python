@@ -259,6 +259,8 @@ class UserChannelContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(
@@ -280,6 +282,8 @@ class UserChannelContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
         return await self._version.delete_async(
             method="DELETE", uri=self._uri, headers=headers
         )
@@ -292,10 +296,11 @@ class UserChannelContext(InstanceContext):
         :returns: The fetched UserChannelInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return UserChannelInstance(
             self._version,
@@ -313,9 +318,12 @@ class UserChannelContext(InstanceContext):
         :returns: The fetched UserChannelInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return UserChannelInstance(
@@ -343,6 +351,7 @@ class UserChannelContext(InstanceContext):
 
         :returns: The updated UserChannelInstance
         """
+
         data = values.of(
             {
                 "NotificationLevel": notification_level,
@@ -352,11 +361,14 @@ class UserChannelContext(InstanceContext):
                 ),
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return UserChannelInstance(
@@ -384,6 +396,7 @@ class UserChannelContext(InstanceContext):
 
         :returns: The updated UserChannelInstance
         """
+
         data = values.of(
             {
                 "NotificationLevel": notification_level,
@@ -393,11 +406,14 @@ class UserChannelContext(InstanceContext):
                 ),
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return UserChannelInstance(
@@ -591,7 +607,13 @@ class UserChannelList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return UserChannelPage(self._version, response, self._solution)
 
     async def page_async(
@@ -618,8 +640,12 @@ class UserChannelList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return UserChannelPage(self._version, response, self._solution)
 

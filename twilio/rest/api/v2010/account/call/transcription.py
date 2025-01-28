@@ -162,16 +162,20 @@ class TranscriptionContext(InstanceContext):
 
         :returns: The updated TranscriptionInstance
         """
+
         data = values.of(
             {
                 "Status": status,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return TranscriptionInstance(
@@ -192,16 +196,20 @@ class TranscriptionContext(InstanceContext):
 
         :returns: The updated TranscriptionInstance
         """
+
         data = values.of(
             {
                 "Status": status,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return TranscriptionInstance(
@@ -261,6 +269,7 @@ class TranscriptionList(ListResource):
         speech_model: Union[str, object] = values.unset,
         hints: Union[str, object] = values.unset,
         enable_automatic_punctuation: Union[bool, object] = values.unset,
+        intelligence_service: Union[str, object] = values.unset,
     ) -> TranscriptionInstance:
         """
         Create the TranscriptionInstance
@@ -278,6 +287,7 @@ class TranscriptionList(ListResource):
         :param speech_model: Recognition model used by the transcription engine, among those supported by the provider
         :param hints: A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
         :param enable_automatic_punctuation: The provider will add punctuation to recognition result
+        :param intelligence_service: The SID of the [Voice Intelligence Service](https://www.twilio.com/docs/voice/intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators .
 
         :returns: The created TranscriptionInstance
         """
@@ -299,9 +309,14 @@ class TranscriptionList(ListResource):
                 "EnableAutomaticPunctuation": serialize.boolean_to_string(
                     enable_automatic_punctuation
                 ),
+                "IntelligenceService": intelligence_service,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -329,6 +344,7 @@ class TranscriptionList(ListResource):
         speech_model: Union[str, object] = values.unset,
         hints: Union[str, object] = values.unset,
         enable_automatic_punctuation: Union[bool, object] = values.unset,
+        intelligence_service: Union[str, object] = values.unset,
     ) -> TranscriptionInstance:
         """
         Asynchronously create the TranscriptionInstance
@@ -346,6 +362,7 @@ class TranscriptionList(ListResource):
         :param speech_model: Recognition model used by the transcription engine, among those supported by the provider
         :param hints: A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
         :param enable_automatic_punctuation: The provider will add punctuation to recognition result
+        :param intelligence_service: The SID of the [Voice Intelligence Service](https://www.twilio.com/docs/voice/intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators .
 
         :returns: The created TranscriptionInstance
         """
@@ -367,9 +384,14 @@ class TranscriptionList(ListResource):
                 "EnableAutomaticPunctuation": serialize.boolean_to_string(
                     enable_automatic_punctuation
                 ),
+                "IntelligenceService": intelligence_service,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers

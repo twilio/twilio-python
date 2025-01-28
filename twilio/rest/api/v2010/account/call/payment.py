@@ -203,6 +203,7 @@ class PaymentContext(InstanceContext):
 
         :returns: The updated PaymentInstance
         """
+
         data = values.of(
             {
                 "IdempotencyKey": idempotency_key,
@@ -211,11 +212,14 @@ class PaymentContext(InstanceContext):
                 "Status": status,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return PaymentInstance(
@@ -243,6 +247,7 @@ class PaymentContext(InstanceContext):
 
         :returns: The updated PaymentInstance
         """
+
         data = values.of(
             {
                 "IdempotencyKey": idempotency_key,
@@ -251,11 +256,14 @@ class PaymentContext(InstanceContext):
                 "Status": status,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return PaymentInstance(
@@ -364,6 +372,10 @@ class PaymentList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -440,6 +452,10 @@ class PaymentList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers

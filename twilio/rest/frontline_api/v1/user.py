@@ -170,10 +170,11 @@ class UserContext(InstanceContext):
         :returns: The fetched UserInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return UserInstance(
             self._version,
@@ -189,9 +190,12 @@ class UserContext(InstanceContext):
         :returns: The fetched UserInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return UserInstance(
@@ -217,6 +221,7 @@ class UserContext(InstanceContext):
 
         :returns: The updated UserInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -225,11 +230,14 @@ class UserContext(InstanceContext):
                 "IsAvailable": serialize.boolean_to_string(is_available),
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return UserInstance(self._version, payload, sid=self._solution["sid"])
@@ -251,6 +259,7 @@ class UserContext(InstanceContext):
 
         :returns: The updated UserInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -259,11 +268,14 @@ class UserContext(InstanceContext):
                 "IsAvailable": serialize.boolean_to_string(is_available),
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return UserInstance(self._version, payload, sid=self._solution["sid"])

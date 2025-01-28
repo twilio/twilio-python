@@ -32,6 +32,7 @@ class AssistantsKnowledgeInstance(InstanceResource):
     :ivar status: The status of processing the knowledge source ('QUEUED', 'PROCESSING', 'COMPLETED', 'FAILED')
     :ivar type: The type of knowledge source ('Web', 'Database', 'Text', 'File')
     :ivar url: The url of the knowledge resource.
+    :ivar embedding_model: The embedding model to be used for the knowledge source.
     :ivar date_created: The date and time in GMT when the Knowledge was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the Knowledge was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     """
@@ -55,6 +56,7 @@ class AssistantsKnowledgeInstance(InstanceResource):
         self.status: Optional[str] = payload.get("status")
         self.type: Optional[str] = payload.get("type")
         self.url: Optional[str] = payload.get("url")
+        self.embedding_model: Optional[str] = payload.get("embedding_model")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
@@ -194,10 +196,10 @@ class AssistantsKnowledgeContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -206,9 +208,11 @@ class AssistantsKnowledgeContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def __repr__(self) -> str:
@@ -421,7 +425,13 @@ class AssistantsKnowledgeList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return AssistantsKnowledgePage(self._version, response, self._solution)
 
     async def page_async(
@@ -448,8 +458,12 @@ class AssistantsKnowledgeList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return AssistantsKnowledgePage(self._version, response, self._solution)
 

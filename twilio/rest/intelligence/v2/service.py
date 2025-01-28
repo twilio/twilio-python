@@ -246,10 +246,10 @@ class ServiceContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -258,9 +258,11 @@ class ServiceContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> ServiceInstance:
@@ -271,10 +273,11 @@ class ServiceContext(InstanceContext):
         :returns: The fetched ServiceInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return ServiceInstance(
             self._version,
@@ -290,9 +293,12 @@ class ServiceContext(InstanceContext):
         :returns: The fetched ServiceInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return ServiceInstance(
@@ -328,6 +334,7 @@ class ServiceContext(InstanceContext):
 
         :returns: The updated ServiceInstance
         """
+
         data = values.of(
             {
                 "AutoTranscribe": serialize.boolean_to_string(auto_transcribe),
@@ -340,11 +347,16 @@ class ServiceContext(InstanceContext):
                 "WebhookHttpMethod": webhook_http_method,
             }
         )
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            if_match is values.unset or (isinstance(if_match, str) and not if_match)
+        ):
+            headers["If-Match"] = if_match
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -379,6 +391,7 @@ class ServiceContext(InstanceContext):
 
         :returns: The updated ServiceInstance
         """
+
         data = values.of(
             {
                 "AutoTranscribe": serialize.boolean_to_string(auto_transcribe),
@@ -391,11 +404,16 @@ class ServiceContext(InstanceContext):
                 "WebhookHttpMethod": webhook_http_method,
             }
         )
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            if_match is values.unset or (isinstance(if_match, str) and not if_match)
+        ):
+            headers["If-Match"] = if_match
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -488,6 +506,10 @@ class ServiceList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -536,6 +558,10 @@ class ServiceList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -670,7 +696,13 @@ class ServiceList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return ServicePage(self._version, response)
 
     async def page_async(
@@ -697,8 +729,12 @@ class ServiceList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return ServicePage(self._version, response)
 

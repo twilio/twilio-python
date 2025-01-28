@@ -12,7 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -31,6 +31,7 @@ class ModuleDataManagementInstance(InstanceResource):
     :ivar documentation: A JSON object for providing comprehensive information, instructions, and resources related to the module
     :ivar configuration: A JSON object for providing listing specific configuration. Contains button setup, notification url, among others.
     :ivar pricing: A JSON object for providing Listing specific pricing information.
+    :ivar listings:
     """
 
     def __init__(
@@ -47,6 +48,7 @@ class ModuleDataManagementInstance(InstanceResource):
         self.documentation: Optional[Dict[str, object]] = payload.get("documentation")
         self.configuration: Optional[Dict[str, object]] = payload.get("configuration")
         self.pricing: Optional[Dict[str, object]] = payload.get("pricing")
+        self.listings: Optional[List[Dict[str, object]]] = payload.get("listings")
 
         self._solution = {
             "sid": sid or self.sid,
@@ -187,10 +189,11 @@ class ModuleDataManagementContext(InstanceContext):
         :returns: The fetched ModuleDataManagementInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return ModuleDataManagementInstance(
             self._version,
@@ -206,9 +209,12 @@ class ModuleDataManagementContext(InstanceContext):
         :returns: The fetched ModuleDataManagementInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return ModuleDataManagementInstance(
@@ -240,6 +246,7 @@ class ModuleDataManagementContext(InstanceContext):
 
         :returns: The updated ModuleDataManagementInstance
         """
+
         data = values.of(
             {
                 "ModuleInfo": module_info,
@@ -251,11 +258,14 @@ class ModuleDataManagementContext(InstanceContext):
                 "Pricing": pricing,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ModuleDataManagementInstance(
@@ -285,6 +295,7 @@ class ModuleDataManagementContext(InstanceContext):
 
         :returns: The updated ModuleDataManagementInstance
         """
+
         data = values.of(
             {
                 "ModuleInfo": module_info,
@@ -296,11 +307,14 @@ class ModuleDataManagementContext(InstanceContext):
                 "Pricing": pricing,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ModuleDataManagementInstance(

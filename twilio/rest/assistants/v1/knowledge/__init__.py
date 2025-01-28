@@ -25,6 +25,104 @@ from twilio.rest.assistants.v1.knowledge.knowledge_status import KnowledgeStatus
 
 
 class KnowledgeInstance(InstanceResource):
+
+    class AssistantsV1ServiceCreateKnowledgeRequest(object):
+        """
+        :ivar assistant_id: The Assistant ID.
+        :ivar description: The description of the knowledge source.
+        :ivar knowledge_source_details: The details of the knowledge source based on the type.
+        :ivar name: The name of the tool.
+        :ivar policy:
+        :ivar type: The type of the knowledge source.
+        :ivar embedding_model: The embedding model to be used for the knowledge source. It's required for 'Database' type but disallowed for other types.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.assistant_id: Optional[str] = payload.get("assistant_id")
+            self.description: Optional[str] = payload.get("description")
+            self.knowledge_source_details: Optional[Dict[str, object]] = payload.get(
+                "knowledge_source_details"
+            )
+            self.name: Optional[str] = payload.get("name")
+            self.policy: Optional[
+                KnowledgeList.AssistantsV1ServiceCreatePolicyRequest
+            ] = payload.get("policy")
+            self.type: Optional[str] = payload.get("type")
+            self.embedding_model: Optional[str] = payload.get("embedding_model")
+
+        def to_dict(self):
+            return {
+                "assistant_id": self.assistant_id,
+                "description": self.description,
+                "knowledge_source_details": self.knowledge_source_details,
+                "name": self.name,
+                "policy": self.policy.to_dict() if self.policy is not None else None,
+                "type": self.type,
+                "embedding_model": self.embedding_model,
+            }
+
+    class AssistantsV1ServiceCreatePolicyRequest(object):
+        """
+        :ivar description: The description of the policy.
+        :ivar id: The Policy ID.
+        :ivar name: The name of the policy.
+        :ivar policy_details:
+        :ivar type: The description of the policy.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.description: Optional[str] = payload.get("description")
+            self.id: Optional[str] = payload.get("id")
+            self.name: Optional[str] = payload.get("name")
+            self.policy_details: Optional[Dict[str, object]] = payload.get(
+                "policy_details"
+            )
+            self.type: Optional[str] = payload.get("type")
+
+        def to_dict(self):
+            return {
+                "description": self.description,
+                "id": self.id,
+                "name": self.name,
+                "policy_details": self.policy_details,
+                "type": self.type,
+            }
+
+    class AssistantsV1ServiceUpdateKnowledgeRequest(object):
+        """
+        :ivar description: The description of the knowledge source.
+        :ivar knowledge_source_details: The details of the knowledge source based on the type.
+        :ivar name: The name of the knowledge source.
+        :ivar policy:
+        :ivar type: The description of the knowledge source.
+        :ivar embedding_model: The embedding model to be used for the knowledge source. It's only applicable to 'Database' type.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.description: Optional[str] = payload.get("description")
+            self.knowledge_source_details: Optional[Dict[str, object]] = payload.get(
+                "knowledge_source_details"
+            )
+            self.name: Optional[str] = payload.get("name")
+            self.policy: Optional[
+                KnowledgeList.AssistantsV1ServiceCreatePolicyRequest
+            ] = payload.get("policy")
+            self.type: Optional[str] = payload.get("type")
+            self.embedding_model: Optional[str] = payload.get("embedding_model")
+
+        def to_dict(self):
+            return {
+                "description": self.description,
+                "knowledge_source_details": self.knowledge_source_details,
+                "name": self.name,
+                "policy": self.policy.to_dict() if self.policy is not None else None,
+                "type": self.type,
+                "embedding_model": self.embedding_model,
+            }
+
     """
     :ivar description: The type of knowledge source.
     :ivar id: The description of knowledge.
@@ -34,6 +132,7 @@ class KnowledgeInstance(InstanceResource):
     :ivar status: The status of processing the knowledge source ('QUEUED', 'PROCESSING', 'COMPLETED', 'FAILED')
     :ivar type: The type of knowledge source ('Web', 'Database', 'Text', 'File')
     :ivar url: The url of the knowledge resource.
+    :ivar embedding_model: The embedding model to be used for the knowledge source.
     :ivar date_created: The date and time in GMT when the Knowledge was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the Knowledge was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     """
@@ -53,6 +152,7 @@ class KnowledgeInstance(InstanceResource):
         self.status: Optional[str] = payload.get("status")
         self.type: Optional[str] = payload.get("type")
         self.url: Optional[str] = payload.get("url")
+        self.embedding_model: Optional[str] = payload.get("embedding_model")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
@@ -176,6 +276,103 @@ class KnowledgeInstance(InstanceResource):
 
 class KnowledgeContext(InstanceContext):
 
+    class AssistantsV1ServiceCreateKnowledgeRequest(object):
+        """
+        :ivar assistant_id: The Assistant ID.
+        :ivar description: The description of the knowledge source.
+        :ivar knowledge_source_details: The details of the knowledge source based on the type.
+        :ivar name: The name of the tool.
+        :ivar policy:
+        :ivar type: The type of the knowledge source.
+        :ivar embedding_model: The embedding model to be used for the knowledge source. It's required for 'Database' type but disallowed for other types.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.assistant_id: Optional[str] = payload.get("assistant_id")
+            self.description: Optional[str] = payload.get("description")
+            self.knowledge_source_details: Optional[Dict[str, object]] = payload.get(
+                "knowledge_source_details"
+            )
+            self.name: Optional[str] = payload.get("name")
+            self.policy: Optional[
+                KnowledgeList.AssistantsV1ServiceCreatePolicyRequest
+            ] = payload.get("policy")
+            self.type: Optional[str] = payload.get("type")
+            self.embedding_model: Optional[str] = payload.get("embedding_model")
+
+        def to_dict(self):
+            return {
+                "assistant_id": self.assistant_id,
+                "description": self.description,
+                "knowledge_source_details": self.knowledge_source_details,
+                "name": self.name,
+                "policy": self.policy.to_dict() if self.policy is not None else None,
+                "type": self.type,
+                "embedding_model": self.embedding_model,
+            }
+
+    class AssistantsV1ServiceCreatePolicyRequest(object):
+        """
+        :ivar description: The description of the policy.
+        :ivar id: The Policy ID.
+        :ivar name: The name of the policy.
+        :ivar policy_details:
+        :ivar type: The description of the policy.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.description: Optional[str] = payload.get("description")
+            self.id: Optional[str] = payload.get("id")
+            self.name: Optional[str] = payload.get("name")
+            self.policy_details: Optional[Dict[str, object]] = payload.get(
+                "policy_details"
+            )
+            self.type: Optional[str] = payload.get("type")
+
+        def to_dict(self):
+            return {
+                "description": self.description,
+                "id": self.id,
+                "name": self.name,
+                "policy_details": self.policy_details,
+                "type": self.type,
+            }
+
+    class AssistantsV1ServiceUpdateKnowledgeRequest(object):
+        """
+        :ivar description: The description of the knowledge source.
+        :ivar knowledge_source_details: The details of the knowledge source based on the type.
+        :ivar name: The name of the knowledge source.
+        :ivar policy:
+        :ivar type: The description of the knowledge source.
+        :ivar embedding_model: The embedding model to be used for the knowledge source. It's only applicable to 'Database' type.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.description: Optional[str] = payload.get("description")
+            self.knowledge_source_details: Optional[Dict[str, object]] = payload.get(
+                "knowledge_source_details"
+            )
+            self.name: Optional[str] = payload.get("name")
+            self.policy: Optional[
+                KnowledgeList.AssistantsV1ServiceCreatePolicyRequest
+            ] = payload.get("policy")
+            self.type: Optional[str] = payload.get("type")
+            self.embedding_model: Optional[str] = payload.get("embedding_model")
+
+        def to_dict(self):
+            return {
+                "description": self.description,
+                "knowledge_source_details": self.knowledge_source_details,
+                "name": self.name,
+                "policy": self.policy.to_dict() if self.policy is not None else None,
+                "type": self.type,
+                "embedding_model": self.embedding_model,
+            }
+
     def __init__(self, version: Version, id: str):
         """
         Initialize the KnowledgeContext
@@ -201,10 +398,10 @@ class KnowledgeContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -213,9 +410,11 @@ class KnowledgeContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> KnowledgeInstance:
@@ -226,10 +425,11 @@ class KnowledgeContext(InstanceContext):
         :returns: The fetched KnowledgeInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return KnowledgeInstance(
             self._version,
@@ -245,9 +445,12 @@ class KnowledgeContext(InstanceContext):
         :returns: The fetched KnowledgeInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return KnowledgeInstance(
@@ -269,12 +472,13 @@ class KnowledgeContext(InstanceContext):
 
         :returns: The updated KnowledgeInstance
         """
-        data = values.of({})
-        headers = values.of(
-            {
-                "AssistantsV1ServiceUpdateKnowledgeRequest": assistants_v1_service_update_knowledge_request,
-            }
-        )
+        data = assistants_v1_service_update_knowledge_request.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
             method="PUT", uri=self._uri, data=data, headers=headers
@@ -295,12 +499,13 @@ class KnowledgeContext(InstanceContext):
 
         :returns: The updated KnowledgeInstance
         """
-        data = values.of({})
-        headers = values.of(
-            {
-                "AssistantsV1ServiceUpdateKnowledgeRequest": assistants_v1_service_update_knowledge_request,
-            }
-        )
+        data = assistants_v1_service_update_knowledge_request.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
             method="PUT", uri=self._uri, data=data, headers=headers
@@ -371,6 +576,7 @@ class KnowledgeList(ListResource):
         :ivar name: The name of the tool.
         :ivar policy:
         :ivar type: The type of the knowledge source.
+        :ivar embedding_model: The embedding model to be used for the knowledge source. It's required for 'Database' type but disallowed for other types.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -385,6 +591,7 @@ class KnowledgeList(ListResource):
                 KnowledgeList.AssistantsV1ServiceCreatePolicyRequest
             ] = payload.get("policy")
             self.type: Optional[str] = payload.get("type")
+            self.embedding_model: Optional[str] = payload.get("embedding_model")
 
         def to_dict(self):
             return {
@@ -392,8 +599,9 @@ class KnowledgeList(ListResource):
                 "description": self.description,
                 "knowledge_source_details": self.knowledge_source_details,
                 "name": self.name,
-                "policy": self.policy.to_dict(),
+                "policy": self.policy.to_dict() if self.policy is not None else None,
                 "type": self.type,
+                "embedding_model": self.embedding_model,
             }
 
     class AssistantsV1ServiceCreatePolicyRequest(object):
@@ -431,6 +639,7 @@ class KnowledgeList(ListResource):
         :ivar name: The name of the knowledge source.
         :ivar policy:
         :ivar type: The description of the knowledge source.
+        :ivar embedding_model: The embedding model to be used for the knowledge source. It's only applicable to 'Database' type.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -444,14 +653,16 @@ class KnowledgeList(ListResource):
                 KnowledgeList.AssistantsV1ServiceCreatePolicyRequest
             ] = payload.get("policy")
             self.type: Optional[str] = payload.get("type")
+            self.embedding_model: Optional[str] = payload.get("embedding_model")
 
         def to_dict(self):
             return {
                 "description": self.description,
                 "knowledge_source_details": self.knowledge_source_details,
                 "name": self.name,
-                "policy": self.policy.to_dict(),
+                "policy": self.policy.to_dict() if self.policy is not None else None,
                 "type": self.type,
+                "embedding_model": self.embedding_model,
             }
 
     def __init__(self, version: Version):
@@ -479,7 +690,10 @@ class KnowledgeList(ListResource):
         data = assistants_v1_service_create_knowledge_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -501,7 +715,10 @@ class KnowledgeList(ListResource):
         data = assistants_v1_service_create_knowledge_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -651,7 +868,13 @@ class KnowledgeList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return KnowledgePage(self._version, response)
 
     async def page_async(
@@ -681,8 +904,12 @@ class KnowledgeList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return KnowledgePage(self._version, response)
 

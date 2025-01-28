@@ -29,6 +29,120 @@ from twilio.rest.assistants.v1.assistant.message import MessageList
 
 
 class AssistantInstance(InstanceResource):
+
+    class AssistantsV1ServiceCreateAssistantRequest(object):
+        """
+        :ivar customer_ai:
+        :ivar name: The name of the assistant.
+        :ivar owner: The owner/company of the assistant.
+        :ivar personality_prompt: The personality prompt to be used for assistant.
+        :ivar segment_credential:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.customer_ai: Optional[AssistantList.AssistantsV1ServiceCustomerAi] = (
+                payload.get("customer_ai")
+            )
+            self.name: Optional[str] = payload.get("name")
+            self.owner: Optional[str] = payload.get("owner")
+            self.personality_prompt: Optional[str] = payload.get("personality_prompt")
+            self.segment_credential: Optional[
+                AssistantList.AssistantsV1ServiceSegmentCredential
+            ] = payload.get("segment_credential")
+
+        def to_dict(self):
+            return {
+                "customer_ai": (
+                    self.customer_ai.to_dict() if self.customer_ai is not None else None
+                ),
+                "name": self.name,
+                "owner": self.owner,
+                "personality_prompt": self.personality_prompt,
+                "segment_credential": (
+                    self.segment_credential.to_dict()
+                    if self.segment_credential is not None
+                    else None
+                ),
+            }
+
+    class AssistantsV1ServiceCustomerAi(object):
+        """
+        :ivar perception_engine_enabled: True if the perception engine is enabled.
+        :ivar personalization_engine_enabled: True if the personalization engine is enabled.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.perception_engine_enabled: Optional[bool] = payload.get(
+                "perception_engine_enabled"
+            )
+            self.personalization_engine_enabled: Optional[bool] = payload.get(
+                "personalization_engine_enabled"
+            )
+
+        def to_dict(self):
+            return {
+                "perception_engine_enabled": self.perception_engine_enabled,
+                "personalization_engine_enabled": self.personalization_engine_enabled,
+            }
+
+    class AssistantsV1ServiceSegmentCredential(object):
+        """
+        :ivar profile_api_key: The profile API key.
+        :ivar space_id: The space ID.
+        :ivar write_key: The write key.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.profile_api_key: Optional[str] = payload.get("profile_api_key")
+            self.space_id: Optional[str] = payload.get("space_id")
+            self.write_key: Optional[str] = payload.get("write_key")
+
+        def to_dict(self):
+            return {
+                "profile_api_key": self.profile_api_key,
+                "space_id": self.space_id,
+                "write_key": self.write_key,
+            }
+
+    class AssistantsV1ServiceUpdateAssistantRequest(object):
+        """
+        :ivar customer_ai:
+        :ivar name: The name of the assistant.
+        :ivar owner: The owner/company of the assistant.
+        :ivar personality_prompt: The personality prompt to be used for assistant.
+        :ivar segment_credential:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.customer_ai: Optional[AssistantList.AssistantsV1ServiceCustomerAi] = (
+                payload.get("customer_ai")
+            )
+            self.name: Optional[str] = payload.get("name")
+            self.owner: Optional[str] = payload.get("owner")
+            self.personality_prompt: Optional[str] = payload.get("personality_prompt")
+            self.segment_credential: Optional[
+                AssistantList.AssistantsV1ServiceSegmentCredential
+            ] = payload.get("segment_credential")
+
+        def to_dict(self):
+            return {
+                "customer_ai": (
+                    self.customer_ai.to_dict() if self.customer_ai is not None else None
+                ),
+                "name": self.name,
+                "owner": self.owner,
+                "personality_prompt": self.personality_prompt,
+                "segment_credential": (
+                    self.segment_credential.to_dict()
+                    if self.segment_credential is not None
+                    else None
+                ),
+            }
+
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Assistant resource.
     :ivar customer_ai: The Personalization and Perception Engine settings.
@@ -196,6 +310,119 @@ class AssistantInstance(InstanceResource):
 
 class AssistantContext(InstanceContext):
 
+    class AssistantsV1ServiceCreateAssistantRequest(object):
+        """
+        :ivar customer_ai:
+        :ivar name: The name of the assistant.
+        :ivar owner: The owner/company of the assistant.
+        :ivar personality_prompt: The personality prompt to be used for assistant.
+        :ivar segment_credential:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.customer_ai: Optional[AssistantList.AssistantsV1ServiceCustomerAi] = (
+                payload.get("customer_ai")
+            )
+            self.name: Optional[str] = payload.get("name")
+            self.owner: Optional[str] = payload.get("owner")
+            self.personality_prompt: Optional[str] = payload.get("personality_prompt")
+            self.segment_credential: Optional[
+                AssistantList.AssistantsV1ServiceSegmentCredential
+            ] = payload.get("segment_credential")
+
+        def to_dict(self):
+            return {
+                "customer_ai": (
+                    self.customer_ai.to_dict() if self.customer_ai is not None else None
+                ),
+                "name": self.name,
+                "owner": self.owner,
+                "personality_prompt": self.personality_prompt,
+                "segment_credential": (
+                    self.segment_credential.to_dict()
+                    if self.segment_credential is not None
+                    else None
+                ),
+            }
+
+    class AssistantsV1ServiceCustomerAi(object):
+        """
+        :ivar perception_engine_enabled: True if the perception engine is enabled.
+        :ivar personalization_engine_enabled: True if the personalization engine is enabled.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.perception_engine_enabled: Optional[bool] = payload.get(
+                "perception_engine_enabled"
+            )
+            self.personalization_engine_enabled: Optional[bool] = payload.get(
+                "personalization_engine_enabled"
+            )
+
+        def to_dict(self):
+            return {
+                "perception_engine_enabled": self.perception_engine_enabled,
+                "personalization_engine_enabled": self.personalization_engine_enabled,
+            }
+
+    class AssistantsV1ServiceSegmentCredential(object):
+        """
+        :ivar profile_api_key: The profile API key.
+        :ivar space_id: The space ID.
+        :ivar write_key: The write key.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.profile_api_key: Optional[str] = payload.get("profile_api_key")
+            self.space_id: Optional[str] = payload.get("space_id")
+            self.write_key: Optional[str] = payload.get("write_key")
+
+        def to_dict(self):
+            return {
+                "profile_api_key": self.profile_api_key,
+                "space_id": self.space_id,
+                "write_key": self.write_key,
+            }
+
+    class AssistantsV1ServiceUpdateAssistantRequest(object):
+        """
+        :ivar customer_ai:
+        :ivar name: The name of the assistant.
+        :ivar owner: The owner/company of the assistant.
+        :ivar personality_prompt: The personality prompt to be used for assistant.
+        :ivar segment_credential:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.customer_ai: Optional[AssistantList.AssistantsV1ServiceCustomerAi] = (
+                payload.get("customer_ai")
+            )
+            self.name: Optional[str] = payload.get("name")
+            self.owner: Optional[str] = payload.get("owner")
+            self.personality_prompt: Optional[str] = payload.get("personality_prompt")
+            self.segment_credential: Optional[
+                AssistantList.AssistantsV1ServiceSegmentCredential
+            ] = payload.get("segment_credential")
+
+        def to_dict(self):
+            return {
+                "customer_ai": (
+                    self.customer_ai.to_dict() if self.customer_ai is not None else None
+                ),
+                "name": self.name,
+                "owner": self.owner,
+                "personality_prompt": self.personality_prompt,
+                "segment_credential": (
+                    self.segment_credential.to_dict()
+                    if self.segment_credential is not None
+                    else None
+                ),
+            }
+
     def __init__(self, version: Version, id: str):
         """
         Initialize the AssistantContext
@@ -223,10 +450,10 @@ class AssistantContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -235,9 +462,11 @@ class AssistantContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> AssistantInstance:
@@ -248,10 +477,11 @@ class AssistantContext(InstanceContext):
         :returns: The fetched AssistantInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return AssistantInstance(
             self._version,
@@ -267,9 +497,12 @@ class AssistantContext(InstanceContext):
         :returns: The fetched AssistantInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return AssistantInstance(
@@ -291,12 +524,13 @@ class AssistantContext(InstanceContext):
 
         :returns: The updated AssistantInstance
         """
-        data = values.of({})
-        headers = values.of(
-            {
-                "AssistantsV1ServiceUpdateAssistantRequest": assistants_v1_service_update_assistant_request,
-            }
-        )
+        data = assistants_v1_service_update_assistant_request.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
             method="PUT", uri=self._uri, data=data, headers=headers
@@ -317,12 +551,13 @@ class AssistantContext(InstanceContext):
 
         :returns: The updated AssistantInstance
         """
-        data = values.of({})
-        headers = values.of(
-            {
-                "AssistantsV1ServiceUpdateAssistantRequest": assistants_v1_service_update_assistant_request,
-            }
-        )
+        data = assistants_v1_service_update_assistant_request.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
             method="PUT", uri=self._uri, data=data, headers=headers
@@ -432,11 +667,17 @@ class AssistantList(ListResource):
 
         def to_dict(self):
             return {
-                "customer_ai": self.customer_ai.to_dict(),
+                "customer_ai": (
+                    self.customer_ai.to_dict() if self.customer_ai is not None else None
+                ),
                 "name": self.name,
                 "owner": self.owner,
                 "personality_prompt": self.personality_prompt,
-                "segment_credential": self.segment_credential.to_dict(),
+                "segment_credential": (
+                    self.segment_credential.to_dict()
+                    if self.segment_credential is not None
+                    else None
+                ),
             }
 
     class AssistantsV1ServiceCustomerAi(object):
@@ -503,11 +744,17 @@ class AssistantList(ListResource):
 
         def to_dict(self):
             return {
-                "customer_ai": self.customer_ai.to_dict(),
+                "customer_ai": (
+                    self.customer_ai.to_dict() if self.customer_ai is not None else None
+                ),
                 "name": self.name,
                 "owner": self.owner,
                 "personality_prompt": self.personality_prompt,
-                "segment_credential": self.segment_credential.to_dict(),
+                "segment_credential": (
+                    self.segment_credential.to_dict()
+                    if self.segment_credential is not None
+                    else None
+                ),
             }
 
     def __init__(self, version: Version):
@@ -535,7 +782,10 @@ class AssistantList(ListResource):
         data = assistants_v1_service_create_assistant_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -557,7 +807,10 @@ class AssistantList(ListResource):
         data = assistants_v1_service_create_assistant_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -692,7 +945,13 @@ class AssistantList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return AssistantPage(self._version, response)
 
     async def page_async(
@@ -719,8 +978,12 @@ class AssistantList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return AssistantPage(self._version, response)
 

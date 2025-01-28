@@ -128,10 +128,11 @@ class AvailableAddOnExtensionContext(InstanceContext):
         :returns: The fetched AvailableAddOnExtensionInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return AvailableAddOnExtensionInstance(
             self._version,
@@ -148,9 +149,12 @@ class AvailableAddOnExtensionContext(InstanceContext):
         :returns: The fetched AvailableAddOnExtensionInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return AvailableAddOnExtensionInstance(
@@ -342,7 +346,13 @@ class AvailableAddOnExtensionList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return AvailableAddOnExtensionPage(self._version, response, self._solution)
 
     async def page_async(
@@ -369,8 +379,12 @@ class AvailableAddOnExtensionList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return AvailableAddOnExtensionPage(self._version, response, self._solution)
 

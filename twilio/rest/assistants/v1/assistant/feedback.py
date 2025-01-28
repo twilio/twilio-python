@@ -23,6 +23,30 @@ from twilio.base.page import Page
 
 
 class FeedbackInstance(InstanceResource):
+
+    class AssistantsV1ServiceCreateFeedbackRequest(object):
+        """
+        :ivar message_id: The message ID.
+        :ivar score: The score to be given(0-1).
+        :ivar session_id: The Session ID.
+        :ivar text: The text to be given as feedback.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.message_id: Optional[str] = payload.get("message_id")
+            self.score: Optional[float] = payload.get("score")
+            self.session_id: Optional[str] = payload.get("session_id")
+            self.text: Optional[str] = payload.get("text")
+
+        def to_dict(self):
+            return {
+                "message_id": self.message_id,
+                "score": self.score,
+                "session_id": self.session_id,
+                "text": self.text,
+            }
+
     """
     :ivar assistant_id: The Assistant ID.
     :ivar id: The Feedback ID.
@@ -142,7 +166,10 @@ class FeedbackList(ListResource):
         data = assistants_v1_service_create_feedback_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -164,7 +191,10 @@ class FeedbackList(ListResource):
         data = assistants_v1_service_create_feedback_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -299,7 +329,13 @@ class FeedbackList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return FeedbackPage(self._version, response, self._solution)
 
     async def page_async(
@@ -326,8 +362,12 @@ class FeedbackList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return FeedbackPage(self._version, response, self._solution)
 

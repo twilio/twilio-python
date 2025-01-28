@@ -126,7 +126,13 @@ class MediaContext(InstanceContext):
             }
         )
 
-        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
 
         return MediaInstance(
             self._version,
@@ -151,8 +157,12 @@ class MediaContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
 
         return MediaInstance(

@@ -72,6 +72,8 @@ class TodayInstance(InstanceResource):
         GROUP_ROOMS_PARTICIPANT_MINUTES = "group-rooms-participant-minutes"
         GROUP_ROOMS_RECORDED_MINUTES = "group-rooms-recorded-minutes"
         IMP_V1_USAGE = "imp-v1-usage"
+        IVR_VIRTUAL_AGENT_CUSTOM_VOICES = "ivr-virtual-agent-custom-voices"
+        IVR_VIRTUAL_AGENT_GENAI = "ivr-virtual-agent-genai"
         LOOKUPS = "lookups"
         MARKETPLACE = "marketplace"
         MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION = (
@@ -636,7 +638,13 @@ class TodayList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return TodayPage(self._version, response, self._solution)
 
     async def page_async(
@@ -675,8 +683,12 @@ class TodayList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return TodayPage(self._version, response, self._solution)
 

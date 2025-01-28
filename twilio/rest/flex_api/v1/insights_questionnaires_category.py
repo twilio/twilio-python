@@ -165,6 +165,8 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(
@@ -183,6 +185,8 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
         return await self._version.delete_async(
             method="DELETE", uri=self._uri, headers=headers
         )
@@ -198,16 +202,23 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
 
         :returns: The updated InsightsQuestionnairesCategoryInstance
         """
+
         data = values.of(
             {
                 "Name": name,
             }
         )
-        headers = values.of(
-            {
-                "Authorization": authorization,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            authorization is values.unset
+            or (isinstance(authorization, str) and not authorization)
+        ):
+            headers["Authorization"] = authorization
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -228,16 +239,23 @@ class InsightsQuestionnairesCategoryContext(InstanceContext):
 
         :returns: The updated InsightsQuestionnairesCategoryInstance
         """
+
         data = values.of(
             {
                 "Name": name,
             }
         )
-        headers = values.of(
-            {
-                "Authorization": authorization,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            authorization is values.unset
+            or (isinstance(authorization, str) and not authorization)
+        ):
+            headers["Authorization"] = authorization
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -317,6 +335,10 @@ class InsightsQuestionnairesCategoryList(ListResource):
             }
         )
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -346,6 +368,10 @@ class InsightsQuestionnairesCategoryList(ListResource):
                 "Content-Type": "application/x-www-form-urlencoded",
             }
         )
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -495,7 +521,18 @@ class InsightsQuestionnairesCategoryList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return InsightsQuestionnairesCategoryPage(self._version, response)
 
     async def page_async(
@@ -525,8 +562,17 @@ class InsightsQuestionnairesCategoryList(ListResource):
             }
         )
 
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return InsightsQuestionnairesCategoryPage(self._version, response)
 
