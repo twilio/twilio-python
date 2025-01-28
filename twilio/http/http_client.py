@@ -40,7 +40,7 @@ class TwilioHttpClient(HttpClient):
         self.session = Session() if pool_connections else None
         if self.session and max_retries is not None:
             self.session.mount("https://", HTTPAdapter(max_retries=max_retries))
-        if self.session is not None:
+        elif self.session is not None:
             self.session.mount(
                 "https://", HTTPAdapter(pool_maxsize=min(32, os.cpu_count() + 4))
             )
