@@ -3,6 +3,29 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-01-28] Version 9.4.4
+--------------------------
+**Library - Fix**
+- [PR #822](https://github.com/twilio/twilio-python/pull/822): Fix for 10 vulnerabilities. Thanks to [@twilio-product-security](https://github.com/twilio-product-security)!
+
+**Library - Chore**
+- [PR #834](https://github.com/twilio/twilio-python/pull/834): update httpclient. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #837](https://github.com/twilio/twilio-python/pull/837): enable newer versions of aiohttp-retry. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #833](https://github.com/twilio/twilio-python/pull/833): created bug report issue template. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- Add open-api file tag to `conference/call recordings` and `recording_transcriptions`.
+
+**Events**
+- Add support for subaccount subscriptions (beta)
+
+**Insights**
+- add new region to conference APIs
+
+**Lookups**
+- Add new `parnter_sub_id` query parameter to the lookup request
+
+
 [2025-01-13] Version 9.4.3
 --------------------------
 **Messaging**
