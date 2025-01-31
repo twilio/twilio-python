@@ -525,26 +525,6 @@ class ContentInstance(InstanceResource):
                 ),
             }
 
-    class TwilioSchedule(object):
-        """
-        :ivar id:
-        :ivar title:
-        :ivar time_slots:
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.id: Optional[str] = payload.get("id")
-            self.title: Optional[str] = payload.get("title")
-            self.time_slots: Optional[str] = payload.get("time_slots")
-
-        def to_dict(self):
-            return {
-                "id": self.id,
-                "title": self.title,
-                "time_slots": self.time_slots,
-            }
-
     class TwilioText(object):
         """
         :ivar body:
@@ -571,7 +551,6 @@ class ContentInstance(InstanceResource):
         :ivar twilio_catalog:
         :ivar twilio_carousel:
         :ivar twilio_flows:
-        :ivar twilio_schedule:
         :ivar whatsapp_card:
         :ivar whatsapp_authentication:
         """
@@ -607,9 +586,6 @@ class ContentInstance(InstanceResource):
             )
             self.twilio_flows: Optional[ContentList.TwilioFlows] = payload.get(
                 "twilio_flows"
-            )
-            self.twilio_schedule: Optional[ContentList.TwilioSchedule] = payload.get(
-                "twilio_schedule"
             )
             self.whatsapp_card: Optional[ContentList.WhatsappCard] = payload.get(
                 "whatsapp_card"
@@ -664,11 +640,6 @@ class ContentInstance(InstanceResource):
                 "twilio_flows": (
                     self.twilio_flows.to_dict()
                     if self.twilio_flows is not None
-                    else None
-                ),
-                "twilio_schedule": (
-                    self.twilio_schedule.to_dict()
-                    if self.twilio_schedule is not None
                     else None
                 ),
                 "whatsapp_card": (
@@ -1384,26 +1355,6 @@ class ContentContext(InstanceContext):
                 ),
             }
 
-    class TwilioSchedule(object):
-        """
-        :ivar id:
-        :ivar title:
-        :ivar time_slots:
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.id: Optional[str] = payload.get("id")
-            self.title: Optional[str] = payload.get("title")
-            self.time_slots: Optional[str] = payload.get("time_slots")
-
-        def to_dict(self):
-            return {
-                "id": self.id,
-                "title": self.title,
-                "time_slots": self.time_slots,
-            }
-
     class TwilioText(object):
         """
         :ivar body:
@@ -1430,7 +1381,6 @@ class ContentContext(InstanceContext):
         :ivar twilio_catalog:
         :ivar twilio_carousel:
         :ivar twilio_flows:
-        :ivar twilio_schedule:
         :ivar whatsapp_card:
         :ivar whatsapp_authentication:
         """
@@ -1466,9 +1416,6 @@ class ContentContext(InstanceContext):
             )
             self.twilio_flows: Optional[ContentList.TwilioFlows] = payload.get(
                 "twilio_flows"
-            )
-            self.twilio_schedule: Optional[ContentList.TwilioSchedule] = payload.get(
-                "twilio_schedule"
             )
             self.whatsapp_card: Optional[ContentList.WhatsappCard] = payload.get(
                 "whatsapp_card"
@@ -1523,11 +1470,6 @@ class ContentContext(InstanceContext):
                 "twilio_flows": (
                     self.twilio_flows.to_dict()
                     if self.twilio_flows is not None
-                    else None
-                ),
-                "twilio_schedule": (
-                    self.twilio_schedule.to_dict()
-                    if self.twilio_schedule is not None
                     else None
                 ),
                 "whatsapp_card": (
@@ -2244,26 +2186,6 @@ class ContentList(ListResource):
                 ),
             }
 
-    class TwilioSchedule(object):
-        """
-        :ivar id:
-        :ivar title:
-        :ivar time_slots:
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.id: Optional[str] = payload.get("id")
-            self.title: Optional[str] = payload.get("title")
-            self.time_slots: Optional[str] = payload.get("time_slots")
-
-        def to_dict(self):
-            return {
-                "id": self.id,
-                "title": self.title,
-                "time_slots": self.time_slots,
-            }
-
     class TwilioText(object):
         """
         :ivar body:
@@ -2290,7 +2212,6 @@ class ContentList(ListResource):
         :ivar twilio_catalog:
         :ivar twilio_carousel:
         :ivar twilio_flows:
-        :ivar twilio_schedule:
         :ivar whatsapp_card:
         :ivar whatsapp_authentication:
         """
@@ -2326,9 +2247,6 @@ class ContentList(ListResource):
             )
             self.twilio_flows: Optional[ContentList.TwilioFlows] = payload.get(
                 "twilio_flows"
-            )
-            self.twilio_schedule: Optional[ContentList.TwilioSchedule] = payload.get(
-                "twilio_schedule"
             )
             self.whatsapp_card: Optional[ContentList.WhatsappCard] = payload.get(
                 "whatsapp_card"
@@ -2383,11 +2301,6 @@ class ContentList(ListResource):
                 "twilio_flows": (
                     self.twilio_flows.to_dict()
                     if self.twilio_flows is not None
-                    else None
-                ),
-                "twilio_schedule": (
-                    self.twilio_schedule.to_dict()
-                    if self.twilio_schedule is not None
                     else None
                 ),
                 "whatsapp_card": (

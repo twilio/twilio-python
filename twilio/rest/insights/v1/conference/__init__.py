@@ -51,7 +51,6 @@ class ConferenceInstance(InstanceResource):
 
     class Region(object):
         US1 = "us1"
-        US2 = "us2"
         AU1 = "au1"
         BR1 = "br1"
         IE1 = "ie1"

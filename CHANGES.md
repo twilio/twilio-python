@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-01-31] Version 9.5.0
+--------------------------
+**Twiml**
+- Convert Twiml Attribute `speechModel` of type enum to string **(breaking change)**
+
+
 [2025-01-28] Version 9.4.4
 --------------------------
 **Library - Fix**
