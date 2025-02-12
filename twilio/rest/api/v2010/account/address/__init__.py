@@ -148,7 +148,7 @@ class AddressInstance(InstanceResource):
         """
         Update the AddressInstance
 
-        :param friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
         :param customer_name: The name to associate with the address.
         :param street: The number and street address of the address.
         :param city: The city of the address.
@@ -187,7 +187,7 @@ class AddressInstance(InstanceResource):
         """
         Asynchronous coroutine to update the AddressInstance
 
-        :param friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
         :param customer_name: The name to associate with the address.
         :param street: The number and street address of the address.
         :param city: The city of the address.
@@ -336,7 +336,7 @@ class AddressContext(InstanceContext):
         """
         Update the AddressInstance
 
-        :param friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
         :param customer_name: The name to associate with the address.
         :param street: The number and street address of the address.
         :param city: The city of the address.
@@ -394,7 +394,7 @@ class AddressContext(InstanceContext):
         """
         Asynchronous coroutine to update the AddressInstance
 
-        :param friendly_name: A descriptive string that you create to describe the address. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
         :param customer_name: The name to associate with the address.
         :param street: The number and street address of the address.
         :param city: The city of the address.

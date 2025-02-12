@@ -29,6 +29,8 @@ class OperatorResultInstance(InstanceResource):
         EXTRACT = "extract"
         EXTRACT_NORMALIZE = "extract_normalize"
         PII_EXTRACT = "pii_extract"
+        TEXT_GENERATION = "text_generation"
+        JSON = "json"
 
     """
     :ivar operator_type: 
@@ -44,6 +46,7 @@ class OperatorResultInstance(InstanceResource):
     :ivar label_probabilities: The labels probabilities. This might be available on conversation classify model outputs.
     :ivar extract_results: List of text extraction results. This might be available on classify-extract model outputs.
     :ivar text_generation_results: Output of a text generation operator for example Conversation Sumamary.
+    :ivar json_results: 
     :ivar transcript_sid: A 34 character string that uniquely identifies this Transcript.
     :ivar url: The URL of this resource.
     """
@@ -84,6 +87,7 @@ class OperatorResultInstance(InstanceResource):
         self.text_generation_results: Optional[Dict[str, object]] = payload.get(
             "text_generation_results"
         )
+        self.json_results: Optional[Dict[str, object]] = payload.get("json_results")
         self.transcript_sid: Optional[str] = payload.get("transcript_sid")
         self.url: Optional[str] = payload.get("url")
 
