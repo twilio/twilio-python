@@ -21,7 +21,7 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 
 
-class PortingWebhookConfigurationFetchInstance(InstanceResource):
+class WebhookInstance(InstanceResource):
     """
     :ivar url: The URL of the webhook configuration request
     :ivar port_in_target_url: The complete webhook url that will be called when a notification event for port in request or port in phone number happens
@@ -52,14 +52,14 @@ class PortingWebhookConfigurationFetchInstance(InstanceResource):
         :returns: Machine friendly representation
         """
 
-        return "<Twilio.Numbers.V1.PortingWebhookConfigurationFetchInstance>"
+        return "<Twilio.Numbers.V1.WebhookInstance>"
 
 
-class PortingWebhookConfigurationFetchList(ListResource):
+class WebhookList(ListResource):
 
     def __init__(self, version: Version):
         """
-        Initialize the PortingWebhookConfigurationFetchList
+        Initialize the WebhookList
 
         :param version: Version that contains the resource
 
@@ -68,12 +68,12 @@ class PortingWebhookConfigurationFetchList(ListResource):
 
         self._uri = "/Porting/Configuration/Webhook"
 
-    def fetch(self) -> PortingWebhookConfigurationFetchInstance:
+    def fetch(self) -> WebhookInstance:
         """
-        Asynchronously fetch the PortingWebhookConfigurationFetchInstance
+        Asynchronously fetch the WebhookInstance
 
 
-        :returns: The fetched PortingWebhookConfigurationFetchInstance
+        :returns: The fetched WebhookInstance
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
@@ -81,14 +81,14 @@ class PortingWebhookConfigurationFetchList(ListResource):
 
         payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
-        return PortingWebhookConfigurationFetchInstance(self._version, payload)
+        return WebhookInstance(self._version, payload)
 
-    async def fetch_async(self) -> PortingWebhookConfigurationFetchInstance:
+    async def fetch_async(self) -> WebhookInstance:
         """
-        Asynchronously fetch the PortingWebhookConfigurationFetchInstance
+        Asynchronously fetch the WebhookInstance
 
 
-        :returns: The fetched PortingWebhookConfigurationFetchInstance
+        :returns: The fetched WebhookInstance
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
@@ -98,7 +98,7 @@ class PortingWebhookConfigurationFetchList(ListResource):
             method="GET", uri=self._uri, headers=headers
         )
 
-        return PortingWebhookConfigurationFetchInstance(self._version, payload)
+        return WebhookInstance(self._version, payload)
 
     def __repr__(self) -> str:
         """
@@ -106,4 +106,4 @@ class PortingWebhookConfigurationFetchList(ListResource):
 
         :returns: Machine friendly representation
         """
-        return "<Twilio.Numbers.V1.PortingWebhookConfigurationFetchList>"
+        return "<Twilio.Numbers.V1.WebhookList>"

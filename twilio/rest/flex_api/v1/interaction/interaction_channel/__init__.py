@@ -25,6 +25,9 @@ from twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel
 from twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_channel_participant import (
     InteractionChannelParticipantList,
 )
+from twilio.rest.flex_api.v1.interaction.interaction_channel.interaction_transfer import (
+    InteractionTransferList,
+)
 
 
 class InteractionChannelInstance(InstanceResource):
@@ -171,6 +174,13 @@ class InteractionChannelInstance(InstanceResource):
         """
         return self._proxy.participants
 
+    @property
+    def transfers(self) -> InteractionTransferList:
+        """
+        Access the transfers
+        """
+        return self._proxy.transfers
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -204,6 +214,7 @@ class InteractionChannelContext(InstanceContext):
 
         self._invites: Optional[InteractionChannelInviteList] = None
         self._participants: Optional[InteractionChannelParticipantList] = None
+        self._transfers: Optional[InteractionTransferList] = None
 
     def fetch(self) -> InteractionChannelInstance:
         """
@@ -348,6 +359,19 @@ class InteractionChannelContext(InstanceContext):
                 self._solution["sid"],
             )
         return self._participants
+
+    @property
+    def transfers(self) -> InteractionTransferList:
+        """
+        Access the transfers
+        """
+        if self._transfers is None:
+            self._transfers = InteractionTransferList(
+                self._version,
+                self._solution["interaction_sid"],
+                self._solution["sid"],
+            )
+        return self._transfers
 
     def __repr__(self) -> str:
         """

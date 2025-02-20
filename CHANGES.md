@@ -3,6 +3,21 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-02-20] Version 9.4.6
+--------------------------
+**Library - Chore**
+- [PR #842](https://github.com/twilio/twilio-python/pull/842): issue 841. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Flex**
+- Adding Digital Transfers APIs under v1/Interactions
+
+**Numbers**
+- Convert webhook_type to ienum type in v1/Porting/Configuration/Webhook/{webhook_type}
+
+**Trusthub**
+- Changing TrustHub SupportingDocument status enum from lowercase to uppercase since kyc-orch returns status capitalized and rest proxy requires strict casing
+
+
 [2025-02-11] Version 9.4.5
 --------------------------
 **Api**

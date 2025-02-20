@@ -25,12 +25,12 @@ from twilio.base.page import Page
 class SupportingDocumentInstance(InstanceResource):
 
     class Status(object):
-        DRAFT = "draft"
-        PENDING_REVIEW = "pending-review"
-        REJECTED = "rejected"
-        APPROVED = "approved"
-        EXPIRED = "expired"
-        PROVISIONALLY_APPROVED = "provisionally-approved"
+        DRAFT = "DRAFT"
+        PENDING_REVIEW = "PENDING_REVIEW"
+        REJECTED = "REJECTED"
+        APPROVED = "APPROVED"
+        EXPIRED = "EXPIRED"
+        PROVISIONALLY_APPROVED = "PROVISIONALLY_APPROVED"
 
     """
     :ivar sid: The unique string created by Twilio to identify the Supporting Document resource.
