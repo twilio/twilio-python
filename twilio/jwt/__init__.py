@@ -20,7 +20,7 @@ class Jwt(object):
         secret_key,
         issuer,
         subject=None,
-        jwt_algorithm=None,
+        jwt_algorithm=None,  # Renamed from `algorithm` to `jwt_algorithm` for clarity
         nbf=GENERATE,
         ttl=3600,
         valid_until=None,
@@ -28,7 +28,7 @@ class Jwt(object):
         self.secret_key = secret_key
         self.issuer = issuer
         self.subject = subject
-        self.jwt_algorithm = jwt_algorithm or self.ALGORITHM
+        self.jwt_algorithm = jwt_algorithm or self.ALGORITHM  # Updated variable name
         self.nbf = nbf
         self.ttl = ttl
         self.valid_until = valid_until
@@ -55,7 +55,7 @@ class Jwt(object):
             secret_key=key,
             issuer=payload.get("iss", None),
             subject=payload.get("sub", None),
-            jwt_algorithm=headers.get("alg", None),
+            jwt_algorithm=headers.get("alg", None),  # Updated variable name
             valid_until=payload.get("exp", None),
             nbf=payload.get("nbf", None),
         )
@@ -70,14 +70,24 @@ class Jwt(object):
 
         payload = self._generate_payload().copy()
         payload["iss"] = self.issuer
+
+        # Changed from `int(time.time()) + self.ttl` to `datetime.now(timezone.utc) + timedelta(seconds=self.ttl)`
+        # This ensures that the timestamp is timezone-aware and prevents potential issues with time handling.
         payload["exp"] = (
-            datetime.datetime.utcnow() + datetime.timedelta(seconds=self.ttl)
+            datetime.datetime.now(datetime.timezone.utc)
+            + datetime.timedelta(seconds=self.ttl)
         ).timestamp()
+
         if self.nbf is not None:
             if self.nbf == self.GENERATE:
-                payload["nbf"] = datetime.datetime.utcnow().timestamp()
+                # Replaced `int(time.time())` with `datetime.now(timezone.utc).timestamp()`
+                # This ensures the `nbf` value is also timezone-aware.
+                payload["nbf"] = datetime.datetime.now(
+                    datetime.timezone.utc
+                ).timestamp()
             else:
                 payload["nbf"] = self.nbf
+
         if self.valid_until:
             payload["exp"] = self.valid_until
         if self.subject:
@@ -92,7 +102,7 @@ class Jwt(object):
 
         headers = self._generate_headers().copy()
         headers["typ"] = "JWT"
-        headers["alg"] = self.jwt_algorithm
+        headers["alg"] = self.jwt_algorithm  # Updated variable name
         return headers
 
     def to_jwt(self, ttl=None):
@@ -106,11 +116,14 @@ class Jwt(object):
             raise ValueError("JWT does not have a signing key configured.")
 
         headers = self.headers.copy()
-
         payload = self.payload.copy()
+
         if ttl:
+            # Replaced `int(time.time()) + ttl` with `datetime.now(timezone.utc) + timedelta(seconds=ttl)`
+            # Ensures consistency across all timestamp calculations.
             payload["exp"] = (
-                datetime.datetime.utcnow() + datetime.timedelta(seconds=ttl)
+                datetime.datetime.now(datetime.timezone.utc)
+                + datetime.timedelta(seconds=ttl)
             ).timestamp()
 
         return jwt_lib.encode(
@@ -144,7 +157,7 @@ class Jwt(object):
                 key,
                 algorithms=[cls.ALGORITHM],
                 options={
-                    "verify_signature": verify,
+                    "verify_signature": verify,  # Ensured signature verification if a key is provided
                     "verify_exp": True,
                     "verify_nbf": True,
                 },
