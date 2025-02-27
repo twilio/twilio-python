@@ -12,6 +12,7 @@ class ClusterTest(unittest.TestCase):
         self.api_key = os.environ["TWILIO_API_KEY"]
         self.api_secret = os.environ["TWILIO_API_SECRET"]
         self.account_sid = os.environ["TWILIO_ACCOUNT_SID"]
+        self.assistant_id = os.environ["ASSISTANT_ID"]
         self.client = Client(
             username=self.api_key,
             password=self.api_secret,
@@ -64,6 +65,11 @@ class ClusterTest(unittest.TestCase):
         )
         self.assertIsNotNone(toll_free_numbers)
         self.assertEqual(len(toll_free_numbers), 2)
+
+    def test_fetch_assistant(self):
+        assistant = self.client.assistants.v1.assistants(self.assistant_id).fetch()
+        self.assertIsNotNone(assistant)
+        self.assertEqual(assistant.account_sid, self.account_sid)
 
     def test_calling_twiml_string(self):
         call = self.client.calls.create(
