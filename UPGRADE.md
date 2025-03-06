@@ -3,6 +3,14 @@
 _`MAJOR` version bumps will have upgrade notes
 posted here._
 
+## [2024-03-07] 9.x.x to 10.x.x
+### Overview
+
+##### Twilio Python Helper Library’s major version 10.0.0 is now available. We ensured that you can upgrade to Python helper Library 10.0.0 version without any breaking changes of existing apis
+
+Behind the scenes Python Helper is now auto-generated via OpenAPI with this release. This enables us to rapidly add new features and enhance consistency across versions and languages.
+Twiml Attribute speechModel is now of type string.
+
 ## [2024-02-20] 8.x.x to 9.x.x
 ### Overview
 
