@@ -58,6 +58,7 @@ class ConferenceInstance(InstanceResource):
         JP1 = "jp1"
         SG1 = "sg1"
         DE1 = "de1"
+        IN1 = "in1"
 
     class Tag(object):
         INVALID_REQUESTED_REGION = "invalid_requested_region"

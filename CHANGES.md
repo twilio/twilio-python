@@ -3,6 +3,27 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-03-11] Version 9.5.0
+--------------------------
+**Library - Feature**
+- [PR #850](https://github.com/twilio/twilio-python/pull/850): Update UPGRADE.md. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Fix**
+- [PR #847](https://github.com/twilio/twilio-python/pull/847): AssistantsBase import. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- Add the missing `emergency_enabled` field for `Address Service` endpoints
+
+**Messaging**
+- Add missing enums for A2P and TF
+
+**Numbers**
+- add missing enum values to hosted_number_order_status
+
+**Twiml**
+- Convert Twiml Attribute `speechModel` of type enum to string **(breaking change)**
+
+
 [2025-02-20] Version 9.4.6
 --------------------------
 **Library - Chore**

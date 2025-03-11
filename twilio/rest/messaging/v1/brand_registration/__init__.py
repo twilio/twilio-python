@@ -46,7 +46,9 @@ class BrandRegistrationInstance(InstanceResource):
         APPROVED = "APPROVED"
         FAILED = "FAILED"
         IN_REVIEW = "IN_REVIEW"
-        DELETED = "DELETED"
+        DELETION_PENDING = "DELETION_PENDING"
+        DELETION_FAILED = "DELETION_FAILED"
+        SUSPENDED = "SUSPENDED"
 
     """
     :ivar sid: The unique string to identify Brand Registration.
