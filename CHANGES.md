@@ -3,6 +3,80 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-03-11] Version 9.5.0
+--------------------------
+**Library - Feature**
+- [PR #850](https://github.com/twilio/twilio-python/pull/850): Update UPGRADE.md. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Library - Fix**
+- [PR #847](https://github.com/twilio/twilio-python/pull/847): AssistantsBase import. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- Add the missing `emergency_enabled` field for `Address Service` endpoints
+
+**Messaging**
+- Add missing enums for A2P and TF
+
+**Numbers**
+- add missing enum values to hosted_number_order_status
+
+**Twiml**
+- Convert Twiml Attribute `speechModel` of type enum to string **(breaking change)**
+
+
+[2025-02-20] Version 9.4.6
+--------------------------
+**Library - Chore**
+- [PR #842](https://github.com/twilio/twilio-python/pull/842): issue 841. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Flex**
+- Adding Digital Transfers APIs under v1/Interactions
+
+**Numbers**
+- Convert webhook_type to ienum type in v1/Porting/Configuration/Webhook/{webhook_type}
+
+**Trusthub**
+- Changing TrustHub SupportingDocument status enum from lowercase to uppercase since kyc-orch returns status capitalized and rest proxy requires strict casing
+
+
+[2025-02-11] Version 9.4.5
+--------------------------
+**Api**
+- Change downstream url and change media type for file `base/api/v2010/validation_request.json`.
+
+**Intelligence**
+- Add json_results for Generative JSON operator results
+
+**Messaging**
+- Add DestinationAlphaSender API to support Country-Specific Alpha Senders
+
+**Video**
+- Change codec type from enum to case-insensitive enum in recording and room_recording apis
+
+
+[2025-01-28] Version 9.4.4
+--------------------------
+**Library - Fix**
+- [PR #822](https://github.com/twilio/twilio-python/pull/822): Fix for 10 vulnerabilities. Thanks to [@twilio-product-security](https://github.com/twilio-product-security)!
+
+**Library - Chore**
+- [PR #834](https://github.com/twilio/twilio-python/pull/834): update httpclient. Thanks to [@manisha1997](https://github.com/manisha1997)!
+- [PR #837](https://github.com/twilio/twilio-python/pull/837): enable newer versions of aiohttp-retry. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #833](https://github.com/twilio/twilio-python/pull/833): created bug report issue template. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Api**
+- Add open-api file tag to `conference/call recordings` and `recording_transcriptions`.
+
+**Events**
+- Add support for subaccount subscriptions (beta)
+
+**Insights**
+- add new region to conference APIs
+
+**Lookups**
+- Add new `parnter_sub_id` query parameter to the lookup request
+
+
 [2025-01-13] Version 9.4.3
 --------------------------
 **Messaging**

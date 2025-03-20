@@ -135,7 +135,9 @@ client = Client()
 
 ### Specify Region and/or Edge
 
-To take advantage of Twilio's [Global Infrastructure](https://www.twilio.com/docs/global-infrastructure), specify the target Region and/or Edge for the client:
+To take advantage of Twilio's [Global Infrastructure](https://www.twilio.com/docs/global-infrastructure), specify the target Region and Edge for the client:
+
+> **Note:** When specifying a `region` parameter for a helper library client, be sure to also specify the `edge` parameter. For backward compatibility purposes, specifying a `region` without specifying an `edge` will result in requests being routed to US1.
 
 ```python
 from twilio.rest import Client

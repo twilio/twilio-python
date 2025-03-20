@@ -40,6 +40,8 @@ class AddressConfigurationInstance(InstanceResource):
         GBM = "gbm"
         EMAIL = "email"
         RCS = "rcs"
+        APPLE = "apple"
+        CHAT = "chat"
 
     """
     :ivar sid: A 34 character string that uniquely identifies this resource.

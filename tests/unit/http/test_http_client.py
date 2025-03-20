@@ -293,7 +293,6 @@ class TestHttpClientSession(unittest.TestCase):
         self.assertEqual(response_2.content, "response_2")
 
 
-
 class MyVersion(Version):
     def __init__(self, domain):
         super().__init__(domain, "v1")

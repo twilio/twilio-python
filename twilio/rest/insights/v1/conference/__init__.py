@@ -51,12 +51,14 @@ class ConferenceInstance(InstanceResource):
 
     class Region(object):
         US1 = "us1"
+        US2 = "us2"
         AU1 = "au1"
         BR1 = "br1"
         IE1 = "ie1"
         JP1 = "jp1"
         SG1 = "sg1"
         DE1 = "de1"
+        IN1 = "in1"
 
     class Tag(object):
         INVALID_REQUESTED_REGION = "invalid_requested_region"

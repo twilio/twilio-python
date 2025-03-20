@@ -1,6 +1,6 @@
 from warnings import warn
 
-from twilio.rest.assistants import AssistantsBase
+from twilio.rest.assistants.AssistantsBase import AssistantsBase
 from twilio.rest.assistants.v1.assistant import AssistantList
 from twilio.rest.assistants.v1.knowledge import KnowledgeList
 from twilio.rest.assistants.v1.policy import PolicyList
