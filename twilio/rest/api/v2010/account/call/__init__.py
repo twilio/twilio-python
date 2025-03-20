@@ -26,6 +26,7 @@ from twilio.rest.api.v2010.account.call.payment import PaymentList
 from twilio.rest.api.v2010.account.call.recording import RecordingList
 from twilio.rest.api.v2010.account.call.siprec import SiprecList
 from twilio.rest.api.v2010.account.call.stream import StreamList
+from twilio.rest.api.v2010.account.call.transcription import TranscriptionList
 from twilio.rest.api.v2010.account.call.user_defined_message import (
     UserDefinedMessageList,
 )
@@ -304,6 +305,13 @@ class CallInstance(InstanceResource):
         return self._proxy.streams
 
     @property
+    def transcriptions(self) -> TranscriptionList:
+        """
+        Access the transcriptions
+        """
+        return self._proxy.transcriptions
+
+    @property
     def user_defined_messages(self) -> UserDefinedMessageList:
         """
         Access the user_defined_messages
@@ -352,6 +360,7 @@ class CallContext(InstanceContext):
         self._recordings: Optional[RecordingList] = None
         self._siprec: Optional[SiprecList] = None
         self._streams: Optional[StreamList] = None
+        self._transcriptions: Optional[TranscriptionList] = None
         self._user_defined_messages: Optional[UserDefinedMessageList] = None
         self._user_defined_message_subscriptions: Optional[
             UserDefinedMessageSubscriptionList
@@ -364,10 +373,10 @@ class CallContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -376,9 +385,11 @@ class CallContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> CallInstance:
@@ -389,10 +400,11 @@ class CallContext(InstanceContext):
         :returns: The fetched CallInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return CallInstance(
             self._version,
@@ -409,9 +421,12 @@ class CallContext(InstanceContext):
         :returns: The fetched CallInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return CallInstance(
@@ -448,6 +463,7 @@ class CallContext(InstanceContext):
 
         :returns: The updated CallInstance
         """
+
         data = values.of(
             {
                 "Url": url,
@@ -461,11 +477,14 @@ class CallContext(InstanceContext):
                 "TimeLimit": time_limit,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return CallInstance(
@@ -502,6 +521,7 @@ class CallContext(InstanceContext):
 
         :returns: The updated CallInstance
         """
+
         data = values.of(
             {
                 "Url": url,
@@ -515,11 +535,14 @@ class CallContext(InstanceContext):
                 "TimeLimit": time_limit,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return CallInstance(
@@ -606,6 +629,19 @@ class CallContext(InstanceContext):
                 self._solution["sid"],
             )
         return self._streams
+
+    @property
+    def transcriptions(self) -> TranscriptionList:
+        """
+        Access the transcriptions
+        """
+        if self._transcriptions is None:
+            self._transcriptions = TranscriptionList(
+                self._version,
+                self._solution["account_sid"],
+                self._solution["sid"],
+            )
+        return self._transcriptions
 
     @property
     def user_defined_messages(self) -> UserDefinedMessageList:
@@ -809,6 +845,10 @@ class CallList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -941,6 +981,10 @@ class CallList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -1231,7 +1275,13 @@ class CallList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return CallPage(self._version, response, self._solution)
 
     async def page_async(
@@ -1288,8 +1338,12 @@ class CallList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return CallPage(self._version, response, self._solution)
 

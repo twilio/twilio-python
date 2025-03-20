@@ -25,12 +25,12 @@ from twilio.base.page import Page
 class SupportingDocumentInstance(InstanceResource):
 
     class Status(object):
-        DRAFT = "draft"
-        PENDING_REVIEW = "pending-review"
-        REJECTED = "rejected"
-        APPROVED = "approved"
-        EXPIRED = "expired"
-        PROVISIONALLY_APPROVED = "provisionally-approved"
+        DRAFT = "DRAFT"
+        PENDING_REVIEW = "PENDING_REVIEW"
+        REJECTED = "REJECTED"
+        APPROVED = "APPROVED"
+        EXPIRED = "EXPIRED"
+        PROVISIONALLY_APPROVED = "PROVISIONALLY_APPROVED"
 
     """
     :ivar sid: The unique string created by Twilio to identify the Supporting Document resource.
@@ -193,10 +193,10 @@ class SupportingDocumentContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -205,9 +205,11 @@ class SupportingDocumentContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> SupportingDocumentInstance:
@@ -218,10 +220,11 @@ class SupportingDocumentContext(InstanceContext):
         :returns: The fetched SupportingDocumentInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return SupportingDocumentInstance(
             self._version,
@@ -237,9 +240,12 @@ class SupportingDocumentContext(InstanceContext):
         :returns: The fetched SupportingDocumentInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return SupportingDocumentInstance(
@@ -261,17 +267,21 @@ class SupportingDocumentContext(InstanceContext):
 
         :returns: The updated SupportingDocumentInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "Attributes": serialize.object(attributes),
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return SupportingDocumentInstance(
@@ -291,17 +301,21 @@ class SupportingDocumentContext(InstanceContext):
 
         :returns: The updated SupportingDocumentInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "Attributes": serialize.object(attributes),
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return SupportingDocumentInstance(
@@ -375,6 +389,10 @@ class SupportingDocumentList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -405,6 +423,10 @@ class SupportingDocumentList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -539,7 +561,13 @@ class SupportingDocumentList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return SupportingDocumentPage(self._version, response)
 
     async def page_async(
@@ -566,8 +594,12 @@ class SupportingDocumentList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return SupportingDocumentPage(self._version, response)
 

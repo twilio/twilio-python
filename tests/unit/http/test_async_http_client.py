@@ -10,10 +10,11 @@ class MockResponse(object):
     A mock of the aiohttp.ClientResponse class
     """
 
-    def __init__(self, text, status):
+    def __init__(self, text, status, method="GET"):
         self._text = text
         self.status = status
         self.headers = {}
+        self.method = method
 
     async def text(self):
         return self._text

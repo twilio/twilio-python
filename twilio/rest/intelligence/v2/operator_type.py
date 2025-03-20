@@ -27,8 +27,9 @@ class OperatorTypeInstance(InstanceResource):
     class Availability(object):
         INTERNAL = "internal"
         BETA = "beta"
-        PUBLIC = "public"
+        GENERAL_AVAILABILITY = "general-availability"
         RETIRED = "retired"
+        DEPRECATED = "deprecated"
 
     class OutputType(object):
         TEXT_CLASSIFICATION = "text-classification"
@@ -145,7 +146,7 @@ class OperatorTypeContext(InstanceContext):
         Initialize the OperatorTypeContext
 
         :param version: Version that contains the resource
-        :param sid: A 34 character string that uniquely identifies this Operator Type.
+        :param sid: Either a 34 character string that uniquely identifies this Operator Type or the unique name that references an Operator Type.
         """
         super().__init__(version)
 
@@ -163,10 +164,11 @@ class OperatorTypeContext(InstanceContext):
         :returns: The fetched OperatorTypeInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return OperatorTypeInstance(
             self._version,
@@ -182,9 +184,12 @@ class OperatorTypeContext(InstanceContext):
         :returns: The fetched OperatorTypeInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return OperatorTypeInstance(
@@ -362,7 +367,13 @@ class OperatorTypeList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return OperatorTypePage(self._version, response)
 
     async def page_async(
@@ -389,8 +400,12 @@ class OperatorTypeList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return OperatorTypePage(self._version, response)
 
@@ -422,7 +437,7 @@ class OperatorTypeList(ListResource):
         """
         Constructs a OperatorTypeContext
 
-        :param sid: A 34 character string that uniquely identifies this Operator Type.
+        :param sid: Either a 34 character string that uniquely identifies this Operator Type or the unique name that references an Operator Type.
         """
         return OperatorTypeContext(self._version, sid=sid)
 
@@ -430,7 +445,7 @@ class OperatorTypeList(ListResource):
         """
         Constructs a OperatorTypeContext
 
-        :param sid: A 34 character string that uniquely identifies this Operator Type.
+        :param sid: Either a 34 character string that uniquely identifies this Operator Type or the unique name that references an Operator Type.
         """
         return OperatorTypeContext(self._version, sid=sid)
 

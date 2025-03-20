@@ -148,12 +148,17 @@ class PluginVersionArchiveContext(InstanceContext):
 
         :returns: The updated PluginVersionArchiveInstance
         """
+
         data = values.of({})
-        headers = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            flex_metadata is values.unset
+            or (isinstance(flex_metadata, str) and not flex_metadata)
+        ):
+            headers["Flex-Metadata"] = flex_metadata
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -176,12 +181,17 @@ class PluginVersionArchiveContext(InstanceContext):
 
         :returns: The updated PluginVersionArchiveInstance
         """
+
         data = values.of({})
-        headers = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            flex_metadata is values.unset
+            or (isinstance(flex_metadata, str) and not flex_metadata)
+        ):
+            headers["Flex-Metadata"] = flex_metadata
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
             method="POST", uri=self._uri, data=data, headers=headers

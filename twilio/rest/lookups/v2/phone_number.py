@@ -124,6 +124,7 @@ class PhoneNumberInstance(InstanceResource):
         date_of_birth: Union[str, object] = values.unset,
         last_verified_date: Union[str, object] = values.unset,
         verification_sid: Union[str, object] = values.unset,
+        partner_sub_id: Union[str, object] = values.unset,
     ) -> "PhoneNumberInstance":
         """
         Fetch the PhoneNumberInstance
@@ -142,6 +143,7 @@ class PhoneNumberInstance(InstanceResource):
         :param date_of_birth: User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
         :param last_verified_date: The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests.
         :param verification_sid: The unique identifier associated with a verification process through verify API. This query parameter is only used (optionally) for pre_fill package requests.
+        :param partner_sub_id: The optional partnerSubId parameter to provide context for your sub-accounts, tenantIDs, sender IDs or other segmentation, enhancing the accuracy of the risk analysis.
 
         :returns: The fetched PhoneNumberInstance
         """
@@ -160,6 +162,7 @@ class PhoneNumberInstance(InstanceResource):
             date_of_birth=date_of_birth,
             last_verified_date=last_verified_date,
             verification_sid=verification_sid,
+            partner_sub_id=partner_sub_id,
         )
 
     async def fetch_async(
@@ -178,6 +181,7 @@ class PhoneNumberInstance(InstanceResource):
         date_of_birth: Union[str, object] = values.unset,
         last_verified_date: Union[str, object] = values.unset,
         verification_sid: Union[str, object] = values.unset,
+        partner_sub_id: Union[str, object] = values.unset,
     ) -> "PhoneNumberInstance":
         """
         Asynchronous coroutine to fetch the PhoneNumberInstance
@@ -196,6 +200,7 @@ class PhoneNumberInstance(InstanceResource):
         :param date_of_birth: User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
         :param last_verified_date: The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests.
         :param verification_sid: The unique identifier associated with a verification process through verify API. This query parameter is only used (optionally) for pre_fill package requests.
+        :param partner_sub_id: The optional partnerSubId parameter to provide context for your sub-accounts, tenantIDs, sender IDs or other segmentation, enhancing the accuracy of the risk analysis.
 
         :returns: The fetched PhoneNumberInstance
         """
@@ -214,6 +219,7 @@ class PhoneNumberInstance(InstanceResource):
             date_of_birth=date_of_birth,
             last_verified_date=last_verified_date,
             verification_sid=verification_sid,
+            partner_sub_id=partner_sub_id,
         )
 
     def __repr__(self) -> str:
@@ -259,6 +265,7 @@ class PhoneNumberContext(InstanceContext):
         date_of_birth: Union[str, object] = values.unset,
         last_verified_date: Union[str, object] = values.unset,
         verification_sid: Union[str, object] = values.unset,
+        partner_sub_id: Union[str, object] = values.unset,
     ) -> PhoneNumberInstance:
         """
         Fetch the PhoneNumberInstance
@@ -277,6 +284,7 @@ class PhoneNumberContext(InstanceContext):
         :param date_of_birth: User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
         :param last_verified_date: The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests.
         :param verification_sid: The unique identifier associated with a verification process through verify API. This query parameter is only used (optionally) for pre_fill package requests.
+        :param partner_sub_id: The optional partnerSubId parameter to provide context for your sub-accounts, tenantIDs, sender IDs or other segmentation, enhancing the accuracy of the risk analysis.
 
         :returns: The fetched PhoneNumberInstance
         """
@@ -297,10 +305,17 @@ class PhoneNumberContext(InstanceContext):
                 "DateOfBirth": date_of_birth,
                 "LastVerifiedDate": last_verified_date,
                 "VerificationSid": verification_sid,
+                "PartnerSubId": partner_sub_id,
             }
         )
 
-        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
 
         return PhoneNumberInstance(
             self._version,
@@ -324,6 +339,7 @@ class PhoneNumberContext(InstanceContext):
         date_of_birth: Union[str, object] = values.unset,
         last_verified_date: Union[str, object] = values.unset,
         verification_sid: Union[str, object] = values.unset,
+        partner_sub_id: Union[str, object] = values.unset,
     ) -> PhoneNumberInstance:
         """
         Asynchronous coroutine to fetch the PhoneNumberInstance
@@ -342,6 +358,7 @@ class PhoneNumberContext(InstanceContext):
         :param date_of_birth: User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
         :param last_verified_date: The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests.
         :param verification_sid: The unique identifier associated with a verification process through verify API. This query parameter is only used (optionally) for pre_fill package requests.
+        :param partner_sub_id: The optional partnerSubId parameter to provide context for your sub-accounts, tenantIDs, sender IDs or other segmentation, enhancing the accuracy of the risk analysis.
 
         :returns: The fetched PhoneNumberInstance
         """
@@ -362,11 +379,16 @@ class PhoneNumberContext(InstanceContext):
                 "DateOfBirth": date_of_birth,
                 "LastVerifiedDate": last_verified_date,
                 "VerificationSid": verification_sid,
+                "PartnerSubId": partner_sub_id,
             }
         )
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
 
         return PhoneNumberInstance(

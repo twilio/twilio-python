@@ -266,10 +266,10 @@ class BundleContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -278,9 +278,11 @@ class BundleContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> BundleInstance:
@@ -291,10 +293,11 @@ class BundleContext(InstanceContext):
         :returns: The fetched BundleInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return BundleInstance(
             self._version,
@@ -310,9 +313,12 @@ class BundleContext(InstanceContext):
         :returns: The fetched BundleInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return BundleInstance(
@@ -338,6 +344,7 @@ class BundleContext(InstanceContext):
 
         :returns: The updated BundleInstance
         """
+
         data = values.of(
             {
                 "Status": status,
@@ -346,11 +353,14 @@ class BundleContext(InstanceContext):
                 "Email": email,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return BundleInstance(self._version, payload, sid=self._solution["sid"])
@@ -372,6 +382,7 @@ class BundleContext(InstanceContext):
 
         :returns: The updated BundleInstance
         """
+
         data = values.of(
             {
                 "Status": status,
@@ -380,11 +391,14 @@ class BundleContext(InstanceContext):
                 "Email": email,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return BundleInstance(self._version, payload, sid=self._solution["sid"])
@@ -488,6 +502,7 @@ class BundleList(ListResource):
         iso_country: Union[str, object] = values.unset,
         end_user_type: Union["BundleInstance.EndUserType", object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        is_test: Union[bool, object] = values.unset,
     ) -> BundleInstance:
         """
         Create the BundleInstance
@@ -498,7 +513,8 @@ class BundleList(ListResource):
         :param regulation_sid: The unique string of a regulation that is associated to the Bundle resource.
         :param iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param end_user_type:
-        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
+        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param is_test: Indicates that Bundle is a Test Bundle and will be Auto-Rejected
 
         :returns: The created BundleInstance
         """
@@ -512,9 +528,14 @@ class BundleList(ListResource):
                 "IsoCountry": iso_country,
                 "EndUserType": end_user_type,
                 "NumberType": number_type,
+                "IsTest": serialize.boolean_to_string(is_test),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -531,6 +552,7 @@ class BundleList(ListResource):
         iso_country: Union[str, object] = values.unset,
         end_user_type: Union["BundleInstance.EndUserType", object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        is_test: Union[bool, object] = values.unset,
     ) -> BundleInstance:
         """
         Asynchronously create the BundleInstance
@@ -541,7 +563,8 @@ class BundleList(ListResource):
         :param regulation_sid: The unique string of a regulation that is associated to the Bundle resource.
         :param iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
         :param end_user_type:
-        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll free`.
+        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param is_test: Indicates that Bundle is a Test Bundle and will be Auto-Rejected
 
         :returns: The created BundleInstance
         """
@@ -555,9 +578,14 @@ class BundleList(ListResource):
                 "IsoCountry": iso_country,
                 "EndUserType": end_user_type,
                 "NumberType": number_type,
+                "IsTest": serialize.boolean_to_string(is_test),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -591,7 +619,7 @@ class BundleList(ListResource):
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
+        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -651,7 +679,7 @@ class BundleList(ListResource):
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
+        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -710,7 +738,7 @@ class BundleList(ListResource):
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
+        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -769,7 +797,7 @@ class BundleList(ListResource):
         :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
+        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
         :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -829,7 +857,7 @@ class BundleList(ListResource):
         :param friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
+        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
         :param has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -861,7 +889,13 @@ class BundleList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return BundlePage(self._version, response)
 
     async def page_async(
@@ -889,7 +923,7 @@ class BundleList(ListResource):
         :param friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
         :param regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
         :param iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
-        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `tollfree`.
+        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
         :param has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
         :param sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
         :param sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
@@ -921,8 +955,12 @@ class BundleList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return BundlePage(self._version, response)
 

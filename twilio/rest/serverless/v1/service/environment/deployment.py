@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import deserialize, serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -142,10 +142,11 @@ class DeploymentContext(InstanceContext):
         :returns: The fetched DeploymentInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return DeploymentInstance(
             self._version,
@@ -163,9 +164,12 @@ class DeploymentContext(InstanceContext):
         :returns: The fetched DeploymentInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return DeploymentInstance(
@@ -235,12 +239,15 @@ class DeploymentList(ListResource):
         )
 
     def create(
-        self, build_sid: Union[str, object] = values.unset
+        self,
+        build_sid: Union[str, object] = values.unset,
+        is_plugin: Union[bool, object] = values.unset,
     ) -> DeploymentInstance:
         """
         Create the DeploymentInstance
 
         :param build_sid: The SID of the Build for the Deployment.
+        :param is_plugin: Whether the Deployment is a plugin.
 
         :returns: The created DeploymentInstance
         """
@@ -248,9 +255,14 @@ class DeploymentList(ListResource):
         data = values.of(
             {
                 "BuildSid": build_sid,
+                "IsPlugin": serialize.boolean_to_string(is_plugin),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -264,12 +276,15 @@ class DeploymentList(ListResource):
         )
 
     async def create_async(
-        self, build_sid: Union[str, object] = values.unset
+        self,
+        build_sid: Union[str, object] = values.unset,
+        is_plugin: Union[bool, object] = values.unset,
     ) -> DeploymentInstance:
         """
         Asynchronously create the DeploymentInstance
 
         :param build_sid: The SID of the Build for the Deployment.
+        :param is_plugin: Whether the Deployment is a plugin.
 
         :returns: The created DeploymentInstance
         """
@@ -277,9 +292,14 @@ class DeploymentList(ListResource):
         data = values.of(
             {
                 "BuildSid": build_sid,
+                "IsPlugin": serialize.boolean_to_string(is_plugin),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -419,7 +439,13 @@ class DeploymentList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return DeploymentPage(self._version, response, self._solution)
 
     async def page_async(
@@ -446,8 +472,12 @@ class DeploymentList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return DeploymentPage(self._version, response, self._solution)
 

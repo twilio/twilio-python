@@ -23,6 +23,9 @@ from twilio.base.page import Page
 from twilio.rest.conversations.v1.service.binding import BindingList
 from twilio.rest.conversations.v1.service.configuration import ConfigurationList
 from twilio.rest.conversations.v1.service.conversation import ConversationList
+from twilio.rest.conversations.v1.service.conversation_with_participants import (
+    ConversationWithParticipantsList,
+)
 from twilio.rest.conversations.v1.service.participant_conversation import (
     ParticipantConversationList,
 )
@@ -136,6 +139,13 @@ class ServiceInstance(InstanceResource):
         return self._proxy.conversations
 
     @property
+    def conversation_with_participants(self) -> ConversationWithParticipantsList:
+        """
+        Access the conversation_with_participants
+        """
+        return self._proxy.conversation_with_participants
+
+    @property
     def participant_conversations(self) -> ParticipantConversationList:
         """
         Access the participant_conversations
@@ -186,6 +196,9 @@ class ServiceContext(InstanceContext):
         self._bindings: Optional[BindingList] = None
         self._configuration: Optional[ConfigurationList] = None
         self._conversations: Optional[ConversationList] = None
+        self._conversation_with_participants: Optional[
+            ConversationWithParticipantsList
+        ] = None
         self._participant_conversations: Optional[ParticipantConversationList] = None
         self._roles: Optional[RoleList] = None
         self._users: Optional[UserList] = None
@@ -197,10 +210,10 @@ class ServiceContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -209,9 +222,11 @@ class ServiceContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> ServiceInstance:
@@ -222,10 +237,11 @@ class ServiceContext(InstanceContext):
         :returns: The fetched ServiceInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return ServiceInstance(
             self._version,
@@ -241,9 +257,12 @@ class ServiceContext(InstanceContext):
         :returns: The fetched ServiceInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return ServiceInstance(
@@ -287,6 +306,18 @@ class ServiceContext(InstanceContext):
                 self._solution["sid"],
             )
         return self._conversations
+
+    @property
+    def conversation_with_participants(self) -> ConversationWithParticipantsList:
+        """
+        Access the conversation_with_participants
+        """
+        if self._conversation_with_participants is None:
+            self._conversation_with_participants = ConversationWithParticipantsList(
+                self._version,
+                self._solution["sid"],
+            )
+        return self._conversation_with_participants
 
     @property
     def participant_conversations(self) -> ParticipantConversationList:
@@ -382,6 +413,10 @@ class ServiceList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -403,6 +438,10 @@ class ServiceList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -537,7 +576,13 @@ class ServiceList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return ServicePage(self._version, response)
 
     async def page_async(
@@ -564,8 +609,12 @@ class ServiceList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return ServicePage(self._version, response)
 

@@ -12,6 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
+from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 
 from twilio.base.list_resource import ListResource
@@ -29,7 +30,7 @@ class PortingWebhookConfigurationDeleteContext(InstanceContext):
         Initialize the PortingWebhookConfigurationDeleteContext
 
         :param version: Version that contains the resource
-        :param webhook_type: The of the webhook type of the configuration to be deleted
+        :param webhook_type: The webhook type for the configuration to be delete. `PORT_IN`, `PORT_OUT`
         """
         super().__init__(version)
 
@@ -48,10 +49,10 @@ class PortingWebhookConfigurationDeleteContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -60,9 +61,11 @@ class PortingWebhookConfigurationDeleteContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def __repr__(self) -> str:
@@ -94,7 +97,7 @@ class PortingWebhookConfigurationDeleteList(ListResource):
         """
         Constructs a PortingWebhookConfigurationDeleteContext
 
-        :param webhook_type: The of the webhook type of the configuration to be deleted
+        :param webhook_type: The webhook type for the configuration to be delete. `PORT_IN`, `PORT_OUT`
         """
         return PortingWebhookConfigurationDeleteContext(
             self._version, webhook_type=webhook_type
@@ -106,7 +109,7 @@ class PortingWebhookConfigurationDeleteList(ListResource):
         """
         Constructs a PortingWebhookConfigurationDeleteContext
 
-        :param webhook_type: The of the webhook type of the configuration to be deleted
+        :param webhook_type: The webhook type for the configuration to be delete. `PORT_IN`, `PORT_OUT`
         """
         return PortingWebhookConfigurationDeleteContext(
             self._version, webhook_type=webhook_type

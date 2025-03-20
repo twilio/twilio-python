@@ -160,7 +160,13 @@ class BulkHostedNumberOrderContext(InstanceContext):
             }
         )
 
-        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
 
         return BulkHostedNumberOrderInstance(
             self._version,
@@ -185,8 +191,12 @@ class BulkHostedNumberOrderContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
 
         return BulkHostedNumberOrderInstance(
@@ -231,7 +241,10 @@ class BulkHostedNumberOrderList(ListResource):
         data = body.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -252,7 +265,10 @@ class BulkHostedNumberOrderList(ListResource):
         data = body.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers

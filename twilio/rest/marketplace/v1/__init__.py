@@ -17,7 +17,9 @@ from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.marketplace.v1.available_add_on import AvailableAddOnList
 from twilio.rest.marketplace.v1.installed_add_on import InstalledAddOnList
+from twilio.rest.marketplace.v1.module_data import ModuleDataList
 from twilio.rest.marketplace.v1.module_data_management import ModuleDataManagementList
+from twilio.rest.marketplace.v1.referral_conversion import ReferralConversionList
 
 
 class V1(Version):
@@ -31,7 +33,9 @@ class V1(Version):
         super().__init__(domain, "v1")
         self._available_add_ons: Optional[AvailableAddOnList] = None
         self._installed_add_ons: Optional[InstalledAddOnList] = None
+        self._module_data: Optional[ModuleDataList] = None
         self._module_data_management: Optional[ModuleDataManagementList] = None
+        self._referral_conversion: Optional[ReferralConversionList] = None
 
     @property
     def available_add_ons(self) -> AvailableAddOnList:
@@ -46,10 +50,22 @@ class V1(Version):
         return self._installed_add_ons
 
     @property
+    def module_data(self) -> ModuleDataList:
+        if self._module_data is None:
+            self._module_data = ModuleDataList(self)
+        return self._module_data
+
+    @property
     def module_data_management(self) -> ModuleDataManagementList:
         if self._module_data_management is None:
             self._module_data_management = ModuleDataManagementList(self)
         return self._module_data_management
+
+    @property
+    def referral_conversion(self) -> ReferralConversionList:
+        if self._referral_conversion is None:
+            self._referral_conversion = ReferralConversionList(self)
+        return self._referral_conversion
 
     def __repr__(self) -> str:
         """

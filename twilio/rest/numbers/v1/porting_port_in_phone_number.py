@@ -14,7 +14,7 @@ r"""
 
 from datetime import datetime
 from typing import Any, Dict, Optional
-from twilio.base import deserialize
+from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -23,23 +23,24 @@ from twilio.base.version import Version
 
 class PortingPortInPhoneNumberInstance(InstanceResource):
     """
-    :ivar port_in_request_sid: The SID of the Port In request. This is a unique identifier of the port in request.
-    :ivar phone_number_sid: The SID of the Port In request phone number. This is a unique identifier of the phone number.
-    :ivar url:
-    :ivar account_sid: The SID of the account that the phone number belongs to.
-    :ivar phone_number_type: The type of the phone number.
-    :ivar date_created: The date when the phone number was created.
-    :ivar country: The country of the phone number.
-    :ivar missing_required_fields: The phone number is missing required fields.
-    :ivar last_updated: The timestamp when the status was last updated.
-    :ivar phone_number: The phone number.
-    :ivar portable: The phone number is portable.
-    :ivar not_portability_reason: The reason why the phone number is not portable.
-    :ivar not_portability_reason_code: The code of the reason why the phone number is not portable.
-    :ivar port_in_phone_number_status: The status of the phone number in the port in request.
-    :ivar port_out_pin: The pin required for the losing carrier to port out the phone number.
-    :ivar rejection_reason: The rejection reason returned by the vendor.
-    :ivar rejection_reason_code: The rejection reason code returned by the vendor.
+    :ivar port_in_request_sid: The unique identifier for the port in request that this phone number is associated with.
+    :ivar phone_number_sid: The unique identifier for this phone number associated with this port in request.
+    :ivar url: URL reference for this resource.
+    :ivar account_sid: Account Sid or subaccount where the phone number(s) will be Ported.
+    :ivar phone_number_type: The number type of the phone number. This can be: toll-free, local, mobile or unknown. This field may be null if the number is not portable or if the portability for a number has not yet been evaluated.
+    :ivar date_created: The timestamp for when this port in phone number was created.
+    :ivar country: The ISO country code that this number is associated with. This field may be null if the number is not portable or if the portability for a number has not yet been evaluated.
+    :ivar missing_required_fields: Indicates if the phone number is missing required fields such as a PIN or account number. This field may be null if the number is not portable or if the portability for a number has not yet been evaluated.
+    :ivar last_updated: Timestamp indicating when the Port In Phone Number resource was last modified.
+    :ivar phone_number: Phone number to be ported. This will be in the E164 Format.
+    :ivar portable: If the number is portable by Twilio or not. This field may be null if the number portability has not yet been evaluated. If a number is not portable reference the `not_portability_reason_code` and `not_portability_reason` fields for more details
+    :ivar not_portability_reason: The not portability reason code description. This field may be null if the number is portable or if the portability for a number has not yet been evaluated.
+    :ivar not_portability_reason_code: The not portability reason code. This field may be null if the number is portable or if the portability for a number has not yet been evaluated.
+    :ivar port_in_phone_number_status: The status of the port in phone number.
+    :ivar port_out_pin: The pin required by the losing carrier to do the port out.
+    :ivar rejection_reason: The description of the rejection reason provided by the losing carrier. This field may be null if the number has not been rejected by the losing carrier.
+    :ivar rejection_reason_code: The code for the rejection reason provided by the losing carrier. This field may be null if the number has not been rejected by the losing carrier.
+    :ivar port_date: The timestamp the phone number will be ported. This will only be set once a port date has been confirmed. Not all carriers can guarantee a specific time on the port date. Twilio will try its best to get the port completed by this time on the port date. Please subscribe to webhooks for confirmation on when a port has actually been completed.
     """
 
     def __init__(
@@ -83,6 +84,9 @@ class PortingPortInPhoneNumberInstance(InstanceResource):
         self.rejection_reason: Optional[str] = payload.get("rejection_reason")
         self.rejection_reason_code: Optional[int] = deserialize.integer(
             payload.get("rejection_reason_code")
+        )
+        self.port_date: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("port_date")
         )
 
         self._solution = {
@@ -183,10 +187,10 @@ class PortingPortInPhoneNumberContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -195,9 +199,11 @@ class PortingPortInPhoneNumberContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> PortingPortInPhoneNumberInstance:
@@ -208,10 +214,11 @@ class PortingPortInPhoneNumberContext(InstanceContext):
         :returns: The fetched PortingPortInPhoneNumberInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return PortingPortInPhoneNumberInstance(
             self._version,
@@ -228,9 +235,12 @@ class PortingPortInPhoneNumberContext(InstanceContext):
         :returns: The fetched PortingPortInPhoneNumberInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return PortingPortInPhoneNumberInstance(

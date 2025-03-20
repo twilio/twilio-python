@@ -164,7 +164,6 @@ class Version(object):
             timeout=timeout,
             allow_redirects=allow_redirects,
         )
-
         return self._parse_fetch(method, uri, response)
 
     def _parse_update(self, method: str, uri: str, response: Response) -> Any:
@@ -461,7 +460,6 @@ class Version(object):
             timeout=timeout,
             allow_redirects=allow_redirects,
         )
-
         return self._parse_create(method, uri, response)
 
     async def create_async(
@@ -488,5 +486,4 @@ class Version(object):
             timeout=timeout,
             allow_redirects=allow_redirects,
         )
-
         return self._parse_create(method, uri, response)

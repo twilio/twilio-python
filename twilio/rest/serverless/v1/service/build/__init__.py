@@ -26,6 +26,7 @@ from twilio.rest.serverless.v1.service.build.build_status import BuildStatusList
 
 class BuildInstance(InstanceResource):
 
+
     class Runtime(object):
         NODE8 = "node8"
         NODE10 = "node10"
@@ -173,7 +174,13 @@ class BuildContext(InstanceContext):
         
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(method='DELETE', uri=self._uri,)
+
+        
+        headers = values.of({})
+        
+        
+        
+        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -182,7 +189,12 @@ class BuildContext(InstanceContext):
         
         :returns: True if delete succeeds, False otherwise
         """
-        return await self._version.delete_async(method='DELETE', uri=self._uri,)
+        
+        headers = values.of({})
+        
+        
+        
+        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
     
     
     def fetch(self) -> BuildInstance:
@@ -193,7 +205,13 @@ class BuildContext(InstanceContext):
         :returns: The fetched BuildInstance
         """
         
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        headers = values.of({})
+        
+        
+        headers["Accept"] = "application/json"
+        
+        payload = self._version.fetch(method='GET', uri=self._uri  , headers=headers)
 
         return BuildInstance(
             self._version,
@@ -211,7 +229,13 @@ class BuildContext(InstanceContext):
         :returns: The fetched BuildInstance
         """
         
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        headers = values.of({})
+        
+        
+        headers["Accept"] = "application/json"
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri , headers=headers)
 
         return BuildInstance(
             self._version,
@@ -317,6 +341,11 @@ class BuildList(ListResource):
                 'Content-Type': 'application/x-www-form-urlencoded'
             })
         
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+        
+        
+        headers["Accept"] = "application/json"
+        
         
         payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
 
@@ -343,6 +372,11 @@ class BuildList(ListResource):
         headers = values.of({
                 'Content-Type': 'application/x-www-form-urlencoded'
             })
+        
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+        
+        
+        headers["Accept"] = "application/json"
         
         
         payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
@@ -474,7 +508,15 @@ class BuildList(ListResource):
             'PageSize': page_size,
         })
 
-        response = self._version.page(method='GET', uri=self._uri, params=data)
+        headers = values.of({
+        'Content-Type': 'application/x-www-form-urlencoded'
+        })
+        
+        
+        headers["Accept"] = "application/json"
+        
+
+        response = self._version.page(method='GET', uri=self._uri, params=data, headers=headers)
         return BuildPage(self._version, response, self._solution)
 
     async def page_async(self, 
@@ -499,7 +541,15 @@ class BuildList(ListResource):
             'PageSize': page_size,
         })
 
-        response = await self._version.page_async(method='GET', uri=self._uri, params=data)
+        headers = values.of({
+        'Content-Type': 'application/x-www-form-urlencoded'
+        })
+        
+        
+        headers["Accept"] = "application/json"
+        
+
+        response = await self._version.page_async(method='GET', uri=self._uri, params=data, headers=headers)
         return BuildPage(self._version, response, self._solution)
 
     def get_page(self, target_url: str) -> BuildPage:

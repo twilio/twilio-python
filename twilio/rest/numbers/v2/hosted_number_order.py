@@ -25,13 +25,19 @@ from twilio.base.page import Page
 class HostedNumberOrderInstance(InstanceResource):
 
     class Status(object):
+        TWILIO_PROCESSING = "twilio-processing"
         RECEIVED = "received"
+        PENDING_VERIFICATION = "pending-verification"
         VERIFIED = "verified"
         PENDING_LOA = "pending-loa"
         CARRIER_PROCESSING = "carrier-processing"
+        TESTING = "testing"
         COMPLETED = "completed"
         FAILED = "failed"
         ACTION_REQUIRED = "action-required"
+
+    class VerificationType(object):
+        PHONE_CALL = "phone-call"
 
     """
     :ivar sid: A 34 character string that uniquely identifies this HostedNumberOrder.
@@ -53,6 +59,12 @@ class HostedNumberOrderInstance(InstanceResource):
     :ivar contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
     :ivar bulk_hosting_request_sid: A 34 character string that uniquely identifies the bulk hosting request associated with this HostedNumberOrder.
     :ivar next_step: The next step you need to take to complete the hosted number order and request it successfully.
+    :ivar verification_attempts: The number of attempts made to verify ownership via a call for the hosted phone number.
+    :ivar verification_call_sids: The Call SIDs that identify the calls placed to verify ownership.
+    :ivar verification_call_delay: The number of seconds to wait before initiating the ownership verification call. Can be a value between 0 and 60, inclusive.
+    :ivar verification_call_extension: The numerical extension to dial when making the ownership verification call.
+    :ivar verification_code: The digits the user must pass in the ownership verification call.
+    :ivar verification_type: 
     """
 
     def __init__(
@@ -89,6 +101,22 @@ class HostedNumberOrderInstance(InstanceResource):
             "bulk_hosting_request_sid"
         )
         self.next_step: Optional[str] = payload.get("next_step")
+        self.verification_attempts: Optional[int] = deserialize.integer(
+            payload.get("verification_attempts")
+        )
+        self.verification_call_sids: Optional[List[str]] = payload.get(
+            "verification_call_sids"
+        )
+        self.verification_call_delay: Optional[int] = deserialize.integer(
+            payload.get("verification_call_delay")
+        )
+        self.verification_call_extension: Optional[str] = payload.get(
+            "verification_call_extension"
+        )
+        self.verification_code: Optional[str] = payload.get("verification_code")
+        self.verification_type: Optional[
+            "HostedNumberOrderInstance.VerificationType"
+        ] = payload.get("verification_type")
 
         self._solution = {
             "sid": sid or self.sid,
@@ -146,6 +174,48 @@ class HostedNumberOrderInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def update(
+        self,
+        status: "HostedNumberOrderInstance.Status",
+        verification_call_delay: Union[int, object] = values.unset,
+        verification_call_extension: Union[str, object] = values.unset,
+    ) -> "HostedNumberOrderInstance":
+        """
+        Update the HostedNumberOrderInstance
+
+        :param status:
+        :param verification_call_delay: The number of seconds to wait before initiating the ownership verification call. Can be a value between 0 and 60, inclusive.
+        :param verification_call_extension: The numerical extension to dial when making the ownership verification call.
+
+        :returns: The updated HostedNumberOrderInstance
+        """
+        return self._proxy.update(
+            status=status,
+            verification_call_delay=verification_call_delay,
+            verification_call_extension=verification_call_extension,
+        )
+
+    async def update_async(
+        self,
+        status: "HostedNumberOrderInstance.Status",
+        verification_call_delay: Union[int, object] = values.unset,
+        verification_call_extension: Union[str, object] = values.unset,
+    ) -> "HostedNumberOrderInstance":
+        """
+        Asynchronous coroutine to update the HostedNumberOrderInstance
+
+        :param status:
+        :param verification_call_delay: The number of seconds to wait before initiating the ownership verification call. Can be a value between 0 and 60, inclusive.
+        :param verification_call_extension: The numerical extension to dial when making the ownership verification call.
+
+        :returns: The updated HostedNumberOrderInstance
+        """
+        return await self._proxy.update_async(
+            status=status,
+            verification_call_delay=verification_call_delay,
+            verification_call_extension=verification_call_extension,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -163,7 +233,7 @@ class HostedNumberOrderContext(InstanceContext):
         Initialize the HostedNumberOrderContext
 
         :param version: Version that contains the resource
-        :param sid: A 34 character string that uniquely identifies this HostedNumberOrder.
+        :param sid: The SID of the HostedNumberOrder resource to update.
         """
         super().__init__(version)
 
@@ -180,10 +250,10 @@ class HostedNumberOrderContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -192,9 +262,11 @@ class HostedNumberOrderContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> HostedNumberOrderInstance:
@@ -205,10 +277,11 @@ class HostedNumberOrderContext(InstanceContext):
         :returns: The fetched HostedNumberOrderInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return HostedNumberOrderInstance(
             self._version,
@@ -224,15 +297,92 @@ class HostedNumberOrderContext(InstanceContext):
         :returns: The fetched HostedNumberOrderInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return HostedNumberOrderInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    def update(
+        self,
+        status: "HostedNumberOrderInstance.Status",
+        verification_call_delay: Union[int, object] = values.unset,
+        verification_call_extension: Union[str, object] = values.unset,
+    ) -> HostedNumberOrderInstance:
+        """
+        Update the HostedNumberOrderInstance
+
+        :param status:
+        :param verification_call_delay: The number of seconds to wait before initiating the ownership verification call. Can be a value between 0 and 60, inclusive.
+        :param verification_call_extension: The numerical extension to dial when making the ownership verification call.
+
+        :returns: The updated HostedNumberOrderInstance
+        """
+
+        data = values.of(
+            {
+                "Status": status,
+                "VerificationCallDelay": verification_call_delay,
+                "VerificationCallExtension": verification_call_extension,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.update(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return HostedNumberOrderInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+
+    async def update_async(
+        self,
+        status: "HostedNumberOrderInstance.Status",
+        verification_call_delay: Union[int, object] = values.unset,
+        verification_call_extension: Union[str, object] = values.unset,
+    ) -> HostedNumberOrderInstance:
+        """
+        Asynchronous coroutine to update the HostedNumberOrderInstance
+
+        :param status:
+        :param verification_call_delay: The number of seconds to wait before initiating the ownership verification call. Can be a value between 0 and 60, inclusive.
+        :param verification_call_extension: The numerical extension to dial when making the ownership verification call.
+
+        :returns: The updated HostedNumberOrderInstance
+        """
+
+        data = values.of(
+            {
+                "Status": status,
+                "VerificationCallDelay": verification_call_delay,
+                "VerificationCallExtension": verification_call_extension,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        payload = await self._version.update_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return HostedNumberOrderInstance(
+            self._version, payload, sid=self._solution["sid"]
         )
 
     def __repr__(self) -> str:
@@ -341,6 +491,10 @@ class HostedNumberOrderList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -410,6 +564,10 @@ class HostedNumberOrderList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -623,7 +781,13 @@ class HostedNumberOrderList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return HostedNumberOrderPage(self._version, response)
 
     async def page_async(
@@ -665,8 +829,12 @@ class HostedNumberOrderList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return HostedNumberOrderPage(self._version, response)
 
@@ -698,7 +866,7 @@ class HostedNumberOrderList(ListResource):
         """
         Constructs a HostedNumberOrderContext
 
-        :param sid: A 34 character string that uniquely identifies this HostedNumberOrder.
+        :param sid: The SID of the HostedNumberOrder resource to update.
         """
         return HostedNumberOrderContext(self._version, sid=sid)
 
@@ -706,7 +874,7 @@ class HostedNumberOrderList(ListResource):
         """
         Constructs a HostedNumberOrderContext
 
-        :param sid: A 34 character string that uniquely identifies this HostedNumberOrder.
+        :param sid: The SID of the HostedNumberOrder resource to update.
         """
         return HostedNumberOrderContext(self._version, sid=sid)
 

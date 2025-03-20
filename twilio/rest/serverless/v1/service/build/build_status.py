@@ -14,6 +14,7 @@ r"""
 
 
 from typing import Any, Dict, Optional
+from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -22,6 +23,7 @@ from twilio.base.version import Version
 
 
 class BuildStatusInstance(InstanceResource):
+
 
     class Status(object):
         BUILDING = "building"
@@ -123,7 +125,13 @@ class BuildStatusContext(InstanceContext):
         :returns: The fetched BuildStatusInstance
         """
         
-        payload = self._version.fetch(method='GET', uri=self._uri, )
+
+        headers = values.of({})
+        
+        
+        headers["Accept"] = "application/json"
+        
+        payload = self._version.fetch(method='GET', uri=self._uri  , headers=headers)
 
         return BuildStatusInstance(
             self._version,
@@ -141,7 +149,13 @@ class BuildStatusContext(InstanceContext):
         :returns: The fetched BuildStatusInstance
         """
         
-        payload = await self._version.fetch_async(method='GET', uri=self._uri, )
+
+        headers = values.of({})
+        
+        
+        headers["Accept"] = "application/json"
+        
+        payload = await self._version.fetch_async(method='GET', uri=self._uri , headers=headers)
 
         return BuildStatusInstance(
             self._version,

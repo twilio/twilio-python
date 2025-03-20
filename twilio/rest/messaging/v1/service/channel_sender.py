@@ -80,6 +80,24 @@ class ChannelSenderInstance(InstanceResource):
             )
         return self._context
 
+    def delete(self) -> bool:
+        """
+        Deletes the ChannelSenderInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        return self._proxy.delete()
+
+    async def delete_async(self) -> bool:
+        """
+        Asynchronous coroutine that deletes the ChannelSenderInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        return await self._proxy.delete_async()
+
     def fetch(self) -> "ChannelSenderInstance":
         """
         Fetch the ChannelSenderInstance
@@ -129,6 +147,32 @@ class ChannelSenderContext(InstanceContext):
             **self._solution
         )
 
+    def delete(self) -> bool:
+        """
+        Deletes the ChannelSenderInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+
+    async def delete_async(self) -> bool:
+        """
+        Asynchronous coroutine that deletes the ChannelSenderInstance
+
+
+        :returns: True if delete succeeds, False otherwise
+        """
+
+        headers = values.of({})
+
+        return await self._version.delete_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> ChannelSenderInstance:
         """
         Fetch the ChannelSenderInstance
@@ -137,10 +181,11 @@ class ChannelSenderContext(InstanceContext):
         :returns: The fetched ChannelSenderInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return ChannelSenderInstance(
             self._version,
@@ -157,9 +202,12 @@ class ChannelSenderContext(InstanceContext):
         :returns: The fetched ChannelSenderInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return ChannelSenderInstance(
@@ -220,6 +268,66 @@ class ChannelSenderList(ListResource):
         }
         self._uri = "/Services/{messaging_service_sid}/ChannelSenders".format(
             **self._solution
+        )
+
+    def create(self, sid: str) -> ChannelSenderInstance:
+        """
+        Create the ChannelSenderInstance
+
+        :param sid: The SID of the Channel Sender being added to the Service.
+
+        :returns: The created ChannelSenderInstance
+        """
+
+        data = values.of(
+            {
+                "Sid": sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ChannelSenderInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution["messaging_service_sid"],
+        )
+
+    async def create_async(self, sid: str) -> ChannelSenderInstance:
+        """
+        Asynchronously create the ChannelSenderInstance
+
+        :param sid: The SID of the Channel Sender being added to the Service.
+
+        :returns: The created ChannelSenderInstance
+        """
+
+        data = values.of(
+            {
+                "Sid": sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        payload = await self._version.create_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return ChannelSenderInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution["messaging_service_sid"],
         )
 
     def stream(
@@ -349,7 +457,13 @@ class ChannelSenderList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return ChannelSenderPage(self._version, response, self._solution)
 
     async def page_async(
@@ -376,8 +490,12 @@ class ChannelSenderList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return ChannelSenderPage(self._version, response, self._solution)
 

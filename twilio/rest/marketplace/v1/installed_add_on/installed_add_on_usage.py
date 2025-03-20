@@ -21,9 +21,57 @@ from twilio.base.version import Version
 
 
 class InstalledAddOnUsageInstance(InstanceResource):
+
+    class MarketplaceV1InstalledAddOnInstalledAddOnUsage(object):
+        """
+        :ivar total_submitted: Total amount in local currency that was billed in this request. Aggregates all billable_items that were successfully submitted.
+        :ivar billable_items:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.total_submitted: Optional[float] = deserialize.decimal(
+                payload.get("total_submitted")
+            )
+            self.billable_items: Optional[
+                List[
+                    InstalledAddOnUsageList.MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
+                ]
+            ] = payload.get("billable_items")
+
+        def to_dict(self):
+            return {
+                "total_submitted": self.total_submitted,
+                "billable_items": (
+                    [billable_items.to_dict() for billable_items in self.billable_items]
+                    if self.billable_items is not None
+                    else None
+                ),
+            }
+
+    class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems(object):
+        """
+        :ivar quantity: Total amount in local currency that was billed for this Billing Item. Can be any floating number greater than 0.
+        :ivar sid: BillingSid to use for billing.
+        :ivar submitted: Whether the billing event was successfully generated for this Billable Item.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.quantity: Optional[float] = payload.get("quantity")
+            self.sid: Optional[str] = payload.get("sid")
+            self.submitted: Optional[bool] = payload.get("submitted")
+
+        def to_dict(self):
+            return {
+                "quantity": self.quantity,
+                "sid": self.sid,
+                "submitted": self.submitted,
+            }
+
     """
-    :ivar billable_items:
-    :ivar total_submitted: Represents the total quantity submitted.
+    :ivar total_submitted: Total amount in local currency that was billed in this request. Aggregates all billable_items that were successfully submitted.
+    :ivar billable_items: 
     """
 
     def __init__(
@@ -31,9 +79,11 @@ class InstalledAddOnUsageInstance(InstanceResource):
     ):
         super().__init__(version)
 
-        self.billable_items: Optional[List[str]] = payload.get("billable_items")
         self.total_submitted: Optional[float] = deserialize.decimal(
             payload.get("total_submitted")
+        )
+        self.billable_items: Optional[List[InstalledAddOnUsageList.str]] = payload.get(
+            "billable_items"
         )
 
         self._solution = {
@@ -52,41 +102,51 @@ class InstalledAddOnUsageInstance(InstanceResource):
 
 class InstalledAddOnUsageList(ListResource):
 
-    class CreateMarketplaceBillingUsageRequest(object):
+    class MarketplaceV1InstalledAddOnInstalledAddOnUsage(object):
         """
+        :ivar total_submitted: Total amount in local currency that was billed in this request. Aggregates all billable_items that were successfully submitted.
         :ivar billable_items:
         """
 
-        def __init__(self, payload: Dict[str, Any], installed_add_on_sid: str):
+        def __init__(self, payload: Dict[str, Any]):
 
+            self.total_submitted: Optional[float] = deserialize.decimal(
+                payload.get("total_submitted")
+            )
             self.billable_items: Optional[
                 List[
-                    InstalledAddOnUsageList.CreateMarketplaceBillingUsageRequestBillableItems
+                    InstalledAddOnUsageList.MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems
                 ]
             ] = payload.get("billable_items")
 
         def to_dict(self):
             return {
-                "billable_items": [
-                    billable_items.to_dict() for billable_items in self.billable_items
-                ],
+                "total_submitted": self.total_submitted,
+                "billable_items": (
+                    [billable_items.to_dict() for billable_items in self.billable_items]
+                    if self.billable_items is not None
+                    else None
+                ),
             }
 
-    class CreateMarketplaceBillingUsageRequestBillableItems(object):
+    class MarketplaceV1InstalledAddOnInstalledAddOnUsageBillableItems(object):
         """
-        :ivar quantity:
-        :ivar sid:
+        :ivar quantity: Total amount in local currency that was billed for this Billing Item. Can be any floating number greater than 0.
+        :ivar sid: BillingSid to use for billing.
+        :ivar submitted: Whether the billing event was successfully generated for this Billable Item.
         """
 
-        def __init__(self, payload: Dict[str, Any], installed_add_on_sid: str):
+        def __init__(self, payload: Dict[str, Any]):
 
             self.quantity: Optional[float] = payload.get("quantity")
             self.sid: Optional[str] = payload.get("sid")
+            self.submitted: Optional[bool] = payload.get("submitted")
 
         def to_dict(self):
             return {
                 "quantity": self.quantity,
                 "sid": self.sid,
+                "submitted": self.submitted,
             }
 
     def __init__(self, version: Version, installed_add_on_sid: str):
@@ -94,7 +154,7 @@ class InstalledAddOnUsageList(ListResource):
         Initialize the InstalledAddOnUsageList
 
         :param version: Version that contains the resource
-        :param installed_add_on_sid:
+        :param installed_add_on_sid: Customer Installation SID to report usage on.
 
         """
         super().__init__(version)
@@ -109,19 +169,22 @@ class InstalledAddOnUsageList(ListResource):
 
     def create(
         self,
-        create_marketplace_billing_usage_request: CreateMarketplaceBillingUsageRequest,
+        marketplace_v1_installed_add_on_installed_add_on_usage: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
     ) -> InstalledAddOnUsageInstance:
         """
         Create the InstalledAddOnUsageInstance
 
-        :param create_marketplace_billing_usage_request:
+        :param marketplace_v1_installed_add_on_installed_add_on_usage:
 
         :returns: The created InstalledAddOnUsageInstance
         """
-        data = create_marketplace_billing_usage_request.to_dict()
+        data = marketplace_v1_installed_add_on_installed_add_on_usage.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -135,19 +198,22 @@ class InstalledAddOnUsageList(ListResource):
 
     async def create_async(
         self,
-        create_marketplace_billing_usage_request: CreateMarketplaceBillingUsageRequest,
+        marketplace_v1_installed_add_on_installed_add_on_usage: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
     ) -> InstalledAddOnUsageInstance:
         """
         Asynchronously create the InstalledAddOnUsageInstance
 
-        :param create_marketplace_billing_usage_request:
+        :param marketplace_v1_installed_add_on_installed_add_on_usage:
 
         :returns: The created InstalledAddOnUsageInstance
         """
-        data = create_marketplace_billing_usage_request.to_dict()
+        data = marketplace_v1_installed_add_on_installed_add_on_usage.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers

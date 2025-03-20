@@ -12,7 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,13 +22,16 @@ from twilio.base.version import Version
 
 class ModuleDataManagementInstance(InstanceResource):
     """
-    :ivar url:
-    :ivar sid:
-    :ivar description:
-    :ivar support:
-    :ivar policies:
-    :ivar module_info:
-    :ivar documentation:
+    :ivar url: URL to query the subresource.
+    :ivar sid: ModuleSid that identifies this Listing.
+    :ivar description: A JSON object describing the module and is displayed under the Description tab of the Module detail page. You can define the main body of the description, highlight key features or aspects of the module and if applicable, provide code samples for developers
+    :ivar support: A JSON object containing information on how customers can obtain support for the module. Use this parameter to provide details such as contact information and support description.
+    :ivar policies: A JSON object describing the module's privacy and legal policies and is displayed under the Policies tab of the Module detail page. The maximum file size for Policies is 5MB
+    :ivar module_info: A JSON object containing essential attributes that define a module. This information is presented on the Module detail page in the Twilio Marketplace Catalog. You can pass the following attributes in the JSON object
+    :ivar documentation: A JSON object for providing comprehensive information, instructions, and resources related to the module
+    :ivar configuration: A JSON object for providing listing specific configuration. Contains button setup, notification url, among others.
+    :ivar pricing: A JSON object for providing Listing specific pricing information.
+    :ivar listings:
     """
 
     def __init__(
@@ -43,6 +46,9 @@ class ModuleDataManagementInstance(InstanceResource):
         self.policies: Optional[Dict[str, object]] = payload.get("policies")
         self.module_info: Optional[Dict[str, object]] = payload.get("module_info")
         self.documentation: Optional[Dict[str, object]] = payload.get("documentation")
+        self.configuration: Optional[Dict[str, object]] = payload.get("configuration")
+        self.pricing: Optional[Dict[str, object]] = payload.get("pricing")
+        self.listings: Optional[List[Dict[str, object]]] = payload.get("listings")
 
         self._solution = {
             "sid": sid or self.sid,
@@ -89,15 +95,19 @@ class ModuleDataManagementInstance(InstanceResource):
         documentation: Union[str, object] = values.unset,
         policies: Union[str, object] = values.unset,
         support: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
+        pricing: Union[str, object] = values.unset,
     ) -> "ModuleDataManagementInstance":
         """
         Update the ModuleDataManagementInstance
 
-        :param module_info:
-        :param description:
-        :param documentation:
-        :param policies:
-        :param support:
+        :param module_info: A JSON object containing essential attributes that define a Listing.
+        :param description: A JSON object describing the Listing. You can define the main body of the description, highlight key features or aspects of the Listing, and provide code samples for developers if applicable.
+        :param documentation: A JSON object for providing comprehensive information, instructions, and resources related to the Listing.
+        :param policies: A JSON object describing the Listing's privacy and legal policies. The maximum file size for Policies is 5MB.
+        :param support: A JSON object containing information on how Marketplace users can obtain support for the Listing. Use this parameter to provide details such as contact information and support description.
+        :param configuration: A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
+        :param pricing: A JSON object for providing Listing's purchase options.
 
         :returns: The updated ModuleDataManagementInstance
         """
@@ -107,6 +117,8 @@ class ModuleDataManagementInstance(InstanceResource):
             documentation=documentation,
             policies=policies,
             support=support,
+            configuration=configuration,
+            pricing=pricing,
         )
 
     async def update_async(
@@ -116,15 +128,19 @@ class ModuleDataManagementInstance(InstanceResource):
         documentation: Union[str, object] = values.unset,
         policies: Union[str, object] = values.unset,
         support: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
+        pricing: Union[str, object] = values.unset,
     ) -> "ModuleDataManagementInstance":
         """
         Asynchronous coroutine to update the ModuleDataManagementInstance
 
-        :param module_info:
-        :param description:
-        :param documentation:
-        :param policies:
-        :param support:
+        :param module_info: A JSON object containing essential attributes that define a Listing.
+        :param description: A JSON object describing the Listing. You can define the main body of the description, highlight key features or aspects of the Listing, and provide code samples for developers if applicable.
+        :param documentation: A JSON object for providing comprehensive information, instructions, and resources related to the Listing.
+        :param policies: A JSON object describing the Listing's privacy and legal policies. The maximum file size for Policies is 5MB.
+        :param support: A JSON object containing information on how Marketplace users can obtain support for the Listing. Use this parameter to provide details such as contact information and support description.
+        :param configuration: A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
+        :param pricing: A JSON object for providing Listing's purchase options.
 
         :returns: The updated ModuleDataManagementInstance
         """
@@ -134,6 +150,8 @@ class ModuleDataManagementInstance(InstanceResource):
             documentation=documentation,
             policies=policies,
             support=support,
+            configuration=configuration,
+            pricing=pricing,
         )
 
     def __repr__(self) -> str:
@@ -153,7 +171,7 @@ class ModuleDataManagementContext(InstanceContext):
         Initialize the ModuleDataManagementContext
 
         :param version: Version that contains the resource
-        :param sid:
+        :param sid: SID that uniquely identifies the Listing.
         """
         super().__init__(version)
 
@@ -171,10 +189,11 @@ class ModuleDataManagementContext(InstanceContext):
         :returns: The fetched ModuleDataManagementInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return ModuleDataManagementInstance(
             self._version,
@@ -190,9 +209,12 @@ class ModuleDataManagementContext(InstanceContext):
         :returns: The fetched ModuleDataManagementInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return ModuleDataManagementInstance(
@@ -208,18 +230,23 @@ class ModuleDataManagementContext(InstanceContext):
         documentation: Union[str, object] = values.unset,
         policies: Union[str, object] = values.unset,
         support: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
+        pricing: Union[str, object] = values.unset,
     ) -> ModuleDataManagementInstance:
         """
         Update the ModuleDataManagementInstance
 
-        :param module_info:
-        :param description:
-        :param documentation:
-        :param policies:
-        :param support:
+        :param module_info: A JSON object containing essential attributes that define a Listing.
+        :param description: A JSON object describing the Listing. You can define the main body of the description, highlight key features or aspects of the Listing, and provide code samples for developers if applicable.
+        :param documentation: A JSON object for providing comprehensive information, instructions, and resources related to the Listing.
+        :param policies: A JSON object describing the Listing's privacy and legal policies. The maximum file size for Policies is 5MB.
+        :param support: A JSON object containing information on how Marketplace users can obtain support for the Listing. Use this parameter to provide details such as contact information and support description.
+        :param configuration: A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
+        :param pricing: A JSON object for providing Listing's purchase options.
 
         :returns: The updated ModuleDataManagementInstance
         """
+
         data = values.of(
             {
                 "ModuleInfo": module_info,
@@ -227,13 +254,18 @@ class ModuleDataManagementContext(InstanceContext):
                 "Documentation": documentation,
                 "Policies": policies,
                 "Support": support,
+                "Configuration": configuration,
+                "Pricing": pricing,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ModuleDataManagementInstance(
@@ -247,18 +279,23 @@ class ModuleDataManagementContext(InstanceContext):
         documentation: Union[str, object] = values.unset,
         policies: Union[str, object] = values.unset,
         support: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
+        pricing: Union[str, object] = values.unset,
     ) -> ModuleDataManagementInstance:
         """
         Asynchronous coroutine to update the ModuleDataManagementInstance
 
-        :param module_info:
-        :param description:
-        :param documentation:
-        :param policies:
-        :param support:
+        :param module_info: A JSON object containing essential attributes that define a Listing.
+        :param description: A JSON object describing the Listing. You can define the main body of the description, highlight key features or aspects of the Listing, and provide code samples for developers if applicable.
+        :param documentation: A JSON object for providing comprehensive information, instructions, and resources related to the Listing.
+        :param policies: A JSON object describing the Listing's privacy and legal policies. The maximum file size for Policies is 5MB.
+        :param support: A JSON object containing information on how Marketplace users can obtain support for the Listing. Use this parameter to provide details such as contact information and support description.
+        :param configuration: A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
+        :param pricing: A JSON object for providing Listing's purchase options.
 
         :returns: The updated ModuleDataManagementInstance
         """
+
         data = values.of(
             {
                 "ModuleInfo": module_info,
@@ -266,13 +303,18 @@ class ModuleDataManagementContext(InstanceContext):
                 "Documentation": documentation,
                 "Policies": policies,
                 "Support": support,
+                "Configuration": configuration,
+                "Pricing": pricing,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ModuleDataManagementInstance(
@@ -304,7 +346,7 @@ class ModuleDataManagementList(ListResource):
         """
         Constructs a ModuleDataManagementContext
 
-        :param sid:
+        :param sid: SID that uniquely identifies the Listing.
         """
         return ModuleDataManagementContext(self._version, sid=sid)
 
@@ -312,7 +354,7 @@ class ModuleDataManagementList(ListResource):
         """
         Constructs a ModuleDataManagementContext
 
-        :param sid:
+        :param sid: SID that uniquely identifies the Listing.
         """
         return ModuleDataManagementContext(self._version, sid=sid)
 

@@ -72,6 +72,8 @@ class SinkTestList(ListResource):
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(method="POST", uri=self._uri, headers=headers)
 
         return SinkTestInstance(self._version, payload, sid=self._solution["sid"])
@@ -85,6 +87,8 @@ class SinkTestList(ListResource):
         """
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, headers=headers

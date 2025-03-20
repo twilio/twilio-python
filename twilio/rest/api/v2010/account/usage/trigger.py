@@ -83,6 +83,8 @@ class TriggerInstance(InstanceResource):
         GROUP_ROOMS_PARTICIPANT_MINUTES = "group-rooms-participant-minutes"
         GROUP_ROOMS_RECORDED_MINUTES = "group-rooms-recorded-minutes"
         IMP_V1_USAGE = "imp-v1-usage"
+        IVR_VIRTUAL_AGENT_CUSTOM_VOICES = "ivr-virtual-agent-custom-voices"
+        IVR_VIRTUAL_AGENT_GENAI = "ivr-virtual-agent-genai"
         LOOKUPS = "lookups"
         MARKETPLACE = "marketplace"
         MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION = (
@@ -551,10 +553,10 @@ class TriggerContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -563,9 +565,11 @@ class TriggerContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> TriggerInstance:
@@ -576,10 +580,11 @@ class TriggerContext(InstanceContext):
         :returns: The fetched TriggerInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return TriggerInstance(
             self._version,
@@ -596,9 +601,12 @@ class TriggerContext(InstanceContext):
         :returns: The fetched TriggerInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return TriggerInstance(
@@ -623,6 +631,7 @@ class TriggerContext(InstanceContext):
 
         :returns: The updated TriggerInstance
         """
+
         data = values.of(
             {
                 "CallbackMethod": callback_method,
@@ -630,11 +639,14 @@ class TriggerContext(InstanceContext):
                 "FriendlyName": friendly_name,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return TriggerInstance(
@@ -659,6 +671,7 @@ class TriggerContext(InstanceContext):
 
         :returns: The updated TriggerInstance
         """
+
         data = values.of(
             {
                 "CallbackMethod": callback_method,
@@ -666,11 +679,14 @@ class TriggerContext(InstanceContext):
                 "FriendlyName": friendly_name,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return TriggerInstance(
@@ -768,6 +784,10 @@ class TriggerList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -812,6 +832,10 @@ class TriggerList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -997,7 +1021,13 @@ class TriggerList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return TriggerPage(self._version, response, self._solution)
 
     async def page_async(
@@ -1033,8 +1063,12 @@ class TriggerList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return TriggerPage(self._version, response, self._solution)
 

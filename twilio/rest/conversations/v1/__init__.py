@@ -18,6 +18,9 @@ from twilio.base.domain import Domain
 from twilio.rest.conversations.v1.address_configuration import AddressConfigurationList
 from twilio.rest.conversations.v1.configuration import ConfigurationList
 from twilio.rest.conversations.v1.conversation import ConversationList
+from twilio.rest.conversations.v1.conversation_with_participants import (
+    ConversationWithParticipantsList,
+)
 from twilio.rest.conversations.v1.credential import CredentialList
 from twilio.rest.conversations.v1.participant_conversation import (
     ParticipantConversationList,
@@ -39,6 +42,9 @@ class V1(Version):
         self._address_configurations: Optional[AddressConfigurationList] = None
         self._configuration: Optional[ConfigurationList] = None
         self._conversations: Optional[ConversationList] = None
+        self._conversation_with_participants: Optional[
+            ConversationWithParticipantsList
+        ] = None
         self._credentials: Optional[CredentialList] = None
         self._participant_conversations: Optional[ParticipantConversationList] = None
         self._roles: Optional[RoleList] = None
@@ -62,6 +68,14 @@ class V1(Version):
         if self._conversations is None:
             self._conversations = ConversationList(self)
         return self._conversations
+
+    @property
+    def conversation_with_participants(self) -> ConversationWithParticipantsList:
+        if self._conversation_with_participants is None:
+            self._conversation_with_participants = ConversationWithParticipantsList(
+                self
+            )
+        return self._conversation_with_participants
 
     @property
     def credentials(self) -> CredentialList:

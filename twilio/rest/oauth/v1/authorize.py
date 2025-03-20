@@ -69,6 +69,8 @@ class AuthorizeList(ListResource):
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Accept"] = "application/json"
+
         params = values.of(
             {
                 "ResponseType": response_type,
@@ -100,6 +102,8 @@ class AuthorizeList(ListResource):
         :returns: The fetched AuthorizeInstance
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
 
         params = values.of(
             {

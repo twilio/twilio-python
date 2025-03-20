@@ -43,7 +43,7 @@ class ServiceInstance(InstanceResource):
     :ivar dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
     :ivar tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
     :ivar do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
-    :ivar custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+    :ivar custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
     :ivar push: Configurations for the Push factors (channel) created under this Service.
     :ivar totp: Configurations for the TOTP factors (channel) created under this Service.
     :ivar default_template_sid:
@@ -183,7 +183,7 @@ class ServiceInstance(InstanceResource):
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
         :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
-        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
         :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
         :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
@@ -255,7 +255,7 @@ class ServiceInstance(InstanceResource):
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
         :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
-        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
         :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
         :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
@@ -384,10 +384,10 @@ class ServiceContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -396,9 +396,11 @@ class ServiceContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> ServiceInstance:
@@ -409,10 +411,11 @@ class ServiceContext(InstanceContext):
         :returns: The fetched ServiceInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return ServiceInstance(
             self._version,
@@ -428,9 +431,12 @@ class ServiceContext(InstanceContext):
         :returns: The fetched ServiceInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return ServiceInstance(
@@ -473,7 +479,7 @@ class ServiceContext(InstanceContext):
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
         :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
-        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
         :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
         :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
@@ -488,6 +494,7 @@ class ServiceContext(InstanceContext):
 
         :returns: The updated ServiceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -518,11 +525,14 @@ class ServiceContext(InstanceContext):
                 ),
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ServiceInstance(self._version, payload, sid=self._solution["sid"])
@@ -561,7 +571,7 @@ class ServiceContext(InstanceContext):
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
         :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
-        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
         :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
         :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
@@ -576,6 +586,7 @@ class ServiceContext(InstanceContext):
 
         :returns: The updated ServiceInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -606,11 +617,14 @@ class ServiceContext(InstanceContext):
                 ),
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return ServiceInstance(self._version, payload, sid=self._solution["sid"])
@@ -775,7 +789,7 @@ class ServiceList(ListResource):
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
         :param do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
-        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
         :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
         :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
@@ -822,6 +836,10 @@ class ServiceList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -863,7 +881,7 @@ class ServiceList(ListResource):
         :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
         :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
         :param do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
-        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one. Not available for all customers.
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
         :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
         :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
         :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
@@ -910,6 +928,10 @@ class ServiceList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -1044,7 +1066,13 @@ class ServiceList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return ServicePage(self._version, response)
 
     async def page_async(
@@ -1071,8 +1099,12 @@ class ServiceList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return ServicePage(self._version, response)
 

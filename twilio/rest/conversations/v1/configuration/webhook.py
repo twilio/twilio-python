@@ -33,7 +33,7 @@ class WebhookInstance(InstanceResource):
     """
     :ivar account_sid: The unique ID of the [Account](https://www.twilio.com/docs/iam/api/account) responsible for this conversation.
     :ivar method: 
-    :ivar filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
+    :ivar filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onMessageAdd`, `onMessageUpdate`, `onMessageRemove`, `onConversationUpdated`, `onConversationRemoved`, `onConversationAdd`, `onConversationAdded`, `onConversationRemove`, `onConversationUpdate`, `onConversationStateUpdated`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onParticipantAdd`, `onParticipantRemove`, `onParticipantUpdate`, `onDeliveryUpdated`, `onUserAdded`, `onUserUpdate`, `onUserUpdated`
     :ivar pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
     :ivar post_webhook_url: The absolute url the post-event webhook request should be sent to.
     :ivar target: 
@@ -97,7 +97,7 @@ class WebhookInstance(InstanceResource):
         Update the WebhookInstance
 
         :param method: The HTTP method to be used when sending a webhook request.
-        :param filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
+        :param filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onMessageAdd`, `onMessageUpdate`, `onMessageRemove`, `onConversationUpdated`, `onConversationRemoved`, `onConversationAdd`, `onConversationAdded`, `onConversationRemove`, `onConversationUpdate`, `onConversationStateUpdated`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onParticipantAdd`, `onParticipantRemove`, `onParticipantUpdate`, `onDeliveryUpdated`, `onUserAdded`, `onUserUpdate`, `onUserUpdated`
         :param pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :param post_webhook_url: The absolute url the post-event webhook request should be sent to.
         :param target:
@@ -124,7 +124,7 @@ class WebhookInstance(InstanceResource):
         Asynchronous coroutine to update the WebhookInstance
 
         :param method: The HTTP method to be used when sending a webhook request.
-        :param filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
+        :param filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onMessageAdd`, `onMessageUpdate`, `onMessageRemove`, `onConversationUpdated`, `onConversationRemoved`, `onConversationAdd`, `onConversationAdded`, `onConversationRemove`, `onConversationUpdate`, `onConversationStateUpdated`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onParticipantAdd`, `onParticipantRemove`, `onParticipantUpdate`, `onDeliveryUpdated`, `onUserAdded`, `onUserUpdate`, `onUserUpdated`
         :param pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :param post_webhook_url: The absolute url the post-event webhook request should be sent to.
         :param target:
@@ -169,10 +169,11 @@ class WebhookContext(InstanceContext):
         :returns: The fetched WebhookInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return WebhookInstance(
             self._version,
@@ -187,9 +188,12 @@ class WebhookContext(InstanceContext):
         :returns: The fetched WebhookInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return WebhookInstance(
@@ -209,13 +213,14 @@ class WebhookContext(InstanceContext):
         Update the WebhookInstance
 
         :param method: The HTTP method to be used when sending a webhook request.
-        :param filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
+        :param filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onMessageAdd`, `onMessageUpdate`, `onMessageRemove`, `onConversationUpdated`, `onConversationRemoved`, `onConversationAdd`, `onConversationAdded`, `onConversationRemove`, `onConversationUpdate`, `onConversationStateUpdated`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onParticipantAdd`, `onParticipantRemove`, `onParticipantUpdate`, `onDeliveryUpdated`, `onUserAdded`, `onUserUpdate`, `onUserUpdated`
         :param pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :param post_webhook_url: The absolute url the post-event webhook request should be sent to.
         :param target:
 
         :returns: The updated WebhookInstance
         """
+
         data = values.of(
             {
                 "Method": method,
@@ -225,11 +230,14 @@ class WebhookContext(InstanceContext):
                 "Target": target,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return WebhookInstance(self._version, payload)
@@ -246,13 +254,14 @@ class WebhookContext(InstanceContext):
         Asynchronous coroutine to update the WebhookInstance
 
         :param method: The HTTP method to be used when sending a webhook request.
-        :param filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onConversationUpdated`, `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`
+        :param filters: The list of webhook event triggers that are enabled for this Service: `onMessageAdded`, `onMessageUpdated`, `onMessageRemoved`, `onMessageAdd`, `onMessageUpdate`, `onMessageRemove`, `onConversationUpdated`, `onConversationRemoved`, `onConversationAdd`, `onConversationAdded`, `onConversationRemove`, `onConversationUpdate`, `onConversationStateUpdated`, `onParticipantAdded`, `onParticipantUpdated`, `onParticipantRemoved`, `onParticipantAdd`, `onParticipantRemove`, `onParticipantUpdate`, `onDeliveryUpdated`, `onUserAdded`, `onUserUpdate`, `onUserUpdated`
         :param pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
         :param post_webhook_url: The absolute url the post-event webhook request should be sent to.
         :param target:
 
         :returns: The updated WebhookInstance
         """
+
         data = values.of(
             {
                 "Method": method,
@@ -262,11 +271,14 @@ class WebhookContext(InstanceContext):
                 "Target": target,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return WebhookInstance(self._version, payload)

@@ -39,6 +39,9 @@ class AddressConfigurationInstance(InstanceResource):
         MESSENGER = "messenger"
         GBM = "gbm"
         EMAIL = "email"
+        RCS = "rcs"
+        APPLE = "apple"
+        CHAT = "chat"
 
     """
     :ivar sid: A 34 character string that uniquely identifies this resource.
@@ -251,10 +254,10 @@ class AddressConfigurationContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -263,9 +266,11 @@ class AddressConfigurationContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> AddressConfigurationInstance:
@@ -276,10 +281,11 @@ class AddressConfigurationContext(InstanceContext):
         :returns: The fetched AddressConfigurationInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return AddressConfigurationInstance(
             self._version,
@@ -295,9 +301,12 @@ class AddressConfigurationContext(InstanceContext):
         :returns: The fetched AddressConfigurationInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return AddressConfigurationInstance(
@@ -337,6 +346,7 @@ class AddressConfigurationContext(InstanceContext):
 
         :returns: The updated AddressConfigurationInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -354,11 +364,14 @@ class AddressConfigurationContext(InstanceContext):
                 "AutoCreation.StudioRetryCount": auto_creation_studio_retry_count,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return AddressConfigurationInstance(
@@ -396,6 +409,7 @@ class AddressConfigurationContext(InstanceContext):
 
         :returns: The updated AddressConfigurationInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -413,11 +427,14 @@ class AddressConfigurationContext(InstanceContext):
                 "AutoCreation.StudioRetryCount": auto_creation_studio_retry_count,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return AddressConfigurationInstance(
@@ -528,6 +545,10 @@ class AddressConfigurationList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -593,6 +614,10 @@ class AddressConfigurationList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -740,7 +765,13 @@ class AddressConfigurationList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return AddressConfigurationPage(self._version, response)
 
     async def page_async(
@@ -770,8 +801,12 @@ class AddressConfigurationList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return AddressConfigurationPage(self._version, response)
 

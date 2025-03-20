@@ -29,6 +29,8 @@ class OperatorResultInstance(InstanceResource):
         EXTRACT = "extract"
         EXTRACT_NORMALIZE = "extract_normalize"
         PII_EXTRACT = "pii_extract"
+        TEXT_GENERATION = "text_generation"
+        JSON = "json"
 
     """
     :ivar operator_type: 
@@ -44,6 +46,7 @@ class OperatorResultInstance(InstanceResource):
     :ivar label_probabilities: The labels probabilities. This might be available on conversation classify model outputs.
     :ivar extract_results: List of text extraction results. This might be available on classify-extract model outputs.
     :ivar text_generation_results: Output of a text generation operator for example Conversation Sumamary.
+    :ivar json_results: 
     :ivar transcript_sid: A 34 character string that uniquely identifies this Transcript.
     :ivar url: The URL of this resource.
     """
@@ -84,6 +87,7 @@ class OperatorResultInstance(InstanceResource):
         self.text_generation_results: Optional[Dict[str, object]] = payload.get(
             "text_generation_results"
         )
+        self.json_results: Optional[Dict[str, object]] = payload.get("json_results")
         self.transcript_sid: Optional[str] = payload.get("transcript_sid")
         self.url: Optional[str] = payload.get("url")
 
@@ -187,7 +191,13 @@ class OperatorResultContext(InstanceContext):
             }
         )
 
-        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
 
         return OperatorResultInstance(
             self._version,
@@ -213,8 +223,12 @@ class OperatorResultContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
 
         return OperatorResultInstance(
@@ -415,7 +429,13 @@ class OperatorResultList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return OperatorResultPage(self._version, response, self._solution)
 
     async def page_async(
@@ -445,8 +465,12 @@ class OperatorResultList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return OperatorResultPage(self._version, response, self._solution)
 

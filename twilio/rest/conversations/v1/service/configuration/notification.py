@@ -225,10 +225,11 @@ class NotificationContext(InstanceContext):
         :returns: The fetched NotificationInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return NotificationInstance(
             self._version,
@@ -244,9 +245,12 @@ class NotificationContext(InstanceContext):
         :returns: The fetched NotificationInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return NotificationInstance(
@@ -290,6 +294,7 @@ class NotificationContext(InstanceContext):
 
         :returns: The updated NotificationInstance
         """
+
         data = values.of(
             {
                 "LogEnabled": serialize.boolean_to_string(log_enabled),
@@ -315,11 +320,14 @@ class NotificationContext(InstanceContext):
                 "NewMessage.WithMedia.Template": new_message_with_media_template,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return NotificationInstance(
@@ -361,6 +369,7 @@ class NotificationContext(InstanceContext):
 
         :returns: The updated NotificationInstance
         """
+
         data = values.of(
             {
                 "LogEnabled": serialize.boolean_to_string(log_enabled),
@@ -386,11 +395,14 @@ class NotificationContext(InstanceContext):
                 "NewMessage.WithMedia.Template": new_message_with_media_template,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return NotificationInstance(

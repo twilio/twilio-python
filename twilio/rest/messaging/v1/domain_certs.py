@@ -174,10 +174,10 @@ class DomainCertsContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -186,9 +186,11 @@ class DomainCertsContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> DomainCertsInstance:
@@ -199,10 +201,11 @@ class DomainCertsContext(InstanceContext):
         :returns: The fetched DomainCertsInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return DomainCertsInstance(
             self._version,
@@ -218,9 +221,12 @@ class DomainCertsContext(InstanceContext):
         :returns: The fetched DomainCertsInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return DomainCertsInstance(
@@ -237,16 +243,20 @@ class DomainCertsContext(InstanceContext):
 
         :returns: The updated DomainCertsInstance
         """
+
         data = values.of(
             {
                 "TlsCert": tls_cert,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return DomainCertsInstance(
@@ -261,16 +271,20 @@ class DomainCertsContext(InstanceContext):
 
         :returns: The updated DomainCertsInstance
         """
+
         data = values.of(
             {
                 "TlsCert": tls_cert,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return DomainCertsInstance(

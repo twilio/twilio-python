@@ -127,10 +127,11 @@ class BulkEligibilityContext(InstanceContext):
         :returns: The fetched BulkEligibilityInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return BulkEligibilityInstance(
             self._version,
@@ -146,9 +147,12 @@ class BulkEligibilityContext(InstanceContext):
         :returns: The fetched BulkEligibilityInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return BulkEligibilityInstance(
@@ -193,7 +197,10 @@ class BulkEligibilityList(ListResource):
         data = body.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -214,7 +221,10 @@ class BulkEligibilityList(ListResource):
         data = body.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers

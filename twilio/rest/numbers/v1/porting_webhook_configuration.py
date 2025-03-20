@@ -23,9 +23,9 @@ from twilio.base.version import Version
 class PortingWebhookConfigurationInstance(InstanceResource):
     """
     :ivar url: The URL of the webhook configuration request
-    :ivar port_in_target_url: Webhook URL to send a request when a port in request or port in phone number event happens
-    :ivar port_out_target_url: Webhook URL to send a request when a port out phone number event happens
-    :ivar notifications_of: List of notification events to send a request to the webhook URL
+    :ivar port_in_target_url: The complete webhook url that will be called when a notification event for port in request or port in phone number happens
+    :ivar port_out_target_url: The complete webhook url that will be called when a notification event for a port out phone number happens.
+    :ivar notifications_of: A list to filter what notification events to receive for this account and its sub accounts. If it is an empty list, then it means that there are no filters for the notifications events to send in each webhook and all events will get sent.
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any]):
@@ -72,7 +72,10 @@ class PortingWebhookConfigurationList(ListResource):
         data = body.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -93,7 +96,10 @@ class PortingWebhookConfigurationList(ListResource):
         data = body.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
         headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers

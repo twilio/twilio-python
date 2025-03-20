@@ -43,25 +43,25 @@ class RoomInstance(InstanceResource):
         H264 = "H264"
 
     """
-    :ivar sid: The unique string that we created to identify the Room resource.
+    :ivar sid: The unique string that Twilio created to identify the Room resource.
     :ivar status: 
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Room resource.
     :ivar enable_turn: Deprecated, now always considered to be true.
     :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
-    :ivar status_callback: The URL we call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
-    :ivar status_callback_method: The HTTP method we use to call `status_callback`. Can be `POST` or `GET` and defaults to `POST`.
+    :ivar status_callback: The URL Twilio calls using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
+    :ivar status_callback_method: The HTTP method Twilio uses to call `status_callback`. Can be `POST` or `GET` and defaults to `POST`.
     :ivar end_time: The UTC end time of the room in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format.
     :ivar duration: The duration of the room in seconds.
     :ivar type: 
     :ivar max_participants: The maximum number of concurrent Participants allowed in the room. 
     :ivar max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
     :ivar max_concurrent_published_tracks: The maximum number of published audio, video, and data tracks all participants combined are allowed to publish in the room at the same time. Check [Programmable Video Limits](https://www.twilio.com/docs/video/programmable-video-limits) for more details. If it is set to 0 it means unconstrained.
-    :ivar record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-    :ivar video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
-    :ivar media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#media-servers). ***This feature is not available in `peer-to-peer` rooms.***
-    :ivar audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
+    :ivar record_participants_on_connect: Whether to start recording when Participants connect.
+    :ivar video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.
+    :ivar media_region: The region for the Room's media server.  Can be one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#media-servers).
+    :ivar audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed.
     :ivar empty_room_timeout: Specifies how long (in minutes) a room will remain active after last participant leaves. Can be configured when creating a room via REST API. For Ad-Hoc rooms this value cannot be changed.
     :ivar unused_room_timeout: Specifies how long (in minutes) a room will remain active if no one joins. Can be configured when creating a room via REST API. For Ad-Hoc rooms this value cannot be changed.
     :ivar large_room: Indicates if this is a large room.
@@ -243,10 +243,11 @@ class RoomContext(InstanceContext):
         :returns: The fetched RoomInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return RoomInstance(
             self._version,
@@ -262,9 +263,12 @@ class RoomContext(InstanceContext):
         :returns: The fetched RoomInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return RoomInstance(
@@ -281,16 +285,20 @@ class RoomContext(InstanceContext):
 
         :returns: The updated RoomInstance
         """
+
         data = values.of(
             {
                 "Status": status,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return RoomInstance(self._version, payload, sid=self._solution["sid"])
@@ -303,16 +311,20 @@ class RoomContext(InstanceContext):
 
         :returns: The updated RoomInstance
         """
+
         data = values.of(
             {
                 "Status": status,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return RoomInstance(self._version, payload, sid=self._solution["sid"])
@@ -419,14 +431,14 @@ class RoomList(ListResource):
         :param enable_turn: Deprecated, now always considered to be true.
         :param type:
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
-        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
-        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
-        :param max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
-        :param record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-        :param video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
-        :param media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
+        :param status_callback: The URL Twilio should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
+        :param status_callback_method: The HTTP method Twilio should use to call `status_callback`. Can be `POST` or `GET`.
+        :param max_participants: The maximum number of concurrent Participants allowed in the room. The maximum allowed value is 50.
+        :param record_participants_on_connect: Whether to start recording when Participants connect.
+        :param video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.
+        :param media_region: The region for the Room's media server.  Can be one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers).
         :param recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
-        :param audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
+        :param audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed.
         :param max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
         :param empty_room_timeout: Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
         :param unused_room_timeout: Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
@@ -457,6 +469,10 @@ class RoomList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -488,14 +504,14 @@ class RoomList(ListResource):
         :param enable_turn: Deprecated, now always considered to be true.
         :param type:
         :param unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
-        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
-        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be `POST` or `GET`.
-        :param max_participants: The maximum number of concurrent Participants allowed in the room. Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have up to 4 Participants. Group rooms can have up to 50 Participants.
-        :param record_participants_on_connect: Whether to start recording when Participants connect. ***This feature is not available in `peer-to-peer` rooms.***
-        :param video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.  ***This feature is not available in `peer-to-peer` rooms***
-        :param media_region: The region for the media server in Group Rooms.  Can be: one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***
+        :param status_callback: The URL Twilio should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
+        :param status_callback_method: The HTTP method Twilio should use to call `status_callback`. Can be `POST` or `GET`.
+        :param max_participants: The maximum number of concurrent Participants allowed in the room. The maximum allowed value is 50.
+        :param record_participants_on_connect: Whether to start recording when Participants connect.
+        :param video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.
+        :param media_region: The region for the Room's media server.  Can be one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers).
         :param recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
-        :param audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed. Group rooms only.
+        :param audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed.
         :param max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
         :param empty_room_timeout: Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
         :param unused_room_timeout: Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
@@ -526,6 +542,10 @@ class RoomList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -724,7 +744,13 @@ class RoomList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return RoomPage(self._version, response)
 
     async def page_async(
@@ -763,8 +789,12 @@ class RoomList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return RoomPage(self._version, response)
 

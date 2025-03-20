@@ -247,6 +247,8 @@ class UserContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(
@@ -268,6 +270,8 @@ class UserContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
         return await self._version.delete_async(
             method="DELETE", uri=self._uri, headers=headers
         )
@@ -280,10 +284,11 @@ class UserContext(InstanceContext):
         :returns: The fetched UserInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return UserInstance(
             self._version,
@@ -299,9 +304,12 @@ class UserContext(InstanceContext):
         :returns: The fetched UserInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return UserInstance(
@@ -329,6 +337,7 @@ class UserContext(InstanceContext):
 
         :returns: The updated UserInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -336,11 +345,20 @@ class UserContext(InstanceContext):
                 "RoleSid": role_sid,
             }
         )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            x_twilio_webhook_enabled is values.unset
+            or (
+                isinstance(x_twilio_webhook_enabled, str)
+                and not x_twilio_webhook_enabled
+            )
+        ):
+            headers["X-Twilio-Webhook-Enabled"] = x_twilio_webhook_enabled
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -367,6 +385,7 @@ class UserContext(InstanceContext):
 
         :returns: The updated UserInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -374,11 +393,20 @@ class UserContext(InstanceContext):
                 "RoleSid": role_sid,
             }
         )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            x_twilio_webhook_enabled is values.unset
+            or (
+                isinstance(x_twilio_webhook_enabled, str)
+                and not x_twilio_webhook_enabled
+            )
+        ):
+            headers["X-Twilio-Webhook-Enabled"] = x_twilio_webhook_enabled
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -477,6 +505,10 @@ class UserList(ListResource):
             }
         )
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -519,6 +551,10 @@ class UserList(ListResource):
                 "Content-Type": "application/x-www-form-urlencoded",
             }
         )
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -653,7 +689,13 @@ class UserList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return UserPage(self._version, response)
 
     async def page_async(
@@ -680,8 +722,12 @@ class UserList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return UserPage(self._version, response)
 

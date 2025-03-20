@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import values
+from twilio.base import serialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -72,23 +72,33 @@ class RegulationInstance(InstanceResource):
             )
         return self._context
 
-    def fetch(self) -> "RegulationInstance":
+    def fetch(
+        self, include_constraints: Union[bool, object] = values.unset
+    ) -> "RegulationInstance":
         """
         Fetch the RegulationInstance
 
+        :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
 
         :returns: The fetched RegulationInstance
         """
-        return self._proxy.fetch()
+        return self._proxy.fetch(
+            include_constraints=include_constraints,
+        )
 
-    async def fetch_async(self) -> "RegulationInstance":
+    async def fetch_async(
+        self, include_constraints: Union[bool, object] = values.unset
+    ) -> "RegulationInstance":
         """
         Asynchronous coroutine to fetch the RegulationInstance
 
+        :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
 
         :returns: The fetched RegulationInstance
         """
-        return await self._proxy.fetch_async()
+        return await self._proxy.fetch_async(
+            include_constraints=include_constraints,
+        )
 
     def __repr__(self) -> str:
         """
@@ -117,17 +127,29 @@ class RegulationContext(InstanceContext):
         }
         self._uri = "/RegulatoryCompliance/Regulations/{sid}".format(**self._solution)
 
-    def fetch(self) -> RegulationInstance:
+    def fetch(
+        self, include_constraints: Union[bool, object] = values.unset
+    ) -> RegulationInstance:
         """
         Fetch the RegulationInstance
 
+        :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
 
         :returns: The fetched RegulationInstance
         """
 
+        data = values.of(
+            {
+                "IncludeConstraints": serialize.boolean_to_string(include_constraints),
+            }
+        )
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, params=data, headers=headers
         )
 
         return RegulationInstance(
@@ -136,17 +158,29 @@ class RegulationContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    async def fetch_async(self) -> RegulationInstance:
+    async def fetch_async(
+        self, include_constraints: Union[bool, object] = values.unset
+    ) -> RegulationInstance:
         """
         Asynchronous coroutine to fetch the RegulationInstance
 
+        :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
 
         :returns: The fetched RegulationInstance
         """
 
+        data = values.of(
+            {
+                "IncludeConstraints": serialize.boolean_to_string(include_constraints),
+            }
+        )
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, params=data, headers=headers
         )
 
         return RegulationInstance(
@@ -202,6 +236,7 @@ class RegulationList(ListResource):
         end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        include_constraints: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[RegulationInstance]:
@@ -214,6 +249,7 @@ class RegulationList(ListResource):
         :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
+        :param bool include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -228,6 +264,7 @@ class RegulationList(ListResource):
             end_user_type=end_user_type,
             iso_country=iso_country,
             number_type=number_type,
+            include_constraints=include_constraints,
             page_size=limits["page_size"],
         )
 
@@ -238,6 +275,7 @@ class RegulationList(ListResource):
         end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        include_constraints: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[RegulationInstance]:
@@ -250,6 +288,7 @@ class RegulationList(ListResource):
         :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
+        :param bool include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -264,6 +303,7 @@ class RegulationList(ListResource):
             end_user_type=end_user_type,
             iso_country=iso_country,
             number_type=number_type,
+            include_constraints=include_constraints,
             page_size=limits["page_size"],
         )
 
@@ -274,6 +314,7 @@ class RegulationList(ListResource):
         end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        include_constraints: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[RegulationInstance]:
@@ -285,6 +326,7 @@ class RegulationList(ListResource):
         :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
+        :param bool include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -299,6 +341,7 @@ class RegulationList(ListResource):
                 end_user_type=end_user_type,
                 iso_country=iso_country,
                 number_type=number_type,
+                include_constraints=include_constraints,
                 limit=limit,
                 page_size=page_size,
             )
@@ -309,6 +352,7 @@ class RegulationList(ListResource):
         end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        include_constraints: Union[bool, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[RegulationInstance]:
@@ -320,6 +364,7 @@ class RegulationList(ListResource):
         :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param str iso_country: The ISO country code of the phone number's country.
         :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
+        :param bool include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -335,6 +380,7 @@ class RegulationList(ListResource):
                 end_user_type=end_user_type,
                 iso_country=iso_country,
                 number_type=number_type,
+                include_constraints=include_constraints,
                 limit=limit,
                 page_size=page_size,
             )
@@ -345,6 +391,7 @@ class RegulationList(ListResource):
         end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        include_constraints: Union[bool, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -356,6 +403,7 @@ class RegulationList(ListResource):
         :param end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param iso_country: The ISO country code of the phone number's country.
         :param number_type: The type of phone number that the regulatory requiremnt is restricting.
+        :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -367,13 +415,20 @@ class RegulationList(ListResource):
                 "EndUserType": end_user_type,
                 "IsoCountry": iso_country,
                 "NumberType": number_type,
+                "IncludeConstraints": serialize.boolean_to_string(include_constraints),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return RegulationPage(self._version, response)
 
     async def page_async(
@@ -381,6 +436,7 @@ class RegulationList(ListResource):
         end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         number_type: Union[str, object] = values.unset,
+        include_constraints: Union[bool, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -392,6 +448,7 @@ class RegulationList(ListResource):
         :param end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
         :param iso_country: The ISO country code of the phone number's country.
         :param number_type: The type of phone number that the regulatory requiremnt is restricting.
+        :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -403,14 +460,19 @@ class RegulationList(ListResource):
                 "EndUserType": end_user_type,
                 "IsoCountry": iso_country,
                 "NumberType": number_type,
+                "IncludeConstraints": serialize.boolean_to_string(include_constraints),
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return RegulationPage(self._version, response)
 

@@ -26,6 +26,7 @@ class BrandVettingInstance(InstanceResource):
 
     class VettingProvider(object):
         CAMPAIGN_VERIFY = "campaign-verify"
+        AEGIS = "aegis"
 
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the vetting record.
@@ -147,10 +148,11 @@ class BrandVettingContext(InstanceContext):
         :returns: The fetched BrandVettingInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return BrandVettingInstance(
             self._version,
@@ -167,9 +169,12 @@ class BrandVettingContext(InstanceContext):
         :returns: The fetched BrandVettingInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return BrandVettingInstance(
@@ -252,6 +257,10 @@ class BrandVettingList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -281,6 +290,10 @@ class BrandVettingList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -444,7 +457,13 @@ class BrandVettingList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return BrandVettingPage(self._version, response, self._solution)
 
     async def page_async(
@@ -476,8 +495,12 @@ class BrandVettingList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return BrandVettingPage(self._version, response, self._solution)
 

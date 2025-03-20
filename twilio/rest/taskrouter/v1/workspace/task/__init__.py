@@ -56,7 +56,7 @@ class TaskInstance(InstanceResource):
     :ivar url: The absolute URL of the Task resource.
     :ivar links: The URLs of related resources.
     :ivar virtual_start_time: The date and time in GMT indicating the ordering for routing of the Task specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-    :ivar ignore_capacity: A boolean indicating if a new task should respect a worker's capacity during assignment
+    :ivar ignore_capacity: A boolean that indicates if the Task should respect a Worker's capacity and availability during assignment. This field can only be used when the `RoutingTarget` field is set to a Worker SID. By setting `IgnoreCapacity` to a value of `true`, `1`, or `yes`, the Task will be routed to the Worker without respecting their capacity and availability. Any other value will enforce the Worker's capacity and availability. The default value of `IgnoreCapacity` is `true` when the `RoutingTarget` is set to a Worker SID. 
     :ivar routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
     """
 
@@ -193,7 +193,7 @@ class TaskInstance(InstanceResource):
         :param reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-        :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future.
+        :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future or before the year of 1900.
 
         :returns: The updated TaskInstance
         """
@@ -226,7 +226,7 @@ class TaskInstance(InstanceResource):
         :param reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-        :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future.
+        :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future or before the year of 1900.
 
         :returns: The updated TaskInstance
         """
@@ -292,6 +292,8 @@ class TaskContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
         return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self, if_match: Union[str, object] = values.unset) -> bool:
@@ -308,6 +310,8 @@ class TaskContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
         return await self._version.delete_async(
             method="DELETE", uri=self._uri, headers=headers
         )
@@ -320,10 +324,11 @@ class TaskContext(InstanceContext):
         :returns: The fetched TaskInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return TaskInstance(
             self._version,
@@ -340,9 +345,12 @@ class TaskContext(InstanceContext):
         :returns: The fetched TaskInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return TaskInstance(
@@ -371,10 +379,11 @@ class TaskContext(InstanceContext):
         :param reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-        :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future.
+        :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future or before the year of 1900.
 
         :returns: The updated TaskInstance
         """
+
         data = values.of(
             {
                 "Attributes": attributes,
@@ -385,11 +394,16 @@ class TaskContext(InstanceContext):
                 "VirtualStartTime": serialize.iso8601_datetime(virtual_start_time),
             }
         )
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            if_match is values.unset or (isinstance(if_match, str) and not if_match)
+        ):
+            headers["If-Match"] = if_match
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -421,10 +435,11 @@ class TaskContext(InstanceContext):
         :param reason: The reason that the Task was canceled or completed. This parameter is required only if the Task is canceled or completed. Setting this value queues the task for deletion and logs the reason.
         :param priority: The Task's new priority value. When supplied, the Task takes on the specified priority unless it matches a Workflow Target with a Priority set. Value can be 0 to 2^31^ (2,147,483,647).
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel with the task to update. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-        :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future.
+        :param virtual_start_time: The task's new virtual start time value. When supplied, the Task takes on the specified virtual start time. Value can't be in the future or before the year of 1900.
 
         :returns: The updated TaskInstance
         """
+
         data = values.of(
             {
                 "Attributes": attributes,
@@ -435,11 +450,16 @@ class TaskContext(InstanceContext):
                 "VirtualStartTime": serialize.iso8601_datetime(virtual_start_time),
             }
         )
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            if_match is values.unset or (isinstance(if_match, str) and not if_match)
+        ):
+            headers["If-Match"] = if_match
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -534,9 +554,9 @@ class TaskList(ListResource):
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel by passing either its `unique_name` or `sid`. Default value is `default`.
         :param workflow_sid: The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
         :param attributes: A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
-        :param virtual_start_time: The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can't be in the future.
+        :param virtual_start_time: The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can't be in the future or before the year of 1900.
         :param routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
-        :param ignore_capacity: A boolean indicating if a new task should respect a worker's capacity during assignment
+        :param ignore_capacity: A boolean that indicates if the Task should respect a Worker's capacity and availability during assignment. This field can only be used when the `RoutingTarget` field is set to a Worker SID. By setting `IgnoreCapacity` to a value of `true`, `1`, or `yes`, the Task will be routed to the Worker without respecting their capacity and availability. Any other value will enforce the Worker's capacity and availability. The default value of `IgnoreCapacity` is `true` when the `RoutingTarget` is set to a Worker SID.
         :param task_queue_sid: The SID of the TaskQueue in which the Task belongs
 
         :returns: The created TaskInstance
@@ -556,6 +576,10 @@ class TaskList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -585,9 +609,9 @@ class TaskList(ListResource):
         :param task_channel: When MultiTasking is enabled, specify the TaskChannel by passing either its `unique_name` or `sid`. Default value is `default`.
         :param workflow_sid: The SID of the Workflow that you would like to handle routing for the new Task. If there is only one Workflow defined for the Workspace that you are posting the new task to, this parameter is optional.
         :param attributes: A URL-encoded JSON string with the attributes of the new task. This value is passed to the Workflow's `assignment_callback_url` when the Task is assigned to a Worker. For example: `{ \\\"task_type\\\": \\\"call\\\", \\\"twilio_call_sid\\\": \\\"CAxxx\\\", \\\"customer_ticket_number\\\": \\\"12345\\\" }`.
-        :param virtual_start_time: The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can't be in the future.
+        :param virtual_start_time: The virtual start time to assign the new task and override the default. When supplied, the new task will have this virtual start time. When not supplied, the new task will have the virtual start time equal to `date_created`. Value can't be in the future or before the year of 1900.
         :param routing_target: A SID of a Worker, Queue, or Workflow to route a Task to
-        :param ignore_capacity: A boolean indicating if a new task should respect a worker's capacity during assignment
+        :param ignore_capacity: A boolean that indicates if the Task should respect a Worker's capacity and availability during assignment. This field can only be used when the `RoutingTarget` field is set to a Worker SID. By setting `IgnoreCapacity` to a value of `true`, `1`, or `yes`, the Task will be routed to the Worker without respecting their capacity and availability. Any other value will enforce the Worker's capacity and availability. The default value of `IgnoreCapacity` is `true` when the `RoutingTarget` is set to a Worker SID.
         :param task_queue_sid: The SID of the TaskQueue in which the Task belongs
 
         :returns: The created TaskInstance
@@ -607,6 +631,10 @@ class TaskList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -897,7 +925,13 @@ class TaskList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return TaskPage(self._version, response, self._solution)
 
     async def page_async(
@@ -954,8 +988,12 @@ class TaskList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return TaskPage(self._version, response, self._solution)
 

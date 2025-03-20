@@ -198,7 +198,13 @@ class PluginContext(InstanceContext):
             }
         )
 
-        payload = self._version.fetch(method="GET", uri=self._uri, params=data)
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
 
         return PluginInstance(
             self._version,
@@ -223,8 +229,12 @@ class PluginContext(InstanceContext):
             }
         )
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
 
         return PluginInstance(
@@ -248,17 +258,24 @@ class PluginContext(InstanceContext):
 
         :returns: The updated PluginInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "Description": description,
             }
         )
-        headers = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            flex_metadata is values.unset
+            or (isinstance(flex_metadata, str) and not flex_metadata)
+        ):
+            headers["Flex-Metadata"] = flex_metadata
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -281,17 +298,24 @@ class PluginContext(InstanceContext):
 
         :returns: The updated PluginInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
                 "Description": description,
             }
         )
-        headers = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-            }
-        )
+        headers = values.of({})
+
+        if not (
+            flex_metadata is values.unset
+            or (isinstance(flex_metadata, str) and not flex_metadata)
+        ):
+            headers["Flex-Metadata"] = flex_metadata
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -385,6 +409,10 @@ class PluginList(ListResource):
             }
         )
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -422,6 +450,10 @@ class PluginList(ListResource):
                 "Content-Type": "application/x-www-form-urlencoded",
             }
         )
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -571,7 +603,18 @@ class PluginList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of(
+            {
+                "Flex-Metadata": flex_metadata,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return PluginPage(self._version, response)
 
     async def page_async(
@@ -601,8 +644,17 @@ class PluginList(ListResource):
             }
         )
 
+        headers = values.of(
+            {
+                "Flex-Metadata": flex_metadata,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return PluginPage(self._version, response)
 

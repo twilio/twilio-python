@@ -172,10 +172,10 @@ class SigningKeyContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        return self._version.delete(
-            method="DELETE",
-            uri=self._uri,
-        )
+
+        headers = values.of({})
+
+        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -184,9 +184,11 @@ class SigningKeyContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+
+        headers = values.of({})
+
         return await self._version.delete_async(
-            method="DELETE",
-            uri=self._uri,
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> SigningKeyInstance:
@@ -197,10 +199,11 @@ class SigningKeyContext(InstanceContext):
         :returns: The fetched SigningKeyInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return SigningKeyInstance(
             self._version,
@@ -217,9 +220,12 @@ class SigningKeyContext(InstanceContext):
         :returns: The fetched SigningKeyInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return SigningKeyInstance(
@@ -239,16 +245,20 @@ class SigningKeyContext(InstanceContext):
 
         :returns: The updated SigningKeyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return SigningKeyInstance(
@@ -268,16 +278,20 @@ class SigningKeyContext(InstanceContext):
 
         :returns: The updated SigningKeyInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return SigningKeyInstance(
@@ -463,7 +477,13 @@ class SigningKeyList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return SigningKeyPage(self._version, response, self._solution)
 
     async def page_async(
@@ -490,8 +510,12 @@ class SigningKeyList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return SigningKeyPage(self._version, response, self._solution)
 

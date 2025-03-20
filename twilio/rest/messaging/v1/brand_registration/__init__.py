@@ -46,7 +46,9 @@ class BrandRegistrationInstance(InstanceResource):
         APPROVED = "APPROVED"
         FAILED = "FAILED"
         IN_REVIEW = "IN_REVIEW"
-        DELETED = "DELETED"
+        DELETION_PENDING = "DELETION_PENDING"
+        DELETION_FAILED = "DELETION_FAILED"
+        SUSPENDED = "SUSPENDED"
 
     """
     :ivar sid: The unique string to identify Brand Registration.
@@ -225,10 +227,11 @@ class BrandRegistrationContext(InstanceContext):
         :returns: The fetched BrandRegistrationInstance
         """
 
-        payload = self._version.fetch(
-            method="GET",
-            uri=self._uri,
-        )
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return BrandRegistrationInstance(
             self._version,
@@ -244,9 +247,12 @@ class BrandRegistrationContext(InstanceContext):
         :returns: The fetched BrandRegistrationInstance
         """
 
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
         payload = await self._version.fetch_async(
-            method="GET",
-            uri=self._uri,
+            method="GET", uri=self._uri, headers=headers
         )
 
         return BrandRegistrationInstance(
@@ -262,12 +268,14 @@ class BrandRegistrationContext(InstanceContext):
 
         :returns: The updated BrandRegistrationInstance
         """
+
         data = values.of({})
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
 
         payload = self._version.update(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return BrandRegistrationInstance(
@@ -281,12 +289,14 @@ class BrandRegistrationContext(InstanceContext):
 
         :returns: The updated BrandRegistrationInstance
         """
+
         data = values.of({})
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.update_async(
-            method="POST",
-            uri=self._uri,
-            data=data,
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return BrandRegistrationInstance(
@@ -392,6 +402,10 @@ class BrandRegistrationList(ListResource):
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
         payload = self._version.create(
             method="POST", uri=self._uri, data=data, headers=headers
         )
@@ -430,6 +444,10 @@ class BrandRegistrationList(ListResource):
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
             method="POST", uri=self._uri, data=data, headers=headers
@@ -564,7 +582,13 @@ class BrandRegistrationList(ListResource):
             }
         )
 
-        response = self._version.page(method="GET", uri=self._uri, params=data)
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response = self._version.page(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
         return BrandRegistrationPage(self._version, response)
 
     async def page_async(
@@ -591,8 +615,12 @@ class BrandRegistrationList(ListResource):
             }
         )
 
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
         response = await self._version.page_async(
-            method="GET", uri=self._uri, params=data
+            method="GET", uri=self._uri, params=data, headers=headers
         )
         return BrandRegistrationPage(self._version, response)
 
