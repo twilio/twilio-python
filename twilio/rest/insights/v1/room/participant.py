@@ -43,7 +43,9 @@ class ParticipantInstance(InstanceResource):
 
     class RoomStatus(object):
         IN_PROGRESS = "in_progress"
+        CONNECTED = "connected"
         COMPLETED = "completed"
+        DISCONNECTED = "disconnected"
 
     class TwilioRealm(object):
         US1 = "us1"
@@ -58,6 +60,16 @@ class ParticipantInstance(InstanceResource):
         GLL = "gll"
         STAGE_US1 = "stage_us1"
         DEV_US1 = "dev_us1"
+        STAGE_AU1 = "stage_au1"
+        STAGE_SG1 = "stage_sg1"
+        STAGE_BR1 = "stage_br1"
+        STAGE_IN1 = "stage_in1"
+        STAGE_JP1 = "stage_jp1"
+        STAGE_DE1 = "stage_de1"
+        STAGE_IE1 = "stage_ie1"
+        STAGE_US2 = "stage_us2"
+        DEV_US2 = "dev_us2"
+        OUTSIDE = "outside"
 
     """
     :ivar participant_sid: Unique identifier for the participant.

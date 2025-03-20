@@ -51,7 +51,7 @@ class ConferenceInstance(InstanceResource):
     :ivar date_updated: The date and time in UTC that this resource was last updated, specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar api_version: The API version used to create this conference.
     :ivar friendly_name: A string that you assigned to describe this conference room. Maximum length is 128 characters.
-    :ivar region: A string that represents the Twilio Region where the conference audio was mixed. May be `us1`, `ie1`,  `de1`, `sg1`, `br1`, `au1`, and `jp1`. Basic conference audio will always be mixed in `us1`. Global Conference audio will be mixed nearest to the majority of participants.
+    :ivar region: A string that represents the Twilio Region where the conference audio was mixed. May be `us1`, `us2`, `ie1`,  `de1`, `sg1`, `br1`, `au1`, and `jp1`. Basic conference audio will always be mixed in `us1`. Global Conference audio will be mixed nearest to the majority of participants.
     :ivar sid: The unique, Twilio-provided string used to identify this Conference resource.
     :ivar status: 
     :ivar uri: The URI of this resource, relative to `https://api.twilio.com`.

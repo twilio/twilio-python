@@ -18,6 +18,7 @@ from twilio.base.domain import Domain
 from twilio.rest.iam.v1.api_key import ApiKeyList
 from twilio.rest.iam.v1.get_api_keys import GetApiKeysList
 from twilio.rest.iam.v1.new_api_key import NewApiKeyList
+from twilio.rest.iam.v1.token import TokenList
 
 
 class V1(Version):
@@ -32,6 +33,7 @@ class V1(Version):
         self._api_key: Optional[ApiKeyList] = None
         self._get_api_keys: Optional[GetApiKeysList] = None
         self._new_api_key: Optional[NewApiKeyList] = None
+        self._token: Optional[TokenList] = None
 
     @property
     def api_key(self) -> ApiKeyList:
@@ -50,6 +52,12 @@ class V1(Version):
         if self._new_api_key is None:
             self._new_api_key = NewApiKeyList(self)
         return self._new_api_key
+
+    @property
+    def token(self) -> TokenList:
+        if self._token is None:
+            self._token = TokenList(self)
+        return self._token
 
     def __repr__(self) -> str:
         """
