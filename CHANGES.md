@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-04-09] Version 8.0.0-rc.2
+--------------------------
+**Library**
+- Test Release must not be used
+
+
 [2025-04-07] Version 9.5.2
 --------------------------
 **Studio**
