@@ -193,6 +193,8 @@ The library automatically handles paging for you. Collections, such as `calls` a
 
 `list` eagerly fetches all records and returns them as a list, whereas `stream` returns an iterator and lazily retrieves pages of records as you iterate over the collection. You can also page manually using the `page` method.
 
+`pagesize` as a parameter is used to tell how many records should we get in every page and `limit` parameter is used to limit the max number of records we want to fetch.
+
 #### Use the `list` method
 
 ```python
@@ -205,6 +207,21 @@ client = Client(account_sid, auth_token)
 for sms in client.messages.list():
   print(sms.to)
 ```
+
+```python
+client.messages.list(limit=20, page_size=20)
+```
+This will make 1 call that will fetch 20 records from backend service.
+
+```python
+client.messages.list(limit=20, page_size=10)
+```
+This will make 2 calls that will fetch 10 records each from backend service.
+
+```python
+client.messages.list(limit=20, page_size=100)
+```
+This  will make 1 call which will fetch 100 records but user will get only 20 records.
 
 ### Asynchronous API Requests
 
