@@ -193,7 +193,7 @@ The library automatically handles paging for you. Collections, such as `calls` a
 
 `list` eagerly fetches all records and returns them as a list, whereas `stream` returns an iterator and lazily retrieves pages of records as you iterate over the collection. You can also page manually using the `page` method.
 
-`pagesize` as a parameter is used to tell how many records should we get in every page and `limit` parameter is used to limit the max number of records we want to fetch.
+`page_size` as a parameter is used to tell how many records should we get in every page and `limit` parameter is used to limit the max number of records we want to fetch.
 
 #### Use the `list` method
 
