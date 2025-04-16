@@ -1,0 +1,21 @@
+# app.py
+from flask import Flask, request
+from twilio.twiml.messaging_response import MessagingResponse
+
+app = Flask(__name__)
+
+@app.route("/webhook", methods=["POST"])
+def whatsapp_webhook():
+    incoming_msg = request.values.get('Body', '').lower()
+    resp = MessagingResponse()
+    msg = resp.message()
+
+    if 'привет' in incoming_msg:
+        msg.body("Привет! Вы заказчик или исполнитель?")
+    else:
+        msg.body("Я не понял. Напиши 'привет' для начала.")
+
+    return str(resp)
+
+if __name__ == "__main__":
+    app.run()
