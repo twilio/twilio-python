@@ -16,12 +16,12 @@ def example():
     """
     Some example usage of using organization resources
     """
-    self.client = Client(
+    client = Client(
         account_sid=ACCOUNT_SID,
         credential_provider=OrgsCredentialProvider(CLIENT_ID, CLIENT_SECRET),
     )
 
-    accounts = self.client.preview_iam.organization(
+    accounts = client.preview_iam.organization(
         organization_sid=ORGS_SID
     ).accounts.stream()
     for record in accounts:
