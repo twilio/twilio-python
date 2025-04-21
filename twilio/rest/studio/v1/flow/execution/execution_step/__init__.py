@@ -31,6 +31,7 @@ class ExecutionStepInstance(InstanceResource):
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the ExecutionStep resource.
     :ivar flow_sid: The SID of the Flow.
     :ivar execution_sid: The SID of the Step's Execution resource.
+    :ivar parent_step_sid: This field shows the Step SID of the Widget in the parent Flow that started the Subflow. If this Step is not part of a Subflow execution, the value is null.
     :ivar name: The event that caused the Flow to transition to the Step.
     :ivar context: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
     :ivar transitioned_from: The Widget that preceded the Widget for the Step.
@@ -55,6 +56,7 @@ class ExecutionStepInstance(InstanceResource):
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.flow_sid: Optional[str] = payload.get("flow_sid")
         self.execution_sid: Optional[str] = payload.get("execution_sid")
+        self.parent_step_sid: Optional[str] = payload.get("parent_step_sid")
         self.name: Optional[str] = payload.get("name")
         self.context: Optional[Dict[str, object]] = payload.get("context")
         self.transitioned_from: Optional[str] = payload.get("transitioned_from")

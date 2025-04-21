@@ -619,6 +619,7 @@ class AddressList(ListResource):
         self,
         customer_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -631,6 +632,7 @@ class AddressList(ListResource):
 
         :param str customer_name: The `customer_name` of the Address resources to read.
         :param str friendly_name: The string that identifies the Address resources to read.
+        :param bool emergency_enabled: Whether the address can be associated to a number for emergency calling.
         :param str iso_country: The ISO country code of the Address resources to read.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -645,6 +647,7 @@ class AddressList(ListResource):
         page = self.page(
             customer_name=customer_name,
             friendly_name=friendly_name,
+            emergency_enabled=emergency_enabled,
             iso_country=iso_country,
             page_size=limits["page_size"],
         )
@@ -655,6 +658,7 @@ class AddressList(ListResource):
         self,
         customer_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -667,6 +671,7 @@ class AddressList(ListResource):
 
         :param str customer_name: The `customer_name` of the Address resources to read.
         :param str friendly_name: The string that identifies the Address resources to read.
+        :param bool emergency_enabled: Whether the address can be associated to a number for emergency calling.
         :param str iso_country: The ISO country code of the Address resources to read.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -681,6 +686,7 @@ class AddressList(ListResource):
         page = await self.page_async(
             customer_name=customer_name,
             friendly_name=friendly_name,
+            emergency_enabled=emergency_enabled,
             iso_country=iso_country,
             page_size=limits["page_size"],
         )
@@ -691,6 +697,7 @@ class AddressList(ListResource):
         self,
         customer_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -702,6 +709,7 @@ class AddressList(ListResource):
 
         :param str customer_name: The `customer_name` of the Address resources to read.
         :param str friendly_name: The string that identifies the Address resources to read.
+        :param bool emergency_enabled: Whether the address can be associated to a number for emergency calling.
         :param str iso_country: The ISO country code of the Address resources to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -716,6 +724,7 @@ class AddressList(ListResource):
             self.stream(
                 customer_name=customer_name,
                 friendly_name=friendly_name,
+                emergency_enabled=emergency_enabled,
                 iso_country=iso_country,
                 limit=limit,
                 page_size=page_size,
@@ -726,6 +735,7 @@ class AddressList(ListResource):
         self,
         customer_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
@@ -737,6 +747,7 @@ class AddressList(ListResource):
 
         :param str customer_name: The `customer_name` of the Address resources to read.
         :param str friendly_name: The string that identifies the Address resources to read.
+        :param bool emergency_enabled: Whether the address can be associated to a number for emergency calling.
         :param str iso_country: The ISO country code of the Address resources to read.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -752,6 +763,7 @@ class AddressList(ListResource):
             async for record in await self.stream_async(
                 customer_name=customer_name,
                 friendly_name=friendly_name,
+                emergency_enabled=emergency_enabled,
                 iso_country=iso_country,
                 limit=limit,
                 page_size=page_size,
@@ -762,6 +774,7 @@ class AddressList(ListResource):
         self,
         customer_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
@@ -773,6 +786,7 @@ class AddressList(ListResource):
 
         :param customer_name: The `customer_name` of the Address resources to read.
         :param friendly_name: The string that identifies the Address resources to read.
+        :param emergency_enabled: Whether the address can be associated to a number for emergency calling.
         :param iso_country: The ISO country code of the Address resources to read.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -784,6 +798,7 @@ class AddressList(ListResource):
             {
                 "CustomerName": customer_name,
                 "FriendlyName": friendly_name,
+                "EmergencyEnabled": serialize.boolean_to_string(emergency_enabled),
                 "IsoCountry": iso_country,
                 "PageToken": page_token,
                 "Page": page_number,
@@ -804,6 +819,7 @@ class AddressList(ListResource):
         self,
         customer_name: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
         iso_country: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
@@ -815,6 +831,7 @@ class AddressList(ListResource):
 
         :param customer_name: The `customer_name` of the Address resources to read.
         :param friendly_name: The string that identifies the Address resources to read.
+        :param emergency_enabled: Whether the address can be associated to a number for emergency calling.
         :param iso_country: The ISO country code of the Address resources to read.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -826,6 +843,7 @@ class AddressList(ListResource):
             {
                 "CustomerName": customer_name,
                 "FriendlyName": friendly_name,
+                "EmergencyEnabled": serialize.boolean_to_string(emergency_enabled),
                 "IsoCountry": iso_country,
                 "PageToken": page_token,
                 "Page": page_number,

@@ -26,6 +26,7 @@ class BrandVettingInstance(InstanceResource):
 
     class VettingProvider(object):
         CAMPAIGN_VERIFY = "campaign-verify"
+        AEGIS = "aegis"
 
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the vetting record.

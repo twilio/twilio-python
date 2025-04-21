@@ -30,6 +30,7 @@ class SinkInstance(InstanceResource):
         KINESIS = "kinesis"
         WEBHOOK = "webhook"
         SEGMENT = "segment"
+        EMAIL = "email"
 
     class Status(object):
         INITIALIZED = "initialized"

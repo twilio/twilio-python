@@ -31,6 +31,7 @@ class ParticipantInstance(InstanceResource):
     class Status(object):
         CONNECTED = "connected"
         DISCONNECTED = "disconnected"
+        RECONNECTING = "reconnecting"
 
     """
     :ivar sid: The unique string that we created to identify the RoomParticipant resource.
