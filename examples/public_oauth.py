@@ -17,12 +17,12 @@ def example():
     """
     Some example usage of message resources.
     """
-    self.client = Client(
+    client = Client(
         account_sid=ACCOUNT_SID,
         credential_provider=ClientCredentialProvider(CLIENT_ID, CLIENT_SECRET),
     )
 
-    msg = self.client.messages.create(
+    msg = client.messages.create(
         to=self.to_number, from_=self.from_number, body="hello world"
     )
 
