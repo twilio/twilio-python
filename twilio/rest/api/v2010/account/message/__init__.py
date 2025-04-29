@@ -520,6 +520,7 @@ class MessageList(ListResource):
         body: Union[str, object] = values.unset,
         media_url: Union[List[str], object] = values.unset,
         content_sid: Union[str, object] = values.unset,
+        message_intent: Union[str, object] = values.unset,
     ) -> MessageInstance:
         """
         Create the MessageInstance
@@ -548,7 +549,8 @@ class MessageList(ListResource):
         :param body: The text content of the outgoing message. Can be up to 1,600 characters in length. SMS only: If the `body` contains more than 160 [GSM-7](https://www.twilio.com/docs/glossary/what-is-gsm-7-character-encoding) characters (or 70 [UCS-2](https://www.twilio.com/docs/glossary/what-is-ucs-2-character-encoding) characters), the message is segmented and charged accordingly. For long `body` text, consider using the [send_as_mms parameter](https://www.twilio.com/blog/mms-for-long-text-messages).
         :param media_url: The URL of media to include in the Message content. `jpeg`, `jpg`, `gif`, and `png` file types are fully supported by Twilio and content is formatted for delivery on destination devices. The media size limit is 5 MB for supported file types (`jpeg`, `jpg`, `png`, `gif`) and 500 KB for [other types](https://www.twilio.com/docs/messaging/guides/accepted-mime-types) of accepted media. To send more than one image in the message, provide multiple `media_url` parameters in the POST request. You can include up to ten `media_url` parameters per message. [International](https://support.twilio.com/hc/en-us/articles/223179808-Sending-and-receiving-MMS-messages) and [carrier](https://support.twilio.com/hc/en-us/articles/223133707-Is-MMS-supported-for-all-carriers-in-US-and-Canada-) limits apply.
         :param content_sid: For [Content Editor/API](https://www.twilio.com/docs/content) only: The SID of the Content Template to be used with the Message, e.g., `HXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`. If this parameter is not provided, a Content Template is not used. Find the SID in the Console on the Content Editor page. For Content API users, the SID is found in Twilio's response when [creating the Template](https://www.twilio.com/docs/content/content-api-resources#create-templates) or by [fetching your Templates](https://www.twilio.com/docs/content/content-api-resources#fetch-all-content-resources).
-
+        :param message_intent: Used for [Traffic Shaping](https://www.twilio.com/docs/messaging/features/traffic-shaping#assign-a-messages-service-level) message service level.
+        
         :returns: The created MessageInstance
         """
 
@@ -578,6 +580,7 @@ class MessageList(ListResource):
                 "Body": body,
                 "MediaUrl": serialize.map(media_url, lambda e: e),
                 "ContentSid": content_sid,
+                "MessageIntent": message_intent,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
