@@ -44,7 +44,9 @@ class TokenAuthStrategy(AuthStrategy):
                 return True  # No expiration time present, consider it expired
 
             # Check if the expiration time has passed by using time-zone
-            return datetime.fromtimestamp(exp, tz = timezone.utc) < datetime.now(timezone.utc)
+            return datetime.fromtimestamp(exp, tz=timezone.utc) < datetime.now(
+                timezone.utc
+            )
 
         except jwt.DecodeError:
             return True  # Token is invalid

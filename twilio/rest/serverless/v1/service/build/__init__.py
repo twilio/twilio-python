@@ -34,6 +34,8 @@ class BuildInstance(InstanceResource):
         NODE14 = "node14"
         NODE16 = "node16"
         NODE18 = "node18"
+        NODE20 = "node20"
+        NODE22 = "node22"
 
     class Status(object):
         BUILDING = "building"
