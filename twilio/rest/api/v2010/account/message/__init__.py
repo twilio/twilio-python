@@ -62,6 +62,9 @@ class MessageInstance(InstanceResource):
         PARTIALLY_DELIVERED = "partially_delivered"
         CANCELED = "canceled"
 
+    class TrafficType(object):
+        FREE = "free"
+
     class UpdateStatus(object):
         CANCELED = "canceled"
 
@@ -505,6 +508,7 @@ class MessageList(ListResource):
         ] = values.unset,
         smart_encoded: Union[bool, object] = values.unset,
         persistent_action: Union[List[str], object] = values.unset,
+        traffic_type: Union["MessageInstance.TrafficType", object] = values.unset,
         shorten_urls: Union[bool, object] = values.unset,
         schedule_type: Union["MessageInstance.ScheduleType", object] = values.unset,
         send_at: Union[datetime, object] = values.unset,
@@ -532,6 +536,7 @@ class MessageList(ListResource):
         :param address_retention:
         :param smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
         :param persistent_action: Rich actions for non-SMS/MMS channels. Used for [sending location in WhatsApp messages](https://www.twilio.com/docs/whatsapp/message-features#location-messages-with-whatsapp).
+        :param traffic_type:
         :param shorten_urls: For Messaging Services with [Link Shortening configured](https://www.twilio.com/docs/messaging/features/link-shortening) only: A Boolean indicating whether or not Twilio should shorten links in the `body` of the Message. Default value is `false`. If `true`, the `messaging_service_sid` parameter must also be provided.
         :param schedule_type:
         :param send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
@@ -561,6 +566,7 @@ class MessageList(ListResource):
                 "AddressRetention": address_retention,
                 "SmartEncoded": serialize.boolean_to_string(smart_encoded),
                 "PersistentAction": serialize.map(persistent_action, lambda e: e),
+                "TrafficType": traffic_type,
                 "ShortenUrls": serialize.boolean_to_string(shorten_urls),
                 "ScheduleType": schedule_type,
                 "SendAt": serialize.iso8601_datetime(send_at),
@@ -606,6 +612,7 @@ class MessageList(ListResource):
         ] = values.unset,
         smart_encoded: Union[bool, object] = values.unset,
         persistent_action: Union[List[str], object] = values.unset,
+        traffic_type: Union["MessageInstance.TrafficType", object] = values.unset,
         shorten_urls: Union[bool, object] = values.unset,
         schedule_type: Union["MessageInstance.ScheduleType", object] = values.unset,
         send_at: Union[datetime, object] = values.unset,
@@ -633,6 +640,7 @@ class MessageList(ListResource):
         :param address_retention:
         :param smart_encoded: Whether to detect Unicode characters that have a similar GSM-7 character and replace them. Can be: `true` or `false`.
         :param persistent_action: Rich actions for non-SMS/MMS channels. Used for [sending location in WhatsApp messages](https://www.twilio.com/docs/whatsapp/message-features#location-messages-with-whatsapp).
+        :param traffic_type:
         :param shorten_urls: For Messaging Services with [Link Shortening configured](https://www.twilio.com/docs/messaging/features/link-shortening) only: A Boolean indicating whether or not Twilio should shorten links in the `body` of the Message. Default value is `false`. If `true`, the `messaging_service_sid` parameter must also be provided.
         :param schedule_type:
         :param send_at: The time that Twilio will send the message. Must be in ISO 8601 format.
@@ -662,6 +670,7 @@ class MessageList(ListResource):
                 "AddressRetention": address_retention,
                 "SmartEncoded": serialize.boolean_to_string(smart_encoded),
                 "PersistentAction": serialize.map(persistent_action, lambda e: e),
+                "TrafficType": traffic_type,
                 "ShortenUrls": serialize.boolean_to_string(shorten_urls),
                 "ScheduleType": schedule_type,
                 "SendAt": serialize.iso8601_datetime(send_at),

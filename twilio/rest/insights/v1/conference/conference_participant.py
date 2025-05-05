@@ -62,6 +62,7 @@ class ConferenceParticipantInstance(InstanceResource):
         JP1 = "jp1"
         SG1 = "sg1"
         DE1 = "de1"
+        IN1 = "in1"
 
     """
     :ivar participant_sid: SID for this participant.

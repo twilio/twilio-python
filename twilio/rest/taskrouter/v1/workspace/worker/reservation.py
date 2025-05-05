@@ -241,7 +241,7 @@ class ReservationInstance(InstanceResource):
         :param recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
         :param conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
         :param conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+        :param region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
         :param sip_auth_username: The SIP username used for authentication.
         :param sip_auth_password: The SIP password for authentication.
         :param dequeue_status_callback_event: The call progress events sent via webhooks as a result of a Dequeue instruction.
@@ -416,7 +416,7 @@ class ReservationInstance(InstanceResource):
         :param recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
         :param conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
         :param conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+        :param region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
         :param sip_auth_username: The SIP username used for authentication.
         :param sip_auth_password: The SIP password for authentication.
         :param dequeue_status_callback_event: The call progress events sent via webhooks as a result of a Dequeue instruction.
@@ -670,7 +670,7 @@ class ReservationContext(InstanceContext):
         :param recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
         :param conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
         :param conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+        :param region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
         :param sip_auth_username: The SIP username used for authentication.
         :param sip_auth_password: The SIP password for authentication.
         :param dequeue_status_callback_event: The call progress events sent via webhooks as a result of a Dequeue instruction.
@@ -883,7 +883,7 @@ class ReservationContext(InstanceContext):
         :param recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
         :param conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
         :param conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
-        :param region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+        :param region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
         :param sip_auth_username: The SIP username used for authentication.
         :param sip_auth_password: The SIP password for authentication.
         :param dequeue_status_callback_event: The call progress events sent via webhooks as a result of a Dequeue instruction.

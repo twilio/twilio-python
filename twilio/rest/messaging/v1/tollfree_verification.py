@@ -31,6 +31,7 @@ class TollfreeVerificationInstance(InstanceResource):
         VIA_TEXT = "VIA_TEXT"
         MOBILE_QR_CODE = "MOBILE_QR_CODE"
         IMPORT = "IMPORT"
+        IMPORT_PLEASE_REPLACE = "IMPORT_PLEASE_REPLACE"
 
     class Status(object):
         PENDING_REVIEW = "PENDING_REVIEW"

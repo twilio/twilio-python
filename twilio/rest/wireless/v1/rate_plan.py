@@ -23,6 +23,11 @@ from twilio.base.page import Page
 
 
 class RatePlanInstance(InstanceResource):
+
+    class DataLimitStrategy(object):
+        BLOCK = "block"
+        THROTTLE = "throttle"
+
     """
     :ivar sid: The unique string that we created to identify the RatePlan resource.
     :ivar unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
@@ -382,6 +387,9 @@ class RatePlanList(ListResource):
         international_roaming: Union[List[str], object] = values.unset,
         national_roaming_data_limit: Union[int, object] = values.unset,
         international_roaming_data_limit: Union[int, object] = values.unset,
+        data_limit_strategy: Union[
+            "RatePlanInstance.DataLimitStrategy", object
+        ] = values.unset,
     ) -> RatePlanInstance:
         """
         Create the RatePlanInstance
@@ -397,6 +405,7 @@ class RatePlanList(ListResource):
         :param international_roaming: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
         :param national_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource#national-roaming) for more info.
         :param international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
+        :param data_limit_strategy:
 
         :returns: The created RatePlanInstance
         """
@@ -418,6 +427,7 @@ class RatePlanList(ListResource):
                 ),
                 "NationalRoamingDataLimit": national_roaming_data_limit,
                 "InternationalRoamingDataLimit": international_roaming_data_limit,
+                "DataLimitStrategy": data_limit_strategy,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -445,6 +455,9 @@ class RatePlanList(ListResource):
         international_roaming: Union[List[str], object] = values.unset,
         national_roaming_data_limit: Union[int, object] = values.unset,
         international_roaming_data_limit: Union[int, object] = values.unset,
+        data_limit_strategy: Union[
+            "RatePlanInstance.DataLimitStrategy", object
+        ] = values.unset,
     ) -> RatePlanInstance:
         """
         Asynchronously create the RatePlanInstance
@@ -460,6 +473,7 @@ class RatePlanList(ListResource):
         :param international_roaming: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
         :param national_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource#national-roaming) for more info.
         :param international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
+        :param data_limit_strategy:
 
         :returns: The created RatePlanInstance
         """
@@ -481,6 +495,7 @@ class RatePlanList(ListResource):
                 ),
                 "NationalRoamingDataLimit": national_roaming_data_limit,
                 "InternationalRoamingDataLimit": international_roaming_data_limit,
+                "DataLimitStrategy": data_limit_strategy,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})

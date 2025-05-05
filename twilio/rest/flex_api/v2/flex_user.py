@@ -30,11 +30,8 @@ class FlexUserInstance(InstanceResource):
     :ivar worker_sid: The unique SID identifier of the worker.
     :ivar workspace_sid: The unique SID identifier of the workspace.
     :ivar flex_team_sid: The unique SID identifier of the Flex Team.
-    :ivar first_name: First name of the User.
-    :ivar last_name: Last name of the User.
     :ivar username: Username of the User.
     :ivar email: Email of the User.
-    :ivar friendly_name: Friendly name of the User.
     :ivar locale: The locale preference of the user.
     :ivar roles: The roles of the user.
     :ivar created_date: The date that this user was created, given in ISO 8601 format.
@@ -59,11 +56,8 @@ class FlexUserInstance(InstanceResource):
         self.worker_sid: Optional[str] = payload.get("worker_sid")
         self.workspace_sid: Optional[str] = payload.get("workspace_sid")
         self.flex_team_sid: Optional[str] = payload.get("flex_team_sid")
-        self.first_name: Optional[str] = payload.get("first_name")
-        self.last_name: Optional[str] = payload.get("last_name")
         self.username: Optional[str] = payload.get("username")
         self.email: Optional[str] = payload.get("email")
-        self.friendly_name: Optional[str] = payload.get("friendly_name")
         self.locale: Optional[str] = payload.get("locale")
         self.roles: Optional[List[str]] = payload.get("roles")
         self.created_date: Optional[datetime] = deserialize.iso8601_datetime(
@@ -117,60 +111,42 @@ class FlexUserInstance(InstanceResource):
 
     def update(
         self,
-        first_name: Union[str, object] = values.unset,
-        last_name: Union[str, object] = values.unset,
         email: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
         user_sid: Union[str, object] = values.unset,
         locale: Union[str, object] = values.unset,
     ) -> "FlexUserInstance":
         """
         Update the FlexUserInstance
 
-        :param first_name: First name of the User.
-        :param last_name: Last name of the User.
         :param email: Email of the User.
-        :param friendly_name: Friendly name of the User.
         :param user_sid: The unique SID identifier of the Twilio Unified User.
         :param locale: The locale preference of the user.
 
         :returns: The updated FlexUserInstance
         """
         return self._proxy.update(
-            first_name=first_name,
-            last_name=last_name,
             email=email,
-            friendly_name=friendly_name,
             user_sid=user_sid,
             locale=locale,
         )
 
     async def update_async(
         self,
-        first_name: Union[str, object] = values.unset,
-        last_name: Union[str, object] = values.unset,
         email: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
         user_sid: Union[str, object] = values.unset,
         locale: Union[str, object] = values.unset,
     ) -> "FlexUserInstance":
         """
         Asynchronous coroutine to update the FlexUserInstance
 
-        :param first_name: First name of the User.
-        :param last_name: Last name of the User.
         :param email: Email of the User.
-        :param friendly_name: Friendly name of the User.
         :param user_sid: The unique SID identifier of the Twilio Unified User.
         :param locale: The locale preference of the user.
 
         :returns: The updated FlexUserInstance
         """
         return await self._proxy.update_async(
-            first_name=first_name,
-            last_name=last_name,
             email=email,
-            friendly_name=friendly_name,
             user_sid=user_sid,
             locale=locale,
         )
@@ -252,20 +228,14 @@ class FlexUserContext(InstanceContext):
 
     def update(
         self,
-        first_name: Union[str, object] = values.unset,
-        last_name: Union[str, object] = values.unset,
         email: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
         user_sid: Union[str, object] = values.unset,
         locale: Union[str, object] = values.unset,
     ) -> FlexUserInstance:
         """
         Update the FlexUserInstance
 
-        :param first_name: First name of the User.
-        :param last_name: Last name of the User.
         :param email: Email of the User.
-        :param friendly_name: Friendly name of the User.
         :param user_sid: The unique SID identifier of the Twilio Unified User.
         :param locale: The locale preference of the user.
 
@@ -274,10 +244,7 @@ class FlexUserContext(InstanceContext):
 
         data = values.of(
             {
-                "FirstName": first_name,
-                "LastName": last_name,
                 "Email": email,
-                "FriendlyName": friendly_name,
                 "UserSid": user_sid,
                 "Locale": locale,
             }
@@ -301,20 +268,14 @@ class FlexUserContext(InstanceContext):
 
     async def update_async(
         self,
-        first_name: Union[str, object] = values.unset,
-        last_name: Union[str, object] = values.unset,
         email: Union[str, object] = values.unset,
-        friendly_name: Union[str, object] = values.unset,
         user_sid: Union[str, object] = values.unset,
         locale: Union[str, object] = values.unset,
     ) -> FlexUserInstance:
         """
         Asynchronous coroutine to update the FlexUserInstance
 
-        :param first_name: First name of the User.
-        :param last_name: Last name of the User.
         :param email: Email of the User.
-        :param friendly_name: Friendly name of the User.
         :param user_sid: The unique SID identifier of the Twilio Unified User.
         :param locale: The locale preference of the user.
 
@@ -323,10 +284,7 @@ class FlexUserContext(InstanceContext):
 
         data = values.of(
             {
-                "FirstName": first_name,
-                "LastName": last_name,
                 "Email": email,
-                "FriendlyName": friendly_name,
                 "UserSid": user_sid,
                 "Locale": locale,
             }

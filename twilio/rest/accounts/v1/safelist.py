@@ -23,7 +23,7 @@ from twilio.base.version import Version
 class SafelistInstance(InstanceResource):
     """
     :ivar sid: The unique string that we created to identify the SafeList resource.
-    :ivar phone_number: The phone number in SafeList.
+    :ivar phone_number: The phone number or phone number 1k prefix in SafeList.
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any]):
@@ -59,7 +59,7 @@ class SafelistList(ListResource):
         """
         Create the SafelistInstance
 
-        :param phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+        :param phone_number: The phone number or phone number 1k prefix to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 
         :returns: The created SafelistInstance
         """
@@ -85,7 +85,7 @@ class SafelistList(ListResource):
         """
         Asynchronously create the SafelistInstance
 
-        :param phone_number: The phone number to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+        :param phone_number: The phone number or phone number 1k prefix to be added in SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
 
         :returns: The created SafelistInstance
         """
@@ -111,7 +111,7 @@ class SafelistList(ListResource):
         """
         Asynchronously delete the SafelistInstance
 
-        :param phone_number: The phone number to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+        :param phone_number: The phone number or phone number 1k prefix to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         :returns: True if delete succeeds, False otherwise
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -131,7 +131,7 @@ class SafelistList(ListResource):
         """
         Asynchronously delete the SafelistInstance
 
-        :param phone_number: The phone number to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+        :param phone_number: The phone number or phone number 1k prefix to be removed from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         :returns: True if delete succeeds, False otherwise
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -151,7 +151,7 @@ class SafelistList(ListResource):
         """
         Asynchronously fetch the SafelistInstance
 
-        :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+        :param phone_number: The phone number or phone number 1k prefix to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         :returns: The fetched SafelistInstance
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -176,7 +176,7 @@ class SafelistList(ListResource):
         """
         Asynchronously fetch the SafelistInstance
 
-        :param phone_number: The phone number to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+        :param phone_number: The phone number or phone number 1k prefix to be fetched from SafeList. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
         :returns: The fetched SafelistInstance
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})

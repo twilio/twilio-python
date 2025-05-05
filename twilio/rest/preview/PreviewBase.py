@@ -14,7 +14,6 @@ from typing import Optional
 from twilio.base.domain import Domain
 from twilio.rest import Client
 from twilio.rest.preview.hosted_numbers import HostedNumbers
-from twilio.rest.preview.sync import Sync
 from twilio.rest.preview.marketplace import Marketplace
 from twilio.rest.preview.wireless import Wireless
 
@@ -29,7 +28,6 @@ class PreviewBase(Domain):
         """
         super().__init__(twilio, "https://preview.twilio.com")
         self._hosted_numbers: Optional[HostedNumbers] = None
-        self._sync: Optional[Sync] = None
         self._marketplace: Optional[Marketplace] = None
         self._wireless: Optional[Wireless] = None
 
@@ -41,15 +39,6 @@ class PreviewBase(Domain):
         if self._hosted_numbers is None:
             self._hosted_numbers = HostedNumbers(self)
         return self._hosted_numbers
-
-    @property
-    def sync(self) -> Sync:
-        """
-        :returns: Versions sync of Preview
-        """
-        if self._sync is None:
-            self._sync = Sync(self)
-        return self._sync
 
     @property
     def marketplace(self) -> Marketplace:
