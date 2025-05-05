@@ -29,6 +29,7 @@ if TYPE_CHECKING:
     from twilio.rest.insights import Insights
     from twilio.rest.intelligence import Intelligence
     from twilio.rest.ip_messaging import IpMessaging
+    from twilio.rest.knowledge import Knowledge
     from twilio.rest.lookups import Lookups
     from twilio.rest.marketplace import Marketplace
     from twilio.rest.messaging import Messaging
@@ -142,6 +143,7 @@ class Client(ClientBase):
         self._insights: Optional["Insights"] = None
         self._intelligence: Optional["Intelligence"] = None
         self._ip_messaging: Optional["IpMessaging"] = None
+        self._knowledge: Optional["Knowledge"] = None
         self._lookups: Optional["Lookups"] = None
         self._marketplace: Optional["Marketplace"] = None
         self._messaging: Optional["Messaging"] = None
@@ -360,6 +362,19 @@ class Client(ClientBase):
 
             self._ip_messaging = IpMessaging(self)
         return self._ip_messaging
+
+    @property
+    def knowledge(self) -> "Knowledge":
+        """
+        Access the Knowledge Twilio Domain
+
+        :returns: Knowledge Twilio Domain
+        """
+        if self._knowledge is None:
+            from twilio.rest.knowledge import Knowledge
+
+            self._knowledge = Knowledge(self)
+        return self._knowledge
 
     @property
     def lookups(self) -> "Lookups":
