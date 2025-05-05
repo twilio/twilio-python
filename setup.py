@@ -16,7 +16,9 @@ setup(
     version="9.5.2",
     description="Twilio API client and TwiML generator",
     author="Twilio",
-    help_center="https://www.twilio.com/help/contact",
+    project_urls={
+        "Help Center": "https://www.twilio.com/help/contact",
+    },
     url="https://github.com/twilio/twilio-python/",
     keywords=["twilio", "twiml"],
     python_requires=">=3.7.0",
@@ -31,7 +33,6 @@ setup(
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.7",

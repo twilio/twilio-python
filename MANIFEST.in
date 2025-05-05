@@ -1,3 +1,1 @@
-# Include the SSL certificate file in the package distributed by pip
-recursive-include twilio/conf *
 include LICENSE
