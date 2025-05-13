@@ -2748,9 +2748,14 @@ class Connect(TwiML):
         dtmf_detection=None,
         welcome_greeting=None,
         partial_prompts=None,
-        interruptible=None,
-        interrupt_by_dtmf=None,
         welcome_greeting_interruptible=None,
+        interruptible=None,
+        preemptible=None,
+        hints=None,
+        intelligence_service=None,
+        report_input_during_agent_speech=None,
+        elevenlabs_text_normalization=None,
+        interrupt_sensitivity=None,
         debug=None,
         **kwargs
     ):
@@ -2769,10 +2774,15 @@ class Connect(TwiML):
         :param dtmf_detection: Whether DTMF tones should be detected and reported in speech transcription
         :param welcome_greeting: The sentence to be played automatically when the session is connected
         :param partial_prompts: Whether partial prompts should be reported to WebSocket server before the caller finishes speaking
-        :param interruptible: Whether caller's speaking can interrupt the play of text-to-speech
-        :param interrupt_by_dtmf: Whether DTMF tone can interrupt the play of text-to-speech
-        :param welcome_greeting_interruptible: Whether caller's speaking can interrupt the welcome greeting
-        :param debug: Whether debugging on the session is enabled
+        :param welcome_greeting_interruptible: "Whether and how the input from a caller, such as speaking or DTMF can interrupt the welcome greeting
+        :param interruptible: Whether and how the input from a caller, such as speaking or DTMF can interrupt the play of text-to-speech
+        :param preemptible: Whether subsequent text-to-speech or play media can interrupt the on-going play of text-to-speech or media
+        :param hints: Phrases to help better accuracy in speech recognition of these pharases
+        :param intelligence_service: The Conversational Intelligence Service id or unique name to be used for the session
+        :param report_input_during_agent_speech: Whether prompts should be reported to WebSocket server when text-to-speech playing and interrupt is disabled
+        :param elevenlabs_text_normalization: When using ElevenLabs as TTS provider, this parameter allows you to enable or disable its text normalization feature
+        :param interrupt_sensitivity: Set the sensitivity of the interrupt feature for speech. The value can be low, medium, or high
+        :param debug: Multiple debug options to be used for troubleshooting
         :param kwargs: additional attributes
 
         :returns: <ConversationRelay> element
@@ -2791,9 +2801,14 @@ class Connect(TwiML):
                 dtmf_detection=dtmf_detection,
                 welcome_greeting=welcome_greeting,
                 partial_prompts=partial_prompts,
-                interruptible=interruptible,
-                interrupt_by_dtmf=interrupt_by_dtmf,
                 welcome_greeting_interruptible=welcome_greeting_interruptible,
+                interruptible=interruptible,
+                preemptible=preemptible,
+                hints=hints,
+                intelligence_service=intelligence_service,
+                report_input_during_agent_speech=report_input_during_agent_speech,
+                elevenlabs_text_normalization=elevenlabs_text_normalization,
+                interrupt_sensitivity=interrupt_sensitivity,
                 debug=debug,
                 **kwargs
             )
@@ -2813,9 +2828,14 @@ class Connect(TwiML):
         dtmf_detection=None,
         welcome_greeting=None,
         partial_prompts=None,
-        interruptible=None,
-        interrupt_by_dtmf=None,
         welcome_greeting_interruptible=None,
+        interruptible=None,
+        preemptible=None,
+        hints=None,
+        intelligence_service=None,
+        report_input_during_agent_speech=None,
+        elevenlabs_text_normalization=None,
+        interrupt_sensitivity=None,
         debug=None,
         **kwargs
     ):
@@ -2834,10 +2854,15 @@ class Connect(TwiML):
         :param dtmf_detection: Whether DTMF tones should be detected and reported in speech transcription
         :param welcome_greeting: The sentence to be played automatically when the session is connected
         :param partial_prompts: Whether partial prompts should be reported to WebSocket server before the caller finishes speaking
-        :param interruptible: Whether caller's speaking can interrupt the play of text-to-speech
-        :param interrupt_by_dtmf: Whether DTMF tone can interrupt the play of text-to-speech
-        :param welcome_greeting_interruptible: Whether caller's speaking can interrupt the welcome greeting
-        :param debug: Whether debugging on the session is enabled
+        :param welcome_greeting_interruptible: "Whether and how the input from a caller, such as speaking or DTMF can interrupt the welcome greeting
+        :param interruptible: Whether and how the input from a caller, such as speaking or DTMF can interrupt the play of text-to-speech
+        :param preemptible: Whether subsequent text-to-speech or play media can interrupt the on-going play of text-to-speech or media
+        :param hints: Phrases to help better accuracy in speech recognition of these pharases
+        :param intelligence_service: The Conversational Intelligence Service id or unique name to be used for the session
+        :param report_input_during_agent_speech: Whether prompts should be reported to WebSocket server when text-to-speech playing and interrupt is disabled
+        :param elevenlabs_text_normalization: When using ElevenLabs as TTS provider, this parameter allows you to enable or disable its text normalization feature
+        :param interrupt_sensitivity: Set the sensitivity of the interrupt feature for speech. The value can be low, medium, or high
+        :param debug: Multiple debug options to be used for troubleshooting
         :param kwargs: additional attributes
 
         :returns: <Assistant> element
@@ -2856,9 +2881,14 @@ class Connect(TwiML):
                 dtmf_detection=dtmf_detection,
                 welcome_greeting=welcome_greeting,
                 partial_prompts=partial_prompts,
-                interruptible=interruptible,
-                interrupt_by_dtmf=interrupt_by_dtmf,
                 welcome_greeting_interruptible=welcome_greeting_interruptible,
+                interruptible=interruptible,
+                preemptible=preemptible,
+                hints=hints,
+                intelligence_service=intelligence_service,
+                report_input_during_agent_speech=report_input_during_agent_speech,
+                elevenlabs_text_normalization=elevenlabs_text_normalization,
+                interrupt_sensitivity=interrupt_sensitivity,
                 debug=debug,
                 **kwargs
             )
