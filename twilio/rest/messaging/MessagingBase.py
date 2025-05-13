@@ -14,6 +14,7 @@ from typing import Optional
 from twilio.base.domain import Domain
 from twilio.rest import Client
 from twilio.rest.messaging.v1 import V1
+from twilio.rest.messaging.v2 import V2
 
 
 class MessagingBase(Domain):
@@ -26,6 +27,7 @@ class MessagingBase(Domain):
         """
         super().__init__(twilio, "https://messaging.twilio.com")
         self._v1: Optional[V1] = None
+        self._v2: Optional[V2] = None
 
     @property
     def v1(self) -> V1:
@@ -35,6 +37,15 @@ class MessagingBase(Domain):
         if self._v1 is None:
             self._v1 = V1(self)
         return self._v1
+
+    @property
+    def v2(self) -> V2:
+        """
+        :returns: Versions v2 of Messaging
+        """
+        if self._v2 is None:
+            self._v2 = V2(self)
+        return self._v2
 
     def __repr__(self) -> str:
         """

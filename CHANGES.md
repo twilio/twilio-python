@@ -3,6 +3,46 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-05-13] Version 9.6.1
+--------------------------
+**Accounts**
+- Changes to add date_of_consent param in Bulk Consent API
+
+**Api**
+- Change `friendly_name`, `date_created` and `date_updated` properties to type `string`.
+
+**Twiml**
+- Update twiml definition for `<ConversationRelay>` and `<Assistant>`
+
+
+[2025-05-05] Version 9.6.0
+--------------------------
+**Library - Fix**
+- [PR #848](https://github.com/twilio/twilio-python/pull/848): Timezone changes in token_auth_strategy.py. Thanks to [@Pablo2113](https://github.com/Pablo2113)!
+- [PR #853](https://github.com/twilio/twilio-python/pull/853): Fix deprecated/invalid config in `setup.cfg`. Thanks to [@abravalheri](https://github.com/abravalheri)!
+
+**Library - Chore**
+- [PR #858](https://github.com/twilio/twilio-python/pull/858): fix oauth examples. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Library - Docs**
+- [PR #855](https://github.com/twilio/twilio-python/pull/855): update pagination usage in README.md. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Api**
+- Add `response_key` for `Usage Triggers` fetch endpoint.
+
+**Flex**
+- Add Update Interaction API
+- Adding `webhook_ttid` as optional parameter in Interactions API
+
+**Serverless**
+- Add node22 as a valid Build runtime
+- Add node20 as a valid Build runtime
+
+**Video**
+- removed `transcribe_participants_on_connect` and `transcriptions_configuration` from the room resource **(breaking change)**
+- Added `transcribe_participants_on_connect` and `transcriptions_configuration` to the room resource
+
+
 [2025-04-07] Version 9.5.2
 --------------------------
 **Studio**

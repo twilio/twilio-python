@@ -33,7 +33,6 @@ class SubscriptionInstance(InstanceResource):
     :ivar sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
     :ivar url: The URL of this resource.
     :ivar links: Contains a dictionary of URL links to nested resources of this Subscription.
-    :ivar receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
     """
 
     def __init__(
@@ -53,9 +52,6 @@ class SubscriptionInstance(InstanceResource):
         self.sink_sid: Optional[str] = payload.get("sink_sid")
         self.url: Optional[str] = payload.get("url")
         self.links: Optional[Dict[str, object]] = payload.get("links")
-        self.receive_events_from_subaccounts: Optional[bool] = payload.get(
-            "receive_events_from_subaccounts"
-        )
 
         self._solution = {
             "sid": sid or self.sid,
@@ -117,42 +113,36 @@ class SubscriptionInstance(InstanceResource):
         self,
         description: Union[str, object] = values.unset,
         sink_sid: Union[str, object] = values.unset,
-        receive_events_from_subaccounts: Union[bool, object] = values.unset,
     ) -> "SubscriptionInstance":
         """
         Update the SubscriptionInstance
 
         :param description: A human readable description for the Subscription.
         :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
-        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
 
         :returns: The updated SubscriptionInstance
         """
         return self._proxy.update(
             description=description,
             sink_sid=sink_sid,
-            receive_events_from_subaccounts=receive_events_from_subaccounts,
         )
 
     async def update_async(
         self,
         description: Union[str, object] = values.unset,
         sink_sid: Union[str, object] = values.unset,
-        receive_events_from_subaccounts: Union[bool, object] = values.unset,
     ) -> "SubscriptionInstance":
         """
         Asynchronous coroutine to update the SubscriptionInstance
 
         :param description: A human readable description for the Subscription.
         :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
-        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
 
         :returns: The updated SubscriptionInstance
         """
         return await self._proxy.update_async(
             description=description,
             sink_sid=sink_sid,
-            receive_events_from_subaccounts=receive_events_from_subaccounts,
         )
 
     @property
@@ -263,14 +253,12 @@ class SubscriptionContext(InstanceContext):
         self,
         description: Union[str, object] = values.unset,
         sink_sid: Union[str, object] = values.unset,
-        receive_events_from_subaccounts: Union[bool, object] = values.unset,
     ) -> SubscriptionInstance:
         """
         Update the SubscriptionInstance
 
         :param description: A human readable description for the Subscription.
         :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
-        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
 
         :returns: The updated SubscriptionInstance
         """
@@ -279,9 +267,6 @@ class SubscriptionContext(InstanceContext):
             {
                 "Description": description,
                 "SinkSid": sink_sid,
-                "ReceiveEventsFromSubaccounts": serialize.boolean_to_string(
-                    receive_events_from_subaccounts
-                ),
             }
         )
         headers = values.of({})
@@ -300,14 +285,12 @@ class SubscriptionContext(InstanceContext):
         self,
         description: Union[str, object] = values.unset,
         sink_sid: Union[str, object] = values.unset,
-        receive_events_from_subaccounts: Union[bool, object] = values.unset,
     ) -> SubscriptionInstance:
         """
         Asynchronous coroutine to update the SubscriptionInstance
 
         :param description: A human readable description for the Subscription.
         :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
-        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
 
         :returns: The updated SubscriptionInstance
         """
@@ -316,9 +299,6 @@ class SubscriptionContext(InstanceContext):
             {
                 "Description": description,
                 "SinkSid": sink_sid,
-                "ReceiveEventsFromSubaccounts": serialize.boolean_to_string(
-                    receive_events_from_subaccounts
-                ),
             }
         )
         headers = values.of({})
@@ -388,11 +368,7 @@ class SubscriptionList(ListResource):
         self._uri = "/Subscriptions"
 
     def create(
-        self,
-        description: str,
-        sink_sid: str,
-        types: List[object],
-        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        self, description: str, sink_sid: str, types: List[object]
     ) -> SubscriptionInstance:
         """
         Create the SubscriptionInstance
@@ -400,7 +376,6 @@ class SubscriptionList(ListResource):
         :param description: A human readable description for the Subscription **This value should not contain PII.**
         :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
         :param types: An array of objects containing the subscribed Event Types
-        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
 
         :returns: The created SubscriptionInstance
         """
@@ -410,9 +385,6 @@ class SubscriptionList(ListResource):
                 "Description": description,
                 "SinkSid": sink_sid,
                 "Types": serialize.map(types, lambda e: serialize.object(e)),
-                "ReceiveEventsFromSubaccounts": serialize.boolean_to_string(
-                    receive_events_from_subaccounts
-                ),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -428,11 +400,7 @@ class SubscriptionList(ListResource):
         return SubscriptionInstance(self._version, payload)
 
     async def create_async(
-        self,
-        description: str,
-        sink_sid: str,
-        types: List[object],
-        receive_events_from_subaccounts: Union[bool, object] = values.unset,
+        self, description: str, sink_sid: str, types: List[object]
     ) -> SubscriptionInstance:
         """
         Asynchronously create the SubscriptionInstance
@@ -440,7 +408,6 @@ class SubscriptionList(ListResource):
         :param description: A human readable description for the Subscription **This value should not contain PII.**
         :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
         :param types: An array of objects containing the subscribed Event Types
-        :param receive_events_from_subaccounts: Receive events from all children accounts in the parent account subscription.
 
         :returns: The created SubscriptionInstance
         """
@@ -450,9 +417,6 @@ class SubscriptionList(ListResource):
                 "Description": description,
                 "SinkSid": sink_sid,
                 "Types": serialize.map(types, lambda e: serialize.object(e)),
-                "ReceiveEventsFromSubaccounts": serialize.boolean_to_string(
-                    receive_events_from_subaccounts
-                ),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})

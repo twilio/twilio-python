@@ -32,6 +32,7 @@ class InteractionInstance(InstanceResource):
     :ivar url:
     :ivar links:
     :ivar interaction_context_sid:
+    :ivar webhook_ttid:
     """
 
     def __init__(
@@ -47,6 +48,7 @@ class InteractionInstance(InstanceResource):
         self.interaction_context_sid: Optional[str] = payload.get(
             "interaction_context_sid"
         )
+        self.webhook_ttid: Optional[str] = payload.get("webhook_ttid")
 
         self._solution = {
             "sid": sid or self.sid,
@@ -85,6 +87,34 @@ class InteractionInstance(InstanceResource):
         :returns: The fetched InteractionInstance
         """
         return await self._proxy.fetch_async()
+
+    def update(
+        self, webhook_ttid: Union[str, object] = values.unset
+    ) -> "InteractionInstance":
+        """
+        Update the InteractionInstance
+
+        :param webhook_ttid: The unique identifier for Interaction level webhook
+
+        :returns: The updated InteractionInstance
+        """
+        return self._proxy.update(
+            webhook_ttid=webhook_ttid,
+        )
+
+    async def update_async(
+        self, webhook_ttid: Union[str, object] = values.unset
+    ) -> "InteractionInstance":
+        """
+        Asynchronous coroutine to update the InteractionInstance
+
+        :param webhook_ttid: The unique identifier for Interaction level webhook
+
+        :returns: The updated InteractionInstance
+        """
+        return await self._proxy.update_async(
+            webhook_ttid=webhook_ttid,
+        )
 
     @property
     def channels(self) -> InteractionChannelList:
@@ -164,6 +194,62 @@ class InteractionContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
+    def update(
+        self, webhook_ttid: Union[str, object] = values.unset
+    ) -> InteractionInstance:
+        """
+        Update the InteractionInstance
+
+        :param webhook_ttid: The unique identifier for Interaction level webhook
+
+        :returns: The updated InteractionInstance
+        """
+
+        data = values.of(
+            {
+                "WebhookTtid": webhook_ttid,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.update(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return InteractionInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_async(
+        self, webhook_ttid: Union[str, object] = values.unset
+    ) -> InteractionInstance:
+        """
+        Asynchronous coroutine to update the InteractionInstance
+
+        :param webhook_ttid: The unique identifier for Interaction level webhook
+
+        :returns: The updated InteractionInstance
+        """
+
+        data = values.of(
+            {
+                "WebhookTtid": webhook_ttid,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        payload = await self._version.update_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
+        return InteractionInstance(self._version, payload, sid=self._solution["sid"])
+
     @property
     def channels(self) -> InteractionChannelList:
         """
@@ -204,6 +290,7 @@ class InteractionList(ListResource):
         channel: object,
         routing: Union[object, object] = values.unset,
         interaction_context_sid: Union[str, object] = values.unset,
+        webhook_ttid: Union[str, object] = values.unset,
     ) -> InteractionInstance:
         """
         Create the InteractionInstance
@@ -211,6 +298,7 @@ class InteractionList(ListResource):
         :param channel: The Interaction's channel.
         :param routing: The Interaction's routing logic.
         :param interaction_context_sid: The Interaction context sid is used for adding a context lookup sid
+        :param webhook_ttid: The unique identifier for Interaction level webhook
 
         :returns: The created InteractionInstance
         """
@@ -220,6 +308,7 @@ class InteractionList(ListResource):
                 "Channel": serialize.object(channel),
                 "Routing": serialize.object(routing),
                 "InteractionContextSid": interaction_context_sid,
+                "WebhookTtid": webhook_ttid,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -239,6 +328,7 @@ class InteractionList(ListResource):
         channel: object,
         routing: Union[object, object] = values.unset,
         interaction_context_sid: Union[str, object] = values.unset,
+        webhook_ttid: Union[str, object] = values.unset,
     ) -> InteractionInstance:
         """
         Asynchronously create the InteractionInstance
@@ -246,6 +336,7 @@ class InteractionList(ListResource):
         :param channel: The Interaction's channel.
         :param routing: The Interaction's routing logic.
         :param interaction_context_sid: The Interaction context sid is used for adding a context lookup sid
+        :param webhook_ttid: The unique identifier for Interaction level webhook
 
         :returns: The created InteractionInstance
         """
@@ -255,6 +346,7 @@ class InteractionList(ListResource):
                 "Channel": serialize.object(channel),
                 "Routing": serialize.object(routing),
                 "InteractionContextSid": interaction_context_sid,
+                "WebhookTtid": webhook_ttid,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
