@@ -287,7 +287,7 @@ class TranscriptionList(ListResource):
         :param speech_model: Recognition model used by the transcription engine, among those supported by the provider
         :param hints: A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
         :param enable_automatic_punctuation: The provider will add punctuation to recognition result
-        :param intelligence_service: The SID or unique name of the [Voice Intelligence Service](https://www.twilio.com/docs/voice/intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators .
+        :param intelligence_service: The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators .
 
         :returns: The created TranscriptionInstance
         """
@@ -362,7 +362,7 @@ class TranscriptionList(ListResource):
         :param speech_model: Recognition model used by the transcription engine, among those supported by the provider
         :param hints: A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
         :param enable_automatic_punctuation: The provider will add punctuation to recognition result
-        :param intelligence_service: The SID or unique name of the [Voice Intelligence Service](https://www.twilio.com/docs/voice/intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators .
+        :param intelligence_service: The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators .
 
         :returns: The created TranscriptionInstance
         """

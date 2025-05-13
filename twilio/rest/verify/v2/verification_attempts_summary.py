@@ -49,8 +49,8 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         self.total_unconverted: Optional[int] = deserialize.integer(
             payload.get("total_unconverted")
         )
-        self.conversion_rate_percentage: Optional[float] = deserialize.decimal(
-            payload.get("conversion_rate_percentage")
+        self.conversion_rate_percentage: Optional[str] = payload.get(
+            "conversion_rate_percentage"
         )
         self.url: Optional[str] = payload.get("url")
 

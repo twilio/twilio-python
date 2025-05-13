@@ -52,6 +52,7 @@ class ContentInstance(InstanceResource):
         :ivar url:
         :ivar phone:
         :ivar code:
+        :ivar id:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -63,6 +64,7 @@ class ContentInstance(InstanceResource):
             self.url: Optional[str] = payload.get("url")
             self.phone: Optional[str] = payload.get("phone")
             self.code: Optional[str] = payload.get("code")
+            self.id: Optional[str] = payload.get("id")
 
         def to_dict(self):
             return {
@@ -71,6 +73,7 @@ class ContentInstance(InstanceResource):
                 "url": self.url,
                 "phone": self.phone,
                 "code": self.code,
+                "id": self.id,
             }
 
     class CardAction(object):
@@ -470,6 +473,8 @@ class ContentInstance(InstanceResource):
         :ivar latitude:
         :ivar longitude:
         :ivar label:
+        :ivar id:
+        :ivar address:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -477,12 +482,16 @@ class ContentInstance(InstanceResource):
             self.latitude: Optional[float] = payload.get("latitude")
             self.longitude: Optional[float] = payload.get("longitude")
             self.label: Optional[str] = payload.get("label")
+            self.id: Optional[str] = payload.get("id")
+            self.address: Optional[str] = payload.get("address")
 
         def to_dict(self):
             return {
                 "latitude": self.latitude,
                 "longitude": self.longitude,
                 "label": self.label,
+                "id": self.id,
+                "address": self.address,
             }
 
     class TwilioMedia(object):
@@ -911,6 +920,7 @@ class ContentContext(InstanceContext):
         :ivar url:
         :ivar phone:
         :ivar code:
+        :ivar id:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -922,6 +932,7 @@ class ContentContext(InstanceContext):
             self.url: Optional[str] = payload.get("url")
             self.phone: Optional[str] = payload.get("phone")
             self.code: Optional[str] = payload.get("code")
+            self.id: Optional[str] = payload.get("id")
 
         def to_dict(self):
             return {
@@ -930,6 +941,7 @@ class ContentContext(InstanceContext):
                 "url": self.url,
                 "phone": self.phone,
                 "code": self.code,
+                "id": self.id,
             }
 
     class CardAction(object):
@@ -1329,6 +1341,8 @@ class ContentContext(InstanceContext):
         :ivar latitude:
         :ivar longitude:
         :ivar label:
+        :ivar id:
+        :ivar address:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -1336,12 +1350,16 @@ class ContentContext(InstanceContext):
             self.latitude: Optional[float] = payload.get("latitude")
             self.longitude: Optional[float] = payload.get("longitude")
             self.label: Optional[str] = payload.get("label")
+            self.id: Optional[str] = payload.get("id")
+            self.address: Optional[str] = payload.get("address")
 
         def to_dict(self):
             return {
                 "latitude": self.latitude,
                 "longitude": self.longitude,
                 "label": self.label,
+                "id": self.id,
+                "address": self.address,
             }
 
     class TwilioMedia(object):
@@ -1771,6 +1789,7 @@ class ContentList(ListResource):
         :ivar url:
         :ivar phone:
         :ivar code:
+        :ivar id:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -1782,6 +1801,7 @@ class ContentList(ListResource):
             self.url: Optional[str] = payload.get("url")
             self.phone: Optional[str] = payload.get("phone")
             self.code: Optional[str] = payload.get("code")
+            self.id: Optional[str] = payload.get("id")
 
         def to_dict(self):
             return {
@@ -1790,6 +1810,7 @@ class ContentList(ListResource):
                 "url": self.url,
                 "phone": self.phone,
                 "code": self.code,
+                "id": self.id,
             }
 
     class CardAction(object):
@@ -2189,6 +2210,8 @@ class ContentList(ListResource):
         :ivar latitude:
         :ivar longitude:
         :ivar label:
+        :ivar id:
+        :ivar address:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -2196,12 +2219,16 @@ class ContentList(ListResource):
             self.latitude: Optional[float] = payload.get("latitude")
             self.longitude: Optional[float] = payload.get("longitude")
             self.label: Optional[str] = payload.get("label")
+            self.id: Optional[str] = payload.get("id")
+            self.address: Optional[str] = payload.get("address")
 
         def to_dict(self):
             return {
                 "latitude": self.latitude,
                 "longitude": self.longitude,
                 "label": self.label,
+                "id": self.id,
+                "address": self.address,
             }
 
     class TwilioMedia(object):

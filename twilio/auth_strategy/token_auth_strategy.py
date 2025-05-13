@@ -1,7 +1,7 @@
 import jwt
 import threading
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 
 from twilio.auth_strategy.auth_type import AuthType
 from twilio.auth_strategy.auth_strategy import AuthStrategy
@@ -43,8 +43,10 @@ class TokenAuthStrategy(AuthStrategy):
             if exp is None:
                 return True  # No expiration time present, consider it expired
 
-            # Check if the expiration time has passed
-            return datetime.fromtimestamp(exp) < datetime.utcnow()
+            # Check if the expiration time has passed by using time-zone
+            return datetime.fromtimestamp(exp, tz=timezone.utc) < datetime.now(
+                timezone.utc
+            )
 
         except jwt.DecodeError:
             return True  # Token is invalid

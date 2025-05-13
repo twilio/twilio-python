@@ -416,9 +416,11 @@ class RoomList(ListResource):
         status_callback_method: Union[str, object] = values.unset,
         max_participants: Union[int, object] = values.unset,
         record_participants_on_connect: Union[bool, object] = values.unset,
+        transcribe_participants_on_connect: Union[bool, object] = values.unset,
         video_codecs: Union[List["RoomInstance.VideoCodec"], object] = values.unset,
         media_region: Union[str, object] = values.unset,
         recording_rules: Union[object, object] = values.unset,
+        transcriptions_configuration: Union[object, object] = values.unset,
         audio_only: Union[bool, object] = values.unset,
         max_participant_duration: Union[int, object] = values.unset,
         empty_room_timeout: Union[int, object] = values.unset,
@@ -435,9 +437,11 @@ class RoomList(ListResource):
         :param status_callback_method: The HTTP method Twilio should use to call `status_callback`. Can be `POST` or `GET`.
         :param max_participants: The maximum number of concurrent Participants allowed in the room. The maximum allowed value is 50.
         :param record_participants_on_connect: Whether to start recording when Participants connect.
+        :param transcribe_participants_on_connect: Whether to start transcriptions when Participants connect. If TranscriptionsConfiguration is not provided, default settings will be used.
         :param video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.
         :param media_region: The region for the Room's media server.  Can be one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers).
         :param recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
+        :param transcriptions_configuration: A collection of properties that describe transcription behaviour. If TranscribeParticipantsOnConnect is set to true and TranscriptionsConfiguration is not provided, default settings will be used.
         :param audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed.
         :param max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
         :param empty_room_timeout: Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
@@ -458,9 +462,15 @@ class RoomList(ListResource):
                 "RecordParticipantsOnConnect": serialize.boolean_to_string(
                     record_participants_on_connect
                 ),
+                "TranscribeParticipantsOnConnect": serialize.boolean_to_string(
+                    transcribe_participants_on_connect
+                ),
                 "VideoCodecs": serialize.map(video_codecs, lambda e: e),
                 "MediaRegion": media_region,
                 "RecordingRules": serialize.object(recording_rules),
+                "TranscriptionsConfiguration": serialize.object(
+                    transcriptions_configuration
+                ),
                 "AudioOnly": serialize.boolean_to_string(audio_only),
                 "MaxParticipantDuration": max_participant_duration,
                 "EmptyRoomTimeout": empty_room_timeout,
@@ -489,9 +499,11 @@ class RoomList(ListResource):
         status_callback_method: Union[str, object] = values.unset,
         max_participants: Union[int, object] = values.unset,
         record_participants_on_connect: Union[bool, object] = values.unset,
+        transcribe_participants_on_connect: Union[bool, object] = values.unset,
         video_codecs: Union[List["RoomInstance.VideoCodec"], object] = values.unset,
         media_region: Union[str, object] = values.unset,
         recording_rules: Union[object, object] = values.unset,
+        transcriptions_configuration: Union[object, object] = values.unset,
         audio_only: Union[bool, object] = values.unset,
         max_participant_duration: Union[int, object] = values.unset,
         empty_room_timeout: Union[int, object] = values.unset,
@@ -508,9 +520,11 @@ class RoomList(ListResource):
         :param status_callback_method: The HTTP method Twilio should use to call `status_callback`. Can be `POST` or `GET`.
         :param max_participants: The maximum number of concurrent Participants allowed in the room. The maximum allowed value is 50.
         :param record_participants_on_connect: Whether to start recording when Participants connect.
+        :param transcribe_participants_on_connect: Whether to start transcriptions when Participants connect. If TranscriptionsConfiguration is not provided, default settings will be used.
         :param video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.
         :param media_region: The region for the Room's media server.  Can be one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers).
         :param recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
+        :param transcriptions_configuration: A collection of properties that describe transcription behaviour. If TranscribeParticipantsOnConnect is set to true and TranscriptionsConfiguration is not provided, default settings will be used.
         :param audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed.
         :param max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
         :param empty_room_timeout: Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
@@ -531,9 +545,15 @@ class RoomList(ListResource):
                 "RecordParticipantsOnConnect": serialize.boolean_to_string(
                     record_participants_on_connect
                 ),
+                "TranscribeParticipantsOnConnect": serialize.boolean_to_string(
+                    transcribe_participants_on_connect
+                ),
                 "VideoCodecs": serialize.map(video_codecs, lambda e: e),
                 "MediaRegion": media_region,
                 "RecordingRules": serialize.object(recording_rules),
+                "TranscriptionsConfiguration": serialize.object(
+                    transcriptions_configuration
+                ),
                 "AudioOnly": serialize.boolean_to_string(audio_only),
                 "MaxParticipantDuration": max_participant_duration,
                 "EmptyRoomTimeout": empty_room_timeout,
