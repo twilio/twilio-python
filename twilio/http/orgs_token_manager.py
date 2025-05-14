@@ -29,7 +29,7 @@ class OrgTokenManager(TokenManager):
         self.client = Client()
 
     def fetch_access_token(self):
-        token_instance = self.client.preview_iam.v1.token.create(
+        token_instance = self.client.iam.v1.token.create(
             grant_type=self.grant_type,
             client_id=self.client_id,
             client_secret=self.client_secret,
