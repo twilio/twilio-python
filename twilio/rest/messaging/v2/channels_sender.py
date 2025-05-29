@@ -68,14 +68,10 @@ class ChannelsSenderInstance(InstanceResource):
             self.about: Optional[str] = payload.get("about")
             self.address: Optional[str] = payload.get("address")
             self.description: Optional[str] = payload.get("description")
-            self.emails: Optional[
-                List[ChannelsSenderList.MessagingV2ChannelsSenderProfileEmails]
-            ] = payload.get("emails")
+            self.emails: Optional[Dict[str, object]] = payload.get("emails")
             self.logo_url: Optional[str] = payload.get("logo_url")
             self.vertical: Optional[str] = payload.get("vertical")
-            self.websites: Optional[
-                List[ChannelsSenderList.MessagingV2ChannelsSenderProfileWebsites]
-            ] = payload.get("websites")
+            self.websites: Optional[Dict[str, object]] = payload.get("websites")
 
         def to_dict(self):
             return {
@@ -83,52 +79,10 @@ class ChannelsSenderInstance(InstanceResource):
                 "about": self.about,
                 "address": self.address,
                 "description": self.description,
-                "emails": (
-                    [emails.to_dict() for emails in self.emails]
-                    if self.emails is not None
-                    else None
-                ),
+                "emails": self.emails,
                 "logo_url": self.logo_url,
                 "vertical": self.vertical,
-                "websites": (
-                    [websites.to_dict() for websites in self.websites]
-                    if self.websites is not None
-                    else None
-                ),
-            }
-
-    class MessagingV2ChannelsSenderProfileEmails(object):
-        """
-        :ivar email: The email of the sender.
-        :ivar label: The label of the sender.
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.email: Optional[str] = payload.get("email")
-            self.label: Optional[str] = payload.get("label")
-
-        def to_dict(self):
-            return {
-                "email": self.email,
-                "label": self.label,
-            }
-
-    class MessagingV2ChannelsSenderProfileWebsites(object):
-        """
-        :ivar label: The label of the sender.
-        :ivar website: The website of the sender.
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.label: Optional[str] = payload.get("label")
-            self.website: Optional[str] = payload.get("website")
-
-        def to_dict(self):
-            return {
-                "label": self.label,
-                "website": self.website,
+                "websites": self.websites,
             }
 
     class MessagingV2ChannelsSenderRequestsCreate(object):
@@ -412,14 +366,10 @@ class ChannelsSenderContext(InstanceContext):
             self.about: Optional[str] = payload.get("about")
             self.address: Optional[str] = payload.get("address")
             self.description: Optional[str] = payload.get("description")
-            self.emails: Optional[
-                List[ChannelsSenderList.MessagingV2ChannelsSenderProfileEmails]
-            ] = payload.get("emails")
+            self.emails: Optional[Dict[str, object]] = payload.get("emails")
             self.logo_url: Optional[str] = payload.get("logo_url")
             self.vertical: Optional[str] = payload.get("vertical")
-            self.websites: Optional[
-                List[ChannelsSenderList.MessagingV2ChannelsSenderProfileWebsites]
-            ] = payload.get("websites")
+            self.websites: Optional[Dict[str, object]] = payload.get("websites")
 
         def to_dict(self):
             return {
@@ -427,52 +377,10 @@ class ChannelsSenderContext(InstanceContext):
                 "about": self.about,
                 "address": self.address,
                 "description": self.description,
-                "emails": (
-                    [emails.to_dict() for emails in self.emails]
-                    if self.emails is not None
-                    else None
-                ),
+                "emails": self.emails,
                 "logo_url": self.logo_url,
                 "vertical": self.vertical,
-                "websites": (
-                    [websites.to_dict() for websites in self.websites]
-                    if self.websites is not None
-                    else None
-                ),
-            }
-
-    class MessagingV2ChannelsSenderProfileEmails(object):
-        """
-        :ivar email: The email of the sender.
-        :ivar label: The label of the sender.
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.email: Optional[str] = payload.get("email")
-            self.label: Optional[str] = payload.get("label")
-
-        def to_dict(self):
-            return {
-                "email": self.email,
-                "label": self.label,
-            }
-
-    class MessagingV2ChannelsSenderProfileWebsites(object):
-        """
-        :ivar label: The label of the sender.
-        :ivar website: The website of the sender.
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.label: Optional[str] = payload.get("label")
-            self.website: Optional[str] = payload.get("website")
-
-        def to_dict(self):
-            return {
-                "label": self.label,
-                "website": self.website,
+                "websites": self.websites,
             }
 
     class MessagingV2ChannelsSenderRequestsCreate(object):
@@ -786,14 +694,10 @@ class ChannelsSenderList(ListResource):
             self.about: Optional[str] = payload.get("about")
             self.address: Optional[str] = payload.get("address")
             self.description: Optional[str] = payload.get("description")
-            self.emails: Optional[
-                List[ChannelsSenderList.MessagingV2ChannelsSenderProfileEmails]
-            ] = payload.get("emails")
+            self.emails: Optional[Dict[str, object]] = payload.get("emails")
             self.logo_url: Optional[str] = payload.get("logo_url")
             self.vertical: Optional[str] = payload.get("vertical")
-            self.websites: Optional[
-                List[ChannelsSenderList.MessagingV2ChannelsSenderProfileWebsites]
-            ] = payload.get("websites")
+            self.websites: Optional[Dict[str, object]] = payload.get("websites")
 
         def to_dict(self):
             return {
@@ -801,52 +705,10 @@ class ChannelsSenderList(ListResource):
                 "about": self.about,
                 "address": self.address,
                 "description": self.description,
-                "emails": (
-                    [emails.to_dict() for emails in self.emails]
-                    if self.emails is not None
-                    else None
-                ),
+                "emails": self.emails,
                 "logo_url": self.logo_url,
                 "vertical": self.vertical,
-                "websites": (
-                    [websites.to_dict() for websites in self.websites]
-                    if self.websites is not None
-                    else None
-                ),
-            }
-
-    class MessagingV2ChannelsSenderProfileEmails(object):
-        """
-        :ivar email: The email of the sender.
-        :ivar label: The label of the sender.
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.email: Optional[str] = payload.get("email")
-            self.label: Optional[str] = payload.get("label")
-
-        def to_dict(self):
-            return {
-                "email": self.email,
-                "label": self.label,
-            }
-
-    class MessagingV2ChannelsSenderProfileWebsites(object):
-        """
-        :ivar label: The label of the sender.
-        :ivar website: The website of the sender.
-        """
-
-        def __init__(self, payload: Dict[str, Any]):
-
-            self.label: Optional[str] = payload.get("label")
-            self.website: Optional[str] = payload.get("website")
-
-        def to_dict(self):
-            return {
-                "label": self.label,
-                "website": self.website,
+                "websites": self.websites,
             }
 
     class MessagingV2ChannelsSenderRequestsCreate(object):
