@@ -3,6 +3,26 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-06-12] Version 9.6.3
+--------------------------
+**Library - Chore**
+- [PR #869](https://github.com/twilio/twilio-python/pull/869): Remove knowledge files. Thanks to [@krishnakalluri](https://github.com/krishnakalluri)!
+
+**Api**
+- Change DependentPhoneNumber `capabilities` type `object` and `date_created`, `date_updated` to `date_time<rfc2822>`
+- Updated the `Default` value from 0 to 1 in the Recordings Resource `channels` property
+
+**Serverless**
+- Update `ienum` type level in Logs api
+
+**Verify**
+- Update Channel list in Verify Attempst API
+- Update `ienum` type for Conversion_Status in Verify Attempts API
+
+**Twiml**
+- Add `us2` to the list of supported values for the region attribute in the `<Conference>` TwiML noun.
+
+
 [2025-05-29] Version 9.6.2
 --------------------------
 **Library - Chore**
