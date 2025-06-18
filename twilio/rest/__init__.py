@@ -32,7 +32,6 @@ if TYPE_CHECKING:
     from twilio.rest.lookups import Lookups
     from twilio.rest.marketplace import Marketplace
     from twilio.rest.messaging import Messaging
-    from twilio.rest.microvisor import Microvisor
     from twilio.rest.monitor import Monitor
     from twilio.rest.notify import Notify
     from twilio.rest.numbers import Numbers
@@ -145,7 +144,6 @@ class Client(ClientBase):
         self._lookups: Optional["Lookups"] = None
         self._marketplace: Optional["Marketplace"] = None
         self._messaging: Optional["Messaging"] = None
-        self._microvisor: Optional["Microvisor"] = None
         self._monitor: Optional["Monitor"] = None
         self._notify: Optional["Notify"] = None
         self._numbers: Optional["Numbers"] = None
@@ -399,19 +397,6 @@ class Client(ClientBase):
 
             self._messaging = Messaging(self)
         return self._messaging
-
-    @property
-    def microvisor(self) -> "Microvisor":
-        """
-        Access the Microvisor Twilio Domain
-
-        :returns: Microvisor Twilio Domain
-        """
-        if self._microvisor is None:
-            from twilio.rest.microvisor import Microvisor
-
-            self._microvisor = Microvisor(self)
-        return self._microvisor
 
     @property
     def monitor(self) -> "Monitor":
