@@ -334,6 +334,7 @@ class DestinationAlphaSenderList(ListResource):
 
     def stream(
         self,
+        iso_country_code: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[DestinationAlphaSenderInstance]:
@@ -343,6 +344,7 @@ class DestinationAlphaSenderList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param str iso_country_code: Optional filter to return only alphanumeric sender IDs associated with the specified two-character ISO country code.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -353,12 +355,15 @@ class DestinationAlphaSenderList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = self.page(page_size=limits["page_size"])
+        page = self.page(
+            iso_country_code=iso_country_code, page_size=limits["page_size"]
+        )
 
         return self._version.stream(page, limits["limit"])
 
     async def stream_async(
         self,
+        iso_country_code: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[DestinationAlphaSenderInstance]:
@@ -368,6 +373,7 @@ class DestinationAlphaSenderList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
+        :param str iso_country_code: Optional filter to return only alphanumeric sender IDs associated with the specified two-character ISO country code.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -378,12 +384,15 @@ class DestinationAlphaSenderList(ListResource):
         :returns: Generator that will yield up to limit results
         """
         limits = self._version.read_limits(limit, page_size)
-        page = await self.page_async(page_size=limits["page_size"])
+        page = await self.page_async(
+            iso_country_code=iso_country_code, page_size=limits["page_size"]
+        )
 
         return self._version.stream_async(page, limits["limit"])
 
     def list(
         self,
+        iso_country_code: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DestinationAlphaSenderInstance]:
@@ -392,6 +401,7 @@ class DestinationAlphaSenderList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param str iso_country_code: Optional filter to return only alphanumeric sender IDs associated with the specified two-character ISO country code.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -403,6 +413,7 @@ class DestinationAlphaSenderList(ListResource):
         """
         return list(
             self.stream(
+                iso_country_code=iso_country_code,
                 limit=limit,
                 page_size=page_size,
             )
@@ -410,6 +421,7 @@ class DestinationAlphaSenderList(ListResource):
 
     async def list_async(
         self,
+        iso_country_code: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[DestinationAlphaSenderInstance]:
@@ -418,6 +430,7 @@ class DestinationAlphaSenderList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
+        :param str iso_country_code: Optional filter to return only alphanumeric sender IDs associated with the specified two-character ISO country code.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -430,6 +443,7 @@ class DestinationAlphaSenderList(ListResource):
         return [
             record
             async for record in await self.stream_async(
+                iso_country_code=iso_country_code,
                 limit=limit,
                 page_size=page_size,
             )
@@ -437,6 +451,7 @@ class DestinationAlphaSenderList(ListResource):
 
     def page(
         self,
+        iso_country_code: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -445,6 +460,7 @@ class DestinationAlphaSenderList(ListResource):
         Retrieve a single page of DestinationAlphaSenderInstance records from the API.
         Request is executed immediately
 
+        :param iso_country_code: Optional filter to return only alphanumeric sender IDs associated with the specified two-character ISO country code.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -453,6 +469,7 @@ class DestinationAlphaSenderList(ListResource):
         """
         data = values.of(
             {
+                "IsoCountryCode": iso_country_code,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -470,6 +487,7 @@ class DestinationAlphaSenderList(ListResource):
 
     async def page_async(
         self,
+        iso_country_code: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -478,6 +496,7 @@ class DestinationAlphaSenderList(ListResource):
         Asynchronously retrieve a single page of DestinationAlphaSenderInstance records from the API.
         Request is executed immediately
 
+        :param iso_country_code: Optional filter to return only alphanumeric sender IDs associated with the specified two-character ISO country code.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
         :param page_size: Number of records to return, defaults to 50
@@ -486,6 +505,7 @@ class DestinationAlphaSenderList(ListResource):
         """
         data = values.of(
             {
+                "IsoCountryCode": iso_country_code,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

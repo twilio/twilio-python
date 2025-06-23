@@ -35,7 +35,7 @@ class ServiceInstance(InstanceResource):
     """
     :ivar sid: The unique string that we created to identify the Service resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Service resource.
-    :ivar friendly_name: The name that appears in the body of your verification messages. It can be up to 30 characters long and can include letters, numbers, spaces, dashes, underscores. Phone numbers, special characters or links are NOT allowed. **This value should not contain PII.**
+    :ivar friendly_name: The name that appears in the body of your verification messages. It can be up to 30 characters long and can include letters, numbers, spaces, dashes, underscores. Phone numbers, special characters or links are NOT allowed. It cannot contain more than 4 (consecutive or non-consecutive) digits. **This value should not contain PII.**
     :ivar code_length: The length of the verification code to generate.
     :ivar lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
     :ivar psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.

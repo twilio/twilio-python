@@ -25,33 +25,101 @@ from twilio.base.page import Page
 class LastMonthInstance(InstanceResource):
 
     class Category(object):
+        A2P_10DLC_REGISTRATIONFEES_BRANDREGISTRATION = (
+            "a2p-10dlc-registrationfees-brandregistration"
+        )
+        A2P_10DLC_REGISTRATIONFEES_BV = "a2p-10dlc-registrationfees-bv"
+        A2P_10DLC_REGISTRATIONFEES_CAMPAIGNCHARGES = (
+            "a2p-10dlc-registrationfees-campaigncharges"
+        )
+        A2P_10DLC_REGISTRATIONFEES_CAMPAIGNREGISTRATION = (
+            "a2p-10dlc-registrationfees-campaignregistration"
+        )
+        A2P_10DLC_REGISTRATIONFEES_CAMPAIGNVETTING = (
+            "a2p-10dlc-registrationfees-campaignvetting"
+        )
+        A2P_10DLC_REGISTRATIONFEES_MONTHLY = "a2p-10dlc-registrationfees-monthly"
+        A2P_10DLC_REGISTRATIONFEES_ONETIME = "a2p-10dlc-registrationfees-onetime"
         A2P_REGISTRATION_FEES = "a2p-registration-fees"
+        ACCOUNT_SECURITY = "account-security"
         AGENT_CONFERENCE = "agent-conference"
+        AGENT_COPILOT = "agent-copilot"
+        AGENT_COPILOT_MESSAGES = "agent-copilot-messages"
+        AGENT_COPILOT_PARTICIPANT_MINUTES = "agent-copilot-participant-minutes"
+        AI_ASSISTANTS = "ai-assistants"
+        AI_ASSISTANTS_VOICE = "ai-assistants-voice"
         AMAZON_POLLY = "amazon-polly"
         ANSWERING_MACHINE_DETECTION = "answering-machine-detection"
+        ASSETS = "assets"
+        AUDIENCE_MINUTES = "audience-minutes"
+        AUDIENCE_MINUTES_AUDIO = "audience-minutes-audio"
         AUTHY_AUTHENTICATIONS = "authy-authentications"
         AUTHY_CALLS_OUTBOUND = "authy-calls-outbound"
+        AUTHY_EMAIL_AUTHENTICATIONS = "authy-email-authentications"
         AUTHY_MONTHLY_FEES = "authy-monthly-fees"
+        AUTHY_OUTBOUND_EMAIL = "authy-outbound-email"
         AUTHY_PHONE_INTELLIGENCE = "authy-phone-intelligence"
         AUTHY_PHONE_VERIFICATIONS = "authy-phone-verifications"
         AUTHY_SMS_OUTBOUND = "authy-sms-outbound"
+        AUTHY_VERIFY_EMAIL_VERIFICATIONS = "authy-verify-email-verifications"
+        AUTHY_VERIFY_OUTBOUND_EMAIL = "authy-verify-outbound-email"
+        AUTOPILOT = "autopilot"
+        AUTOPILOT_HOME_ASSISTANTS = "autopilot-home-assistants"
+        AUTOPILOT_MESSAGING = "autopilot-messaging"
+        AUTOPILOT_OTHER = "autopilot-other"
+        AUTOPILOT_VOICE = "autopilot-voice"
+        BASIC_PEER_TO_PEER_ROOMS_PARTICIPANT_MINUTES = (
+            "basic-peer-to-peer-rooms-participant-minutes"
+        )
+        BRANDED_CALLING = "branded-calling"
+        BUNDLE_SMS_BUCKET = "bundle-sms-bucket"
+        BUNDLE_SUBSCRIPTION_FEES = "bundle-subscription-fees"
+        CALL_FORWARDING_LOOKUPS = "call-forwarding-lookups"
         CALL_PROGESS_EVENTS = "call-progess-events"
         CALLERIDLOOKUPS = "calleridlookups"
         CALLS = "calls"
         CALLS_CLIENT = "calls-client"
+        CALLS_EMERGENCY = "calls-emergency"
         CALLS_GLOBALCONFERENCE = "calls-globalconference"
         CALLS_INBOUND = "calls-inbound"
         CALLS_INBOUND_LOCAL = "calls-inbound-local"
         CALLS_INBOUND_MOBILE = "calls-inbound-mobile"
         CALLS_INBOUND_TOLLFREE = "calls-inbound-tollfree"
+        CALLS_INBOUND_TOLLFREE_LOCAL = "calls-inbound-tollfree-local"
+        CALLS_INBOUND_TOLLFREE_MOBILE = "calls-inbound-tollfree-mobile"
+        CALLS_MEDIA_STREAM_MINUTES = "calls-media-stream-minutes"
         CALLS_OUTBOUND = "calls-outbound"
         CALLS_PAY_VERB_TRANSACTIONS = "calls-pay-verb-transactions"
         CALLS_RECORDINGS = "calls-recordings"
         CALLS_SIP = "calls-sip"
         CALLS_SIP_INBOUND = "calls-sip-inbound"
         CALLS_SIP_OUTBOUND = "calls-sip-outbound"
+        CALLS_TEXT_TO_SPEECH = "calls-text-to-speech"
         CALLS_TRANSFERS = "calls-transfers"
         CARRIER_LOOKUPS = "carrier-lookups"
+        CATEGORY = "category"
+        CHANNELS = "channels"
+        CHANNELS_MESSAGING = "channels-messaging"
+        CHANNELS_MESSAGING_INBOUND = "channels-messaging-inbound"
+        CHANNELS_MESSAGING_OUTBOUND = "channels-messaging-outbound"
+        CHANNELS_WHATSAPP = "channels-whatsapp"
+        CHANNELS_WHATSAPP_CONVERSATION_AUTHENTICATION = (
+            "channels-whatsapp-conversation-authentication"
+        )
+        CHANNELS_WHATSAPP_CONVERSATION_FREE = "channels-whatsapp-conversation-free"
+        CHANNELS_WHATSAPP_CONVERSATION_MARKETING = (
+            "channels-whatsapp-conversation-marketing"
+        )
+        CHANNELS_WHATSAPP_CONVERSATION_SERVICE = (
+            "channels-whatsapp-conversation-service"
+        )
+        CHANNELS_WHATSAPP_CONVERSATION_UTILITY = (
+            "channels-whatsapp-conversation-utility"
+        )
+        CHANNELS_WHATSAPP_INBOUND = "channels-whatsapp-inbound"
+        CHANNELS_WHATSAPP_OUTBOUND = "channels-whatsapp-outbound"
+        CHAT_VIRTUAL_AGENT = "chat-virtual-agent"
+        CONVERSATION_RELAY = "conversation-relay"
         CONVERSATIONS = "conversations"
         CONVERSATIONS_API_REQUESTS = "conversations-api-requests"
         CONVERSATIONS_CONVERSATION_EVENTS = "conversations-conversation-events"
@@ -60,8 +128,40 @@ class LastMonthInstance(InstanceResource):
         CONVERSATIONS_PARTICIPANT_EVENTS = "conversations-participant-events"
         CONVERSATIONS_PARTICIPANTS = "conversations-participants"
         CPS = "cps"
+        CREDIT_TRANSFER = "credit-transfer"
+        EMAIL = "email"
+        EMERGING_TECH = "emerging-tech"
+        ENGAGEMENT_SUITE_PACKAGED_PLANS = "engagement-suite-packaged-plans"
+        ENHANCED_LINE_TYPE_LOOKUPS = "enhanced-line-type-lookups"
+        ENTERPRISE = "enterprise"
+        EVENTS = "events"
+        EXPERIMENT_FRANCE_SMS = "experiment-france-sms"
+        EXPERIMENT_INDIA_SMS = "experiment-india-sms"
+        EXPERIMENT_UK_SMS = "experiment-uk-sms"
+        FAILED_MESSAGE_PROCESSING_FEE = "failed-message-processing-fee"
+        FLEX = "flex"
+        FLEX_ACTIVE_USER_HOURS = "flex-active-user-hours"
+        FLEX_CONCURRENT_USERS = "flex-concurrent-users"
+        FLEX_CONVERSATIONAL_INSIGHTS = "flex-conversational-insights"
+        FLEX_CONVERSATIONAL_INSIGHTS_MESSAGES = "flex-conversational-insights-messages"
+        FLEX_CONVERSATIONAL_INSIGHTS_VOICE_MINUTES = (
+            "flex-conversational-insights-voice-minutes"
+        )
+        FLEX_EMAIL_USAGE = "flex-email-usage"
+        FLEX_MESSAGING_USAGE = "flex-messaging-usage"
+        FLEX_PARTNER_SPINSCI = "flex-partner-spinsci"
+        FLEX_PARTNER_XCELERATE = "flex-partner-xcelerate"
+        FLEX_RESELLER_ECOSYSTEM = "flex-reseller-ecosystem"
+        FLEX_UNIQUE_USER = "flex-unique-user"
         FLEX_USAGE = "flex-usage"
+        FLEX_USERS = "flex-users"
+        FLEX_VOICE_MINUTE = "flex-voice-minute"
+        FLEX_YTICA = "flex-ytica"
         FRAUD_LOOKUPS = "fraud-lookups"
+        FRONTLINE = "frontline"
+        FRONTLINE_USERS = "frontline-users"
+        FUNCTIONS = "functions"
+        GENERIC_PAY_TRANSACTIONS = "generic-pay-transactions"
         GROUP_ROOMS = "group-rooms"
         GROUP_ROOMS_DATA_TRACK = "group-rooms-data-track"
         GROUP_ROOMS_ENCRYPTED_MEDIA_RECORDED = "group-rooms-encrypted-media-recorded"
@@ -71,9 +171,17 @@ class LastMonthInstance(InstanceResource):
         GROUP_ROOMS_MEDIA_STORED = "group-rooms-media-stored"
         GROUP_ROOMS_PARTICIPANT_MINUTES = "group-rooms-participant-minutes"
         GROUP_ROOMS_RECORDED_MINUTES = "group-rooms-recorded-minutes"
-        IMP_V1_USAGE = "imp-v1-usage"
+        IP_MESSAGING = "ip-messaging"
+        IP_MESSAGING_COMMANDS = "ip-messaging-commands"
+        IP_MESSAGING_DATA_STORAGE = "ip-messaging-data-storage"
+        IP_MESSAGING_DATA_TRANSFER = "ip-messaging-data-transfer"
+        IP_MESSAGING_ENDPOINT_CONNECTIVITY = "ip-messaging-endpoint-connectivity"
         IVR_VIRTUAL_AGENT_CUSTOM_VOICES = "ivr-virtual-agent-custom-voices"
         IVR_VIRTUAL_AGENT_GENAI = "ivr-virtual-agent-genai"
+        LINE_STATUS_LOOKUPS = "line-status-lookups"
+        LIVE_ACTIVITY_LOOKUPS = "live-activity-lookups"
+        LOOKUP_BUCKET_ADJUSTMENT = "lookup-bucket-adjustment"
+        LOOKUP_IDENTITY_MATCH = "lookup-identity-match"
         LOOKUPS = "lookups"
         MARKETPLACE = "marketplace"
         MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION = (
@@ -84,6 +192,13 @@ class LastMonthInstance(InstanceResource):
         MARKETPLACE_CAPIO_SPEECH_TO_TEXT = "marketplace-capio-speech-to-text"
         MARKETPLACE_CONVRIZA_ABABA = "marketplace-convriza-ababa"
         MARKETPLACE_DEEPGRAM_PHRASE_DETECTOR = "marketplace-deepgram-phrase-detector"
+        MARKETPLACE_DEEPGRAM_TRANSCRIPTION = "marketplace-deepgram-transcription"
+        MARKETPLACE_DEEPGRAM_TRANSCRIPTION_BASE = (
+            "marketplace-deepgram-transcription-base"
+        )
+        MARKETPLACE_DEEPGRAM_TRANSSCRIPTION_ENHANCED = (
+            "marketplace-deepgram-transscription-enhanced"
+        )
         MARKETPLACE_DIGITAL_SEGMENT_BUSINESS_INFO = (
             "marketplace-digital-segment-business-info"
         )
@@ -109,6 +224,9 @@ class LastMonthInstance(InstanceResource):
             "marketplace-keen-io-contact-center-analytics"
         )
         MARKETPLACE_MARCHEX_CLEANCALL = "marketplace-marchex-cleancall"
+        MARKETPLACE_MARCHEX_RECORDING_ANALYSIS = (
+            "marketplace-marchex-recording-analysis"
+        )
         MARKETPLACE_MARCHEX_SENTIMENT_ANALYSIS_FOR_SMS = (
             "marketplace-marchex-sentiment-analysis-for-sms"
         )
@@ -125,14 +243,42 @@ class LastMonthInstance(InstanceResource):
             "marketplace-nextcaller-advanced-caller-identification"
         )
         MARKETPLACE_NOMOROBO_SPAM_SCORE = "marketplace-nomorobo-spam-score"
+        MARKETPLACE_PAY_ADDONS = "marketplace-pay-addons"
+        MARKETPLACE_PAY_ADDONS_BASECOMMERCE_PAY_CONNECTOR = (
+            "marketplace-pay-addons-basecommerce-pay-connector"
+        )
+        MARKETPLACE_PAY_ADDONS_BRAINTREE_PAY_CONNECTOR = (
+            "marketplace-pay-addons-braintree-pay-connector"
+        )
+        MARKETPLACE_PAY_ADDONS_CARDCONNECT_PAY_CONNECTOR = (
+            "marketplace-pay-addons-cardconnect-pay-connector"
+        )
+        MARKETPLACE_PAY_ADDONS_CHASE_PAY_CONNECTOR = (
+            "marketplace-pay-addons-chase-pay-connector"
+        )
+        MARKETPLACE_PAY_ADDONS_SHUTTLE_PAY_CONNECTOR = (
+            "marketplace-pay-addons-shuttle-pay-connector"
+        )
+        MARKETPLACE_PAY_ADDONS_STRIPE_PAY_CONNECTOR = (
+            "marketplace-pay-addons-stripe-pay-connector"
+        )
         MARKETPLACE_PAYFONE_TCPA_COMPLIANCE = "marketplace-payfone-tcpa-compliance"
+        MARKETPLACE_POLY_AI_CONNECTOR = "marketplace-poly-ai-connector"
+        MARKETPLACE_REALPHONEVALIDATION = "marketplace-realphonevalidation"
         MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION = (
             "marketplace-remeeting-automatic-speech-recognition"
+        )
+        MARKETPLACE_SPOKE_PHONE_LICENSE_PRO = "marketplace-spoke-phone-license-pro"
+        MARKETPLACE_SPOKE_PHONE_LICENSE_STANDARD = (
+            "marketplace-spoke-phone-license-standard"
         )
         MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED = (
             "marketplace-tcpa-defense-solutions-blacklist-feed"
         )
         MARKETPLACE_TELO_OPENCNAM = "marketplace-telo-opencnam"
+        MARKETPLACE_TRESTLE_SOLUTIONS_CALLER_IDENTIFICATION = (
+            "marketplace-trestle-solutions-caller-identification"
+        )
         MARKETPLACE_TRUECNAM_TRUE_SPAM = "marketplace-truecnam-true-spam"
         MARKETPLACE_TWILIO_CALLER_NAME_LOOKUP_US = (
             "marketplace-twilio-caller-name-lookup-us"
@@ -144,6 +290,9 @@ class LastMonthInstance(InstanceResource):
         MARKETPLACE_VOICEBASE_TRANSCRIPTION = "marketplace-voicebase-transcription"
         MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY = (
             "marketplace-voicebase-transcription-custom-vocabulary"
+        )
+        MARKETPLACE_WEB_PURIFY_PROFANITY_FILTER = (
+            "marketplace-web-purify-profanity-filter"
         )
         MARKETPLACE_WHITEPAGES_PRO_CALLER_IDENTIFICATION = (
             "marketplace-whitepages-pro-caller-identification"
@@ -159,15 +308,23 @@ class LastMonthInstance(InstanceResource):
         MARKETPLACE_YTICA_CONTACT_CENTER_REPORTING_ANALYTICS = (
             "marketplace-ytica-contact-center-reporting-analytics"
         )
+        MARKETPLAY_PAY_ADDONS_SHUTTLE_PAY_CONNECTOR = (
+            "marketplay-pay-addons-shuttle-pay-connector"
+        )
+        MEDIA_COMPOSER_MINUTES = "media-composer-minutes"
         MEDIASTORAGE = "mediastorage"
+        MIN_SPEND_ADJUSTMENTS = "min-spend-adjustments"
         MMS = "mms"
         MMS_INBOUND = "mms-inbound"
         MMS_INBOUND_LONGCODE = "mms-inbound-longcode"
         MMS_INBOUND_SHORTCODE = "mms-inbound-shortcode"
+        MMS_INBOUND_TOLL_FREE = "mms-inbound-toll-free"
         MMS_MESSAGES_CARRIERFEES = "mms-messages-carrierfees"
         MMS_OUTBOUND = "mms-outbound"
         MMS_OUTBOUND_LONGCODE = "mms-outbound-longcode"
         MMS_OUTBOUND_SHORTCODE = "mms-outbound-shortcode"
+        MMS_OUTBOUND_TOLLFREE = "mms-outbound-tollfree"
+        MONITOR = "monitor"
         MONITOR_READS = "monitor-reads"
         MONITOR_STORAGE = "monitor-storage"
         MONITOR_WRITES = "monitor-writes"
@@ -176,6 +333,12 @@ class LastMonthInstance(InstanceResource):
         NOTIFY_CHANNELS = "notify-channels"
         NUMBER_FORMAT_LOOKUPS = "number-format-lookups"
         PCHAT = "pchat"
+        PCHAT_ACTIONS = "pchat-actions"
+        PCHAT_APS = "pchat-aps"
+        PCHAT_CONV_MED_STORAGE = "pchat-conv-med-storage"
+        PCHAT_MESSAGES = "pchat-messages"
+        PCHAT_NOTIFICATIONS = "pchat-notifications"
+        PCHAT_READS = "pchat-reads"
         PCHAT_USERS = "pchat-users"
         PEER_TO_PEER_ROOMS_PARTICIPANT_MINUTES = (
             "peer-to-peer-rooms-participant-minutes"
@@ -185,18 +348,41 @@ class LastMonthInstance(InstanceResource):
         PFAX_MINUTES_INBOUND = "pfax-minutes-inbound"
         PFAX_MINUTES_OUTBOUND = "pfax-minutes-outbound"
         PFAX_PAGES = "pfax-pages"
+        PHONE_QUALITY_SCORE_LOOKUPS = "phone-quality-score-lookups"
         PHONENUMBERS = "phonenumbers"
         PHONENUMBERS_CPS = "phonenumbers-cps"
         PHONENUMBERS_EMERGENCY = "phonenumbers-emergency"
         PHONENUMBERS_LOCAL = "phonenumbers-local"
         PHONENUMBERS_MOBILE = "phonenumbers-mobile"
+        PHONENUMBERS_PORTING = "phonenumbers-porting"
         PHONENUMBERS_SETUPS = "phonenumbers-setups"
         PHONENUMBERS_TOLLFREE = "phonenumbers-tollfree"
         PREMIUMSUPPORT = "premiumsupport"
+        PREMIUMSUPPORT_PERCENTAGE_SPEND = "premiumsupport-percentage-spend"
+        PROGRAMMABLEVOICE_PLATFORM = "programmablevoice-platform"
+        PROGRAMMABLEVOICECONN_CLIENTSDK = "programmablevoiceconn-clientsdk"
+        PROGRAMMABLEVOICECONN_CLIENTSDK_INBOUND = (
+            "programmablevoiceconn-clientsdk-inbound"
+        )
+        PROGRAMMABLEVOICECONN_CLIENTSDK_OUTBOUND = (
+            "programmablevoiceconn-clientsdk-outbound"
+        )
+        PROGRAMMABLEVOICECONN_ONNET = "programmablevoiceconn-onnet"
+        PROGRAMMABLEVOICECONN_ONNET_INBOUND = "programmablevoiceconn-onnet-inbound"
+        PROGRAMMABLEVOICECONN_ONNET_OUTBOUND = "programmablevoiceconn-onnet-outbound"
+        PROGRAMMABLEVOICECONN_SIP = "programmablevoiceconn-sip"
+        PROGRAMMABLEVOICECONN_SIP_INBOUND = "programmablevoiceconn-sip-inbound"
+        PROGRAMMABLEVOICECONN_SIP_OUTBOUND = "programmablevoiceconn-sip-outbound"
+        PROGRAMMABLEVOICECONNECTIVITY = "programmablevoiceconnectivity"
         PROXY = "proxy"
         PROXY_ACTIVE_SESSIONS = "proxy-active-sessions"
+        PROXY_BUCKET_ADJUSTMENT = "proxy-bucket-adjustment"
+        PROXY_LICENSES = "proxy-licenses"
         PSTNCONNECTIVITY = "pstnconnectivity"
+        PSTNCONNECTIVITY_INBOUND = "pstnconnectivity-inbound"
+        PSTNCONNECTIVITY_OUTBOUND = "pstnconnectivity-outbound"
         PV = "pv"
+        PV_BASIC_ROOMS = "pv-basic-rooms"
         PV_COMPOSITION_MEDIA_DOWNLOADED = "pv-composition-media-downloaded"
         PV_COMPOSITION_MEDIA_ENCRYPTED = "pv-composition-media-encrypted"
         PV_COMPOSITION_MEDIA_STORED = "pv-composition-media-stored"
@@ -212,18 +398,20 @@ class LastMonthInstance(InstanceResource):
         PV_ROOM_PARTICIPANTS_US2 = "pv-room-participants-us2"
         PV_ROOMS = "pv-rooms"
         PV_SIP_ENDPOINT_REGISTRATIONS = "pv-sip-endpoint-registrations"
+        RCS_MESSAGES = "rcs-messages"
+        REASSIGNED_NUMBER = "reassigned-number"
         RECORDINGS = "recordings"
         RECORDINGSTORAGE = "recordingstorage"
-        ROOMS_GROUP_BANDWIDTH = "rooms-group-bandwidth"
-        ROOMS_GROUP_MINUTES = "rooms-group-minutes"
-        ROOMS_PEER_TO_PEER_MINUTES = "rooms-peer-to-peer-minutes"
         SHORTCODES = "shortcodes"
         SHORTCODES_CUSTOMEROWNED = "shortcodes-customerowned"
         SHORTCODES_MMS_ENABLEMENT = "shortcodes-mms-enablement"
         SHORTCODES_MPS = "shortcodes-mps"
         SHORTCODES_RANDOM = "shortcodes-random"
+        SHORTCODES_SETUP_FEES = "shortcodes-setup-fees"
         SHORTCODES_UK = "shortcodes-uk"
         SHORTCODES_VANITY = "shortcodes-vanity"
+        SIM_SWAP_LOOKUPS = "sim-swap-lookups"
+        SIP_SECURE_MEDIA = "sip-secure-media"
         SMALL_GROUP_ROOMS = "small-group-rooms"
         SMALL_GROUP_ROOMS_DATA_TRACK = "small-group-rooms-data-track"
         SMALL_GROUP_ROOMS_PARTICIPANT_MINUTES = "small-group-rooms-participant-minutes"
@@ -231,13 +419,30 @@ class LastMonthInstance(InstanceResource):
         SMS_INBOUND = "sms-inbound"
         SMS_INBOUND_LONGCODE = "sms-inbound-longcode"
         SMS_INBOUND_SHORTCODE = "sms-inbound-shortcode"
+        SMS_INBOUND_TOLLFREE = "sms-inbound-tollfree"
         SMS_MESSAGES_CARRIERFEES = "sms-messages-carrierfees"
         SMS_MESSAGES_FEATURES = "sms-messages-features"
+        SMS_MESSAGES_FEATURES_ENGAGEMENT_SUITE = (
+            "sms-messages-features-engagement-suite"
+        )
+        SMS_MESSAGES_FEATURES_MESSAGE_REDACTION = (
+            "sms-messages-features-message-redaction"
+        )
         SMS_MESSAGES_FEATURES_SENDERID = "sms-messages-features-senderid"
+        SMS_MPS = "sms-mps"
+        SMS_MPS_SHORTCODE = "sms-mps-shortcode"
+        SMS_MPS_TOLLFREE = "sms-mps-tollfree"
+        SMS_MPS_TOLLFREE_SETUP = "sms-mps-tollfree-setup"
+        SMS_NATIONAL_REGULATORY_PROTECTION = "sms-national-regulatory-protection"
         SMS_OUTBOUND = "sms-outbound"
         SMS_OUTBOUND_CONTENT_INSPECTION = "sms-outbound-content-inspection"
         SMS_OUTBOUND_LONGCODE = "sms-outbound-longcode"
         SMS_OUTBOUND_SHORTCODE = "sms-outbound-shortcode"
+        SMS_OUTBOUND_TOLLFREE = "sms-outbound-tollfree"
+        SMS_PUMPING_PROTECTION = "sms-pumping-protection"
+        SMS_PUMPING_RISK = "sms-pumping-risk"
+        SMSMESSAGES_BUCKET_ADJUSTMENTS = "smsmessages-bucket-adjustments"
+        SMSMESSAGES_OUTBOUND_DOMESTIC = "smsmessages-outbound-domestic"
         SPEECH_RECOGNITION = "speech-recognition"
         STUDIO_ENGAGEMENTS = "studio-engagements"
         SYNC = "sync"
@@ -267,13 +472,27 @@ class LastMonthInstance(InstanceResource):
         TURNMEGABYTES_SINGAPORE = "turnmegabytes-singapore"
         TURNMEGABYTES_USEAST = "turnmegabytes-useast"
         TURNMEGABYTES_USWEST = "turnmegabytes-uswest"
+        TWILIO_FOR_SALESFORCE = "twilio-for-salesforce"
+        TWILIO_FOR_SALESFORCE_LICENSES = "twilio-for-salesforce-licenses"
         TWILIO_INTERCONNECT = "twilio-interconnect"
+        TWIML = "twiml"
+        USAGE_FLEX_VIDEO = "usage-flex-video"
+        USAGE_FUNCTIONS = "usage-functions"
+        USAGE_RCS_BASIC_MESSAGES_OUTBOUND = "usage-rcs-basic-messages-outbound"
+        USAGE_RCS_MESSAGES = "usage-rcs-messages"
+        USAGE_RCS_MESSAGES_INBOUND = "usage-rcs-messages-inbound"
+        USAGE_RCS_MESSAGING_CARRIER_FEES = "usage-rcs-messaging-carrier-fees"
+        USAGE_RCS_SINGLE_MESSAGES_OUTBOUND = "usage-rcs-single-messages-outbound"
+        VERIFY_PACKAGE_PLANS = "verify-package-plans"
         VERIFY_PUSH = "verify-push"
+        VERIFY_SNA = "verify-sna"
         VERIFY_TOTP = "verify-totp"
+        VERIFY_VOICE_SMS = "verify-voice-sms"
         VERIFY_WHATSAPP_CONVERSATIONS_BUSINESS_INITIATED = (
             "verify-whatsapp-conversations-business-initiated"
         )
         VIDEO_RECORDINGS = "video-recordings"
+        VIDEO_ROOMS_TURN_MEGABYTES = "video-rooms-turn-megabytes"
         VIRTUAL_AGENT = "virtual-agent"
         VOICE_INSIGHTS = "voice-insights"
         VOICE_INSIGHTS_CLIENT_INSIGHTS_ON_DEMAND_MINUTE = (
@@ -289,14 +508,103 @@ class LastMonthInstance(InstanceResource):
             "voice-insights-sip-trunking-insights-on-demand-minute"
         )
         VOICE_INTELLIGENCE = "voice-intelligence"
-        VOICE_INTELLIGENCE_TRANSCRIPTION = "voice-intelligence-transcription"
+        VOICE_INTELLIGENCE_EIP_OPERATORS = "voice-intelligence-eip-operators"
         VOICE_INTELLIGENCE_OPERATORS = "voice-intelligence-operators"
+        VOICE_INTELLIGENCE_TRANSCRIPTION = "voice-intelligence-transcription"
+        WDS = "wds"
         WIRELESS = "wireless"
+        WIRELESS_DATA = "wireless-data"
+        WIRELESS_DATA_PAYG = "wireless-data-payg"
+        WIRELESS_DATA_PAYG_AFRICA = "wireless-data-payg-africa"
+        WIRELESS_DATA_PAYG_ASIA = "wireless-data-payg-asia"
+        WIRELESS_DATA_PAYG_CENTRALANDSOUTHAMERICA = (
+            "wireless-data-payg-centralandsouthamerica"
+        )
+        WIRELESS_DATA_PAYG_EUROPE = "wireless-data-payg-europe"
+        WIRELESS_DATA_PAYG_NORTHAMERICA = "wireless-data-payg-northamerica"
+        WIRELESS_DATA_PAYG_OCEANIA = "wireless-data-payg-oceania"
+        WIRELESS_DATA_QUOTA1 = "wireless-data-quota1"
+        WIRELESS_DATA_QUOTA1_AFRICA = "wireless-data-quota1-africa"
+        WIRELESS_DATA_QUOTA1_ASIA = "wireless-data-quota1-asia"
+        WIRELESS_DATA_QUOTA1_CENTRALANDSOUTHAMERICA = (
+            "wireless-data-quota1-centralandsouthamerica"
+        )
+        WIRELESS_DATA_QUOTA1_EUROPE = "wireless-data-quota1-europe"
+        WIRELESS_DATA_QUOTA1_NORTHAMERICA = "wireless-data-quota1-northamerica"
+        WIRELESS_DATA_QUOTA1_OCEANIA = "wireless-data-quota1-oceania"
+        WIRELESS_DATA_QUOTA10 = "wireless-data-quota10"
+        WIRELESS_DATA_QUOTA10_AFRICA = "wireless-data-quota10-africa"
+        WIRELESS_DATA_QUOTA10_ASIA = "wireless-data-quota10-asia"
+        WIRELESS_DATA_QUOTA10_CENTRALANDSOUTHAMERICA = (
+            "wireless-data-quota10-centralandsouthamerica"
+        )
+        WIRELESS_DATA_QUOTA10_EUROPE = "wireless-data-quota10-europe"
+        WIRELESS_DATA_QUOTA10_NORTHAMERICA = "wireless-data-quota10-northamerica"
+        WIRELESS_DATA_QUOTA10_OCEANIA = "wireless-data-quota10-oceania"
+        WIRELESS_DATA_QUOTA50 = "wireless-data-quota50"
+        WIRELESS_DATA_QUOTA50_AFRICA = "wireless-data-quota50-africa"
+        WIRELESS_DATA_QUOTA50_ASIA = "wireless-data-quota50-asia"
+        WIRELESS_DATA_QUOTA50_CENTRALANDSOUTHAMERICA = (
+            "wireless-data-quota50-centralandsouthamerica"
+        )
+        WIRELESS_DATA_QUOTA50_EUROPE = "wireless-data-quota50-europe"
+        WIRELESS_DATA_QUOTA50_NORTHAMERICA = "wireless-data-quota50-northamerica"
+        WIRELESS_DATA_QUOTA50_OCEANIA = "wireless-data-quota50-oceania"
+        WIRELESS_DATA_QUOTACUSTOM = "wireless-data-quotacustom"
+        WIRELESS_DATA_QUOTACUSTOM_AFRICA = "wireless-data-quotacustom-africa"
+        WIRELESS_DATA_QUOTACUSTOM_ASIA = "wireless-data-quotacustom-asia"
+        WIRELESS_DATA_QUOTACUSTOM_CENTRALANDSOUTHAMERICA = (
+            "wireless-data-quotacustom-centralandsouthamerica"
+        )
+        WIRELESS_DATA_QUOTACUSTOM_EUROPE = "wireless-data-quotacustom-europe"
+        WIRELESS_DATA_QUOTACUSTOM_NORTHAMERICA = (
+            "wireless-data-quotacustom-northamerica"
+        )
+        WIRELESS_DATA_QUOTACUSTOM_OCEANIA = "wireless-data-quotacustom-oceania"
+        WIRELESS_MRC_PAYG = "wireless-mrc-payg"
+        WIRELESS_MRC_QUOTA1 = "wireless-mrc-quota1"
+        WIRELESS_MRC_QUOTA10 = "wireless-mrc-quota10"
+        WIRELESS_MRC_QUOTA50 = "wireless-mrc-quota50"
+        WIRELESS_MRC_QUOTACUSTOM = "wireless-mrc-quotacustom"
         WIRELESS_ORDERS = "wireless-orders"
         WIRELESS_ORDERS_ARTWORK = "wireless-orders-artwork"
         WIRELESS_ORDERS_BULK = "wireless-orders-bulk"
         WIRELESS_ORDERS_ESIM = "wireless-orders-esim"
         WIRELESS_ORDERS_STARTER = "wireless-orders-starter"
+        WIRELESS_QUOTAS = "wireless-quotas"
+        WIRELESS_SMS_AFRICA = "wireless-sms-africa"
+        WIRELESS_SMS_ASIA = "wireless-sms-asia"
+        WIRELESS_SMS_CENTRALANDSOUTHAMERICA = "wireless-sms-centralandsouthamerica"
+        WIRELESS_SMS_EUROPE = "wireless-sms-europe"
+        WIRELESS_SMS_NORTHAMERICA = "wireless-sms-northamerica"
+        WIRELESS_SMS_OCEANIA = "wireless-sms-oceania"
+        WIRELESS_SUPER_SIM = "wireless-super-sim"
+        WIRELESS_SUPER_SIM_DATA = "wireless-super-sim-data"
+        WIRELESS_SUPER_SIM_DATA_NORTH_AMERICA_USA = (
+            "wireless-super-sim-data-north-america-usa"
+        )
+        WIRELESS_SUPER_SIM_DATA_PAYG = "wireless-super-sim-data-payg"
+        WIRELESS_SUPER_SIM_DATA_PAYG_EUROPE = "wireless-super-sim-data-payg-europe"
+        WIRELESS_SUPER_SIM_DATA_PAYG_NORTH_AMERICA = (
+            "wireless-super-sim-data-payg-north-america"
+        )
+        WIRELESS_SUPER_SIM_HARDWARE = "wireless-super-sim-hardware"
+        WIRELESS_SUPER_SIM_HARDWARE_BULK = "wireless-super-sim-hardware-bulk"
+        WIRELESS_SUPER_SIM_SMSCOMMANDS = "wireless-super-sim-smscommands"
+        WIRELESS_SUPER_SIM_SMSCOMMANDS_AFRICA = "wireless-super-sim-smscommands-africa"
+        WIRELESS_SUPER_SIM_SMSCOMMANDS_ASIA = "wireless-super-sim-smscommands-asia"
+        WIRELESS_SUPER_SIM_SMSCOMMANDS_CENT_AND_SOUTH_AMERICA = (
+            "wireless-super-sim-smscommands-cent-and-south-america"
+        )
+        WIRELESS_SUPER_SIM_SMSCOMMANDS_EUROPE = "wireless-super-sim-smscommands-europe"
+        WIRELESS_SUPER_SIM_SMSCOMMANDS_NORTH_AMERICA = (
+            "wireless-super-sim-smscommands-north-america"
+        )
+        WIRELESS_SUPER_SIM_SMSCOMMANDS_OCEANIA = (
+            "wireless-super-sim-smscommands-oceania"
+        )
+        WIRELESS_SUPER_SIM_SUBSCRIPTION = "wireless-super-sim-subscription"
+        WIRELESS_SUPER_SIM_SUBSCRIPTION_PAYG = "wireless-super-sim-subscription-payg"
         WIRELESS_USAGE = "wireless-usage"
         WIRELESS_USAGE_COMMANDS = "wireless-usage-commands"
         WIRELESS_USAGE_COMMANDS_AFRICA = "wireless-usage-commands-africa"
@@ -348,6 +656,184 @@ class LastMonthInstance(InstanceResource):
         WIRELESS_USAGE_MRC_SUSPENDED = "wireless-usage-mrc-suspended"
         WIRELESS_USAGE_SMS = "wireless-usage-sms"
         WIRELESS_USAGE_VOICE = "wireless-usage-voice"
+        A2P_FAST_TRACK_ONBOARDING = "a2p-fast-track-onboarding"
+        ADVISORY_SERVICES = "advisory-services"
+        ADVISORY_SERVICES_BILLED = "advisory-services-billed"
+        ADVISORY_SERVICES_CALL_TRACKING = "advisory-services-call-tracking"
+        ADVISORY_SERVICES_DATA_SERVICES = "advisory-services-data-services"
+        ADVISORY_SERVICES_EXPENSES = "advisory-services-expenses"
+        ADVISORY_SERVICES_SIP_TRUNKING = "advisory-services-sip-trunking"
+        ASSETS_REQUESTS = "assets-requests"
+        AUDIENCE_MINUTES_VIDEO = "audience-minutes-video"
+        AUTHY_BUCKET_ADJUSTMENT = "authy-bucket-adjustment"
+        AUTHY_SOFTWARE = "authy-software"
+        CALLERIDLOOKUPS_API = "calleridlookups-api"
+        CALLERIDLOOKUPS_PROGRAMMABLEVOICE = "calleridlookups-programmablevoice"
+        CALLERIDLOOKUPS_TRUNKING = "calleridlookups-trunking"
+        CALLS_TRUNKING_INBOUND_TOLLFREE_LOCAL = "calls-trunking-inbound-tollfree-local"
+        CALLS_TRUNKING_INBOUND_TOLLFREE_MOBILE = (
+            "calls-trunking-inbound-tollfree-mobile"
+        )
+        CHANNELS_WHATSAPP_CONVERSATION_FREE_1 = "channels-whatsapp-conversation-free-1"
+        CONFERENCE = "conference"
+        CONVERSATIONAL_INSIGHTS = "conversational-insights"
+        CONVERSATIONAL_INSIGHTS_MESSAGES = "conversational-insights-messages"
+        CONVERSATIONAL_INSIGHTS_VOICE_MINUTES = "conversational-insights-voice-minutes"
+        DEMO = "demo"
+        DEMO_UC_SCRIPT_TEST = "demo-uc-script-test"
+        ELASTIC_SIP_TRUNKING = "elastic-sip-trunking"
+        ELASTIC_SIP_TRUNKING_CALL_TRANSFERS = "elastic-sip-trunking-call-transfers"
+        ENTERPRISE_HIPPA = "enterprise-hippa"
+        FLEX_NAMED_USERS = "flex-named-users"
+        FLEX_SPINSCI = "flex-spinsci"
+        FLEX_USERS_1 = "flex-users-1"
+        FLEX_WFO_PREMIUM_SPEECH_ANALYTICS = "flex-wfo-premium-speech-analytics"
+        FLEX_XCELERATE = "flex-xcelerate"
+        FUNCTIONS_ROLLUP = "functions-rollup"
+        IMP_V1_USAGE = "imp-v1-usage"
+        IP_MESSAGING_ADDONS = "ip-messaging-addons"
+        IVR = "ivr"
+        IVR_CONVERSATIONAL = "ivr-conversational"
+        IVR_DTMF = "ivr-dtmf"
+        IVR_VIRTUALAGENT = "ivr-virtualagent"
+        LIVE = "live"
+        LIVE_MEDIA_RECORDING_MINUTES = "live-media-recording-minutes"
+        LONGCODE_MPS = "longcode-mps"
+        MARKETPLACE_ANALYTICS_ADDONS = "marketplace-analytics-addons"
+        MARKETPLACE_ISV_ADDONS = "marketplace-isv-addons"
+        MARKETPLACE_MESSAGING_ADDONS = "marketplace-messaging-addons"
+        MARKETPLACE_PHONENUMBERS_ADDONS = "marketplace-phonenumbers-addons"
+        MARKETPLACE_RECORDING_ADDONS = "marketplace-recording-addons"
+        MARKETPLACE_VIRTUALAGENT_ADDONS = "marketplace-virtualagent-addons"
+        MARKETPLAY_PAY_ADDONS_SHUTTLE_PAY_CONNECTOR_1 = (
+            "marketplay-pay-addons-shuttle-pay-connector-1"
+        )
+        MARKETPLAY_PAY_ADDONS_STRIPE_PAY_CONNECTOR = (
+            "marketplay-pay-addons-stripe-pay-connector"
+        )
+        MMS_INBOUND_LONGCODE_CANADA = "mms-inbound-longcode-canada"
+        MMS_INBOUND_LONGCODE_UNITEDSTATES = "mms-inbound-longcode-unitedstates"
+        MMS_OUTBOUND_LONGCODE_CANADA = "mms-outbound-longcode-canada"
+        MMS_OUTBOUND_LONGCODE_UNITEDSTATES = "mms-outbound-longcode-unitedstates"
+        MMS_OUTBOUND_TOLL_FREE = "mms-outbound-toll-free"
+        NOTIFY_CHATAPPSANDOTHERCHANNELS = "notify-chatappsandotherchannels"
+        NOTIFY_NOTIFYSERVICES = "notify-notifyservices"
+        NOTIFY_PUSHNOTIFICATIONS = "notify-pushnotifications"
+        PAYMENT_GATEWAY_CONNECTORS = "payment-gateway-connectors"
+        PAYMENT_SOLUTIONS = "payment-solutions"
+        PCHAT_BUCKET_ADJUSTMENT = "pchat-bucket-adjustment"
+        PHONENUMBERS_NUMBERS = "phonenumbers-numbers"
+        PROG_VOICE_CLIENT_ANDROID = "prog-voice-client-android"
+        PROG_VOICE_CLIENT_ANDROID_INBOUND = "prog-voice-client-android-inbound"
+        PROG_VOICE_CLIENT_ANDROID_OUTBOUND = "prog-voice-client-android-outbound"
+        PROG_VOICE_CLIENT_IOS = "prog-voice-client-ios"
+        PROG_VOICE_CLIENT_IOS_INBOUND = "prog-voice-client-ios-inbound"
+        PROG_VOICE_CLIENT_IOS_OUTBOUND = "prog-voice-client-ios-outbound"
+        PROG_VOICE_CLIENT_SDK = "prog-voice-client-sdk"
+        PROG_VOICE_CLIENT_WEB = "prog-voice-client-web"
+        PROG_VOICE_CLIENT_WEB_INBOUND = "prog-voice-client-web-inbound"
+        PROG_VOICE_CLIENT_WEB_OUTBOUND = "prog-voice-client-web-outbound"
+        PROGRAMMABLEVOICECONNECTIVITY_MEDIA_STREAMS = (
+            "programmablevoiceconnectivity-media-streams"
+        )
+        PSTNCONNECTIVITY_BYOC = "pstnconnectivity-byoc"
+        PSTNCONNECTIVITY_EMERGENCY = "pstnconnectivity-emergency"
+        PSTNCONNECTIVITY_MINUTES = "pstnconnectivity-minutes"
+        PSTNCONNECTIVITY_MINUTES_1 = "pstnconnectivity-minutes-1"
+        PSTNCONNECTIVITY_MINUTESINBOUNDLOCAL = "pstnconnectivity-minutesinboundlocal"
+        PSTNCONNECTIVITY_MINUTESINBOUNDMOBILE = "pstnconnectivity-minutesinboundmobile"
+        PSTNCONNECTIVITY_MINUTESINBOUNDTOLLFREE = (
+            "pstnconnectivity-minutesinboundtollfree"
+        )
+        PSTNCONNECTIVITY_MINUTESINBOUNDTOLLFREELOCAL = (
+            "pstnconnectivity-minutesinboundtollfreelocal"
+        )
+        PSTNCONNECTIVITY_MINUTESINBOUNDTOLLFREEMOBILE = (
+            "pstnconnectivity-minutesinboundtollfreemobile"
+        )
+        PV_ROOM_HOURS = "pv-room-hours"
+        PV_ROOM_SIMULTANEOUS_PARTICIPANT_CONNECTIONS = (
+            "pv-room-simultaneous-participant-connections"
+        )
+        PVIDEO_ROOM_HOURS_AU1 = "pvideo-room-hours-au1"
+        PVIDEO_ROOM_HOURS_BR1 = "pvideo-room-hours-br1"
+        PVIDEO_ROOM_HOURS_IE1 = "pvideo-room-hours-ie1"
+        PVIDEO_ROOM_HOURS_JP1 = "pvideo-room-hours-jp1"
+        PVIDEO_ROOM_HOURS_SG1 = "pvideo-room-hours-sg1"
+        PVIDEO_ROOM_HOURS_US1 = "pvideo-room-hours-us1"
+        PVIDEO_ROOM_HOURS_US2 = "pvideo-room-hours-us2"
+        RECORDINGS_ENCRYPTED = "recordings-encrypted"
+        SHORT_CODE_SETUP_FEES = "short-code-setup-fees"
+        SHORTCODES_MESSAGES_INBOUND = "shortcodes-messages-inbound"
+        SHORTCODES_MESSAGES_OUTBOUND = "shortcodes-messages-outbound"
+        SMS_MESSAGES_REGISTRATIONFEES = "sms-messages-registrationfees"
+        SMS_MMS_PENALTY_FEES = "sms-mms-penalty-fees"
+        SMS_MMS_PENALTY_FEES_1 = "sms-mms-penalty-fees-1"
+        SMS_PUMPING_PROTECTION_NON_USCA = "sms-pumping-protection-non-usca"
+        SMS_PUMPING_PROTECTION_USCA = "sms-pumping-protection-usca"
+        STUDIO = "studio"
+        STUDIO_MONTHLY_FEES = "studio-monthly-fees"
+        SUPERSIM = "supersim"
+        TASK_ROUTER = "task-router"
+        TASK_ROUTER_WORKERS = "task-router-workers"
+        TEST_QUOTA_BUCKETS = "test-quota-buckets"
+        TEST_UC_SCRIPT_1 = "test-uc-script-1"
+        TEST_UC_SCRIPT_DEMO_2 = "test-uc-script-demo-2"
+        TEXT_TO_SPEECH = "text-to-speech"
+        TME = "tme"
+        TTS_BASIC = "tts-basic"
+        TWILIO_EDITIONS = "twilio-editions"
+        TWILIO_INTERCONNECT_CALIFORNIA = "twilio-interconnect-california"
+        TWILIO_INTERCONNECT_CALIFORNIA_MONTHLY = (
+            "twilio-interconnect-california-monthly"
+        )
+        TWILIO_INTERCONNECT_CALIFORNIA_SETUP = "twilio-interconnect-california-setup"
+        TWILIO_INTERCONNECT_FRANKFURT = "twilio-interconnect-frankfurt"
+        TWILIO_INTERCONNECT_FRANKFURT_MO = "twilio-interconnect-frankfurt-mo"
+        TWILIO_INTERCONNECT_FRANKFURT_SETUP = "twilio-interconnect-frankfurt-setup"
+        TWILIO_INTERCONNECT_LONDON = "twilio-interconnect-london"
+        TWILIO_INTERCONNECT_LONDON_MO = "twilio-interconnect-london-mo"
+        TWILIO_INTERCONNECT_LONDON_SETUP = "twilio-interconnect-london-setup"
+        TWILIO_INTERCONNECT_SAO_PAULO = "twilio-interconnect-sao-paulo"
+        TWILIO_INTERCONNECT_SAO_PAULO_MONTHLY = "twilio-interconnect-sao-paulo-monthly"
+        TWILIO_INTERCONNECT_SAO_PAULO_SETUP = "twilio-interconnect-sao-paulo-setup"
+        TWILIO_INTERCONNECT_SINGAPORE = "twilio-interconnect-singapore"
+        TWILIO_INTERCONNECT_SINGAPORE_MO = "twilio-interconnect-singapore-mo"
+        TWILIO_INTERCONNECT_SINGAPORE_SETUP = "twilio-interconnect-singapore-setup"
+        TWILIO_INTERCONNECT_SYDNEY = "twilio-interconnect-sydney"
+        TWILIO_INTERCONNECT_SYDNEY_MO = "twilio-interconnect-sydney-mo"
+        TWILIO_INTERCONNECT_SYDNEY_SETUP = "twilio-interconnect-sydney-setup"
+        TWILIO_INTERCONNECT_TOKYO = "twilio-interconnect-tokyo"
+        TWILIO_INTERCONNECT_TOKYO_MO = "twilio-interconnect-tokyo-mo"
+        TWILIO_INTERCONNECT_TOKYO_SETUP = "twilio-interconnect-tokyo-setup"
+        TWILIO_INTERCONNECT_VA = "twilio-interconnect-va"
+        TWILIO_INTERCONNECT_VA_MO = "twilio-interconnect-va-mo"
+        TWILIO_INTERCONNECT_VA_SETUP = "twilio-interconnect-va-setup"
+        TWIML_VERBS = "twiml-verbs"
+        TWIML_VERBS_SAY = "twiml-verbs-say"
+        USAGE_PROGRAMMABLE_MESSAGING_ENGAGEMENT_SUITE = (
+            "usage-programmable-messaging-engagement-suite"
+        )
+        USAGE_PROGRAMMABLE_MESSAGING_FEES_SERVICES = (
+            "usage-programmable-messaging-fees-services"
+        )
+        VERIFY_OUTBOUND_EMAIL = "verify-outbound-email"
+        VERIFY_PACKAGED_PLANS = "verify-packaged-plans"
+        VERIFY_SILENT_NETWORK_AUTH = "verify-silent-network-auth"
+        VERIFY_VOICE_AND_SMS = "verify-voice-and-sms"
+        VOICE_INSIGHTS_CLIENT_INSIGHTS_MONTHY_COMMIT = (
+            "voice-insights-client-insights-monthy-commit"
+        )
+        WIRELESS_DATA_PAYG_ASIA_AFG = "wireless-data-payg-asia-afg"
+        WIRELESS_MULTI_IMSI_SIM_COMMANDS = "wireless-multi-imsi-sim-commands"
+        WIRELESS_MULTI_IMSI_SIM_COMMANDS_USA = "wireless-multi-imsi-sim-commands-usa"
+        WIRELESS_MULTI_IMSI_SIM_DATA = "wireless-multi-imsi-sim-data"
+        WIRELESS_MULTI_IMSI_SIM_DATA_EU28 = "wireless-multi-imsi-sim-data-eu28"
+        WIRELESS_MULTI_IMSI_SIM_DATA_USA = "wireless-multi-imsi-sim-data-usa"
+        WIRELESS_MULTI_IMSI_SIM_MONTHLY_FEES = "wireless-multi-imsi-sim-monthly-fees"
+        WIRELESS_MULTI_IMSI_SIM_USAGE = "wireless-multi-imsi-sim-usage"
+        WIRELESS_SUPER_SIM_DATA_NORTH_AMERICA = "wireless-super-sim-data-north-america"
+        WIRELESS_SUPER_SIM_USAGE = "wireless-super-sim-usage"
 
     """
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that accrued the usage.
