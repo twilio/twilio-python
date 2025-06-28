@@ -1,7 +1,11 @@
 import unittest
 import aiounittest
 
-from mock import AsyncMock, Mock
+try:
+    from unittest.mock import AsyncMock, Mock
+except ImportError:
+    # Python 3.7
+    from mock import AsyncMock, Mock
 from twilio.http.response import Response
 from twilio.rest import Client
 
