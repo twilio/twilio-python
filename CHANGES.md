@@ -3,6 +3,35 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-07-03] Version 9.6.4
+--------------------------
+**Library - Chore**
+- [PR #865](https://github.com/twilio/twilio-python/pull/865): Remove references to microvisor. Thanks to [@akhani18](https://github.com/akhani18)!
+- [PR #872](https://github.com/twilio/twilio-python/pull/872): support Python 3.13. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+- [PR #870](https://github.com/twilio/twilio-python/pull/870): remove knowledge domain. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Bulkexports**
+- Changed the type of 'details' field to be a list of objects instead of a single object
+
+**Conversations**
+- Updates to `method` casing for ConfgurationAddress, ConversationScopedWebhook, and ServiceConversationScopedWebhook for RestProxy compatibility
+
+**Proxy**
+- remove shortcodes resource as its no longer used
+
+**Serverless**
+- Change log field level from type `ienum` to `string` in Logs api
+
+**Taskrouter**
+- Remove `URL-encoded` from attributes param definition in tasks
+
+**Trunking**
+- Added `symmetric_rtp_enabled` property on Trunks.
+
+**Twiml**
+- Add support for `<WhatsApp>` noun under `<Dial>` verb
+
+
 [2025-06-12] Version 9.6.3
 --------------------------
 **Library - Chore**

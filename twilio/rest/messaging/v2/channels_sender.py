@@ -85,6 +85,40 @@ class ChannelsSenderInstance(InstanceResource):
                 "websites": self.websites,
             }
 
+    class MessagingV2ChannelsSenderProfileResponseEmails(object):
+        """
+        :ivar email:
+        :ivar label:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.email: Optional[str] = payload.get("email")
+            self.label: Optional[str] = payload.get("label")
+
+        def to_dict(self):
+            return {
+                "": self.email,
+                "": self.label,
+            }
+
+    class MessagingV2ChannelsSenderProfileResponseWebsites(object):
+        """
+        :ivar website:
+        :ivar label:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.website: Optional[str] = payload.get("website")
+            self.label: Optional[str] = payload.get("label")
+
+        def to_dict(self):
+            return {
+                "": self.website,
+                "": self.label,
+            }
+
     class MessagingV2ChannelsSenderRequestsCreate(object):
         """
         :ivar sender_id: The ID of this Sender prefixed with the channel, e.g., `whatsapp:E.164`
@@ -381,6 +415,40 @@ class ChannelsSenderContext(InstanceContext):
                 "logo_url": self.logo_url,
                 "vertical": self.vertical,
                 "websites": self.websites,
+            }
+
+    class MessagingV2ChannelsSenderProfileResponseEmails(object):
+        """
+        :ivar email:
+        :ivar label:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.email: Optional[str] = payload.get("email")
+            self.label: Optional[str] = payload.get("label")
+
+        def to_dict(self):
+            return {
+                "": self.email,
+                "": self.label,
+            }
+
+    class MessagingV2ChannelsSenderProfileResponseWebsites(object):
+        """
+        :ivar website:
+        :ivar label:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.website: Optional[str] = payload.get("website")
+            self.label: Optional[str] = payload.get("label")
+
+        def to_dict(self):
+            return {
+                "": self.website,
+                "": self.label,
             }
 
     class MessagingV2ChannelsSenderRequestsCreate(object):
@@ -709,6 +777,40 @@ class ChannelsSenderList(ListResource):
                 "logo_url": self.logo_url,
                 "vertical": self.vertical,
                 "websites": self.websites,
+            }
+
+    class MessagingV2ChannelsSenderProfileResponseEmails(object):
+        """
+        :ivar email:
+        :ivar label:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.email: Optional[str] = payload.get("email")
+            self.label: Optional[str] = payload.get("label")
+
+        def to_dict(self):
+            return {
+                "": self.email,
+                "": self.label,
+            }
+
+    class MessagingV2ChannelsSenderProfileResponseWebsites(object):
+        """
+        :ivar website:
+        :ivar label:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.website: Optional[str] = payload.get("website")
+            self.label: Optional[str] = payload.get("label")
+
+        def to_dict(self):
+            return {
+                "": self.website,
+                "": self.label,
             }
 
     class MessagingV2ChannelsSenderRequestsCreate(object):

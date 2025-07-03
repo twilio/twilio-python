@@ -30,7 +30,6 @@ class VerificationAttemptInstance(InstanceResource):
         EMAIL = "email"
         WHATSAPP = "whatsapp"
         RBM = "rbm"
-        SNA = "sna"
 
     class ConversionStatus(object):
         CONVERTED = "converted"
@@ -249,7 +248,7 @@ class VerificationAttemptList(ListResource):
         :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel.
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
         :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
@@ -302,7 +301,7 @@ class VerificationAttemptList(ListResource):
         :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel.
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
         :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
@@ -354,7 +353,7 @@ class VerificationAttemptList(ListResource):
         :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel.
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
         :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
@@ -406,7 +405,7 @@ class VerificationAttemptList(ListResource):
         :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param str country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel.
         :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
         :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
@@ -459,7 +458,7 @@ class VerificationAttemptList(ListResource):
         :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param channel: Filter used to query Verification Attempts by communication channel.
         :param verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
         :param status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
@@ -518,7 +517,7 @@ class VerificationAttemptList(ListResource):
         :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param channel_data_to: Destination of a verification. It is phone number in E.164 format.
         :param country: Filter used to query Verification Attempts sent to the specified destination country.
-        :param channel: Filter used to query Verification Attempts by communication channel. Valid values are `SMS` and `CALL`
+        :param channel: Filter used to query Verification Attempts by communication channel.
         :param verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
         :param verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
         :param status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.

@@ -50,6 +50,7 @@ class TrunkInstance(InstanceResource):
     :ivar transfer_caller_id: 
     :ivar cnam_lookup_enabled: Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled, all inbound calls to the SIP Trunk from the United States and Canada automatically perform a CNAM Lookup and display Caller ID data on your phone. See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more information.
     :ivar auth_type: The types of authentication mapped to the domain. Can be: `IP_ACL` and `CREDENTIAL_LIST`. If both are mapped, the values are returned in a comma delimited list. If empty, the domain will not receive any traffic.
+    :ivar symmetric_rtp_enabled: Whether Symmetric RTP is enabled for the trunk. When Symmetric RTP is disabled, Twilio will send RTP to the destination negotiated in the SDP. Disabling Symmetric RTP is considered to be more secure and therefore recommended. See [Symmetric RTP](https://www.twilio.com/docs/sip-trunking#symmetric-rtp) for more information.
     :ivar auth_type_set: Reserved.
     :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
@@ -80,6 +81,9 @@ class TrunkInstance(InstanceResource):
         )
         self.cnam_lookup_enabled: Optional[bool] = payload.get("cnam_lookup_enabled")
         self.auth_type: Optional[str] = payload.get("auth_type")
+        self.symmetric_rtp_enabled: Optional[bool] = payload.get(
+            "symmetric_rtp_enabled"
+        )
         self.auth_type_set: Optional[List[str]] = payload.get("auth_type_set")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")

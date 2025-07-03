@@ -47,7 +47,7 @@ class ExportCustomJobInstance(InstanceResource):
         self.webhook_method: Optional[str] = payload.get("webhook_method")
         self.email: Optional[str] = payload.get("email")
         self.job_sid: Optional[str] = payload.get("job_sid")
-        self.details: Optional[Dict[str, object]] = payload.get("details")
+        self.details: Optional[List[Dict[str, object]]] = payload.get("details")
         self.job_queue_position: Optional[str] = payload.get("job_queue_position")
         self.estimated_completion_time: Optional[str] = payload.get(
             "estimated_completion_time"

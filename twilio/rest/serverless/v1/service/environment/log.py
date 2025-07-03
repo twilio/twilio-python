@@ -23,12 +23,6 @@ from twilio.base.page import Page
 
 
 class LogInstance(InstanceResource):
-
-    class Level(object):
-        INFO = "info"
-        WARN = "warn"
-        ERROR = "error"
-
     """
     :ivar sid: The unique string that we created to identify the Log resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Log resource.
@@ -38,7 +32,7 @@ class LogInstance(InstanceResource):
     :ivar deployment_sid: The SID of the deployment that corresponds to the log.
     :ivar function_sid: The SID of the function whose invocation produced the log.
     :ivar request_sid: The SID of the request associated with the log.
-    :ivar level: 
+    :ivar level: The log level.
     :ivar message: The log message.
     :ivar date_created: The date and time in GMT when the Log resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar url: The absolute URL of the Log resource.
@@ -62,7 +56,7 @@ class LogInstance(InstanceResource):
         self.deployment_sid: Optional[str] = payload.get("deployment_sid")
         self.function_sid: Optional[str] = payload.get("function_sid")
         self.request_sid: Optional[str] = payload.get("request_sid")
-        self.level: Optional["LogInstance.Level"] = payload.get("level")
+        self.level: Optional[str] = payload.get("level")
         self.message: Optional[str] = payload.get("message")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
