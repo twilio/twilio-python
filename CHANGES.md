@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-07-10] Version 9.6.5
+--------------------------
+**Library - Fix**
+- [PR #874](https://github.com/twilio/twilio-python/pull/874): delete non existing import in rest/preview. Thanks to [@lopenchi](https://github.com/lopenchi)!
+
+**Flex**
+- update team name for web_channel, webchat_init_token, webchat_refresh_token
+
+
 [2025-07-03] Version 9.6.4
 --------------------------
 **Library - Chore**

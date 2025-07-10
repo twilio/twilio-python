@@ -25,8 +25,8 @@ class LookupOverrideInstance(InstanceResource):
 
     class OverridesRequest(object):
         """
-        :ivar line_type:
-        :ivar reason:
+        :ivar line_type: The new line type to override the original line type
+        :ivar reason: The reason for the override
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -43,12 +43,12 @@ class LookupOverrideInstance(InstanceResource):
             }
 
     """
-    :ivar phone_number: 
-    :ivar original_line_type: 
-    :ivar overridden_line_type: 
+    :ivar phone_number: The phone number for which the override was created
+    :ivar original_line_type: The original line type
+    :ivar overridden_line_type: The new line type after the override
     :ivar override_reason: The reason for the override
     :ivar override_timestamp: 
-    :ivar overridden_by_account_sid: The user who overrode the line type
+    :ivar overridden_by_account_sid: The Account SID for the user who made the override
     :ivar code: Twilio-specific error code
     :ivar message: Error message
     :ivar more_info: Link to Error Code References
@@ -217,8 +217,8 @@ class LookupOverrideContext(InstanceContext):
 
     class OverridesRequest(object):
         """
-        :ivar line_type:
-        :ivar reason:
+        :ivar line_type: The new line type to override the original line type
+        :ivar reason: The reason for the override
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -451,8 +451,8 @@ class LookupOverrideList(ListResource):
 
     class OverridesRequest(object):
         """
-        :ivar line_type:
-        :ivar reason:
+        :ivar line_type: The new line type to override the original line type
+        :ivar reason: The reason for the override
         """
 
         def __init__(self, payload: Dict[str, Any]):
