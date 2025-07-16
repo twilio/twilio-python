@@ -1,0 +1,23 @@
+from twilio.rest import Client
+
+# --- CONFIG ---
+account_sid = 'YOUR_TWILIO_ACCOUNT_SID'
+auth_token = 'YOUR_TWILIO_AUTH_TOKEN'
+twilio_whatsapp_number = 'whatsapp:+14155238886'  # Twilio sandbox number
+your_whatsapp_number = 'whatsapp:+YOUR_NUMBER'
+
+client = Client(account_sid, auth_token)
+
+def send_whatsapp_signal(pair, signal_type, entry, sl, tp, timeframe):
+    message = f"""{signal_type.upper()} SIGNAL - {pair} ({timeframe})
+Entry: {entry}
+Stop Loss: {sl}
+Take Profit: {tp}
+Strategy: EMA + RSI + Breakout
+"""
+    message = client.messages.create(
+        from_=twilio_whatsapp_number,
+        body=message,
+        to=your_whatsapp_number
+    )
+    return message.sid
