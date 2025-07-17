@@ -1,0 +1,38 @@
+from flask import Flask, request
+from twilio.twiml.messaging_response import MessagingResponse
+
+app = Flask(__name__)
+
+# Majibu ya msingi ya ilani ya CCM
+ILANI_RESPONSES = {
+    "elimu": "Ilani ya CCM 2020-2025 inasisitiza elimu bure kuanzia shule ya msingi hadi sekondari.",
+    "afya": "Ilani ya CCM inaeleza kujengwa kwa hospitali kila kata na bima ya afya kwa wote.",
+    "miundombinu": "Ilani inahimiza ujenzi wa SGR, barabara za lami na madaraja kote nchini.",
+    "kilimo": "Ilani inalenga pembejeo za ruzuku na kuongeza uzalishaji wa mazao ya chakula na biashara."
+}
+
+@app.route("/sms", methods=['POST'])
+def sms_reply():
+    # Pokea SMS iliyotumwa na mtumiaji
+    incoming_msg = request.form.get('Body', '').lower().strip()
+
+    # Andaa jibu
+    resp = MessagingResponse()
+    msg = resp.message()
+
+    # Angalia kama neno limetajwa kwenye kamusi yetu
+    found = False
+    for keyword in ILANI_RESPONSES:
+        if keyword in incoming_msg:
+            msg.body(ILANI_RESPONSES[keyword])
+            found = True
+            break
+
+    # Ikiwa hakuna kulingana, toa jibu la chaguo-msingi
+    if not found:
+        msg.body("Karibu kwenye Chatbot ya Ilani ya CCM. Uliza kuhusu elimu, afya, miundombinu au kilimo.")
+
+    return str(resp)
+
+if __name__ == "__main__":
+    app.run(debug=True)
