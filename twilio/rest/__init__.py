@@ -29,11 +29,9 @@ if TYPE_CHECKING:
     from twilio.rest.insights import Insights
     from twilio.rest.intelligence import Intelligence
     from twilio.rest.ip_messaging import IpMessaging
-    from twilio.rest.knowledge import Knowledge
     from twilio.rest.lookups import Lookups
     from twilio.rest.marketplace import Marketplace
     from twilio.rest.messaging import Messaging
-    from twilio.rest.microvisor import Microvisor
     from twilio.rest.monitor import Monitor
     from twilio.rest.notify import Notify
     from twilio.rest.numbers import Numbers
@@ -143,11 +141,9 @@ class Client(ClientBase):
         self._insights: Optional["Insights"] = None
         self._intelligence: Optional["Intelligence"] = None
         self._ip_messaging: Optional["IpMessaging"] = None
-        self._knowledge: Optional["Knowledge"] = None
         self._lookups: Optional["Lookups"] = None
         self._marketplace: Optional["Marketplace"] = None
         self._messaging: Optional["Messaging"] = None
-        self._microvisor: Optional["Microvisor"] = None
         self._monitor: Optional["Monitor"] = None
         self._notify: Optional["Notify"] = None
         self._numbers: Optional["Numbers"] = None
@@ -364,19 +360,6 @@ class Client(ClientBase):
         return self._ip_messaging
 
     @property
-    def knowledge(self) -> "Knowledge":
-        """
-        Access the Knowledge Twilio Domain
-
-        :returns: Knowledge Twilio Domain
-        """
-        if self._knowledge is None:
-            from twilio.rest.knowledge import Knowledge
-
-            self._knowledge = Knowledge(self)
-        return self._knowledge
-
-    @property
     def lookups(self) -> "Lookups":
         """
         Access the Lookups Twilio Domain
@@ -414,19 +397,6 @@ class Client(ClientBase):
 
             self._messaging = Messaging(self)
         return self._messaging
-
-    @property
-    def microvisor(self) -> "Microvisor":
-        """
-        Access the Microvisor Twilio Domain
-
-        :returns: Microvisor Twilio Domain
-        """
-        if self._microvisor is None:
-            from twilio.rest.microvisor import Microvisor
-
-            self._microvisor = Microvisor(self)
-        return self._microvisor
 
     @property
     def monitor(self) -> "Monitor":

@@ -12,8 +12,9 @@ r"""
     Do not edit the class manually.
 """
 
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import values
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -50,7 +51,7 @@ class DependentPhoneNumberInstance(InstanceResource):
     :ivar sms_method: The HTTP method we use to call `sms_url`. Can be: `GET` or `POST`.
     :ivar sms_url: The URL we call when the phone number receives an incoming SMS message.
     :ivar address_requirements: 
-    :ivar capabilities: 
+    :ivar capabilities: The set of Boolean properties that indicates whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
     :ivar status_callback: The URL we call using the `status_callback_method` to send status information to your application.
     :ivar status_callback_method: The HTTP method we use to call `status_callback`. Can be: `GET` or `POST`.
     :ivar api_version: The API version used to start a new TwiML session.
@@ -82,8 +83,12 @@ class DependentPhoneNumberInstance(InstanceResource):
         self.voice_caller_id_lookup: Optional[bool] = payload.get(
             "voice_caller_id_lookup"
         )
-        self.date_created: Optional[str] = payload.get("date_created")
-        self.date_updated: Optional[str] = payload.get("date_updated")
+        self.date_created: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_created")
+        )
+        self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
+            payload.get("date_updated")
+        )
         self.sms_fallback_method: Optional[str] = payload.get("sms_fallback_method")
         self.sms_fallback_url: Optional[str] = payload.get("sms_fallback_url")
         self.sms_method: Optional[str] = payload.get("sms_method")
@@ -91,7 +96,7 @@ class DependentPhoneNumberInstance(InstanceResource):
         self.address_requirements: Optional[
             "DependentPhoneNumberInstance.AddressRequirement"
         ] = payload.get("address_requirements")
-        self.capabilities: Optional[str] = payload.get("capabilities")
+        self.capabilities: Optional[Dict[str, object]] = payload.get("capabilities")
         self.status_callback: Optional[str] = payload.get("status_callback")
         self.status_callback_method: Optional[str] = payload.get(
             "status_callback_method"

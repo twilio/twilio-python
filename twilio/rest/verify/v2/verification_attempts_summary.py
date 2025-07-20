@@ -28,6 +28,7 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         CALL = "call"
         EMAIL = "email"
         WHATSAPP = "whatsapp"
+        RBM = "rbm"
 
     """
     :ivar total_attempts: Total of attempts made according to the provided filters
@@ -88,7 +89,7 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS`, `CALL` and `WHATSAPP`
+        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel.
         :param destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
@@ -120,7 +121,7 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
         :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS`, `CALL` and `WHATSAPP`
+        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel.
         :param destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
@@ -174,7 +175,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS`, `CALL` and `WHATSAPP`
+        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel.
         :param destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance
@@ -222,7 +223,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
         :param country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
-        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel. Valid values are `SMS`, `CALL` and `WHATSAPP`
+        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel.
         :param destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
 
         :returns: The fetched VerificationAttemptsSummaryInstance

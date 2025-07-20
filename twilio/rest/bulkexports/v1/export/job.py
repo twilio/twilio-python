@@ -12,7 +12,7 @@ r"""
     Do not edit the class manually.
 """
 
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -43,7 +43,7 @@ class JobInstance(InstanceResource):
 
         self.resource_type: Optional[str] = payload.get("resource_type")
         self.friendly_name: Optional[str] = payload.get("friendly_name")
-        self.details: Optional[Dict[str, object]] = payload.get("details")
+        self.details: Optional[List[Dict[str, object]]] = payload.get("details")
         self.start_day: Optional[str] = payload.get("start_day")
         self.end_day: Optional[str] = payload.get("end_day")
         self.job_sid: Optional[str] = payload.get("job_sid")

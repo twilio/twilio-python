@@ -22,7 +22,6 @@ from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.proxy.v1.service.phone_number import PhoneNumberList
 from twilio.rest.proxy.v1.service.session import SessionList
-from twilio.rest.proxy.v1.service.short_code import ShortCodeList
 
 
 class ServiceInstance(InstanceResource):
@@ -234,13 +233,6 @@ class ServiceInstance(InstanceResource):
         """
         return self._proxy.sessions
 
-    @property
-    def short_codes(self) -> ShortCodeList:
-        """
-        Access the short_codes
-        """
-        return self._proxy.short_codes
-
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -270,7 +262,6 @@ class ServiceContext(InstanceContext):
 
         self._phone_numbers: Optional[PhoneNumberList] = None
         self._sessions: Optional[SessionList] = None
-        self._short_codes: Optional[ShortCodeList] = None
 
     def delete(self) -> bool:
         """
@@ -467,18 +458,6 @@ class ServiceContext(InstanceContext):
                 self._solution["sid"],
             )
         return self._sessions
-
-    @property
-    def short_codes(self) -> ShortCodeList:
-        """
-        Access the short_codes
-        """
-        if self._short_codes is None:
-            self._short_codes = ShortCodeList(
-                self._version,
-                self._solution["sid"],
-            )
-        return self._short_codes
 
     def __repr__(self) -> str:
         """

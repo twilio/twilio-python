@@ -30,8 +30,8 @@ class AddressConfigurationInstance(InstanceResource):
         DEFAULT = "default"
 
     class Method(object):
-        GET = "GET"
-        POST = "POST"
+        GET = "get"
+        POST = "post"
 
     class Type(object):
         SMS = "sms"

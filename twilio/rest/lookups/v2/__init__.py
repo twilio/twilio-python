@@ -15,7 +15,11 @@ r"""
 from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
+from twilio.rest.lookups.v2.bucket import BucketList
+from twilio.rest.lookups.v2.lookup_override import LookupOverrideList
 from twilio.rest.lookups.v2.phone_number import PhoneNumberList
+from twilio.rest.lookups.v2.query import QueryList
+from twilio.rest.lookups.v2.rate_limit import RateLimitList
 
 
 class V2(Version):
@@ -27,13 +31,41 @@ class V2(Version):
         :param domain: The Twilio.lookups domain
         """
         super().__init__(domain, "v2")
+        self._bucket: Optional[BucketList] = None
+        self._lookup_overrides: Optional[LookupOverrideList] = None
         self._phone_numbers: Optional[PhoneNumberList] = None
+        self._query: Optional[QueryList] = None
+        self._rate_limits: Optional[RateLimitList] = None
+
+    @property
+    def bucket(self) -> BucketList:
+        if self._bucket is None:
+            self._bucket = BucketList(self)
+        return self._bucket
+
+    @property
+    def lookup_overrides(self) -> LookupOverrideList:
+        if self._lookup_overrides is None:
+            self._lookup_overrides = LookupOverrideList(self)
+        return self._lookup_overrides
 
     @property
     def phone_numbers(self) -> PhoneNumberList:
         if self._phone_numbers is None:
             self._phone_numbers = PhoneNumberList(self)
         return self._phone_numbers
+
+    @property
+    def query(self) -> QueryList:
+        if self._query is None:
+            self._query = QueryList(self)
+        return self._query
+
+    @property
+    def rate_limits(self) -> RateLimitList:
+        if self._rate_limits is None:
+            self._rate_limits = RateLimitList(self)
+        return self._rate_limits
 
     def __repr__(self) -> str:
         """

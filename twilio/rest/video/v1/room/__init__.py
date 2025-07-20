@@ -23,6 +23,7 @@ from twilio.base.page import Page
 from twilio.rest.video.v1.room.participant import ParticipantList
 from twilio.rest.video.v1.room.recording_rules import RecordingRulesList
 from twilio.rest.video.v1.room.room_recording import RoomRecordingList
+from twilio.rest.video.v1.room.transcriptions import TranscriptionsList
 
 
 class RoomInstance(InstanceResource):
@@ -204,6 +205,13 @@ class RoomInstance(InstanceResource):
         """
         return self._proxy.recordings
 
+    @property
+    def transcriptions(self) -> TranscriptionsList:
+        """
+        Access the transcriptions
+        """
+        return self._proxy.transcriptions
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -234,6 +242,7 @@ class RoomContext(InstanceContext):
         self._participants: Optional[ParticipantList] = None
         self._recording_rules: Optional[RecordingRulesList] = None
         self._recordings: Optional[RoomRecordingList] = None
+        self._transcriptions: Optional[TranscriptionsList] = None
 
     def fetch(self) -> RoomInstance:
         """
@@ -364,6 +373,18 @@ class RoomContext(InstanceContext):
                 self._solution["sid"],
             )
         return self._recordings
+
+    @property
+    def transcriptions(self) -> TranscriptionsList:
+        """
+        Access the transcriptions
+        """
+        if self._transcriptions is None:
+            self._transcriptions = TranscriptionsList(
+                self._version,
+                self._solution["sid"],
+            )
+        return self._transcriptions
 
     def __repr__(self) -> str:
         """

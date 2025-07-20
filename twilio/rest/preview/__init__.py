@@ -7,7 +7,6 @@ from twilio.rest.preview.hosted_numbers.authorization_document import (
 from twilio.rest.preview.hosted_numbers.hosted_number_order import HostedNumberOrderList
 from twilio.rest.preview.marketplace.available_add_on import AvailableAddOnList
 from twilio.rest.preview.marketplace.installed_add_on import InstalledAddOnList
-from twilio.rest.preview.sync.service import ServiceList
 from twilio.rest.preview.wireless.command import CommandList
 from twilio.rest.preview.wireless.rate_plan import RatePlanList
 from twilio.rest.preview.wireless.sim import SimList

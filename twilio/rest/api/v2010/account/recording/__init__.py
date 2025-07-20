@@ -57,7 +57,7 @@ class RecordingInstance(InstanceResource):
     :ivar price: The one-time cost of creating the recording in the `price_unit` currency.
     :ivar price_unit: The currency used in the `price` property. Example: `USD`.
     :ivar status: 
-    :ivar channels: The number of channels in the final recording file. Can be: `1` or `2`.
+    :ivar channels: The number of channels in the final recording file. Can be: `1` or `2`. Default: `1`.
     :ivar source: 
     :ivar error_code: The error code that describes why the recording is `absent`. The error code is described in our [Error Dictionary](https://www.twilio.com/docs/api/errors). This value is null if the recording `status` is not `absent`.
     :ivar uri: The URI of the resource, relative to `https://api.twilio.com`.

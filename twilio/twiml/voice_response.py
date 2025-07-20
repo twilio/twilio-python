@@ -2455,6 +2455,50 @@ class Dial(TwiML):
             )
         )
 
+    def whats_app(
+        self,
+        phone_number,
+        url=None,
+        method=None,
+        status_callback_event=None,
+        status_callback=None,
+        status_callback_method=None,
+        **kwargs
+    ):
+        """
+        Create a <WhatsApp> element
+
+        :param phone_number: WhatsApp Phone Number to dial
+        :param url: TwiML URL
+        :param method: TwiML URL Method
+        :param status_callback_event: Events to trigger status callback
+        :param status_callback: Status Callback URL
+        :param status_callback_method: Status Callback URL Method
+        :param kwargs: additional attributes
+
+        :returns: <WhatsApp> element
+        """
+        return self.nest(
+            WhatsApp(
+                phone_number,
+                url=url,
+                method=method,
+                status_callback_event=status_callback_event,
+                status_callback=status_callback,
+                status_callback_method=status_callback_method,
+                **kwargs
+            )
+        )
+
+
+class WhatsApp(TwiML):
+    """<WhatsApp> TwiML Noun"""
+
+    def __init__(self, phone_number, **kwargs):
+        super(WhatsApp, self).__init__(**kwargs)
+        self.name = "WhatsApp"
+        self.value = phone_number
+
 
 class Application(TwiML):
     """<Application> TwiML Noun"""

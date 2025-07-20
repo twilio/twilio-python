@@ -25,8 +25,8 @@ from twilio.base.page import Page
 class WebhookInstance(InstanceResource):
 
     class Method(object):
-        GET = "GET"
-        POST = "POST"
+        GET = "get"
+        POST = "post"
 
     class Target(object):
         WEBHOOK = "webhook"
