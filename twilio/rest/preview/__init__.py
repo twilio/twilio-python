@@ -51,15 +51,6 @@ class Preview(PreviewBase):
         return self.marketplace.installed_add_ons
 
     @property
-    def services(self) -> ServiceList:
-        warn(
-            "services is deprecated. Use sync.services instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return self.sync.services
-
-    @property
     def commands(self) -> CommandList:
         warn(
             "commands is deprecated. Use wireless.commands instead.",
