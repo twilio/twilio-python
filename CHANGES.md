@@ -3,6 +3,20 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-07-24] Version 9.7.0
+--------------------------
+**Library - Fix**
+- [PR #878](https://github.com/twilio/twilio-python/pull/878): Remove not existence class ServiceList. Thanks to [@lopenchi](https://github.com/lopenchi)!
+
+**Events**
+- Remove `SinkSid` parameter when updating subscriptions. **(breaking change)**
+
+**Twiml**
+- Remove Duplicates.
+- Add Polly Generative voices.
+- Add Latest Google (Chirp3-HD) voices.
+
+
 [2025-07-10] Version 9.6.5
 --------------------------
 **Library - Fix**

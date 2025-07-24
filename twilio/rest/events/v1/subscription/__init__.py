@@ -110,39 +110,31 @@ class SubscriptionInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     def update(
-        self,
-        description: Union[str, object] = values.unset,
-        sink_sid: Union[str, object] = values.unset,
+        self, description: Union[str, object] = values.unset
     ) -> "SubscriptionInstance":
         """
         Update the SubscriptionInstance
 
         :param description: A human readable description for the Subscription.
-        :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 
         :returns: The updated SubscriptionInstance
         """
         return self._proxy.update(
             description=description,
-            sink_sid=sink_sid,
         )
 
     async def update_async(
-        self,
-        description: Union[str, object] = values.unset,
-        sink_sid: Union[str, object] = values.unset,
+        self, description: Union[str, object] = values.unset
     ) -> "SubscriptionInstance":
         """
         Asynchronous coroutine to update the SubscriptionInstance
 
         :param description: A human readable description for the Subscription.
-        :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 
         :returns: The updated SubscriptionInstance
         """
         return await self._proxy.update_async(
             description=description,
-            sink_sid=sink_sid,
         )
 
     @property
@@ -250,15 +242,12 @@ class SubscriptionContext(InstanceContext):
         )
 
     def update(
-        self,
-        description: Union[str, object] = values.unset,
-        sink_sid: Union[str, object] = values.unset,
+        self, description: Union[str, object] = values.unset
     ) -> SubscriptionInstance:
         """
         Update the SubscriptionInstance
 
         :param description: A human readable description for the Subscription.
-        :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 
         :returns: The updated SubscriptionInstance
         """
@@ -266,7 +255,6 @@ class SubscriptionContext(InstanceContext):
         data = values.of(
             {
                 "Description": description,
-                "SinkSid": sink_sid,
             }
         )
         headers = values.of({})
@@ -282,15 +270,12 @@ class SubscriptionContext(InstanceContext):
         return SubscriptionInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
-        self,
-        description: Union[str, object] = values.unset,
-        sink_sid: Union[str, object] = values.unset,
+        self, description: Union[str, object] = values.unset
     ) -> SubscriptionInstance:
         """
         Asynchronous coroutine to update the SubscriptionInstance
 
         :param description: A human readable description for the Subscription.
-        :param sink_sid: The SID of the sink that events selected by this subscription should be sent to. Sink must be active for the subscription to be created.
 
         :returns: The updated SubscriptionInstance
         """
@@ -298,7 +283,6 @@ class SubscriptionContext(InstanceContext):
         data = values.of(
             {
                 "Description": description,
-                "SinkSid": sink_sid,
             }
         )
         headers = values.of({})

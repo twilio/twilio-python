@@ -205,6 +205,10 @@ class CallSummariesList(ListResource):
         branded_enabled: Union[bool, object] = values.unset,
         voice_integrity_enabled: Union[bool, object] = values.unset,
         branded_bundle_sid: Union[str, object] = values.unset,
+        branded_logo: Union[bool, object] = values.unset,
+        branded_type: Union[str, object] = values.unset,
+        branded_use_case: Union[str, object] = values.unset,
+        branded_call_reason: Union[str, object] = values.unset,
         voice_integrity_bundle_sid: Union[str, object] = values.unset,
         voice_integrity_use_case: Union[str, object] = values.unset,
         business_profile_identity: Union[str, object] = values.unset,
@@ -246,6 +250,10 @@ class CallSummariesList(ListResource):
         :param bool branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
         :param bool voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
         :param str branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param bool branded_logo: Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present).
+        :param str branded_type: Indicates whether the Branded Call is in_band vs out_of_band.
+        :param str branded_use_case: Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling.
+        :param str branded_call_reason: Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call.
         :param str voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
         :param str voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
         :param str business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
@@ -289,6 +297,10 @@ class CallSummariesList(ListResource):
             branded_enabled=branded_enabled,
             voice_integrity_enabled=voice_integrity_enabled,
             branded_bundle_sid=branded_bundle_sid,
+            branded_logo=branded_logo,
+            branded_type=branded_type,
+            branded_use_case=branded_use_case,
+            branded_call_reason=branded_call_reason,
             voice_integrity_bundle_sid=voice_integrity_bundle_sid,
             voice_integrity_use_case=voice_integrity_use_case,
             business_profile_identity=business_profile_identity,
@@ -330,6 +342,10 @@ class CallSummariesList(ListResource):
         branded_enabled: Union[bool, object] = values.unset,
         voice_integrity_enabled: Union[bool, object] = values.unset,
         branded_bundle_sid: Union[str, object] = values.unset,
+        branded_logo: Union[bool, object] = values.unset,
+        branded_type: Union[str, object] = values.unset,
+        branded_use_case: Union[str, object] = values.unset,
+        branded_call_reason: Union[str, object] = values.unset,
         voice_integrity_bundle_sid: Union[str, object] = values.unset,
         voice_integrity_use_case: Union[str, object] = values.unset,
         business_profile_identity: Union[str, object] = values.unset,
@@ -371,6 +387,10 @@ class CallSummariesList(ListResource):
         :param bool branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
         :param bool voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
         :param str branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param bool branded_logo: Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present).
+        :param str branded_type: Indicates whether the Branded Call is in_band vs out_of_band.
+        :param str branded_use_case: Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling.
+        :param str branded_call_reason: Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call.
         :param str voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
         :param str voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
         :param str business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
@@ -414,6 +434,10 @@ class CallSummariesList(ListResource):
             branded_enabled=branded_enabled,
             voice_integrity_enabled=voice_integrity_enabled,
             branded_bundle_sid=branded_bundle_sid,
+            branded_logo=branded_logo,
+            branded_type=branded_type,
+            branded_use_case=branded_use_case,
+            branded_call_reason=branded_call_reason,
             voice_integrity_bundle_sid=voice_integrity_bundle_sid,
             voice_integrity_use_case=voice_integrity_use_case,
             business_profile_identity=business_profile_identity,
@@ -455,6 +479,10 @@ class CallSummariesList(ListResource):
         branded_enabled: Union[bool, object] = values.unset,
         voice_integrity_enabled: Union[bool, object] = values.unset,
         branded_bundle_sid: Union[str, object] = values.unset,
+        branded_logo: Union[bool, object] = values.unset,
+        branded_type: Union[str, object] = values.unset,
+        branded_use_case: Union[str, object] = values.unset,
+        branded_call_reason: Union[str, object] = values.unset,
         voice_integrity_bundle_sid: Union[str, object] = values.unset,
         voice_integrity_use_case: Union[str, object] = values.unset,
         business_profile_identity: Union[str, object] = values.unset,
@@ -495,6 +523,10 @@ class CallSummariesList(ListResource):
         :param bool branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
         :param bool voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
         :param str branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param bool branded_logo: Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present).
+        :param str branded_type: Indicates whether the Branded Call is in_band vs out_of_band.
+        :param str branded_use_case: Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling.
+        :param str branded_call_reason: Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call.
         :param str voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
         :param str voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
         :param str business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
@@ -538,6 +570,10 @@ class CallSummariesList(ListResource):
                 branded_enabled=branded_enabled,
                 voice_integrity_enabled=voice_integrity_enabled,
                 branded_bundle_sid=branded_bundle_sid,
+                branded_logo=branded_logo,
+                branded_type=branded_type,
+                branded_use_case=branded_use_case,
+                branded_call_reason=branded_call_reason,
                 voice_integrity_bundle_sid=voice_integrity_bundle_sid,
                 voice_integrity_use_case=voice_integrity_use_case,
                 business_profile_identity=business_profile_identity,
@@ -579,6 +615,10 @@ class CallSummariesList(ListResource):
         branded_enabled: Union[bool, object] = values.unset,
         voice_integrity_enabled: Union[bool, object] = values.unset,
         branded_bundle_sid: Union[str, object] = values.unset,
+        branded_logo: Union[bool, object] = values.unset,
+        branded_type: Union[str, object] = values.unset,
+        branded_use_case: Union[str, object] = values.unset,
+        branded_call_reason: Union[str, object] = values.unset,
         voice_integrity_bundle_sid: Union[str, object] = values.unset,
         voice_integrity_use_case: Union[str, object] = values.unset,
         business_profile_identity: Union[str, object] = values.unset,
@@ -619,6 +659,10 @@ class CallSummariesList(ListResource):
         :param bool branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
         :param bool voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
         :param str branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param bool branded_logo: Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present).
+        :param str branded_type: Indicates whether the Branded Call is in_band vs out_of_band.
+        :param str branded_use_case: Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling.
+        :param str branded_call_reason: Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call.
         :param str voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
         :param str voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
         :param str business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
@@ -663,6 +707,10 @@ class CallSummariesList(ListResource):
                 branded_enabled=branded_enabled,
                 voice_integrity_enabled=voice_integrity_enabled,
                 branded_bundle_sid=branded_bundle_sid,
+                branded_logo=branded_logo,
+                branded_type=branded_type,
+                branded_use_case=branded_use_case,
+                branded_call_reason=branded_call_reason,
                 voice_integrity_bundle_sid=voice_integrity_bundle_sid,
                 voice_integrity_use_case=voice_integrity_use_case,
                 business_profile_identity=business_profile_identity,
@@ -704,6 +752,10 @@ class CallSummariesList(ListResource):
         branded_enabled: Union[bool, object] = values.unset,
         voice_integrity_enabled: Union[bool, object] = values.unset,
         branded_bundle_sid: Union[str, object] = values.unset,
+        branded_logo: Union[bool, object] = values.unset,
+        branded_type: Union[str, object] = values.unset,
+        branded_use_case: Union[str, object] = values.unset,
+        branded_call_reason: Union[str, object] = values.unset,
         voice_integrity_bundle_sid: Union[str, object] = values.unset,
         voice_integrity_use_case: Union[str, object] = values.unset,
         business_profile_identity: Union[str, object] = values.unset,
@@ -744,6 +796,10 @@ class CallSummariesList(ListResource):
         :param branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
         :param voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
         :param branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param branded_logo: Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present).
+        :param branded_type: Indicates whether the Branded Call is in_band vs out_of_band.
+        :param branded_use_case: Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling.
+        :param branded_call_reason: Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call.
         :param voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
         :param voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
         :param business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
@@ -786,6 +842,10 @@ class CallSummariesList(ListResource):
                     voice_integrity_enabled
                 ),
                 "BrandedBundleSid": branded_bundle_sid,
+                "BrandedLogo": serialize.boolean_to_string(branded_logo),
+                "BrandedType": branded_type,
+                "BrandedUseCase": branded_use_case,
+                "BrandedCallReason": branded_call_reason,
                 "VoiceIntegrityBundleSid": voice_integrity_bundle_sid,
                 "VoiceIntegrityUseCase": voice_integrity_use_case,
                 "BusinessProfileIdentity": business_profile_identity,
@@ -837,6 +897,10 @@ class CallSummariesList(ListResource):
         branded_enabled: Union[bool, object] = values.unset,
         voice_integrity_enabled: Union[bool, object] = values.unset,
         branded_bundle_sid: Union[str, object] = values.unset,
+        branded_logo: Union[bool, object] = values.unset,
+        branded_type: Union[str, object] = values.unset,
+        branded_use_case: Union[str, object] = values.unset,
+        branded_call_reason: Union[str, object] = values.unset,
         voice_integrity_bundle_sid: Union[str, object] = values.unset,
         voice_integrity_use_case: Union[str, object] = values.unset,
         business_profile_identity: Union[str, object] = values.unset,
@@ -877,6 +941,10 @@ class CallSummariesList(ListResource):
         :param branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
         :param voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
         :param branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param branded_logo: Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present).
+        :param branded_type: Indicates whether the Branded Call is in_band vs out_of_band.
+        :param branded_use_case: Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling.
+        :param branded_call_reason: Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call.
         :param voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
         :param voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
         :param business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
@@ -919,6 +987,10 @@ class CallSummariesList(ListResource):
                     voice_integrity_enabled
                 ),
                 "BrandedBundleSid": branded_bundle_sid,
+                "BrandedLogo": serialize.boolean_to_string(branded_logo),
+                "BrandedType": branded_type,
+                "BrandedUseCase": branded_use_case,
+                "BrandedCallReason": branded_call_reason,
                 "VoiceIntegrityBundleSid": voice_integrity_bundle_sid,
                 "VoiceIntegrityUseCase": voice_integrity_use_case,
                 "BusinessProfileIdentity": business_profile_identity,
