@@ -9,11 +9,8 @@ r"""
   Do not edit the class manually.
 """
 
-from typing import Optional
-
 from twilio.base.domain import Domain
 from twilio.rest import Client
-from twilio.rest.voice.v1 import V1
 
 
 class VoiceBase(Domain):
@@ -25,16 +22,6 @@ class VoiceBase(Domain):
         :returns: Domain for Voice
         """
         super().__init__(twilio, "https://voice.twilio.com")
-        self._v1: Optional[V1] = None
-
-    @property
-    def v1(self) -> V1:
-        """
-        :returns: Versions v1 of Voice
-        """
-        if self._v1 is None:
-            self._v1 = V1(self)
-        return self._v1
 
     def __repr__(self) -> str:
         """

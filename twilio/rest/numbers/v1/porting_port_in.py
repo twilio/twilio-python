@@ -33,6 +33,9 @@ class PortingPortInInstance(InstanceResource):
     :ivar port_in_request_status: The status of the port in request. The possible values are: In progress, Completed, Expired, In review, Waiting for Signature, Action Required, and Canceled.
     :ivar losing_carrier_information: Details regarding the customer’s information with the losing carrier. These values will be used to generate the letter of authorization and should match the losing carrier’s data as closely as possible to ensure the port is accepted.
     :ivar phone_numbers:
+    :ivar bundle_sid: The bundle sid is an optional identifier to reference a group of regulatory documents for a port request.
+    :ivar portability_advance_carrier: A field only required for Japan port in requests. It is a unique identifier for the donor carrier service the line is being ported from.
+    :ivar auto_cancel_approval_numbers: Japan specific field, indicates the number of phone numbers to automatically approve for cancellation.
     :ivar documents: List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
     :ivar date_created:
     """
@@ -68,6 +71,13 @@ class PortingPortInInstance(InstanceResource):
         )
         self.phone_numbers: Optional[List[Dict[str, object]]] = payload.get(
             "phone_numbers"
+        )
+        self.bundle_sid: Optional[str] = payload.get("bundle_sid")
+        self.portability_advance_carrier: Optional[str] = payload.get(
+            "portability_advance_carrier"
+        )
+        self.auto_cancel_approval_numbers: Optional[str] = payload.get(
+            "auto_cancel_approval_numbers"
         )
         self.documents: Optional[List[str]] = payload.get("documents")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(

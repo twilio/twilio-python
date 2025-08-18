@@ -13,7 +13,7 @@ r"""
 """
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, values
+from twilio.base import values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -49,9 +49,9 @@ class AssessmentsInstance(InstanceResource):
 
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.assessment_sid: Optional[str] = payload.get("assessment_sid")
-        self.offset: Optional[float] = deserialize.decimal(payload.get("offset"))
+        self.offset: Optional[str] = payload.get("offset")
         self.report: Optional[bool] = payload.get("report")
-        self.weight: Optional[float] = deserialize.decimal(payload.get("weight"))
+        self.weight: Optional[str] = payload.get("weight")
         self.agent_id: Optional[str] = payload.get("agent_id")
         self.segment_id: Optional[str] = payload.get("segment_id")
         self.user_name: Optional[str] = payload.get("user_name")
@@ -59,7 +59,7 @@ class AssessmentsInstance(InstanceResource):
         self.answer_text: Optional[str] = payload.get("answer_text")
         self.answer_id: Optional[str] = payload.get("answer_id")
         self.assessment: Optional[Dict[str, object]] = payload.get("assessment")
-        self.timestamp: Optional[float] = deserialize.decimal(payload.get("timestamp"))
+        self.timestamp: Optional[str] = payload.get("timestamp")
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {

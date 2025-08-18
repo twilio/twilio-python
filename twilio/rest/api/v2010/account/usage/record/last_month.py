@@ -118,6 +118,13 @@ class LastMonthInstance(InstanceResource):
         )
         CHANNELS_WHATSAPP_INBOUND = "channels-whatsapp-inbound"
         CHANNELS_WHATSAPP_OUTBOUND = "channels-whatsapp-outbound"
+        CHANNELS_WHATSAPP_SERVICE = "channels-whatsapp-service"
+        CHANNELS_WHATSAPP_TEMPLATE_AUTHENTICATION = (
+            "channels-whatsapp-template-authentication"
+        )
+        CHANNELS_WHATSAPP_TEMPLATE_MARKETING = "channels-whatsapp-template-marketing"
+        CHANNELS_WHATSAPP_TEMPLATE_SERVICE = "channels-whatsapp-template-service"
+        CHANNELS_WHATSAPP_TEMPLATE_UTILITY = "channels-whatsapp-template-utility"
         CHAT_VIRTUAL_AGENT = "chat-virtual-agent"
         CONVERSATION_RELAY = "conversation-relay"
         CONVERSATIONS = "conversations"
@@ -490,6 +497,9 @@ class LastMonthInstance(InstanceResource):
         VERIFY_VOICE_SMS = "verify-voice-sms"
         VERIFY_WHATSAPP_CONVERSATIONS_BUSINESS_INITIATED = (
             "verify-whatsapp-conversations-business-initiated"
+        )
+        VERIFY_WHATSAPP_TEMPLATE_BUSINESS_INITIATED = (
+            "verify-whatsapp-template-business-initiated"
         )
         VIDEO_RECORDINGS = "video-recordings"
         VIDEO_ROOMS_TURN_MEGABYTES = "video-rooms-turn-megabytes"

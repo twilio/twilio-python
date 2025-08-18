@@ -50,6 +50,7 @@ if TYPE_CHECKING:
     from twilio.rest.verify import Verify
     from twilio.rest.video import Video
     from twilio.rest.voice import Voice
+    from twilio.rest.voice import Voice
     from twilio.rest.wireless import Wireless
     from twilio.rest.api.v2010.account.address import AddressList
     from twilio.rest.api.v2010.account.application import ApplicationList
@@ -161,6 +162,7 @@ class Client(ClientBase):
         self._trusthub: Optional["Trusthub"] = None
         self._verify: Optional["Verify"] = None
         self._video: Optional["Video"] = None
+        self._voice: Optional["Voice"] = None
         self._voice: Optional["Voice"] = None
         self._wireless: Optional["Wireless"] = None
 
@@ -618,6 +620,19 @@ class Client(ClientBase):
 
             self._video = Video(self)
         return self._video
+
+    @property
+    def voice(self) -> "Voice":
+        """
+        Access the Voice Twilio Domain
+
+        :returns: Voice Twilio Domain
+        """
+        if self._voice is None:
+            from twilio.rest.voice import Voice
+
+            self._voice = Voice(self)
+        return self._voice
 
     @property
     def voice(self) -> "Voice":

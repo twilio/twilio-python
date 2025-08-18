@@ -56,10 +56,15 @@ class ChannelsSenderInstance(InstanceResource):
         :ivar about: The about text of the sender.
         :ivar address: The address of the sender.
         :ivar description: The description of the sender.
-        :ivar emails: The emails of the sender.
         :ivar logo_url: The logo URL of the sender.
+        :ivar banner_url: The banner URL of the sender.
+        :ivar privacy_url: The privacy URL of the sender. Publicly accessible URI associated with the Sender, must use the HTTP or HTTPS protocol
+        :ivar terms_of_service_url: The terms of service URL of the sender.
+        :ivar accent_color: string - Color theme of the Sender (required, in hex format, need to be a minimum 4.5:1 contrast ratio relative to white)
         :ivar vertical: The vertical of the sender. Allowed values are: - \"Automotive\" - \"Beauty, Spa and Salon\" - \"Clothing and Apparel\" - \"Education\" - \"Entertainment\" - \"Event Planning and Service\" - \"Finance and Banking\" - \"Food and Grocery\" - \"Public Service\" - \"Hotel and Lodging\" - \"Medical and Health\" - \"Non-profit\" - \"Professional Services\" - \"Shopping and Retail\" - \"Travel and Transportation\" - \"Restaurant\" - \"Other\"
-        :ivar websites: The websites of the sender.
+        :ivar websites: The websites of the sender
+        :ivar emails: The emails of the sender
+        :ivar phone_numbers: The phone numbers of the sender
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -68,10 +73,19 @@ class ChannelsSenderInstance(InstanceResource):
             self.about: Optional[str] = payload.get("about")
             self.address: Optional[str] = payload.get("address")
             self.description: Optional[str] = payload.get("description")
-            self.emails: Optional[Dict[str, object]] = payload.get("emails")
             self.logo_url: Optional[str] = payload.get("logo_url")
+            self.banner_url: Optional[str] = payload.get("banner_url")
+            self.privacy_url: Optional[str] = payload.get("privacy_url")
+            self.terms_of_service_url: Optional[str] = payload.get(
+                "terms_of_service_url"
+            )
+            self.accent_color: Optional[str] = payload.get("accent_color")
             self.vertical: Optional[str] = payload.get("vertical")
             self.websites: Optional[Dict[str, object]] = payload.get("websites")
+            self.emails: Optional[Dict[str, object]] = payload.get("emails")
+            self.phone_numbers: Optional[Dict[str, object]] = payload.get(
+                "phone_numbers"
+            )
 
         def to_dict(self):
             return {
@@ -79,13 +93,18 @@ class ChannelsSenderInstance(InstanceResource):
                 "about": self.about,
                 "address": self.address,
                 "description": self.description,
-                "emails": self.emails,
                 "logo_url": self.logo_url,
+                "banner_url": self.banner_url,
+                "privacy_url": self.privacy_url,
+                "terms_of_service_url": self.terms_of_service_url,
+                "accent_color": self.accent_color,
                 "vertical": self.vertical,
                 "websites": self.websites,
+                "emails": self.emails,
+                "phone_numbers": self.phone_numbers,
             }
 
-    class MessagingV2ChannelsSenderProfileResponseEmails(object):
+    class MessagingV2ChannelsSenderProfileGenericResponseEmails(object):
         """
         :ivar email:
         :ivar label:
@@ -102,7 +121,24 @@ class ChannelsSenderInstance(InstanceResource):
                 "": self.label,
             }
 
-    class MessagingV2ChannelsSenderProfileResponseWebsites(object):
+    class MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers(object):
+        """
+        :ivar phone_number:
+        :ivar label:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.phone_number: Optional[str] = payload.get("phone_number")
+            self.label: Optional[str] = payload.get("label")
+
+        def to_dict(self):
+            return {
+                "": self.phone_number,
+                "": self.label,
+            }
+
+    class MessagingV2ChannelsSenderProfileGenericResponseWebsites(object):
         """
         :ivar website:
         :ivar label:
@@ -217,6 +253,52 @@ class ChannelsSenderInstance(InstanceResource):
                 "status_callback_method": self.status_callback_method,
             }
 
+    class MessagingV2RcsCarrier(object):
+        """
+        :ivar name: carrier in a country e.g. For US-Verizon, AT&T
+        :ivar status:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.name: Optional[str] = payload.get("name")
+            self.status: Optional[MessagingV2RcsCarrierStatus] = payload.get("status")
+
+        def to_dict(self):
+            return {
+                "": self.name,
+                "": self.status.to_dict() if self.status is not None else None,
+            }
+
+    class MessagingV2RcsComplianceCountryResponse(object):
+        """
+        :ivar country: ISO 3166-1 alpha-2 country code (e.g., 'US', 'UK').
+        :ivar registration_sid: The default compliance registration SID (e.g., from CR-Google) that applies to all countries  unless overridden within the `countries` array.
+        :ivar status:
+        :ivar carriers:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.country: Optional[str] = payload.get("country")
+            self.registration_sid: Optional[str] = payload.get("registration_sid")
+            self.status: Optional[MessagingV2RcsCountryStatus] = payload.get("status")
+            self.carriers: Optional[List[MessagingV2RcsCarrier]] = payload.get(
+                "carriers"
+            )
+
+        def to_dict(self):
+            return {
+                "": self.country,
+                "": self.registration_sid,
+                "": self.status.to_dict() if self.status is not None else None,
+                "": (
+                    [carriers.to_dict() for carriers in self.carriers]
+                    if self.carriers is not None
+                    else None
+                ),
+            }
+
     class Status(object):
         CREATING = "CREATING"
         ONLINE = "ONLINE"
@@ -224,7 +306,22 @@ class ChannelsSenderInstance(InstanceResource):
         PENDING_VERIFICATION = "PENDING_VERIFICATION"
         VERIFYING = "VERIFYING"
         ONLINE_UPDATING = "ONLINE:UPDATING"
-        STUBBED = "STUBBED"
+        TWILIO_REVIEW = "TWILIO_REVIEW"
+        DRAFT = "DRAFT"
+
+    class MessagingV2RcsCarrierStatus(object):
+        UNKNOWN = "UNKNOWN"
+        UNLAUNCHED = "UNLAUNCHED"
+        CARRIER_REVIEW = "CARRIER_REVIEW"
+        APPROVED = "APPROVED"
+        REJECTED = "REJECTED"
+        SUSPENDED = "SUSPENDED"
+
+    class MessagingV2RcsCountryStatus(object):
+        ONLINE = "ONLINE"
+        OFFLINE = "OFFLINE"
+        TWILIO_REVIEW = "TWILIO_REVIEW"
+        PENDING_VERIFICATION = "PENDING_VERIFICATION"
 
     """
     :ivar sid: A 34 character string that uniquely identifies this Sender.
@@ -235,6 +332,7 @@ class ChannelsSenderInstance(InstanceResource):
     :ivar profile: 
     :ivar properties: 
     :ivar offline_reasons: Reasons why the sender is offline., e.g., [{\"code\": \"21211400\", \"message\": \"Whatsapp business account is banned by provider {provider_name} | Credit line is assigned to another BSP\", \"more_info\": \"https://www.twilio.com/docs/errors/21211400\"}]
+    :ivar compliance: 
     :ivar url: The URL of this resource, relative to `https://messaging.twilio.com`.
     """
 
@@ -251,6 +349,7 @@ class ChannelsSenderInstance(InstanceResource):
         self.profile: Optional[str] = payload.get("profile")
         self.properties: Optional[str] = payload.get("properties")
         self.offline_reasons: Optional[List[str]] = payload.get("offline_reasons")
+        self.compliance: Optional[str] = payload.get("compliance")
         self.url: Optional[str] = payload.get("url")
 
         self._solution = {
@@ -388,10 +487,15 @@ class ChannelsSenderContext(InstanceContext):
         :ivar about: The about text of the sender.
         :ivar address: The address of the sender.
         :ivar description: The description of the sender.
-        :ivar emails: The emails of the sender.
         :ivar logo_url: The logo URL of the sender.
+        :ivar banner_url: The banner URL of the sender.
+        :ivar privacy_url: The privacy URL of the sender. Publicly accessible URI associated with the Sender, must use the HTTP or HTTPS protocol
+        :ivar terms_of_service_url: The terms of service URL of the sender.
+        :ivar accent_color: string - Color theme of the Sender (required, in hex format, need to be a minimum 4.5:1 contrast ratio relative to white)
         :ivar vertical: The vertical of the sender. Allowed values are: - \"Automotive\" - \"Beauty, Spa and Salon\" - \"Clothing and Apparel\" - \"Education\" - \"Entertainment\" - \"Event Planning and Service\" - \"Finance and Banking\" - \"Food and Grocery\" - \"Public Service\" - \"Hotel and Lodging\" - \"Medical and Health\" - \"Non-profit\" - \"Professional Services\" - \"Shopping and Retail\" - \"Travel and Transportation\" - \"Restaurant\" - \"Other\"
-        :ivar websites: The websites of the sender.
+        :ivar websites: The websites of the sender
+        :ivar emails: The emails of the sender
+        :ivar phone_numbers: The phone numbers of the sender
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -400,10 +504,19 @@ class ChannelsSenderContext(InstanceContext):
             self.about: Optional[str] = payload.get("about")
             self.address: Optional[str] = payload.get("address")
             self.description: Optional[str] = payload.get("description")
-            self.emails: Optional[Dict[str, object]] = payload.get("emails")
             self.logo_url: Optional[str] = payload.get("logo_url")
+            self.banner_url: Optional[str] = payload.get("banner_url")
+            self.privacy_url: Optional[str] = payload.get("privacy_url")
+            self.terms_of_service_url: Optional[str] = payload.get(
+                "terms_of_service_url"
+            )
+            self.accent_color: Optional[str] = payload.get("accent_color")
             self.vertical: Optional[str] = payload.get("vertical")
             self.websites: Optional[Dict[str, object]] = payload.get("websites")
+            self.emails: Optional[Dict[str, object]] = payload.get("emails")
+            self.phone_numbers: Optional[Dict[str, object]] = payload.get(
+                "phone_numbers"
+            )
 
         def to_dict(self):
             return {
@@ -411,13 +524,18 @@ class ChannelsSenderContext(InstanceContext):
                 "about": self.about,
                 "address": self.address,
                 "description": self.description,
-                "emails": self.emails,
                 "logo_url": self.logo_url,
+                "banner_url": self.banner_url,
+                "privacy_url": self.privacy_url,
+                "terms_of_service_url": self.terms_of_service_url,
+                "accent_color": self.accent_color,
                 "vertical": self.vertical,
                 "websites": self.websites,
+                "emails": self.emails,
+                "phone_numbers": self.phone_numbers,
             }
 
-    class MessagingV2ChannelsSenderProfileResponseEmails(object):
+    class MessagingV2ChannelsSenderProfileGenericResponseEmails(object):
         """
         :ivar email:
         :ivar label:
@@ -434,7 +552,24 @@ class ChannelsSenderContext(InstanceContext):
                 "": self.label,
             }
 
-    class MessagingV2ChannelsSenderProfileResponseWebsites(object):
+    class MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers(object):
+        """
+        :ivar phone_number:
+        :ivar label:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.phone_number: Optional[str] = payload.get("phone_number")
+            self.label: Optional[str] = payload.get("label")
+
+        def to_dict(self):
+            return {
+                "": self.phone_number,
+                "": self.label,
+            }
+
+    class MessagingV2ChannelsSenderProfileGenericResponseWebsites(object):
         """
         :ivar website:
         :ivar label:
@@ -547,6 +682,52 @@ class ChannelsSenderContext(InstanceContext):
                 "fallback_method": self.fallback_method,
                 "status_callback_url": self.status_callback_url,
                 "status_callback_method": self.status_callback_method,
+            }
+
+    class MessagingV2RcsCarrier(object):
+        """
+        :ivar name: carrier in a country e.g. For US-Verizon, AT&T
+        :ivar status:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.name: Optional[str] = payload.get("name")
+            self.status: Optional[MessagingV2RcsCarrierStatus] = payload.get("status")
+
+        def to_dict(self):
+            return {
+                "": self.name,
+                "": self.status.to_dict() if self.status is not None else None,
+            }
+
+    class MessagingV2RcsComplianceCountryResponse(object):
+        """
+        :ivar country: ISO 3166-1 alpha-2 country code (e.g., 'US', 'UK').
+        :ivar registration_sid: The default compliance registration SID (e.g., from CR-Google) that applies to all countries  unless overridden within the `countries` array.
+        :ivar status:
+        :ivar carriers:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.country: Optional[str] = payload.get("country")
+            self.registration_sid: Optional[str] = payload.get("registration_sid")
+            self.status: Optional[MessagingV2RcsCountryStatus] = payload.get("status")
+            self.carriers: Optional[List[MessagingV2RcsCarrier]] = payload.get(
+                "carriers"
+            )
+
+        def to_dict(self):
+            return {
+                "": self.country,
+                "": self.registration_sid,
+                "": self.status.to_dict() if self.status is not None else None,
+                "": (
+                    [carriers.to_dict() for carriers in self.carriers]
+                    if self.carriers is not None
+                    else None
+                ),
             }
 
     def __init__(self, version: Version, sid: str):
@@ -750,10 +931,15 @@ class ChannelsSenderList(ListResource):
         :ivar about: The about text of the sender.
         :ivar address: The address of the sender.
         :ivar description: The description of the sender.
-        :ivar emails: The emails of the sender.
         :ivar logo_url: The logo URL of the sender.
+        :ivar banner_url: The banner URL of the sender.
+        :ivar privacy_url: The privacy URL of the sender. Publicly accessible URI associated with the Sender, must use the HTTP or HTTPS protocol
+        :ivar terms_of_service_url: The terms of service URL of the sender.
+        :ivar accent_color: string - Color theme of the Sender (required, in hex format, need to be a minimum 4.5:1 contrast ratio relative to white)
         :ivar vertical: The vertical of the sender. Allowed values are: - \"Automotive\" - \"Beauty, Spa and Salon\" - \"Clothing and Apparel\" - \"Education\" - \"Entertainment\" - \"Event Planning and Service\" - \"Finance and Banking\" - \"Food and Grocery\" - \"Public Service\" - \"Hotel and Lodging\" - \"Medical and Health\" - \"Non-profit\" - \"Professional Services\" - \"Shopping and Retail\" - \"Travel and Transportation\" - \"Restaurant\" - \"Other\"
-        :ivar websites: The websites of the sender.
+        :ivar websites: The websites of the sender
+        :ivar emails: The emails of the sender
+        :ivar phone_numbers: The phone numbers of the sender
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -762,10 +948,19 @@ class ChannelsSenderList(ListResource):
             self.about: Optional[str] = payload.get("about")
             self.address: Optional[str] = payload.get("address")
             self.description: Optional[str] = payload.get("description")
-            self.emails: Optional[Dict[str, object]] = payload.get("emails")
             self.logo_url: Optional[str] = payload.get("logo_url")
+            self.banner_url: Optional[str] = payload.get("banner_url")
+            self.privacy_url: Optional[str] = payload.get("privacy_url")
+            self.terms_of_service_url: Optional[str] = payload.get(
+                "terms_of_service_url"
+            )
+            self.accent_color: Optional[str] = payload.get("accent_color")
             self.vertical: Optional[str] = payload.get("vertical")
             self.websites: Optional[Dict[str, object]] = payload.get("websites")
+            self.emails: Optional[Dict[str, object]] = payload.get("emails")
+            self.phone_numbers: Optional[Dict[str, object]] = payload.get(
+                "phone_numbers"
+            )
 
         def to_dict(self):
             return {
@@ -773,13 +968,18 @@ class ChannelsSenderList(ListResource):
                 "about": self.about,
                 "address": self.address,
                 "description": self.description,
-                "emails": self.emails,
                 "logo_url": self.logo_url,
+                "banner_url": self.banner_url,
+                "privacy_url": self.privacy_url,
+                "terms_of_service_url": self.terms_of_service_url,
+                "accent_color": self.accent_color,
                 "vertical": self.vertical,
                 "websites": self.websites,
+                "emails": self.emails,
+                "phone_numbers": self.phone_numbers,
             }
 
-    class MessagingV2ChannelsSenderProfileResponseEmails(object):
+    class MessagingV2ChannelsSenderProfileGenericResponseEmails(object):
         """
         :ivar email:
         :ivar label:
@@ -796,7 +996,24 @@ class ChannelsSenderList(ListResource):
                 "": self.label,
             }
 
-    class MessagingV2ChannelsSenderProfileResponseWebsites(object):
+    class MessagingV2ChannelsSenderProfileGenericResponsePhoneNumbers(object):
+        """
+        :ivar phone_number:
+        :ivar label:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.phone_number: Optional[str] = payload.get("phone_number")
+            self.label: Optional[str] = payload.get("label")
+
+        def to_dict(self):
+            return {
+                "": self.phone_number,
+                "": self.label,
+            }
+
+    class MessagingV2ChannelsSenderProfileGenericResponseWebsites(object):
         """
         :ivar website:
         :ivar label:
@@ -909,6 +1126,52 @@ class ChannelsSenderList(ListResource):
                 "fallback_method": self.fallback_method,
                 "status_callback_url": self.status_callback_url,
                 "status_callback_method": self.status_callback_method,
+            }
+
+    class MessagingV2RcsCarrier(object):
+        """
+        :ivar name: carrier in a country e.g. For US-Verizon, AT&T
+        :ivar status:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.name: Optional[str] = payload.get("name")
+            self.status: Optional[MessagingV2RcsCarrierStatus] = payload.get("status")
+
+        def to_dict(self):
+            return {
+                "": self.name,
+                "": self.status.to_dict() if self.status is not None else None,
+            }
+
+    class MessagingV2RcsComplianceCountryResponse(object):
+        """
+        :ivar country: ISO 3166-1 alpha-2 country code (e.g., 'US', 'UK').
+        :ivar registration_sid: The default compliance registration SID (e.g., from CR-Google) that applies to all countries  unless overridden within the `countries` array.
+        :ivar status:
+        :ivar carriers:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.country: Optional[str] = payload.get("country")
+            self.registration_sid: Optional[str] = payload.get("registration_sid")
+            self.status: Optional[MessagingV2RcsCountryStatus] = payload.get("status")
+            self.carriers: Optional[List[MessagingV2RcsCarrier]] = payload.get(
+                "carriers"
+            )
+
+        def to_dict(self):
+            return {
+                "": self.country,
+                "": self.registration_sid,
+                "": self.status.to_dict() if self.status is not None else None,
+                "": (
+                    [carriers.to_dict() for carriers in self.carriers]
+                    if self.carriers is not None
+                    else None
+                ),
             }
 
     def __init__(self, version: Version):

@@ -24,6 +24,7 @@ from twilio.base.version import Version
 class ConversationWithParticipantsInstance(InstanceResource):
 
     class State(object):
+        INITIALIZING = "initializing"
         INACTIVE = "inactive"
         ACTIVE = "active"
         CLOSED = "closed"

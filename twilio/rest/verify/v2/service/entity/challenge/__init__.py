@@ -39,6 +39,7 @@ class ChallengeInstance(InstanceResource):
     class FactorTypes(object):
         PUSH = "push"
         TOTP = "totp"
+        PASSKEYS = "passkeys"
 
     class ListOrders(object):
         ASC = "asc"

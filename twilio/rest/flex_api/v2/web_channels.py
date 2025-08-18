@@ -62,6 +62,7 @@ class WebChannelsList(ListResource):
         chat_friendly_name: Union[str, object] = values.unset,
         customer_friendly_name: Union[str, object] = values.unset,
         pre_engagement_data: Union[str, object] = values.unset,
+        identity: Union[str, object] = values.unset,
     ) -> WebChannelsInstance:
         """
         Create the WebChannelsInstance
@@ -71,6 +72,7 @@ class WebChannelsList(ListResource):
         :param chat_friendly_name: The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
         :param customer_friendly_name: The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
         :param pre_engagement_data: The pre-engagement data.
+        :param identity: The Identity of the guest user. See the [Conversation User Resource](https://www.twilio.com/docs/conversations/api/user-resource) for an example.
 
         :returns: The created WebChannelsInstance
         """
@@ -81,6 +83,7 @@ class WebChannelsList(ListResource):
                 "ChatFriendlyName": chat_friendly_name,
                 "CustomerFriendlyName": customer_friendly_name,
                 "PreEngagementData": pre_engagement_data,
+                "Identity": identity,
             }
         )
         headers = values.of(
@@ -107,6 +110,7 @@ class WebChannelsList(ListResource):
         chat_friendly_name: Union[str, object] = values.unset,
         customer_friendly_name: Union[str, object] = values.unset,
         pre_engagement_data: Union[str, object] = values.unset,
+        identity: Union[str, object] = values.unset,
     ) -> WebChannelsInstance:
         """
         Asynchronously create the WebChannelsInstance
@@ -116,6 +120,7 @@ class WebChannelsList(ListResource):
         :param chat_friendly_name: The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
         :param customer_friendly_name: The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
         :param pre_engagement_data: The pre-engagement data.
+        :param identity: The Identity of the guest user. See the [Conversation User Resource](https://www.twilio.com/docs/conversations/api/user-resource) for an example.
 
         :returns: The created WebChannelsInstance
         """
@@ -126,6 +131,7 @@ class WebChannelsList(ListResource):
                 "ChatFriendlyName": chat_friendly_name,
                 "CustomerFriendlyName": customer_friendly_name,
                 "PreEngagementData": pre_engagement_data,
+                "Identity": identity,
             }
         )
         headers = values.of(

@@ -31,6 +31,7 @@ class FactorInstance(InstanceResource):
     class FactorTypes(object):
         PUSH = "push"
         TOTP = "totp"
+        PASSKEYS = "passkeys"
 
     class TotpAlgorithms(object):
         SHA1 = "sha1"

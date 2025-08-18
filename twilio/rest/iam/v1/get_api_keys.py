@@ -28,6 +28,7 @@ class GetApiKeysInstance(InstanceResource):
     :ivar friendly_name: The string that you assigned to describe the resource.
     :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
+    :ivar flags:
     """
 
     def __init__(self, version: Version, payload: Dict[str, Any]):
@@ -41,6 +42,7 @@ class GetApiKeysInstance(InstanceResource):
         self.date_updated: Optional[datetime] = deserialize.rfc2822_datetime(
             payload.get("date_updated")
         )
+        self.flags: Optional[List[str]] = payload.get("flags")
 
     def __repr__(self) -> str:
         """

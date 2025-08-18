@@ -48,6 +48,7 @@ class ServiceInstance(InstanceResource):
     :ivar totp: Configurations for the TOTP factors (channel) created under this Service.
     :ivar default_template_sid:
     :ivar whatsapp:
+    :ivar passkeys:
     :ivar verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
     :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
@@ -81,6 +82,7 @@ class ServiceInstance(InstanceResource):
         self.totp: Optional[Dict[str, object]] = payload.get("totp")
         self.default_template_sid: Optional[str] = payload.get("default_template_sid")
         self.whatsapp: Optional[Dict[str, object]] = payload.get("whatsapp")
+        self.passkeys: Optional[Dict[str, object]] = payload.get("passkeys")
         self.verify_event_subscription_enabled: Optional[bool] = payload.get(
             "verify_event_subscription_enabled"
         )
@@ -170,6 +172,9 @@ class ServiceInstance(InstanceResource):
         default_template_sid: Union[str, object] = values.unset,
         whatsapp_msg_service_sid: Union[str, object] = values.unset,
         whatsapp_from: Union[str, object] = values.unset,
+        passkeys_relying_party_id: Union[str, object] = values.unset,
+        passkeys_relying_party_name: Union[str, object] = values.unset,
+        passkeys_relying_party_origins: Union[str, object] = values.unset,
         verify_event_subscription_enabled: Union[bool, object] = values.unset,
     ) -> "ServiceInstance":
         """
@@ -194,6 +199,9 @@ class ServiceInstance(InstanceResource):
         :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
         :param whatsapp_msg_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service.
         :param whatsapp_from: The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service.
+        :param passkeys_relying_party_id: The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_name: The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_origins: The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
         :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
 
         :returns: The updated ServiceInstance
@@ -218,6 +226,9 @@ class ServiceInstance(InstanceResource):
             default_template_sid=default_template_sid,
             whatsapp_msg_service_sid=whatsapp_msg_service_sid,
             whatsapp_from=whatsapp_from,
+            passkeys_relying_party_id=passkeys_relying_party_id,
+            passkeys_relying_party_name=passkeys_relying_party_name,
+            passkeys_relying_party_origins=passkeys_relying_party_origins,
             verify_event_subscription_enabled=verify_event_subscription_enabled,
         )
 
@@ -242,6 +253,9 @@ class ServiceInstance(InstanceResource):
         default_template_sid: Union[str, object] = values.unset,
         whatsapp_msg_service_sid: Union[str, object] = values.unset,
         whatsapp_from: Union[str, object] = values.unset,
+        passkeys_relying_party_id: Union[str, object] = values.unset,
+        passkeys_relying_party_name: Union[str, object] = values.unset,
+        passkeys_relying_party_origins: Union[str, object] = values.unset,
         verify_event_subscription_enabled: Union[bool, object] = values.unset,
     ) -> "ServiceInstance":
         """
@@ -266,6 +280,9 @@ class ServiceInstance(InstanceResource):
         :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
         :param whatsapp_msg_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service.
         :param whatsapp_from: The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service.
+        :param passkeys_relying_party_id: The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_name: The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_origins: The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
         :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
 
         :returns: The updated ServiceInstance
@@ -290,6 +307,9 @@ class ServiceInstance(InstanceResource):
             default_template_sid=default_template_sid,
             whatsapp_msg_service_sid=whatsapp_msg_service_sid,
             whatsapp_from=whatsapp_from,
+            passkeys_relying_party_id=passkeys_relying_party_id,
+            passkeys_relying_party_name=passkeys_relying_party_name,
+            passkeys_relying_party_origins=passkeys_relying_party_origins,
             verify_event_subscription_enabled=verify_event_subscription_enabled,
         )
 
@@ -466,6 +486,9 @@ class ServiceContext(InstanceContext):
         default_template_sid: Union[str, object] = values.unset,
         whatsapp_msg_service_sid: Union[str, object] = values.unset,
         whatsapp_from: Union[str, object] = values.unset,
+        passkeys_relying_party_id: Union[str, object] = values.unset,
+        passkeys_relying_party_name: Union[str, object] = values.unset,
+        passkeys_relying_party_origins: Union[str, object] = values.unset,
         verify_event_subscription_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
@@ -490,6 +513,9 @@ class ServiceContext(InstanceContext):
         :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
         :param whatsapp_msg_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service.
         :param whatsapp_from: The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service.
+        :param passkeys_relying_party_id: The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_name: The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_origins: The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
         :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
 
         :returns: The updated ServiceInstance
@@ -520,6 +546,9 @@ class ServiceContext(InstanceContext):
                 "DefaultTemplateSid": default_template_sid,
                 "Whatsapp.MsgServiceSid": whatsapp_msg_service_sid,
                 "Whatsapp.From": whatsapp_from,
+                "Passkeys.RelyingParty.Id": passkeys_relying_party_id,
+                "Passkeys.RelyingParty.Name": passkeys_relying_party_name,
+                "Passkeys.RelyingParty.Origins": passkeys_relying_party_origins,
                 "VerifyEventSubscriptionEnabled": serialize.boolean_to_string(
                     verify_event_subscription_enabled
                 ),
@@ -558,6 +587,9 @@ class ServiceContext(InstanceContext):
         default_template_sid: Union[str, object] = values.unset,
         whatsapp_msg_service_sid: Union[str, object] = values.unset,
         whatsapp_from: Union[str, object] = values.unset,
+        passkeys_relying_party_id: Union[str, object] = values.unset,
+        passkeys_relying_party_name: Union[str, object] = values.unset,
+        passkeys_relying_party_origins: Union[str, object] = values.unset,
         verify_event_subscription_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
@@ -582,6 +614,9 @@ class ServiceContext(InstanceContext):
         :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
         :param whatsapp_msg_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service.
         :param whatsapp_from: The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service.
+        :param passkeys_relying_party_id: The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_name: The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_origins: The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
         :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
 
         :returns: The updated ServiceInstance
@@ -612,6 +647,9 @@ class ServiceContext(InstanceContext):
                 "DefaultTemplateSid": default_template_sid,
                 "Whatsapp.MsgServiceSid": whatsapp_msg_service_sid,
                 "Whatsapp.From": whatsapp_from,
+                "Passkeys.RelyingParty.Id": passkeys_relying_party_id,
+                "Passkeys.RelyingParty.Name": passkeys_relying_party_name,
+                "Passkeys.RelyingParty.Origins": passkeys_relying_party_origins,
                 "VerifyEventSubscriptionEnabled": serialize.boolean_to_string(
                     verify_event_subscription_enabled
                 ),
@@ -776,6 +814,12 @@ class ServiceList(ListResource):
         default_template_sid: Union[str, object] = values.unset,
         whatsapp_msg_service_sid: Union[str, object] = values.unset,
         whatsapp_from: Union[str, object] = values.unset,
+        passkeys_relying_party_id: Union[str, object] = values.unset,
+        passkeys_relying_party_name: Union[str, object] = values.unset,
+        passkeys_relying_party_origins: Union[str, object] = values.unset,
+        passkeys_authenticator_attachment: Union[str, object] = values.unset,
+        passkeys_discoverable_credentials: Union[str, object] = values.unset,
+        passkeys_user_verification: Union[str, object] = values.unset,
         verify_event_subscription_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
@@ -800,6 +844,12 @@ class ServiceList(ListResource):
         :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
         :param whatsapp_msg_service_sid: The SID of the Messaging Service containing WhatsApp Sender(s) that Verify will use to send WhatsApp messages to your users.
         :param whatsapp_from: The number to use as the WhatsApp Sender that Verify will use to send WhatsApp messages to your users.This WhatsApp Sender must be associated with a Messaging Service SID.
+        :param passkeys_relying_party_id: The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_name: The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_origins: The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
+        :param passkeys_authenticator_attachment: The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`.
+        :param passkeys_discoverable_credentials: Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param passkeys_user_verification: The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
         :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
 
         :returns: The created ServiceInstance
@@ -830,6 +880,12 @@ class ServiceList(ListResource):
                 "DefaultTemplateSid": default_template_sid,
                 "Whatsapp.MsgServiceSid": whatsapp_msg_service_sid,
                 "Whatsapp.From": whatsapp_from,
+                "Passkeys.RelyingParty.Id": passkeys_relying_party_id,
+                "Passkeys.RelyingParty.Name": passkeys_relying_party_name,
+                "Passkeys.RelyingParty.Origins": passkeys_relying_party_origins,
+                "Passkeys.AuthenticatorAttachment": passkeys_authenticator_attachment,
+                "Passkeys.DiscoverableCredentials": passkeys_discoverable_credentials,
+                "Passkeys.UserVerification": passkeys_user_verification,
                 "VerifyEventSubscriptionEnabled": serialize.boolean_to_string(
                     verify_event_subscription_enabled
                 ),
@@ -868,6 +924,12 @@ class ServiceList(ListResource):
         default_template_sid: Union[str, object] = values.unset,
         whatsapp_msg_service_sid: Union[str, object] = values.unset,
         whatsapp_from: Union[str, object] = values.unset,
+        passkeys_relying_party_id: Union[str, object] = values.unset,
+        passkeys_relying_party_name: Union[str, object] = values.unset,
+        passkeys_relying_party_origins: Union[str, object] = values.unset,
+        passkeys_authenticator_attachment: Union[str, object] = values.unset,
+        passkeys_discoverable_credentials: Union[str, object] = values.unset,
+        passkeys_user_verification: Union[str, object] = values.unset,
         verify_event_subscription_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
@@ -892,6 +954,12 @@ class ServiceList(ListResource):
         :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
         :param whatsapp_msg_service_sid: The SID of the Messaging Service containing WhatsApp Sender(s) that Verify will use to send WhatsApp messages to your users.
         :param whatsapp_from: The number to use as the WhatsApp Sender that Verify will use to send WhatsApp messages to your users.This WhatsApp Sender must be associated with a Messaging Service SID.
+        :param passkeys_relying_party_id: The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_name: The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_origins: The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
+        :param passkeys_authenticator_attachment: The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`.
+        :param passkeys_discoverable_credentials: Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param passkeys_user_verification: The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
         :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
 
         :returns: The created ServiceInstance
@@ -922,6 +990,12 @@ class ServiceList(ListResource):
                 "DefaultTemplateSid": default_template_sid,
                 "Whatsapp.MsgServiceSid": whatsapp_msg_service_sid,
                 "Whatsapp.From": whatsapp_from,
+                "Passkeys.RelyingParty.Id": passkeys_relying_party_id,
+                "Passkeys.RelyingParty.Name": passkeys_relying_party_name,
+                "Passkeys.RelyingParty.Origins": passkeys_relying_party_origins,
+                "Passkeys.AuthenticatorAttachment": passkeys_authenticator_attachment,
+                "Passkeys.DiscoverableCredentials": passkeys_discoverable_credentials,
+                "Passkeys.UserVerification": passkeys_user_verification,
                 "VerifyEventSubscriptionEnabled": serialize.boolean_to_string(
                     verify_event_subscription_enabled
                 ),

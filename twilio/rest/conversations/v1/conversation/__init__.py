@@ -28,6 +28,7 @@ from twilio.rest.conversations.v1.conversation.webhook import WebhookList
 class ConversationInstance(InstanceResource):
 
     class State(object):
+        INITIALIZING = "initializing"
         INACTIVE = "inactive"
         ACTIVE = "active"
         CLOSED = "closed"
