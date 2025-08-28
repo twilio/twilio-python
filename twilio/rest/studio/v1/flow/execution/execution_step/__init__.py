@@ -36,6 +36,7 @@ class ExecutionStepInstance(InstanceResource):
     :ivar context: The current state of the Flow's Execution. As a flow executes, we save its state in this context. We save data that your widgets can access as variables in configuration fields or in text areas as variable substitution.
     :ivar transitioned_from: The Widget that preceded the Widget for the Step.
     :ivar transitioned_to: The Widget that will follow the Widget for the Step.
+    :ivar type: The type of the widget that was executed.
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar url: The absolute URL of the resource.
@@ -61,6 +62,7 @@ class ExecutionStepInstance(InstanceResource):
         self.context: Optional[Dict[str, object]] = payload.get("context")
         self.transitioned_from: Optional[str] = payload.get("transitioned_from")
         self.transitioned_to: Optional[str] = payload.get("transitioned_to")
+        self.type: Optional[str] = payload.get("type")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )

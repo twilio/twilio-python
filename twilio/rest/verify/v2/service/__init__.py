@@ -175,6 +175,9 @@ class ServiceInstance(InstanceResource):
         passkeys_relying_party_id: Union[str, object] = values.unset,
         passkeys_relying_party_name: Union[str, object] = values.unset,
         passkeys_relying_party_origins: Union[str, object] = values.unset,
+        passkeys_authenticator_attachment: Union[str, object] = values.unset,
+        passkeys_discoverable_credentials: Union[str, object] = values.unset,
+        passkeys_user_verification: Union[str, object] = values.unset,
         verify_event_subscription_enabled: Union[bool, object] = values.unset,
     ) -> "ServiceInstance":
         """
@@ -202,6 +205,9 @@ class ServiceInstance(InstanceResource):
         :param passkeys_relying_party_id: The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
         :param passkeys_relying_party_name: The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
         :param passkeys_relying_party_origins: The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
+        :param passkeys_authenticator_attachment: The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`.
+        :param passkeys_discoverable_credentials: Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param passkeys_user_verification: The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
         :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
 
         :returns: The updated ServiceInstance
@@ -229,6 +235,9 @@ class ServiceInstance(InstanceResource):
             passkeys_relying_party_id=passkeys_relying_party_id,
             passkeys_relying_party_name=passkeys_relying_party_name,
             passkeys_relying_party_origins=passkeys_relying_party_origins,
+            passkeys_authenticator_attachment=passkeys_authenticator_attachment,
+            passkeys_discoverable_credentials=passkeys_discoverable_credentials,
+            passkeys_user_verification=passkeys_user_verification,
             verify_event_subscription_enabled=verify_event_subscription_enabled,
         )
 
@@ -256,6 +265,9 @@ class ServiceInstance(InstanceResource):
         passkeys_relying_party_id: Union[str, object] = values.unset,
         passkeys_relying_party_name: Union[str, object] = values.unset,
         passkeys_relying_party_origins: Union[str, object] = values.unset,
+        passkeys_authenticator_attachment: Union[str, object] = values.unset,
+        passkeys_discoverable_credentials: Union[str, object] = values.unset,
+        passkeys_user_verification: Union[str, object] = values.unset,
         verify_event_subscription_enabled: Union[bool, object] = values.unset,
     ) -> "ServiceInstance":
         """
@@ -283,6 +295,9 @@ class ServiceInstance(InstanceResource):
         :param passkeys_relying_party_id: The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
         :param passkeys_relying_party_name: The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
         :param passkeys_relying_party_origins: The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
+        :param passkeys_authenticator_attachment: The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`.
+        :param passkeys_discoverable_credentials: Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param passkeys_user_verification: The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
         :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
 
         :returns: The updated ServiceInstance
@@ -310,6 +325,9 @@ class ServiceInstance(InstanceResource):
             passkeys_relying_party_id=passkeys_relying_party_id,
             passkeys_relying_party_name=passkeys_relying_party_name,
             passkeys_relying_party_origins=passkeys_relying_party_origins,
+            passkeys_authenticator_attachment=passkeys_authenticator_attachment,
+            passkeys_discoverable_credentials=passkeys_discoverable_credentials,
+            passkeys_user_verification=passkeys_user_verification,
             verify_event_subscription_enabled=verify_event_subscription_enabled,
         )
 
@@ -489,6 +507,9 @@ class ServiceContext(InstanceContext):
         passkeys_relying_party_id: Union[str, object] = values.unset,
         passkeys_relying_party_name: Union[str, object] = values.unset,
         passkeys_relying_party_origins: Union[str, object] = values.unset,
+        passkeys_authenticator_attachment: Union[str, object] = values.unset,
+        passkeys_discoverable_credentials: Union[str, object] = values.unset,
+        passkeys_user_verification: Union[str, object] = values.unset,
         verify_event_subscription_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
@@ -516,6 +537,9 @@ class ServiceContext(InstanceContext):
         :param passkeys_relying_party_id: The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
         :param passkeys_relying_party_name: The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
         :param passkeys_relying_party_origins: The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
+        :param passkeys_authenticator_attachment: The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`.
+        :param passkeys_discoverable_credentials: Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param passkeys_user_verification: The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
         :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
 
         :returns: The updated ServiceInstance
@@ -549,6 +573,9 @@ class ServiceContext(InstanceContext):
                 "Passkeys.RelyingParty.Id": passkeys_relying_party_id,
                 "Passkeys.RelyingParty.Name": passkeys_relying_party_name,
                 "Passkeys.RelyingParty.Origins": passkeys_relying_party_origins,
+                "Passkeys.AuthenticatorAttachment": passkeys_authenticator_attachment,
+                "Passkeys.DiscoverableCredentials": passkeys_discoverable_credentials,
+                "Passkeys.UserVerification": passkeys_user_verification,
                 "VerifyEventSubscriptionEnabled": serialize.boolean_to_string(
                     verify_event_subscription_enabled
                 ),
@@ -590,6 +617,9 @@ class ServiceContext(InstanceContext):
         passkeys_relying_party_id: Union[str, object] = values.unset,
         passkeys_relying_party_name: Union[str, object] = values.unset,
         passkeys_relying_party_origins: Union[str, object] = values.unset,
+        passkeys_authenticator_attachment: Union[str, object] = values.unset,
+        passkeys_discoverable_credentials: Union[str, object] = values.unset,
+        passkeys_user_verification: Union[str, object] = values.unset,
         verify_event_subscription_enabled: Union[bool, object] = values.unset,
     ) -> ServiceInstance:
         """
@@ -617,6 +647,9 @@ class ServiceContext(InstanceContext):
         :param passkeys_relying_party_id: The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
         :param passkeys_relying_party_name: The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
         :param passkeys_relying_party_origins: The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
+        :param passkeys_authenticator_attachment: The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`.
+        :param passkeys_discoverable_credentials: Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param passkeys_user_verification: The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
         :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
 
         :returns: The updated ServiceInstance
@@ -650,6 +683,9 @@ class ServiceContext(InstanceContext):
                 "Passkeys.RelyingParty.Id": passkeys_relying_party_id,
                 "Passkeys.RelyingParty.Name": passkeys_relying_party_name,
                 "Passkeys.RelyingParty.Origins": passkeys_relying_party_origins,
+                "Passkeys.AuthenticatorAttachment": passkeys_authenticator_attachment,
+                "Passkeys.DiscoverableCredentials": passkeys_discoverable_credentials,
+                "Passkeys.UserVerification": passkeys_user_verification,
                 "VerifyEventSubscriptionEnabled": serialize.boolean_to_string(
                     verify_event_subscription_enabled
                 ),

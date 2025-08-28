@@ -34,6 +34,7 @@ class StepInstance(InstanceResource):
     :ivar parent_step_sid: The SID of the parent Step.
     :ivar transitioned_from: The Widget that preceded the Widget for the Step.
     :ivar transitioned_to: The Widget that will follow the Widget for the Step.
+    :ivar type: The type of the widget that was executed.
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar url: The absolute URL of the resource.
@@ -59,6 +60,7 @@ class StepInstance(InstanceResource):
         self.parent_step_sid: Optional[str] = payload.get("parent_step_sid")
         self.transitioned_from: Optional[str] = payload.get("transitioned_from")
         self.transitioned_to: Optional[str] = payload.get("transitioned_to")
+        self.type: Optional[str] = payload.get("type")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
