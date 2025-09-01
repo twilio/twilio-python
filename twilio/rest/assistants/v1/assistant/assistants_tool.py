@@ -160,6 +160,9 @@ class AssistantsToolContext(InstanceContext):
 
         payload = self._version.create(method="POST", uri=self._uri, data=data)
 
+        if type(payload) is bool:
+            return payload
+
         return AssistantsToolInstance(
             self._version,
             payload,
