@@ -3,6 +3,12 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-09-04] Version 9.8.0
+--------------------------
+**Api**
+- Remove usage category enum from usage record and usage triggers API **(breaking change)**
+
+
 [2025-08-28] Version 9.7.2
 --------------------------
 **Studio**

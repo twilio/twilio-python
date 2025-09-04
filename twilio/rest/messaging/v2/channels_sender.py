@@ -25,10 +25,10 @@ class ChannelsSenderInstance(InstanceResource):
 
     class MessagingV2ChannelsSenderConfiguration(object):
         """
-        :ivar waba_id: The ID of the WhatsApp Business Account to use for this sender.
-        :ivar verification_method: The method to use for verification. Either \"sms\" or \"voice\".
-        :ivar verification_code: The verification code to use for this sender.
-        :ivar voice_application_sid: The SID of the Twilio Voice application to use for this sender.
+        :ivar waba_id: The ID of the WhatsApp Business Account (WABA) to use for this sender.
+        :ivar verification_method: The verification method.
+        :ivar verification_code: The verification code.
+        :ivar voice_application_sid: The SID of the Twilio Voice application.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -52,19 +52,19 @@ class ChannelsSenderInstance(InstanceResource):
 
     class MessagingV2ChannelsSenderProfile(object):
         """
-        :ivar name: The name of the sender.
-        :ivar about: The about text of the sender.
+        :ivar name: The name of the sender. Required for WhatsApp senders and must follow [Meta's display name guidelines](https://www.facebook.com/business/help/757569725593362).
+        :ivar about: The profile about text for the sender.
         :ivar address: The address of the sender.
         :ivar description: The description of the sender.
         :ivar logo_url: The logo URL of the sender.
         :ivar banner_url: The banner URL of the sender.
-        :ivar privacy_url: The privacy URL of the sender. Publicly accessible URI associated with the Sender, must use the HTTP or HTTPS protocol
+        :ivar privacy_url: The privacy URL of the sender. Must be a publicly accessible HTTP or HTTPS URI associated with the sender.
         :ivar terms_of_service_url: The terms of service URL of the sender.
-        :ivar accent_color: string - Color theme of the Sender (required, in hex format, need to be a minimum 4.5:1 contrast ratio relative to white)
-        :ivar vertical: The vertical of the sender. Allowed values are: - \"Automotive\" - \"Beauty, Spa and Salon\" - \"Clothing and Apparel\" - \"Education\" - \"Entertainment\" - \"Event Planning and Service\" - \"Finance and Banking\" - \"Food and Grocery\" - \"Public Service\" - \"Hotel and Lodging\" - \"Medical and Health\" - \"Non-profit\" - \"Professional Services\" - \"Shopping and Retail\" - \"Travel and Transportation\" - \"Restaurant\" - \"Other\"
-        :ivar websites: The websites of the sender
-        :ivar emails: The emails of the sender
-        :ivar phone_numbers: The phone numbers of the sender
+        :ivar accent_color: The color theme of the sender. Must be in hex format and have at least a 4:5:1 contrast ratio against white.
+        :ivar vertical: The vertical of the sender. Allowed values are: - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Public Service` - `Hotel and Lodging` - `Medical and Health` - `Non-profit` - `Professional Services` - `Shopping and Retail` - `Travel and Transportation` - `Restaurant` - `Other`
+        :ivar websites: The websites of the sender.
+        :ivar emails: The emails of the sender.
+        :ivar phone_numbers: The phone numbers of the sender.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -157,7 +157,7 @@ class ChannelsSenderInstance(InstanceResource):
 
     class MessagingV2ChannelsSenderRequestsCreate(object):
         """
-        :ivar sender_id: The ID of this Sender prefixed with the channel, e.g., `whatsapp:E.164`
+        :ivar sender_id: The ID of the sender in `whatsapp:<E.164_PHONE_NUMBER>` format.
         :ivar configuration:
         :ivar webhook:
         :ivar profile:
@@ -221,11 +221,11 @@ class ChannelsSenderInstance(InstanceResource):
     class MessagingV2ChannelsSenderWebhook(object):
         """
         :ivar callback_url: The URL to send the webhook to.
-        :ivar callback_method: The HTTP method to use for the webhook. Either \"POST\" or \"PUT\".
+        :ivar callback_method: The HTTP method for the webhook.
         :ivar fallback_url: The URL to send the fallback webhook to.
-        :ivar fallback_method: The HTTP method to use for the fallback webhook. Either \"POST\" or \"PUT\".
+        :ivar fallback_method: The HTTP method for the fallback webhook.
         :ivar status_callback_url: The URL to send the status callback to.
-        :ivar status_callback_method: The HTTP method to use for the status callback.
+        :ivar status_callback_method: The HTTP method for the status callback.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -255,7 +255,7 @@ class ChannelsSenderInstance(InstanceResource):
 
     class MessagingV2RcsCarrier(object):
         """
-        :ivar name: carrier in a country e.g. For US-Verizon, AT&T
+        :ivar name: The name of the carrier. For example, `Verizon` or `AT&T` for US.
         :ivar status:
         """
 
@@ -272,8 +272,8 @@ class ChannelsSenderInstance(InstanceResource):
 
     class MessagingV2RcsComplianceCountryResponse(object):
         """
-        :ivar country: ISO 3166-1 alpha-2 country code (e.g., 'US', 'UK').
-        :ivar registration_sid: The default compliance registration SID (e.g., from CR-Google) that applies to all countries  unless overridden within the `countries` array.
+        :ivar country: The ISO 3166-1 alpha-2 country code.
+        :ivar registration_sid: The default compliance registration SID (e.g., from CR-Google) that applies to all countries unless overridden in the `countries` array.
         :ivar status:
         :ivar carriers:
         """
@@ -324,16 +324,16 @@ class ChannelsSenderInstance(InstanceResource):
         PENDING_VERIFICATION = "PENDING_VERIFICATION"
 
     """
-    :ivar sid: A 34 character string that uniquely identifies this Sender.
+    :ivar sid: The SID of the sender.
     :ivar status: 
-    :ivar sender_id: The ID of this Sender prefixed with the channel, e.g., `whatsapp:E.164`
+    :ivar sender_id: The ID of the sender in `whatsapp:<E.164_PHONE_NUMBER>` format.
     :ivar configuration: 
     :ivar webhook: 
     :ivar profile: 
     :ivar properties: 
-    :ivar offline_reasons: Reasons why the sender is offline., e.g., [{\"code\": \"21211400\", \"message\": \"Whatsapp business account is banned by provider {provider_name} | Credit line is assigned to another BSP\", \"more_info\": \"https://www.twilio.com/docs/errors/21211400\"}]
+    :ivar offline_reasons: The reasons why the sender is offline.
     :ivar compliance: 
-    :ivar url: The URL of this resource, relative to `https://messaging.twilio.com`.
+    :ivar url: The URL of the resource.
     """
 
     def __init__(
@@ -456,10 +456,10 @@ class ChannelsSenderContext(InstanceContext):
 
     class MessagingV2ChannelsSenderConfiguration(object):
         """
-        :ivar waba_id: The ID of the WhatsApp Business Account to use for this sender.
-        :ivar verification_method: The method to use for verification. Either \"sms\" or \"voice\".
-        :ivar verification_code: The verification code to use for this sender.
-        :ivar voice_application_sid: The SID of the Twilio Voice application to use for this sender.
+        :ivar waba_id: The ID of the WhatsApp Business Account (WABA) to use for this sender.
+        :ivar verification_method: The verification method.
+        :ivar verification_code: The verification code.
+        :ivar voice_application_sid: The SID of the Twilio Voice application.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -483,19 +483,19 @@ class ChannelsSenderContext(InstanceContext):
 
     class MessagingV2ChannelsSenderProfile(object):
         """
-        :ivar name: The name of the sender.
-        :ivar about: The about text of the sender.
+        :ivar name: The name of the sender. Required for WhatsApp senders and must follow [Meta's display name guidelines](https://www.facebook.com/business/help/757569725593362).
+        :ivar about: The profile about text for the sender.
         :ivar address: The address of the sender.
         :ivar description: The description of the sender.
         :ivar logo_url: The logo URL of the sender.
         :ivar banner_url: The banner URL of the sender.
-        :ivar privacy_url: The privacy URL of the sender. Publicly accessible URI associated with the Sender, must use the HTTP or HTTPS protocol
+        :ivar privacy_url: The privacy URL of the sender. Must be a publicly accessible HTTP or HTTPS URI associated with the sender.
         :ivar terms_of_service_url: The terms of service URL of the sender.
-        :ivar accent_color: string - Color theme of the Sender (required, in hex format, need to be a minimum 4.5:1 contrast ratio relative to white)
-        :ivar vertical: The vertical of the sender. Allowed values are: - \"Automotive\" - \"Beauty, Spa and Salon\" - \"Clothing and Apparel\" - \"Education\" - \"Entertainment\" - \"Event Planning and Service\" - \"Finance and Banking\" - \"Food and Grocery\" - \"Public Service\" - \"Hotel and Lodging\" - \"Medical and Health\" - \"Non-profit\" - \"Professional Services\" - \"Shopping and Retail\" - \"Travel and Transportation\" - \"Restaurant\" - \"Other\"
-        :ivar websites: The websites of the sender
-        :ivar emails: The emails of the sender
-        :ivar phone_numbers: The phone numbers of the sender
+        :ivar accent_color: The color theme of the sender. Must be in hex format and have at least a 4:5:1 contrast ratio against white.
+        :ivar vertical: The vertical of the sender. Allowed values are: - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Public Service` - `Hotel and Lodging` - `Medical and Health` - `Non-profit` - `Professional Services` - `Shopping and Retail` - `Travel and Transportation` - `Restaurant` - `Other`
+        :ivar websites: The websites of the sender.
+        :ivar emails: The emails of the sender.
+        :ivar phone_numbers: The phone numbers of the sender.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -588,7 +588,7 @@ class ChannelsSenderContext(InstanceContext):
 
     class MessagingV2ChannelsSenderRequestsCreate(object):
         """
-        :ivar sender_id: The ID of this Sender prefixed with the channel, e.g., `whatsapp:E.164`
+        :ivar sender_id: The ID of the sender in `whatsapp:<E.164_PHONE_NUMBER>` format.
         :ivar configuration:
         :ivar webhook:
         :ivar profile:
@@ -652,11 +652,11 @@ class ChannelsSenderContext(InstanceContext):
     class MessagingV2ChannelsSenderWebhook(object):
         """
         :ivar callback_url: The URL to send the webhook to.
-        :ivar callback_method: The HTTP method to use for the webhook. Either \"POST\" or \"PUT\".
+        :ivar callback_method: The HTTP method for the webhook.
         :ivar fallback_url: The URL to send the fallback webhook to.
-        :ivar fallback_method: The HTTP method to use for the fallback webhook. Either \"POST\" or \"PUT\".
+        :ivar fallback_method: The HTTP method for the fallback webhook.
         :ivar status_callback_url: The URL to send the status callback to.
-        :ivar status_callback_method: The HTTP method to use for the status callback.
+        :ivar status_callback_method: The HTTP method for the status callback.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -686,7 +686,7 @@ class ChannelsSenderContext(InstanceContext):
 
     class MessagingV2RcsCarrier(object):
         """
-        :ivar name: carrier in a country e.g. For US-Verizon, AT&T
+        :ivar name: The name of the carrier. For example, `Verizon` or `AT&T` for US.
         :ivar status:
         """
 
@@ -703,8 +703,8 @@ class ChannelsSenderContext(InstanceContext):
 
     class MessagingV2RcsComplianceCountryResponse(object):
         """
-        :ivar country: ISO 3166-1 alpha-2 country code (e.g., 'US', 'UK').
-        :ivar registration_sid: The default compliance registration SID (e.g., from CR-Google) that applies to all countries  unless overridden within the `countries` array.
+        :ivar country: The ISO 3166-1 alpha-2 country code.
+        :ivar registration_sid: The default compliance registration SID (e.g., from CR-Google) that applies to all countries unless overridden in the `countries` array.
         :ivar status:
         :ivar carriers:
         """
@@ -735,7 +735,7 @@ class ChannelsSenderContext(InstanceContext):
         Initialize the ChannelsSenderContext
 
         :param version: Version that contains the resource
-        :param sid: A 34 character string that uniquely identifies this Sender.
+        :param sid: The SID of the sender.
         """
         super().__init__(version)
 
@@ -900,10 +900,10 @@ class ChannelsSenderList(ListResource):
 
     class MessagingV2ChannelsSenderConfiguration(object):
         """
-        :ivar waba_id: The ID of the WhatsApp Business Account to use for this sender.
-        :ivar verification_method: The method to use for verification. Either \"sms\" or \"voice\".
-        :ivar verification_code: The verification code to use for this sender.
-        :ivar voice_application_sid: The SID of the Twilio Voice application to use for this sender.
+        :ivar waba_id: The ID of the WhatsApp Business Account (WABA) to use for this sender.
+        :ivar verification_method: The verification method.
+        :ivar verification_code: The verification code.
+        :ivar voice_application_sid: The SID of the Twilio Voice application.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -927,19 +927,19 @@ class ChannelsSenderList(ListResource):
 
     class MessagingV2ChannelsSenderProfile(object):
         """
-        :ivar name: The name of the sender.
-        :ivar about: The about text of the sender.
+        :ivar name: The name of the sender. Required for WhatsApp senders and must follow [Meta's display name guidelines](https://www.facebook.com/business/help/757569725593362).
+        :ivar about: The profile about text for the sender.
         :ivar address: The address of the sender.
         :ivar description: The description of the sender.
         :ivar logo_url: The logo URL of the sender.
         :ivar banner_url: The banner URL of the sender.
-        :ivar privacy_url: The privacy URL of the sender. Publicly accessible URI associated with the Sender, must use the HTTP or HTTPS protocol
+        :ivar privacy_url: The privacy URL of the sender. Must be a publicly accessible HTTP or HTTPS URI associated with the sender.
         :ivar terms_of_service_url: The terms of service URL of the sender.
-        :ivar accent_color: string - Color theme of the Sender (required, in hex format, need to be a minimum 4.5:1 contrast ratio relative to white)
-        :ivar vertical: The vertical of the sender. Allowed values are: - \"Automotive\" - \"Beauty, Spa and Salon\" - \"Clothing and Apparel\" - \"Education\" - \"Entertainment\" - \"Event Planning and Service\" - \"Finance and Banking\" - \"Food and Grocery\" - \"Public Service\" - \"Hotel and Lodging\" - \"Medical and Health\" - \"Non-profit\" - \"Professional Services\" - \"Shopping and Retail\" - \"Travel and Transportation\" - \"Restaurant\" - \"Other\"
-        :ivar websites: The websites of the sender
-        :ivar emails: The emails of the sender
-        :ivar phone_numbers: The phone numbers of the sender
+        :ivar accent_color: The color theme of the sender. Must be in hex format and have at least a 4:5:1 contrast ratio against white.
+        :ivar vertical: The vertical of the sender. Allowed values are: - `Automotive` - `Beauty, Spa and Salon` - `Clothing and Apparel` - `Education` - `Entertainment` - `Event Planning and Service` - `Finance and Banking` - `Food and Grocery` - `Public Service` - `Hotel and Lodging` - `Medical and Health` - `Non-profit` - `Professional Services` - `Shopping and Retail` - `Travel and Transportation` - `Restaurant` - `Other`
+        :ivar websites: The websites of the sender.
+        :ivar emails: The emails of the sender.
+        :ivar phone_numbers: The phone numbers of the sender.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -1032,7 +1032,7 @@ class ChannelsSenderList(ListResource):
 
     class MessagingV2ChannelsSenderRequestsCreate(object):
         """
-        :ivar sender_id: The ID of this Sender prefixed with the channel, e.g., `whatsapp:E.164`
+        :ivar sender_id: The ID of the sender in `whatsapp:<E.164_PHONE_NUMBER>` format.
         :ivar configuration:
         :ivar webhook:
         :ivar profile:
@@ -1096,11 +1096,11 @@ class ChannelsSenderList(ListResource):
     class MessagingV2ChannelsSenderWebhook(object):
         """
         :ivar callback_url: The URL to send the webhook to.
-        :ivar callback_method: The HTTP method to use for the webhook. Either \"POST\" or \"PUT\".
+        :ivar callback_method: The HTTP method for the webhook.
         :ivar fallback_url: The URL to send the fallback webhook to.
-        :ivar fallback_method: The HTTP method to use for the fallback webhook. Either \"POST\" or \"PUT\".
+        :ivar fallback_method: The HTTP method for the fallback webhook.
         :ivar status_callback_url: The URL to send the status callback to.
-        :ivar status_callback_method: The HTTP method to use for the status callback.
+        :ivar status_callback_method: The HTTP method for the status callback.
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -1130,7 +1130,7 @@ class ChannelsSenderList(ListResource):
 
     class MessagingV2RcsCarrier(object):
         """
-        :ivar name: carrier in a country e.g. For US-Verizon, AT&T
+        :ivar name: The name of the carrier. For example, `Verizon` or `AT&T` for US.
         :ivar status:
         """
 
@@ -1147,8 +1147,8 @@ class ChannelsSenderList(ListResource):
 
     class MessagingV2RcsComplianceCountryResponse(object):
         """
-        :ivar country: ISO 3166-1 alpha-2 country code (e.g., 'US', 'UK').
-        :ivar registration_sid: The default compliance registration SID (e.g., from CR-Google) that applies to all countries  unless overridden within the `countries` array.
+        :ivar country: The ISO 3166-1 alpha-2 country code.
+        :ivar registration_sid: The default compliance registration SID (e.g., from CR-Google) that applies to all countries unless overridden in the `countries` array.
         :ivar status:
         :ivar carriers:
         """
@@ -1448,7 +1448,7 @@ class ChannelsSenderList(ListResource):
         """
         Constructs a ChannelsSenderContext
 
-        :param sid: A 34 character string that uniquely identifies this Sender.
+        :param sid: The SID of the sender.
         """
         return ChannelsSenderContext(self._version, sid=sid)
 
@@ -1456,7 +1456,7 @@ class ChannelsSenderList(ListResource):
         """
         Constructs a ChannelsSenderContext
 
-        :param sid: A 34 character string that uniquely identifies this Sender.
+        :param sid: The SID of the sender.
         """
         return ChannelsSenderContext(self._version, sid=sid)
 

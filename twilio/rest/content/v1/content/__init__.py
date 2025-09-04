@@ -84,6 +84,7 @@ class ContentInstance(InstanceResource):
         :ivar phone:
         :ivar id:
         :ivar code:
+        :ivar webview_size:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -94,6 +95,9 @@ class ContentInstance(InstanceResource):
             self.phone: Optional[str] = payload.get("phone")
             self.id: Optional[str] = payload.get("id")
             self.code: Optional[str] = payload.get("code")
+            self.webview_size: Optional["ContentInstance.WebviewSizeType"] = (
+                payload.get("webview_size")
+            )
 
         def to_dict(self):
             return {
@@ -103,6 +107,7 @@ class ContentInstance(InstanceResource):
                 "phone": self.phone,
                 "id": self.id,
                 "code": self.code,
+                "webview_size": self.webview_size,
             }
 
     class CarouselAction(object):
@@ -779,6 +784,12 @@ class ContentInstance(InstanceResource):
     class QuickReplyActionType(object):
         QUICK_REPLY = "QUICK_REPLY"
 
+    class WebviewSizeType(object):
+        TALL = "TALL"
+        FULL = "FULL"
+        HALF = "HALF"
+        NONE = "NONE"
+
     """
     :ivar date_created: The date and time in GMT that the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar date_updated: The date and time in GMT that the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
@@ -952,6 +963,7 @@ class ContentContext(InstanceContext):
         :ivar phone:
         :ivar id:
         :ivar code:
+        :ivar webview_size:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -962,6 +974,9 @@ class ContentContext(InstanceContext):
             self.phone: Optional[str] = payload.get("phone")
             self.id: Optional[str] = payload.get("id")
             self.code: Optional[str] = payload.get("code")
+            self.webview_size: Optional["ContentInstance.WebviewSizeType"] = (
+                payload.get("webview_size")
+            )
 
         def to_dict(self):
             return {
@@ -971,6 +986,7 @@ class ContentContext(InstanceContext):
                 "phone": self.phone,
                 "id": self.id,
                 "code": self.code,
+                "webview_size": self.webview_size,
             }
 
     class CarouselAction(object):
@@ -1821,6 +1837,7 @@ class ContentList(ListResource):
         :ivar phone:
         :ivar id:
         :ivar code:
+        :ivar webview_size:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -1831,6 +1848,9 @@ class ContentList(ListResource):
             self.phone: Optional[str] = payload.get("phone")
             self.id: Optional[str] = payload.get("id")
             self.code: Optional[str] = payload.get("code")
+            self.webview_size: Optional["ContentInstance.WebviewSizeType"] = (
+                payload.get("webview_size")
+            )
 
         def to_dict(self):
             return {
@@ -1840,6 +1860,7 @@ class ContentList(ListResource):
                 "phone": self.phone,
                 "id": self.id,
                 "code": self.code,
+                "webview_size": self.webview_size,
             }
 
     class CarouselAction(object):
