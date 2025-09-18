@@ -2938,6 +2938,32 @@ class Connect(TwiML):
             )
         )
 
+    def ai_session(self, ai_connector=None, ai_session_configuration=None, **kwargs):
+        """
+        Create a <AiSession> element
+
+        :param ai_connector: The unique name or installed add-on sid that identifies the installed addon resource for the AI Connector
+        :param ai_session_configuration: The unique name or id of the AiSession Configuration resource.
+        :param kwargs: additional attributes
+
+        :returns: <AiSession> element
+        """
+        return self.nest(
+            AiSession(
+                ai_connector=ai_connector,
+                ai_session_configuration=ai_session_configuration,
+                **kwargs
+            )
+        )
+
+
+class AiSession(TwiML):
+    """<AiSession> TwiML Noun"""
+
+    def __init__(self, **kwargs):
+        super(AiSession, self).__init__(**kwargs)
+        self.name = "AiSession"
+
 
 class Assistant(TwiML):
     """<Assistant> TwiML Noun"""

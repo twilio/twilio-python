@@ -308,6 +308,7 @@ class ChannelsSenderInstance(InstanceResource):
         ONLINE_UPDATING = "ONLINE:UPDATING"
         TWILIO_REVIEW = "TWILIO_REVIEW"
         DRAFT = "DRAFT"
+        STUBBED = "STUBBED"
 
     class MessagingV2RcsCarrierStatus(object):
         UNKNOWN = "UNKNOWN"

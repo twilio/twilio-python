@@ -588,6 +588,7 @@ class ContentInstance(InstanceResource):
         :ivar twilio_schedule:
         :ivar whatsapp_card:
         :ivar whatsapp_authentication:
+        :ivar whatsapp_flows:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -631,6 +632,9 @@ class ContentInstance(InstanceResource):
             self.whatsapp_authentication: Optional[
                 ContentList.WhatsappAuthentication
             ] = payload.get("whatsapp_authentication")
+            self.whatsapp_flows: Optional[ContentList.WhatsappFlows] = payload.get(
+                "whatsapp_flows"
+            )
 
         def to_dict(self):
             return {
@@ -695,6 +699,11 @@ class ContentInstance(InstanceResource):
                     if self.whatsapp_authentication is not None
                     else None
                 ),
+                "whatsapp_flows": (
+                    self.whatsapp_flows.to_dict()
+                    if self.whatsapp_flows is not None
+                    else None
+                ),
             }
 
     class WhatsappAuthentication(object):
@@ -757,6 +766,43 @@ class ContentInstance(InstanceResource):
                     if self.actions is not None
                     else None
                 ),
+            }
+
+    class WhatsappFlows(object):
+        """
+        :ivar body:
+        :ivar button_text:
+        :ivar subtitle:
+        :ivar media_url:
+        :ivar flow_id:
+        :ivar flow_token:
+        :ivar flow_first_page_id:
+        :ivar is_flow_first_page_endpoint:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.button_text: Optional[str] = payload.get("button_text")
+            self.subtitle: Optional[str] = payload.get("subtitle")
+            self.media_url: Optional[str] = payload.get("media_url")
+            self.flow_id: Optional[str] = payload.get("flow_id")
+            self.flow_token: Optional[str] = payload.get("flow_token")
+            self.flow_first_page_id: Optional[str] = payload.get("flow_first_page_id")
+            self.is_flow_first_page_endpoint: Optional[bool] = payload.get(
+                "is_flow_first_page_endpoint"
+            )
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "button_text": self.button_text,
+                "subtitle": self.subtitle,
+                "media_url": self.media_url,
+                "flow_id": self.flow_id,
+                "flow_token": self.flow_token,
+                "flow_first_page_id": self.flow_first_page_id,
+                "is_flow_first_page_endpoint": self.is_flow_first_page_endpoint,
             }
 
     class AuthenticationActionType(object):
@@ -1467,6 +1513,7 @@ class ContentContext(InstanceContext):
         :ivar twilio_schedule:
         :ivar whatsapp_card:
         :ivar whatsapp_authentication:
+        :ivar whatsapp_flows:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -1510,6 +1557,9 @@ class ContentContext(InstanceContext):
             self.whatsapp_authentication: Optional[
                 ContentList.WhatsappAuthentication
             ] = payload.get("whatsapp_authentication")
+            self.whatsapp_flows: Optional[ContentList.WhatsappFlows] = payload.get(
+                "whatsapp_flows"
+            )
 
         def to_dict(self):
             return {
@@ -1574,6 +1624,11 @@ class ContentContext(InstanceContext):
                     if self.whatsapp_authentication is not None
                     else None
                 ),
+                "whatsapp_flows": (
+                    self.whatsapp_flows.to_dict()
+                    if self.whatsapp_flows is not None
+                    else None
+                ),
             }
 
     class WhatsappAuthentication(object):
@@ -1636,6 +1691,43 @@ class ContentContext(InstanceContext):
                     if self.actions is not None
                     else None
                 ),
+            }
+
+    class WhatsappFlows(object):
+        """
+        :ivar body:
+        :ivar button_text:
+        :ivar subtitle:
+        :ivar media_url:
+        :ivar flow_id:
+        :ivar flow_token:
+        :ivar flow_first_page_id:
+        :ivar is_flow_first_page_endpoint:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.button_text: Optional[str] = payload.get("button_text")
+            self.subtitle: Optional[str] = payload.get("subtitle")
+            self.media_url: Optional[str] = payload.get("media_url")
+            self.flow_id: Optional[str] = payload.get("flow_id")
+            self.flow_token: Optional[str] = payload.get("flow_token")
+            self.flow_first_page_id: Optional[str] = payload.get("flow_first_page_id")
+            self.is_flow_first_page_endpoint: Optional[bool] = payload.get(
+                "is_flow_first_page_endpoint"
+            )
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "button_text": self.button_text,
+                "subtitle": self.subtitle,
+                "media_url": self.media_url,
+                "flow_id": self.flow_id,
+                "flow_token": self.flow_token,
+                "flow_first_page_id": self.flow_first_page_id,
+                "is_flow_first_page_endpoint": self.is_flow_first_page_endpoint,
             }
 
     def __init__(self, version: Version, sid: str):
@@ -2341,6 +2433,7 @@ class ContentList(ListResource):
         :ivar twilio_schedule:
         :ivar whatsapp_card:
         :ivar whatsapp_authentication:
+        :ivar whatsapp_flows:
         """
 
         def __init__(self, payload: Dict[str, Any]):
@@ -2384,6 +2477,9 @@ class ContentList(ListResource):
             self.whatsapp_authentication: Optional[
                 ContentList.WhatsappAuthentication
             ] = payload.get("whatsapp_authentication")
+            self.whatsapp_flows: Optional[ContentList.WhatsappFlows] = payload.get(
+                "whatsapp_flows"
+            )
 
         def to_dict(self):
             return {
@@ -2448,6 +2544,11 @@ class ContentList(ListResource):
                     if self.whatsapp_authentication is not None
                     else None
                 ),
+                "whatsapp_flows": (
+                    self.whatsapp_flows.to_dict()
+                    if self.whatsapp_flows is not None
+                    else None
+                ),
             }
 
     class WhatsappAuthentication(object):
@@ -2510,6 +2611,43 @@ class ContentList(ListResource):
                     if self.actions is not None
                     else None
                 ),
+            }
+
+    class WhatsappFlows(object):
+        """
+        :ivar body:
+        :ivar button_text:
+        :ivar subtitle:
+        :ivar media_url:
+        :ivar flow_id:
+        :ivar flow_token:
+        :ivar flow_first_page_id:
+        :ivar is_flow_first_page_endpoint:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.body: Optional[str] = payload.get("body")
+            self.button_text: Optional[str] = payload.get("button_text")
+            self.subtitle: Optional[str] = payload.get("subtitle")
+            self.media_url: Optional[str] = payload.get("media_url")
+            self.flow_id: Optional[str] = payload.get("flow_id")
+            self.flow_token: Optional[str] = payload.get("flow_token")
+            self.flow_first_page_id: Optional[str] = payload.get("flow_first_page_id")
+            self.is_flow_first_page_endpoint: Optional[bool] = payload.get(
+                "is_flow_first_page_endpoint"
+            )
+
+        def to_dict(self):
+            return {
+                "body": self.body,
+                "button_text": self.button_text,
+                "subtitle": self.subtitle,
+                "media_url": self.media_url,
+                "flow_id": self.flow_id,
+                "flow_token": self.flow_token,
+                "flow_first_page_id": self.flow_first_page_id,
+                "is_flow_first_page_endpoint": self.is_flow_first_page_endpoint,
             }
 
     def __init__(self, version: Version):

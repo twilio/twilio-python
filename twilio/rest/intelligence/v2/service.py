@@ -46,6 +46,7 @@ class ServiceInstance(InstanceResource):
     :ivar webhook_http_method: 
     :ivar read_only_attached_operator_sids: Operator sids attached to this service, read only
     :ivar version: The version number of this Service.
+    :ivar encryption_credential_sid: The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results.
     """
 
     def __init__(
@@ -77,6 +78,9 @@ class ServiceInstance(InstanceResource):
             "read_only_attached_operator_sids"
         )
         self.version: Optional[int] = deserialize.integer(payload.get("version"))
+        self.encryption_credential_sid: Optional[str] = payload.get(
+            "encryption_credential_sid"
+        )
 
         self._solution = {
             "sid": sid or self.sid,
@@ -145,6 +149,7 @@ class ServiceInstance(InstanceResource):
         media_redaction: Union[bool, object] = values.unset,
         webhook_url: Union[str, object] = values.unset,
         webhook_http_method: Union["ServiceInstance.HttpMethod", object] = values.unset,
+        encryption_credential_sid: Union[str, object] = values.unset,
     ) -> "ServiceInstance":
         """
         Update the ServiceInstance
@@ -158,6 +163,7 @@ class ServiceInstance(InstanceResource):
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
         :param webhook_url: The URL Twilio will request when executing the Webhook.
         :param webhook_http_method:
+        :param encryption_credential_sid: The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results.
 
         :returns: The updated ServiceInstance
         """
@@ -171,6 +177,7 @@ class ServiceInstance(InstanceResource):
             media_redaction=media_redaction,
             webhook_url=webhook_url,
             webhook_http_method=webhook_http_method,
+            encryption_credential_sid=encryption_credential_sid,
         )
 
     async def update_async(
@@ -184,6 +191,7 @@ class ServiceInstance(InstanceResource):
         media_redaction: Union[bool, object] = values.unset,
         webhook_url: Union[str, object] = values.unset,
         webhook_http_method: Union["ServiceInstance.HttpMethod", object] = values.unset,
+        encryption_credential_sid: Union[str, object] = values.unset,
     ) -> "ServiceInstance":
         """
         Asynchronous coroutine to update the ServiceInstance
@@ -197,6 +205,7 @@ class ServiceInstance(InstanceResource):
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
         :param webhook_url: The URL Twilio will request when executing the Webhook.
         :param webhook_http_method:
+        :param encryption_credential_sid: The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results.
 
         :returns: The updated ServiceInstance
         """
@@ -210,6 +219,7 @@ class ServiceInstance(InstanceResource):
             media_redaction=media_redaction,
             webhook_url=webhook_url,
             webhook_http_method=webhook_http_method,
+            encryption_credential_sid=encryption_credential_sid,
         )
 
     def __repr__(self) -> str:
@@ -318,6 +328,7 @@ class ServiceContext(InstanceContext):
         media_redaction: Union[bool, object] = values.unset,
         webhook_url: Union[str, object] = values.unset,
         webhook_http_method: Union["ServiceInstance.HttpMethod", object] = values.unset,
+        encryption_credential_sid: Union[str, object] = values.unset,
     ) -> ServiceInstance:
         """
         Update the ServiceInstance
@@ -331,6 +342,7 @@ class ServiceContext(InstanceContext):
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
         :param webhook_url: The URL Twilio will request when executing the Webhook.
         :param webhook_http_method:
+        :param encryption_credential_sid: The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results.
 
         :returns: The updated ServiceInstance
         """
@@ -345,6 +357,7 @@ class ServiceContext(InstanceContext):
                 "MediaRedaction": serialize.boolean_to_string(media_redaction),
                 "WebhookUrl": webhook_url,
                 "WebhookHttpMethod": webhook_http_method,
+                "EncryptionCredentialSid": encryption_credential_sid,
             }
         )
         headers = values.of({})
@@ -375,6 +388,7 @@ class ServiceContext(InstanceContext):
         media_redaction: Union[bool, object] = values.unset,
         webhook_url: Union[str, object] = values.unset,
         webhook_http_method: Union["ServiceInstance.HttpMethod", object] = values.unset,
+        encryption_credential_sid: Union[str, object] = values.unset,
     ) -> ServiceInstance:
         """
         Asynchronous coroutine to update the ServiceInstance
@@ -388,6 +402,7 @@ class ServiceContext(InstanceContext):
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
         :param webhook_url: The URL Twilio will request when executing the Webhook.
         :param webhook_http_method:
+        :param encryption_credential_sid: The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results.
 
         :returns: The updated ServiceInstance
         """
@@ -402,6 +417,7 @@ class ServiceContext(InstanceContext):
                 "MediaRedaction": serialize.boolean_to_string(media_redaction),
                 "WebhookUrl": webhook_url,
                 "WebhookHttpMethod": webhook_http_method,
+                "EncryptionCredentialSid": encryption_credential_sid,
             }
         )
         headers = values.of({})
@@ -474,6 +490,7 @@ class ServiceList(ListResource):
         media_redaction: Union[bool, object] = values.unset,
         webhook_url: Union[str, object] = values.unset,
         webhook_http_method: Union["ServiceInstance.HttpMethod", object] = values.unset,
+        encryption_credential_sid: Union[str, object] = values.unset,
     ) -> ServiceInstance:
         """
         Create the ServiceInstance
@@ -487,6 +504,7 @@ class ServiceList(ListResource):
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
         :param webhook_url: The URL Twilio will request when executing the Webhook.
         :param webhook_http_method:
+        :param encryption_credential_sid: The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results.
 
         :returns: The created ServiceInstance
         """
@@ -502,6 +520,7 @@ class ServiceList(ListResource):
                 "MediaRedaction": serialize.boolean_to_string(media_redaction),
                 "WebhookUrl": webhook_url,
                 "WebhookHttpMethod": webhook_http_method,
+                "EncryptionCredentialSid": encryption_credential_sid,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -527,6 +546,7 @@ class ServiceList(ListResource):
         media_redaction: Union[bool, object] = values.unset,
         webhook_url: Union[str, object] = values.unset,
         webhook_http_method: Union["ServiceInstance.HttpMethod", object] = values.unset,
+        encryption_credential_sid: Union[str, object] = values.unset,
     ) -> ServiceInstance:
         """
         Asynchronously create the ServiceInstance
@@ -540,6 +560,7 @@ class ServiceList(ListResource):
         :param media_redaction: Instructs the Speech Recognition service to automatically redact PII from all transcripts media made on this service. The auto_redaction flag must be enabled, results in error otherwise.
         :param webhook_url: The URL Twilio will request when executing the Webhook.
         :param webhook_http_method:
+        :param encryption_credential_sid: The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results.
 
         :returns: The created ServiceInstance
         """
@@ -555,6 +576,7 @@ class ServiceList(ListResource):
                 "MediaRedaction": serialize.boolean_to_string(media_redaction),
                 "WebhookUrl": webhook_url,
                 "WebhookHttpMethod": webhook_http_method,
+                "EncryptionCredentialSid": encryption_credential_sid,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})

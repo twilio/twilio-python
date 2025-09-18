@@ -25,6 +25,7 @@ from twilio.rest.verify.v2.service.entity import EntityList
 from twilio.rest.verify.v2.service.messaging_configuration import (
     MessagingConfigurationList,
 )
+from twilio.rest.verify.v2.service.new_factor import NewFactorList
 from twilio.rest.verify.v2.service.rate_limit import RateLimitList
 from twilio.rest.verify.v2.service.verification import VerificationList
 from twilio.rest.verify.v2.service.verification_check import VerificationCheckList
@@ -353,6 +354,13 @@ class ServiceInstance(InstanceResource):
         return self._proxy.messaging_configurations
 
     @property
+    def new_factors(self) -> NewFactorList:
+        """
+        Access the new_factors
+        """
+        return self._proxy.new_factors
+
+    @property
     def rate_limits(self) -> RateLimitList:
         """
         Access the rate_limits
@@ -410,6 +418,7 @@ class ServiceContext(InstanceContext):
         self._access_tokens: Optional[AccessTokenList] = None
         self._entities: Optional[EntityList] = None
         self._messaging_configurations: Optional[MessagingConfigurationList] = None
+        self._new_factors: Optional[NewFactorList] = None
         self._rate_limits: Optional[RateLimitList] = None
         self._verifications: Optional[VerificationList] = None
         self._verification_checks: Optional[VerificationCheckList] = None
@@ -738,6 +747,18 @@ class ServiceContext(InstanceContext):
                 self._solution["sid"],
             )
         return self._messaging_configurations
+
+    @property
+    def new_factors(self) -> NewFactorList:
+        """
+        Access the new_factors
+        """
+        if self._new_factors is None:
+            self._new_factors = NewFactorList(
+                self._version,
+                self._solution["sid"],
+            )
+        return self._new_factors
 
     @property
     def rate_limits(self) -> RateLimitList:

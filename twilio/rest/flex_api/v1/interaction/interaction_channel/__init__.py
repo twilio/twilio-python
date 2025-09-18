@@ -38,6 +38,7 @@ class InteractionChannelInstance(InstanceResource):
         FAILED = "failed"
         CLOSED = "closed"
         INACTIVE = "inactive"
+        PAUSE = "pause"
 
     class Type(object):
         VOICE = "voice"

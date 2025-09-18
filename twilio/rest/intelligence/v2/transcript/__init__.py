@@ -20,6 +20,12 @@ from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
+from twilio.rest.intelligence.v2.transcript.encrypted_operator_results import (
+    EncryptedOperatorResultsList,
+)
+from twilio.rest.intelligence.v2.transcript.encrypted_sentences import (
+    EncryptedSentencesList,
+)
 from twilio.rest.intelligence.v2.transcript.media import MediaList
 from twilio.rest.intelligence.v2.transcript.operator_result import OperatorResultList
 from twilio.rest.intelligence.v2.transcript.sentence import SentenceList
@@ -49,6 +55,7 @@ class TranscriptInstance(InstanceResource):
     :ivar duration: The duration of this Transcript's source
     :ivar url: The URL of this resource.
     :ivar redaction: If the transcript has been redacted, a redacted alternative of the transcript will be available.
+    :ivar encryption_credential_sid: The unique SID identifier of the Public Key resource used to encrypt the sentences and operator results.
     :ivar links: 
     """
 
@@ -77,6 +84,9 @@ class TranscriptInstance(InstanceResource):
         self.duration: Optional[int] = deserialize.integer(payload.get("duration"))
         self.url: Optional[str] = payload.get("url")
         self.redaction: Optional[bool] = payload.get("redaction")
+        self.encryption_credential_sid: Optional[str] = payload.get(
+            "encryption_credential_sid"
+        )
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
@@ -136,6 +146,20 @@ class TranscriptInstance(InstanceResource):
         return await self._proxy.fetch_async()
 
     @property
+    def encrypted_operator_results(self) -> EncryptedOperatorResultsList:
+        """
+        Access the encrypted_operator_results
+        """
+        return self._proxy.encrypted_operator_results
+
+    @property
+    def encrypted_sentences(self) -> EncryptedSentencesList:
+        """
+        Access the encrypted_sentences
+        """
+        return self._proxy.encrypted_sentences
+
+    @property
     def media(self) -> MediaList:
         """
         Access the media
@@ -183,6 +207,8 @@ class TranscriptContext(InstanceContext):
         }
         self._uri = "/Transcripts/{sid}".format(**self._solution)
 
+        self._encrypted_operator_results: Optional[EncryptedOperatorResultsList] = None
+        self._encrypted_sentences: Optional[EncryptedSentencesList] = None
         self._media: Optional[MediaList] = None
         self._operator_results: Optional[OperatorResultList] = None
         self._sentences: Optional[SentenceList] = None
@@ -254,6 +280,30 @@ class TranscriptContext(InstanceContext):
             payload,
             sid=self._solution["sid"],
         )
+
+    @property
+    def encrypted_operator_results(self) -> EncryptedOperatorResultsList:
+        """
+        Access the encrypted_operator_results
+        """
+        if self._encrypted_operator_results is None:
+            self._encrypted_operator_results = EncryptedOperatorResultsList(
+                self._version,
+                self._solution["sid"],
+            )
+        return self._encrypted_operator_results
+
+    @property
+    def encrypted_sentences(self) -> EncryptedSentencesList:
+        """
+        Access the encrypted_sentences
+        """
+        if self._encrypted_sentences is None:
+            self._encrypted_sentences = EncryptedSentencesList(
+                self._version,
+                self._solution["sid"],
+            )
+        return self._encrypted_sentences
 
     @property
     def media(self) -> MediaList:
