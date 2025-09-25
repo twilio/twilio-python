@@ -62,12 +62,7 @@ class NewChallengeInstance(InstanceResource):
     :ivar links: Contains a dictionary of URL links to nested resources of this Challenge.
     """
 
-    def __init__(
-        self,
-        version: Version,
-        payload: Dict[str, Any],
-        service_sid: Optional[str] = None,
-    ):
+    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str):
         super().__init__(version)
 
         self.options: Optional[Dict[str, object]] = payload.get("options")
@@ -99,7 +94,7 @@ class NewChallengeInstance(InstanceResource):
         self.links: Optional[Dict[str, object]] = payload.get("links")
 
         self._solution = {
-            "service_sid": service_sid or self.service_sid,
+            "service_sid": service_sid,
         }
         self._context: Optional[NewChallengeContext] = None
 
@@ -267,30 +262,38 @@ class NewChallengeList(ListResource):
                 "factor_sid": self.factor_sid,
             }
 
-    def __init__(self, version: Version):
+    def __init__(self, version: Version, service_sid: str):
         """
         Initialize the NewChallengeList
 
         :param version: Version that contains the resource
+        :param service_sid: The unique SID identifier of the Service.
 
         """
         super().__init__(version)
 
-    def get(self, service_sid: str) -> NewChallengeContext:
+        # Path Solution
+        self._solution = {
+            "service_sid": service_sid,
+        }
+
+    def get(self) -> NewChallengeContext:
         """
         Constructs a NewChallengeContext
 
-        :param service_sid: The unique SID identifier of the Service.
         """
-        return NewChallengeContext(self._version, service_sid=service_sid)
+        return NewChallengeContext(
+            self._version, service_sid=self._solution["service_sid"]
+        )
 
-    def __call__(self, service_sid: str) -> NewChallengeContext:
+    def __call__(self) -> NewChallengeContext:
         """
         Constructs a NewChallengeContext
 
-        :param service_sid: The unique SID identifier of the Service.
         """
-        return NewChallengeContext(self._version, service_sid=service_sid)
+        return NewChallengeContext(
+            self._version, service_sid=self._solution["service_sid"]
+        )
 
     def __repr__(self) -> str:
         """

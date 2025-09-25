@@ -13,7 +13,7 @@ r"""
 """
 
 from datetime import date, datetime
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
@@ -22,6 +22,180 @@ from twilio.base.version import Version
 
 
 class PortingPortInInstance(InstanceResource):
+
+    class NumbersV1PortingAddress(object):
+        """
+        :ivar street: The street address, ex: 101 Spear St
+        :ivar street_2: The building information, ex : 5th floor.
+        :ivar city: The city name, ex: San Francisco.
+        :ivar state: The state name, ex: CA or California. Note this should match the losing carrier’s information exactly. So if they spell out the entire state’s name instead of abbreviating it, please do so.
+        :ivar zip: The zip code, ex: 94105.
+        :ivar country: The country, ex: USA.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.street: Optional[str] = payload.get("street")
+            self.street_2: Optional[str] = payload.get("street_2")
+            self.city: Optional[str] = payload.get("city")
+            self.state: Optional[str] = payload.get("state")
+            self.zip: Optional[str] = payload.get("zip")
+            self.country: Optional[str] = payload.get("country")
+
+        def to_dict(self):
+            return {
+                "street": self.street,
+                "street_2": self.street_2,
+                "city": self.city,
+                "state": self.state,
+                "zip": self.zip,
+                "country": self.country,
+            }
+
+    class NumbersV1PortingLosingCarrierInformation(object):
+        """
+        :ivar customer_name: Customer name as it is registered with the losing carrier. This can be an individual or a business name depending on the customer type selected.
+        :ivar account_number: The account number of the customer for the losing carrier. Only require for mobile phone numbers.
+        :ivar account_telephone_number: The account phone number of the customer for the losing carrier.
+        :ivar address_sid: If you already have an Address SID that represents the address needed for the LOA, you can provide an Address SID instead of providing the address object in the request body. This will copy the address into the port in request. If changes are made to the Address SID after port in request creation, those changes will not be reflected in the port in request.
+        :ivar address:
+        :ivar authorized_representative: The first and last name of the person listed with the losing carrier who is authorized to make changes on the account.
+        :ivar authorized_representative_email: Email address of the person (owner of the number) who will sign the letter of authorization for the port in request. This email address should belong to the person named in as the authorized representative.
+        :ivar customer_type: The type of customer account in the losing carrier. This should either be: 'Individual' or 'Business'.
+        :ivar authorized_representative_katakana:
+        :ivar sub_municipality:
+        :ivar building:
+        :ivar katakana_name:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.customer_name: Optional[str] = payload.get("customer_name")
+            self.account_number: Optional[str] = payload.get("account_number")
+            self.account_telephone_number: Optional[str] = payload.get(
+                "account_telephone_number"
+            )
+            self.address_sid: Optional[str] = payload.get("address_sid")
+            self.address: Optional[PortingPortInList.NumbersV1PortingAddress] = (
+                payload.get("address")
+            )
+            self.authorized_representative: Optional[str] = payload.get(
+                "authorized_representative"
+            )
+            self.authorized_representative_email: Optional[str] = payload.get(
+                "authorized_representative_email"
+            )
+            self.customer_type: Optional["PortingPortInInstance.str"] = payload.get(
+                "customer_type"
+            )
+            self.authorized_representative_katakana: Optional[str] = payload.get(
+                "authorized_representative_katakana"
+            )
+            self.sub_municipality: Optional[str] = payload.get("sub_municipality")
+            self.building: Optional[str] = payload.get("building")
+            self.katakana_name: Optional[str] = payload.get("katakana_name")
+
+        def to_dict(self):
+            return {
+                "customer_name": self.customer_name,
+                "account_number": self.account_number,
+                "account_telephone_number": self.account_telephone_number,
+                "address_sid": self.address_sid,
+                "address": self.address.to_dict() if self.address is not None else None,
+                "authorized_representative": self.authorized_representative,
+                "authorized_representative_email": self.authorized_representative_email,
+                "customer_type": self.customer_type,
+                "authorized_representative_katakana": self.authorized_representative_katakana,
+                "sub_municipality": self.sub_municipality,
+                "building": self.building,
+                "katakana_name": self.katakana_name,
+            }
+
+    class NumbersV1PortingPortInCreate(object):
+        """
+        :ivar account_sid: Account Sid or subaccount where the phone number(s) will be Ported
+        :ivar documents: List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
+        :ivar phone_numbers: List of phone numbers to be ported. Maximum of 1,000 phone numbers per request.
+        :ivar losing_carrier_information:
+        :ivar notification_emails: Additional emails to send a copy of the signed LOA to.
+        :ivar target_port_in_date: Target date to port the number. We cannot guarantee that this date will be honored by the other carriers, please work with Ops to get a confirmation of the firm order commitment (FOC) date. Expected format is ISO Local Date, example: ‘2011-12-03`. This date must be at least 7 days in the future for US ports and 10 days in the future for Japanese ports. We can't guarantee the exact date and time, as this depends on the losing carrier
+        :ivar target_port_in_time_range_start: The earliest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'. We can't guarantee the exact date and time, as this depends on the losing carrier
+        :ivar target_port_in_time_range_end: The latest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'. We can't guarantee the exact date and time, as this depends on the losing carrier
+        :ivar bundle_sid: The bundle sid is an optional identifier to reference a group of regulatory documents for a port request.
+        :ivar portability_advance_carrier: A field only required for Japan port in requests. It is a unique identifier for the donor carrier service the line is being ported from.
+        :ivar auto_cancel_approval_numbers: Japan specific field, indicates the number of phone numbers to automatically approve for cancellation.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.account_sid: Optional[str] = payload.get("account_sid")
+            self.documents: Optional[List[str]] = payload.get("documents")
+            self.phone_numbers: Optional[
+                List[PortingPortInList.NumbersV1PortingPortInCreatePhoneNumbers]
+            ] = payload.get("phone_numbers")
+            self.losing_carrier_information: Optional[
+                PortingPortInList.NumbersV1PortingLosingCarrierInformation
+            ] = payload.get("losing_carrier_information")
+            self.notification_emails: Optional[List[str]] = payload.get(
+                "notification_emails"
+            )
+            self.target_port_in_date: Optional[date] = payload.get(
+                "target_port_in_date"
+            )
+            self.target_port_in_time_range_start: Optional[str] = payload.get(
+                "target_port_in_time_range_start"
+            )
+            self.target_port_in_time_range_end: Optional[str] = payload.get(
+                "target_port_in_time_range_end"
+            )
+            self.bundle_sid: Optional[str] = payload.get("bundle_sid")
+            self.portability_advance_carrier: Optional[str] = payload.get(
+                "portability_advance_carrier"
+            )
+            self.auto_cancel_approval_numbers: Optional[str] = payload.get(
+                "auto_cancel_approval_numbers"
+            )
+
+        def to_dict(self):
+            return {
+                "account_sid": self.account_sid,
+                "documents": self.documents,
+                "phone_numbers": (
+                    [phone_numbers.to_dict() for phone_numbers in self.phone_numbers]
+                    if self.phone_numbers is not None
+                    else None
+                ),
+                "losing_carrier_information": (
+                    self.losing_carrier_information.to_dict()
+                    if self.losing_carrier_information is not None
+                    else None
+                ),
+                "notification_emails": self.notification_emails,
+                "target_port_in_date": self.target_port_in_date,
+                "target_port_in_time_range_start": self.target_port_in_time_range_start,
+                "target_port_in_time_range_end": self.target_port_in_time_range_end,
+                "bundle_sid": self.bundle_sid,
+                "portability_advance_carrier": self.portability_advance_carrier,
+                "auto_cancel_approval_numbers": self.auto_cancel_approval_numbers,
+            }
+
+    class NumbersV1PortingPortInCreatePhoneNumbers(object):
+        """
+        :ivar phone_number: Phone number to be ported. This must be in the E164 Format.
+        :ivar pin: Some losing carriers require a PIN to authorize the port of a phone number. If the phone number is a US mobile phone number, the PIN is mandatory to process a porting request. Other carriers and number types may also require a PIN, you'll need to contact the losing carrier to determine what your phone number's PIN is.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.phone_number: Optional[str] = payload.get("phone_number")
+            self.pin: Optional[str] = payload.get("pin")
+
+        def to_dict(self):
+            return {
+                "phone_number": self.phone_number,
+                "pin": self.pin,
+            }
+
     """
     :ivar port_in_request_sid: The SID of the Port In request. This is a unique identifier of the port in request.
     :ivar url: The URL of this Port In request
@@ -31,13 +205,13 @@ class PortingPortInInstance(InstanceResource):
     :ivar target_port_in_time_range_start: The earliest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'. We can't guarantee the exact date and time, as this depends on the losing carrier. The time will be stored and returned as UTC standard timezone.
     :ivar target_port_in_time_range_end: The latest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'. We can't guarantee the exact date and time, as this depends on the losing carrier. The time will be stored and returned as UTC standard timezone.
     :ivar port_in_request_status: The status of the port in request. The possible values are: In progress, Completed, Expired, In review, Waiting for Signature, Action Required, and Canceled.
-    :ivar losing_carrier_information: Details regarding the customer’s information with the losing carrier. These values will be used to generate the letter of authorization and should match the losing carrier’s data as closely as possible to ensure the port is accepted.
-    :ivar phone_numbers:
+    :ivar losing_carrier_information: 
+    :ivar phone_numbers: 
     :ivar bundle_sid: The bundle sid is an optional identifier to reference a group of regulatory documents for a port request.
     :ivar portability_advance_carrier: A field only required for Japan port in requests. It is a unique identifier for the donor carrier service the line is being ported from.
     :ivar auto_cancel_approval_numbers: Japan specific field, indicates the number of phone numbers to automatically approve for cancellation.
     :ivar documents: List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
-    :ivar date_created:
+    :ivar date_created: 
     """
 
     def __init__(
@@ -66,12 +240,10 @@ class PortingPortInInstance(InstanceResource):
         self.port_in_request_status: Optional[str] = payload.get(
             "port_in_request_status"
         )
-        self.losing_carrier_information: Optional[Dict[str, object]] = payload.get(
+        self.losing_carrier_information: Optional[str] = payload.get(
             "losing_carrier_information"
         )
-        self.phone_numbers: Optional[List[Dict[str, object]]] = payload.get(
-            "phone_numbers"
-        )
+        self.phone_numbers: Optional[List[str]] = payload.get("phone_numbers")
         self.bundle_sid: Optional[str] = payload.get("bundle_sid")
         self.portability_advance_carrier: Optional[str] = payload.get(
             "portability_advance_carrier"
@@ -151,6 +323,179 @@ class PortingPortInInstance(InstanceResource):
 
 
 class PortingPortInContext(InstanceContext):
+
+    class NumbersV1PortingAddress(object):
+        """
+        :ivar street: The street address, ex: 101 Spear St
+        :ivar street_2: The building information, ex : 5th floor.
+        :ivar city: The city name, ex: San Francisco.
+        :ivar state: The state name, ex: CA or California. Note this should match the losing carrier’s information exactly. So if they spell out the entire state’s name instead of abbreviating it, please do so.
+        :ivar zip: The zip code, ex: 94105.
+        :ivar country: The country, ex: USA.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.street: Optional[str] = payload.get("street")
+            self.street_2: Optional[str] = payload.get("street_2")
+            self.city: Optional[str] = payload.get("city")
+            self.state: Optional[str] = payload.get("state")
+            self.zip: Optional[str] = payload.get("zip")
+            self.country: Optional[str] = payload.get("country")
+
+        def to_dict(self):
+            return {
+                "street": self.street,
+                "street_2": self.street_2,
+                "city": self.city,
+                "state": self.state,
+                "zip": self.zip,
+                "country": self.country,
+            }
+
+    class NumbersV1PortingLosingCarrierInformation(object):
+        """
+        :ivar customer_name: Customer name as it is registered with the losing carrier. This can be an individual or a business name depending on the customer type selected.
+        :ivar account_number: The account number of the customer for the losing carrier. Only require for mobile phone numbers.
+        :ivar account_telephone_number: The account phone number of the customer for the losing carrier.
+        :ivar address_sid: If you already have an Address SID that represents the address needed for the LOA, you can provide an Address SID instead of providing the address object in the request body. This will copy the address into the port in request. If changes are made to the Address SID after port in request creation, those changes will not be reflected in the port in request.
+        :ivar address:
+        :ivar authorized_representative: The first and last name of the person listed with the losing carrier who is authorized to make changes on the account.
+        :ivar authorized_representative_email: Email address of the person (owner of the number) who will sign the letter of authorization for the port in request. This email address should belong to the person named in as the authorized representative.
+        :ivar customer_type: The type of customer account in the losing carrier. This should either be: 'Individual' or 'Business'.
+        :ivar authorized_representative_katakana:
+        :ivar sub_municipality:
+        :ivar building:
+        :ivar katakana_name:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.customer_name: Optional[str] = payload.get("customer_name")
+            self.account_number: Optional[str] = payload.get("account_number")
+            self.account_telephone_number: Optional[str] = payload.get(
+                "account_telephone_number"
+            )
+            self.address_sid: Optional[str] = payload.get("address_sid")
+            self.address: Optional[PortingPortInList.NumbersV1PortingAddress] = (
+                payload.get("address")
+            )
+            self.authorized_representative: Optional[str] = payload.get(
+                "authorized_representative"
+            )
+            self.authorized_representative_email: Optional[str] = payload.get(
+                "authorized_representative_email"
+            )
+            self.customer_type: Optional["PortingPortInInstance.str"] = payload.get(
+                "customer_type"
+            )
+            self.authorized_representative_katakana: Optional[str] = payload.get(
+                "authorized_representative_katakana"
+            )
+            self.sub_municipality: Optional[str] = payload.get("sub_municipality")
+            self.building: Optional[str] = payload.get("building")
+            self.katakana_name: Optional[str] = payload.get("katakana_name")
+
+        def to_dict(self):
+            return {
+                "customer_name": self.customer_name,
+                "account_number": self.account_number,
+                "account_telephone_number": self.account_telephone_number,
+                "address_sid": self.address_sid,
+                "address": self.address.to_dict() if self.address is not None else None,
+                "authorized_representative": self.authorized_representative,
+                "authorized_representative_email": self.authorized_representative_email,
+                "customer_type": self.customer_type,
+                "authorized_representative_katakana": self.authorized_representative_katakana,
+                "sub_municipality": self.sub_municipality,
+                "building": self.building,
+                "katakana_name": self.katakana_name,
+            }
+
+    class NumbersV1PortingPortInCreate(object):
+        """
+        :ivar account_sid: Account Sid or subaccount where the phone number(s) will be Ported
+        :ivar documents: List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
+        :ivar phone_numbers: List of phone numbers to be ported. Maximum of 1,000 phone numbers per request.
+        :ivar losing_carrier_information:
+        :ivar notification_emails: Additional emails to send a copy of the signed LOA to.
+        :ivar target_port_in_date: Target date to port the number. We cannot guarantee that this date will be honored by the other carriers, please work with Ops to get a confirmation of the firm order commitment (FOC) date. Expected format is ISO Local Date, example: ‘2011-12-03`. This date must be at least 7 days in the future for US ports and 10 days in the future for Japanese ports. We can't guarantee the exact date and time, as this depends on the losing carrier
+        :ivar target_port_in_time_range_start: The earliest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'. We can't guarantee the exact date and time, as this depends on the losing carrier
+        :ivar target_port_in_time_range_end: The latest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'. We can't guarantee the exact date and time, as this depends on the losing carrier
+        :ivar bundle_sid: The bundle sid is an optional identifier to reference a group of regulatory documents for a port request.
+        :ivar portability_advance_carrier: A field only required for Japan port in requests. It is a unique identifier for the donor carrier service the line is being ported from.
+        :ivar auto_cancel_approval_numbers: Japan specific field, indicates the number of phone numbers to automatically approve for cancellation.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.account_sid: Optional[str] = payload.get("account_sid")
+            self.documents: Optional[List[str]] = payload.get("documents")
+            self.phone_numbers: Optional[
+                List[PortingPortInList.NumbersV1PortingPortInCreatePhoneNumbers]
+            ] = payload.get("phone_numbers")
+            self.losing_carrier_information: Optional[
+                PortingPortInList.NumbersV1PortingLosingCarrierInformation
+            ] = payload.get("losing_carrier_information")
+            self.notification_emails: Optional[List[str]] = payload.get(
+                "notification_emails"
+            )
+            self.target_port_in_date: Optional[date] = payload.get(
+                "target_port_in_date"
+            )
+            self.target_port_in_time_range_start: Optional[str] = payload.get(
+                "target_port_in_time_range_start"
+            )
+            self.target_port_in_time_range_end: Optional[str] = payload.get(
+                "target_port_in_time_range_end"
+            )
+            self.bundle_sid: Optional[str] = payload.get("bundle_sid")
+            self.portability_advance_carrier: Optional[str] = payload.get(
+                "portability_advance_carrier"
+            )
+            self.auto_cancel_approval_numbers: Optional[str] = payload.get(
+                "auto_cancel_approval_numbers"
+            )
+
+        def to_dict(self):
+            return {
+                "account_sid": self.account_sid,
+                "documents": self.documents,
+                "phone_numbers": (
+                    [phone_numbers.to_dict() for phone_numbers in self.phone_numbers]
+                    if self.phone_numbers is not None
+                    else None
+                ),
+                "losing_carrier_information": (
+                    self.losing_carrier_information.to_dict()
+                    if self.losing_carrier_information is not None
+                    else None
+                ),
+                "notification_emails": self.notification_emails,
+                "target_port_in_date": self.target_port_in_date,
+                "target_port_in_time_range_start": self.target_port_in_time_range_start,
+                "target_port_in_time_range_end": self.target_port_in_time_range_end,
+                "bundle_sid": self.bundle_sid,
+                "portability_advance_carrier": self.portability_advance_carrier,
+                "auto_cancel_approval_numbers": self.auto_cancel_approval_numbers,
+            }
+
+    class NumbersV1PortingPortInCreatePhoneNumbers(object):
+        """
+        :ivar phone_number: Phone number to be ported. This must be in the E164 Format.
+        :ivar pin: Some losing carriers require a PIN to authorize the port of a phone number. If the phone number is a US mobile phone number, the PIN is mandatory to process a porting request. Other carriers and number types may also require a PIN, you'll need to contact the losing carrier to determine what your phone number's PIN is.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.phone_number: Optional[str] = payload.get("phone_number")
+            self.pin: Optional[str] = payload.get("pin")
+
+        def to_dict(self):
+            return {
+                "phone_number": self.phone_number,
+                "pin": self.pin,
+            }
 
     def __init__(self, version: Version, port_in_request_sid: str):
         """
@@ -247,6 +592,179 @@ class PortingPortInContext(InstanceContext):
 
 class PortingPortInList(ListResource):
 
+    class NumbersV1PortingAddress(object):
+        """
+        :ivar street: The street address, ex: 101 Spear St
+        :ivar street_2: The building information, ex : 5th floor.
+        :ivar city: The city name, ex: San Francisco.
+        :ivar state: The state name, ex: CA or California. Note this should match the losing carrier’s information exactly. So if they spell out the entire state’s name instead of abbreviating it, please do so.
+        :ivar zip: The zip code, ex: 94105.
+        :ivar country: The country, ex: USA.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.street: Optional[str] = payload.get("street")
+            self.street_2: Optional[str] = payload.get("street_2")
+            self.city: Optional[str] = payload.get("city")
+            self.state: Optional[str] = payload.get("state")
+            self.zip: Optional[str] = payload.get("zip")
+            self.country: Optional[str] = payload.get("country")
+
+        def to_dict(self):
+            return {
+                "street": self.street,
+                "street_2": self.street_2,
+                "city": self.city,
+                "state": self.state,
+                "zip": self.zip,
+                "country": self.country,
+            }
+
+    class NumbersV1PortingLosingCarrierInformation(object):
+        """
+        :ivar customer_name: Customer name as it is registered with the losing carrier. This can be an individual or a business name depending on the customer type selected.
+        :ivar account_number: The account number of the customer for the losing carrier. Only require for mobile phone numbers.
+        :ivar account_telephone_number: The account phone number of the customer for the losing carrier.
+        :ivar address_sid: If you already have an Address SID that represents the address needed for the LOA, you can provide an Address SID instead of providing the address object in the request body. This will copy the address into the port in request. If changes are made to the Address SID after port in request creation, those changes will not be reflected in the port in request.
+        :ivar address:
+        :ivar authorized_representative: The first and last name of the person listed with the losing carrier who is authorized to make changes on the account.
+        :ivar authorized_representative_email: Email address of the person (owner of the number) who will sign the letter of authorization for the port in request. This email address should belong to the person named in as the authorized representative.
+        :ivar customer_type: The type of customer account in the losing carrier. This should either be: 'Individual' or 'Business'.
+        :ivar authorized_representative_katakana:
+        :ivar sub_municipality:
+        :ivar building:
+        :ivar katakana_name:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.customer_name: Optional[str] = payload.get("customer_name")
+            self.account_number: Optional[str] = payload.get("account_number")
+            self.account_telephone_number: Optional[str] = payload.get(
+                "account_telephone_number"
+            )
+            self.address_sid: Optional[str] = payload.get("address_sid")
+            self.address: Optional[PortingPortInList.NumbersV1PortingAddress] = (
+                payload.get("address")
+            )
+            self.authorized_representative: Optional[str] = payload.get(
+                "authorized_representative"
+            )
+            self.authorized_representative_email: Optional[str] = payload.get(
+                "authorized_representative_email"
+            )
+            self.customer_type: Optional["PortingPortInInstance.str"] = payload.get(
+                "customer_type"
+            )
+            self.authorized_representative_katakana: Optional[str] = payload.get(
+                "authorized_representative_katakana"
+            )
+            self.sub_municipality: Optional[str] = payload.get("sub_municipality")
+            self.building: Optional[str] = payload.get("building")
+            self.katakana_name: Optional[str] = payload.get("katakana_name")
+
+        def to_dict(self):
+            return {
+                "customer_name": self.customer_name,
+                "account_number": self.account_number,
+                "account_telephone_number": self.account_telephone_number,
+                "address_sid": self.address_sid,
+                "address": self.address.to_dict() if self.address is not None else None,
+                "authorized_representative": self.authorized_representative,
+                "authorized_representative_email": self.authorized_representative_email,
+                "customer_type": self.customer_type,
+                "authorized_representative_katakana": self.authorized_representative_katakana,
+                "sub_municipality": self.sub_municipality,
+                "building": self.building,
+                "katakana_name": self.katakana_name,
+            }
+
+    class NumbersV1PortingPortInCreate(object):
+        """
+        :ivar account_sid: Account Sid or subaccount where the phone number(s) will be Ported
+        :ivar documents: List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
+        :ivar phone_numbers: List of phone numbers to be ported. Maximum of 1,000 phone numbers per request.
+        :ivar losing_carrier_information:
+        :ivar notification_emails: Additional emails to send a copy of the signed LOA to.
+        :ivar target_port_in_date: Target date to port the number. We cannot guarantee that this date will be honored by the other carriers, please work with Ops to get a confirmation of the firm order commitment (FOC) date. Expected format is ISO Local Date, example: ‘2011-12-03`. This date must be at least 7 days in the future for US ports and 10 days in the future for Japanese ports. We can't guarantee the exact date and time, as this depends on the losing carrier
+        :ivar target_port_in_time_range_start: The earliest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'. We can't guarantee the exact date and time, as this depends on the losing carrier
+        :ivar target_port_in_time_range_end: The latest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'. We can't guarantee the exact date and time, as this depends on the losing carrier
+        :ivar bundle_sid: The bundle sid is an optional identifier to reference a group of regulatory documents for a port request.
+        :ivar portability_advance_carrier: A field only required for Japan port in requests. It is a unique identifier for the donor carrier service the line is being ported from.
+        :ivar auto_cancel_approval_numbers: Japan specific field, indicates the number of phone numbers to automatically approve for cancellation.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.account_sid: Optional[str] = payload.get("account_sid")
+            self.documents: Optional[List[str]] = payload.get("documents")
+            self.phone_numbers: Optional[
+                List[PortingPortInList.NumbersV1PortingPortInCreatePhoneNumbers]
+            ] = payload.get("phone_numbers")
+            self.losing_carrier_information: Optional[
+                PortingPortInList.NumbersV1PortingLosingCarrierInformation
+            ] = payload.get("losing_carrier_information")
+            self.notification_emails: Optional[List[str]] = payload.get(
+                "notification_emails"
+            )
+            self.target_port_in_date: Optional[date] = payload.get(
+                "target_port_in_date"
+            )
+            self.target_port_in_time_range_start: Optional[str] = payload.get(
+                "target_port_in_time_range_start"
+            )
+            self.target_port_in_time_range_end: Optional[str] = payload.get(
+                "target_port_in_time_range_end"
+            )
+            self.bundle_sid: Optional[str] = payload.get("bundle_sid")
+            self.portability_advance_carrier: Optional[str] = payload.get(
+                "portability_advance_carrier"
+            )
+            self.auto_cancel_approval_numbers: Optional[str] = payload.get(
+                "auto_cancel_approval_numbers"
+            )
+
+        def to_dict(self):
+            return {
+                "account_sid": self.account_sid,
+                "documents": self.documents,
+                "phone_numbers": (
+                    [phone_numbers.to_dict() for phone_numbers in self.phone_numbers]
+                    if self.phone_numbers is not None
+                    else None
+                ),
+                "losing_carrier_information": (
+                    self.losing_carrier_information.to_dict()
+                    if self.losing_carrier_information is not None
+                    else None
+                ),
+                "notification_emails": self.notification_emails,
+                "target_port_in_date": self.target_port_in_date,
+                "target_port_in_time_range_start": self.target_port_in_time_range_start,
+                "target_port_in_time_range_end": self.target_port_in_time_range_end,
+                "bundle_sid": self.bundle_sid,
+                "portability_advance_carrier": self.portability_advance_carrier,
+                "auto_cancel_approval_numbers": self.auto_cancel_approval_numbers,
+            }
+
+    class NumbersV1PortingPortInCreatePhoneNumbers(object):
+        """
+        :ivar phone_number: Phone number to be ported. This must be in the E164 Format.
+        :ivar pin: Some losing carriers require a PIN to authorize the port of a phone number. If the phone number is a US mobile phone number, the PIN is mandatory to process a porting request. Other carriers and number types may also require a PIN, you'll need to contact the losing carrier to determine what your phone number's PIN is.
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.phone_number: Optional[str] = payload.get("phone_number")
+            self.pin: Optional[str] = payload.get("pin")
+
+        def to_dict(self):
+            return {
+                "phone_number": self.phone_number,
+                "pin": self.pin,
+            }
+
     def __init__(self, version: Version):
         """
         Initialize the PortingPortInList
@@ -259,16 +777,16 @@ class PortingPortInList(ListResource):
         self._uri = "/Porting/PortIn"
 
     def create(
-        self, body: Union[object, object] = values.unset
+        self, numbers_v1_porting_port_in_create: NumbersV1PortingPortInCreate
     ) -> PortingPortInInstance:
         """
         Create the PortingPortInInstance
 
-        :param body:
+        :param numbers_v1_porting_port_in_create:
 
         :returns: The created PortingPortInInstance
         """
-        data = body.to_dict()
+        data = numbers_v1_porting_port_in_create.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
@@ -283,16 +801,16 @@ class PortingPortInList(ListResource):
         return PortingPortInInstance(self._version, payload)
 
     async def create_async(
-        self, body: Union[object, object] = values.unset
+        self, numbers_v1_porting_port_in_create: NumbersV1PortingPortInCreate
     ) -> PortingPortInInstance:
         """
         Asynchronously create the PortingPortInInstance
 
-        :param body:
+        :param numbers_v1_porting_port_in_create:
 
         :returns: The created PortingPortInInstance
         """
-        data = body.to_dict()
+        data = numbers_v1_porting_port_in_create.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 

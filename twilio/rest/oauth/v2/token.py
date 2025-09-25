@@ -63,8 +63,8 @@ class TokenList(ListResource):
 
     def create(
         self,
-        grant_type: str,
-        client_id: str,
+        grant_type: Union[str, object] = values.unset,
+        client_id: Union[str, object] = values.unset,
         client_secret: Union[str, object] = values.unset,
         code: Union[str, object] = values.unset,
         redirect_uri: Union[str, object] = values.unset,
@@ -113,8 +113,8 @@ class TokenList(ListResource):
 
     async def create_async(
         self,
-        grant_type: str,
-        client_id: str,
+        grant_type: Union[str, object] = values.unset,
+        client_id: Union[str, object] = values.unset,
         client_secret: Union[str, object] = values.unset,
         code: Union[str, object] = values.unset,
         redirect_uri: Union[str, object] = values.unset,

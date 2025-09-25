@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-09-25] Version 9.8.2
+--------------------------
+**Api**
+- Added optional parameter `CallerDisplayName` for conference participant outbound
+- Updated description for property `to` in the participant create request
+
+
 [2025-09-18] Version 9.8.1
 --------------------------
 **Api**

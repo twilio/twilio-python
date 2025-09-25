@@ -16,7 +16,6 @@ from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.verify.v2.form import FormList
-from twilio.rest.verify.v2.new_challenge import NewChallengeList
 from twilio.rest.verify.v2.safelist import SafelistList
 from twilio.rest.verify.v2.service import ServiceList
 from twilio.rest.verify.v2.template import TemplateList
@@ -36,7 +35,6 @@ class V2(Version):
         """
         super().__init__(domain, "v2")
         self._forms: Optional[FormList] = None
-        self._new_challenge: Optional[NewChallengeList] = None
         self._safelist: Optional[SafelistList] = None
         self._services: Optional[ServiceList] = None
         self._templates: Optional[TemplateList] = None
@@ -50,12 +48,6 @@ class V2(Version):
         if self._forms is None:
             self._forms = FormList(self)
         return self._forms
-
-    @property
-    def new_challenge(self) -> NewChallengeList:
-        if self._new_challenge is None:
-            self._new_challenge = NewChallengeList(self)
-        return self._new_challenge
 
     @property
     def safelist(self) -> SafelistList:

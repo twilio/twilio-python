@@ -21,10 +21,12 @@ from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.verify.v2.service.access_token import AccessTokenList
+from twilio.rest.verify.v2.service.approve_challenge import ApproveChallengeList
 from twilio.rest.verify.v2.service.entity import EntityList
 from twilio.rest.verify.v2.service.messaging_configuration import (
     MessagingConfigurationList,
 )
+from twilio.rest.verify.v2.service.new_challenge import NewChallengeList
 from twilio.rest.verify.v2.service.new_factor import NewFactorList
 from twilio.rest.verify.v2.service.rate_limit import RateLimitList
 from twilio.rest.verify.v2.service.verification import VerificationList
@@ -340,6 +342,13 @@ class ServiceInstance(InstanceResource):
         return self._proxy.access_tokens
 
     @property
+    def approve_challenge(self) -> ApproveChallengeList:
+        """
+        Access the approve_challenge
+        """
+        return self._proxy.approve_challenge
+
+    @property
     def entities(self) -> EntityList:
         """
         Access the entities
@@ -352,6 +361,13 @@ class ServiceInstance(InstanceResource):
         Access the messaging_configurations
         """
         return self._proxy.messaging_configurations
+
+    @property
+    def new_challenge(self) -> NewChallengeList:
+        """
+        Access the new_challenge
+        """
+        return self._proxy.new_challenge
 
     @property
     def new_factors(self) -> NewFactorList:
@@ -416,8 +432,10 @@ class ServiceContext(InstanceContext):
         self._uri = "/Services/{sid}".format(**self._solution)
 
         self._access_tokens: Optional[AccessTokenList] = None
+        self._approve_challenge: Optional[ApproveChallengeList] = None
         self._entities: Optional[EntityList] = None
         self._messaging_configurations: Optional[MessagingConfigurationList] = None
+        self._new_challenge: Optional[NewChallengeList] = None
         self._new_factors: Optional[NewFactorList] = None
         self._rate_limits: Optional[RateLimitList] = None
         self._verifications: Optional[VerificationList] = None
@@ -725,6 +743,18 @@ class ServiceContext(InstanceContext):
         return self._access_tokens
 
     @property
+    def approve_challenge(self) -> ApproveChallengeList:
+        """
+        Access the approve_challenge
+        """
+        if self._approve_challenge is None:
+            self._approve_challenge = ApproveChallengeList(
+                self._version,
+                self._solution["sid"],
+            )
+        return self._approve_challenge
+
+    @property
     def entities(self) -> EntityList:
         """
         Access the entities
@@ -747,6 +777,18 @@ class ServiceContext(InstanceContext):
                 self._solution["sid"],
             )
         return self._messaging_configurations
+
+    @property
+    def new_challenge(self) -> NewChallengeList:
+        """
+        Access the new_challenge
+        """
+        if self._new_challenge is None:
+            self._new_challenge = NewChallengeList(
+                self._version,
+                self._solution["sid"],
+            )
+        return self._new_challenge
 
     @property
     def new_factors(self) -> NewFactorList:
