@@ -37,14 +37,14 @@ class PhoneNumberInstance(InstanceResource):
     :ivar national_format: The phone number in [national format](https://en.wikipedia.org/wiki/National_conventions_for_writing_telephone_numbers).
     :ivar valid: Boolean which indicates if the phone number is in a valid range that can be freely assigned by a carrier to a user.
     :ivar validation_errors: Contains reasons why a phone number is invalid. Possible values: TOO_SHORT, TOO_LONG, INVALID_BUT_POSSIBLE, INVALID_COUNTRY_CODE, INVALID_LENGTH, NOT_A_NUMBER.
-    :ivar caller_name: An object that contains caller name information based on [CNAM](https://support.twilio.com/hc/en-us/articles/360051670533-Getting-Started-with-CNAM-Caller-ID).
-    :ivar sim_swap: An object that contains information on the last date the subscriber identity module (SIM) was changed for a mobile phone number.
-    :ivar call_forwarding: An object that contains information on the unconditional call forwarding status of mobile phone number.
-    :ivar line_status: An object that contains line status information for a mobile phone number.
-    :ivar line_type_intelligence: An object that contains line type information including the carrier name, mobile country code, and mobile network code.
-    :ivar identity_match: An object that contains identity match information. The result of comparing user-provided information including name, address, date of birth, national ID, against authoritative phone-based data sources
-    :ivar reassigned_number: An object that contains reassigned number information. Reassigned Numbers will return a phone number's reassignment status given a phone number and date
-    :ivar sms_pumping_risk: An object that contains information on if a phone number has been currently or previously blocked by Verify Fraud Guard for receiving malicious SMS pumping traffic as well as other signals associated with risky carriers and low conversion rates.
+    :ivar caller_name: 
+    :ivar sim_swap: 
+    :ivar call_forwarding: 
+    :ivar line_type_intelligence: 
+    :ivar line_status: 
+    :ivar identity_match: 
+    :ivar reassigned_number: 
+    :ivar sms_pumping_risk: 
     :ivar phone_number_quality_score: An object that contains information of a mobile phone number quality score. Quality score will return a risk score about the phone number.
     :ivar pre_fill: An object that contains pre fill information. pre_fill will return PII information associated with the phone number like first name, last name, address line, country code, state and postal code. 
     :ivar url: The absolute URL of the resource.
@@ -63,25 +63,17 @@ class PhoneNumberInstance(InstanceResource):
         self.phone_number: Optional[str] = payload.get("phone_number")
         self.national_format: Optional[str] = payload.get("national_format")
         self.valid: Optional[bool] = payload.get("valid")
-        self.validation_errors: Optional[
-            List["PhoneNumberInstance.ValidationError"]
-        ] = payload.get("validation_errors")
-        self.caller_name: Optional[Dict[str, object]] = payload.get("caller_name")
-        self.sim_swap: Optional[Dict[str, object]] = payload.get("sim_swap")
-        self.call_forwarding: Optional[Dict[str, object]] = payload.get(
-            "call_forwarding"
-        )
-        self.line_status: Optional[Dict[str, object]] = payload.get("line_status")
-        self.line_type_intelligence: Optional[Dict[str, object]] = payload.get(
+        self.validation_errors: Optional[List[str]] = payload.get("validation_errors")
+        self.caller_name: Optional[str] = payload.get("caller_name")
+        self.sim_swap: Optional[str] = payload.get("sim_swap")
+        self.call_forwarding: Optional[str] = payload.get("call_forwarding")
+        self.line_type_intelligence: Optional[str] = payload.get(
             "line_type_intelligence"
         )
-        self.identity_match: Optional[Dict[str, object]] = payload.get("identity_match")
-        self.reassigned_number: Optional[Dict[str, object]] = payload.get(
-            "reassigned_number"
-        )
-        self.sms_pumping_risk: Optional[Dict[str, object]] = payload.get(
-            "sms_pumping_risk"
-        )
+        self.line_status: Optional[str] = payload.get("line_status")
+        self.identity_match: Optional[str] = payload.get("identity_match")
+        self.reassigned_number: Optional[str] = payload.get("reassigned_number")
+        self.sms_pumping_risk: Optional[str] = payload.get("sms_pumping_risk")
         self.phone_number_quality_score: Optional[Dict[str, object]] = payload.get(
             "phone_number_quality_score"
         )

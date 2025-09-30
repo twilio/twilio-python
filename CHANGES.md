@@ -3,6 +3,15 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-09-30] Version 9.8.3
+--------------------------
+**Library - Chore**
+- [PR #882](https://github.com/twilio/twilio-python/pull/882): change oauth token endpoint. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Insights**
+- Replace `field` with `key` in Request Filters and Response Metadata Filters and  for Reports API
+
+
 [2025-09-25] Version 9.8.2
 --------------------------
 **Api**

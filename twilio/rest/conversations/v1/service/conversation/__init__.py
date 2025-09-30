@@ -33,6 +33,7 @@ class ConversationInstance(InstanceResource):
         INACTIVE = "inactive"
         ACTIVE = "active"
         CLOSED = "closed"
+        INITIALIZING = "initializing"
 
     class WebhookEnabledType(object):
         TRUE = "true"

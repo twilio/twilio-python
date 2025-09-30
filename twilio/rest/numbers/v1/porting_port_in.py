@@ -205,6 +205,7 @@ class PortingPortInInstance(InstanceResource):
     :ivar target_port_in_time_range_start: The earliest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'. We can't guarantee the exact date and time, as this depends on the losing carrier. The time will be stored and returned as UTC standard timezone.
     :ivar target_port_in_time_range_end: The latest time that the port should occur on the target port in date. Expected format is ISO Offset Time, example: ‘10:15:00-08:00'. We can't guarantee the exact date and time, as this depends on the losing carrier. The time will be stored and returned as UTC standard timezone.
     :ivar port_in_request_status: The status of the port in request. The possible values are: In progress, Completed, Expired, In review, Waiting for Signature, Action Required, and Canceled.
+    :ivar order_cancellation_reason: If the order is cancelled this field will provide further context on the cause of the cancellation.
     :ivar losing_carrier_information: 
     :ivar phone_numbers: 
     :ivar bundle_sid: The bundle sid is an optional identifier to reference a group of regulatory documents for a port request.
@@ -239,6 +240,9 @@ class PortingPortInInstance(InstanceResource):
         )
         self.port_in_request_status: Optional[str] = payload.get(
             "port_in_request_status"
+        )
+        self.order_cancellation_reason: Optional[str] = payload.get(
+            "order_cancellation_reason"
         )
         self.losing_carrier_information: Optional[str] = payload.get(
             "losing_carrier_information"

@@ -28,6 +28,7 @@ from twilio.rest.verify.v2.service.messaging_configuration import (
 )
 from twilio.rest.verify.v2.service.new_challenge import NewChallengeList
 from twilio.rest.verify.v2.service.new_factor import NewFactorList
+from twilio.rest.verify.v2.service.new_verify_factor import NewVerifyFactorList
 from twilio.rest.verify.v2.service.rate_limit import RateLimitList
 from twilio.rest.verify.v2.service.verification import VerificationList
 from twilio.rest.verify.v2.service.verification_check import VerificationCheckList
@@ -377,6 +378,13 @@ class ServiceInstance(InstanceResource):
         return self._proxy.new_factors
 
     @property
+    def new_verify_factors(self) -> NewVerifyFactorList:
+        """
+        Access the new_verify_factors
+        """
+        return self._proxy.new_verify_factors
+
+    @property
     def rate_limits(self) -> RateLimitList:
         """
         Access the rate_limits
@@ -437,6 +445,7 @@ class ServiceContext(InstanceContext):
         self._messaging_configurations: Optional[MessagingConfigurationList] = None
         self._new_challenge: Optional[NewChallengeList] = None
         self._new_factors: Optional[NewFactorList] = None
+        self._new_verify_factors: Optional[NewVerifyFactorList] = None
         self._rate_limits: Optional[RateLimitList] = None
         self._verifications: Optional[VerificationList] = None
         self._verification_checks: Optional[VerificationCheckList] = None
@@ -801,6 +810,18 @@ class ServiceContext(InstanceContext):
                 self._solution["sid"],
             )
         return self._new_factors
+
+    @property
+    def new_verify_factors(self) -> NewVerifyFactorList:
+        """
+        Access the new_verify_factors
+        """
+        if self._new_verify_factors is None:
+            self._new_verify_factors = NewVerifyFactorList(
+                self._version,
+                self._solution["sid"],
+            )
+        return self._new_verify_factors
 
     @property
     def rate_limits(self) -> RateLimitList:

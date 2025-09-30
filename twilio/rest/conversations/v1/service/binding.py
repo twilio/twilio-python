@@ -28,6 +28,7 @@ class BindingInstance(InstanceResource):
         APN = "apn"
         GCM = "gcm"
         FCM = "fcm"
+        TWILSOCK = "twilsock"
 
     """
     :ivar sid: A 34 character string that uniquely identifies this resource.
@@ -291,7 +292,7 @@ class BindingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param List[&quot;BindingInstance.BindingType&quot;] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+        :param List[&quot;BindingInstance.BindingType&quot;] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, `fcm`, or `twilsock`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
         :param List[str] identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -322,7 +323,7 @@ class BindingList(ListResource):
         is reached.
         The results are returned as a generator, so this operation is memory efficient.
 
-        :param List[&quot;BindingInstance.BindingType&quot;] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+        :param List[&quot;BindingInstance.BindingType&quot;] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, `fcm`, or `twilsock`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
         :param List[str] identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
@@ -352,7 +353,7 @@ class BindingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param List[&quot;BindingInstance.BindingType&quot;] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+        :param List[&quot;BindingInstance.BindingType&quot;] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, `fcm`, or `twilsock`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
         :param List[str] identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -384,7 +385,7 @@ class BindingList(ListResource):
         Unlike stream(), this operation is eager and will load `limit` records into
         memory before returning.
 
-        :param List[&quot;BindingInstance.BindingType&quot;] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+        :param List[&quot;BindingInstance.BindingType&quot;] binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, `fcm`, or `twilsock`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
         :param List[str] identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
@@ -417,7 +418,7 @@ class BindingList(ListResource):
         Retrieve a single page of BindingInstance records from the API.
         Request is executed immediately
 
-        :param binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+        :param binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, `fcm`, or `twilsock`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
         :param identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state
@@ -456,7 +457,7 @@ class BindingList(ListResource):
         Asynchronously retrieve a single page of BindingInstance records from the API.
         Request is executed immediately
 
-        :param binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, or `fcm`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
+        :param binding_type: The push technology used by the Binding resources to read.  Can be: `apn`, `gcm`, `fcm`, or `twilsock`.  See [push notification configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info.
         :param identity: The identity of a [Conversation User](https://www.twilio.com/docs/conversations/api/user-resource) this binding belongs to. See [access tokens](https://www.twilio.com/docs/conversations/create-tokens) for more details.
         :param page_token: PageToken provided by the API
         :param page_number: Page Number, this value is simply for client state

@@ -68,12 +68,25 @@ class TollfreeVerificationInstance(InstanceResource):
     :ivar message_volume: Estimate monthly volume of messages from the Tollfree Number.
     :ivar additional_information: Additional information to be provided for verification.
     :ivar tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
+    :ivar tollfree_phone_number: The E.164 formatted toll-free phone number associated with the verification.
     :ivar status: 
     :ivar url: The absolute URL of the Tollfree Verification resource.
     :ivar rejection_reason: The rejection reason given when a Tollfree Verification has been rejected.
     :ivar error_code: The error code given when a Tollfree Verification has been rejected.
     :ivar edit_expiration: The date and time when the ability to edit a rejected verification expires.
     :ivar edit_allowed: If a rejected verification is allowed to be edited/resubmitted. Some rejection reasons allow editing and some do not.
+    :ivar business_registration_number: A legally recognized business registration number
+    :ivar business_registration_authority: The organizational authority for business registrations
+    :ivar business_registration_country: Country business is registered in
+    :ivar business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+    :ivar business_registration_phone_number: The E.164 formatted number associated with the business.
+    :ivar doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
+    :ivar opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+    :ivar help_message_sample: A sample help message provided to users.
+    :ivar privacy_policy_url: The URL to the privacy policy for the business or organization.
+    :ivar terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+    :ivar age_gated_content: Indicates if the content is age gated.
+    :ivar opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
     :ivar rejection_reasons: A list of rejection reasons and codes describing why a Tollfree Verification has been rejected.
     :ivar resource_links: The URLs of the documents associated with the Tollfree Verification resource.
     :ivar external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
@@ -140,6 +153,7 @@ class TollfreeVerificationInstance(InstanceResource):
         self.tollfree_phone_number_sid: Optional[str] = payload.get(
             "tollfree_phone_number_sid"
         )
+        self.tollfree_phone_number: Optional[str] = payload.get("tollfree_phone_number")
         self.status: Optional["TollfreeVerificationInstance.Status"] = payload.get(
             "status"
         )
@@ -150,6 +164,30 @@ class TollfreeVerificationInstance(InstanceResource):
             payload.get("edit_expiration")
         )
         self.edit_allowed: Optional[bool] = payload.get("edit_allowed")
+        self.business_registration_number: Optional[str] = payload.get(
+            "business_registration_number"
+        )
+        self.business_registration_authority: Optional[str] = payload.get(
+            "business_registration_authority"
+        )
+        self.business_registration_country: Optional[str] = payload.get(
+            "business_registration_country"
+        )
+        self.business_type: Optional[str] = payload.get("business_type")
+        self.business_registration_phone_number: Optional[str] = payload.get(
+            "business_registration_phone_number"
+        )
+        self.doing_business_as: Optional[str] = payload.get("doing_business_as")
+        self.opt_in_confirmation_message: Optional[str] = payload.get(
+            "opt_in_confirmation_message"
+        )
+        self.help_message_sample: Optional[str] = payload.get("help_message_sample")
+        self.privacy_policy_url: Optional[str] = payload.get("privacy_policy_url")
+        self.terms_and_conditions_url: Optional[str] = payload.get(
+            "terms_and_conditions_url"
+        )
+        self.age_gated_content: Optional[bool] = payload.get("age_gated_content")
+        self.opt_in_keywords: Optional[List[str]] = payload.get("opt_in_keywords")
         self.rejection_reasons: Optional[List[Dict[str, object]]] = payload.get(
             "rejection_reasons"
         )
