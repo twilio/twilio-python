@@ -2,7 +2,11 @@
 
 import unittest
 
-from mock import patch, Mock
+try:
+    from unittest.mock import patch, Mock
+except ImportError:
+    # Python 3.7
+    from mock import patch, Mock
 from requests import Request
 from requests import Session
 
