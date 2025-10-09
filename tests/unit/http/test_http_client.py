@@ -307,8 +307,8 @@ class TestTwilioRequest(unittest.TestCase):
         )
         expected = (
             "POST https://api.twilio.com/2010-04-01/Accounts.json?PageSize=1\n"
-            " -d \"FriendlyName=My New Account\"\n"
-            " -H \"X-Custom-Header: Value\""
+            ' -d "FriendlyName=My New Account"\n'
+            ' -H "X-Custom-Header: Value"'
         )
         self.assertEqual(expected, req.__str__())
 
