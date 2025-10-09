@@ -10,6 +10,7 @@ from twilio.base.exceptions import TwilioRestException
 from twilio.base.version import Version
 from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response
+from twilio.http.request import Request
 
 
 class TestHttpClientRequest(unittest.TestCase):
@@ -291,6 +292,25 @@ class TestHttpClientSession(unittest.TestCase):
         # Used different session, responses should be different
         self.assertEqual(response_1.content, "response_1")
         self.assertEqual(response_2.content, "response_2")
+
+
+class TestTwilioRequest(unittest.TestCase):
+    def test_str(self):
+
+        req = Request(
+            method="POST",
+            url="https://api.twilio.com/2010-04-01/Accounts.json",
+            auth=("AC123", "token"),
+            params={"PageSize": "1"},
+            data={"FriendlyName": "My New Account"},
+            headers={"X-Custom-Header": "Value"},
+        )
+        expected = (
+            "POST https://api.twilio.com/2010-04-01/Accounts.json?PageSize=1\n"
+            " -d \"FriendlyName=My New Account\"\n"
+            " -H \"X-Custom-Header: Value\""
+        )
+        self.assertEqual(expected, req.__str__())
 
 
 class MyVersion(Version):
