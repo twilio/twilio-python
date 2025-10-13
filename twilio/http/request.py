@@ -56,10 +56,6 @@ class Request(object):
         )
 
     def __str__(self) -> str:
-        auth = ""
-        if self.auth and self.auth != Match.ANY:
-            auth = "{} ".format(self.auth)
-
         params = ""
         if self.params and self.params != Match.ANY:
             params = "?{}".format(urlencode(self.params, doseq=True))
@@ -75,11 +71,10 @@ class Request(object):
         headers = ""
         if self.headers and self.headers != Match.ANY:
             headers = "\n{}".format(
-                "\n".join(' -H "{}: {}"'.format(k, v) for k, v in self.headers.items())
+                "\n".join(' -H "{}: {}"'.format(k, v) for k, v in self.headers.items() if k.lower() != "authorization")
             )
 
-        return "{auth}{method} {url}{params}{data}{headers}".format(
-            auth=auth,
+        return "{method} {url}{params}{data}{headers}".format(
             method=self.method,
             url=self.url,
             params=params,
