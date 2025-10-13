@@ -155,7 +155,7 @@ class SettingContext(InstanceContext):
         :returns: The fetched SettingInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "SubaccountSid": subaccount_sid,
             }
@@ -166,7 +166,7 @@ class SettingContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return SettingInstance(
@@ -185,7 +185,7 @@ class SettingContext(InstanceContext):
         :returns: The fetched SettingInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "SubaccountSid": subaccount_sid,
             }
@@ -196,7 +196,7 @@ class SettingContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return SettingInstance(

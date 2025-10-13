@@ -185,7 +185,7 @@ class OperatorResultContext(InstanceContext):
         :returns: The fetched OperatorResultInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "Redacted": serialize.boolean_to_string(redacted),
             }
@@ -196,7 +196,7 @@ class OperatorResultContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return OperatorResultInstance(
@@ -217,7 +217,7 @@ class OperatorResultContext(InstanceContext):
         :returns: The fetched OperatorResultInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "Redacted": serialize.boolean_to_string(redacted),
             }
@@ -228,7 +228,7 @@ class OperatorResultContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return OperatorResultInstance(

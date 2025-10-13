@@ -281,7 +281,7 @@ class PhoneNumberContext(InstanceContext):
         :returns: The fetched PhoneNumberInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "Fields": fields,
                 "CountryCode": country_code,
@@ -306,7 +306,7 @@ class PhoneNumberContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return PhoneNumberInstance(
@@ -355,7 +355,7 @@ class PhoneNumberContext(InstanceContext):
         :returns: The fetched PhoneNumberInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "Fields": fields,
                 "CountryCode": country_code,
@@ -380,7 +380,7 @@ class PhoneNumberContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return PhoneNumberInstance(

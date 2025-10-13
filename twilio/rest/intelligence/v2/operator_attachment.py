@@ -136,9 +136,15 @@ class OperatorAttachmentContext(InstanceContext):
 
         :returns: The created OperatorAttachmentInstance
         """
-        data = values.of({})
 
-        payload = self._version.create(method="POST", uri=self._uri, data=data)
+        data = values.of({})
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return OperatorAttachmentInstance(
             self._version,
@@ -154,10 +160,14 @@ class OperatorAttachmentContext(InstanceContext):
 
         :returns: The created OperatorAttachmentInstance
         """
+
         data = values.of({})
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return OperatorAttachmentInstance(

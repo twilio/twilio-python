@@ -320,7 +320,7 @@ class TestTwilioRequest(unittest.TestCase):
             data={"FriendlyName": "My New Account"},
             headers={
                 "Authorization": "Bearer secret-token",
-                "X-Custom-Header": "Value"
+                "X-Custom-Header": "Value",
             },
         )
         expected = (

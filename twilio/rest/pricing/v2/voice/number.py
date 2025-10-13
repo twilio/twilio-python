@@ -137,7 +137,7 @@ class NumberContext(InstanceContext):
         :returns: The fetched NumberInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "OriginationNumber": origination_number,
             }
@@ -148,7 +148,7 @@ class NumberContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return NumberInstance(
@@ -168,7 +168,7 @@ class NumberContext(InstanceContext):
         :returns: The fetched NumberInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "OriginationNumber": origination_number,
             }
@@ -179,7 +179,7 @@ class NumberContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return NumberInstance(

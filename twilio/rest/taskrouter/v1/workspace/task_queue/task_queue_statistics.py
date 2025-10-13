@@ -176,7 +176,7 @@ class TaskQueueStatisticsContext(InstanceContext):
         :returns: The fetched TaskQueueStatisticsInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "EndDate": serialize.iso8601_datetime(end_date),
                 "Minutes": minutes,
@@ -191,7 +191,7 @@ class TaskQueueStatisticsContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return TaskQueueStatisticsInstance(
@@ -221,7 +221,7 @@ class TaskQueueStatisticsContext(InstanceContext):
         :returns: The fetched TaskQueueStatisticsInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "EndDate": serialize.iso8601_datetime(end_date),
                 "Minutes": minutes,
@@ -236,7 +236,7 @@ class TaskQueueStatisticsContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return TaskQueueStatisticsInstance(

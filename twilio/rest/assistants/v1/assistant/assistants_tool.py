@@ -156,9 +156,13 @@ class AssistantsToolContext(InstanceContext):
 
         :returns: The created AssistantsToolInstance
         """
-        data = values.of({})
 
-        payload = self._version.create(method="POST", uri=self._uri, data=data)
+        data = values.of({})
+        headers = values.of({})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return AssistantsToolInstance(
             self._version,
@@ -174,10 +178,12 @@ class AssistantsToolContext(InstanceContext):
 
         :returns: The created AssistantsToolInstance
         """
+
         data = values.of({})
+        headers = values.of({})
 
         payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return AssistantsToolInstance(

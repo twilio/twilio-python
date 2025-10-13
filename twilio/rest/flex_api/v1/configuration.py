@@ -298,7 +298,7 @@ class ConfigurationContext(InstanceContext):
         :returns: The fetched ConfigurationInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "UiVersion": ui_version,
             }
@@ -309,7 +309,7 @@ class ConfigurationContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return ConfigurationInstance(
@@ -328,7 +328,7 @@ class ConfigurationContext(InstanceContext):
         :returns: The fetched ConfigurationInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "UiVersion": ui_version,
             }
@@ -339,7 +339,7 @@ class ConfigurationContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return ConfigurationInstance(

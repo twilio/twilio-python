@@ -177,6 +177,7 @@ class BundleCloneContext(InstanceContext):
 
         :returns: The created BundleCloneInstance
         """
+
         data = values.of(
             {
                 "TargetAccountSid": target_account_sid,
@@ -184,8 +185,15 @@ class BundleCloneContext(InstanceContext):
                 "FriendlyName": friendly_name,
             }
         )
+        headers = values.of({})
 
-        payload = self._version.create(method="POST", uri=self._uri, data=data)
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return BundleCloneInstance(
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
@@ -206,6 +214,7 @@ class BundleCloneContext(InstanceContext):
 
         :returns: The created BundleCloneInstance
         """
+
         data = values.of(
             {
                 "TargetAccountSid": target_account_sid,
@@ -213,9 +222,14 @@ class BundleCloneContext(InstanceContext):
                 "FriendlyName": friendly_name,
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return BundleCloneInstance(

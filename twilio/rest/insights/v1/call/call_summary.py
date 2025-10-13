@@ -217,7 +217,7 @@ class CallSummaryContext(InstanceContext):
         :returns: The fetched CallSummaryInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "ProcessingState": processing_state,
             }
@@ -228,7 +228,7 @@ class CallSummaryContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return CallSummaryInstance(
@@ -251,7 +251,7 @@ class CallSummaryContext(InstanceContext):
         :returns: The fetched CallSummaryInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "ProcessingState": processing_state,
             }
@@ -262,7 +262,7 @@ class CallSummaryContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return CallSummaryInstance(

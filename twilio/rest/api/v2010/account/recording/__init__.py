@@ -258,7 +258,7 @@ class RecordingContext(InstanceContext):
         :returns: The fetched RecordingInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "IncludeSoftDeleted": serialize.boolean_to_string(include_soft_deleted),
             }
@@ -269,7 +269,7 @@ class RecordingContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return RecordingInstance(
@@ -290,7 +290,7 @@ class RecordingContext(InstanceContext):
         :returns: The fetched RecordingInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "IncludeSoftDeleted": serialize.boolean_to_string(include_soft_deleted),
             }
@@ -301,7 +301,7 @@ class RecordingContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return RecordingInstance(

@@ -156,7 +156,7 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
         :returns: The fetched WorkflowRealTimeStatisticsInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "TaskChannel": task_channel,
             }
@@ -167,7 +167,7 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return WorkflowRealTimeStatisticsInstance(
@@ -188,7 +188,7 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
         :returns: The fetched WorkflowRealTimeStatisticsInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "TaskChannel": task_channel,
             }
@@ -199,7 +199,7 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return WorkflowRealTimeStatisticsInstance(

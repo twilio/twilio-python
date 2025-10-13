@@ -158,9 +158,13 @@ class AssistantsKnowledgeContext(InstanceContext):
 
         :returns: The created AssistantsKnowledgeInstance
         """
-        data = values.of({})
 
-        payload = self._version.create(method="POST", uri=self._uri, data=data)
+        data = values.of({})
+        headers = values.of({})
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return AssistantsKnowledgeInstance(
             self._version,
@@ -176,10 +180,12 @@ class AssistantsKnowledgeContext(InstanceContext):
 
         :returns: The created AssistantsKnowledgeInstance
         """
+
         data = values.of({})
+        headers = values.of({})
 
         payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return AssistantsKnowledgeInstance(

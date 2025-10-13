@@ -143,7 +143,7 @@ class UsageContext(InstanceContext):
         :returns: The fetched UsageInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "End": end,
                 "Start": start,
@@ -155,7 +155,7 @@ class UsageContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return UsageInstance(
@@ -178,7 +178,7 @@ class UsageContext(InstanceContext):
         :returns: The fetched UsageInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "End": end,
                 "Start": start,
@@ -190,7 +190,7 @@ class UsageContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return UsageInstance(

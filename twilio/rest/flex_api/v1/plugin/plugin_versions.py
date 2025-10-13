@@ -152,19 +152,17 @@ class PluginVersionsContext(InstanceContext):
         :returns: The fetched PluginVersionsInstance
         """
 
-        data = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-            }
-        )
-
         headers = values.of({})
+
+        if not (
+            flex_metadata is values.unset
+            or (isinstance(flex_metadata, str) and not flex_metadata)
+        ):
+            headers["Flex-Metadata"] = flex_metadata
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
-        )
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return PluginVersionsInstance(
             self._version,
@@ -184,18 +182,18 @@ class PluginVersionsContext(InstanceContext):
         :returns: The fetched PluginVersionsInstance
         """
 
-        data = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-            }
-        )
-
         headers = values.of({})
+
+        if not (
+            flex_metadata is values.unset
+            or (isinstance(flex_metadata, str) and not flex_metadata)
+        ):
+            headers["Flex-Metadata"] = flex_metadata
 
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, headers=headers
         )
 
         return PluginVersionsInstance(

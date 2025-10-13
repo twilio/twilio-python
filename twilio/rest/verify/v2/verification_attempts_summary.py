@@ -181,7 +181,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         :returns: The fetched VerificationAttemptsSummaryInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "VerifyServiceSid": verify_service_sid,
                 "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
@@ -197,7 +197,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return VerificationAttemptsSummaryInstance(
@@ -229,7 +229,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         :returns: The fetched VerificationAttemptsSummaryInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "VerifyServiceSid": verify_service_sid,
                 "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
@@ -245,7 +245,7 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return VerificationAttemptsSummaryInstance(
