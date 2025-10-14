@@ -232,7 +232,7 @@ class WorkspaceCumulativeStatisticsContext(InstanceContext):
         :returns: The fetched WorkspaceCumulativeStatisticsInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "EndDate": serialize.iso8601_datetime(end_date),
                 "Minutes": minutes,
@@ -247,7 +247,7 @@ class WorkspaceCumulativeStatisticsContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return WorkspaceCumulativeStatisticsInstance(
@@ -276,7 +276,7 @@ class WorkspaceCumulativeStatisticsContext(InstanceContext):
         :returns: The fetched WorkspaceCumulativeStatisticsInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "EndDate": serialize.iso8601_datetime(end_date),
                 "Minutes": minutes,
@@ -291,7 +291,7 @@ class WorkspaceCumulativeStatisticsContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return WorkspaceCumulativeStatisticsInstance(

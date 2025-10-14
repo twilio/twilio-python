@@ -648,7 +648,7 @@ class ParticipantList(ListResource):
         :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
         :param trim: Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
         :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
-        :param caller_display_name: The name that appears to the called party for this call. Must be between 2 and 255 characters.
+        :param caller_display_name: The name that populates the display name in the From header. Must be between 2 and 255 characters. Only applicable for calls to sip address.
 
         :returns: The created ParticipantInstance
         """
@@ -840,7 +840,7 @@ class ParticipantList(ListResource):
         :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
         :param trim: Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
         :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
-        :param caller_display_name: The name that appears to the called party for this call. Must be between 2 and 255 characters.
+        :param caller_display_name: The name that populates the display name in the From header. Must be between 2 and 255 characters. Only applicable for calls to sip address.
 
         :returns: The created ParticipantInstance
         """

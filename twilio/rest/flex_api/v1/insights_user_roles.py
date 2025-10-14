@@ -109,19 +109,17 @@ class InsightsUserRolesContext(InstanceContext):
         :returns: The fetched InsightsUserRolesInstance
         """
 
-        data = values.of(
-            {
-                "Authorization": authorization,
-            }
-        )
-
         headers = values.of({})
+
+        if not (
+            authorization is values.unset
+            or (isinstance(authorization, str) and not authorization)
+        ):
+            headers["Authorization"] = authorization
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
-        )
+        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
 
         return InsightsUserRolesInstance(
             self._version,
@@ -139,18 +137,18 @@ class InsightsUserRolesContext(InstanceContext):
         :returns: The fetched InsightsUserRolesInstance
         """
 
-        data = values.of(
-            {
-                "Authorization": authorization,
-            }
-        )
-
         headers = values.of({})
+
+        if not (
+            authorization is values.unset
+            or (isinstance(authorization, str) and not authorization)
+        ):
+            headers["Authorization"] = authorization
 
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, headers=headers
         )
 
         return InsightsUserRolesInstance(

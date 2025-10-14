@@ -213,6 +213,7 @@ class PortingPortInInstance(InstanceResource):
     :ivar auto_cancel_approval_numbers: Japan specific field, indicates the number of phone numbers to automatically approve for cancellation.
     :ivar documents: List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
     :ivar date_created: 
+    :ivar support_ticket_id: Unique ID of the request's support ticket
     """
 
     def __init__(
@@ -258,6 +259,9 @@ class PortingPortInInstance(InstanceResource):
         self.documents: Optional[List[str]] = payload.get("documents")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
+        )
+        self.support_ticket_id: Optional[int] = deserialize.integer(
+            payload.get("support_ticket_id")
         )
 
         self._solution = {

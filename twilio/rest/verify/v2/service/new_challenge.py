@@ -197,13 +197,17 @@ class NewChallengeContext(InstanceContext):
 
         :returns: The created NewChallengeInstance
         """
-        data = values.of(
-            {
-                "CreatePasskeysChallengeRequest": create_passkeys_challenge_request,
-            }
-        )
+        data = create_passkeys_challenge_request.to_dict()
 
-        payload = self._version.create(method="POST", uri=self._uri, data=data)
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return NewChallengeInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
@@ -219,14 +223,16 @@ class NewChallengeContext(InstanceContext):
 
         :returns: The created NewChallengeInstance
         """
-        data = values.of(
-            {
-                "CreatePasskeysChallengeRequest": create_passkeys_challenge_request,
-            }
-        )
+        data = create_passkeys_challenge_request.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return NewChallengeInstance(

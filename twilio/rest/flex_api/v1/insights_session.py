@@ -114,13 +114,21 @@ class InsightsSessionContext(InstanceContext):
 
         :returns: The created InsightsSessionInstance
         """
-        data = values.of(
-            {
-                "Authorization": authorization,
-            }
-        )
 
-        payload = self._version.create(method="POST", uri=self._uri, data=data)
+        data = values.of({})
+        headers = values.of({})
+
+        if not (
+            authorization is values.unset
+            or (isinstance(authorization, str) and not authorization)
+        ):
+            headers["Authorization"] = authorization
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return InsightsSessionInstance(self._version, payload)
 
@@ -134,14 +142,20 @@ class InsightsSessionContext(InstanceContext):
 
         :returns: The created InsightsSessionInstance
         """
-        data = values.of(
-            {
-                "Authorization": authorization,
-            }
-        )
+
+        data = values.of({})
+        headers = values.of({})
+
+        if not (
+            authorization is values.unset
+            or (isinstance(authorization, str) and not authorization)
+        ):
+            headers["Authorization"] = authorization
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return InsightsSessionInstance(self._version, payload)

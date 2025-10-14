@@ -3,6 +3,22 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-10-14] Version 9.8.4
+--------------------------
+**Library - Chore**
+- [PR #887](https://github.com/twilio/twilio-python/pull/887): remove auth from request.__str__(). Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Library - Docs**
+- [PR #886](https://github.com/twilio/twilio-python/pull/886): update oauth example. Thanks to [@tiwarishubham635](https://github.com/tiwarishubham635)!
+
+**Api**
+- Updated description for property `CallerDisplayName` for participant create request
+- Updated description for property `CallerDisplayName` for participant create request
+
+**Accounts**
+- FILE_IS_AUTO_GENERATED: false
+
+
 [2025-09-30] Version 9.8.3
 --------------------------
 **Library - Chore**

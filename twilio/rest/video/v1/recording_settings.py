@@ -181,6 +181,7 @@ class RecordingSettingsContext(InstanceContext):
 
         :returns: The created RecordingSettingsInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -191,8 +192,15 @@ class RecordingSettingsContext(InstanceContext):
                 "EncryptionEnabled": serialize.boolean_to_string(encryption_enabled),
             }
         )
+        headers = values.of({})
 
-        payload = self._version.create(method="POST", uri=self._uri, data=data)
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return RecordingSettingsInstance(self._version, payload)
 
@@ -217,6 +225,7 @@ class RecordingSettingsContext(InstanceContext):
 
         :returns: The created RecordingSettingsInstance
         """
+
         data = values.of(
             {
                 "FriendlyName": friendly_name,
@@ -227,9 +236,14 @@ class RecordingSettingsContext(InstanceContext):
                 "EncryptionEnabled": serialize.boolean_to_string(encryption_enabled),
             }
         )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return RecordingSettingsInstance(self._version, payload)

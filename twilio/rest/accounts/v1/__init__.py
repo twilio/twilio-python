@@ -19,6 +19,7 @@ from twilio.rest.accounts.v1.auth_token_promotion import AuthTokenPromotionList
 from twilio.rest.accounts.v1.bulk_consents import BulkConsentsList
 from twilio.rest.accounts.v1.bulk_contacts import BulkContactsList
 from twilio.rest.accounts.v1.credential import CredentialList
+from twilio.rest.accounts.v1.messaging_geopermissions import MessagingGeopermissionsList
 from twilio.rest.accounts.v1.safelist import SafelistList
 from twilio.rest.accounts.v1.secondary_auth_token import SecondaryAuthTokenList
 
@@ -36,6 +37,7 @@ class V1(Version):
         self._bulk_consents: Optional[BulkConsentsList] = None
         self._bulk_contacts: Optional[BulkContactsList] = None
         self._credentials: Optional[CredentialList] = None
+        self._messaging_geopermissions: Optional[MessagingGeopermissionsList] = None
         self._safelist: Optional[SafelistList] = None
         self._secondary_auth_token: Optional[SecondaryAuthTokenList] = None
 
@@ -62,6 +64,12 @@ class V1(Version):
         if self._credentials is None:
             self._credentials = CredentialList(self)
         return self._credentials
+
+    @property
+    def messaging_geopermissions(self) -> MessagingGeopermissionsList:
+        if self._messaging_geopermissions is None:
+            self._messaging_geopermissions = MessagingGeopermissionsList(self)
+        return self._messaging_geopermissions
 
     @property
     def safelist(self) -> SafelistList:

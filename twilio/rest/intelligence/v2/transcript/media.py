@@ -120,7 +120,7 @@ class MediaContext(InstanceContext):
         :returns: The fetched MediaInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "Redacted": serialize.boolean_to_string(redacted),
             }
@@ -131,7 +131,7 @@ class MediaContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return MediaInstance(
@@ -151,7 +151,7 @@ class MediaContext(InstanceContext):
         :returns: The fetched MediaInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "Redacted": serialize.boolean_to_string(redacted),
             }
@@ -162,7 +162,7 @@ class MediaContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return MediaInstance(

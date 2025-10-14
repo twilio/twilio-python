@@ -84,9 +84,9 @@ class TollfreeVerificationInstance(InstanceResource):
     :ivar opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
     :ivar help_message_sample: A sample help message provided to users.
     :ivar privacy_policy_url: The URL to the privacy policy for the business or organization.
-    :ivar terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+    :ivar terms_and_conditions_url: The URL of the terms and conditions for the business or organization.
     :ivar age_gated_content: Indicates if the content is age gated.
-    :ivar opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+    :ivar opt_in_keywords: List of keywords that users can send to opt in or out of messages.
     :ivar rejection_reasons: A list of rejection reasons and codes describing why a Tollfree Verification has been rejected.
     :ivar resource_links: The URLs of the documents associated with the Tollfree Verification resource.
     :ivar external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
@@ -275,6 +275,18 @@ class TollfreeVerificationInstance(InstanceResource):
         business_contact_email: Union[str, object] = values.unset,
         business_contact_phone: Union[str, object] = values.unset,
         edit_reason: Union[str, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[str, object] = values.unset,
+        business_registration_phone_number: Union[str, object] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
     ) -> "TollfreeVerificationInstance":
         """
         Update the TollfreeVerificationInstance
@@ -300,6 +312,18 @@ class TollfreeVerificationInstance(InstanceResource):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
+        :param business_registration_number: A legaly recognized business registration number
+        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_country: Country business is registered in
+        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_registration_phone_number: The E.164 formatted number associated with the business.
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
 
         :returns: The updated TollfreeVerificationInstance
         """
@@ -325,6 +349,18 @@ class TollfreeVerificationInstance(InstanceResource):
             business_contact_email=business_contact_email,
             business_contact_phone=business_contact_phone,
             edit_reason=edit_reason,
+            business_registration_number=business_registration_number,
+            business_registration_authority=business_registration_authority,
+            business_registration_country=business_registration_country,
+            business_type=business_type,
+            business_registration_phone_number=business_registration_phone_number,
+            doing_business_as=doing_business_as,
+            opt_in_confirmation_message=opt_in_confirmation_message,
+            help_message_sample=help_message_sample,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
+            age_gated_content=age_gated_content,
+            opt_in_keywords=opt_in_keywords,
         )
 
     async def update_async(
@@ -352,6 +388,18 @@ class TollfreeVerificationInstance(InstanceResource):
         business_contact_email: Union[str, object] = values.unset,
         business_contact_phone: Union[str, object] = values.unset,
         edit_reason: Union[str, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[str, object] = values.unset,
+        business_registration_phone_number: Union[str, object] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
     ) -> "TollfreeVerificationInstance":
         """
         Asynchronous coroutine to update the TollfreeVerificationInstance
@@ -377,6 +425,18 @@ class TollfreeVerificationInstance(InstanceResource):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
+        :param business_registration_number: A legaly recognized business registration number
+        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_country: Country business is registered in
+        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_registration_phone_number: The E.164 formatted number associated with the business.
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
 
         :returns: The updated TollfreeVerificationInstance
         """
@@ -402,6 +462,18 @@ class TollfreeVerificationInstance(InstanceResource):
             business_contact_email=business_contact_email,
             business_contact_phone=business_contact_phone,
             edit_reason=edit_reason,
+            business_registration_number=business_registration_number,
+            business_registration_authority=business_registration_authority,
+            business_registration_country=business_registration_country,
+            business_type=business_type,
+            business_registration_phone_number=business_registration_phone_number,
+            doing_business_as=doing_business_as,
+            opt_in_confirmation_message=opt_in_confirmation_message,
+            help_message_sample=help_message_sample,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
+            age_gated_content=age_gated_content,
+            opt_in_keywords=opt_in_keywords,
         )
 
     def __repr__(self) -> str:
@@ -524,6 +596,18 @@ class TollfreeVerificationContext(InstanceContext):
         business_contact_email: Union[str, object] = values.unset,
         business_contact_phone: Union[str, object] = values.unset,
         edit_reason: Union[str, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[str, object] = values.unset,
+        business_registration_phone_number: Union[str, object] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
     ) -> TollfreeVerificationInstance:
         """
         Update the TollfreeVerificationInstance
@@ -549,6 +633,18 @@ class TollfreeVerificationContext(InstanceContext):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
+        :param business_registration_number: A legaly recognized business registration number
+        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_country: Country business is registered in
+        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_registration_phone_number: The E.164 formatted number associated with the business.
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
 
         :returns: The updated TollfreeVerificationInstance
         """
@@ -576,6 +672,18 @@ class TollfreeVerificationContext(InstanceContext):
                 "BusinessContactEmail": business_contact_email,
                 "BusinessContactPhone": business_contact_phone,
                 "EditReason": edit_reason,
+                "BusinessRegistrationNumber": business_registration_number,
+                "BusinessRegistrationAuthority": business_registration_authority,
+                "BusinessRegistrationCountry": business_registration_country,
+                "BusinessType": business_type,
+                "BusinessRegistrationPhoneNumber": business_registration_phone_number,
+                "DoingBusinessAs": doing_business_as,
+                "OptInConfirmationMessage": opt_in_confirmation_message,
+                "HelpMessageSample": help_message_sample,
+                "PrivacyPolicyUrl": privacy_policy_url,
+                "TermsAndConditionsUrl": terms_and_conditions_url,
+                "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
+                "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
             }
         )
         headers = values.of({})
@@ -617,6 +725,18 @@ class TollfreeVerificationContext(InstanceContext):
         business_contact_email: Union[str, object] = values.unset,
         business_contact_phone: Union[str, object] = values.unset,
         edit_reason: Union[str, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[str, object] = values.unset,
+        business_registration_phone_number: Union[str, object] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
     ) -> TollfreeVerificationInstance:
         """
         Asynchronous coroutine to update the TollfreeVerificationInstance
@@ -642,6 +762,18 @@ class TollfreeVerificationContext(InstanceContext):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
+        :param business_registration_number: A legaly recognized business registration number
+        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_country: Country business is registered in
+        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_registration_phone_number: The E.164 formatted number associated with the business.
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
 
         :returns: The updated TollfreeVerificationInstance
         """
@@ -669,6 +801,18 @@ class TollfreeVerificationContext(InstanceContext):
                 "BusinessContactEmail": business_contact_email,
                 "BusinessContactPhone": business_contact_phone,
                 "EditReason": edit_reason,
+                "BusinessRegistrationNumber": business_registration_number,
+                "BusinessRegistrationAuthority": business_registration_authority,
+                "BusinessRegistrationCountry": business_registration_country,
+                "BusinessType": business_type,
+                "BusinessRegistrationPhoneNumber": business_registration_phone_number,
+                "DoingBusinessAs": doing_business_as,
+                "OptInConfirmationMessage": opt_in_confirmation_message,
+                "HelpMessageSample": help_message_sample,
+                "PrivacyPolicyUrl": privacy_policy_url,
+                "TermsAndConditionsUrl": terms_and_conditions_url,
+                "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
+                "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
             }
         )
         headers = values.of({})
@@ -752,6 +896,18 @@ class TollfreeVerificationList(ListResource):
         business_contact_email: Union[str, object] = values.unset,
         business_contact_phone: Union[str, object] = values.unset,
         external_reference_id: Union[str, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[str, object] = values.unset,
+        business_registration_phone_number: Union[str, object] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
     ) -> TollfreeVerificationInstance:
         """
         Create the TollfreeVerificationInstance
@@ -779,6 +935,18 @@ class TollfreeVerificationList(ListResource):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
+        :param business_registration_number: A legally recognized business registration number
+        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_country: Country business is registered in
+        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_registration_phone_number: The E.164 formatted number associated with the business.
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
 
         :returns: The created TollfreeVerificationInstance
         """
@@ -808,6 +976,18 @@ class TollfreeVerificationList(ListResource):
                 "BusinessContactEmail": business_contact_email,
                 "BusinessContactPhone": business_contact_phone,
                 "ExternalReferenceId": external_reference_id,
+                "BusinessRegistrationNumber": business_registration_number,
+                "BusinessRegistrationAuthority": business_registration_authority,
+                "BusinessRegistrationCountry": business_registration_country,
+                "BusinessType": business_type,
+                "BusinessRegistrationPhoneNumber": business_registration_phone_number,
+                "DoingBusinessAs": doing_business_as,
+                "OptInConfirmationMessage": opt_in_confirmation_message,
+                "HelpMessageSample": help_message_sample,
+                "PrivacyPolicyUrl": privacy_policy_url,
+                "TermsAndConditionsUrl": terms_and_conditions_url,
+                "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
+                "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -847,6 +1027,18 @@ class TollfreeVerificationList(ListResource):
         business_contact_email: Union[str, object] = values.unset,
         business_contact_phone: Union[str, object] = values.unset,
         external_reference_id: Union[str, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[str, object] = values.unset,
+        business_registration_phone_number: Union[str, object] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
     ) -> TollfreeVerificationInstance:
         """
         Asynchronously create the TollfreeVerificationInstance
@@ -874,6 +1066,18 @@ class TollfreeVerificationList(ListResource):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
+        :param business_registration_number: A legally recognized business registration number
+        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_country: Country business is registered in
+        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_registration_phone_number: The E.164 formatted number associated with the business.
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
 
         :returns: The created TollfreeVerificationInstance
         """
@@ -903,6 +1107,18 @@ class TollfreeVerificationList(ListResource):
                 "BusinessContactEmail": business_contact_email,
                 "BusinessContactPhone": business_contact_phone,
                 "ExternalReferenceId": external_reference_id,
+                "BusinessRegistrationNumber": business_registration_number,
+                "BusinessRegistrationAuthority": business_registration_authority,
+                "BusinessRegistrationCountry": business_registration_country,
+                "BusinessType": business_type,
+                "BusinessRegistrationPhoneNumber": business_registration_phone_number,
+                "DoingBusinessAs": doing_business_as,
+                "OptInConfirmationMessage": opt_in_confirmation_message,
+                "HelpMessageSample": help_message_sample,
+                "PrivacyPolicyUrl": privacy_policy_url,
+                "TermsAndConditionsUrl": terms_and_conditions_url,
+                "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
+                "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})

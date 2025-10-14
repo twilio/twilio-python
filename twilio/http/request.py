@@ -71,7 +71,11 @@ class Request(object):
         headers = ""
         if self.headers and self.headers != Match.ANY:
             headers = "\n{}".format(
-                "\n".join(' -H "{}: {}"'.format(k, v) for k, v in self.headers.items() if k.lower() != "authorization")
+                "\n".join(
+                    ' -H "{}: {}"'.format(k, v)
+                    for k, v in self.headers.items()
+                    if k.lower() != "authorization"
+                )
             )
 
         return "{method} {url}{params}{data}{headers}".format(

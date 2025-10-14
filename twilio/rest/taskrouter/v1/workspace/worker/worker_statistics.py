@@ -166,7 +166,7 @@ class WorkerStatisticsContext(InstanceContext):
         :returns: The fetched WorkerStatisticsInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "Minutes": minutes,
                 "StartDate": serialize.iso8601_datetime(start_date),
@@ -180,7 +180,7 @@ class WorkerStatisticsContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return WorkerStatisticsInstance(
@@ -208,7 +208,7 @@ class WorkerStatisticsContext(InstanceContext):
         :returns: The fetched WorkerStatisticsInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "Minutes": minutes,
                 "StartDate": serialize.iso8601_datetime(start_date),
@@ -222,7 +222,7 @@ class WorkerStatisticsContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return WorkerStatisticsInstance(

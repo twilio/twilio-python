@@ -154,7 +154,7 @@ class BulkHostedNumberOrderContext(InstanceContext):
         :returns: The fetched BulkHostedNumberOrderInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "OrderStatus": order_status,
             }
@@ -165,7 +165,7 @@ class BulkHostedNumberOrderContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return BulkHostedNumberOrderInstance(
@@ -185,7 +185,7 @@ class BulkHostedNumberOrderContext(InstanceContext):
         :returns: The fetched BulkHostedNumberOrderInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "OrderStatus": order_status,
             }
@@ -196,7 +196,7 @@ class BulkHostedNumberOrderContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return BulkHostedNumberOrderInstance(

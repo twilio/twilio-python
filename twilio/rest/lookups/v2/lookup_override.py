@@ -263,13 +263,17 @@ class LookupOverrideContext(InstanceContext):
 
         :returns: The created LookupOverrideInstance
         """
-        data = values.of(
-            {
-                "OverridesRequest": overrides_request,
-            }
-        )
+        data = overrides_request.to_dict()
 
-        payload = self._version.create(method="POST", uri=self._uri, data=data)
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.create(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
         return LookupOverrideInstance(
             self._version,
@@ -288,14 +292,16 @@ class LookupOverrideContext(InstanceContext):
 
         :returns: The created LookupOverrideInstance
         """
-        data = values.of(
-            {
-                "OverridesRequest": overrides_request,
-            }
-        )
+        data = overrides_request.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
 
         payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
         return LookupOverrideInstance(

@@ -124,7 +124,7 @@ class EncryptedOperatorResultsContext(InstanceContext):
         :returns: The fetched EncryptedOperatorResultsInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "Redacted": serialize.boolean_to_string(redacted),
             }
@@ -135,7 +135,7 @@ class EncryptedOperatorResultsContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = self._version.fetch(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return EncryptedOperatorResultsInstance(
@@ -155,7 +155,7 @@ class EncryptedOperatorResultsContext(InstanceContext):
         :returns: The fetched EncryptedOperatorResultsInstance
         """
 
-        data = values.of(
+        params = values.of(
             {
                 "Redacted": serialize.boolean_to_string(redacted),
             }
@@ -166,7 +166,7 @@ class EncryptedOperatorResultsContext(InstanceContext):
         headers["Accept"] = "application/json"
 
         payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=data, headers=headers
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
         return EncryptedOperatorResultsInstance(
