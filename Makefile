@@ -15,7 +15,7 @@ test-docker:
 	docker run twilio/twilio-python pytest tests --ignore=tests/cluster
 
 develop: venv
-	. venv/bin/activate; pip install -e . --use-mirrors
+	. venv/bin/activate; pip install -e .
 	. venv/bin/activate; pip install -r tests/requirements.txt
 
 analysis:
