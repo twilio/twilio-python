@@ -26,7 +26,6 @@ This library supports the following Python implementations:
 - Python 3.11
 - Python 3.12
 - Python 3.13
-- Python 3.14
 
 ## Installation
 
