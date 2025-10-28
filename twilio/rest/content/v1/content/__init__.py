@@ -207,7 +207,7 @@ class ContentInstance(InstanceResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.friendly_name: Optional[str] = payload.get("friendly_name")
-            self.variables: Optional[dict[str, str]] = payload.get("variables")
+            self.variables: Optional[Dict[str, str]] = payload.get("variables")
             self.language: Optional[str] = payload.get("language")
             self.types: Optional[ContentList.Types] = payload.get("types")
 
@@ -1132,7 +1132,7 @@ class ContentContext(InstanceContext):
         def __init__(self, payload: Dict[str, Any]):
 
             self.friendly_name: Optional[str] = payload.get("friendly_name")
-            self.variables: Optional[dict[str, str]] = payload.get("variables")
+            self.variables: Optional[Dict[str, str]] = payload.get("variables")
             self.language: Optional[str] = payload.get("language")
             self.types: Optional[ContentList.Types] = payload.get("types")
 
@@ -2052,7 +2052,7 @@ class ContentList(ListResource):
         def __init__(self, payload: Dict[str, Any]):
 
             self.friendly_name: Optional[str] = payload.get("friendly_name")
-            self.variables: Optional[dict[str, str]] = payload.get("variables")
+            self.variables: Optional[Dict[str, str]] = payload.get("variables")
             self.language: Optional[str] = payload.get("language")
             self.types: Optional[ContentList.Types] = payload.get("types")
 

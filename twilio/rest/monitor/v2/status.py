@@ -57,7 +57,7 @@ class StatusInstance(InstanceResource):
         self.http_status_code: Optional[int] = deserialize.integer(
             payload.get("http_status_code")
         )
-        self.params: Optional[dict[str, str]] = payload.get("params")
+        self.params: Optional[Dict[str, str]] = payload.get("params")
         self.more_info: Optional[str] = payload.get("more_info")
         self.status: Optional[int] = deserialize.integer(payload.get("status"))
 
