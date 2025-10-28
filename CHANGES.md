@@ -3,6 +3,28 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-10-28] Version 9.8.5
+--------------------------
+**Ai**
+- Add `error` as possible transcript status
+- Add `error` as possible transcript status
+
+**Chat**
+- Updated v2 UserChannel `channel_status` from `not_participating` to `notParticipating`
+
+**Intelligence**
+- Make intelligence work with RestProxy
+- Add additional enums to better represent the possible states
+- Add `error` enum to transcription status to better align with possible outputs
+- Add `json` output type to text classification
+
+**Trusthub**
+- Remove required parameter Primary Profile Sid from compliance_inquiry and compliance_inquiry_individual
+
+**Accounts**
+- Add Messaging GeoPermissions API changes
+
+
 [2025-10-14] Version 9.8.4
 --------------------------
 **Library - Chore**

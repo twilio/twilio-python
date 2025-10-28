@@ -27,7 +27,7 @@ class UserChannelInstance(InstanceResource):
     class ChannelStatus(object):
         JOINED = "joined"
         INVITED = "invited"
-        NOT_PARTICIPATING = "not_participating"
+        NOTPARTICIPATING = "notParticipating"
 
     class NotificationLevel(object):
         DEFAULT = "default"

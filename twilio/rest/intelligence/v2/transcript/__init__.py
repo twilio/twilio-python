@@ -39,6 +39,7 @@ class TranscriptInstance(InstanceResource):
         COMPLETED = "completed"
         FAILED = "failed"
         CANCELED = "canceled"
+        ERROR = "error"
 
     """
     :ivar account_sid: The unique SID identifier of the Account.

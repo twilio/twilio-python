@@ -29,6 +29,7 @@ class PrebuiltOperatorInstance(InstanceResource):
         BETA = "beta"
         PUBLIC = "public"
         RETIRED = "retired"
+        GENERAL_AVAILABILITY = "general-availability"
 
     """
     :ivar account_sid: The unique SID identifier of the Account the Pre-built Operator belongs to.

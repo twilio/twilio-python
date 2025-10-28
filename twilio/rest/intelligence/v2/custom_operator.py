@@ -29,6 +29,8 @@ class CustomOperatorInstance(InstanceResource):
         BETA = "beta"
         PUBLIC = "public"
         RETIRED = "retired"
+        GENERAL_AVAILABILITY = "general-availability"
+        DEPRECATED = "deprecated"
 
     """
     :ivar account_sid: The unique SID identifier of the Account the Custom Operator belongs to.
