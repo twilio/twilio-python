@@ -214,6 +214,7 @@ class PortingPortInInstance(InstanceResource):
     :ivar documents: List of document SIDs for all phone numbers included in the port in request. At least one document SID referring to a document of the type Utility Bill is required.
     :ivar date_created: 
     :ivar support_ticket_id: Unique ID of the request's support ticket
+    :ivar signature_request_url: 
     """
 
     def __init__(
@@ -263,6 +264,7 @@ class PortingPortInInstance(InstanceResource):
         self.support_ticket_id: Optional[int] = deserialize.integer(
             payload.get("support_ticket_id")
         )
+        self.signature_request_url: Optional[str] = payload.get("signature_request_url")
 
         self._solution = {
             "port_in_request_sid": port_in_request_sid or self.port_in_request_sid,

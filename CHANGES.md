@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-11-11] Version 9.8.6
+--------------------------
+**Twiml**
+- Add new noun `<ConversationRelaySession>`
+- Add support for `<Recording>` noun under `<Start>` verb
+
+
 [2025-10-28] Version 9.8.5
 --------------------------
 **Ai**

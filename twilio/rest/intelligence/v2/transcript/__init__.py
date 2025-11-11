@@ -37,6 +37,7 @@ class TranscriptInstance(InstanceResource):
         QUEUED = "queued"
         IN_PROGRESS = "in-progress"
         COMPLETED = "completed"
+        NEW = "new"
         FAILED = "failed"
         CANCELED = "canceled"
         ERROR = "error"
