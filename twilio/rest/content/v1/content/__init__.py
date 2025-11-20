@@ -219,6 +219,29 @@ class ContentInstance(InstanceResource):
                 "types": self.types.to_dict() if self.types is not None else None,
             }
 
+    class ContentUpdateRequest(object):
+        """
+        :ivar friendly_name: User defined name of the content
+        :ivar variables: Key value pairs of variable name to value
+        :ivar language: Language code for the content
+        :ivar types:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.friendly_name: Optional[str] = payload.get("friendly_name")
+            self.variables: Optional[dict[str, str]] = payload.get("variables")
+            self.language: Optional[str] = payload.get("language")
+            self.types: Optional[ContentList.Types] = payload.get("types")
+
+        def to_dict(self):
+            return {
+                "friendly_name": self.friendly_name,
+                "variables": self.variables,
+                "language": self.language,
+                "types": self.types.to_dict() if self.types is not None else None,
+            }
+
     class FlowsPage(object):
         """
         :ivar id:
@@ -925,6 +948,32 @@ class ContentInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def update(self, content_update_request: ContentUpdateRequest) -> "ContentInstance":
+        """
+        Update the ContentInstance
+
+        :param content_update_request:
+
+        :returns: The updated ContentInstance
+        """
+        return self._proxy.update(
+            content_update_request=content_update_request,
+        )
+
+    async def update_async(
+        self, content_update_request: ContentUpdateRequest
+    ) -> "ContentInstance":
+        """
+        Asynchronous coroutine to update the ContentInstance
+
+        :param content_update_request:
+
+        :returns: The updated ContentInstance
+        """
+        return await self._proxy.update_async(
+            content_update_request=content_update_request,
+        )
+
     @property
     def approval_create(self) -> ApprovalCreateList:
         """
@@ -1122,6 +1171,29 @@ class ContentContext(InstanceContext):
             }
 
     class ContentCreateRequest(object):
+        """
+        :ivar friendly_name: User defined name of the content
+        :ivar variables: Key value pairs of variable name to value
+        :ivar language: Language code for the content
+        :ivar types:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.friendly_name: Optional[str] = payload.get("friendly_name")
+            self.variables: Optional[dict[str, str]] = payload.get("variables")
+            self.language: Optional[str] = payload.get("language")
+            self.types: Optional[ContentList.Types] = payload.get("types")
+
+        def to_dict(self):
+            return {
+                "friendly_name": self.friendly_name,
+                "variables": self.variables,
+                "language": self.language,
+                "types": self.types.to_dict() if self.types is not None else None,
+            }
+
+    class ContentUpdateRequest(object):
         """
         :ivar friendly_name: User defined name of the content
         :ivar variables: Key value pairs of variable name to value
@@ -1735,7 +1807,7 @@ class ContentContext(InstanceContext):
         Initialize the ContentContext
 
         :param version: Version that contains the resource
-        :param sid: The Twilio-provided string that uniquely identifies the Content resource to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the Content resource to update.
         """
         super().__init__(version)
 
@@ -1815,6 +1887,52 @@ class ContentContext(InstanceContext):
             payload,
             sid=self._solution["sid"],
         )
+
+    def update(self, content_update_request: ContentUpdateRequest) -> ContentInstance:
+        """
+        Update the ContentInstance
+
+        :param content_update_request:
+
+        :returns: The updated ContentInstance
+        """
+        data = content_update_request.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        payload = self._version.update(
+            method="PUT", uri=self._uri, data=data, headers=headers
+        )
+
+        return ContentInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_async(
+        self, content_update_request: ContentUpdateRequest
+    ) -> ContentInstance:
+        """
+        Asynchronous coroutine to update the ContentInstance
+
+        :param content_update_request:
+
+        :returns: The updated ContentInstance
+        """
+        data = content_update_request.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        payload = await self._version.update_async(
+            method="PUT", uri=self._uri, data=data, headers=headers
+        )
+
+        return ContentInstance(self._version, payload, sid=self._solution["sid"])
 
     @property
     def approval_create(self) -> ApprovalCreateList:
@@ -2042,6 +2160,29 @@ class ContentList(ListResource):
             }
 
     class ContentCreateRequest(object):
+        """
+        :ivar friendly_name: User defined name of the content
+        :ivar variables: Key value pairs of variable name to value
+        :ivar language: Language code for the content
+        :ivar types:
+        """
+
+        def __init__(self, payload: Dict[str, Any]):
+
+            self.friendly_name: Optional[str] = payload.get("friendly_name")
+            self.variables: Optional[dict[str, str]] = payload.get("variables")
+            self.language: Optional[str] = payload.get("language")
+            self.types: Optional[ContentList.Types] = payload.get("types")
+
+        def to_dict(self):
+            return {
+                "friendly_name": self.friendly_name,
+                "variables": self.variables,
+                "language": self.language,
+                "types": self.types.to_dict() if self.types is not None else None,
+            }
+
+    class ContentUpdateRequest(object):
         """
         :ivar friendly_name: User defined name of the content
         :ivar variables: Key value pairs of variable name to value
@@ -2904,7 +3045,7 @@ class ContentList(ListResource):
         """
         Constructs a ContentContext
 
-        :param sid: The Twilio-provided string that uniquely identifies the Content resource to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the Content resource to update.
         """
         return ContentContext(self._version, sid=sid)
 
@@ -2912,7 +3053,7 @@ class ContentList(ListResource):
         """
         Constructs a ContentContext
 
-        :param sid: The Twilio-provided string that uniquely identifies the Content resource to fetch.
+        :param sid: The Twilio-provided string that uniquely identifies the Content resource to update.
         """
         return ContentContext(self._version, sid=sid)
 

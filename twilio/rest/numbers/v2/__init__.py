@@ -15,6 +15,7 @@ r"""
 from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
+from twilio.rest.numbers.v2.application import ApplicationList
 from twilio.rest.numbers.v2.authorization_document import AuthorizationDocumentList
 from twilio.rest.numbers.v2.bulk_hosted_number_order import BulkHostedNumberOrderList
 from twilio.rest.numbers.v2.bundle_clone import BundleCloneList
@@ -31,11 +32,18 @@ class V2(Version):
         :param domain: The Twilio.numbers domain
         """
         super().__init__(domain, "v2")
+        self._applications: Optional[ApplicationList] = None
         self._authorization_documents: Optional[AuthorizationDocumentList] = None
         self._bulk_hosted_number_orders: Optional[BulkHostedNumberOrderList] = None
         self._bundle_clone: Optional[BundleCloneList] = None
         self._hosted_number_orders: Optional[HostedNumberOrderList] = None
         self._regulatory_compliance: Optional[RegulatoryComplianceList] = None
+
+    @property
+    def applications(self) -> ApplicationList:
+        if self._applications is None:
+            self._applications = ApplicationList(self)
+        return self._applications
 
     @property
     def authorization_documents(self) -> AuthorizationDocumentList:
