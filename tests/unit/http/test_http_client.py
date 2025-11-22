@@ -3,7 +3,11 @@ import os
 import unittest
 from collections import OrderedDict
 
-from mock import Mock, patch
+try:
+    from unittest.mock import Mock, patch
+except ImportError:
+    # Python 3.7
+    from mock import Mock, patch
 from requests import Session
 
 from twilio.base.exceptions import TwilioRestException
