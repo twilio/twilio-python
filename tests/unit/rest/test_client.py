@@ -25,7 +25,7 @@ class TestRegionEdgeClients(unittest.TestCase):
         self.client.region = "us1"
         self.assertEqual(
             self.client.get_hostname("https://api.twilio.com"),
-            "https://api.ashburn.us1.twilio.com",
+            "https://api.us1.twilio.com",
         )
 
     def test_set_uri_region(self):
@@ -39,7 +39,7 @@ class TestRegionEdgeClients(unittest.TestCase):
         self.client.region = "region"
         self.assertEqual(
             self.client.get_hostname("https://api.twilio.com"),
-            "https://api.ashburn.us1.region.twilio.com",
+            "https://api.edge.region.twilio.com",
         )
 
     def test_set_client_edge_uri_region(self):
