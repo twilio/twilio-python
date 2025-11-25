@@ -10,6 +10,7 @@ from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response
 from twilio.credential.credential_provider import CredentialProvider
 
+warnings.simplefilter("always", DeprecationWarning)
 
 class ClientBase(object):
     """A client for accessing the Twilio API."""
@@ -59,8 +60,7 @@ class ClientBase(object):
         if edge is not None:
             warnings.warn(
                 "`edge` is deprecated and will be removed in a future version. Use `region` instead.",
-                DeprecationWarning,
-                stacklevel=2
+                DeprecationWarning
             )
         self.edge = (self.region_mappings[region] if region is not None else "") or edge or environment.get("TWILIO_EDGE")
         """ :type : str """

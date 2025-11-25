@@ -1,4 +1,6 @@
 import unittest
+import warnings
+
 import aiounittest
 
 from mock import AsyncMock, Mock
@@ -74,6 +76,17 @@ class TestRegionEdgeClients(unittest.TestCase):
             ),
             "https://api.edge.region.twilio.com/path/to/something.json?foo=12.34",
         )
+
+    def test_edge_deprecation_warning(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")  # Ensure all warnings are caught
+            self.client.edge = "deprecated-edge"  # Trigger the warning
+
+            # Check if a warning was raised
+            self.assertTrue(len(w) > 0)
+            self.assertTrue(issubclass(w[-1].category, DeprecationWarning))
+            self.assertIn("edge is deprecated", str(w[-1].message))
+
 
 
 class TestUserAgentClients(unittest.TestCase):
