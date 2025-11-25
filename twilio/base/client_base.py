@@ -1,5 +1,6 @@
 import os
 import platform
+import warnings
 from typing import Dict, List, MutableMapping, Optional, Tuple
 from urllib.parse import urlparse, urlunparse
 
@@ -44,7 +45,7 @@ class ClientBase(object):
         :param region: Twilio Region to make requests to, defaults to 'us1' if an edge is provided
         :param http_client: HttpClient, defaults to TwilioHttpClient
         :param environment: Environment to look for auth details, defaults to os.environ
-        :param edge: Twilio Edge to make requests to, defaults to None. Will be deprecated from 9.9.0. Twilio is moving towards regional processing. This will be removed from 10.x.x.
+        :param edge: (Deprecated) Twilio Edge to make requests to, defaults to None. Will be deprecated from 9.9.0. Twilio is moving towards regional processing. This will be removed from 10.x.x.
         :param user_agent_extensions: Additions to the user agent string
         :param credential_provider: credential provider for authentication method that needs to be used
         """
@@ -55,6 +56,12 @@ class ClientBase(object):
         """ :type : str """
         self.password = password or environment.get("TWILIO_AUTH_TOKEN")
         """ :type : str """
+        if edge is not None:
+            warnings.warn(
+                "`edge` is deprecated and will be removed in a future version. Use `region` instead.",
+                DeprecationWarning,
+                stacklevel=2
+            )
         self.edge = (self.region_mappings[region] if region is not None else "") or edge or environment.get("TWILIO_EDGE")
         """ :type : str """
         self.region = region or environment.get("TWILIO_REGION")
