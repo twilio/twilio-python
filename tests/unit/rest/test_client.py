@@ -84,7 +84,7 @@ class TestRegionEdgeClients(unittest.TestCase):
             Client(username="username", password="password", edge="edge")  # Trigger the warning
 
             # Check if a warning was raised
-            self.assertTrue(len(w) > 0)
+            self.assertGreater(len(w), 0)
             self.assertTrue(issubclass(w[-1].category, DeprecationWarning))
             self.assertIn("`edge` is deprecated and will be removed in a future version. Use `region` instead.", str(w[-1].message))
 
