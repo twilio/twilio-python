@@ -10,7 +10,6 @@ from twilio.http.http_client import TwilioHttpClient
 from twilio.http.response import Response
 from twilio.credential.credential_provider import CredentialProvider
 
-warnings.simplefilter("always", DeprecationWarning)
 
 class ClientBase(object):
     """A client for accessing the Twilio API."""
@@ -46,7 +45,7 @@ class ClientBase(object):
         :param region: Twilio Region to make requests to, defaults to 'us1' if an edge is provided
         :param http_client: HttpClient, defaults to TwilioHttpClient
         :param environment: Environment to look for auth details, defaults to os.environ
-        :param edge: (Deprecated) Twilio Edge to make requests to, defaults to None. Will be deprecated from 9.9.0. Twilio is moving towards regional processing. This will be removed from 10.x.x.
+        :param edge: Twilio Edge to make requests to, defaults to None.
         :param user_agent_extensions: Additions to the user agent string
         :param credential_provider: credential provider for authentication method that needs to be used
         """
@@ -57,12 +56,13 @@ class ClientBase(object):
         """ :type : str """
         self.password = password or environment.get("TWILIO_AUTH_TOKEN")
         """ :type : str """
-        if edge is not None:
+        if (edge is not None and region is None) or (region is not None and edge is None):
             warnings.warn(
-                "`edge` is deprecated and will be removed in a future version. Use `region` instead.",
-                DeprecationWarning
+                "For regional processing, DNS is of format product.<edge>.<region>.twilio.com; otherwise use product.twilio.com.",
+                DeprecationWarning,
+                stacklevel=2
             )
-        self.edge = (self.region_mappings[region] if region is not None else "") or edge or environment.get("TWILIO_EDGE")
+        self.edge = edge or environment.get("TWILIO_EDGE") or (self.region_mappings[region] if region is not None else "")
         """ :type : str """
         self.region = region or environment.get("TWILIO_REGION")
         """ :type : str """
