@@ -78,7 +78,7 @@ class TestRegionEdgeClients(unittest.TestCase):
             "https://api.edge.region.twilio.com/path/to/something.json?foo=12.34",
         )
 
-    def test_edge_deprecation_warning(self):
+    def test_edge_deprecation_warning_when_only_edge_is_set(self):
         with warnings.catch_warnings(record=True) as w:
             warnings.simplefilter("always")  # Ensure all warnings are caught
             Client(username="username", password="password", edge="edge")  # Trigger the warning
@@ -86,7 +86,17 @@ class TestRegionEdgeClients(unittest.TestCase):
             # Check if a warning was raised
             self.assertGreater(len(w), 0)
             self.assertTrue(issubclass(w[-1].category, DeprecationWarning))
-            self.assertIn("`edge` is deprecated and will be removed in a future version. Use `region` instead.", str(w[-1].message))
+            self.assertIn("For regional processing, DNS is of format product.<edge>.<region>.twilio.com; otherwise use product.twilio.com.", str(w[-1].message))
+
+    def test_edge_deprecation_warning_when_only_region_is_set(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")  # Ensure all warnings are caught
+            Client(username="username", password="password", region="us1")  # Trigger the warning
+
+            # Check if a warning was raised
+            self.assertGreater(len(w), 0)
+            self.assertTrue(issubclass(w[-1].category, DeprecationWarning))
+            self.assertIn("For regional processing, DNS is of format product.<edge>.<region>.twilio.com; otherwise use product.twilio.com.", str(w[-1].message))
 
 
 
