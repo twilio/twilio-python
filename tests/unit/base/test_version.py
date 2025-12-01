@@ -89,3 +89,60 @@ class VersionTestCase(IntegrationTestCase):
         response = self.client.messaging.v1.fetch(method="GET", uri="/Deactivations")
 
         self.assertIsNotNone(response)
+
+
+class PatchTestCase(IntegrationTestCase):
+    def test_patch_success(self):
+        self.holodeck.mock(
+            Response(200, '{"status": "patched", "id": "123"}'),
+            Request(
+                method="PATCH",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Resource/123.json",
+            ),
+        )
+        response = self.client.api.v2010.patch(
+            method="PATCH",
+            uri="/Accounts/AC123/Resource/123.json",
+            data={"field": "value"},
+        )
+
+        self.assertIsNotNone(response)
+        self.assertEqual(response["status"], "patched")
+        self.assertEqual(response["id"], "123")
+
+    def test_patch_server_error(self):
+        self.holodeck.mock(
+            Response(500, '{"message": "Internal Server Error"}'),
+            Request(
+                method="PATCH",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Resource/123.json",
+            ),
+        )
+
+        with self.assertRaises(Exception) as context:
+            self.client.api.v2010.patch(
+                method="PATCH",
+                uri="/Accounts/AC123/Resource/123.json",
+                data={"field": "value"},
+            )
+
+        self.assertIn("Unable to patch the record", str(context.exception))
+
+    def test_patch_with_params(self):
+        self.holodeck.mock(
+            Response(200, '{"status": "patched", "param": "test"}'),
+            Request(
+                method="PATCH",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Resource/123.json",
+            ),
+        )
+        response = self.client.api.v2010.patch(
+            method="PATCH",
+            uri="/Accounts/AC123/Resource/123.json",
+            params={"query": "param"},
+            data={"field": "value"},
+        )
+
+        self.assertIsNotNone(response)
+        self.assertEqual(response["status"], "patched")
+        self.assertEqual(response["param"], "test")

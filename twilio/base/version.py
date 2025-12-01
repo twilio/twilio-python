@@ -229,6 +229,69 @@ class Version(object):
 
         return self._parse_update(method, uri, response)
 
+    def _parse_patch(self, method: str, uri: str, response: Response) -> Any:
+        """
+        Parses patch response JSON
+        """
+        if response.status_code < 200 or response.status_code >= 300:
+            raise self.exception(method, uri, response, "Unable to patch the record")
+
+        return json.loads(response.text)
+
+    def patch(
+        self,
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Any:
+        """
+        Patch a resource instance.
+        """
+        response = self.request(
+            method,
+            uri,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
+
+        return self._parse_patch(method, uri, response)
+
+    async def patch_async(
+        self,
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Any:
+        """
+        Asynchronously patch a resource instance.
+        """
+        response = await self.request_async(
+            method,
+            uri,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
+
+        return self._parse_patch(method, uri, response)
+
     def _parse_delete(self, method: str, uri: str, response: Response) -> bool:
         """
         Parses delete response JSON
