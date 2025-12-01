@@ -1,4 +1,4 @@
-from typing import Any, Dict, Optional
+from typing import Optional
 
 from twilio.base.exceptions import TwilioException
 from twilio.base.page import Page
@@ -85,7 +85,9 @@ class TokenPagination(Page):
         cls = type(self)
         return cls(self._version, response, self._solution)
 
-    async def _get_page_async(self, token: Optional[str]) -> Optional["TokenPagination"]:
+    async def _get_page_async(
+        self, token: Optional[str]
+    ) -> Optional["TokenPagination"]:
         """
         Internal async helper to fetch a page using a given token.
 
@@ -104,7 +106,9 @@ class TokenPagination(Page):
             raise TwilioException("URI must be provided for token pagination")
 
         url = self._version.domain.absolute_url(uri)
-        response = await self._version.domain.twilio.request_async("GET", url, params=params)
+        response = await self._version.domain.twilio.request_async(
+            "GET", url, params=params
+        )
         cls = type(self)
         return cls(self._version, response, self._solution)
 

@@ -1,7 +1,8 @@
 import unittest
-from unittest.mock import Mock, AsyncMock, MagicMock
+from unittest.mock import Mock, AsyncMock
 from tests import IntegrationTestCase
 from tests.holodeck import Request
+from twilio.base.exceptions import TwilioException
 from twilio.base.token_pagination import TokenPagination
 from twilio.http.response import Response
 
@@ -45,7 +46,10 @@ class TokenPaginationPropertyTest(unittest.TestCase):
         """
         self.response.status_code = 200
 
-        self.solution = {"account_sid": "ACxxxx", "uri": "/Accounts/ACxxxx/Resources.json"}
+        self.solution = {
+            "account_sid": "ACxxxx",
+            "uri": "/Accounts/ACxxxx/Resources.json",
+        }
         self.page = TestTokenPaginationPage(self.version, self.response, self.solution)
 
     def test_key_property(self):
@@ -282,7 +286,7 @@ class TokenPaginationErrorTest(unittest.TestCase):
 
         page = TestTokenPaginationPage(version, response, solution)
 
-        with self.assertRaises(ValueError) as context:
+        with self.assertRaises(TwilioException) as context:
             page.next_page()
 
         self.assertIn("URI must be provided", str(context.exception))
@@ -308,7 +312,7 @@ class TokenPaginationErrorTest(unittest.TestCase):
 
         page = TestTokenPaginationPage(version, response, solution)
 
-        with self.assertRaises(ValueError) as context:
+        with self.assertRaises(TwilioException) as context:
             page.previous_page()
 
         self.assertIn("URI must be provided", str(context.exception))
@@ -481,7 +485,9 @@ class TokenPaginationStreamTest(IntegrationTestCase):
         )
 
         self.version = self.client.api.v2010
-        self.response = self.version.page(method="GET", uri="/Accounts/ACaaaa/Records.json")
+        self.response = self.version.page(
+            method="GET", uri="/Accounts/ACaaaa/Records.json"
+        )
 
         self.solution = {
             "account_sid": "ACaaaa",
