@@ -26,6 +26,10 @@ class TokenPagination(Page):
     }
     """
 
+    def __init__(self, version, response, uri: str, solution={}):
+        super().__init__(version, response, solution)
+        self._uri = uri
+
     @property
     def key(self) -> Optional[str]:
         """
@@ -72,18 +76,15 @@ class TokenPagination(Page):
         if not token:
             return None
 
-        params = self._solution.copy()
-        params["pageToken"] = token
-
-        # Get the URI from solution and build the absolute URL
-        uri = self._solution.get("uri")
-        if not uri:
+        if not self._uri:
             raise TwilioException("URI must be provided for token pagination")
 
-        url = self._version.domain.absolute_url(uri)
-        response = self._version.domain.twilio.request("GET", url, params=params)
+        # Construct full URL with pageToken parameter
+        uri_with_token = f"{self._uri}?pageToken={token}"
+        url = self._version.domain.absolute_url(uri_with_token)
+        response = self._version.domain.twilio.request("GET", url)
         cls = type(self)
-        return cls(self._version, response, self._solution)
+        return cls(self._version, response, self._uri, self._solution)
 
     async def _get_page_async(
         self, token: Optional[str]
@@ -97,20 +98,15 @@ class TokenPagination(Page):
         if not token:
             return None
 
-        params = self._solution.copy()
-        params["pageToken"] = token
-
-        # Get the URI from solution and build the absolute URL
-        uri = self._solution.get("uri")
-        if not uri:
+        if not self._uri:
             raise TwilioException("URI must be provided for token pagination")
 
-        url = self._version.domain.absolute_url(uri)
-        response = await self._version.domain.twilio.request_async(
-            "GET", url, params=params
-        )
+        # Construct full URL with pageToken parameter
+        uri_with_token = f"{self._uri}?pageToken={token}"
+        url = self._version.domain.absolute_url(uri_with_token)
+        response = await self._version.domain.twilio.request_async("GET", url)
         cls = type(self)
-        return cls(self._version, response, self._solution)
+        return cls(self._version, response, self._uri, self._solution)
 
     def next_page(self) -> Optional["TokenPagination"]:
         """
