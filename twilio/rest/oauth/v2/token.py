@@ -63,6 +63,7 @@ class TokenList(ListResource):
 
     def create(
         self,
+        account_sid: Union[str, object] = values.unset,
         grant_type: Union[str, object] = values.unset,
         client_id: Union[str, object] = values.unset,
         client_secret: Union[str, object] = values.unset,
@@ -75,6 +76,7 @@ class TokenList(ListResource):
         """
         Create the TokenInstance
 
+        :param account_sid: Optional Account SID to perform on behalf of requests.
         :param grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
         :param client_id: A 34 character string that uniquely identifies this OAuth App.
         :param client_secret: The credential for confidential OAuth App.
@@ -105,14 +107,21 @@ class TokenList(ListResource):
 
         headers["Accept"] = "application/json"
 
+        params = values.of(
+            {
+                "account_sid": account_sid,
+            }
+        )
+
         payload = self._version.create(
-            method="POST", uri=self._uri, data=data, headers=headers
+            method="POST", uri=self._uri, data=data, headers=headers, params=params
         )
 
         return TokenInstance(self._version, payload)
 
     async def create_async(
         self,
+        account_sid: Union[str, object] = values.unset,
         grant_type: Union[str, object] = values.unset,
         client_id: Union[str, object] = values.unset,
         client_secret: Union[str, object] = values.unset,
@@ -125,6 +134,7 @@ class TokenList(ListResource):
         """
         Asynchronously create the TokenInstance
 
+        :param account_sid: Optional Account SID to perform on behalf of requests.
         :param grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
         :param client_id: A 34 character string that uniquely identifies this OAuth App.
         :param client_secret: The credential for confidential OAuth App.
@@ -155,8 +165,14 @@ class TokenList(ListResource):
 
         headers["Accept"] = "application/json"
 
+        params = values.of(
+            {
+                "account_sid": account_sid,
+            }
+        )
+
         payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
+            method="POST", uri=self._uri, data=data, headers=headers, params=params
         )
 
         return TokenInstance(self._version, payload)
