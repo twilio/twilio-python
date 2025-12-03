@@ -71,6 +71,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
         self,
         tollfree_phone_number: str,
         notification_email: str,
+        customer_profile_sid: Union[str, object] = values.unset,
         business_name: Union[str, object] = values.unset,
         business_website: Union[str, object] = values.unset,
         use_case_categories: Union[List[str], object] = values.unset,
@@ -100,6 +101,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
 
         :param tollfree_phone_number: The Tollfree phone number to be verified
         :param notification_email: The email address to receive the notification about the verification result.
+        :param customer_profile_sid: The Customer Profile Sid associated with the Account.
         :param business_name: The name of the business or organization using the Tollfree number.
         :param business_website: The website of the business or organization using the Tollfree number.
         :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
@@ -129,6 +131,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
             {
                 "TollfreePhoneNumber": tollfree_phone_number,
                 "NotificationEmail": notification_email,
+                "CustomerProfileSid": customer_profile_sid,
                 "BusinessName": business_name,
                 "BusinessWebsite": business_website,
                 "UseCaseCategories": serialize.map(use_case_categories, lambda e: e),
@@ -170,6 +173,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
         self,
         tollfree_phone_number: str,
         notification_email: str,
+        customer_profile_sid: Union[str, object] = values.unset,
         business_name: Union[str, object] = values.unset,
         business_website: Union[str, object] = values.unset,
         use_case_categories: Union[List[str], object] = values.unset,
@@ -199,6 +203,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
 
         :param tollfree_phone_number: The Tollfree phone number to be verified
         :param notification_email: The email address to receive the notification about the verification result.
+        :param customer_profile_sid: The Customer Profile Sid associated with the Account.
         :param business_name: The name of the business or organization using the Tollfree number.
         :param business_website: The website of the business or organization using the Tollfree number.
         :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
@@ -228,6 +233,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
             {
                 "TollfreePhoneNumber": tollfree_phone_number,
                 "NotificationEmail": notification_email,
+                "CustomerProfileSid": customer_profile_sid,
                 "BusinessName": business_name,
                 "BusinessWebsite": business_website,
                 "UseCaseCategories": serialize.map(use_case_categories, lambda e: e),
