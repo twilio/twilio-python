@@ -89,3 +89,33 @@ class VersionTestCase(IntegrationTestCase):
         response = self.client.messaging.v1.fetch(method="GET", uri="/Deactivations")
 
         self.assertIsNotNone(response)
+
+    def test_delete_success(self):
+        self.holodeck.mock(
+            Response(201, ""),
+            Request(
+                method="DELETE",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Messages/MM123.json",
+            ),
+        )
+        result = self.client.api.v2010.delete(
+            method="DELETE", uri="/Accounts/AC123/Messages/MM123.json"
+        )
+
+        self.assertTrue(result)
+
+    def test_delete_not_found(self):
+        self.holodeck.mock(
+            Response(404, '{"message": "Resource not found"}'),
+            Request(
+                method="DELETE",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Messages/MM456.json",
+            ),
+        )
+
+        with self.assertRaises(Exception) as context:
+            self.client.api.v2010.delete(
+                method="DELETE", uri="/Accounts/AC123/Messages/MM456.json"
+            )
+
+        self.assertIn("Unable to delete record", str(context.exception))
