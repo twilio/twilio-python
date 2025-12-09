@@ -49,7 +49,7 @@ class KnowledgeInstance(InstanceResource):
             self.type: Optional[str] = payload.get("type")
             self.embedding_model: Optional[str] = payload.get("embedding_model")
 
-        def to_dict(self) -> Dict[str, Any]:
+        def to_dict(self) -> Dict[str, Any]: # Added type annotations to to_dict methods
             return {
                 "description": self.description,
                 "knowledge_source_details": self.knowledge_source_details,
