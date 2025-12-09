@@ -49,12 +49,12 @@ class KnowledgeInstance(InstanceResource):
             self.type: Optional[str] = payload.get("type")
             self.embedding_model: Optional[str] = payload.get("embedding_model")
 
-        def to_dict(self):
+        def to_dict(self) -> Dict[str, Any]:
             return {
                 "description": self.description,
                 "knowledge_source_details": self.knowledge_source_details,
                 "name": self.name,
-                "policy": self.policy.to_dict() if self.policy is not None else None,
+                "policy": self.policy.to_dict() if (self.policy is not None and hasattr(self.policy, "to_dict")) else None,
                 "type": self.type,
                 "embedding_model": self.embedding_model,
             }
@@ -78,7 +78,7 @@ class KnowledgeInstance(InstanceResource):
             )
             self.type: Optional[str] = payload.get("type")
 
-        def to_dict(self):
+        def to_dict(self) -> Dict[str, Any]:
             return {
                 "description": self.description,
                 "id": self.id,
@@ -110,12 +110,12 @@ class KnowledgeInstance(InstanceResource):
             self.type: Optional[str] = payload.get("type")
             self.embedding_model: Optional[str] = payload.get("embedding_model")
 
-        def to_dict(self):
+        def to_dict(self) -> Dict[str, Any]:
             return {
                 "description": self.description,
                 "knowledge_source_details": self.knowledge_source_details,
                 "name": self.name,
-                "policy": self.policy.to_dict() if self.policy is not None else None,
+                "policy": self.policy.to_dict() if (self.policy is not None and hasattr(self.policy, "to_dict")) else None,
                 "type": self.type,
                 "embedding_model": self.embedding_model,
             }
@@ -296,12 +296,12 @@ class KnowledgeContext(InstanceContext):
             self.type: Optional[str] = payload.get("type")
             self.embedding_model: Optional[str] = payload.get("embedding_model")
 
-        def to_dict(self):
+        def to_dict(self) -> Dict[str, Any]:
             return {
                 "description": self.description,
                 "knowledge_source_details": self.knowledge_source_details,
                 "name": self.name,
-                "policy": self.policy.to_dict() if self.policy is not None else None,
+                "policy": self.policy.to_dict() if (self.policy is not None and hasattr(self.policy, "to_dict")) else None,
                 "type": self.type,
                 "embedding_model": self.embedding_model,
             }
@@ -325,7 +325,7 @@ class KnowledgeContext(InstanceContext):
             )
             self.type: Optional[str] = payload.get("type")
 
-        def to_dict(self):
+        def to_dict(self) -> Dict[str, Any]:
             return {
                 "description": self.description,
                 "id": self.id,
@@ -357,12 +357,12 @@ class KnowledgeContext(InstanceContext):
             self.type: Optional[str] = payload.get("type")
             self.embedding_model: Optional[str] = payload.get("embedding_model")
 
-        def to_dict(self):
+        def to_dict(self) -> Dict[str, Any]:
             return {
                 "description": self.description,
                 "knowledge_source_details": self.knowledge_source_details,
                 "name": self.name,
-                "policy": self.policy.to_dict() if self.policy is not None else None,
+                "policy": self.policy.to_dict() if (self.policy is not None and hasattr(self.policy, "to_dict")) else None,
                 "type": self.type,
                 "embedding_model": self.embedding_model,
             }
@@ -585,12 +585,12 @@ class KnowledgeList(ListResource):
             self.type: Optional[str] = payload.get("type")
             self.embedding_model: Optional[str] = payload.get("embedding_model")
 
-        def to_dict(self):
+        def to_dict(self) -> Dict[str, Any]:
             return {
                 "description": self.description,
                 "knowledge_source_details": self.knowledge_source_details,
                 "name": self.name,
-                "policy": self.policy.to_dict() if self.policy is not None else None,
+                "policy": self.policy.to_dict() if (self.policy is not None and hasattr(self.policy, "to_dict")) else None,
                 "type": self.type,
                 "embedding_model": self.embedding_model,
             }
@@ -646,12 +646,12 @@ class KnowledgeList(ListResource):
             self.type: Optional[str] = payload.get("type")
             self.embedding_model: Optional[str] = payload.get("embedding_model")
 
-        def to_dict(self):
+        def to_dict(self) -> Dict[str, Any]:
             return {
                 "description": self.description,
                 "knowledge_source_details": self.knowledge_source_details,
                 "name": self.name,
-                "policy": self.policy.to_dict() if self.policy is not None else None,
+                "policy": self.policy.to_dict() if (self.policy is not None and hasattr(self.policy, "to_dict")) else None,
                 "type": self.type,
                 "embedding_model": self.embedding_model,
             }
