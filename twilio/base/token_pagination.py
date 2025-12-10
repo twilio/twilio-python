@@ -26,9 +26,10 @@ class TokenPagination(Page):
     }
     """
 
-    def __init__(self, version, response, uri: str, solution={}):
+    def __init__(self, version, response, uri: str, data={}, solution={}):
         super().__init__(version, response, solution)
         self._uri = uri
+        self._params = data
 
     @property
     def key(self) -> Optional[str]:
@@ -79,12 +80,11 @@ class TokenPagination(Page):
         if not self._uri:
             raise TwilioException("URI must be provided for token pagination")
 
-        # Construct full URL with pageToken parameter
-        uri_with_token = f"{self._uri}?pageToken={token}"
-        url = self._version.domain.absolute_url(uri_with_token)
-        response = self._version.domain.twilio.request("GET", url)
+        self._params["pageToken"] = token
+
+        response = self._version.page(method="GET", uri=self._uri, params=self._params)
         cls = type(self)
-        return cls(self._version, response, self._uri, self._solution)
+        return cls(self._version, response, self._uri, self._params, self._solution)
 
     async def _get_page_async(
         self, token: Optional[str]
@@ -102,11 +102,10 @@ class TokenPagination(Page):
             raise TwilioException("URI must be provided for token pagination")
 
         # Construct full URL with pageToken parameter
-        uri_with_token = f"{self._uri}?pageToken={token}"
-        url = self._version.domain.absolute_url(uri_with_token)
-        response = await self._version.domain.twilio.request_async("GET", url)
+        self._params["pageToken"] = token
+        response = self._version.page(method="GET", uri=self._uri, params=self._params)
         cls = type(self)
-        return cls(self._version, response, self._uri, self._solution)
+        return cls(self._version, response, self._uri, self._params, self._solution)
 
     def next_page(self) -> Optional["TokenPagination"]:
         """

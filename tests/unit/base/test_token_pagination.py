@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, AsyncMock
+from unittest.mock import Mock
 from tests import IntegrationTestCase
 from tests.holodeck import Request
 from twilio.base.exceptions import TwilioException
@@ -48,12 +48,12 @@ class TokenPaginationPropertyTest(unittest.TestCase):
 
         self.solution = {
             "account_sid": "ACxxxx",
-            "api_uri": "/Accounts/ACxxxx/Resources.json",
         }
         self.page = MockTokenPaginationPage(
             self.version,
             self.response,
             "/Accounts/ACxxxx/Resources.json",
+            {},
             self.solution,
         )
 
@@ -80,7 +80,7 @@ class TokenPaginationPropertyTest(unittest.TestCase):
         response.status_code = 200
 
         page = MockTokenPaginationPage(
-            self.version, response, "/Accounts/ACxxxx/Resources.json", self.solution
+            self.version, response, "/Accounts/ACxxxx/Resources.json", {}, self.solution
         )
 
         self.assertIsNone(page.key)
@@ -95,7 +95,7 @@ class TokenPaginationPropertyTest(unittest.TestCase):
         response.status_code = 200
 
         page = MockTokenPaginationPage(
-            self.version, response, "/Accounts/ACxxxx/Resources.json", self.solution
+            self.version, response, "/Accounts/ACxxxx/Resources.json", {}, self.solution
         )
 
         self.assertEqual(page.key, "items")
@@ -127,7 +127,8 @@ class TokenPaginationNavigationTest(IntegrationTestCase):
             """,
             ),
             Request(
-                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Resources.json"
+                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Resources.json",
+                params={},
             ),
         )
 
@@ -148,7 +149,8 @@ class TokenPaginationNavigationTest(IntegrationTestCase):
             """,
             ),
             Request(
-                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Resources.json?pageToken=token_page2"
+                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Resources.json",
+                params={"pageToken": "token_page2"},
             ),
         )
 
@@ -169,7 +171,8 @@ class TokenPaginationNavigationTest(IntegrationTestCase):
             """,
             ),
             Request(
-                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Resources.json?pageToken=token_page3"
+                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Resources.json",
+                params={"pageToken": "token_page3"},
             ),
         )
 
@@ -190,7 +193,8 @@ class TokenPaginationNavigationTest(IntegrationTestCase):
             """,
             ),
             Request(
-                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Resources.json?pageToken=token_prev1"
+                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Resources.json",
+                params={"pageToken": "token_prev1"},
             ),
         )
 
@@ -211,7 +215,8 @@ class TokenPaginationNavigationTest(IntegrationTestCase):
             """,
             ),
             Request(
-                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Resources.json?pageToken=token_prev2"
+                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Resources.json",
+                params={"pageToken": "token_prev2"},
             ),
         )
 
@@ -222,13 +227,13 @@ class TokenPaginationNavigationTest(IntegrationTestCase):
 
         self.solution = {
             "account_sid": "ACaaaa",
-            "api_uri": "/2010-04-01/Accounts/ACaaaa/Resources.json",
         }
 
         self.page = MockTokenPaginationPage(
             self.version,
             self.response,
-            "/2010-04-01/Accounts/ACaaaa/Resources.json",
+            "/Accounts/ACaaaa/Resources.json",
+            {},
             self.solution,
         )
 
@@ -322,7 +327,7 @@ class TokenPaginationErrorTest(unittest.TestCase):
         solution = {"account_sid": "ACxxxx"}
 
         # Pass empty string as URI to test the error case
-        page = MockTokenPaginationPage(version, response, "", solution)
+        page = MockTokenPaginationPage(version, response, "", {}, solution)
 
         with self.assertRaises(TwilioException) as context:
             page.next_page()
@@ -352,7 +357,8 @@ class TokenPaginationStreamTest(IntegrationTestCase):
             """,
             ),
             Request(
-                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Records.json"
+                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Records.json",
+                params={},
             ),
         )
 
@@ -373,7 +379,8 @@ class TokenPaginationStreamTest(IntegrationTestCase):
             """,
             ),
             Request(
-                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Records.json?pageToken=token_2"
+                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Records.json",
+                params={"pageToken": "token_2"},
             ),
         )
 
@@ -394,7 +401,8 @@ class TokenPaginationStreamTest(IntegrationTestCase):
             """,
             ),
             Request(
-                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Records.json?pageToken=token_3"
+                url="https://api.twilio.com/2010-04-01/Accounts/ACaaaa/Records.json",
+                params={"pageToken": "token_3"},
             ),
         )
 
@@ -405,13 +413,13 @@ class TokenPaginationStreamTest(IntegrationTestCase):
 
         self.solution = {
             "account_sid": "ACaaaa",
-            "api_uri": "/2010-04-01/Accounts/ACaaaa/Records.json",
         }
 
         self.page = MockTokenPaginationPage(
             self.version,
             self.response,
-            "/2010-04-01/Accounts/ACaaaa/Records.json",
+            "/Accounts/ACaaaa/Records.json",
+            {},
             self.solution,
         )
 
@@ -484,21 +492,23 @@ class TokenPaginationInternalMethodTest(unittest.TestCase):
         self.page = MockTokenPaginationPage(
             self.version,
             self.first_response,
-            "/2010-04-01/Accounts/ACxxxx/Resources.json",
+            "/Accounts/ACxxxx/Resources.json",
+            {},
             self.solution,
         )
 
     def test_get_page_with_valid_token(self):
         """Test _get_page() with a valid token"""
-        self.version.domain.twilio.request = Mock(return_value=self.next_response)
+        self.version.page = Mock(return_value=self.next_response)
 
         result = self.page._get_page("token_page2")
 
         self.assertIsNotNone(result)
         self.assertIsInstance(result, MockTokenPaginationPage)
-        self.version.domain.twilio.request.assert_called_once_with(
-            "GET",
-            "https://api.twilio.com/2010-04-01/Accounts/ACxxxx/Resources.json?pageToken=token_page2",
+        self.version.page.assert_called_once_with(
+            method="GET",
+            uri="/Accounts/ACxxxx/Resources.json",
+            params={"pageToken": "token_page2"},
         )
 
     def test_get_page_with_none_token(self):
@@ -509,7 +519,7 @@ class TokenPaginationInternalMethodTest(unittest.TestCase):
     def test_get_page_without_uri(self):
         """Test _get_page() raises error when URI is missing"""
         page = MockTokenPaginationPage(
-            self.version, self.first_response, "", self.solution
+            self.version, self.first_response, "", {}, self.solution
         )
 
         with self.assertRaises(TwilioException) as context:
@@ -520,6 +530,31 @@ class TokenPaginationInternalMethodTest(unittest.TestCase):
     def test_repr(self):
         """Test __repr__ method returns correct string"""
         self.assertEqual(repr(self.page), "<TokenPagination>")
+
+    def test_params_preserved_across_pagination(self):
+        """Test that initial query params are preserved when fetching next page"""
+        # Create a page with initial query parameters
+        initial_params = {"status": "active", "limit": 50}
+        page_with_params = MockTokenPaginationPage(
+            self.version,
+            self.first_response,
+            "/Accounts/ACxxxx/Resources.json",
+            initial_params,
+            self.solution,
+        )
+
+        self.version.page = Mock(return_value=self.next_response)
+
+        # Fetch the next page
+        result = page_with_params._get_page("token_page2")
+
+        # Verify that the initial params are preserved and pageToken is added
+        self.assertIsNotNone(result)
+        self.version.page.assert_called_once_with(
+            method="GET",
+            uri="/Accounts/ACxxxx/Resources.json",
+            params={"status": "active", "limit": 50, "pageToken": "token_page2"},
+        )
 
 
 class TokenPaginationAsyncTest(unittest.IsolatedAsyncioTestCase):
@@ -584,7 +619,8 @@ class TokenPaginationAsyncTest(unittest.IsolatedAsyncioTestCase):
         self.page = MockTokenPaginationPage(
             self.version,
             self.first_response,
-            "/2010-04-01/Accounts/ACxxxx/Resources.json",
+            "/Accounts/ACxxxx/Resources.json",
+            {},
             self.solution,
         )
 
@@ -592,23 +628,23 @@ class TokenPaginationAsyncTest(unittest.IsolatedAsyncioTestCase):
         self.page_with_prev = MockTokenPaginationPage(
             self.version,
             self.next_response,
-            "/2010-04-01/Accounts/ACxxxx/Resources.json",
+            "/Accounts/ACxxxx/Resources.json",
+            {},
             self.solution,
         )
 
     async def test_get_page_async_with_valid_token(self):
         """Test _get_page_async() with a valid token"""
-        self.version.domain.twilio.request_async = AsyncMock(
-            return_value=self.next_response
-        )
+        self.version.page = Mock(return_value=self.next_response)
 
         result = await self.page._get_page_async("token_page2")
 
         self.assertIsNotNone(result)
         self.assertIsInstance(result, MockTokenPaginationPage)
-        self.version.domain.twilio.request_async.assert_called_once_with(
-            "GET",
-            "https://api.twilio.com/2010-04-01/Accounts/ACxxxx/Resources.json?pageToken=token_page2",
+        self.version.page.assert_called_once_with(
+            method="GET",
+            uri="/Accounts/ACxxxx/Resources.json",
+            params={"pageToken": "token_page2"},
         )
 
     async def test_get_page_async_with_none_token(self):
@@ -619,7 +655,7 @@ class TokenPaginationAsyncTest(unittest.IsolatedAsyncioTestCase):
     async def test_get_page_async_without_uri(self):
         """Test _get_page_async() raises error when URI is missing"""
         page = MockTokenPaginationPage(
-            self.version, self.first_response, "", self.solution
+            self.version, self.first_response, "", {}, self.solution
         )
 
         with self.assertRaises(TwilioException) as context:
@@ -629,9 +665,7 @@ class TokenPaginationAsyncTest(unittest.IsolatedAsyncioTestCase):
 
     async def test_next_page_async(self):
         """Test next_page_async() navigates to next page"""
-        self.version.domain.twilio.request_async = AsyncMock(
-            return_value=self.next_response
-        )
+        self.version.page = Mock(return_value=self.next_response)
 
         next_page = await self.page.next_page_async()
 
@@ -660,7 +694,8 @@ class TokenPaginationAsyncTest(unittest.IsolatedAsyncioTestCase):
         page = MockTokenPaginationPage(
             self.version,
             no_next_response,
-            "/2010-04-01/Accounts/ACxxxx/Resources.json",
+            "/Accounts/ACxxxx/Resources.json",
+            {},
             self.solution,
         )
 
@@ -669,9 +704,7 @@ class TokenPaginationAsyncTest(unittest.IsolatedAsyncioTestCase):
 
     async def test_previous_page_async(self):
         """Test previous_page_async() navigates to previous page"""
-        self.version.domain.twilio.request_async = AsyncMock(
-            return_value=self.prev_response
-        )
+        self.version.page = Mock(return_value=self.prev_response)
 
         prev_page = await self.page_with_prev.previous_page_async()
 
@@ -685,6 +718,31 @@ class TokenPaginationAsyncTest(unittest.IsolatedAsyncioTestCase):
         # First page has no previous token
         result = await self.page.previous_page_async()
         self.assertIsNone(result)
+
+    async def test_params_preserved_across_pagination_async(self):
+        """Test that initial query params are preserved when fetching next page async"""
+        # Create a page with initial query parameters
+        initial_params = {"status": "active", "limit": 50}
+        page_with_params = MockTokenPaginationPage(
+            self.version,
+            self.first_response,
+            "/Accounts/ACxxxx/Resources.json",
+            initial_params,
+            self.solution,
+        )
+
+        self.version.page = Mock(return_value=self.next_response)
+
+        # Fetch the next page
+        result = await page_with_params._get_page_async("token_page2")
+
+        # Verify that the initial params are preserved and pageToken is added
+        self.assertIsNotNone(result)
+        self.version.page.assert_called_once_with(
+            method="GET",
+            uri="/Accounts/ACxxxx/Resources.json",
+            params={"status": "active", "limit": 50, "pageToken": "token_page2"},
+        )
 
 
 if __name__ == "__main__":
