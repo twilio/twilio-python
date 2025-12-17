@@ -22,6 +22,13 @@ from twilio.base.version import Version
 
 class ComplianceTollfreeInquiriesInstance(InstanceResource):
 
+    class BusinessType(object):
+        PRIVATE_PROFIT = "PRIVATE_PROFIT"
+        PUBLIC_PROFIT = "PUBLIC_PROFIT"
+        NON_PROFIT = "NON_PROFIT"
+        SOLE_PROPRIETOR = "SOLE_PROPRIETOR"
+        GOVERNMENT = "GOVERNMENT"
+
     class OptInType(object):
         VERBAL = "VERBAL"
         WEB_FORM = "WEB_FORM"
@@ -95,6 +102,20 @@ class ComplianceTollfreeInquiriesList(ListResource):
         business_contact_phone: Union[str, object] = values.unset,
         theme_set_id: Union[str, object] = values.unset,
         skip_messaging_use_case: Union[bool, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[
+            "ComplianceTollfreeInquiriesInstance.BusinessType", object
+        ] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
     ) -> ComplianceTollfreeInquiriesInstance:
         """
         Create the ComplianceTollfreeInquiriesInstance
@@ -123,6 +144,18 @@ class ComplianceTollfreeInquiriesList(ListResource):
         :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
         :param theme_set_id: Theme id for styling the inquiry form.
         :param skip_messaging_use_case: Skip the messaging use case screen of the inquiry form.
+        :param business_registration_number: The Business Registration Number of the business or organization.
+        :param business_registration_authority: The Business Registration Authority of the business or organization.
+        :param business_registration_country: The Business Registration Country of the business or organization.
+        :param business_type:
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification.
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param external_reference_id: A legally recognized business registration number.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
 
         :returns: The created ComplianceTollfreeInquiriesInstance
         """
@@ -155,6 +188,18 @@ class ComplianceTollfreeInquiriesList(ListResource):
                 "SkipMessagingUseCase": serialize.boolean_to_string(
                     skip_messaging_use_case
                 ),
+                "BusinessRegistrationNumber": business_registration_number,
+                "BusinessRegistrationAuthority": business_registration_authority,
+                "BusinessRegistrationCountry": business_registration_country,
+                "BusinessType": business_type,
+                "DoingBusinessAs": doing_business_as,
+                "OptInConfirmationMessage": opt_in_confirmation_message,
+                "HelpMessageSample": help_message_sample,
+                "PrivacyPolicyUrl": privacy_policy_url,
+                "TermsAndConditionsUrl": terms_and_conditions_url,
+                "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
+                "ExternalReferenceId": external_reference_id,
+                "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -197,6 +242,20 @@ class ComplianceTollfreeInquiriesList(ListResource):
         business_contact_phone: Union[str, object] = values.unset,
         theme_set_id: Union[str, object] = values.unset,
         skip_messaging_use_case: Union[bool, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[
+            "ComplianceTollfreeInquiriesInstance.BusinessType", object
+        ] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
     ) -> ComplianceTollfreeInquiriesInstance:
         """
         Asynchronously create the ComplianceTollfreeInquiriesInstance
@@ -225,6 +284,18 @@ class ComplianceTollfreeInquiriesList(ListResource):
         :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
         :param theme_set_id: Theme id for styling the inquiry form.
         :param skip_messaging_use_case: Skip the messaging use case screen of the inquiry form.
+        :param business_registration_number: The Business Registration Number of the business or organization.
+        :param business_registration_authority: The Business Registration Authority of the business or organization.
+        :param business_registration_country: The Business Registration Country of the business or organization.
+        :param business_type:
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification.
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param external_reference_id: A legally recognized business registration number.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
 
         :returns: The created ComplianceTollfreeInquiriesInstance
         """
@@ -257,6 +328,18 @@ class ComplianceTollfreeInquiriesList(ListResource):
                 "SkipMessagingUseCase": serialize.boolean_to_string(
                     skip_messaging_use_case
                 ),
+                "BusinessRegistrationNumber": business_registration_number,
+                "BusinessRegistrationAuthority": business_registration_authority,
+                "BusinessRegistrationCountry": business_registration_country,
+                "BusinessType": business_type,
+                "DoingBusinessAs": doing_business_as,
+                "OptInConfirmationMessage": opt_in_confirmation_message,
+                "HelpMessageSample": help_message_sample,
+                "PrivacyPolicyUrl": privacy_policy_url,
+                "TermsAndConditionsUrl": terms_and_conditions_url,
+                "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
+                "ExternalReferenceId": external_reference_id,
+                "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})

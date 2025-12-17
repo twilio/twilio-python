@@ -16,6 +16,7 @@ from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
 from twilio.rest.messaging.v2.channels_sender import ChannelsSenderList
+from twilio.rest.messaging.v2.domain_certs import DomainCertsList
 from twilio.rest.messaging.v2.typing_indicator import TypingIndicatorList
 
 
@@ -29,6 +30,7 @@ class V2(Version):
         """
         super().__init__(domain, "v2")
         self._channels_senders: Optional[ChannelsSenderList] = None
+        self._domain_certs: Optional[DomainCertsList] = None
         self._typing_indicator: Optional[TypingIndicatorList] = None
 
     @property
@@ -36,6 +38,12 @@ class V2(Version):
         if self._channels_senders is None:
             self._channels_senders = ChannelsSenderList(self)
         return self._channels_senders
+
+    @property
+    def domain_certs(self) -> DomainCertsList:
+        if self._domain_certs is None:
+            self._domain_certs = DomainCertsList(self)
+        return self._domain_certs
 
     @property
     def typing_indicator(self) -> TypingIndicatorList:
