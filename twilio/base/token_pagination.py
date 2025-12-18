@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Any
 
 from twilio.base.exceptions import TwilioException
 from twilio.base.page import Page
@@ -26,10 +26,17 @@ class TokenPagination(Page):
     }
     """
 
-    def __init__(self, version, response, uri: str, data={}, solution={}):
+    def __init__(
+        self,
+        version,
+        response,
+        uri: str,
+        params: Optional[dict[str, Any]] = None,
+        solution: Optional[dict[str, Any]] = None,
+    ):
         super().__init__(version, response, solution)
         self._uri = uri
-        self._params = data
+        self._params = params
 
     @property
     def key(self) -> Optional[str]:
