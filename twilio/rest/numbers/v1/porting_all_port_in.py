@@ -12,9 +12,8 @@ r"""
     Do not edit the class manually.
 """
 
-from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
-from twilio.base import deserialize, serialize, values
+from twilio.base import deserialize, values
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -98,8 +97,8 @@ class PortingAllPortInList(ListResource):
         size: Union[int, object] = values.unset,
         port_in_request_sid: Union[str, object] = values.unset,
         port_in_request_status: Union[str, object] = values.unset,
-        created_before: Union[datetime, object] = values.unset,
-        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[str, object] = values.unset,
+        created_after: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> Iterator[PortingAllPortInInstance]:
@@ -113,8 +112,8 @@ class PortingAllPortInList(ListResource):
         :param int size: Number of items per page
         :param str port_in_request_sid: Filter by Port in request SID, supports multiple values separated by comma
         :param str port_in_request_status: Filter by Port In request status
-        :param datetime created_before: Find all created before a certain date
-        :param datetime created_after: Find all created after a certain date
+        :param str created_before: Find all created before a certain date
+        :param str created_after: Find all created after a certain date
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -143,8 +142,8 @@ class PortingAllPortInList(ListResource):
         size: Union[int, object] = values.unset,
         port_in_request_sid: Union[str, object] = values.unset,
         port_in_request_status: Union[str, object] = values.unset,
-        created_before: Union[datetime, object] = values.unset,
-        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[str, object] = values.unset,
+        created_after: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> AsyncIterator[PortingAllPortInInstance]:
@@ -158,8 +157,8 @@ class PortingAllPortInList(ListResource):
         :param int size: Number of items per page
         :param str port_in_request_sid: Filter by Port in request SID, supports multiple values separated by comma
         :param str port_in_request_status: Filter by Port In request status
-        :param datetime created_before: Find all created before a certain date
-        :param datetime created_after: Find all created after a certain date
+        :param str created_before: Find all created before a certain date
+        :param str created_after: Find all created after a certain date
         :param limit: Upper limit for the number of records to return. stream()
                       guarantees to never return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -188,8 +187,8 @@ class PortingAllPortInList(ListResource):
         size: Union[int, object] = values.unset,
         port_in_request_sid: Union[str, object] = values.unset,
         port_in_request_status: Union[str, object] = values.unset,
-        created_before: Union[datetime, object] = values.unset,
-        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[str, object] = values.unset,
+        created_after: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[PortingAllPortInInstance]:
@@ -202,8 +201,8 @@ class PortingAllPortInList(ListResource):
         :param int size: Number of items per page
         :param str port_in_request_sid: Filter by Port in request SID, supports multiple values separated by comma
         :param str port_in_request_status: Filter by Port In request status
-        :param datetime created_before: Find all created before a certain date
-        :param datetime created_after: Find all created after a certain date
+        :param str created_before: Find all created before a certain date
+        :param str created_after: Find all created after a certain date
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -232,8 +231,8 @@ class PortingAllPortInList(ListResource):
         size: Union[int, object] = values.unset,
         port_in_request_sid: Union[str, object] = values.unset,
         port_in_request_status: Union[str, object] = values.unset,
-        created_before: Union[datetime, object] = values.unset,
-        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[str, object] = values.unset,
+        created_after: Union[str, object] = values.unset,
         limit: Optional[int] = None,
         page_size: Optional[int] = None,
     ) -> List[PortingAllPortInInstance]:
@@ -246,8 +245,8 @@ class PortingAllPortInList(ListResource):
         :param int size: Number of items per page
         :param str port_in_request_sid: Filter by Port in request SID, supports multiple values separated by comma
         :param str port_in_request_status: Filter by Port In request status
-        :param datetime created_before: Find all created before a certain date
-        :param datetime created_after: Find all created after a certain date
+        :param str created_before: Find all created before a certain date
+        :param str created_after: Find all created after a certain date
         :param limit: Upper limit for the number of records to return. list() guarantees
                       never to return more than limit.  Default is no limit
         :param page_size: Number of records to fetch per request, when not set will use
@@ -277,8 +276,8 @@ class PortingAllPortInList(ListResource):
         size: Union[int, object] = values.unset,
         port_in_request_sid: Union[str, object] = values.unset,
         port_in_request_status: Union[str, object] = values.unset,
-        created_before: Union[datetime, object] = values.unset,
-        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[str, object] = values.unset,
+        created_after: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -305,8 +304,8 @@ class PortingAllPortInList(ListResource):
                 "Size": size,
                 "PortInRequestSid": port_in_request_sid,
                 "PortInRequestStatus": port_in_request_status,
-                "CreatedBefore": serialize.iso8601_datetime(created_before),
-                "CreatedAfter": serialize.iso8601_datetime(created_after),
+                "CreatedBefore": created_before,
+                "CreatedAfter": created_after,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,
@@ -328,8 +327,8 @@ class PortingAllPortInList(ListResource):
         size: Union[int, object] = values.unset,
         port_in_request_sid: Union[str, object] = values.unset,
         port_in_request_status: Union[str, object] = values.unset,
-        created_before: Union[datetime, object] = values.unset,
-        created_after: Union[datetime, object] = values.unset,
+        created_before: Union[str, object] = values.unset,
+        created_after: Union[str, object] = values.unset,
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -356,8 +355,8 @@ class PortingAllPortInList(ListResource):
                 "Size": size,
                 "PortInRequestSid": port_in_request_sid,
                 "PortInRequestStatus": port_in_request_status,
-                "CreatedBefore": serialize.iso8601_datetime(created_before),
-                "CreatedAfter": serialize.iso8601_datetime(created_after),
+                "CreatedBefore": created_before,
+                "CreatedAfter": created_after,
                 "PageToken": page_token,
                 "Page": page_number,
                 "PageSize": page_size,

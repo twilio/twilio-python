@@ -3,6 +3,21 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-12-17] Version 9.9.0
+--------------------------
+**Library - Fix**
+- [PR #898](https://github.com/twilio/twilio-python/pull/898): allow 2XX response for delete operation. Thanks to [@kridai](https://github.com/kridai)!
+
+**Trunking**
+- Corrected the type used for phone number capabilities when accessed through a Trunk. **(breaking change)**
+- Corrected the type used for phone number capabilities when accessed through a Trunk. **(breaking change)**
+
+**Trusthub**
+- Added new parameters in in toll-free initialize api payload.
+- Remove the invalid status transition to Draft from the examples
+- Change the value of email to a valid one in the examples.
+
+
 [2025-12-03] Version 9.8.8
 --------------------------
 **Library - Fix**

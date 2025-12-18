@@ -521,7 +521,7 @@ class AddressList(ListResource):
         :param region: The state or region of the new address.
         :param postal_code: The postal code of the new address.
         :param iso_country: The ISO country code of the new address.
-        :param friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
         :param emergency_enabled: Whether to enable emergency calling on the new address. Can be: `true` or `false`.
         :param auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
         :param street_secondary: The additional number and street address of the address.
@@ -579,7 +579,7 @@ class AddressList(ListResource):
         :param region: The state or region of the new address.
         :param postal_code: The postal code of the new address.
         :param iso_country: The ISO country code of the new address.
-        :param friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long.
+        :param friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
         :param emergency_enabled: Whether to enable emergency calling on the new address. Can be: `true` or `false`.
         :param auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
         :param street_secondary: The additional number and street address of the address.
