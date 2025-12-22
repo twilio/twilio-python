@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Dict
 
 
 class TwilioException(Exception):
@@ -145,47 +145,63 @@ class TwilioServiceException(TwilioException):
                 "\n{red_error} {request_was}\n\n{http_line}\n\n{twilio_returned}\n".format(
                     red_error=red("HTTP Error"),
                     request_was=white("Your request was:"),
-                    http_line=teal("%s %s" % (self.method, self.uri)) if self.uri else teal("(no URI)"),
+                    http_line=(
+                        teal("%s %s" % (self.method, self.uri))
+                        if self.uri
+                        else teal("(no URI)")
+                    ),
                     twilio_returned=white("Twilio returned the following information:"),
                 )
             ]
 
             # Title and detail
-            msg_parts.append("\n{title_label}: {title}\n".format(
-                title_label=white("Title"),
-                title=blue(self.title),
-            ))
+            msg_parts.append(
+                "\n{title_label}: {title}\n".format(
+                    title_label=white("Title"),
+                    title=blue(self.title),
+                )
+            )
 
             if self.detail:
-                msg_parts.append("{detail_label}: {detail}\n".format(
-                    detail_label=white("Detail"),
-                    detail=blue(self.detail),
-                ))
+                msg_parts.append(
+                    "{detail_label}: {detail}\n".format(
+                        detail_label=white("Detail"),
+                        detail=blue(self.detail),
+                    )
+                )
 
             # Code and status
-            msg_parts.append("{code_label}: {code} | {status_label}: {status}\n".format(
-                code_label=white("Error Code"),
-                code=blue(str(self.code)),
-                status_label=white("Status"),
-                status=blue(str(self.status)),
-            ))
+            msg_parts.append(
+                "{code_label}: {code} | {status_label}: {status}\n".format(
+                    code_label=white("Error Code"),
+                    code=blue(str(self.code)),
+                    status_label=white("Status"),
+                    status=blue(str(self.status)),
+                )
+            )
 
             # Validation errors if present
             if self.errors:
-                msg_parts.append("\n{validation_label}:\n".format(
-                    validation_label=white("Validation Errors"),
-                ))
+                msg_parts.append(
+                    "\n{validation_label}:\n".format(
+                        validation_label=white("Validation Errors"),
+                    )
+                )
                 for error in self.errors:
-                    msg_parts.append("  {pointer}: {detail}\n".format(
-                        pointer=yellow(error.get("pointer", "(unknown field)")),
-                        detail=error.get("detail", "(no detail)"),
-                    ))
+                    msg_parts.append(
+                        "  {pointer}: {detail}\n".format(
+                            pointer=yellow(error.get("pointer", "(unknown field)")),
+                            detail=error.get("detail", "(no detail)"),
+                        )
+                    )
 
             # Documentation link
-            msg_parts.append("\n{more_info}\n\n{uri}\n\n".format(
-                more_info=white("More information may be available here:"),
-                uri=blue(self.type),
-            ))
+            msg_parts.append(
+                "\n{more_info}\n\n{uri}\n\n".format(
+                    more_info=white("More information may be available here:"),
+                    uri=blue(self.type),
+                )
+            )
 
             return "".join(msg_parts)
         else:

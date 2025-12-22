@@ -5,9 +5,8 @@ from unittest.mock import Mock
 from tests import IntegrationTestCase
 from tests.holodeck import Request
 from twilio.base.api_v1_version import ApiV1Version
-from twilio.base.exceptions import TwilioRestException, TwilioServiceException
+from twilio.base.exceptions import TwilioServiceException
 from twilio.base.page import Page
-from twilio.base.version import Version
 from twilio.http.response import Response
 
 
@@ -155,9 +154,7 @@ class ExceptionTestCase(unittest.TestCase):
         self.assertEqual(exception.status, 400)
         self.assertEqual(exception.code, 20001)
         self.assertEqual(exception.detail, "The 'PhoneNumber' parameter is required.")
-        self.assertEqual(
-            exception.instance, "/api/v1/accounts/AC123/calls/CA456"
-        )
+        self.assertEqual(exception.instance, "/api/v1/accounts/AC123/calls/CA456")
         self.assertEqual(exception.method, "POST")
         self.assertEqual(exception.uri, "/test")
 
@@ -225,14 +222,11 @@ class ExceptionTestCase(unittest.TestCase):
             "title": "Invalid parameter",
             "status": 400,
             "code": 20001,
-            "detail": "Pre-parsed error payload"
+            "detail": "Pre-parsed error payload",
         }
 
         exception = ApiV1Version.exception(
-            method="POST",
-            uri="/test",
-            response=response,
-            error_payload=error_payload
+            method="POST", uri="/test", response=response, error_payload=error_payload
         )
 
         self.assertIsInstance(exception, TwilioServiceException)
@@ -307,7 +301,9 @@ class ApiV1VersionParseTestCase(unittest.TestCase):
 
         exception = context.exception
         self.assertEqual(exception.title, "Forbidden")
-        self.assertEqual(exception.detail, "You do not have permission to delete this resource")
+        self.assertEqual(
+            exception.detail, "You do not have permission to delete this resource"
+        )
 
     def test_parse_create_with_rfc9457_error(self):
         """Test that _parse_create raises TwilioServiceException for RFC-9457 errors"""
