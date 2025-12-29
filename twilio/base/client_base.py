@@ -1,5 +1,6 @@
 import os
 import platform
+import warnings
 from typing import Dict, List, MutableMapping, Optional, Tuple
 from urllib.parse import urlparse, urlunparse
 
@@ -12,6 +13,18 @@ from twilio.credential.credential_provider import CredentialProvider
 
 class ClientBase(object):
     """A client for accessing the Twilio API."""
+
+    region_mappings = {
+        "au1": "sydney",
+        "br1": "sao-paulo",
+        "de1": "frankfurt",
+        "ie1": "dublin",
+        "jp1": "tokyo",
+        "jp2": "osaka",
+        "sg1": "singapore",
+        "us1": "ashburn",
+        "us2": "umatilla",
+    }
 
     def __init__(
         self,
@@ -34,7 +47,7 @@ class ClientBase(object):
         :param region: Twilio Region to make requests to, defaults to 'us1' if an edge is provided
         :param http_client: HttpClient, defaults to TwilioHttpClient
         :param environment: Environment to look for auth details, defaults to os.environ
-        :param edge: Twilio Edge to make requests to, defaults to None
+        :param edge: Twilio Edge to make requests to, defaults to None.
         :param user_agent_extensions: Additions to the user agent string
         :param credential_provider: credential provider for authentication method that needs to be used
         """
@@ -45,7 +58,19 @@ class ClientBase(object):
         """ :type : str """
         self.password = password or environment.get("TWILIO_AUTH_TOKEN")
         """ :type : str """
-        self.edge = edge or environment.get("TWILIO_EDGE")
+        if (edge is not None and region is None) or (
+            region is not None and edge is None
+        ):
+            warnings.warn(
+                "For regional processing, DNS is of format product.<edge>.<region>.twilio.com; otherwise use product.twilio.com.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+        self.edge = (
+            edge
+            or environment.get("TWILIO_EDGE")
+            or (self.region_mappings[region] if region is not None else "")
+        )
         """ :type : str """
         self.region = region or environment.get("TWILIO_REGION")
         """ :type : str """

@@ -22,6 +22,7 @@ from twilio.rest.messaging.v1.domain_config import DomainConfigList
 from twilio.rest.messaging.v1.domain_config_messaging_service import (
     DomainConfigMessagingServiceList,
 )
+from twilio.rest.messaging.v1.domain_validate_dn import DomainValidateDnList
 from twilio.rest.messaging.v1.external_campaign import ExternalCampaignList
 from twilio.rest.messaging.v1.linkshortening_messaging_service import (
     LinkshorteningMessagingServiceList,
@@ -51,6 +52,7 @@ class V1(Version):
         self._domain_config_messaging_service: Optional[
             DomainConfigMessagingServiceList
         ] = None
+        self._domain_validate_dns: Optional[DomainValidateDnList] = None
         self._external_campaign: Optional[ExternalCampaignList] = None
         self._linkshortening_messaging_service: Optional[
             LinkshorteningMessagingServiceList
@@ -94,6 +96,12 @@ class V1(Version):
                 self
             )
         return self._domain_config_messaging_service
+
+    @property
+    def domain_validate_dns(self) -> DomainValidateDnList:
+        if self._domain_validate_dns is None:
+            self._domain_validate_dns = DomainValidateDnList(self)
+        return self._domain_validate_dns
 
     @property
     def external_campaign(self) -> ExternalCampaignList:

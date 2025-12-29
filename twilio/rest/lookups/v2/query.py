@@ -66,7 +66,7 @@ class QueryInstance(InstanceResource):
                 "date_of_birth": self.date_of_birth,
             }
 
-    class LastSimSwap(object):
+    class LastSimSwapInfo(object):
         """
         :ivar last_sim_swap_date:
         :ivar swapped_period:
@@ -250,7 +250,7 @@ class QueryList(ListResource):
                 "date_of_birth": self.date_of_birth,
             }
 
-    class LastSimSwap(object):
+    class LastSimSwapInfo(object):
         """
         :ivar last_sim_swap_date:
         :ivar swapped_period:

@@ -3,6 +3,73 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2025-12-17] Version 9.9.0
+--------------------------
+**Library - Fix**
+- [PR #898](https://github.com/twilio/twilio-python/pull/898): allow 2XX response for delete operation. Thanks to [@kridai](https://github.com/kridai)!
+
+**Trunking**
+- Corrected the type used for phone number capabilities when accessed through a Trunk. **(breaking change)**
+- Corrected the type used for phone number capabilities when accessed through a Trunk. **(breaking change)**
+
+**Trusthub**
+- Added new parameters in in toll-free initialize api payload.
+- Remove the invalid status transition to Draft from the examples
+- Change the value of email to a valid one in the examples.
+
+
+[2025-12-03] Version 9.8.8
+--------------------------
+**Library - Fix**
+- [PR #895](https://github.com/twilio/twilio-python/pull/895): Regional API domain processing. Thanks to [@manisha1997](https://github.com/manisha1997)!
+
+**Api**
+- Add `twiml_session` resource for calls
+- Add `twiml_session` resource for calls
+
+**Monitor**
+- Update default output properties
+
+**Trusthub**
+- Added customer_profile_sid in toll-free initialize api payload.
+
+
+[2025-11-20] Version 9.8.7
+--------------------------
+**Memory**
+- # Memory API Changes
+- Added initial Memory API endpoints with darkseagreen badge status
+
+
+[2025-11-11] Version 9.8.6
+--------------------------
+**Twiml**
+- Add new noun `<ConversationRelaySession>`
+- Add support for `<Recording>` noun under `<Start>` verb
+
+
+[2025-10-28] Version 9.8.5
+--------------------------
+**Ai**
+- Add `error` as possible transcript status
+- Add `error` as possible transcript status
+
+**Chat**
+- Updated v2 UserChannel `channel_status` from `not_participating` to `notParticipating`
+
+**Intelligence**
+- Make intelligence work with RestProxy
+- Add additional enums to better represent the possible states
+- Add `error` enum to transcription status to better align with possible outputs
+- Add `json` output type to text classification
+
+**Trusthub**
+- Remove required parameter Primary Profile Sid from compliance_inquiry and compliance_inquiry_individual
+
+**Accounts**
+- Add Messaging GeoPermissions API changes
+
+
 [2025-10-14] Version 9.8.4
 --------------------------
 **Library - Chore**

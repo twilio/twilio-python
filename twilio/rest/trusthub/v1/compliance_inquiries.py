@@ -211,25 +211,25 @@ class ComplianceInquiriesList(ListResource):
 
     def create(
         self,
-        primary_profile_sid: str,
         notification_email: Union[str, object] = values.unset,
         theme_set_id: Union[str, object] = values.unset,
+        primary_profile_sid: Union[str, object] = values.unset,
     ) -> ComplianceInquiriesInstance:
         """
         Create the ComplianceInquiriesInstance
 
-        :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
         :param notification_email: The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used.
         :param theme_set_id: Theme id for styling the inquiry form.
+        :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
 
         :returns: The created ComplianceInquiriesInstance
         """
 
         data = values.of(
             {
-                "PrimaryProfileSid": primary_profile_sid,
                 "NotificationEmail": notification_email,
                 "ThemeSetId": theme_set_id,
+                "PrimaryProfileSid": primary_profile_sid,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -246,25 +246,25 @@ class ComplianceInquiriesList(ListResource):
 
     async def create_async(
         self,
-        primary_profile_sid: str,
         notification_email: Union[str, object] = values.unset,
         theme_set_id: Union[str, object] = values.unset,
+        primary_profile_sid: Union[str, object] = values.unset,
     ) -> ComplianceInquiriesInstance:
         """
         Asynchronously create the ComplianceInquiriesInstance
 
-        :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
         :param notification_email: The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used.
         :param theme_set_id: Theme id for styling the inquiry form.
+        :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
 
         :returns: The created ComplianceInquiriesInstance
         """
 
         data = values.of(
             {
-                "PrimaryProfileSid": primary_profile_sid,
                 "NotificationEmail": notification_email,
                 "ThemeSetId": theme_set_id,
+                "PrimaryProfileSid": primary_profile_sid,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})

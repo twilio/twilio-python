@@ -39,6 +39,7 @@ class InteractionChannelInstance(InstanceResource):
         CLOSED = "closed"
         INACTIVE = "inactive"
         PAUSE = "pause"
+        TRANSFER = "transfer"
 
     class Type(object):
         VOICE = "voice"

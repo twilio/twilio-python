@@ -36,6 +36,7 @@ class OperatorTypeInstance(InstanceResource):
         TEXT_EXTRACTION = "text-extraction"
         TEXT_EXTRACTION_NORMALIZED = "text-extraction-normalized"
         TEXT_GENERATION = "text-generation"
+        JSON = "json"
 
     class Provider(object):
         TWILIO = "twilio"

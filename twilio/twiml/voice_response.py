@@ -947,6 +947,49 @@ class Start(TwiML):
             )
         )
 
+    def recording(
+        self,
+        recording_status_callback=None,
+        recording_status_callback_method=None,
+        recording_status_callback_event=None,
+        trim=None,
+        track=None,
+        channels=None,
+        **kwargs
+    ):
+        """
+        Create a <Recording> element
+
+        :param recording_status_callback: Recording Status Callback URL
+        :param recording_status_callback_method: Recording Status Callback URL method
+        :param recording_status_callback_event: Recording Status Callback Events
+        :param trim: Trim the recording
+        :param track: To indicate which audio track should be recorded
+        :param channels: The recording channels for the final recording
+        :param kwargs: additional attributes
+
+        :returns: <Recording> element
+        """
+        return self.nest(
+            Recording(
+                recording_status_callback=recording_status_callback,
+                recording_status_callback_method=recording_status_callback_method,
+                recording_status_callback_event=recording_status_callback_event,
+                trim=trim,
+                track=track,
+                channels=channels,
+                **kwargs
+            )
+        )
+
+
+class Recording(TwiML):
+    """<Recording> TwiML Noun"""
+
+    def __init__(self, **kwargs):
+        super(Recording, self).__init__(**kwargs)
+        self.name = "Recording"
+
 
 class Prompt(TwiML):
     """<Prompt> Twiml Verb"""
@@ -2955,6 +2998,34 @@ class Connect(TwiML):
                 **kwargs
             )
         )
+
+    def conversation_relay_session(
+        self, connector=None, session_configuration=None, **kwargs
+    ):
+        """
+        Create a <ConversationRelaySession> element
+
+        :param connector: The unique name or installed add-on sid that identifies the installed addon resource for the ConversationRelaySession Connector
+        :param session_configuration: The unique name or id of the ConversationRelaySession  Configuration resource.
+        :param kwargs: additional attributes
+
+        :returns: <ConversationRelaySession> element
+        """
+        return self.nest(
+            ConversationRelaySession(
+                connector=connector,
+                session_configuration=session_configuration,
+                **kwargs
+            )
+        )
+
+
+class ConversationRelaySession(TwiML):
+    """<ConversationRelaySession> TwiML Noun"""
+
+    def __init__(self, **kwargs):
+        super(ConversationRelaySession, self).__init__(**kwargs)
+        self.name = "ConversationRelaySession"
 
 
 class AiSession(TwiML):

@@ -28,6 +28,8 @@ class OperatorInstance(InstanceResource):
         INTERNAL = "internal"
         BETA = "beta"
         PUBLIC = "public"
+        DEPRECATED = "deprecated"
+        GENERAL_AVAILABILITY = "general-availability"
         RETIRED = "retired"
 
     """

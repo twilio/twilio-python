@@ -24,12 +24,12 @@ from twilio.base.page import Page
 class OperatorResultInstance(InstanceResource):
 
     class OperatorType(object):
-        CONVERSATION_CLASSIFY = "conversation_classify"
-        UTTERANCE_CLASSIFY = "utterance_classify"
+        CONVERSATION_CLASSIFY = "conversation-classify"
+        UTTERANCE_CLASSIFY = "utterance-classify"
         EXTRACT = "extract"
-        EXTRACT_NORMALIZE = "extract_normalize"
-        PII_EXTRACT = "pii_extract"
-        TEXT_GENERATION = "text_generation"
+        EXTRACT_NORMALIZE = "extract-normalize"
+        PII_EXTRACT = "pii-extract"
+        TEXT_GENERATION = "text-generation"
         JSON = "json"
 
     """

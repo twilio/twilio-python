@@ -42,15 +42,11 @@ class SentenceInstance(InstanceResource):
         self.sentence_index: Optional[int] = deserialize.integer(
             payload.get("sentence_index")
         )
-        self.start_time: Optional[float] = deserialize.decimal(
-            payload.get("start_time")
-        )
-        self.end_time: Optional[float] = deserialize.decimal(payload.get("end_time"))
+        self.start_time: Optional[str] = payload.get("start_time")
+        self.end_time: Optional[str] = payload.get("end_time")
         self.transcript: Optional[str] = payload.get("transcript")
         self.sid: Optional[str] = payload.get("sid")
-        self.confidence: Optional[float] = deserialize.decimal(
-            payload.get("confidence")
-        )
+        self.confidence: Optional[str] = payload.get("confidence")
         self.words: Optional[List[Dict[str, object]]] = payload.get("words")
 
         self._solution = {

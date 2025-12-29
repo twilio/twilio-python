@@ -25,6 +25,7 @@ from twilio.base.page import Page
 class HostedNumberOrderInstance(InstanceResource):
 
     class Status(object):
+        TWILIO_PROCESSING = "twilio-processing"
         RECEIVED = "received"
         PENDING_VERIFICATION = "pending-verification"
         VERIFIED = "verified"

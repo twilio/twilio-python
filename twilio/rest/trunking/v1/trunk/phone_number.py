@@ -35,7 +35,7 @@ class PhoneNumberInstance(InstanceResource):
     :ivar address_requirements: 
     :ivar api_version: The API version used to start a new TwiML session.
     :ivar beta: Whether the phone number is new to the Twilio platform. Can be: `true` or `false`.
-    :ivar capabilities: The set of Boolean properties that indicate whether a phone number can receive calls or messages.  Capabilities are  `Voice`, `SMS`, and `MMS` and each capability can be: `true` or `false`.
+    :ivar capabilities: 
     :ivar date_created: The date and time in GMT when the resource was created specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [RFC 2822](https://www.ietf.org/rfc/rfc2822.txt) format.
     :ivar friendly_name: The string that you assigned to describe the resource.
@@ -74,7 +74,7 @@ class PhoneNumberInstance(InstanceResource):
         ] = payload.get("address_requirements")
         self.api_version: Optional[str] = payload.get("api_version")
         self.beta: Optional[bool] = payload.get("beta")
-        self.capabilities: Optional[Dict[str, object]] = payload.get("capabilities")
+        self.capabilities: Optional[str] = payload.get("capabilities")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
         )
