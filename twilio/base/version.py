@@ -1,9 +1,9 @@
 import json
-from typing import Any, AsyncIterator, Dict, Iterator, Optional, Tuple
+from typing import Any, AsyncIterator, Dict, Iterator, Optional, Tuple, Union
 
 from twilio.base import values
 from twilio.base.domain import Domain
-from twilio.base.exceptions import TwilioRestException
+from twilio.base.exceptions import TwilioRestException, TwilioServiceException
 from twilio.base.page import Page
 from twilio.http.response import Response
 
@@ -84,20 +84,41 @@ class Version(object):
     @classmethod
     def exception(
         cls, method: str, uri: str, response: Response, message: str
-    ) -> TwilioRestException:
+    ) -> Union[TwilioRestException, TwilioServiceException]:
         """
-        Wraps an exceptional response in a `TwilioRestException`.
+        Wraps an exceptional response in a `TwilioRestException` or `TwilioServiceException`.
+
+        If the response is RFC-9457 compliant (contains 'type', 'title', 'status', and 'code' fields),
+        returns a TwilioServiceException. Otherwise, returns a TwilioRestException for backward compatibility.
         """
         # noinspection PyBroadException
         try:
             error_payload = json.loads(response.text)
-            if "message" in error_payload:
-                message = "{}: {}".format(message, error_payload["message"])
-            details = error_payload.get("details")
-            code = error_payload.get("code", response.status_code)
-            return TwilioRestException(
-                response.status_code, uri, message, code, method, details
-            )
+
+            # Check if this is an RFC-9457 compliant error response
+            # Required fields: type, title, status, code
+            if all(key in error_payload for key in ["type", "title", "status", "code"]):
+                # This is an RFC-9457 compliant error response
+                return TwilioServiceException(
+                    type_uri=error_payload["type"],
+                    title=error_payload["title"],
+                    status=error_payload["status"],
+                    code=error_payload["code"],
+                    detail=error_payload.get("detail"),
+                    instance=error_payload.get("instance"),
+                    errors=error_payload.get("errors"),
+                    method=method,
+                    uri=uri,
+                )
+            else:
+                # Legacy error format - use TwilioRestException
+                if "message" in error_payload:
+                    message = "{}: {}".format(message, error_payload["message"])
+                details = error_payload.get("details")
+                code = error_payload.get("code", response.status_code)
+                return TwilioRestException(
+                    response.status_code, uri, message, code, method, details
+                )
         except Exception:
             return TwilioRestException(
                 response.status_code, uri, message, response.status_code, method
