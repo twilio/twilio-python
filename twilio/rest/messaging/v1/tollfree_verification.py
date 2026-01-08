@@ -39,6 +39,9 @@ class TollfreeVerificationInstance(InstanceResource):
         TWILIO_APPROVED = "TWILIO_APPROVED"
         TWILIO_REJECTED = "TWILIO_REJECTED"
 
+    class VettingProvider(object):
+        CAMPAIGN_VERIFY = "CAMPAIGN_VERIFY"
+
     """
     :ivar sid: The unique string to identify Tollfree Verification.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Tollfree Verification resource.
@@ -90,6 +93,9 @@ class TollfreeVerificationInstance(InstanceResource):
     :ivar rejection_reasons: A list of rejection reasons and codes describing why a Tollfree Verification has been rejected.
     :ivar resource_links: The URLs of the documents associated with the Tollfree Verification resource.
     :ivar external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
+    :ivar vetting_id: 
+    :ivar vetting_provider: 
+    :ivar vetting_id_expiration: 
     """
 
     def __init__(
@@ -193,6 +199,13 @@ class TollfreeVerificationInstance(InstanceResource):
         )
         self.resource_links: Optional[Dict[str, object]] = payload.get("resource_links")
         self.external_reference_id: Optional[str] = payload.get("external_reference_id")
+        self.vetting_id: Optional[str] = payload.get("vetting_id")
+        self.vetting_provider: Optional[
+            "TollfreeVerificationInstance.VettingProvider"
+        ] = payload.get("vetting_provider")
+        self.vetting_id_expiration: Optional[datetime] = deserialize.iso8601_datetime(
+            payload.get("vetting_id_expiration")
+        )
 
         self._solution = {
             "sid": sid or self.sid,
@@ -287,6 +300,10 @@ class TollfreeVerificationInstance(InstanceResource):
         terms_and_conditions_url: Union[str, object] = values.unset,
         age_gated_content: Union[bool, object] = values.unset,
         opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_provider: Union[
+            "TollfreeVerificationInstance.VettingProvider", object
+        ] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
     ) -> "TollfreeVerificationInstance":
         """
         Update the TollfreeVerificationInstance
@@ -324,6 +341,8 @@ class TollfreeVerificationInstance(InstanceResource):
         :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
         :param age_gated_content: Indicates if the content is age gated.
         :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+        :param vetting_provider:
+        :param vetting_id: The unique ID of the vetting
 
         :returns: The updated TollfreeVerificationInstance
         """
@@ -361,6 +380,8 @@ class TollfreeVerificationInstance(InstanceResource):
             terms_and_conditions_url=terms_and_conditions_url,
             age_gated_content=age_gated_content,
             opt_in_keywords=opt_in_keywords,
+            vetting_provider=vetting_provider,
+            vetting_id=vetting_id,
         )
 
     async def update_async(
@@ -400,6 +421,10 @@ class TollfreeVerificationInstance(InstanceResource):
         terms_and_conditions_url: Union[str, object] = values.unset,
         age_gated_content: Union[bool, object] = values.unset,
         opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_provider: Union[
+            "TollfreeVerificationInstance.VettingProvider", object
+        ] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
     ) -> "TollfreeVerificationInstance":
         """
         Asynchronous coroutine to update the TollfreeVerificationInstance
@@ -437,6 +462,8 @@ class TollfreeVerificationInstance(InstanceResource):
         :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
         :param age_gated_content: Indicates if the content is age gated.
         :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+        :param vetting_provider:
+        :param vetting_id: The unique ID of the vetting
 
         :returns: The updated TollfreeVerificationInstance
         """
@@ -474,6 +501,8 @@ class TollfreeVerificationInstance(InstanceResource):
             terms_and_conditions_url=terms_and_conditions_url,
             age_gated_content=age_gated_content,
             opt_in_keywords=opt_in_keywords,
+            vetting_provider=vetting_provider,
+            vetting_id=vetting_id,
         )
 
     def __repr__(self) -> str:
@@ -608,6 +637,10 @@ class TollfreeVerificationContext(InstanceContext):
         terms_and_conditions_url: Union[str, object] = values.unset,
         age_gated_content: Union[bool, object] = values.unset,
         opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_provider: Union[
+            "TollfreeVerificationInstance.VettingProvider", object
+        ] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
     ) -> TollfreeVerificationInstance:
         """
         Update the TollfreeVerificationInstance
@@ -645,6 +678,8 @@ class TollfreeVerificationContext(InstanceContext):
         :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
         :param age_gated_content: Indicates if the content is age gated.
         :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+        :param vetting_provider:
+        :param vetting_id: The unique ID of the vetting
 
         :returns: The updated TollfreeVerificationInstance
         """
@@ -684,6 +719,8 @@ class TollfreeVerificationContext(InstanceContext):
                 "TermsAndConditionsUrl": terms_and_conditions_url,
                 "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
                 "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
+                "VettingProvider": vetting_provider,
+                "VettingId": vetting_id,
             }
         )
         headers = values.of({})
@@ -737,6 +774,10 @@ class TollfreeVerificationContext(InstanceContext):
         terms_and_conditions_url: Union[str, object] = values.unset,
         age_gated_content: Union[bool, object] = values.unset,
         opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_provider: Union[
+            "TollfreeVerificationInstance.VettingProvider", object
+        ] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
     ) -> TollfreeVerificationInstance:
         """
         Asynchronous coroutine to update the TollfreeVerificationInstance
@@ -774,6 +815,8 @@ class TollfreeVerificationContext(InstanceContext):
         :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
         :param age_gated_content: Indicates if the content is age gated.
         :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+        :param vetting_provider:
+        :param vetting_id: The unique ID of the vetting
 
         :returns: The updated TollfreeVerificationInstance
         """
@@ -813,6 +856,8 @@ class TollfreeVerificationContext(InstanceContext):
                 "TermsAndConditionsUrl": terms_and_conditions_url,
                 "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
                 "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
+                "VettingProvider": vetting_provider,
+                "VettingId": vetting_id,
             }
         )
         headers = values.of({})
@@ -908,6 +953,10 @@ class TollfreeVerificationList(ListResource):
         terms_and_conditions_url: Union[str, object] = values.unset,
         age_gated_content: Union[bool, object] = values.unset,
         opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_provider: Union[
+            "TollfreeVerificationInstance.VettingProvider", object
+        ] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
     ) -> TollfreeVerificationInstance:
         """
         Create the TollfreeVerificationInstance
@@ -947,6 +996,8 @@ class TollfreeVerificationList(ListResource):
         :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
         :param age_gated_content: Indicates if the content is age gated.
         :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+        :param vetting_provider:
+        :param vetting_id: The unique ID of the vetting
 
         :returns: The created TollfreeVerificationInstance
         """
@@ -988,6 +1039,8 @@ class TollfreeVerificationList(ListResource):
                 "TermsAndConditionsUrl": terms_and_conditions_url,
                 "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
                 "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
+                "VettingProvider": vetting_provider,
+                "VettingId": vetting_id,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -1039,6 +1092,10 @@ class TollfreeVerificationList(ListResource):
         terms_and_conditions_url: Union[str, object] = values.unset,
         age_gated_content: Union[bool, object] = values.unset,
         opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_provider: Union[
+            "TollfreeVerificationInstance.VettingProvider", object
+        ] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
     ) -> TollfreeVerificationInstance:
         """
         Asynchronously create the TollfreeVerificationInstance
@@ -1078,6 +1135,8 @@ class TollfreeVerificationList(ListResource):
         :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
         :param age_gated_content: Indicates if the content is age gated.
         :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+        :param vetting_provider:
+        :param vetting_id: The unique ID of the vetting
 
         :returns: The created TollfreeVerificationInstance
         """
@@ -1119,6 +1178,8 @@ class TollfreeVerificationList(ListResource):
                 "TermsAndConditionsUrl": terms_and_conditions_url,
                 "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
                 "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
+                "VettingProvider": vetting_provider,
+                "VettingId": vetting_id,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
