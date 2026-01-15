@@ -197,7 +197,7 @@ class Version(object):
             allow_redirects=allow_redirects,
         )
         payload = self._parse_fetch(method, uri, response)
-        return payload, response.status_code, dict(response.headers)
+        return payload, response.status_code, dict(response.headers or {})
 
     async def fetch_with_response_info_async(
         self,
@@ -230,7 +230,7 @@ class Version(object):
             allow_redirects=allow_redirects,
         )
         payload = self._parse_fetch(method, uri, response)
-        return (payload, response.status_code, dict(response.headers))
+        return payload, response.status_code, dict(response.headers or {})
 
     def _parse_update(self, method: str, uri: str, response: Response) -> Any:
         """
@@ -326,7 +326,7 @@ class Version(object):
             allow_redirects=allow_redirects,
         )
         payload = self._parse_update(method, uri, response)
-        return (payload, response.status_code, dict(response.headers))
+        return payload, response.status_code, dict(response.headers or {})
 
     async def update_with_response_info_async(
         self,
@@ -359,7 +359,7 @@ class Version(object):
             allow_redirects=allow_redirects,
         )
         payload = self._parse_update(method, uri, response)
-        return (payload, response.status_code, dict(response.headers))
+        return payload, response.status_code, dict(response.headers or {})
 
     def _parse_delete(self, method: str, uri: str, response: Response) -> bool:
         """
@@ -455,7 +455,7 @@ class Version(object):
             allow_redirects=allow_redirects,
         )
         success = self._parse_delete(method, uri, response)
-        return (success, response.status_code, dict(response.headers))
+        return success, response.status_code, dict(response.headers or {})
 
     async def delete_with_response_info_async(
         self,
@@ -488,7 +488,7 @@ class Version(object):
             allow_redirects=allow_redirects,
         )
         success = self._parse_delete(method, uri, response)
-        return (success, response.status_code, dict(response.headers))
+        return success, response.status_code, dict(response.headers or {})
 
     def read_limits(
         self, limit: Optional[int] = None, page_size: Optional[int] = None
@@ -589,7 +589,7 @@ class Version(object):
             timeout=timeout,
             allow_redirects=allow_redirects,
         )
-        return (response, response.status_code, dict(response.headers))
+        return response, response.status_code, dict(response.headers or {})
 
     async def page_with_response_info_async(
         self,
@@ -621,7 +621,7 @@ class Version(object):
             timeout=timeout,
             allow_redirects=allow_redirects,
         )
-        return (response, response.status_code, dict(response.headers))
+        return response, response.status_code, dict(response.headers or {})
 
     def stream(
         self,
@@ -781,7 +781,7 @@ class Version(object):
             allow_redirects=allow_redirects,
         )
         payload = self._parse_create(method, uri, response)
-        return (payload, response.status_code, dict(response.headers))
+        return payload, response.status_code, dict(response.headers or {})
 
     async def create_with_response_info_async(
         self,
@@ -814,4 +814,4 @@ class Version(object):
             allow_redirects=allow_redirects,
         )
         payload = self._parse_create(method, uri, response)
-        return (payload, response.status_code, dict(response.headers))
+        return payload, response.status_code, dict(response.headers or {})

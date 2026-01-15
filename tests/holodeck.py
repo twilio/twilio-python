@@ -1,5 +1,5 @@
 from twilio.base.exceptions import TwilioRestException
-from twilio.http import HttpClient
+from twilio.http import HttpClient, AsyncHttpClient
 from twilio.http.request import Request
 import platform
 from twilio import __version__
@@ -15,6 +15,7 @@ class Holodeck(HttpClient):
     def __init__(self):
         self._holograms = []
         self._requests = []
+        self.is_async = False
 
     def mock(self, response, request=None):
         request = request or Request()
@@ -71,6 +72,89 @@ class Holodeck(HttpClient):
         timeout=None,
         allow_redirects=False,
     ):
+        request = Request(method, url, auth, params, data, headers)
+
+        self._requests.append(request)
+
+        for hologram in self._holograms:
+            if hologram.request == request:
+                return hologram.response
+
+        message = "\nHolodeck has no hologram for: {}\n".format(request)
+        if self._holograms:
+            message += "Holograms loaded:\n"
+            message += "\n".join(" - {}".format(h.request) for h in self._holograms)
+        else:
+            message += "No Holograms loaded"
+
+        raise TwilioRestException(404, url, message, method=method)
+
+
+class AsyncHolodeck(AsyncHttpClient):
+    """Async version of Holodeck for async testing"""
+
+    def __init__(self):
+        # Don't call super().__init__() to avoid logger requirement
+        self._holograms = []
+        self._requests = []
+        self.is_async = True
+
+    def mock(self, response, request=None):
+        request = request or Request()
+        self._holograms.append(Hologram(request, response))
+
+    @property
+    def requests(self):
+        return self._requests
+
+    def add_standard_headers(self, request):
+        standard_headers = {
+            "User-Agent": "twilio-python/{} ({} {}) Python/{}".format(
+                __version__,
+                platform.system(),
+                platform.machine(),
+                platform.python_version(),
+            ),
+            "X-Twilio-Client": "python-{}".format(__version__),
+            "Accept": "application/json",
+            "Accept-Charset": "utf-8",
+        }
+
+        if request.method == "POST" and "Content-Type" not in standard_headers:
+            standard_headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        standard_headers.update(request.headers)
+        request.headers = standard_headers
+        return request
+
+    def assert_has_request(self, request):
+        for req in self.requests:
+            if req == request or req == self.add_standard_headers(request):
+                return
+
+        message = "\nHolodeck never received a request matching: \n + {}\n".format(
+            request
+        )
+        if self._requests:
+            message += "Requests received:\n"
+            message += "\n".join(" * {}".format(r) for r in self.requests)
+        else:
+            message += "No Requests received"
+
+        raise AssertionError(message)
+
+    async def request(
+        self,
+        method,
+        url,
+        params=None,
+        data=None,
+        headers=None,
+        auth=None,
+        timeout=None,
+        allow_redirects=False,
+    ):
+        """Async request method"""
         request = Request(method, url, auth, params, data, headers)
 
         self._requests.append(request)
