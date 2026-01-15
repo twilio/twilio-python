@@ -119,3 +119,142 @@ class VersionTestCase(IntegrationTestCase):
             )
 
         self.assertIn("Unable to delete record", str(context.exception))
+
+    def test_fetch_with_response_info(self):
+        self.holodeck.mock(
+            Response(200, '{"sid": "AC123", "name": "Test Account"}', {"X-Custom-Header": "test-value"}),
+            Request(url="https://api.twilio.com/2010-04-01/Accounts/AC123.json"),
+        )
+        payload, status_code, headers = self.client.api.v2010.fetch_with_response_info(
+            method="GET", uri="/Accounts/AC123.json"
+        )
+
+        self.assertEqual(payload["sid"], "AC123")
+        self.assertEqual(payload["name"], "Test Account")
+        self.assertEqual(status_code, 200)
+        self.assertIn("X-Custom-Header", headers)
+        self.assertEqual(headers["X-Custom-Header"], "test-value")
+
+    def test_update_with_response_info(self):
+        self.holodeck.mock(
+            Response(200, '{"sid": "AC123", "name": "Updated Account"}', {"X-Update-Header": "updated"}),
+            Request(
+                method="POST",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123.json",
+            ),
+        )
+        payload, status_code, headers = self.client.api.v2010.update_with_response_info(
+            method="POST", uri="/Accounts/AC123.json", data={"name": "Updated Account"}
+        )
+
+        self.assertEqual(payload["sid"], "AC123")
+        self.assertEqual(payload["name"], "Updated Account")
+        self.assertEqual(status_code, 200)
+        self.assertIn("X-Update-Header", headers)
+
+    def test_delete_with_response_info(self):
+        self.holodeck.mock(
+            Response(204, "", {"X-Delete-Header": "deleted"}),
+            Request(
+                method="DELETE",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Messages/MM123.json",
+            ),
+        )
+        success, status_code, headers = self.client.api.v2010.delete_with_response_info(
+            method="DELETE", uri="/Accounts/AC123/Messages/MM123.json"
+        )
+
+        self.assertTrue(success)
+        self.assertEqual(status_code, 204)
+        self.assertIn("X-Delete-Header", headers)
+
+    def test_create_with_response_info(self):
+        self.holodeck.mock(
+            Response(201, '{"sid": "MM123", "body": "Hello World"}', {"X-Create-Header": "created"}),
+            Request(
+                method="POST",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Messages.json",
+            ),
+        )
+        payload, status_code, headers = self.client.api.v2010.create_with_response_info(
+            method="POST", uri="/Accounts/AC123/Messages.json", data={"body": "Hello World"}
+        )
+
+        self.assertEqual(payload["sid"], "MM123")
+        self.assertEqual(payload["body"], "Hello World")
+        self.assertEqual(status_code, 201)
+        self.assertIn("X-Create-Header", headers)
+
+    def test_page_with_response_info(self):
+        self.holodeck.mock(
+            Response(200, '{"messages": [], "next_page_uri": null}', {"X-Page-Header": "page"}),
+            Request(url="https://api.twilio.com/2010-04-01/Accounts/AC123/Messages.json"),
+        )
+        response, status_code, headers = self.client.api.v2010.page_with_response_info(
+            method="GET", uri="/Accounts/AC123/Messages.json"
+        )
+
+        self.assertIsNotNone(response)
+        self.assertEqual(status_code, 200)
+        self.assertIn("X-Page-Header", headers)
+
+    def test_fetch_with_response_info_error(self):
+        self.holodeck.mock(
+            Response(404, '{"message": "Resource not found"}'),
+            Request(url="https://api.twilio.com/2010-04-01/Accounts/AC456.json"),
+        )
+
+        with self.assertRaises(Exception) as context:
+            self.client.api.v2010.fetch_with_response_info(
+                method="GET", uri="/Accounts/AC456.json"
+            )
+
+        self.assertIn("Unable to fetch record", str(context.exception))
+
+    def test_update_with_response_info_error(self):
+        self.holodeck.mock(
+            Response(400, '{"message": "Invalid request"}'),
+            Request(
+                method="POST",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123.json",
+            ),
+        )
+
+        with self.assertRaises(Exception) as context:
+            self.client.api.v2010.update_with_response_info(
+                method="POST", uri="/Accounts/AC123.json", data={"invalid": "data"}
+            )
+
+        self.assertIn("Unable to update record", str(context.exception))
+
+    def test_delete_with_response_info_error(self):
+        self.holodeck.mock(
+            Response(404, '{"message": "Resource not found"}'),
+            Request(
+                method="DELETE",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Messages/MM456.json",
+            ),
+        )
+
+        with self.assertRaises(Exception) as context:
+            self.client.api.v2010.delete_with_response_info(
+                method="DELETE", uri="/Accounts/AC123/Messages/MM456.json"
+            )
+
+        self.assertIn("Unable to delete record", str(context.exception))
+
+    def test_create_with_response_info_error(self):
+        self.holodeck.mock(
+            Response(400, '{"message": "Invalid request"}'),
+            Request(
+                method="POST",
+                url="https://api.twilio.com/2010-04-01/Accounts/AC123/Messages.json",
+            ),
+        )
+
+        with self.assertRaises(Exception) as context:
+            self.client.api.v2010.create_with_response_info(
+                method="POST", uri="/Accounts/AC123/Messages.json", data={"invalid": "data"}
+            )
+
+        self.assertIn("Unable to create record", str(context.exception))
