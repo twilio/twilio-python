@@ -3,6 +3,13 @@ twilio-python Changelog
 
 Here you can see the full list of changes between each twilio-python release.
 
+[2026-01-07] Version 9.9.1
+--------------------------
+**Api**
+- Added optional parameter `clientNotificationUrl` for create call api
+- Added optional parameter `clientNotificationUrl` for create participant api
+
+
 [2025-12-17] Version 9.9.0
 --------------------------
 **Library - Fix**
