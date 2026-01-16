@@ -1,9 +1,10 @@
 """
 ApiResponse class for wrapping API responses with metadata
 """
-from typing import Any, Dict, Generic, TypeVar
 
-T = TypeVar('T')
+from typing import Dict, Generic, TypeVar
+
+T = TypeVar("T")
 
 
 class ApiResponse(Generic[T]):
