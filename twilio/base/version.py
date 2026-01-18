@@ -187,6 +187,72 @@ class Version(object):
         )
         return self._parse_fetch(method, uri, response)
 
+    def fetch_with_response_info(
+        self,
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Tuple[Any, int, Dict[str, str]]:
+        """
+        Fetch a resource and return response metadata
+
+        Returns:
+            tuple: (payload_dict, status_code, headers_dict)
+                - payload_dict: The JSON response body as a dictionary
+                - status_code: HTTP status code (typically 200)
+                - headers_dict: Response headers as a dictionary
+        """
+        response = self.request(
+            method,
+            uri,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
+        payload = self._parse_fetch(method, uri, response)
+        return payload, response.status_code, dict(response.headers or {})
+
+    async def fetch_with_response_info_async(
+        self,
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Tuple[Any, int, Dict[str, str]]:
+        """
+        Asynchronously fetch a resource and return response metadata
+
+        Returns:
+            tuple: (payload_dict, status_code, headers_dict)
+                - payload_dict: The JSON response body as a dictionary
+                - status_code: HTTP status code (typically 200)
+                - headers_dict: Response headers as a dictionary
+        """
+        response = await self.request_async(
+            method,
+            uri,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
+        payload = self._parse_fetch(method, uri, response)
+        return payload, response.status_code, dict(response.headers or {})
+
     def _parse_update(self, method: str, uri: str, response: Response) -> Any:
         """
         Parses update response JSON
@@ -250,6 +316,72 @@ class Version(object):
 
         return self._parse_update(method, uri, response)
 
+    def update_with_response_info(
+        self,
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Tuple[Any, int, Dict[str, str]]:
+        """
+        Update a resource and return response metadata
+
+        Returns:
+            tuple: (payload_dict, status_code, headers_dict)
+                - payload_dict: The JSON response body as a dictionary
+                - status_code: HTTP status code (typically 200)
+                - headers_dict: Response headers as a dictionary
+        """
+        response = self.request(
+            method,
+            uri,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
+        payload = self._parse_update(method, uri, response)
+        return payload, response.status_code, dict(response.headers or {})
+
+    async def update_with_response_info_async(
+        self,
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Tuple[Any, int, Dict[str, str]]:
+        """
+        Asynchronously update a resource and return response metadata
+
+        Returns:
+            tuple: (payload_dict, status_code, headers_dict)
+                - payload_dict: The JSON response body as a dictionary
+                - status_code: HTTP status code (typically 200)
+                - headers_dict: Response headers as a dictionary
+        """
+        response = await self.request_async(
+            method,
+            uri,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
+        payload = self._parse_update(method, uri, response)
+        return payload, response.status_code, dict(response.headers or {})
+
     def _parse_delete(self, method: str, uri: str, response: Response) -> bool:
         """
         Parses delete response JSON
@@ -312,6 +444,72 @@ class Version(object):
         )
 
         return self._parse_delete(method, uri, response)
+
+    def delete_with_response_info(
+        self,
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Tuple[bool, int, Dict[str, str]]:
+        """
+        Delete a resource and return response metadata
+
+        Returns:
+            tuple: (success_boolean, status_code, headers_dict)
+                - success_boolean: True if deletion was successful (2XX response)
+                - status_code: HTTP status code (typically 204 for successful delete)
+                - headers_dict: Response headers as a dictionary
+        """
+        response = self.request(
+            method,
+            uri,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
+        success = self._parse_delete(method, uri, response)
+        return success, response.status_code, dict(response.headers or {})
+
+    async def delete_with_response_info_async(
+        self,
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Tuple[bool, int, Dict[str, str]]:
+        """
+        Asynchronously delete a resource and return response metadata
+
+        Returns:
+            tuple: (success_boolean, status_code, headers_dict)
+                - success_boolean: True if deletion was successful (2XX response)
+                - status_code: HTTP status code (typically 204 for successful delete)
+                - headers_dict: Response headers as a dictionary
+        """
+        response = await self.request_async(
+            method,
+            uri,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
+        success = self._parse_delete(method, uri, response)
+        return success, response.status_code, dict(response.headers or {})
 
     def read_limits(
         self, limit: Optional[int] = None, page_size: Optional[int] = None
@@ -381,6 +579,70 @@ class Version(object):
             timeout=timeout,
             allow_redirects=allow_redirects,
         )
+
+    def page_with_response_info(
+        self,
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Tuple[Response, int, Dict[str, str]]:
+        """
+        Fetch a page and return response metadata
+
+        Returns:
+            tuple: (response_object, status_code, headers_dict)
+                - response_object: The Response object (not parsed JSON)
+                - status_code: HTTP status code
+                - headers_dict: Response headers as a dictionary
+        """
+        response = self.request(
+            method,
+            uri,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
+        return response, response.status_code, dict(response.headers or {})
+
+    async def page_with_response_info_async(
+        self,
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Tuple[Response, int, Dict[str, str]]:
+        """
+        Asynchronously fetch a page and return response metadata
+
+        Returns:
+            tuple: (response_object, status_code, headers_dict)
+                - response_object: The Response object (not parsed JSON)
+                - status_code: HTTP status code
+                - headers_dict: Response headers as a dictionary
+        """
+        response = await self.request_async(
+            method,
+            uri,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
+        return response, response.status_code, dict(response.headers or {})
 
     def stream(
         self,
@@ -508,3 +770,69 @@ class Version(object):
             allow_redirects=allow_redirects,
         )
         return self._parse_create(method, uri, response)
+
+    def create_with_response_info(
+        self,
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Tuple[Any, int, Dict[str, str]]:
+        """
+        Create a resource and return response metadata
+
+        Returns:
+            tuple: (payload_dict, status_code, headers_dict)
+                - payload_dict: The JSON response body as a dictionary
+                - status_code: HTTP status code (e.g., 201)
+                - headers_dict: Response headers as a dictionary
+        """
+        response = self.request(
+            method,
+            uri,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
+        payload = self._parse_create(method, uri, response)
+        return payload, response.status_code, dict(response.headers or {})
+
+    async def create_with_response_info_async(
+        self,
+        method: str,
+        uri: str,
+        params: Optional[Dict[str, object]] = None,
+        data: Optional[Dict[str, object]] = None,
+        headers: Optional[Dict[str, str]] = None,
+        auth: Optional[Tuple[str, str]] = None,
+        timeout: Optional[float] = None,
+        allow_redirects: bool = False,
+    ) -> Tuple[Any, int, Dict[str, str]]:
+        """
+        Asynchronously create a resource and return response metadata
+
+        Returns:
+            tuple: (payload_dict, status_code, headers_dict)
+                - payload_dict: The JSON response body as a dictionary
+                - status_code: HTTP status code (e.g., 201)
+                - headers_dict: Response headers as a dictionary
+        """
+        response = await self.request_async(
+            method,
+            uri,
+            params=params,
+            data=data,
+            headers=headers,
+            auth=auth,
+            timeout=timeout,
+            allow_redirects=allow_redirects,
+        )
+        payload = self._parse_create(method, uri, response)
+        return payload, response.status_code, dict(response.headers or {})
