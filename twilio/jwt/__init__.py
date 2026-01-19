@@ -1,7 +1,6 @@
 import jwt as jwt_lib
 import time
 
-
 __all__ = ["Jwt", "JwtDecodeError"]
 
 

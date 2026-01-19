@@ -8,7 +8,6 @@ from twilio.http import HttpClient
 from twilio.http.response import Response
 from twilio.jwt.validation import ClientValidationJwt
 
-
 ValidationPayload = namedtuple(
     "ValidationPayload",
     ["method", "path", "query_string", "all_headers", "signed_headers", "body"],
