@@ -36,7 +36,7 @@ class TokenPagination(Page):
     ):
         super().__init__(version, response, solution)
         self._uri = uri
-        self._params = params
+        self._params = params if params is not None else {}
 
     @property
     def key(self) -> Optional[str]:
