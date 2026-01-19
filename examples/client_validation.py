@@ -12,7 +12,6 @@ from cryptography.hazmat.primitives.serialization import (
 from twilio.http.validation_client import ValidationClient
 from twilio.rest import Client
 
-
 ACCOUNT_SID = os.environ.get("TWILIO_ACCOUNT_SID")
 AUTH_TOKEN = os.environ.get("TWILIO_AUTH_TOKEN")
 
