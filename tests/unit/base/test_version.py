@@ -570,6 +570,11 @@ class TwilioServiceExceptionTestCase(unittest.TestCase):
 
         self.assertEqual(context.exception.title, "Test Error")
         self.assertEqual(context.exception.code, 20001)
+
+
+class ResponseInfoIntegrationTestCase(IntegrationTestCase):
+    """Integration tests for *_with_response_info methods"""
+
     def test_fetch_with_response_info(self):
         self.holodeck.mock(
             Response(
