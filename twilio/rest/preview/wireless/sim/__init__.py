@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -120,6 +121,24 @@ class SimInstance(InstanceResource):
         :returns: The fetched SimInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the SimInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the SimInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -241,6 +260,126 @@ class SimInstance(InstanceResource):
             voice_url=voice_url,
         )
 
+    def update_with_http_info(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        commands_callback_method: Union[str, object] = values.unset,
+        commands_callback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the SimInstance with HTTP info
+
+        :param unique_name:
+        :param callback_method:
+        :param callback_url:
+        :param friendly_name:
+        :param rate_plan:
+        :param status:
+        :param commands_callback_method:
+        :param commands_callback_url:
+        :param sms_fallback_method:
+        :param sms_fallback_url:
+        :param sms_method:
+        :param sms_url:
+        :param voice_fallback_method:
+        :param voice_fallback_url:
+        :param voice_method:
+        :param voice_url:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            unique_name=unique_name,
+            callback_method=callback_method,
+            callback_url=callback_url,
+            friendly_name=friendly_name,
+            rate_plan=rate_plan,
+            status=status,
+            commands_callback_method=commands_callback_method,
+            commands_callback_url=commands_callback_url,
+            sms_fallback_method=sms_fallback_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_method=sms_method,
+            sms_url=sms_url,
+            voice_fallback_method=voice_fallback_method,
+            voice_fallback_url=voice_fallback_url,
+            voice_method=voice_method,
+            voice_url=voice_url,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        commands_callback_method: Union[str, object] = values.unset,
+        commands_callback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the SimInstance with HTTP info
+
+        :param unique_name:
+        :param callback_method:
+        :param callback_url:
+        :param friendly_name:
+        :param rate_plan:
+        :param status:
+        :param commands_callback_method:
+        :param commands_callback_url:
+        :param sms_fallback_method:
+        :param sms_fallback_url:
+        :param sms_method:
+        :param sms_url:
+        :param voice_fallback_method:
+        :param voice_fallback_url:
+        :param voice_method:
+        :param voice_url:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            unique_name=unique_name,
+            callback_method=callback_method,
+            callback_url=callback_url,
+            friendly_name=friendly_name,
+            rate_plan=rate_plan,
+            status=status,
+            commands_callback_method=commands_callback_method,
+            commands_callback_url=commands_callback_url,
+            sms_fallback_method=sms_fallback_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_method=sms_method,
+            sms_url=sms_url,
+            voice_fallback_method=voice_fallback_method,
+            voice_fallback_url=voice_fallback_url,
+            voice_method=voice_method,
+            voice_url=voice_url,
+        )
+
     @property
     def usage(self) -> UsageList:
         """
@@ -277,6 +416,22 @@ class SimContext(InstanceContext):
 
         self._usage: Optional[UsageList] = None
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> SimInstance:
         """
         Fetch the SimInstance
@@ -284,17 +439,42 @@ class SimContext(InstanceContext):
 
         :returns: The fetched SimInstance
         """
+        payload, _, _ = self._fetch()
+        return SimInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the SimInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = SimInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return SimInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> SimInstance:
@@ -304,19 +484,82 @@ class SimContext(InstanceContext):
 
         :returns: The fetched SimInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return SimInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the SimInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = SimInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        commands_callback_method: Union[str, object] = values.unset,
+        commands_callback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "CallbackMethod": callback_method,
+                "CallbackUrl": callback_url,
+                "FriendlyName": friendly_name,
+                "RatePlan": rate_plan,
+                "Status": status,
+                "CommandsCallbackMethod": commands_callback_method,
+                "CommandsCallbackUrl": commands_callback_url,
+                "SmsFallbackMethod": sms_fallback_method,
+                "SmsFallbackUrl": sms_fallback_url,
+                "SmsMethod": sms_method,
+                "SmsUrl": sms_url,
+                "VoiceFallbackMethod": voice_fallback_method,
+                "VoiceFallbackUrl": voice_fallback_url,
+                "VoiceMethod": voice_method,
+                "VoiceUrl": voice_url,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -360,6 +603,113 @@ class SimContext(InstanceContext):
 
         :returns: The updated SimInstance
         """
+        payload, _, _ = self._update(
+            unique_name=unique_name,
+            callback_method=callback_method,
+            callback_url=callback_url,
+            friendly_name=friendly_name,
+            rate_plan=rate_plan,
+            status=status,
+            commands_callback_method=commands_callback_method,
+            commands_callback_url=commands_callback_url,
+            sms_fallback_method=sms_fallback_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_method=sms_method,
+            sms_url=sms_url,
+            voice_fallback_method=voice_fallback_method,
+            voice_fallback_url=voice_fallback_url,
+            voice_method=voice_method,
+            voice_url=voice_url,
+        )
+        return SimInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        commands_callback_method: Union[str, object] = values.unset,
+        commands_callback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the SimInstance and return response metadata
+
+        :param unique_name:
+        :param callback_method:
+        :param callback_url:
+        :param friendly_name:
+        :param rate_plan:
+        :param status:
+        :param commands_callback_method:
+        :param commands_callback_url:
+        :param sms_fallback_method:
+        :param sms_fallback_url:
+        :param sms_method:
+        :param sms_url:
+        :param voice_fallback_method:
+        :param voice_fallback_url:
+        :param voice_method:
+        :param voice_url:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            unique_name=unique_name,
+            callback_method=callback_method,
+            callback_url=callback_url,
+            friendly_name=friendly_name,
+            rate_plan=rate_plan,
+            status=status,
+            commands_callback_method=commands_callback_method,
+            commands_callback_url=commands_callback_url,
+            sms_fallback_method=sms_fallback_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_method=sms_method,
+            sms_url=sms_url,
+            voice_fallback_method=voice_fallback_method,
+            voice_fallback_url=voice_fallback_url,
+            voice_method=voice_method,
+            voice_url=voice_url,
+        )
+        instance = SimInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        commands_callback_method: Union[str, object] = values.unset,
+        commands_callback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -387,11 +737,9 @@ class SimContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return SimInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
         self,
@@ -434,38 +782,87 @@ class SimContext(InstanceContext):
 
         :returns: The updated SimInstance
         """
-
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-                "CallbackMethod": callback_method,
-                "CallbackUrl": callback_url,
-                "FriendlyName": friendly_name,
-                "RatePlan": rate_plan,
-                "Status": status,
-                "CommandsCallbackMethod": commands_callback_method,
-                "CommandsCallbackUrl": commands_callback_url,
-                "SmsFallbackMethod": sms_fallback_method,
-                "SmsFallbackUrl": sms_fallback_url,
-                "SmsMethod": sms_method,
-                "SmsUrl": sms_url,
-                "VoiceFallbackMethod": voice_fallback_method,
-                "VoiceFallbackUrl": voice_fallback_url,
-                "VoiceMethod": voice_method,
-                "VoiceUrl": voice_url,
-            }
+        payload, _, _ = await self._update_async(
+            unique_name=unique_name,
+            callback_method=callback_method,
+            callback_url=callback_url,
+            friendly_name=friendly_name,
+            rate_plan=rate_plan,
+            status=status,
+            commands_callback_method=commands_callback_method,
+            commands_callback_url=commands_callback_url,
+            sms_fallback_method=sms_fallback_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_method=sms_method,
+            sms_url=sms_url,
+            voice_fallback_method=voice_fallback_method,
+            voice_fallback_url=voice_fallback_url,
+            voice_method=voice_method,
+            voice_url=voice_url,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return SimInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        callback_method: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        commands_callback_method: Union[str, object] = values.unset,
+        commands_callback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the SimInstance and return response metadata
+
+        :param unique_name:
+        :param callback_method:
+        :param callback_url:
+        :param friendly_name:
+        :param rate_plan:
+        :param status:
+        :param commands_callback_method:
+        :param commands_callback_url:
+        :param sms_fallback_method:
+        :param sms_fallback_url:
+        :param sms_method:
+        :param sms_url:
+        :param voice_fallback_method:
+        :param voice_fallback_url:
+        :param voice_method:
+        :param voice_url:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            unique_name=unique_name,
+            callback_method=callback_method,
+            callback_url=callback_url,
+            friendly_name=friendly_name,
+            rate_plan=rate_plan,
+            status=status,
+            commands_callback_method=commands_callback_method,
+            commands_callback_url=commands_callback_url,
+            sms_fallback_method=sms_fallback_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_method=sms_method,
+            sms_url=sms_url,
+            voice_fallback_method=voice_fallback_method,
+            voice_fallback_url=voice_fallback_url,
+            voice_method=voice_method,
+            voice_url=voice_url,
+        )
+        instance = SimInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def usage(self) -> UsageList:
@@ -605,6 +1002,88 @@ class SimList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        status: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        e_id: Union[str, object] = values.unset,
+        sim_registration_code: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams SimInstance and returns headers from first page
+
+
+        :param str status:
+        :param str iccid:
+        :param str rate_plan:
+        :param str e_id:
+        :param str sim_registration_code:
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            status=status,
+            iccid=iccid,
+            rate_plan=rate_plan,
+            e_id=e_id,
+            sim_registration_code=sim_registration_code,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        status: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        e_id: Union[str, object] = values.unset,
+        sim_registration_code: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams SimInstance and returns headers from first page
+
+
+        :param str status:
+        :param str iccid:
+        :param str rate_plan:
+        :param str e_id:
+        :param str sim_registration_code:
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            status=status,
+            iccid=iccid,
+            rate_plan=rate_plan,
+            e_id=e_id,
+            sim_registration_code=sim_registration_code,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         status: Union[str, object] = values.unset,
@@ -687,6 +1166,86 @@ class SimList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        status: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        e_id: Union[str, object] = values.unset,
+        sim_registration_code: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists SimInstance and returns headers from first page
+
+
+        :param str status:
+        :param str iccid:
+        :param str rate_plan:
+        :param str e_id:
+        :param str sim_registration_code:
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            status=status,
+            iccid=iccid,
+            rate_plan=rate_plan,
+            e_id=e_id,
+            sim_registration_code=sim_registration_code,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        status: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        e_id: Union[str, object] = values.unset,
+        sim_registration_code: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists SimInstance and returns headers from first page
+
+
+        :param str status:
+        :param str iccid:
+        :param str rate_plan:
+        :param str e_id:
+        :param str sim_registration_code:
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            status=status,
+            iccid=iccid,
+            rate_plan=rate_plan,
+            e_id=e_id,
+            sim_registration_code=sim_registration_code,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -783,6 +1342,106 @@ class SimList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return SimPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        status: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        e_id: Union[str, object] = values.unset,
+        sim_registration_code: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param status:
+        :param iccid:
+        :param rate_plan:
+        :param e_id:
+        :param sim_registration_code:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with SimPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Status": status,
+                "Iccid": iccid,
+                "RatePlan": rate_plan,
+                "EId": e_id,
+                "SimRegistrationCode": sim_registration_code,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = SimPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        status: Union[str, object] = values.unset,
+        iccid: Union[str, object] = values.unset,
+        rate_plan: Union[str, object] = values.unset,
+        e_id: Union[str, object] = values.unset,
+        sim_registration_code: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param status:
+        :param iccid:
+        :param rate_plan:
+        :param e_id:
+        :param sim_registration_code:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with SimPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Status": status,
+                "Iccid": iccid,
+                "RatePlan": rate_plan,
+                "EId": e_id,
+                "SimRegistrationCode": sim_registration_code,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = SimPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> SimPage:
         """

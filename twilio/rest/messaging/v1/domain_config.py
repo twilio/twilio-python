@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -94,6 +95,24 @@ class DomainConfigInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the DomainConfigInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the DomainConfigInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(
         self,
         fallback_url: Union[str, object] = values.unset,
@@ -142,6 +161,54 @@ class DomainConfigInstance(InstanceResource):
             disable_https=disable_https,
         )
 
+    def update_with_http_info(
+        self,
+        fallback_url: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        continue_on_failure: Union[bool, object] = values.unset,
+        disable_https: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the DomainConfigInstance with HTTP info
+
+        :param fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
+        :param callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
+        :param continue_on_failure: Boolean field to set customer delivery preference when there is a failure in linkShortening service
+        :param disable_https: Customer's choice to send links with/without \\\"https://\\\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            fallback_url=fallback_url,
+            callback_url=callback_url,
+            continue_on_failure=continue_on_failure,
+            disable_https=disable_https,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        fallback_url: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        continue_on_failure: Union[bool, object] = values.unset,
+        disable_https: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the DomainConfigInstance with HTTP info
+
+        :param fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
+        :param callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
+        :param continue_on_failure: Boolean field to set customer delivery preference when there is a failure in linkShortening service
+        :param disable_https: Customer's choice to send links with/without \\\"https://\\\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            fallback_url=fallback_url,
+            callback_url=callback_url,
+            continue_on_failure=continue_on_failure,
+            disable_https=disable_https,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -171,6 +238,22 @@ class DomainConfigContext(InstanceContext):
             **self._solution
         )
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> DomainConfigInstance:
         """
         Fetch the DomainConfigInstance
@@ -178,17 +261,42 @@ class DomainConfigContext(InstanceContext):
 
         :returns: The fetched DomainConfigInstance
         """
+        payload, _, _ = self._fetch()
+        return DomainConfigInstance(
+            self._version,
+            payload,
+            domain_sid=self._solution["domain_sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the DomainConfigInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = DomainConfigInstance(
+            self._version,
+            payload,
+            domain_sid=self._solution["domain_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return DomainConfigInstance(
-            self._version,
-            payload,
-            domain_sid=self._solution["domain_sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> DomainConfigInstance:
@@ -198,19 +306,58 @@ class DomainConfigContext(InstanceContext):
 
         :returns: The fetched DomainConfigInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return DomainConfigInstance(
             self._version,
             payload,
             domain_sid=self._solution["domain_sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the DomainConfigInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = DomainConfigInstance(
+            self._version,
+            payload,
+            domain_sid=self._solution["domain_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        fallback_url: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        continue_on_failure: Union[bool, object] = values.unset,
+        disable_https: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FallbackUrl": fallback_url,
+                "CallbackUrl": callback_url,
+                "ContinueOnFailure": serialize.boolean_to_string(continue_on_failure),
+                "DisableHttps": serialize.boolean_to_string(disable_https),
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -230,6 +377,57 @@ class DomainConfigContext(InstanceContext):
 
         :returns: The updated DomainConfigInstance
         """
+        payload, _, _ = self._update(
+            fallback_url=fallback_url,
+            callback_url=callback_url,
+            continue_on_failure=continue_on_failure,
+            disable_https=disable_https,
+        )
+        return DomainConfigInstance(
+            self._version, payload, domain_sid=self._solution["domain_sid"]
+        )
+
+    def update_with_http_info(
+        self,
+        fallback_url: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        continue_on_failure: Union[bool, object] = values.unset,
+        disable_https: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the DomainConfigInstance and return response metadata
+
+        :param fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
+        :param callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
+        :param continue_on_failure: Boolean field to set customer delivery preference when there is a failure in linkShortening service
+        :param disable_https: Customer's choice to send links with/without \\\"https://\\\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            fallback_url=fallback_url,
+            callback_url=callback_url,
+            continue_on_failure=continue_on_failure,
+            disable_https=disable_https,
+        )
+        instance = DomainConfigInstance(
+            self._version, payload, domain_sid=self._solution["domain_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        fallback_url: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        continue_on_failure: Union[bool, object] = values.unset,
+        disable_https: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -245,12 +443,8 @@ class DomainConfigContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return DomainConfigInstance(
-            self._version, payload, domain_sid=self._solution["domain_sid"]
         )
 
     async def update_async(
@@ -270,28 +464,43 @@ class DomainConfigContext(InstanceContext):
 
         :returns: The updated DomainConfigInstance
         """
-
-        data = values.of(
-            {
-                "FallbackUrl": fallback_url,
-                "CallbackUrl": callback_url,
-                "ContinueOnFailure": serialize.boolean_to_string(continue_on_failure),
-                "DisableHttps": serialize.boolean_to_string(disable_https),
-            }
+        payload, _, _ = await self._update_async(
+            fallback_url=fallback_url,
+            callback_url=callback_url,
+            continue_on_failure=continue_on_failure,
+            disable_https=disable_https,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return DomainConfigInstance(
             self._version, payload, domain_sid=self._solution["domain_sid"]
         )
+
+    async def update_with_http_info_async(
+        self,
+        fallback_url: Union[str, object] = values.unset,
+        callback_url: Union[str, object] = values.unset,
+        continue_on_failure: Union[bool, object] = values.unset,
+        disable_https: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the DomainConfigInstance and return response metadata
+
+        :param fallback_url: Any requests we receive to this domain that do not match an existing shortened message will be redirected to the fallback url. These will likely be either expired messages, random misdirected traffic, or intentional scraping.
+        :param callback_url: URL to receive click events to your webhook whenever the recipients click on the shortened links
+        :param continue_on_failure: Boolean field to set customer delivery preference when there is a failure in linkShortening service
+        :param disable_https: Customer's choice to send links with/without \\\"https://\\\" attached to shortened url. If true, messages will not be sent with https:// at the beginning of the url. If false, messages will be sent with https:// at the beginning of the url. False is the default behavior if it is not specified.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            fallback_url=fallback_url,
+            callback_url=callback_url,
+            continue_on_failure=continue_on_failure,
+            disable_https=disable_https,
+        )
+        instance = DomainConfigInstance(
+            self._version, payload, domain_sid=self._solution["domain_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

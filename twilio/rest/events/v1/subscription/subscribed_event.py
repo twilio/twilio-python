@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -87,6 +88,24 @@ class SubscribedEventInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the SubscribedEventInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the SubscribedEventInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "SubscribedEventInstance":
         """
         Fetch the SubscribedEventInstance
@@ -104,6 +123,24 @@ class SubscribedEventInstance(InstanceResource):
         :returns: The fetched SubscribedEventInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the SubscribedEventInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the SubscribedEventInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self, schema_version: Union[int, object] = values.unset
@@ -130,6 +167,34 @@ class SubscribedEventInstance(InstanceResource):
         :returns: The updated SubscribedEventInstance
         """
         return await self._proxy.update_async(
+            schema_version=schema_version,
+        )
+
+    def update_with_http_info(
+        self, schema_version: Union[int, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the SubscribedEventInstance with HTTP info
+
+        :param schema_version: The schema version that the Subscription should use.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            schema_version=schema_version,
+        )
+
+    async def update_with_http_info_async(
+        self, schema_version: Union[int, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the SubscribedEventInstance with HTTP info
+
+        :param schema_version: The schema version that the Subscription should use.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             schema_version=schema_version,
         )
 
@@ -164,6 +229,20 @@ class SubscribedEventContext(InstanceContext):
             **self._solution
         )
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the SubscribedEventInstance
@@ -171,10 +250,32 @@ class SubscribedEventContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the SubscribedEventInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -183,11 +284,33 @@ class SubscribedEventContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the SubscribedEventInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> SubscribedEventInstance:
@@ -197,18 +320,44 @@ class SubscribedEventContext(InstanceContext):
 
         :returns: The fetched SubscribedEventInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return SubscribedEventInstance(
             self._version,
             payload,
             subscription_sid=self._solution["subscription_sid"],
             type=self._solution["type"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the SubscribedEventInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = SubscribedEventInstance(
+            self._version,
+            payload,
+            subscription_sid=self._solution["subscription_sid"],
+            type=self._solution["type"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> SubscribedEventInstance:
@@ -218,20 +367,51 @@ class SubscribedEventContext(InstanceContext):
 
         :returns: The fetched SubscribedEventInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return SubscribedEventInstance(
             self._version,
             payload,
             subscription_sid=self._solution["subscription_sid"],
             type=self._solution["type"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the SubscribedEventInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = SubscribedEventInstance(
+            self._version,
+            payload,
+            subscription_sid=self._solution["subscription_sid"],
+            type=self._solution["type"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(self, schema_version: Union[int, object] = values.unset) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "SchemaVersion": schema_version,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -244,6 +424,42 @@ class SubscribedEventContext(InstanceContext):
 
         :returns: The updated SubscribedEventInstance
         """
+        payload, _, _ = self._update(schema_version=schema_version)
+        return SubscribedEventInstance(
+            self._version,
+            payload,
+            subscription_sid=self._solution["subscription_sid"],
+            type=self._solution["type"],
+        )
+
+    def update_with_http_info(
+        self, schema_version: Union[int, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the SubscribedEventInstance and return response metadata
+
+        :param schema_version: The schema version that the Subscription should use.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(schema_version=schema_version)
+        instance = SubscribedEventInstance(
+            self._version,
+            payload,
+            subscription_sid=self._solution["subscription_sid"],
+            type=self._solution["type"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self, schema_version: Union[int, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -256,15 +472,8 @@ class SubscribedEventContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return SubscribedEventInstance(
-            self._version,
-            payload,
-            subscription_sid=self._solution["subscription_sid"],
-            type=self._solution["type"],
         )
 
     async def update_async(
@@ -277,28 +486,34 @@ class SubscribedEventContext(InstanceContext):
 
         :returns: The updated SubscribedEventInstance
         """
-
-        data = values.of(
-            {
-                "SchemaVersion": schema_version,
-            }
-        )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(schema_version=schema_version)
         return SubscribedEventInstance(
             self._version,
             payload,
             subscription_sid=self._solution["subscription_sid"],
             type=self._solution["type"],
         )
+
+    async def update_with_http_info_async(
+        self, schema_version: Union[int, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the SubscribedEventInstance and return response metadata
+
+        :param schema_version: The schema version that the Subscription should use.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            schema_version=schema_version
+        )
+        instance = SubscribedEventInstance(
+            self._version,
+            payload,
+            subscription_sid=self._solution["subscription_sid"],
+            type=self._solution["type"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -351,16 +566,14 @@ class SubscribedEventList(ListResource):
             **self._solution
         )
 
-    def create(
+    def _create(
         self, type: str, schema_version: Union[int, object] = values.unset
-    ) -> SubscribedEventInstance:
+    ) -> tuple:
         """
-        Create the SubscribedEventInstance
+        Internal helper for create operation
 
-        :param type: Type of event being subscribed to.
-        :param schema_version: The schema version that the Subscription should use.
-
-        :returns: The created SubscribedEventInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -375,12 +588,69 @@ class SubscribedEventList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self, type: str, schema_version: Union[int, object] = values.unset
+    ) -> SubscribedEventInstance:
+        """
+        Create the SubscribedEventInstance
+
+        :param type: Type of event being subscribed to.
+        :param schema_version: The schema version that the Subscription should use.
+
+        :returns: The created SubscribedEventInstance
+        """
+        payload, _, _ = self._create(type=type, schema_version=schema_version)
         return SubscribedEventInstance(
             self._version, payload, subscription_sid=self._solution["subscription_sid"]
+        )
+
+    def create_with_http_info(
+        self, type: str, schema_version: Union[int, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Create the SubscribedEventInstance and return response metadata
+
+        :param type: Type of event being subscribed to.
+        :param schema_version: The schema version that the Subscription should use.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            type=type, schema_version=schema_version
+        )
+        instance = SubscribedEventInstance(
+            self._version, payload, subscription_sid=self._solution["subscription_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self, type: str, schema_version: Union[int, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Type": type,
+                "SchemaVersion": schema_version,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def create_async(
@@ -394,26 +664,31 @@ class SubscribedEventList(ListResource):
 
         :returns: The created SubscribedEventInstance
         """
-
-        data = values.of(
-            {
-                "Type": type,
-                "SchemaVersion": schema_version,
-            }
+        payload, _, _ = await self._create_async(
+            type=type, schema_version=schema_version
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return SubscribedEventInstance(
             self._version, payload, subscription_sid=self._solution["subscription_sid"]
         )
+
+    async def create_with_http_info_async(
+        self, type: str, schema_version: Union[int, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronously create the SubscribedEventInstance and return response metadata
+
+        :param type: Type of event being subscribed to.
+        :param schema_version: The schema version that the Subscription should use.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            type=type, schema_version=schema_version
+        )
+        instance = SubscribedEventInstance(
+            self._version, payload, subscription_sid=self._solution["subscription_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -464,6 +739,56 @@ class SubscribedEventList(ListResource):
         page = await self.page_async(page_size=limits["page_size"])
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams SubscribedEventInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(page_size=limits["page_size"])
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams SubscribedEventInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -517,6 +842,56 @@ class SubscribedEventList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists SubscribedEventInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists SubscribedEventInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -583,6 +958,76 @@ class SubscribedEventList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return SubscribedEventPage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with SubscribedEventPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = SubscribedEventPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with SubscribedEventPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = SubscribedEventPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> SubscribedEventPage:
         """

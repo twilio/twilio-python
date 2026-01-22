@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -75,15 +76,12 @@ class NewKeyList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/Keys.json".format(**self._solution)
 
-    def create(
-        self, friendly_name: Union[str, object] = values.unset
-    ) -> NewKeyInstance:
+    def _create(self, friendly_name: Union[str, object] = values.unset) -> tuple:
         """
-        Create the NewKeyInstance
+        Internal helper for create operation
 
-        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
-
-        :returns: The created NewKeyInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -97,12 +95,64 @@ class NewKeyList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> NewKeyInstance:
+        """
+        Create the NewKeyInstance
+
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+
+        :returns: The created NewKeyInstance
+        """
+        payload, _, _ = self._create(friendly_name=friendly_name)
         return NewKeyInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def create_with_http_info(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Create the NewKeyInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(friendly_name=friendly_name)
+        instance = NewKeyInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def create_async(
@@ -115,25 +165,28 @@ class NewKeyList(ListResource):
 
         :returns: The created NewKeyInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._create_async(friendly_name=friendly_name)
         return NewKeyInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
         )
+
+    async def create_with_http_info_async(
+        self, friendly_name: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronously create the NewKeyInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            friendly_name=friendly_name
+        )
+        instance = NewKeyInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -83,6 +84,24 @@ class ApiKeyInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the ApiKeyInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the ApiKeyInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "ApiKeyInstance":
         """
         Fetch the ApiKeyInstance
@@ -100,6 +119,24 @@ class ApiKeyInstance(InstanceResource):
         :returns: The fetched ApiKeyInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ApiKeyInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ApiKeyInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -137,6 +174,42 @@ class ApiKeyInstance(InstanceResource):
             policy=policy,
         )
 
+    def update_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        policy: Union[object, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ApiKeyInstance with HTTP info
+
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param policy: The \\\\`Policy\\\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys).
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            friendly_name=friendly_name,
+            policy=policy,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        policy: Union[object, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ApiKeyInstance with HTTP info
+
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param policy: The \\\\`Policy\\\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys).
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            friendly_name=friendly_name,
+            policy=policy,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -164,6 +237,20 @@ class ApiKeyContext(InstanceContext):
         }
         self._uri = "/Keys/{sid}".format(**self._solution)
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the ApiKeyInstance
@@ -171,10 +258,32 @@ class ApiKeyContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the ApiKeyInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -183,11 +292,33 @@ class ApiKeyContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the ApiKeyInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> ApiKeyInstance:
@@ -197,17 +328,42 @@ class ApiKeyContext(InstanceContext):
 
         :returns: The fetched ApiKeyInstance
         """
+        payload, _, _ = self._fetch()
+        return ApiKeyInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ApiKeyInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = ApiKeyInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return ApiKeyInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> ApiKeyInstance:
@@ -217,19 +373,54 @@ class ApiKeyContext(InstanceContext):
 
         :returns: The fetched ApiKeyInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return ApiKeyInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ApiKeyInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = ApiKeyInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        policy: Union[object, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Policy": serialize.object(policy),
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -245,6 +436,39 @@ class ApiKeyContext(InstanceContext):
 
         :returns: The updated ApiKeyInstance
         """
+        payload, _, _ = self._update(friendly_name=friendly_name, policy=policy)
+        return ApiKeyInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        policy: Union[object, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ApiKeyInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param policy: The \\\\`Policy\\\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys).
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            friendly_name=friendly_name, policy=policy
+        )
+        instance = ApiKeyInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        policy: Union[object, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -258,11 +482,9 @@ class ApiKeyContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return ApiKeyInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
         self,
@@ -277,24 +499,29 @@ class ApiKeyContext(InstanceContext):
 
         :returns: The updated ApiKeyInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Policy": serialize.object(policy),
-            }
+        payload, _, _ = await self._update_async(
+            friendly_name=friendly_name, policy=policy
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ApiKeyInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        policy: Union[object, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ApiKeyInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param policy: The \\\\`Policy\\\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys).
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            friendly_name=friendly_name, policy=policy
+        )
+        instance = ApiKeyInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

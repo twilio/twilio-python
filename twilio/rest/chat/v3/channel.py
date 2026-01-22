@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -148,6 +149,52 @@ class ChannelInstance(InstanceResource):
             messaging_service_sid=messaging_service_sid,
         )
 
+    def update_with_http_info(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+        type: Union["ChannelInstance.ChannelType", object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ChannelInstance with HTTP info
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param type:
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            type=type,
+            messaging_service_sid=messaging_service_sid,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+        type: Union["ChannelInstance.ChannelType", object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ChannelInstance with HTTP info
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param type:
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            type=type,
+            messaging_service_sid=messaging_service_sid,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -177,22 +224,19 @@ class ChannelContext(InstanceContext):
         }
         self._uri = "/Services/{service_sid}/Channels/{sid}".format(**self._solution)
 
-    def update(
+    def _update(
         self,
         x_twilio_webhook_enabled: Union[
             "ChannelInstance.WebhookEnabledType", object
         ] = values.unset,
         type: Union["ChannelInstance.ChannelType", object] = values.unset,
         messaging_service_sid: Union[str, object] = values.unset,
-    ) -> ChannelInstance:
+    ) -> tuple:
         """
-        Update the ChannelInstance
+        Internal helper for update operation
 
-        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
-        :param type:
-        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
-
-        :returns: The updated ChannelInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -216,15 +260,107 @@ class ChannelContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return self._version.update_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def update(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+        type: Union["ChannelInstance.ChannelType", object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+    ) -> ChannelInstance:
+        """
+        Update the ChannelInstance
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param type:
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
+
+        :returns: The updated ChannelInstance
+        """
+        payload, _, _ = self._update(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            type=type,
+            messaging_service_sid=messaging_service_sid,
+        )
         return ChannelInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+        type: Union["ChannelInstance.ChannelType", object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ChannelInstance and return response metadata
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param type:
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            type=type,
+            messaging_service_sid=messaging_service_sid,
+        )
+        instance = ChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+        type: Union["ChannelInstance.ChannelType", object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Type": type,
+                "MessagingServiceSid": messaging_service_sid,
+            }
+        )
+        headers = values.of({})
+
+        if not (
+            x_twilio_webhook_enabled is values.unset
+            or (
+                isinstance(x_twilio_webhook_enabled, str)
+                and not x_twilio_webhook_enabled
+            )
+        ):
+            headers["X-Twilio-Webhook-Enabled"] = x_twilio_webhook_enabled
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.update_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def update_async(
@@ -244,38 +380,47 @@ class ChannelContext(InstanceContext):
 
         :returns: The updated ChannelInstance
         """
-
-        data = values.of(
-            {
-                "Type": type,
-                "MessagingServiceSid": messaging_service_sid,
-            }
+        payload, _, _ = await self._update_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            type=type,
+            messaging_service_sid=messaging_service_sid,
         )
-        headers = values.of({})
-
-        if not (
-            x_twilio_webhook_enabled is values.unset
-            or (
-                isinstance(x_twilio_webhook_enabled, str)
-                and not x_twilio_webhook_enabled
-            )
-        ):
-            headers["X-Twilio-Webhook-Enabled"] = x_twilio_webhook_enabled
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ChannelInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+        type: Union["ChannelInstance.ChannelType", object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ChannelInstance and return response metadata
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param type:
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this channel belongs to.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            type=type,
+            messaging_service_sid=messaging_service_sid,
+        )
+        instance = ChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

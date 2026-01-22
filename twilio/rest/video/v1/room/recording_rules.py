@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -73,21 +74,59 @@ class RecordingRulesList(ListResource):
         }
         self._uri = "/Rooms/{room_sid}/RecordingRules".format(**self._solution)
 
-    def fetch(self) -> RecordingRulesInstance:
+    def _fetch(self) -> tuple:
         """
-        Asynchronously fetch the RecordingRulesInstance
+        Internal helper for fetch operation
 
-
-        :returns: The fetched RecordingRulesInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
 
+    def fetch(self) -> RecordingRulesInstance:
+        """
+        Fetch the RecordingRulesInstance
+
+
+        :returns: The fetched RecordingRulesInstance
+        """
+        payload, _, _ = self._fetch()
         return RecordingRulesInstance(
             self._version, payload, room_sid=self._solution["room_sid"]
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the RecordingRulesInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = RecordingRulesInstance(
+            self._version, payload, room_sid=self._solution["room_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> RecordingRulesInstance:
@@ -97,16 +136,45 @@ class RecordingRulesList(ListResource):
 
         :returns: The fetched RecordingRulesInstance
         """
+        payload, _, _ = await self._fetch_async()
+        return RecordingRulesInstance(
+            self._version, payload, room_sid=self._solution["room_sid"]
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronously fetch the RecordingRulesInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = RecordingRulesInstance(
+            self._version, payload, room_sid=self._solution["room_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(self, rules: Union[object, object] = values.unset) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Rules": serialize.object(rules),
+            }
+        )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
 
         headers["Accept"] = "application/json"
 
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
-        return RecordingRulesInstance(
-            self._version, payload, room_sid=self._solution["room_sid"]
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -117,7 +185,35 @@ class RecordingRulesList(ListResource):
 
         :param rules: A JSON-encoded array of recording rules.
 
-        :returns: The created RecordingRulesInstance
+        :returns: The updated RecordingRulesInstance
+        """
+        payload, _, _ = self._update(rules=rules)
+        return RecordingRulesInstance(
+            self._version, payload, room_sid=self._solution["room_sid"]
+        )
+
+    def update_with_http_info(
+        self, rules: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the RecordingRulesInstance and return response metadata
+
+        :param rules: A JSON-encoded array of recording rules.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(rules=rules)
+        instance = RecordingRulesInstance(
+            self._version, payload, room_sid=self._solution["room_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(self, rules: Union[object, object] = values.unset) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -131,12 +227,8 @@ class RecordingRulesList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return RecordingRulesInstance(
-            self._version, payload, room_sid=self._solution["room_sid"]
         )
 
     async def update_async(
@@ -147,27 +239,28 @@ class RecordingRulesList(ListResource):
 
         :param rules: A JSON-encoded array of recording rules.
 
-        :returns: The created RecordingRulesInstance
+        :returns: The updated RecordingRulesInstance
         """
-
-        data = values.of(
-            {
-                "Rules": serialize.object(rules),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(rules=rules)
         return RecordingRulesInstance(
             self._version, payload, room_sid=self._solution["room_sid"]
         )
+
+    async def update_with_http_info_async(
+        self, rules: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronously update the RecordingRulesInstance and return response metadata
+
+        :param rules: A JSON-encoded array of recording rules.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(rules=rules)
+        instance = RecordingRulesInstance(
+            self._version, payload, room_sid=self._solution["room_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

@@ -14,6 +14,7 @@ r"""
 
 from datetime import date
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 
 from twilio.base.list_resource import ListResource
@@ -39,6 +40,20 @@ class ArchivedCallContext(InstanceContext):
         }
         self._uri = "/Archives/{date}/Calls/{sid}".format(**self._solution)
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the ArchivedCallInstance
@@ -46,10 +61,32 @@ class ArchivedCallContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the ArchivedCallInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -58,12 +95,18 @@ class ArchivedCallContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
 
-        headers = values.of({})
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the ArchivedCallInstance and return response metadata
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
-        )
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

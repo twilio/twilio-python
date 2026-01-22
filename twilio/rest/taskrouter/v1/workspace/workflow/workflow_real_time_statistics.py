@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -112,6 +113,34 @@ class WorkflowRealTimeStatisticsInstance(InstanceResource):
             task_channel=task_channel,
         )
 
+    def fetch_with_http_info(
+        self, task_channel: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the WorkflowRealTimeStatisticsInstance with HTTP info
+
+        :param task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            task_channel=task_channel,
+        )
+
+    async def fetch_with_http_info_async(
+        self, task_channel: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the WorkflowRealTimeStatisticsInstance with HTTP info
+
+        :param task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            task_channel=task_channel,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -145,15 +174,12 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(
-        self, task_channel: Union[str, object] = values.unset
-    ) -> WorkflowRealTimeStatisticsInstance:
+    def _fetch(self, task_channel: Union[str, object] = values.unset) -> tuple:
         """
-        Fetch the WorkflowRealTimeStatisticsInstance
+        Internal helper for fetch operation
 
-        :param task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-
-        :returns: The fetched WorkflowRealTimeStatisticsInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         params = values.of(
@@ -166,15 +192,69 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
+        return self._version.fetch_with_response_info(
             method="GET", uri=self._uri, params=params, headers=headers
         )
 
+    def fetch(
+        self, task_channel: Union[str, object] = values.unset
+    ) -> WorkflowRealTimeStatisticsInstance:
+        """
+        Fetch the WorkflowRealTimeStatisticsInstance
+
+        :param task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: The fetched WorkflowRealTimeStatisticsInstance
+        """
+        payload, _, _ = self._fetch(task_channel=task_channel)
         return WorkflowRealTimeStatisticsInstance(
             self._version,
             payload,
             workspace_sid=self._solution["workspace_sid"],
             workflow_sid=self._solution["workflow_sid"],
+        )
+
+    def fetch_with_http_info(
+        self, task_channel: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the WorkflowRealTimeStatisticsInstance and return response metadata
+
+        :param task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(task_channel=task_channel)
+        instance = WorkflowRealTimeStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            workflow_sid=self._solution["workflow_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self, task_channel: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        params = values.of(
+            {
+                "TaskChannel": task_channel,
+            }
+        )
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
     async def fetch_async(
@@ -187,27 +267,34 @@ class WorkflowRealTimeStatisticsContext(InstanceContext):
 
         :returns: The fetched WorkflowRealTimeStatisticsInstance
         """
-
-        params = values.of(
-            {
-                "TaskChannel": task_channel,
-            }
-        )
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async(task_channel=task_channel)
         return WorkflowRealTimeStatisticsInstance(
             self._version,
             payload,
             workspace_sid=self._solution["workspace_sid"],
             workflow_sid=self._solution["workflow_sid"],
         )
+
+    async def fetch_with_http_info_async(
+        self, task_channel: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the WorkflowRealTimeStatisticsInstance and return response metadata
+
+        :param task_channel: Only calculate real-time statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            task_channel=task_channel
+        )
+        instance = WorkflowRealTimeStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            workflow_sid=self._solution["workflow_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

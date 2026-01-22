@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -93,6 +94,24 @@ class ConfigurationInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ConfigurationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ConfigurationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(
         self,
         default_conversation_creator_role_sid: Union[str, object] = values.unset,
@@ -141,6 +160,54 @@ class ConfigurationInstance(InstanceResource):
             reachability_enabled=reachability_enabled,
         )
 
+    def update_with_http_info(
+        self,
+        default_conversation_creator_role_sid: Union[str, object] = values.unset,
+        default_conversation_role_sid: Union[str, object] = values.unset,
+        default_chat_service_role_sid: Union[str, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ConfigurationInstance with HTTP info
+
+        :param default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/conversations/reachability) is enabled for this Conversations Service. The default is `false`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            default_conversation_creator_role_sid=default_conversation_creator_role_sid,
+            default_conversation_role_sid=default_conversation_role_sid,
+            default_chat_service_role_sid=default_chat_service_role_sid,
+            reachability_enabled=reachability_enabled,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        default_conversation_creator_role_sid: Union[str, object] = values.unset,
+        default_conversation_role_sid: Union[str, object] = values.unset,
+        default_chat_service_role_sid: Union[str, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ConfigurationInstance with HTTP info
+
+        :param default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/conversations/reachability) is enabled for this Conversations Service. The default is `false`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            default_conversation_creator_role_sid=default_conversation_creator_role_sid,
+            default_conversation_role_sid=default_conversation_role_sid,
+            default_chat_service_role_sid=default_chat_service_role_sid,
+            reachability_enabled=reachability_enabled,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -170,6 +237,22 @@ class ConfigurationContext(InstanceContext):
             **self._solution
         )
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> ConfigurationInstance:
         """
         Fetch the ConfigurationInstance
@@ -177,17 +260,42 @@ class ConfigurationContext(InstanceContext):
 
         :returns: The fetched ConfigurationInstance
         """
+        payload, _, _ = self._fetch()
+        return ConfigurationInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ConfigurationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = ConfigurationInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return ConfigurationInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> ConfigurationInstance:
@@ -197,19 +305,60 @@ class ConfigurationContext(InstanceContext):
 
         :returns: The fetched ConfigurationInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return ConfigurationInstance(
             self._version,
             payload,
             chat_service_sid=self._solution["chat_service_sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ConfigurationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = ConfigurationInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        default_conversation_creator_role_sid: Union[str, object] = values.unset,
+        default_conversation_role_sid: Union[str, object] = values.unset,
+        default_chat_service_role_sid: Union[str, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "DefaultConversationCreatorRoleSid": default_conversation_creator_role_sid,
+                "DefaultConversationRoleSid": default_conversation_role_sid,
+                "DefaultChatServiceRoleSid": default_chat_service_role_sid,
+                "ReachabilityEnabled": serialize.boolean_to_string(
+                    reachability_enabled
+                ),
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -229,6 +378,57 @@ class ConfigurationContext(InstanceContext):
 
         :returns: The updated ConfigurationInstance
         """
+        payload, _, _ = self._update(
+            default_conversation_creator_role_sid=default_conversation_creator_role_sid,
+            default_conversation_role_sid=default_conversation_role_sid,
+            default_chat_service_role_sid=default_chat_service_role_sid,
+            reachability_enabled=reachability_enabled,
+        )
+        return ConfigurationInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    def update_with_http_info(
+        self,
+        default_conversation_creator_role_sid: Union[str, object] = values.unset,
+        default_conversation_role_sid: Union[str, object] = values.unset,
+        default_chat_service_role_sid: Union[str, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ConfigurationInstance and return response metadata
+
+        :param default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/conversations/reachability) is enabled for this Conversations Service. The default is `false`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            default_conversation_creator_role_sid=default_conversation_creator_role_sid,
+            default_conversation_role_sid=default_conversation_role_sid,
+            default_chat_service_role_sid=default_chat_service_role_sid,
+            reachability_enabled=reachability_enabled,
+        )
+        instance = ConfigurationInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        default_conversation_creator_role_sid: Union[str, object] = values.unset,
+        default_conversation_role_sid: Union[str, object] = values.unset,
+        default_chat_service_role_sid: Union[str, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -246,12 +446,8 @@ class ConfigurationContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ConfigurationInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
         )
 
     async def update_async(
@@ -271,30 +467,43 @@ class ConfigurationContext(InstanceContext):
 
         :returns: The updated ConfigurationInstance
         """
-
-        data = values.of(
-            {
-                "DefaultConversationCreatorRoleSid": default_conversation_creator_role_sid,
-                "DefaultConversationRoleSid": default_conversation_role_sid,
-                "DefaultChatServiceRoleSid": default_chat_service_role_sid,
-                "ReachabilityEnabled": serialize.boolean_to_string(
-                    reachability_enabled
-                ),
-            }
+        payload, _, _ = await self._update_async(
+            default_conversation_creator_role_sid=default_conversation_creator_role_sid,
+            default_conversation_role_sid=default_conversation_role_sid,
+            default_chat_service_role_sid=default_chat_service_role_sid,
+            reachability_enabled=reachability_enabled,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ConfigurationInstance(
             self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
         )
+
+    async def update_with_http_info_async(
+        self,
+        default_conversation_creator_role_sid: Union[str, object] = values.unset,
+        default_conversation_role_sid: Union[str, object] = values.unset,
+        default_chat_service_role_sid: Union[str, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ConfigurationInstance and return response metadata
+
+        :param default_conversation_creator_role_sid: The conversation-level role assigned to a conversation creator when they join a new conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param default_conversation_role_sid: The conversation-level role assigned to users when they are added to a conversation. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param default_chat_service_role_sid: The service-level role assigned to users when they are added to the service. See [Conversation Role](https://www.twilio.com/docs/conversations/api/role-resource) for more info about roles.
+        :param reachability_enabled: Whether the [Reachability Indicator](https://www.twilio.com/docs/conversations/reachability) is enabled for this Conversations Service. The default is `false`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            default_conversation_creator_role_sid=default_conversation_creator_role_sid,
+            default_conversation_role_sid=default_conversation_role_sid,
+            default_chat_service_role_sid=default_chat_service_role_sid,
+            reachability_enabled=reachability_enabled,
+        )
+        instance = ConfigurationInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

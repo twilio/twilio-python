@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -103,6 +104,24 @@ class AccessTokenInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the AccessTokenInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the AccessTokenInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -134,6 +153,22 @@ class AccessTokenContext(InstanceContext):
             **self._solution
         )
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> AccessTokenInstance:
         """
         Fetch the AccessTokenInstance
@@ -141,18 +176,44 @@ class AccessTokenContext(InstanceContext):
 
         :returns: The fetched AccessTokenInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return AccessTokenInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the AccessTokenInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = AccessTokenInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> AccessTokenInstance:
@@ -162,21 +223,29 @@ class AccessTokenContext(InstanceContext):
 
         :returns: The fetched AccessTokenInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return AccessTokenInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             sid=self._solution["sid"],
         )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the AccessTokenInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = AccessTokenInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -206,6 +275,38 @@ class AccessTokenList(ListResource):
         }
         self._uri = "/Services/{service_sid}/AccessTokens".format(**self._solution)
 
+    def _create(
+        self,
+        identity: str,
+        factor_type: "AccessTokenInstance.FactorTypes",
+        factor_friendly_name: Union[str, object] = values.unset,
+        ttl: Union[int, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Identity": identity,
+                "FactorType": factor_type,
+                "FactorFriendlyName": factor_friendly_name,
+                "Ttl": ttl,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         identity: str,
@@ -223,6 +324,57 @@ class AccessTokenList(ListResource):
 
         :returns: The created AccessTokenInstance
         """
+        payload, _, _ = self._create(
+            identity=identity,
+            factor_type=factor_type,
+            factor_friendly_name=factor_friendly_name,
+            ttl=ttl,
+        )
+        return AccessTokenInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def create_with_http_info(
+        self,
+        identity: str,
+        factor_type: "AccessTokenInstance.FactorTypes",
+        factor_friendly_name: Union[str, object] = values.unset,
+        ttl: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the AccessTokenInstance and return response metadata
+
+        :param identity: The unique external identifier for the Entity of the Service. This identifier should be immutable, not PII, and generated by your external system, such as your user's UUID, GUID, or SID.
+        :param factor_type:
+        :param factor_friendly_name: The friendly name of the factor that is going to be created with this access token
+        :param ttl: How long, in seconds, the access token is valid. Can be an integer between 60 and 300. Default is 60.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            identity=identity,
+            factor_type=factor_type,
+            factor_friendly_name=factor_friendly_name,
+            ttl=ttl,
+        )
+        instance = AccessTokenInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        identity: str,
+        factor_type: "AccessTokenInstance.FactorTypes",
+        factor_friendly_name: Union[str, object] = values.unset,
+        ttl: Union[int, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -238,12 +390,8 @@ class AccessTokenList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return AccessTokenInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
         )
 
     async def create_async(
@@ -263,28 +411,43 @@ class AccessTokenList(ListResource):
 
         :returns: The created AccessTokenInstance
         """
-
-        data = values.of(
-            {
-                "Identity": identity,
-                "FactorType": factor_type,
-                "FactorFriendlyName": factor_friendly_name,
-                "Ttl": ttl,
-            }
+        payload, _, _ = await self._create_async(
+            identity=identity,
+            factor_type=factor_type,
+            factor_friendly_name=factor_friendly_name,
+            ttl=ttl,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return AccessTokenInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
         )
+
+    async def create_with_http_info_async(
+        self,
+        identity: str,
+        factor_type: "AccessTokenInstance.FactorTypes",
+        factor_friendly_name: Union[str, object] = values.unset,
+        ttl: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the AccessTokenInstance and return response metadata
+
+        :param identity: The unique external identifier for the Entity of the Service. This identifier should be immutable, not PII, and generated by your external system, such as your user's UUID, GUID, or SID.
+        :param factor_type:
+        :param factor_friendly_name: The friendly name of the factor that is going to be created with this access token
+        :param ttl: How long, in seconds, the access token is valid. Can be an integer between 60 and 300. Default is 60.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            identity=identity,
+            factor_type=factor_type,
+            factor_friendly_name=factor_friendly_name,
+            ttl=ttl,
+        )
+        instance = AccessTokenInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def get(self, sid: str) -> AccessTokenContext:
         """

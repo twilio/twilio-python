@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -103,6 +104,24 @@ class RoleInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the RoleInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the RoleInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "RoleInstance":
         """
         Fetch the RoleInstance
@@ -120,6 +139,24 @@ class RoleInstance(InstanceResource):
         :returns: The fetched RoleInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the RoleInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the RoleInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(self, permission: List[str]) -> "RoleInstance":
         """
@@ -142,6 +179,30 @@ class RoleInstance(InstanceResource):
         :returns: The updated RoleInstance
         """
         return await self._proxy.update_async(
+            permission=permission,
+        )
+
+    def update_with_http_info(self, permission: List[str]) -> ApiResponse:
+        """
+        Update the RoleInstance with HTTP info
+
+        :param permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            permission=permission,
+        )
+
+    async def update_with_http_info_async(self, permission: List[str]) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the RoleInstance with HTTP info
+
+        :param permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             permission=permission,
         )
 
@@ -174,6 +235,20 @@ class RoleContext(InstanceContext):
         }
         self._uri = "/Services/{service_sid}/Roles/{sid}".format(**self._solution)
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the RoleInstance
@@ -181,10 +256,32 @@ class RoleContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the RoleInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -193,11 +290,33 @@ class RoleContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the RoleInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> RoleInstance:
@@ -207,18 +326,44 @@ class RoleContext(InstanceContext):
 
         :returns: The fetched RoleInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return RoleInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the RoleInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = RoleInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> RoleInstance:
@@ -228,20 +373,51 @@ class RoleContext(InstanceContext):
 
         :returns: The fetched RoleInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return RoleInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the RoleInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = RoleInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(self, permission: List[str]) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Permission": serialize.map(permission, lambda e: e),
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(self, permission: List[str]) -> RoleInstance:
@@ -252,6 +428,38 @@ class RoleContext(InstanceContext):
 
         :returns: The updated RoleInstance
         """
+        payload, _, _ = self._update(permission=permission)
+        return RoleInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(self, permission: List[str]) -> ApiResponse:
+        """
+        Update the RoleInstance and return response metadata
+
+        :param permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(permission=permission)
+        instance = RoleInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(self, permission: List[str]) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -264,15 +472,8 @@ class RoleContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return RoleInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            sid=self._solution["sid"],
         )
 
     async def update_async(self, permission: List[str]) -> RoleInstance:
@@ -283,28 +484,30 @@ class RoleContext(InstanceContext):
 
         :returns: The updated RoleInstance
         """
-
-        data = values.of(
-            {
-                "Permission": serialize.map(permission, lambda e: e),
-            }
-        )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(permission=permission)
         return RoleInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(self, permission: List[str]) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the RoleInstance and return response metadata
+
+        :param permission: A permission that you grant to the role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. Note that the update action replaces all previously assigned permissions with those defined in the update action. To remove a permission, do not include it in the subsequent update action. The values for this parameter depend on the role's `type`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(permission=permission)
+        instance = RoleInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -355,17 +558,14 @@ class RoleList(ListResource):
         }
         self._uri = "/Services/{service_sid}/Roles".format(**self._solution)
 
-    def create(
+    def _create(
         self, friendly_name: str, type: "RoleInstance.RoleType", permission: List[str]
-    ) -> RoleInstance:
+    ) -> tuple:
         """
-        Create the RoleInstance
+        Internal helper for create operation
 
-        :param friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
-        :param type:
-        :param permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
-
-        :returns: The created RoleInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -381,12 +581,74 @@ class RoleList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self, friendly_name: str, type: "RoleInstance.RoleType", permission: List[str]
+    ) -> RoleInstance:
+        """
+        Create the RoleInstance
+
+        :param friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+        :param type:
+        :param permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
+
+        :returns: The created RoleInstance
+        """
+        payload, _, _ = self._create(
+            friendly_name=friendly_name, type=type, permission=permission
+        )
         return RoleInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def create_with_http_info(
+        self, friendly_name: str, type: "RoleInstance.RoleType", permission: List[str]
+    ) -> ApiResponse:
+        """
+        Create the RoleInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+        :param type:
+        :param permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            friendly_name=friendly_name, type=type, permission=permission
+        )
+        instance = RoleInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self, friendly_name: str, type: "RoleInstance.RoleType", permission: List[str]
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Type": type,
+                "Permission": serialize.map(permission, lambda e: e),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def create_async(
@@ -401,27 +663,32 @@ class RoleList(ListResource):
 
         :returns: The created RoleInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Type": type,
-                "Permission": serialize.map(permission, lambda e: e),
-            }
+        payload, _, _ = await self._create_async(
+            friendly_name=friendly_name, type=type, permission=permission
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return RoleInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
         )
+
+    async def create_with_http_info_async(
+        self, friendly_name: str, type: "RoleInstance.RoleType", permission: List[str]
+    ) -> ApiResponse:
+        """
+        Asynchronously create the RoleInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the new resource. It can be up to 64 characters long.
+        :param type:
+        :param permission: A permission that you grant to the new role. Only one permission can be granted per parameter. To assign more than one permission, repeat this parameter for each permission value. The values for this parameter depend on the role's `type`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            friendly_name=friendly_name, type=type, permission=permission
+        )
+        instance = RoleInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -472,6 +739,56 @@ class RoleList(ListResource):
         page = await self.page_async(page_size=limits["page_size"])
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams RoleInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(page_size=limits["page_size"])
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams RoleInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -525,6 +842,56 @@ class RoleList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists RoleInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists RoleInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -591,6 +958,76 @@ class RoleList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return RolePage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with RolePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = RolePage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with RolePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = RolePage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> RolePage:
         """

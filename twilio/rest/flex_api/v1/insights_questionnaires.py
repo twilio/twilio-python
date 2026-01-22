@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -94,6 +95,34 @@ class InsightsQuestionnairesInstance(InstanceResource):
             authorization=authorization,
         )
 
+    def delete_with_http_info(
+        self, authorization: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Deletes the InsightsQuestionnairesInstance with HTTP info
+
+        :param authorization: The Authorization HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info(
+            authorization=authorization,
+        )
+
+    async def delete_with_http_info_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the InsightsQuestionnairesInstance with HTTP info
+
+        :param authorization: The Authorization HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async(
+            authorization=authorization,
+        )
+
     def fetch(
         self, authorization: Union[str, object] = values.unset
     ) -> "InsightsQuestionnairesInstance":
@@ -119,6 +148,34 @@ class InsightsQuestionnairesInstance(InstanceResource):
         :returns: The fetched InsightsQuestionnairesInstance
         """
         return await self._proxy.fetch_async(
+            authorization=authorization,
+        )
+
+    def fetch_with_http_info(
+        self, authorization: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the InsightsQuestionnairesInstance with HTTP info
+
+        :param authorization: The Authorization HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            authorization=authorization,
+        )
+
+    async def fetch_with_http_info_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the InsightsQuestionnairesInstance with HTTP info
+
+        :param authorization: The Authorization HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
             authorization=authorization,
         )
 
@@ -176,6 +233,60 @@ class InsightsQuestionnairesInstance(InstanceResource):
             question_sids=question_sids,
         )
 
+    def update_with_http_info(
+        self,
+        active: bool,
+        authorization: Union[str, object] = values.unset,
+        name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        question_sids: Union[List[str], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the InsightsQuestionnairesInstance with HTTP info
+
+        :param active: The flag to enable or disable questionnaire
+        :param authorization: The Authorization HTTP request header
+        :param name: The name of this questionnaire
+        :param description: The description of this questionnaire
+        :param question_sids: The list of questions sids under a questionnaire
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            active=active,
+            authorization=authorization,
+            name=name,
+            description=description,
+            question_sids=question_sids,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        active: bool,
+        authorization: Union[str, object] = values.unset,
+        name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        question_sids: Union[List[str], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the InsightsQuestionnairesInstance with HTTP info
+
+        :param active: The flag to enable or disable questionnaire
+        :param authorization: The Authorization HTTP request header
+        :param name: The name of this questionnaire
+        :param description: The description of this questionnaire
+        :param question_sids: The list of questions sids under a questionnaire
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            active=active,
+            authorization=authorization,
+            name=name,
+            description=description,
+            question_sids=question_sids,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -207,13 +318,12 @@ class InsightsQuestionnairesContext(InstanceContext):
             )
         )
 
-    def delete(self, authorization: Union[str, object] = values.unset) -> bool:
+    def _delete(self, authorization: Union[str, object] = values.unset) -> tuple:
         """
-        Deletes the InsightsQuestionnairesInstance
+        Internal helper for delete operation
 
-        :param authorization: The Authorization HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
+        Returns:
+            tuple: (success_boolean, status_code, headers)
         """
         headers = values.of(
             {
@@ -223,7 +333,54 @@ class InsightsQuestionnairesContext(InstanceContext):
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
+    def delete(self, authorization: Union[str, object] = values.unset) -> bool:
+        """
+        Deletes the InsightsQuestionnairesInstance
+
+        :param authorization: The Authorization HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        success, _, _ = self._delete(authorization=authorization)
+        return success
+
+    def delete_with_http_info(
+        self, authorization: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Deletes the InsightsQuestionnairesInstance and return response metadata
+
+        :param authorization: The Authorization HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete(authorization=authorization)
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+        headers = values.of(
+            {
+                "Authorization": authorization,
+            }
+        )
+
+        headers = values.of({})
+
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(
         self, authorization: Union[str, object] = values.unset
@@ -235,16 +392,44 @@ class InsightsQuestionnairesContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        headers = values.of(
-            {
-                "Authorization": authorization,
-            }
+        success, _, _ = await self._delete_async(authorization=authorization)
+        return success
+
+    async def delete_with_http_info_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the InsightsQuestionnairesInstance and return response metadata
+
+        :param authorization: The Authorization HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async(
+            authorization=authorization
         )
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self, authorization: Union[str, object] = values.unset) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        if not (
+            authorization is values.unset
+            or (isinstance(authorization, str) and not authorization)
+        ):
+            headers["Authorization"] = authorization
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(
@@ -257,6 +442,40 @@ class InsightsQuestionnairesContext(InstanceContext):
 
         :returns: The fetched InsightsQuestionnairesInstance
         """
+        payload, _, _ = self._fetch(authorization=authorization)
+        return InsightsQuestionnairesInstance(
+            self._version,
+            payload,
+            questionnaire_sid=self._solution["questionnaire_sid"],
+        )
+
+    def fetch_with_http_info(
+        self, authorization: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the InsightsQuestionnairesInstance and return response metadata
+
+        :param authorization: The Authorization HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(authorization=authorization)
+        instance = InsightsQuestionnairesInstance(
+            self._version,
+            payload,
+            questionnaire_sid=self._solution["questionnaire_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
@@ -268,12 +487,8 @@ class InsightsQuestionnairesContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return InsightsQuestionnairesInstance(
-            self._version,
-            payload,
-            questionnaire_sid=self._solution["questionnaire_sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(
@@ -286,7 +501,56 @@ class InsightsQuestionnairesContext(InstanceContext):
 
         :returns: The fetched InsightsQuestionnairesInstance
         """
+        payload, _, _ = await self._fetch_async(authorization=authorization)
+        return InsightsQuestionnairesInstance(
+            self._version,
+            payload,
+            questionnaire_sid=self._solution["questionnaire_sid"],
+        )
 
+    async def fetch_with_http_info_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the InsightsQuestionnairesInstance and return response metadata
+
+        :param authorization: The Authorization HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            authorization=authorization
+        )
+        instance = InsightsQuestionnairesInstance(
+            self._version,
+            payload,
+            questionnaire_sid=self._solution["questionnaire_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        active: bool,
+        authorization: Union[str, object] = values.unset,
+        name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        question_sids: Union[List[str], object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Active": serialize.boolean_to_string(active),
+                "Name": name,
+                "Description": description,
+                "QuestionSids": serialize.map(question_sids, lambda e: e),
+            }
+        )
         headers = values.of({})
 
         if not (
@@ -295,16 +559,12 @@ class InsightsQuestionnairesContext(InstanceContext):
         ):
             headers["Authorization"] = authorization
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
         headers["Accept"] = "application/json"
 
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
-        return InsightsQuestionnairesInstance(
-            self._version,
-            payload,
-            questionnaire_sid=self._solution["questionnaire_sid"],
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -326,6 +586,66 @@ class InsightsQuestionnairesContext(InstanceContext):
 
         :returns: The updated InsightsQuestionnairesInstance
         """
+        payload, _, _ = self._update(
+            active=active,
+            authorization=authorization,
+            name=name,
+            description=description,
+            question_sids=question_sids,
+        )
+        return InsightsQuestionnairesInstance(
+            self._version,
+            payload,
+            questionnaire_sid=self._solution["questionnaire_sid"],
+        )
+
+    def update_with_http_info(
+        self,
+        active: bool,
+        authorization: Union[str, object] = values.unset,
+        name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        question_sids: Union[List[str], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the InsightsQuestionnairesInstance and return response metadata
+
+        :param active: The flag to enable or disable questionnaire
+        :param authorization: The Authorization HTTP request header
+        :param name: The name of this questionnaire
+        :param description: The description of this questionnaire
+        :param question_sids: The list of questions sids under a questionnaire
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            active=active,
+            authorization=authorization,
+            name=name,
+            description=description,
+            question_sids=question_sids,
+        )
+        instance = InsightsQuestionnairesInstance(
+            self._version,
+            payload,
+            questionnaire_sid=self._solution["questionnaire_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        active: bool,
+        authorization: Union[str, object] = values.unset,
+        name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        question_sids: Union[List[str], object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -347,14 +667,8 @@ class InsightsQuestionnairesContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return InsightsQuestionnairesInstance(
-            self._version,
-            payload,
-            questionnaire_sid=self._solution["questionnaire_sid"],
         )
 
     async def update_async(
@@ -376,36 +690,51 @@ class InsightsQuestionnairesContext(InstanceContext):
 
         :returns: The updated InsightsQuestionnairesInstance
         """
-
-        data = values.of(
-            {
-                "Active": serialize.boolean_to_string(active),
-                "Name": name,
-                "Description": description,
-                "QuestionSids": serialize.map(question_sids, lambda e: e),
-            }
+        payload, _, _ = await self._update_async(
+            active=active,
+            authorization=authorization,
+            name=name,
+            description=description,
+            question_sids=question_sids,
         )
-        headers = values.of({})
-
-        if not (
-            authorization is values.unset
-            or (isinstance(authorization, str) and not authorization)
-        ):
-            headers["Authorization"] = authorization
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return InsightsQuestionnairesInstance(
             self._version,
             payload,
             questionnaire_sid=self._solution["questionnaire_sid"],
         )
+
+    async def update_with_http_info_async(
+        self,
+        active: bool,
+        authorization: Union[str, object] = values.unset,
+        name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        question_sids: Union[List[str], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the InsightsQuestionnairesInstance and return response metadata
+
+        :param active: The flag to enable or disable questionnaire
+        :param authorization: The Authorization HTTP request header
+        :param name: The name of this questionnaire
+        :param description: The description of this questionnaire
+        :param question_sids: The list of questions sids under a questionnaire
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            active=active,
+            authorization=authorization,
+            name=name,
+            description=description,
+            question_sids=question_sids,
+        )
+        instance = InsightsQuestionnairesInstance(
+            self._version,
+            payload,
+            questionnaire_sid=self._solution["questionnaire_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -449,24 +778,19 @@ class InsightsQuestionnairesList(ListResource):
 
         self._uri = "/Insights/QualityManagement/Questionnaires"
 
-    def create(
+    def _create(
         self,
         name: str,
         authorization: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
         active: Union[bool, object] = values.unset,
         question_sids: Union[List[str], object] = values.unset,
-    ) -> InsightsQuestionnairesInstance:
+    ) -> tuple:
         """
-        Create the InsightsQuestionnairesInstance
+        Internal helper for create operation
 
-        :param name: The name of this questionnaire
-        :param authorization: The Authorization HTTP request header
-        :param description: The description of this questionnaire
-        :param active: The flag to enable or disable questionnaire
-        :param question_sids: The list of questions sids under a questionnaire
-
-        :returns: The created InsightsQuestionnairesInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -488,11 +812,104 @@ class InsightsQuestionnairesList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        name: str,
+        authorization: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        active: Union[bool, object] = values.unset,
+        question_sids: Union[List[str], object] = values.unset,
+    ) -> InsightsQuestionnairesInstance:
+        """
+        Create the InsightsQuestionnairesInstance
+
+        :param name: The name of this questionnaire
+        :param authorization: The Authorization HTTP request header
+        :param description: The description of this questionnaire
+        :param active: The flag to enable or disable questionnaire
+        :param question_sids: The list of questions sids under a questionnaire
+
+        :returns: The created InsightsQuestionnairesInstance
+        """
+        payload, _, _ = self._create(
+            name=name,
+            authorization=authorization,
+            description=description,
+            active=active,
+            question_sids=question_sids,
+        )
         return InsightsQuestionnairesInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        name: str,
+        authorization: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        active: Union[bool, object] = values.unset,
+        question_sids: Union[List[str], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the InsightsQuestionnairesInstance and return response metadata
+
+        :param name: The name of this questionnaire
+        :param authorization: The Authorization HTTP request header
+        :param description: The description of this questionnaire
+        :param active: The flag to enable or disable questionnaire
+        :param question_sids: The list of questions sids under a questionnaire
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            name=name,
+            authorization=authorization,
+            description=description,
+            active=active,
+            question_sids=question_sids,
+        )
+        instance = InsightsQuestionnairesInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        name: str,
+        authorization: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        active: Union[bool, object] = values.unset,
+        question_sids: Union[List[str], object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Name": name,
+                "Description": description,
+                "Active": serialize.boolean_to_string(active),
+                "QuestionSids": serialize.map(question_sids, lambda e: e),
+            }
+        )
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(
         self,
@@ -513,31 +930,43 @@ class InsightsQuestionnairesList(ListResource):
 
         :returns: The created InsightsQuestionnairesInstance
         """
-
-        data = values.of(
-            {
-                "Name": name,
-                "Description": description,
-                "Active": serialize.boolean_to_string(active),
-                "QuestionSids": serialize.map(question_sids, lambda e: e),
-            }
+        payload, _, _ = await self._create_async(
+            name=name,
+            authorization=authorization,
+            description=description,
+            active=active,
+            question_sids=question_sids,
         )
-        headers = values.of(
-            {
-                "Authorization": authorization,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return InsightsQuestionnairesInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        name: str,
+        authorization: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        active: Union[bool, object] = values.unset,
+        question_sids: Union[List[str], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the InsightsQuestionnairesInstance and return response metadata
+
+        :param name: The name of this questionnaire
+        :param authorization: The Authorization HTTP request header
+        :param description: The description of this questionnaire
+        :param active: The flag to enable or disable questionnaire
+        :param question_sids: The list of questions sids under a questionnaire
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            name=name,
+            authorization=authorization,
+            description=description,
+            active=active,
+            question_sids=question_sids,
+        )
+        instance = InsightsQuestionnairesInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -605,6 +1034,70 @@ class InsightsQuestionnairesList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        authorization: Union[str, object] = values.unset,
+        include_inactive: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams InsightsQuestionnairesInstance and returns headers from first page
+
+
+        :param str authorization: The Authorization HTTP request header
+        :param bool include_inactive: Flag indicating whether to include inactive questionnaires or not
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            authorization=authorization,
+            include_inactive=include_inactive,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        authorization: Union[str, object] = values.unset,
+        include_inactive: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams InsightsQuestionnairesInstance and returns headers from first page
+
+
+        :param str authorization: The Authorization HTTP request header
+        :param bool include_inactive: Flag indicating whether to include inactive questionnaires or not
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            authorization=authorization,
+            include_inactive=include_inactive,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         authorization: Union[str, object] = values.unset,
@@ -669,6 +1162,68 @@ class InsightsQuestionnairesList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        authorization: Union[str, object] = values.unset,
+        include_inactive: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists InsightsQuestionnairesInstance and returns headers from first page
+
+
+        :param str authorization: The Authorization HTTP request header
+        :param bool include_inactive: Flag indicating whether to include inactive questionnaires or not
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            authorization=authorization,
+            include_inactive=include_inactive,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        authorization: Union[str, object] = values.unset,
+        include_inactive: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists InsightsQuestionnairesInstance and returns headers from first page
+
+
+        :param str authorization: The Authorization HTTP request header
+        :param bool include_inactive: Flag indicating whether to include inactive questionnaires or not
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            authorization=authorization,
+            include_inactive=include_inactive,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -757,6 +1312,98 @@ class InsightsQuestionnairesList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return InsightsQuestionnairesPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        authorization: Union[str, object] = values.unset,
+        include_inactive: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param authorization: The Authorization HTTP request header
+        :param include_inactive: Flag indicating whether to include inactive questionnaires or not
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with InsightsQuestionnairesPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Authorization": authorization,
+                "IncludeInactive": serialize.boolean_to_string(include_inactive),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = InsightsQuestionnairesPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        authorization: Union[str, object] = values.unset,
+        include_inactive: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param authorization: The Authorization HTTP request header
+        :param include_inactive: Flag indicating whether to include inactive questionnaires or not
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with InsightsQuestionnairesPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Authorization": authorization,
+                "IncludeInactive": serialize.boolean_to_string(include_inactive),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = InsightsQuestionnairesPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> InsightsQuestionnairesPage:
         """

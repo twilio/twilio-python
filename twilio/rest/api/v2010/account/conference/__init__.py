@@ -15,6 +15,7 @@ r"""
 from datetime import date, datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -132,6 +133,24 @@ class ConferenceInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ConferenceInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ConferenceInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(
         self,
         status: Union["ConferenceInstance.UpdateStatus", object] = values.unset,
@@ -169,6 +188,48 @@ class ConferenceInstance(InstanceResource):
         :returns: The updated ConferenceInstance
         """
         return await self._proxy.update_async(
+            status=status,
+            announce_url=announce_url,
+            announce_method=announce_method,
+        )
+
+    def update_with_http_info(
+        self,
+        status: Union["ConferenceInstance.UpdateStatus", object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ConferenceInstance with HTTP info
+
+        :param status:
+        :param announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            status=status,
+            announce_url=announce_url,
+            announce_method=announce_method,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        status: Union["ConferenceInstance.UpdateStatus", object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ConferenceInstance with HTTP info
+
+        :param status:
+        :param announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             status=status,
             announce_url=announce_url,
             announce_method=announce_method,
@@ -222,6 +283,22 @@ class ConferenceContext(InstanceContext):
         self._participants: Optional[ParticipantList] = None
         self._recordings: Optional[RecordingList] = None
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> ConferenceInstance:
         """
         Fetch the ConferenceInstance
@@ -229,18 +306,44 @@ class ConferenceContext(InstanceContext):
 
         :returns: The fetched ConferenceInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return ConferenceInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ConferenceInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = ConferenceInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> ConferenceInstance:
@@ -250,20 +353,58 @@ class ConferenceContext(InstanceContext):
 
         :returns: The fetched ConferenceInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return ConferenceInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ConferenceInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = ConferenceInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        status: Union["ConferenceInstance.UpdateStatus", object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Status": status,
+                "AnnounceUrl": announce_url,
+                "AnnounceMethod": announce_method,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -281,6 +422,54 @@ class ConferenceContext(InstanceContext):
 
         :returns: The updated ConferenceInstance
         """
+        payload, _, _ = self._update(
+            status=status, announce_url=announce_url, announce_method=announce_method
+        )
+        return ConferenceInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(
+        self,
+        status: Union["ConferenceInstance.UpdateStatus", object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ConferenceInstance and return response metadata
+
+        :param status:
+        :param announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            status=status, announce_url=announce_url, announce_method=announce_method
+        )
+        instance = ConferenceInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        status: Union["ConferenceInstance.UpdateStatus", object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -295,15 +484,8 @@ class ConferenceContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ConferenceInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            sid=self._solution["sid"],
         )
 
     async def update_async(
@@ -321,30 +503,41 @@ class ConferenceContext(InstanceContext):
 
         :returns: The updated ConferenceInstance
         """
-
-        data = values.of(
-            {
-                "Status": status,
-                "AnnounceUrl": announce_url,
-                "AnnounceMethod": announce_method,
-            }
+        payload, _, _ = await self._update_async(
+            status=status, announce_url=announce_url, announce_method=announce_method
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ConferenceInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(
+        self,
+        status: Union["ConferenceInstance.UpdateStatus", object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ConferenceInstance and return response metadata
+
+        :param status:
+        :param announce_url: The URL we should call to announce something into the conference. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param announce_method: The HTTP method used to call `announce_url`. Can be: `GET` or `POST` and the default is `POST`
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            status=status, announce_url=announce_url, announce_method=announce_method
+        )
+        instance = ConferenceInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def participants(self) -> ParticipantList:
@@ -523,6 +716,106 @@ class ConferenceList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        date_updated: Union[date, object] = values.unset,
+        date_updated_before: Union[date, object] = values.unset,
+        date_updated_after: Union[date, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["ConferenceInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams ConferenceInstance and returns headers from first page
+
+
+        :param date date_created: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date date_created_before: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date date_created_after: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date date_updated: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param date date_updated_before: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param date date_updated_after: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param str friendly_name: The string that identifies the Conference resources to read.
+        :param &quot;ConferenceInstance.Status&quot; status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            date_created=date_created,
+            date_created_before=date_created_before,
+            date_created_after=date_created_after,
+            date_updated=date_updated,
+            date_updated_before=date_updated_before,
+            date_updated_after=date_updated_after,
+            friendly_name=friendly_name,
+            status=status,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        date_updated: Union[date, object] = values.unset,
+        date_updated_before: Union[date, object] = values.unset,
+        date_updated_after: Union[date, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["ConferenceInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams ConferenceInstance and returns headers from first page
+
+
+        :param date date_created: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date date_created_before: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date date_created_after: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date date_updated: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param date date_updated_before: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param date date_updated_after: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param str friendly_name: The string that identifies the Conference resources to read.
+        :param &quot;ConferenceInstance.Status&quot; status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            date_created=date_created,
+            date_created_before=date_created_before,
+            date_created_after=date_created_after,
+            date_updated=date_updated,
+            date_updated_before=date_updated_before,
+            date_updated_after=date_updated_after,
+            friendly_name=friendly_name,
+            status=status,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         date_created: Union[date, object] = values.unset,
@@ -623,6 +916,104 @@ class ConferenceList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        date_updated: Union[date, object] = values.unset,
+        date_updated_before: Union[date, object] = values.unset,
+        date_updated_after: Union[date, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["ConferenceInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists ConferenceInstance and returns headers from first page
+
+
+        :param date date_created: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date date_created_before: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date date_created_after: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date date_updated: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param date date_updated_before: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param date date_updated_after: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param str friendly_name: The string that identifies the Conference resources to read.
+        :param &quot;ConferenceInstance.Status&quot; status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            date_created=date_created,
+            date_created_before=date_created_before,
+            date_created_after=date_created_after,
+            date_updated=date_updated,
+            date_updated_before=date_updated_before,
+            date_updated_after=date_updated_after,
+            friendly_name=friendly_name,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        date_updated: Union[date, object] = values.unset,
+        date_updated_before: Union[date, object] = values.unset,
+        date_updated_after: Union[date, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["ConferenceInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists ConferenceInstance and returns headers from first page
+
+
+        :param date date_created: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date date_created_before: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date date_created_after: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date date_updated: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param date date_updated_before: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param date date_updated_after: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param str friendly_name: The string that identifies the Conference resources to read.
+        :param &quot;ConferenceInstance.Status&quot; status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            date_created=date_created,
+            date_created_before=date_created_before,
+            date_created_after=date_created_after,
+            date_updated=date_updated,
+            date_updated_before=date_updated_before,
+            date_updated_after=date_updated_after,
+            friendly_name=friendly_name,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -737,6 +1128,124 @@ class ConferenceList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return ConferencePage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        date_updated: Union[date, object] = values.unset,
+        date_updated_before: Union[date, object] = values.unset,
+        date_updated_after: Union[date, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["ConferenceInstance.Status", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param date_created: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date_created_before: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date_created_after: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date_updated: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param date_updated_before: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param date_updated_after: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param friendly_name: The string that identifies the Conference resources to read.
+        :param status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ConferencePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "DateCreated": serialize.iso8601_date(date_created),
+                "DateCreated<": serialize.iso8601_date(date_created_before),
+                "DateCreated>": serialize.iso8601_date(date_created_after),
+                "DateUpdated": serialize.iso8601_date(date_updated),
+                "DateUpdated<": serialize.iso8601_date(date_updated_before),
+                "DateUpdated>": serialize.iso8601_date(date_updated_after),
+                "FriendlyName": friendly_name,
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = ConferencePage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        date_created: Union[date, object] = values.unset,
+        date_created_before: Union[date, object] = values.unset,
+        date_created_after: Union[date, object] = values.unset,
+        date_updated: Union[date, object] = values.unset,
+        date_updated_before: Union[date, object] = values.unset,
+        date_updated_after: Union[date, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        status: Union["ConferenceInstance.Status", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param date_created: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date_created_before: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date_created_after: Only include conferences that were created on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were created on this date. You can also specify an inequality, such as `DateCreated<=YYYY-MM-DD`, to read conferences that were created on or before midnight of this date, and `DateCreated>=YYYY-MM-DD` to read conferences that were created on or after midnight of this date.
+        :param date_updated: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param date_updated_before: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param date_updated_after: Only include conferences that were last updated on this date. Specify a date as `YYYY-MM-DD` in UTC, for example: `2009-07-06`, to read only conferences that were last updated on this date. You can also specify an inequality, such as `DateUpdated<=YYYY-MM-DD`, to read conferences that were last updated on or before midnight of this date, and `DateUpdated>=YYYY-MM-DD` to read conferences that were last updated on or after midnight of this date.
+        :param friendly_name: The string that identifies the Conference resources to read.
+        :param status: The status of the resources to read. Can be: `init`, `in-progress`, or `completed`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ConferencePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "DateCreated": serialize.iso8601_date(date_created),
+                "DateCreated<": serialize.iso8601_date(date_created_before),
+                "DateCreated>": serialize.iso8601_date(date_created_after),
+                "DateUpdated": serialize.iso8601_date(date_updated),
+                "DateUpdated<": serialize.iso8601_date(date_updated_before),
+                "DateUpdated>": serialize.iso8601_date(date_updated_after),
+                "FriendlyName": friendly_name,
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = ConferencePage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ConferencePage:
         """

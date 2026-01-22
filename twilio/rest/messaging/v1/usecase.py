@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -53,20 +54,56 @@ class UsecaseList(ListResource):
 
         self._uri = "/Services/Usecases"
 
-    def fetch(self) -> UsecaseInstance:
+    def _fetch(self) -> tuple:
         """
-        Asynchronously fetch the UsecaseInstance
+        Internal helper for fetch operation
 
-
-        :returns: The fetched UsecaseInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
 
+    def fetch(self) -> UsecaseInstance:
+        """
+        Fetch the UsecaseInstance
+
+
+        :returns: The fetched UsecaseInstance
+        """
+        payload, _, _ = self._fetch()
         return UsecaseInstance(self._version, payload)
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the UsecaseInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = UsecaseInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
+        )
 
     async def fetch_async(self) -> UsecaseInstance:
         """
@@ -75,15 +112,19 @@ class UsecaseList(ListResource):
 
         :returns: The fetched UsecaseInstance
         """
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return UsecaseInstance(self._version, payload)
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronously fetch the UsecaseInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = UsecaseInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

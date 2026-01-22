@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -89,6 +90,24 @@ class ExecutionStepContextInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ExecutionStepContextInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ExecutionStepContextInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -124,6 +143,22 @@ class ExecutionStepContextContext(InstanceContext):
             **self._solution
         )
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> ExecutionStepContextInstance:
         """
         Fetch the ExecutionStepContextInstance
@@ -131,19 +166,46 @@ class ExecutionStepContextContext(InstanceContext):
 
         :returns: The fetched ExecutionStepContextInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return ExecutionStepContextInstance(
             self._version,
             payload,
             flow_sid=self._solution["flow_sid"],
             execution_sid=self._solution["execution_sid"],
             step_sid=self._solution["step_sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ExecutionStepContextInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = ExecutionStepContextInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution["flow_sid"],
+            execution_sid=self._solution["execution_sid"],
+            step_sid=self._solution["step_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> ExecutionStepContextInstance:
@@ -153,15 +215,7 @@ class ExecutionStepContextContext(InstanceContext):
 
         :returns: The fetched ExecutionStepContextInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return ExecutionStepContextInstance(
             self._version,
             payload,
@@ -169,6 +223,23 @@ class ExecutionStepContextContext(InstanceContext):
             execution_sid=self._solution["execution_sid"],
             step_sid=self._solution["step_sid"],
         )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ExecutionStepContextInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = ExecutionStepContextInstance(
+            self._version,
+            payload,
+            flow_sid=self._solution["flow_sid"],
+            execution_sid=self._solution["execution_sid"],
+            step_sid=self._solution["step_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

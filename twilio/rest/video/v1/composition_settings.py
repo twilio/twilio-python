@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -120,6 +121,66 @@ class CompositionSettingsInstance(InstanceResource):
             encryption_enabled=encryption_enabled,
         )
 
+    def create_with_http_info(
+        self,
+        friendly_name: str,
+        aws_credentials_sid: Union[str, object] = values.unset,
+        encryption_key_sid: Union[str, object] = values.unset,
+        aws_s3_url: Union[str, object] = values.unset,
+        aws_storage_enabled: Union[bool, object] = values.unset,
+        encryption_enabled: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the CompositionSettingsInstance with HTTP info
+
+        :param friendly_name: A descriptive string that you create to describe the resource and show to the user in the console
+        :param aws_credentials_sid: The SID of the stored Credential resource.
+        :param encryption_key_sid: The SID of the Public Key resource to use for encryption.
+        :param aws_s3_url: The URL of the AWS S3 bucket where the compositions should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the [RFC 3986](https://tools.ietf.org/html/rfc3986#section-2).
+        :param aws_storage_enabled: Whether all compositions should be written to the `aws_s3_url`. When `false`, all compositions are stored in our cloud.
+        :param encryption_enabled: Whether all compositions should be stored in an encrypted form. The default is `false`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.create_with_http_info(
+            friendly_name,
+            aws_credentials_sid=aws_credentials_sid,
+            encryption_key_sid=encryption_key_sid,
+            aws_s3_url=aws_s3_url,
+            aws_storage_enabled=aws_storage_enabled,
+            encryption_enabled=encryption_enabled,
+        )
+
+    async def create_with_http_info_async(
+        self,
+        friendly_name: str,
+        aws_credentials_sid: Union[str, object] = values.unset,
+        encryption_key_sid: Union[str, object] = values.unset,
+        aws_s3_url: Union[str, object] = values.unset,
+        aws_storage_enabled: Union[bool, object] = values.unset,
+        encryption_enabled: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to create the CompositionSettingsInstance with HTTP info
+
+        :param friendly_name: A descriptive string that you create to describe the resource and show to the user in the console
+        :param aws_credentials_sid: The SID of the stored Credential resource.
+        :param encryption_key_sid: The SID of the Public Key resource to use for encryption.
+        :param aws_s3_url: The URL of the AWS S3 bucket where the compositions should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the [RFC 3986](https://tools.ietf.org/html/rfc3986#section-2).
+        :param aws_storage_enabled: Whether all compositions should be written to the `aws_s3_url`. When `false`, all compositions are stored in our cloud.
+        :param encryption_enabled: Whether all compositions should be stored in an encrypted form. The default is `false`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.create_with_http_info_async(
+            friendly_name,
+            aws_credentials_sid=aws_credentials_sid,
+            encryption_key_sid=encryption_key_sid,
+            aws_s3_url=aws_s3_url,
+            aws_storage_enabled=aws_storage_enabled,
+            encryption_enabled=encryption_enabled,
+        )
+
     def fetch(self) -> "CompositionSettingsInstance":
         """
         Fetch the CompositionSettingsInstance
@@ -137,6 +198,24 @@ class CompositionSettingsInstance(InstanceResource):
         :returns: The fetched CompositionSettingsInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the CompositionSettingsInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the CompositionSettingsInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def __repr__(self) -> str:
         """
@@ -160,6 +239,42 @@ class CompositionSettingsContext(InstanceContext):
 
         self._uri = "/CompositionSettings/Default"
 
+    def _create(
+        self,
+        friendly_name: str,
+        aws_credentials_sid: Union[str, object] = values.unset,
+        encryption_key_sid: Union[str, object] = values.unset,
+        aws_s3_url: Union[str, object] = values.unset,
+        aws_storage_enabled: Union[bool, object] = values.unset,
+        encryption_enabled: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "AwsCredentialsSid": aws_credentials_sid,
+                "EncryptionKeySid": encryption_key_sid,
+                "AwsS3Url": aws_s3_url,
+                "AwsStorageEnabled": serialize.boolean_to_string(aws_storage_enabled),
+                "EncryptionEnabled": serialize.boolean_to_string(encryption_enabled),
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         friendly_name: str,
@@ -181,6 +296,63 @@ class CompositionSettingsContext(InstanceContext):
 
         :returns: The created CompositionSettingsInstance
         """
+        payload, _, _ = self._create(
+            friendly_name=friendly_name,
+            aws_credentials_sid=aws_credentials_sid,
+            encryption_key_sid=encryption_key_sid,
+            aws_s3_url=aws_s3_url,
+            aws_storage_enabled=aws_storage_enabled,
+            encryption_enabled=encryption_enabled,
+        )
+        return CompositionSettingsInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        friendly_name: str,
+        aws_credentials_sid: Union[str, object] = values.unset,
+        encryption_key_sid: Union[str, object] = values.unset,
+        aws_s3_url: Union[str, object] = values.unset,
+        aws_storage_enabled: Union[bool, object] = values.unset,
+        encryption_enabled: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the CompositionSettingsInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the resource and show to the user in the console
+        :param aws_credentials_sid: The SID of the stored Credential resource.
+        :param encryption_key_sid: The SID of the Public Key resource to use for encryption.
+        :param aws_s3_url: The URL of the AWS S3 bucket where the compositions should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the [RFC 3986](https://tools.ietf.org/html/rfc3986#section-2).
+        :param aws_storage_enabled: Whether all compositions should be written to the `aws_s3_url`. When `false`, all compositions are stored in our cloud.
+        :param encryption_enabled: Whether all compositions should be stored in an encrypted form. The default is `false`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            friendly_name=friendly_name,
+            aws_credentials_sid=aws_credentials_sid,
+            encryption_key_sid=encryption_key_sid,
+            aws_s3_url=aws_s3_url,
+            aws_storage_enabled=aws_storage_enabled,
+            encryption_enabled=encryption_enabled,
+        )
+        instance = CompositionSettingsInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        friendly_name: str,
+        aws_credentials_sid: Union[str, object] = values.unset,
+        encryption_key_sid: Union[str, object] = values.unset,
+        aws_s3_url: Union[str, object] = values.unset,
+        aws_storage_enabled: Union[bool, object] = values.unset,
+        encryption_enabled: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -198,11 +370,9 @@ class CompositionSettingsContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return CompositionSettingsInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -225,28 +395,63 @@ class CompositionSettingsContext(InstanceContext):
 
         :returns: The created CompositionSettingsInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "AwsCredentialsSid": aws_credentials_sid,
-                "EncryptionKeySid": encryption_key_sid,
-                "AwsS3Url": aws_s3_url,
-                "AwsStorageEnabled": serialize.boolean_to_string(aws_storage_enabled),
-                "EncryptionEnabled": serialize.boolean_to_string(encryption_enabled),
-            }
+        payload, _, _ = await self._create_async(
+            friendly_name=friendly_name,
+            aws_credentials_sid=aws_credentials_sid,
+            encryption_key_sid=encryption_key_sid,
+            aws_s3_url=aws_s3_url,
+            aws_storage_enabled=aws_storage_enabled,
+            encryption_enabled=encryption_enabled,
         )
-        headers = values.of({})
+        return CompositionSettingsInstance(self._version, payload)
 
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
+    async def create_with_http_info_async(
+        self,
+        friendly_name: str,
+        aws_credentials_sid: Union[str, object] = values.unset,
+        encryption_key_sid: Union[str, object] = values.unset,
+        aws_s3_url: Union[str, object] = values.unset,
+        aws_storage_enabled: Union[bool, object] = values.unset,
+        encryption_enabled: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to create the CompositionSettingsInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the resource and show to the user in the console
+        :param aws_credentials_sid: The SID of the stored Credential resource.
+        :param encryption_key_sid: The SID of the Public Key resource to use for encryption.
+        :param aws_s3_url: The URL of the AWS S3 bucket where the compositions should be stored. We only support DNS-compliant URLs like `https://documentation-example-twilio-bucket/compositions`, where `compositions` is the path in which you want the compositions to be stored. This URL accepts only URI-valid characters, as described in the [RFC 3986](https://tools.ietf.org/html/rfc3986#section-2).
+        :param aws_storage_enabled: Whether all compositions should be written to the `aws_s3_url`. When `false`, all compositions are stored in our cloud.
+        :param encryption_enabled: Whether all compositions should be stored in an encrypted form. The default is `false`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            friendly_name=friendly_name,
+            aws_credentials_sid=aws_credentials_sid,
+            encryption_key_sid=encryption_key_sid,
+            aws_s3_url=aws_s3_url,
+            aws_storage_enabled=aws_storage_enabled,
+            encryption_enabled=encryption_enabled,
+        )
+        instance = CompositionSettingsInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
-
-        return CompositionSettingsInstance(self._version, payload)
 
     def fetch(self) -> CompositionSettingsInstance:
         """
@@ -255,16 +460,40 @@ class CompositionSettingsContext(InstanceContext):
 
         :returns: The fetched CompositionSettingsInstance
         """
+        payload, _, _ = self._fetch()
+        return CompositionSettingsInstance(
+            self._version,
+            payload,
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the CompositionSettingsInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = CompositionSettingsInstance(
+            self._version,
+            payload,
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return CompositionSettingsInstance(
-            self._version,
-            payload,
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> CompositionSettingsInstance:
@@ -274,19 +503,25 @@ class CompositionSettingsContext(InstanceContext):
 
         :returns: The fetched CompositionSettingsInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return CompositionSettingsInstance(
             self._version,
             payload,
         )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the CompositionSettingsInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = CompositionSettingsInstance(
+            self._version,
+            payload,
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -96,6 +97,24 @@ class RequestManagedCertInstance(InstanceResource):
         """
         return await self._proxy.update_async()
 
+    def update_with_http_info(self) -> ApiResponse:
+        """
+        Update the RequestManagedCertInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info()
+
+    async def update_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the RequestManagedCertInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async()
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -125,12 +144,12 @@ class RequestManagedCertContext(InstanceContext):
             **self._solution
         )
 
-    def update(self) -> RequestManagedCertInstance:
+    def _update(self) -> tuple:
         """
-        Update the RequestManagedCertInstance
+        Internal helper for update operation
 
-
-        :returns: The updated RequestManagedCertInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of({})
@@ -138,12 +157,50 @@ class RequestManagedCertContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return self._version.update_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def update(self) -> RequestManagedCertInstance:
+        """
+        Update the RequestManagedCertInstance
+
+
+        :returns: The updated RequestManagedCertInstance
+        """
+        payload, _, _ = self._update()
         return RequestManagedCertInstance(
             self._version, payload, domain_sid=self._solution["domain_sid"]
+        )
+
+    def update_with_http_info(self) -> ApiResponse:
+        """
+        Update the RequestManagedCertInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update()
+        instance = RequestManagedCertInstance(
+            self._version, payload, domain_sid=self._solution["domain_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(self) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of({})
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.update_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def update_async(self) -> RequestManagedCertInstance:
@@ -153,19 +210,23 @@ class RequestManagedCertContext(InstanceContext):
 
         :returns: The updated RequestManagedCertInstance
         """
-
-        data = values.of({})
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async()
         return RequestManagedCertInstance(
             self._version, payload, domain_sid=self._solution["domain_sid"]
         )
+
+    async def update_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the RequestManagedCertInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async()
+        instance = RequestManagedCertInstance(
+            self._version, payload, domain_sid=self._solution["domain_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

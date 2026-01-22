@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -74,7 +75,7 @@ class ComplianceTollfreeInquiriesList(ListResource):
 
         self._uri = "/ComplianceInquiries/Tollfree/Initialize"
 
-    def create(
+    def _create(
         self,
         tollfree_phone_number: str,
         notification_email: str,
@@ -116,48 +117,14 @@ class ComplianceTollfreeInquiriesList(ListResource):
         age_gated_content: Union[bool, object] = values.unset,
         external_reference_id: Union[str, object] = values.unset,
         opt_in_keywords: Union[List[str], object] = values.unset,
-    ) -> ComplianceTollfreeInquiriesInstance:
+        vetting_id: Union[str, object] = values.unset,
+        vetting_provider: Union[str, object] = values.unset,
+    ) -> tuple:
         """
-        Create the ComplianceTollfreeInquiriesInstance
+        Internal helper for create operation
 
-        :param tollfree_phone_number: The Tollfree phone number to be verified
-        :param notification_email: The email address to receive the notification about the verification result.
-        :param customer_profile_sid: The Customer Profile Sid associated with the Account.
-        :param business_name: The name of the business or organization using the Tollfree number.
-        :param business_website: The website of the business or organization using the Tollfree number.
-        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
-        :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
-        :param production_message_sample: An example of message content, i.e. a sample message.
-        :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
-        :param opt_in_type:
-        :param message_volume: Estimate monthly volume of messages from the Tollfree Number.
-        :param business_street_address: The address of the business or organization using the Tollfree number.
-        :param business_street_address2: The address of the business or organization using the Tollfree number.
-        :param business_city: The city of the business or organization using the Tollfree number.
-        :param business_state_province_region: The state/province/region of the business or organization using the Tollfree number.
-        :param business_postal_code: The postal code of the business or organization using the Tollfree number.
-        :param business_country: The country of the business or organization using the Tollfree number.
-        :param additional_information: Additional information to be provided for verification.
-        :param business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
-        :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
-        :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
-        :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
-        :param theme_set_id: Theme id for styling the inquiry form.
-        :param skip_messaging_use_case: Skip the messaging use case screen of the inquiry form.
-        :param business_registration_number: The Business Registration Number of the business or organization.
-        :param business_registration_authority: The Business Registration Authority of the business or organization.
-        :param business_registration_country: The Business Registration Country of the business or organization.
-        :param business_type:
-        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification.
-        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
-        :param help_message_sample: A sample help message provided to users.
-        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
-        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
-        :param age_gated_content: Indicates if the content is age gated.
-        :param external_reference_id: A legally recognized business registration number.
-        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
-
-        :returns: The created ComplianceTollfreeInquiriesInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -200,6 +167,8 @@ class ComplianceTollfreeInquiriesList(ListResource):
                 "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
                 "ExternalReferenceId": external_reference_id,
                 "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
+                "VettingId": vetting_id,
+                "VettingProvider": vetting_provider,
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -208,11 +177,378 @@ class ComplianceTollfreeInquiriesList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        tollfree_phone_number: str,
+        notification_email: str,
+        customer_profile_sid: Union[str, object] = values.unset,
+        business_name: Union[str, object] = values.unset,
+        business_website: Union[str, object] = values.unset,
+        use_case_categories: Union[List[str], object] = values.unset,
+        use_case_summary: Union[str, object] = values.unset,
+        production_message_sample: Union[str, object] = values.unset,
+        opt_in_image_urls: Union[List[str], object] = values.unset,
+        opt_in_type: Union[
+            "ComplianceTollfreeInquiriesInstance.OptInType", object
+        ] = values.unset,
+        message_volume: Union[str, object] = values.unset,
+        business_street_address: Union[str, object] = values.unset,
+        business_street_address2: Union[str, object] = values.unset,
+        business_city: Union[str, object] = values.unset,
+        business_state_province_region: Union[str, object] = values.unset,
+        business_postal_code: Union[str, object] = values.unset,
+        business_country: Union[str, object] = values.unset,
+        additional_information: Union[str, object] = values.unset,
+        business_contact_first_name: Union[str, object] = values.unset,
+        business_contact_last_name: Union[str, object] = values.unset,
+        business_contact_email: Union[str, object] = values.unset,
+        business_contact_phone: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+        skip_messaging_use_case: Union[bool, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[
+            "ComplianceTollfreeInquiriesInstance.BusinessType", object
+        ] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
+        vetting_provider: Union[str, object] = values.unset,
+    ) -> ComplianceTollfreeInquiriesInstance:
+        """
+        Create the ComplianceTollfreeInquiriesInstance
+
+        :param tollfree_phone_number: The Tollfree phone number to be verified
+        :param notification_email: The email address to receive the notification about the verification result.
+        :param customer_profile_sid: The Customer Profile Sid associated with the Account.
+        :param business_name: The name of the business or organization using the Tollfree number.
+        :param business_website: The website of the business or organization using the Tollfree number.
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
+        :param production_message_sample: An example of message content, i.e. a sample message.
+        :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param opt_in_type:
+        :param message_volume: Estimate monthly volume of messages from the Tollfree Number.
+        :param business_street_address: The address of the business or organization using the Tollfree number.
+        :param business_street_address2: The address of the business or organization using the Tollfree number.
+        :param business_city: The city of the business or organization using the Tollfree number.
+        :param business_state_province_region: The state/province/region of the business or organization using the Tollfree number.
+        :param business_postal_code: The postal code of the business or organization using the Tollfree number.
+        :param business_country: The country of the business or organization using the Tollfree number.
+        :param additional_information: Additional information to be provided for verification.
+        :param business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
+        :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param theme_set_id: Theme id for styling the inquiry form.
+        :param skip_messaging_use_case: Skip the messaging use case screen of the inquiry form.
+        :param business_registration_number: The Business Registration Number of the business or organization.
+        :param business_registration_authority: The Business Registration Authority of the business or organization.
+        :param business_registration_country: The Business Registration Country of the business or organization.
+        :param business_type:
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification.
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param external_reference_id: A legally recognized business registration number.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+        :param vetting_id: Unique identifier for the created Vetting .
+        :param vetting_provider: Name of the vetting provider.
+
+        :returns: The created ComplianceTollfreeInquiriesInstance
+        """
+        payload, _, _ = self._create(
+            tollfree_phone_number=tollfree_phone_number,
+            notification_email=notification_email,
+            customer_profile_sid=customer_profile_sid,
+            business_name=business_name,
+            business_website=business_website,
+            use_case_categories=use_case_categories,
+            use_case_summary=use_case_summary,
+            production_message_sample=production_message_sample,
+            opt_in_image_urls=opt_in_image_urls,
+            opt_in_type=opt_in_type,
+            message_volume=message_volume,
+            business_street_address=business_street_address,
+            business_street_address2=business_street_address2,
+            business_city=business_city,
+            business_state_province_region=business_state_province_region,
+            business_postal_code=business_postal_code,
+            business_country=business_country,
+            additional_information=additional_information,
+            business_contact_first_name=business_contact_first_name,
+            business_contact_last_name=business_contact_last_name,
+            business_contact_email=business_contact_email,
+            business_contact_phone=business_contact_phone,
+            theme_set_id=theme_set_id,
+            skip_messaging_use_case=skip_messaging_use_case,
+            business_registration_number=business_registration_number,
+            business_registration_authority=business_registration_authority,
+            business_registration_country=business_registration_country,
+            business_type=business_type,
+            doing_business_as=doing_business_as,
+            opt_in_confirmation_message=opt_in_confirmation_message,
+            help_message_sample=help_message_sample,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
+            age_gated_content=age_gated_content,
+            external_reference_id=external_reference_id,
+            opt_in_keywords=opt_in_keywords,
+            vetting_id=vetting_id,
+            vetting_provider=vetting_provider,
+        )
         return ComplianceTollfreeInquiriesInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        tollfree_phone_number: str,
+        notification_email: str,
+        customer_profile_sid: Union[str, object] = values.unset,
+        business_name: Union[str, object] = values.unset,
+        business_website: Union[str, object] = values.unset,
+        use_case_categories: Union[List[str], object] = values.unset,
+        use_case_summary: Union[str, object] = values.unset,
+        production_message_sample: Union[str, object] = values.unset,
+        opt_in_image_urls: Union[List[str], object] = values.unset,
+        opt_in_type: Union[
+            "ComplianceTollfreeInquiriesInstance.OptInType", object
+        ] = values.unset,
+        message_volume: Union[str, object] = values.unset,
+        business_street_address: Union[str, object] = values.unset,
+        business_street_address2: Union[str, object] = values.unset,
+        business_city: Union[str, object] = values.unset,
+        business_state_province_region: Union[str, object] = values.unset,
+        business_postal_code: Union[str, object] = values.unset,
+        business_country: Union[str, object] = values.unset,
+        additional_information: Union[str, object] = values.unset,
+        business_contact_first_name: Union[str, object] = values.unset,
+        business_contact_last_name: Union[str, object] = values.unset,
+        business_contact_email: Union[str, object] = values.unset,
+        business_contact_phone: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+        skip_messaging_use_case: Union[bool, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[
+            "ComplianceTollfreeInquiriesInstance.BusinessType", object
+        ] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
+        vetting_provider: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the ComplianceTollfreeInquiriesInstance and return response metadata
+
+        :param tollfree_phone_number: The Tollfree phone number to be verified
+        :param notification_email: The email address to receive the notification about the verification result.
+        :param customer_profile_sid: The Customer Profile Sid associated with the Account.
+        :param business_name: The name of the business or organization using the Tollfree number.
+        :param business_website: The website of the business or organization using the Tollfree number.
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
+        :param production_message_sample: An example of message content, i.e. a sample message.
+        :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param opt_in_type:
+        :param message_volume: Estimate monthly volume of messages from the Tollfree Number.
+        :param business_street_address: The address of the business or organization using the Tollfree number.
+        :param business_street_address2: The address of the business or organization using the Tollfree number.
+        :param business_city: The city of the business or organization using the Tollfree number.
+        :param business_state_province_region: The state/province/region of the business or organization using the Tollfree number.
+        :param business_postal_code: The postal code of the business or organization using the Tollfree number.
+        :param business_country: The country of the business or organization using the Tollfree number.
+        :param additional_information: Additional information to be provided for verification.
+        :param business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
+        :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param theme_set_id: Theme id for styling the inquiry form.
+        :param skip_messaging_use_case: Skip the messaging use case screen of the inquiry form.
+        :param business_registration_number: The Business Registration Number of the business or organization.
+        :param business_registration_authority: The Business Registration Authority of the business or organization.
+        :param business_registration_country: The Business Registration Country of the business or organization.
+        :param business_type:
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification.
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param external_reference_id: A legally recognized business registration number.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+        :param vetting_id: Unique identifier for the created Vetting .
+        :param vetting_provider: Name of the vetting provider.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            tollfree_phone_number=tollfree_phone_number,
+            notification_email=notification_email,
+            customer_profile_sid=customer_profile_sid,
+            business_name=business_name,
+            business_website=business_website,
+            use_case_categories=use_case_categories,
+            use_case_summary=use_case_summary,
+            production_message_sample=production_message_sample,
+            opt_in_image_urls=opt_in_image_urls,
+            opt_in_type=opt_in_type,
+            message_volume=message_volume,
+            business_street_address=business_street_address,
+            business_street_address2=business_street_address2,
+            business_city=business_city,
+            business_state_province_region=business_state_province_region,
+            business_postal_code=business_postal_code,
+            business_country=business_country,
+            additional_information=additional_information,
+            business_contact_first_name=business_contact_first_name,
+            business_contact_last_name=business_contact_last_name,
+            business_contact_email=business_contact_email,
+            business_contact_phone=business_contact_phone,
+            theme_set_id=theme_set_id,
+            skip_messaging_use_case=skip_messaging_use_case,
+            business_registration_number=business_registration_number,
+            business_registration_authority=business_registration_authority,
+            business_registration_country=business_registration_country,
+            business_type=business_type,
+            doing_business_as=doing_business_as,
+            opt_in_confirmation_message=opt_in_confirmation_message,
+            help_message_sample=help_message_sample,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
+            age_gated_content=age_gated_content,
+            external_reference_id=external_reference_id,
+            opt_in_keywords=opt_in_keywords,
+            vetting_id=vetting_id,
+            vetting_provider=vetting_provider,
+        )
+        instance = ComplianceTollfreeInquiriesInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        tollfree_phone_number: str,
+        notification_email: str,
+        customer_profile_sid: Union[str, object] = values.unset,
+        business_name: Union[str, object] = values.unset,
+        business_website: Union[str, object] = values.unset,
+        use_case_categories: Union[List[str], object] = values.unset,
+        use_case_summary: Union[str, object] = values.unset,
+        production_message_sample: Union[str, object] = values.unset,
+        opt_in_image_urls: Union[List[str], object] = values.unset,
+        opt_in_type: Union[
+            "ComplianceTollfreeInquiriesInstance.OptInType", object
+        ] = values.unset,
+        message_volume: Union[str, object] = values.unset,
+        business_street_address: Union[str, object] = values.unset,
+        business_street_address2: Union[str, object] = values.unset,
+        business_city: Union[str, object] = values.unset,
+        business_state_province_region: Union[str, object] = values.unset,
+        business_postal_code: Union[str, object] = values.unset,
+        business_country: Union[str, object] = values.unset,
+        additional_information: Union[str, object] = values.unset,
+        business_contact_first_name: Union[str, object] = values.unset,
+        business_contact_last_name: Union[str, object] = values.unset,
+        business_contact_email: Union[str, object] = values.unset,
+        business_contact_phone: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+        skip_messaging_use_case: Union[bool, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[
+            "ComplianceTollfreeInquiriesInstance.BusinessType", object
+        ] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
+        vetting_provider: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "TollfreePhoneNumber": tollfree_phone_number,
+                "NotificationEmail": notification_email,
+                "CustomerProfileSid": customer_profile_sid,
+                "BusinessName": business_name,
+                "BusinessWebsite": business_website,
+                "UseCaseCategories": serialize.map(use_case_categories, lambda e: e),
+                "UseCaseSummary": use_case_summary,
+                "ProductionMessageSample": production_message_sample,
+                "OptInImageUrls": serialize.map(opt_in_image_urls, lambda e: e),
+                "OptInType": opt_in_type,
+                "MessageVolume": message_volume,
+                "BusinessStreetAddress": business_street_address,
+                "BusinessStreetAddress2": business_street_address2,
+                "BusinessCity": business_city,
+                "BusinessStateProvinceRegion": business_state_province_region,
+                "BusinessPostalCode": business_postal_code,
+                "BusinessCountry": business_country,
+                "AdditionalInformation": additional_information,
+                "BusinessContactFirstName": business_contact_first_name,
+                "BusinessContactLastName": business_contact_last_name,
+                "BusinessContactEmail": business_contact_email,
+                "BusinessContactPhone": business_contact_phone,
+                "ThemeSetId": theme_set_id,
+                "SkipMessagingUseCase": serialize.boolean_to_string(
+                    skip_messaging_use_case
+                ),
+                "BusinessRegistrationNumber": business_registration_number,
+                "BusinessRegistrationAuthority": business_registration_authority,
+                "BusinessRegistrationCountry": business_registration_country,
+                "BusinessType": business_type,
+                "DoingBusinessAs": doing_business_as,
+                "OptInConfirmationMessage": opt_in_confirmation_message,
+                "HelpMessageSample": help_message_sample,
+                "PrivacyPolicyUrl": privacy_policy_url,
+                "TermsAndConditionsUrl": terms_and_conditions_url,
+                "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
+                "ExternalReferenceId": external_reference_id,
+                "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
+                "VettingId": vetting_id,
+                "VettingProvider": vetting_provider,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(
         self,
@@ -256,6 +592,8 @@ class ComplianceTollfreeInquiriesList(ListResource):
         age_gated_content: Union[bool, object] = values.unset,
         external_reference_id: Union[str, object] = values.unset,
         opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
+        vetting_provider: Union[str, object] = values.unset,
     ) -> ComplianceTollfreeInquiriesInstance:
         """
         Asynchronously create the ComplianceTollfreeInquiriesInstance
@@ -296,63 +634,184 @@ class ComplianceTollfreeInquiriesList(ListResource):
         :param age_gated_content: Indicates if the content is age gated.
         :param external_reference_id: A legally recognized business registration number.
         :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+        :param vetting_id: Unique identifier for the created Vetting .
+        :param vetting_provider: Name of the vetting provider.
 
         :returns: The created ComplianceTollfreeInquiriesInstance
         """
-
-        data = values.of(
-            {
-                "TollfreePhoneNumber": tollfree_phone_number,
-                "NotificationEmail": notification_email,
-                "CustomerProfileSid": customer_profile_sid,
-                "BusinessName": business_name,
-                "BusinessWebsite": business_website,
-                "UseCaseCategories": serialize.map(use_case_categories, lambda e: e),
-                "UseCaseSummary": use_case_summary,
-                "ProductionMessageSample": production_message_sample,
-                "OptInImageUrls": serialize.map(opt_in_image_urls, lambda e: e),
-                "OptInType": opt_in_type,
-                "MessageVolume": message_volume,
-                "BusinessStreetAddress": business_street_address,
-                "BusinessStreetAddress2": business_street_address2,
-                "BusinessCity": business_city,
-                "BusinessStateProvinceRegion": business_state_province_region,
-                "BusinessPostalCode": business_postal_code,
-                "BusinessCountry": business_country,
-                "AdditionalInformation": additional_information,
-                "BusinessContactFirstName": business_contact_first_name,
-                "BusinessContactLastName": business_contact_last_name,
-                "BusinessContactEmail": business_contact_email,
-                "BusinessContactPhone": business_contact_phone,
-                "ThemeSetId": theme_set_id,
-                "SkipMessagingUseCase": serialize.boolean_to_string(
-                    skip_messaging_use_case
-                ),
-                "BusinessRegistrationNumber": business_registration_number,
-                "BusinessRegistrationAuthority": business_registration_authority,
-                "BusinessRegistrationCountry": business_registration_country,
-                "BusinessType": business_type,
-                "DoingBusinessAs": doing_business_as,
-                "OptInConfirmationMessage": opt_in_confirmation_message,
-                "HelpMessageSample": help_message_sample,
-                "PrivacyPolicyUrl": privacy_policy_url,
-                "TermsAndConditionsUrl": terms_and_conditions_url,
-                "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
-                "ExternalReferenceId": external_reference_id,
-                "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
-            }
+        payload, _, _ = await self._create_async(
+            tollfree_phone_number=tollfree_phone_number,
+            notification_email=notification_email,
+            customer_profile_sid=customer_profile_sid,
+            business_name=business_name,
+            business_website=business_website,
+            use_case_categories=use_case_categories,
+            use_case_summary=use_case_summary,
+            production_message_sample=production_message_sample,
+            opt_in_image_urls=opt_in_image_urls,
+            opt_in_type=opt_in_type,
+            message_volume=message_volume,
+            business_street_address=business_street_address,
+            business_street_address2=business_street_address2,
+            business_city=business_city,
+            business_state_province_region=business_state_province_region,
+            business_postal_code=business_postal_code,
+            business_country=business_country,
+            additional_information=additional_information,
+            business_contact_first_name=business_contact_first_name,
+            business_contact_last_name=business_contact_last_name,
+            business_contact_email=business_contact_email,
+            business_contact_phone=business_contact_phone,
+            theme_set_id=theme_set_id,
+            skip_messaging_use_case=skip_messaging_use_case,
+            business_registration_number=business_registration_number,
+            business_registration_authority=business_registration_authority,
+            business_registration_country=business_registration_country,
+            business_type=business_type,
+            doing_business_as=doing_business_as,
+            opt_in_confirmation_message=opt_in_confirmation_message,
+            help_message_sample=help_message_sample,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
+            age_gated_content=age_gated_content,
+            external_reference_id=external_reference_id,
+            opt_in_keywords=opt_in_keywords,
+            vetting_id=vetting_id,
+            vetting_provider=vetting_provider,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ComplianceTollfreeInquiriesInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        tollfree_phone_number: str,
+        notification_email: str,
+        customer_profile_sid: Union[str, object] = values.unset,
+        business_name: Union[str, object] = values.unset,
+        business_website: Union[str, object] = values.unset,
+        use_case_categories: Union[List[str], object] = values.unset,
+        use_case_summary: Union[str, object] = values.unset,
+        production_message_sample: Union[str, object] = values.unset,
+        opt_in_image_urls: Union[List[str], object] = values.unset,
+        opt_in_type: Union[
+            "ComplianceTollfreeInquiriesInstance.OptInType", object
+        ] = values.unset,
+        message_volume: Union[str, object] = values.unset,
+        business_street_address: Union[str, object] = values.unset,
+        business_street_address2: Union[str, object] = values.unset,
+        business_city: Union[str, object] = values.unset,
+        business_state_province_region: Union[str, object] = values.unset,
+        business_postal_code: Union[str, object] = values.unset,
+        business_country: Union[str, object] = values.unset,
+        additional_information: Union[str, object] = values.unset,
+        business_contact_first_name: Union[str, object] = values.unset,
+        business_contact_last_name: Union[str, object] = values.unset,
+        business_contact_email: Union[str, object] = values.unset,
+        business_contact_phone: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+        skip_messaging_use_case: Union[bool, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[
+            "ComplianceTollfreeInquiriesInstance.BusinessType", object
+        ] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
+        vetting_provider: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the ComplianceTollfreeInquiriesInstance and return response metadata
+
+        :param tollfree_phone_number: The Tollfree phone number to be verified
+        :param notification_email: The email address to receive the notification about the verification result.
+        :param customer_profile_sid: The Customer Profile Sid associated with the Account.
+        :param business_name: The name of the business or organization using the Tollfree number.
+        :param business_website: The website of the business or organization using the Tollfree number.
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
+        :param production_message_sample: An example of message content, i.e. a sample message.
+        :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param opt_in_type:
+        :param message_volume: Estimate monthly volume of messages from the Tollfree Number.
+        :param business_street_address: The address of the business or organization using the Tollfree number.
+        :param business_street_address2: The address of the business or organization using the Tollfree number.
+        :param business_city: The city of the business or organization using the Tollfree number.
+        :param business_state_province_region: The state/province/region of the business or organization using the Tollfree number.
+        :param business_postal_code: The postal code of the business or organization using the Tollfree number.
+        :param business_country: The country of the business or organization using the Tollfree number.
+        :param additional_information: Additional information to be provided for verification.
+        :param business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
+        :param business_contact_phone: The phone number of the contact for the business or organization using the Tollfree number.
+        :param theme_set_id: Theme id for styling the inquiry form.
+        :param skip_messaging_use_case: Skip the messaging use case screen of the inquiry form.
+        :param business_registration_number: The Business Registration Number of the business or organization.
+        :param business_registration_authority: The Business Registration Authority of the business or organization.
+        :param business_registration_country: The Business Registration Country of the business or organization.
+        :param business_type:
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification.
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param external_reference_id: A legally recognized business registration number.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+        :param vetting_id: Unique identifier for the created Vetting .
+        :param vetting_provider: Name of the vetting provider.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            tollfree_phone_number=tollfree_phone_number,
+            notification_email=notification_email,
+            customer_profile_sid=customer_profile_sid,
+            business_name=business_name,
+            business_website=business_website,
+            use_case_categories=use_case_categories,
+            use_case_summary=use_case_summary,
+            production_message_sample=production_message_sample,
+            opt_in_image_urls=opt_in_image_urls,
+            opt_in_type=opt_in_type,
+            message_volume=message_volume,
+            business_street_address=business_street_address,
+            business_street_address2=business_street_address2,
+            business_city=business_city,
+            business_state_province_region=business_state_province_region,
+            business_postal_code=business_postal_code,
+            business_country=business_country,
+            additional_information=additional_information,
+            business_contact_first_name=business_contact_first_name,
+            business_contact_last_name=business_contact_last_name,
+            business_contact_email=business_contact_email,
+            business_contact_phone=business_contact_phone,
+            theme_set_id=theme_set_id,
+            skip_messaging_use_case=skip_messaging_use_case,
+            business_registration_number=business_registration_number,
+            business_registration_authority=business_registration_authority,
+            business_registration_country=business_registration_country,
+            business_type=business_type,
+            doing_business_as=doing_business_as,
+            opt_in_confirmation_message=opt_in_confirmation_message,
+            help_message_sample=help_message_sample,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
+            age_gated_content=age_gated_content,
+            external_reference_id=external_reference_id,
+            opt_in_keywords=opt_in_keywords,
+            vetting_id=vetting_id,
+            vetting_provider=vetting_provider,
+        )
+        instance = ComplianceTollfreeInquiriesInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

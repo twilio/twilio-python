@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -53,14 +54,12 @@ class RateLimitList(ListResource):
 
         self._uri = "/RateLimits"
 
-    def fetch(
-        self, fields: Union[List[str], object] = values.unset
-    ) -> RateLimitInstance:
+    def _fetch(self, fields: Union[List[str], object] = values.unset) -> tuple:
         """
-        Asynchronously fetch the RateLimitInstance
+        Internal helper for fetch operation
 
-        :param fields:
-        :returns: The fetched RateLimitInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
@@ -72,11 +71,57 @@ class RateLimitList(ListResource):
             }
         )
 
-        payload = self._version.fetch(
+        return self._version.fetch_with_response_info(
             method="GET", uri=self._uri, headers=headers, params=params
         )
 
+    def fetch(
+        self, fields: Union[List[str], object] = values.unset
+    ) -> RateLimitInstance:
+        """
+        Fetch the RateLimitInstance
+
+        :param fields:
+        :returns: The fetched RateLimitInstance
+        """
+        payload, _, _ = self._fetch(fields=fields)
         return RateLimitInstance(self._version, payload)
+
+    def fetch_with_http_info(
+        self, fields: Union[List[str], object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the RateLimitInstance and return response metadata
+
+        :param fields:
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(fields=fields)
+        instance = RateLimitInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self, fields: Union[List[str], object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        params = values.of(
+            {
+                "Fields": fields,
+            }
+        )
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers, params=params
+        )
 
     async def fetch_async(
         self, fields: Union[List[str], object] = values.unset
@@ -87,21 +132,21 @@ class RateLimitList(ListResource):
         :param fields:
         :returns: The fetched RateLimitInstance
         """
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Accept"] = "application/json"
-
-        params = values.of(
-            {
-                "Fields": fields,
-            }
-        )
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers, params=params
-        )
-
+        payload, _, _ = await self._fetch_async(fields=fields)
         return RateLimitInstance(self._version, payload)
+
+    async def fetch_with_http_info_async(
+        self, fields: Union[List[str], object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronously fetch the RateLimitInstance and return response metadata
+
+        :param fields:
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(fields=fields)
+        instance = RateLimitInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

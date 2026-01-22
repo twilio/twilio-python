@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -204,6 +205,112 @@ class ContentAndApprovalsList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        sort_by_date: Union[str, object] = values.unset,
+        sort_by_content_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        content_name: Union[str, object] = values.unset,
+        content: Union[str, object] = values.unset,
+        language: Union[List[str], object] = values.unset,
+        content_type: Union[List[str], object] = values.unset,
+        channel_eligibility: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams ContentAndApprovalsInstance and returns headers from first page
+
+
+        :param str sort_by_date: Whether to sort by ascending or descending date updated
+        :param str sort_by_content_name: Whether to sort by ascending or descending content name
+        :param datetime date_created_after: Filter by >=[date-time]
+        :param datetime date_created_before: Filter by <=[date-time]
+        :param str content_name: Filter by Regex Pattern in content name
+        :param str content: Filter by Regex Pattern in template content
+        :param List[str] language: Filter by array of valid language(s)
+        :param List[str] content_type: Filter by array of contentType(s)
+        :param List[str] channel_eligibility: Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status>
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            sort_by_date=sort_by_date,
+            sort_by_content_name=sort_by_content_name,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            content_name=content_name,
+            content=content,
+            language=language,
+            content_type=content_type,
+            channel_eligibility=channel_eligibility,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        sort_by_date: Union[str, object] = values.unset,
+        sort_by_content_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        content_name: Union[str, object] = values.unset,
+        content: Union[str, object] = values.unset,
+        language: Union[List[str], object] = values.unset,
+        content_type: Union[List[str], object] = values.unset,
+        channel_eligibility: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams ContentAndApprovalsInstance and returns headers from first page
+
+
+        :param str sort_by_date: Whether to sort by ascending or descending date updated
+        :param str sort_by_content_name: Whether to sort by ascending or descending content name
+        :param datetime date_created_after: Filter by >=[date-time]
+        :param datetime date_created_before: Filter by <=[date-time]
+        :param str content_name: Filter by Regex Pattern in content name
+        :param str content: Filter by Regex Pattern in template content
+        :param List[str] language: Filter by array of valid language(s)
+        :param List[str] content_type: Filter by array of contentType(s)
+        :param List[str] channel_eligibility: Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status>
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            sort_by_date=sort_by_date,
+            sort_by_content_name=sort_by_content_name,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            content_name=content_name,
+            content=content,
+            language=language,
+            content_type=content_type,
+            channel_eligibility=channel_eligibility,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         sort_by_date: Union[str, object] = values.unset,
@@ -310,6 +417,110 @@ class ContentAndApprovalsList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        sort_by_date: Union[str, object] = values.unset,
+        sort_by_content_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        content_name: Union[str, object] = values.unset,
+        content: Union[str, object] = values.unset,
+        language: Union[List[str], object] = values.unset,
+        content_type: Union[List[str], object] = values.unset,
+        channel_eligibility: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists ContentAndApprovalsInstance and returns headers from first page
+
+
+        :param str sort_by_date: Whether to sort by ascending or descending date updated
+        :param str sort_by_content_name: Whether to sort by ascending or descending content name
+        :param datetime date_created_after: Filter by >=[date-time]
+        :param datetime date_created_before: Filter by <=[date-time]
+        :param str content_name: Filter by Regex Pattern in content name
+        :param str content: Filter by Regex Pattern in template content
+        :param List[str] language: Filter by array of valid language(s)
+        :param List[str] content_type: Filter by array of contentType(s)
+        :param List[str] channel_eligibility: Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status>
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            sort_by_date=sort_by_date,
+            sort_by_content_name=sort_by_content_name,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            content_name=content_name,
+            content=content,
+            language=language,
+            content_type=content_type,
+            channel_eligibility=channel_eligibility,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        sort_by_date: Union[str, object] = values.unset,
+        sort_by_content_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        content_name: Union[str, object] = values.unset,
+        content: Union[str, object] = values.unset,
+        language: Union[List[str], object] = values.unset,
+        content_type: Union[List[str], object] = values.unset,
+        channel_eligibility: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists ContentAndApprovalsInstance and returns headers from first page
+
+
+        :param str sort_by_date: Whether to sort by ascending or descending date updated
+        :param str sort_by_content_name: Whether to sort by ascending or descending content name
+        :param datetime date_created_after: Filter by >=[date-time]
+        :param datetime date_created_before: Filter by <=[date-time]
+        :param str content_name: Filter by Regex Pattern in content name
+        :param str content: Filter by Regex Pattern in template content
+        :param List[str] language: Filter by array of valid language(s)
+        :param List[str] content_type: Filter by array of contentType(s)
+        :param List[str] channel_eligibility: Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status>
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            sort_by_date=sort_by_date,
+            sort_by_content_name=sort_by_content_name,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            content_name=content_name,
+            content=content,
+            language=language,
+            content_type=content_type,
+            channel_eligibility=channel_eligibility,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -430,6 +641,130 @@ class ContentAndApprovalsList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return ContentAndApprovalsPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        sort_by_date: Union[str, object] = values.unset,
+        sort_by_content_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        content_name: Union[str, object] = values.unset,
+        content: Union[str, object] = values.unset,
+        language: Union[List[str], object] = values.unset,
+        content_type: Union[List[str], object] = values.unset,
+        channel_eligibility: Union[List[str], object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param sort_by_date: Whether to sort by ascending or descending date updated
+        :param sort_by_content_name: Whether to sort by ascending or descending content name
+        :param date_created_after: Filter by >=[date-time]
+        :param date_created_before: Filter by <=[date-time]
+        :param content_name: Filter by Regex Pattern in content name
+        :param content: Filter by Regex Pattern in template content
+        :param language: Filter by array of valid language(s)
+        :param content_type: Filter by array of contentType(s)
+        :param channel_eligibility: Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status>
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ContentAndApprovalsPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "SortByDate": sort_by_date,
+                "SortByContentName": sort_by_content_name,
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "ContentName": content_name,
+                "Content": content,
+                "Language": serialize.map(language, lambda e: e),
+                "ContentType": serialize.map(content_type, lambda e: e),
+                "ChannelEligibility": serialize.map(channel_eligibility, lambda e: e),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = ContentAndApprovalsPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        sort_by_date: Union[str, object] = values.unset,
+        sort_by_content_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        content_name: Union[str, object] = values.unset,
+        content: Union[str, object] = values.unset,
+        language: Union[List[str], object] = values.unset,
+        content_type: Union[List[str], object] = values.unset,
+        channel_eligibility: Union[List[str], object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param sort_by_date: Whether to sort by ascending or descending date updated
+        :param sort_by_content_name: Whether to sort by ascending or descending content name
+        :param date_created_after: Filter by >=[date-time]
+        :param date_created_before: Filter by <=[date-time]
+        :param content_name: Filter by Regex Pattern in content name
+        :param content: Filter by Regex Pattern in template content
+        :param language: Filter by array of valid language(s)
+        :param content_type: Filter by array of contentType(s)
+        :param channel_eligibility: Filter by array of ChannelEligibility(s), where ChannelEligibility=<channel>:<status>
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ContentAndApprovalsPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "SortByDate": sort_by_date,
+                "SortByContentName": sort_by_content_name,
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "ContentName": content_name,
+                "Content": content,
+                "Language": serialize.map(language, lambda e: e),
+                "ContentType": serialize.map(content_type, lambda e: e),
+                "ChannelEligibility": serialize.map(channel_eligibility, lambda e: e),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = ContentAndApprovalsPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ContentAndApprovalsPage:
         """

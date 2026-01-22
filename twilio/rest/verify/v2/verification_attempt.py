@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -112,6 +113,24 @@ class VerificationAttemptInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the VerificationAttemptInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the VerificationAttemptInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -139,6 +158,22 @@ class VerificationAttemptContext(InstanceContext):
         }
         self._uri = "/Attempts/{sid}".format(**self._solution)
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> VerificationAttemptInstance:
         """
         Fetch the VerificationAttemptInstance
@@ -146,17 +181,42 @@ class VerificationAttemptContext(InstanceContext):
 
         :returns: The fetched VerificationAttemptInstance
         """
+        payload, _, _ = self._fetch()
+        return VerificationAttemptInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the VerificationAttemptInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = VerificationAttemptInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return VerificationAttemptInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> VerificationAttemptInstance:
@@ -166,20 +226,27 @@ class VerificationAttemptContext(InstanceContext):
 
         :returns: The fetched VerificationAttemptInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return VerificationAttemptInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
         )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the VerificationAttemptInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = VerificationAttemptInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -329,6 +396,110 @@ class VerificationAttemptList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        channel_data_to: Union[str, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
+        verify_service_sid: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        status: Union[
+            "VerificationAttemptInstance.ConversionStatus", object
+        ] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams VerificationAttemptInstance and returns headers from first page
+
+
+        :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
+        :param str country: Filter used to query Verification Attempts sent to the specified destination country.
+        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel.
+        :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
+        :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
+        :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            channel_data_to=channel_data_to,
+            country=country,
+            channel=channel,
+            verify_service_sid=verify_service_sid,
+            verification_sid=verification_sid,
+            status=status,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        channel_data_to: Union[str, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
+        verify_service_sid: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        status: Union[
+            "VerificationAttemptInstance.ConversionStatus", object
+        ] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams VerificationAttemptInstance and returns headers from first page
+
+
+        :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
+        :param str country: Filter used to query Verification Attempts sent to the specified destination country.
+        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel.
+        :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
+        :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
+        :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            channel_data_to=channel_data_to,
+            country=country,
+            channel=channel,
+            verify_service_sid=verify_service_sid,
+            verification_sid=verification_sid,
+            status=status,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         date_created_after: Union[datetime, object] = values.unset,
@@ -433,6 +604,108 @@ class VerificationAttemptList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        channel_data_to: Union[str, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
+        verify_service_sid: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        status: Union[
+            "VerificationAttemptInstance.ConversionStatus", object
+        ] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists VerificationAttemptInstance and returns headers from first page
+
+
+        :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
+        :param str country: Filter used to query Verification Attempts sent to the specified destination country.
+        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel.
+        :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
+        :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
+        :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            channel_data_to=channel_data_to,
+            country=country,
+            channel=channel,
+            verify_service_sid=verify_service_sid,
+            verification_sid=verification_sid,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        channel_data_to: Union[str, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
+        verify_service_sid: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        status: Union[
+            "VerificationAttemptInstance.ConversionStatus", object
+        ] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists VerificationAttemptInstance and returns headers from first page
+
+
+        :param datetime date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param datetime date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param str channel_data_to: Destination of a verification. It is phone number in E.164 format.
+        :param str country: Filter used to query Verification Attempts sent to the specified destination country.
+        :param &quot;VerificationAttemptInstance.Channels&quot; channel: Filter used to query Verification Attempts by communication channel.
+        :param str verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
+        :param str verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
+        :param &quot;VerificationAttemptInstance.ConversionStatus&quot; status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            channel_data_to=channel_data_to,
+            country=country,
+            channel=channel,
+            verify_service_sid=verify_service_sid,
+            verification_sid=verification_sid,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -551,6 +824,128 @@ class VerificationAttemptList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return VerificationAttemptPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        channel_data_to: Union[str, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
+        verify_service_sid: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        status: Union[
+            "VerificationAttemptInstance.ConversionStatus", object
+        ] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param channel_data_to: Destination of a verification. It is phone number in E.164 format.
+        :param country: Filter used to query Verification Attempts sent to the specified destination country.
+        :param channel: Filter used to query Verification Attempts by communication channel.
+        :param verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
+        :param verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
+        :param status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with VerificationAttemptPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "ChannelData.To": channel_data_to,
+                "Country": country,
+                "Channel": channel,
+                "VerifyServiceSid": verify_service_sid,
+                "VerificationSid": verification_sid,
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = VerificationAttemptPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        channel_data_to: Union[str, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union["VerificationAttemptInstance.Channels", object] = values.unset,
+        verify_service_sid: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        status: Union[
+            "VerificationAttemptInstance.ConversionStatus", object
+        ] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param channel_data_to: Destination of a verification. It is phone number in E.164 format.
+        :param country: Filter used to query Verification Attempts sent to the specified destination country.
+        :param channel: Filter used to query Verification Attempts by communication channel.
+        :param verify_service_sid: Filter used to query Verification Attempts by verify service. Only attempts of the provided SID will be returned.
+        :param verification_sid: Filter used to return all the Verification Attempts of a single verification. Only attempts of the provided verification SID will be returned.
+        :param status: Filter used to query Verification Attempts by conversion status. Valid values are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for attempts that were confirmed.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with VerificationAttemptPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "ChannelData.To": channel_data_to,
+                "Country": country,
+                "Channel": channel,
+                "VerifyServiceSid": verify_service_sid,
+                "VerificationSid": verification_sid,
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = VerificationAttemptPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> VerificationAttemptPage:
         """

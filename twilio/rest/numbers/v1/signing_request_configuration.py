@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -89,6 +90,25 @@ class SigningRequestConfigurationList(ListResource):
 
         self._uri = "/SigningRequest/Configuration"
 
+    def _create(self, body: Union[object, object] = values.unset) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = body.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self, body: Union[object, object] = values.unset
     ) -> SigningRequestConfigurationInstance:
@@ -99,6 +119,30 @@ class SigningRequestConfigurationList(ListResource):
 
         :returns: The created SigningRequestConfigurationInstance
         """
+        payload, _, _ = self._create(body=body)
+        return SigningRequestConfigurationInstance(self._version, payload)
+
+    def create_with_http_info(
+        self, body: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Create the SigningRequestConfigurationInstance and return response metadata
+
+        :param body:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(body=body)
+        instance = SigningRequestConfigurationInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(self, body: Union[object, object] = values.unset) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = body.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -107,11 +151,9 @@ class SigningRequestConfigurationList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return SigningRequestConfigurationInstance(self._version, payload)
 
     async def create_async(
         self, body: Union[object, object] = values.unset
@@ -123,19 +165,22 @@ class SigningRequestConfigurationList(ListResource):
 
         :returns: The created SigningRequestConfigurationInstance
         """
-        data = body.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._create_async(body=body)
         return SigningRequestConfigurationInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self, body: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronously create the SigningRequestConfigurationInstance and return response metadata
+
+        :param body:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(body=body)
+        instance = SigningRequestConfigurationInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -198,6 +243,66 @@ class SigningRequestConfigurationList(ListResource):
         )
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        country: Union[str, object] = values.unset,
+        product: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams SigningRequestConfigurationInstance and returns headers from first page
+
+
+        :param str country: The country ISO code to apply this configuration, this is an optional field, Example: US, MX
+        :param str product: The product or service for which is requesting the signature, this is an optional field, Example: Porting, Hosting
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            country=country, product=product, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        country: Union[str, object] = values.unset,
+        product: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams SigningRequestConfigurationInstance and returns headers from first page
+
+
+        :param str country: The country ISO code to apply this configuration, this is an optional field, Example: US, MX
+        :param str product: The product or service for which is requesting the signature, this is an optional field, Example: Porting, Hosting
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            country=country, product=product, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -263,6 +368,68 @@ class SigningRequestConfigurationList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        country: Union[str, object] = values.unset,
+        product: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists SigningRequestConfigurationInstance and returns headers from first page
+
+
+        :param str country: The country ISO code to apply this configuration, this is an optional field, Example: US, MX
+        :param str product: The product or service for which is requesting the signature, this is an optional field, Example: Porting, Hosting
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            country=country,
+            product=product,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        country: Union[str, object] = values.unset,
+        product: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists SigningRequestConfigurationInstance and returns headers from first page
+
+
+        :param str country: The country ISO code to apply this configuration, this is an optional field, Example: US, MX
+        :param str product: The product or service for which is requesting the signature, this is an optional field, Example: Porting, Hosting
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            country=country,
+            product=product,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -341,6 +508,88 @@ class SigningRequestConfigurationList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return SigningRequestConfigurationPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        country: Union[str, object] = values.unset,
+        product: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param country: The country ISO code to apply this configuration, this is an optional field, Example: US, MX
+        :param product: The product or service for which is requesting the signature, this is an optional field, Example: Porting, Hosting
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with SigningRequestConfigurationPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Country": country,
+                "Product": product,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = SigningRequestConfigurationPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        country: Union[str, object] = values.unset,
+        product: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param country: The country ISO code to apply this configuration, this is an optional field, Example: US, MX
+        :param product: The product or service for which is requesting the signature, this is an optional field, Example: Porting, Hosting
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with SigningRequestConfigurationPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Country": country,
+                "Product": product,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = SigningRequestConfigurationPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> SigningRequestConfigurationPage:
         """

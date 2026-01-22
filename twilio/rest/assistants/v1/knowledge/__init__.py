@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -198,6 +199,24 @@ class KnowledgeInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the KnowledgeInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the KnowledgeInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "KnowledgeInstance":
         """
         Fetch the KnowledgeInstance
@@ -215,6 +234,24 @@ class KnowledgeInstance(InstanceResource):
         :returns: The fetched KnowledgeInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the KnowledgeInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the KnowledgeInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -247,6 +284,40 @@ class KnowledgeInstance(InstanceResource):
         :returns: The updated KnowledgeInstance
         """
         return await self._proxy.update_async(
+            assistants_v1_service_update_knowledge_request=assistants_v1_service_update_knowledge_request,
+        )
+
+    def update_with_http_info(
+        self,
+        assistants_v1_service_update_knowledge_request: Union[
+            AssistantsV1ServiceUpdateKnowledgeRequest, object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the KnowledgeInstance with HTTP info
+
+        :param assistants_v1_service_update_knowledge_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            assistants_v1_service_update_knowledge_request=assistants_v1_service_update_knowledge_request,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        assistants_v1_service_update_knowledge_request: Union[
+            AssistantsV1ServiceUpdateKnowledgeRequest, object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the KnowledgeInstance with HTTP info
+
+        :param assistants_v1_service_update_knowledge_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             assistants_v1_service_update_knowledge_request=assistants_v1_service_update_knowledge_request,
         )
 
@@ -391,6 +462,20 @@ class KnowledgeContext(InstanceContext):
         self._chunks: Optional[ChunkList] = None
         self._knowledge_status: Optional[KnowledgeStatusList] = None
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the KnowledgeInstance
@@ -398,10 +483,32 @@ class KnowledgeContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the KnowledgeInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -410,11 +517,33 @@ class KnowledgeContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the KnowledgeInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> KnowledgeInstance:
@@ -424,17 +553,42 @@ class KnowledgeContext(InstanceContext):
 
         :returns: The fetched KnowledgeInstance
         """
+        payload, _, _ = self._fetch()
+        return KnowledgeInstance(
+            self._version,
+            payload,
+            id=self._solution["id"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the KnowledgeInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = KnowledgeInstance(
+            self._version,
+            payload,
+            id=self._solution["id"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return KnowledgeInstance(
-            self._version,
-            payload,
-            id=self._solution["id"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> KnowledgeInstance:
@@ -444,19 +598,50 @@ class KnowledgeContext(InstanceContext):
 
         :returns: The fetched KnowledgeInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return KnowledgeInstance(
             self._version,
             payload,
             id=self._solution["id"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the KnowledgeInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = KnowledgeInstance(
+            self._version,
+            payload,
+            id=self._solution["id"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        assistants_v1_service_update_knowledge_request: Union[
+            AssistantsV1ServiceUpdateKnowledgeRequest, object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = assistants_v1_service_update_knowledge_request.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="PUT", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -472,6 +657,42 @@ class KnowledgeContext(InstanceContext):
 
         :returns: The updated KnowledgeInstance
         """
+        payload, _, _ = self._update(
+            assistants_v1_service_update_knowledge_request=assistants_v1_service_update_knowledge_request
+        )
+        return KnowledgeInstance(self._version, payload, id=self._solution["id"])
+
+    def update_with_http_info(
+        self,
+        assistants_v1_service_update_knowledge_request: Union[
+            AssistantsV1ServiceUpdateKnowledgeRequest, object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the KnowledgeInstance and return response metadata
+
+        :param assistants_v1_service_update_knowledge_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            assistants_v1_service_update_knowledge_request=assistants_v1_service_update_knowledge_request
+        )
+        instance = KnowledgeInstance(self._version, payload, id=self._solution["id"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        assistants_v1_service_update_knowledge_request: Union[
+            AssistantsV1ServiceUpdateKnowledgeRequest, object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = assistants_v1_service_update_knowledge_request.to_dict()
 
         headers = values.of({})
@@ -480,11 +701,9 @@ class KnowledgeContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="PUT", uri=self._uri, data=data, headers=headers
         )
-
-        return KnowledgeInstance(self._version, payload, id=self._solution["id"])
 
     async def update_async(
         self,
@@ -499,19 +718,29 @@ class KnowledgeContext(InstanceContext):
 
         :returns: The updated KnowledgeInstance
         """
-        data = assistants_v1_service_update_knowledge_request.to_dict()
-
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="PUT", uri=self._uri, data=data, headers=headers
+        payload, _, _ = await self._update_async(
+            assistants_v1_service_update_knowledge_request=assistants_v1_service_update_knowledge_request
         )
-
         return KnowledgeInstance(self._version, payload, id=self._solution["id"])
+
+    async def update_with_http_info_async(
+        self,
+        assistants_v1_service_update_knowledge_request: Union[
+            AssistantsV1ServiceUpdateKnowledgeRequest, object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the KnowledgeInstance and return response metadata
+
+        :param assistants_v1_service_update_knowledge_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            assistants_v1_service_update_knowledge_request=assistants_v1_service_update_knowledge_request
+        )
+        instance = KnowledgeInstance(self._version, payload, id=self._solution["id"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def chunks(self) -> ChunkList:
@@ -676,6 +905,28 @@ class KnowledgeList(ListResource):
 
         self._uri = "/Knowledge"
 
+    def _create(
+        self,
+        assistants_v1_service_create_knowledge_request: AssistantsV1ServiceCreateKnowledgeRequest,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = assistants_v1_service_create_knowledge_request.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         assistants_v1_service_create_knowledge_request: AssistantsV1ServiceCreateKnowledgeRequest,
@@ -687,6 +938,38 @@ class KnowledgeList(ListResource):
 
         :returns: The created KnowledgeInstance
         """
+        payload, _, _ = self._create(
+            assistants_v1_service_create_knowledge_request=assistants_v1_service_create_knowledge_request
+        )
+        return KnowledgeInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        assistants_v1_service_create_knowledge_request: AssistantsV1ServiceCreateKnowledgeRequest,
+    ) -> ApiResponse:
+        """
+        Create the KnowledgeInstance and return response metadata
+
+        :param assistants_v1_service_create_knowledge_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            assistants_v1_service_create_knowledge_request=assistants_v1_service_create_knowledge_request
+        )
+        instance = KnowledgeInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        assistants_v1_service_create_knowledge_request: AssistantsV1ServiceCreateKnowledgeRequest,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = assistants_v1_service_create_knowledge_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -695,11 +978,9 @@ class KnowledgeList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return KnowledgeInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -712,19 +993,27 @@ class KnowledgeList(ListResource):
 
         :returns: The created KnowledgeInstance
         """
-        data = assistants_v1_service_create_knowledge_request.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
+        payload, _, _ = await self._create_async(
+            assistants_v1_service_create_knowledge_request=assistants_v1_service_create_knowledge_request
         )
-
         return KnowledgeInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        assistants_v1_service_create_knowledge_request: AssistantsV1ServiceCreateKnowledgeRequest,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the KnowledgeInstance and return response metadata
+
+        :param assistants_v1_service_create_knowledge_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            assistants_v1_service_create_knowledge_request=assistants_v1_service_create_knowledge_request
+        )
+        instance = KnowledgeInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -781,6 +1070,62 @@ class KnowledgeList(ListResource):
         )
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        assistant_id: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams KnowledgeInstance and returns headers from first page
+
+
+        :param str assistant_id:
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            assistant_id=assistant_id, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        assistant_id: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams KnowledgeInstance and returns headers from first page
+
+
+        :param str assistant_id:
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            assistant_id=assistant_id, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -840,6 +1185,62 @@ class KnowledgeList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        assistant_id: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists KnowledgeInstance and returns headers from first page
+
+
+        :param str assistant_id:
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            assistant_id=assistant_id,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        assistant_id: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists KnowledgeInstance and returns headers from first page
+
+
+        :param str assistant_id:
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            assistant_id=assistant_id,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -912,6 +1313,82 @@ class KnowledgeList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return KnowledgePage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        assistant_id: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param assistant_id:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with KnowledgePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "AssistantId": assistant_id,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = KnowledgePage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        assistant_id: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param assistant_id:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with KnowledgePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "AssistantId": assistant_id,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = KnowledgePage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> KnowledgePage:
         """

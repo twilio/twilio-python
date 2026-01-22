@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -120,6 +121,24 @@ class FlexFlowInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the FlexFlowInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the FlexFlowInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "FlexFlowInstance":
         """
         Fetch the FlexFlowInstance
@@ -137,6 +156,24 @@ class FlexFlowInstance(InstanceResource):
         :returns: The fetched FlexFlowInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the FlexFlowInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the FlexFlowInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -268,6 +305,136 @@ class FlexFlowInstance(InstanceResource):
             integration_retry_count=integration_retry_count,
         )
 
+    def update_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        chat_service_sid: Union[str, object] = values.unset,
+        channel_type: Union["FlexFlowInstance.ChannelType", object] = values.unset,
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the FlexFlowInstance with HTTP info
+
+        :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+        :param chat_service_sid: The SID of the chat service.
+        :param channel_type:
+        :param contact_identity: The channel contact's Identity.
+        :param enabled: Whether the new Flex Flow is enabled.
+        :param integration_type:
+        :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+        :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+        :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+        :param integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+        :param long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+        :param janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+        :param integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            friendly_name=friendly_name,
+            chat_service_sid=chat_service_sid,
+            channel_type=channel_type,
+            contact_identity=contact_identity,
+            enabled=enabled,
+            integration_type=integration_type,
+            integration_flow_sid=integration_flow_sid,
+            integration_url=integration_url,
+            integration_workspace_sid=integration_workspace_sid,
+            integration_workflow_sid=integration_workflow_sid,
+            integration_channel=integration_channel,
+            integration_timeout=integration_timeout,
+            integration_priority=integration_priority,
+            integration_creation_on_message=integration_creation_on_message,
+            long_lived=long_lived,
+            janitor_enabled=janitor_enabled,
+            integration_retry_count=integration_retry_count,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        chat_service_sid: Union[str, object] = values.unset,
+        channel_type: Union["FlexFlowInstance.ChannelType", object] = values.unset,
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the FlexFlowInstance with HTTP info
+
+        :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+        :param chat_service_sid: The SID of the chat service.
+        :param channel_type:
+        :param contact_identity: The channel contact's Identity.
+        :param enabled: Whether the new Flex Flow is enabled.
+        :param integration_type:
+        :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+        :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+        :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+        :param integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+        :param long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+        :param janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+        :param integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            friendly_name=friendly_name,
+            chat_service_sid=chat_service_sid,
+            channel_type=channel_type,
+            contact_identity=contact_identity,
+            enabled=enabled,
+            integration_type=integration_type,
+            integration_flow_sid=integration_flow_sid,
+            integration_url=integration_url,
+            integration_workspace_sid=integration_workspace_sid,
+            integration_workflow_sid=integration_workflow_sid,
+            integration_channel=integration_channel,
+            integration_timeout=integration_timeout,
+            integration_priority=integration_priority,
+            integration_creation_on_message=integration_creation_on_message,
+            long_lived=long_lived,
+            janitor_enabled=janitor_enabled,
+            integration_retry_count=integration_retry_count,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -295,6 +462,20 @@ class FlexFlowContext(InstanceContext):
         }
         self._uri = "/FlexFlows/{sid}".format(**self._solution)
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the FlexFlowInstance
@@ -302,10 +483,32 @@ class FlexFlowContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the FlexFlowInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -314,11 +517,33 @@ class FlexFlowContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the FlexFlowInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> FlexFlowInstance:
@@ -328,17 +553,42 @@ class FlexFlowContext(InstanceContext):
 
         :returns: The fetched FlexFlowInstance
         """
+        payload, _, _ = self._fetch()
+        return FlexFlowInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the FlexFlowInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = FlexFlowInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return FlexFlowInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> FlexFlowInstance:
@@ -348,19 +598,88 @@ class FlexFlowContext(InstanceContext):
 
         :returns: The fetched FlexFlowInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return FlexFlowInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the FlexFlowInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = FlexFlowInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        chat_service_sid: Union[str, object] = values.unset,
+        channel_type: Union["FlexFlowInstance.ChannelType", object] = values.unset,
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ChatServiceSid": chat_service_sid,
+                "ChannelType": channel_type,
+                "ContactIdentity": contact_identity,
+                "Enabled": serialize.boolean_to_string(enabled),
+                "IntegrationType": integration_type,
+                "Integration.FlowSid": integration_flow_sid,
+                "Integration.Url": integration_url,
+                "Integration.WorkspaceSid": integration_workspace_sid,
+                "Integration.WorkflowSid": integration_workflow_sid,
+                "Integration.Channel": integration_channel,
+                "Integration.Timeout": integration_timeout,
+                "Integration.Priority": integration_priority,
+                "Integration.CreationOnMessage": serialize.boolean_to_string(
+                    integration_creation_on_message
+                ),
+                "LongLived": serialize.boolean_to_string(long_lived),
+                "JanitorEnabled": serialize.boolean_to_string(janitor_enabled),
+                "Integration.RetryCount": integration_retry_count,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -408,6 +727,122 @@ class FlexFlowContext(InstanceContext):
 
         :returns: The updated FlexFlowInstance
         """
+        payload, _, _ = self._update(
+            friendly_name=friendly_name,
+            chat_service_sid=chat_service_sid,
+            channel_type=channel_type,
+            contact_identity=contact_identity,
+            enabled=enabled,
+            integration_type=integration_type,
+            integration_flow_sid=integration_flow_sid,
+            integration_url=integration_url,
+            integration_workspace_sid=integration_workspace_sid,
+            integration_workflow_sid=integration_workflow_sid,
+            integration_channel=integration_channel,
+            integration_timeout=integration_timeout,
+            integration_priority=integration_priority,
+            integration_creation_on_message=integration_creation_on_message,
+            long_lived=long_lived,
+            janitor_enabled=janitor_enabled,
+            integration_retry_count=integration_retry_count,
+        )
+        return FlexFlowInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        chat_service_sid: Union[str, object] = values.unset,
+        channel_type: Union["FlexFlowInstance.ChannelType", object] = values.unset,
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the FlexFlowInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+        :param chat_service_sid: The SID of the chat service.
+        :param channel_type:
+        :param contact_identity: The channel contact's Identity.
+        :param enabled: Whether the new Flex Flow is enabled.
+        :param integration_type:
+        :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+        :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+        :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+        :param integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+        :param long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+        :param janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+        :param integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            friendly_name=friendly_name,
+            chat_service_sid=chat_service_sid,
+            channel_type=channel_type,
+            contact_identity=contact_identity,
+            enabled=enabled,
+            integration_type=integration_type,
+            integration_flow_sid=integration_flow_sid,
+            integration_url=integration_url,
+            integration_workspace_sid=integration_workspace_sid,
+            integration_workflow_sid=integration_workflow_sid,
+            integration_channel=integration_channel,
+            integration_timeout=integration_timeout,
+            integration_priority=integration_priority,
+            integration_creation_on_message=integration_creation_on_message,
+            long_lived=long_lived,
+            janitor_enabled=janitor_enabled,
+            integration_retry_count=integration_retry_count,
+        )
+        instance = FlexFlowInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        chat_service_sid: Union[str, object] = values.unset,
+        channel_type: Union["FlexFlowInstance.ChannelType", object] = values.unset,
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -438,11 +873,9 @@ class FlexFlowContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return FlexFlowInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
         self,
@@ -489,41 +922,93 @@ class FlexFlowContext(InstanceContext):
 
         :returns: The updated FlexFlowInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "ChatServiceSid": chat_service_sid,
-                "ChannelType": channel_type,
-                "ContactIdentity": contact_identity,
-                "Enabled": serialize.boolean_to_string(enabled),
-                "IntegrationType": integration_type,
-                "Integration.FlowSid": integration_flow_sid,
-                "Integration.Url": integration_url,
-                "Integration.WorkspaceSid": integration_workspace_sid,
-                "Integration.WorkflowSid": integration_workflow_sid,
-                "Integration.Channel": integration_channel,
-                "Integration.Timeout": integration_timeout,
-                "Integration.Priority": integration_priority,
-                "Integration.CreationOnMessage": serialize.boolean_to_string(
-                    integration_creation_on_message
-                ),
-                "LongLived": serialize.boolean_to_string(long_lived),
-                "JanitorEnabled": serialize.boolean_to_string(janitor_enabled),
-                "Integration.RetryCount": integration_retry_count,
-            }
+        payload, _, _ = await self._update_async(
+            friendly_name=friendly_name,
+            chat_service_sid=chat_service_sid,
+            channel_type=channel_type,
+            contact_identity=contact_identity,
+            enabled=enabled,
+            integration_type=integration_type,
+            integration_flow_sid=integration_flow_sid,
+            integration_url=integration_url,
+            integration_workspace_sid=integration_workspace_sid,
+            integration_workflow_sid=integration_workflow_sid,
+            integration_channel=integration_channel,
+            integration_timeout=integration_timeout,
+            integration_priority=integration_priority,
+            integration_creation_on_message=integration_creation_on_message,
+            long_lived=long_lived,
+            janitor_enabled=janitor_enabled,
+            integration_retry_count=integration_retry_count,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return FlexFlowInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        chat_service_sid: Union[str, object] = values.unset,
+        channel_type: Union["FlexFlowInstance.ChannelType", object] = values.unset,
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the FlexFlowInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+        :param chat_service_sid: The SID of the chat service.
+        :param channel_type:
+        :param contact_identity: The channel contact's Identity.
+        :param enabled: Whether the new Flex Flow is enabled.
+        :param integration_type:
+        :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+        :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+        :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+        :param integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+        :param long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+        :param janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+        :param integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            friendly_name=friendly_name,
+            chat_service_sid=chat_service_sid,
+            channel_type=channel_type,
+            contact_identity=contact_identity,
+            enabled=enabled,
+            integration_type=integration_type,
+            integration_flow_sid=integration_flow_sid,
+            integration_url=integration_url,
+            integration_workspace_sid=integration_workspace_sid,
+            integration_workflow_sid=integration_workflow_sid,
+            integration_channel=integration_channel,
+            integration_timeout=integration_timeout,
+            integration_priority=integration_priority,
+            integration_creation_on_message=integration_creation_on_message,
+            long_lived=long_lived,
+            janitor_enabled=janitor_enabled,
+            integration_retry_count=integration_retry_count,
+        )
+        instance = FlexFlowInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -566,6 +1051,68 @@ class FlexFlowList(ListResource):
         super().__init__(version)
 
         self._uri = "/FlexFlows"
+
+    def _create(
+        self,
+        friendly_name: str,
+        chat_service_sid: str,
+        channel_type: "FlexFlowInstance.ChannelType",
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ChatServiceSid": chat_service_sid,
+                "ChannelType": channel_type,
+                "ContactIdentity": contact_identity,
+                "Enabled": serialize.boolean_to_string(enabled),
+                "IntegrationType": integration_type,
+                "Integration.FlowSid": integration_flow_sid,
+                "Integration.Url": integration_url,
+                "Integration.WorkspaceSid": integration_workspace_sid,
+                "Integration.WorkflowSid": integration_workflow_sid,
+                "Integration.Channel": integration_channel,
+                "Integration.Timeout": integration_timeout,
+                "Integration.Priority": integration_priority,
+                "Integration.CreationOnMessage": serialize.boolean_to_string(
+                    integration_creation_on_message
+                ),
+                "LongLived": serialize.boolean_to_string(long_lived),
+                "JanitorEnabled": serialize.boolean_to_string(janitor_enabled),
+                "Integration.RetryCount": integration_retry_count,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     def create(
         self,
@@ -612,6 +1159,122 @@ class FlexFlowList(ListResource):
 
         :returns: The created FlexFlowInstance
         """
+        payload, _, _ = self._create(
+            friendly_name=friendly_name,
+            chat_service_sid=chat_service_sid,
+            channel_type=channel_type,
+            contact_identity=contact_identity,
+            enabled=enabled,
+            integration_type=integration_type,
+            integration_flow_sid=integration_flow_sid,
+            integration_url=integration_url,
+            integration_workspace_sid=integration_workspace_sid,
+            integration_workflow_sid=integration_workflow_sid,
+            integration_channel=integration_channel,
+            integration_timeout=integration_timeout,
+            integration_priority=integration_priority,
+            integration_creation_on_message=integration_creation_on_message,
+            long_lived=long_lived,
+            janitor_enabled=janitor_enabled,
+            integration_retry_count=integration_retry_count,
+        )
+        return FlexFlowInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        friendly_name: str,
+        chat_service_sid: str,
+        channel_type: "FlexFlowInstance.ChannelType",
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the FlexFlowInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+        :param chat_service_sid: The SID of the chat service.
+        :param channel_type:
+        :param contact_identity: The channel contact's Identity.
+        :param enabled: Whether the new Flex Flow is enabled.
+        :param integration_type:
+        :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+        :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+        :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+        :param integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+        :param long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+        :param janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+        :param integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            friendly_name=friendly_name,
+            chat_service_sid=chat_service_sid,
+            channel_type=channel_type,
+            contact_identity=contact_identity,
+            enabled=enabled,
+            integration_type=integration_type,
+            integration_flow_sid=integration_flow_sid,
+            integration_url=integration_url,
+            integration_workspace_sid=integration_workspace_sid,
+            integration_workflow_sid=integration_workflow_sid,
+            integration_channel=integration_channel,
+            integration_timeout=integration_timeout,
+            integration_priority=integration_priority,
+            integration_creation_on_message=integration_creation_on_message,
+            long_lived=long_lived,
+            janitor_enabled=janitor_enabled,
+            integration_retry_count=integration_retry_count,
+        )
+        instance = FlexFlowInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        friendly_name: str,
+        chat_service_sid: str,
+        channel_type: "FlexFlowInstance.ChannelType",
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -642,11 +1305,9 @@ class FlexFlowList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return FlexFlowInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -693,41 +1354,93 @@ class FlexFlowList(ListResource):
 
         :returns: The created FlexFlowInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "ChatServiceSid": chat_service_sid,
-                "ChannelType": channel_type,
-                "ContactIdentity": contact_identity,
-                "Enabled": serialize.boolean_to_string(enabled),
-                "IntegrationType": integration_type,
-                "Integration.FlowSid": integration_flow_sid,
-                "Integration.Url": integration_url,
-                "Integration.WorkspaceSid": integration_workspace_sid,
-                "Integration.WorkflowSid": integration_workflow_sid,
-                "Integration.Channel": integration_channel,
-                "Integration.Timeout": integration_timeout,
-                "Integration.Priority": integration_priority,
-                "Integration.CreationOnMessage": serialize.boolean_to_string(
-                    integration_creation_on_message
-                ),
-                "LongLived": serialize.boolean_to_string(long_lived),
-                "JanitorEnabled": serialize.boolean_to_string(janitor_enabled),
-                "Integration.RetryCount": integration_retry_count,
-            }
+        payload, _, _ = await self._create_async(
+            friendly_name=friendly_name,
+            chat_service_sid=chat_service_sid,
+            channel_type=channel_type,
+            contact_identity=contact_identity,
+            enabled=enabled,
+            integration_type=integration_type,
+            integration_flow_sid=integration_flow_sid,
+            integration_url=integration_url,
+            integration_workspace_sid=integration_workspace_sid,
+            integration_workflow_sid=integration_workflow_sid,
+            integration_channel=integration_channel,
+            integration_timeout=integration_timeout,
+            integration_priority=integration_priority,
+            integration_creation_on_message=integration_creation_on_message,
+            long_lived=long_lived,
+            janitor_enabled=janitor_enabled,
+            integration_retry_count=integration_retry_count,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return FlexFlowInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        friendly_name: str,
+        chat_service_sid: str,
+        channel_type: "FlexFlowInstance.ChannelType",
+        contact_identity: Union[str, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        integration_type: Union[
+            "FlexFlowInstance.IntegrationType", object
+        ] = values.unset,
+        integration_flow_sid: Union[str, object] = values.unset,
+        integration_url: Union[str, object] = values.unset,
+        integration_workspace_sid: Union[str, object] = values.unset,
+        integration_workflow_sid: Union[str, object] = values.unset,
+        integration_channel: Union[str, object] = values.unset,
+        integration_timeout: Union[int, object] = values.unset,
+        integration_priority: Union[int, object] = values.unset,
+        integration_creation_on_message: Union[bool, object] = values.unset,
+        long_lived: Union[bool, object] = values.unset,
+        janitor_enabled: Union[bool, object] = values.unset,
+        integration_retry_count: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the FlexFlowInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the Flex Flow resource.
+        :param chat_service_sid: The SID of the chat service.
+        :param channel_type:
+        :param contact_identity: The channel contact's Identity.
+        :param enabled: Whether the new Flex Flow is enabled.
+        :param integration_type:
+        :param integration_flow_sid: The SID of the Studio Flow. Required when `integrationType` is `studio`.
+        :param integration_url: The URL of the external webhook. Required when `integrationType` is `external`.
+        :param integration_workspace_sid: The Workspace SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_workflow_sid: The Workflow SID for a new Task. Required when `integrationType` is `task`.
+        :param integration_channel: The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the Task that will be created. Applicable and required when `integrationType` is `task`. The default value is `default`.
+        :param integration_timeout: The Task timeout in seconds for a new Task. Default is 86,400 seconds (24 hours). Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_priority: The Task priority of a new Task. The default priority is 0. Optional when `integrationType` is `task`, not applicable otherwise.
+        :param integration_creation_on_message: In the context of outbound messaging, defines whether to create a Task immediately (and therefore reserve the conversation to current agent), or delay Task creation until the customer sends the first response. Set to false to create immediately, true to delay Task creation. This setting is only applicable for outbound messaging.
+        :param long_lived: When enabled, Flex will keep the chat channel active so that it may be used for subsequent interactions with a contact identity. Defaults to `false`.
+        :param janitor_enabled: When enabled, the Messaging Channel Janitor will remove active Proxy sessions if the associated Task is deleted outside of the Flex UI. Defaults to `false`.
+        :param integration_retry_count: The number of times to retry the Studio Flow or webhook in case of failure. Takes integer values from 0 to 3 with the default being 3. Optional when `integrationType` is `studio` or `external`, not applicable otherwise.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            friendly_name=friendly_name,
+            chat_service_sid=chat_service_sid,
+            channel_type=channel_type,
+            contact_identity=contact_identity,
+            enabled=enabled,
+            integration_type=integration_type,
+            integration_flow_sid=integration_flow_sid,
+            integration_url=integration_url,
+            integration_workspace_sid=integration_workspace_sid,
+            integration_workflow_sid=integration_workflow_sid,
+            integration_channel=integration_channel,
+            integration_timeout=integration_timeout,
+            integration_priority=integration_priority,
+            integration_creation_on_message=integration_creation_on_message,
+            long_lived=long_lived,
+            janitor_enabled=janitor_enabled,
+            integration_retry_count=integration_retry_count,
+        )
+        instance = FlexFlowInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -784,6 +1497,62 @@ class FlexFlowList(ListResource):
         )
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams FlexFlowInstance and returns headers from first page
+
+
+        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            friendly_name=friendly_name, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams FlexFlowInstance and returns headers from first page
+
+
+        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            friendly_name=friendly_name, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -843,6 +1612,62 @@ class FlexFlowList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists FlexFlowInstance and returns headers from first page
+
+
+        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            friendly_name=friendly_name,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists FlexFlowInstance and returns headers from first page
+
+
+        :param str friendly_name: The `friendly_name` of the Flex Flow resources to read.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            friendly_name=friendly_name,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -915,6 +1740,82 @@ class FlexFlowList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return FlexFlowPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param friendly_name: The `friendly_name` of the Flex Flow resources to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with FlexFlowPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = FlexFlowPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param friendly_name: The `friendly_name` of the Flex Flow resources to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with FlexFlowPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = FlexFlowPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> FlexFlowPage:
         """

@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -137,6 +138,24 @@ class ReservationInstance(InstanceResource):
         :returns: The fetched ReservationInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ReservationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ReservationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -504,6 +523,372 @@ class ReservationInstance(InstanceResource):
             jitter_buffer_size=jitter_buffer_size,
         )
 
+    def update_with_http_info(
+        self,
+        if_match: Union[str, object] = values.unset,
+        reservation_status: Union["ReservationInstance.Status", object] = values.unset,
+        worker_activity_sid: Union[str, object] = values.unset,
+        instruction: Union[str, object] = values.unset,
+        dequeue_post_work_activity_sid: Union[str, object] = values.unset,
+        dequeue_from: Union[str, object] = values.unset,
+        dequeue_record: Union[str, object] = values.unset,
+        dequeue_timeout: Union[int, object] = values.unset,
+        dequeue_to: Union[str, object] = values.unset,
+        dequeue_status_callback_url: Union[str, object] = values.unset,
+        call_from: Union[str, object] = values.unset,
+        call_record: Union[str, object] = values.unset,
+        call_timeout: Union[int, object] = values.unset,
+        call_to: Union[str, object] = values.unset,
+        call_url: Union[str, object] = values.unset,
+        call_status_callback_url: Union[str, object] = values.unset,
+        call_accept: Union[bool, object] = values.unset,
+        redirect_call_sid: Union[str, object] = values.unset,
+        redirect_accept: Union[bool, object] = values.unset,
+        redirect_url: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        status_callback_event: Union[
+            List["ReservationInstance.CallStatus"], object
+        ] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        record: Union[bool, object] = values.unset,
+        muted: Union[bool, object] = values.unset,
+        beep: Union[str, object] = values.unset,
+        start_conference_on_enter: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        early_media: Union[bool, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        conference_status_callback: Union[str, object] = values.unset,
+        conference_status_callback_method: Union[str, object] = values.unset,
+        conference_status_callback_event: Union[
+            List["ReservationInstance.ConferenceEvent"], object
+        ] = values.unset,
+        conference_record: Union[str, object] = values.unset,
+        conference_trim: Union[str, object] = values.unset,
+        recording_channels: Union[str, object] = values.unset,
+        recording_status_callback: Union[str, object] = values.unset,
+        recording_status_callback_method: Union[str, object] = values.unset,
+        conference_recording_status_callback: Union[str, object] = values.unset,
+        conference_recording_status_callback_method: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        sip_auth_username: Union[str, object] = values.unset,
+        sip_auth_password: Union[str, object] = values.unset,
+        dequeue_status_callback_event: Union[List[str], object] = values.unset,
+        post_work_activity_sid: Union[str, object] = values.unset,
+        supervisor_mode: Union[
+            "ReservationInstance.SupervisorMode", object
+        ] = values.unset,
+        supervisor: Union[str, object] = values.unset,
+        end_conference_on_customer_exit: Union[bool, object] = values.unset,
+        beep_on_customer_entrance: Union[bool, object] = values.unset,
+        jitter_buffer_size: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ReservationInstance with HTTP info
+
+        :param if_match: The If-Match HTTP request header
+        :param reservation_status:
+        :param worker_activity_sid: The new worker activity SID if rejecting a reservation.
+        :param instruction: The assignment instruction for reservation.
+        :param dequeue_post_work_activity_sid: The SID of the Activity resource to start after executing a Dequeue instruction.
+        :param dequeue_from: The Caller ID of the call to the worker when executing a Dequeue instruction.
+        :param dequeue_record: Whether to record both legs of a call when executing a Dequeue instruction or which leg to record.
+        :param dequeue_timeout: Timeout for call when executing a Dequeue instruction.
+        :param dequeue_to: The Contact URI of the worker when executing a Dequeue instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+        :param dequeue_status_callback_url: The Callback URL for completed call event when executing a Dequeue instruction.
+        :param call_from: The Caller ID of the outbound call when executing a Call instruction.
+        :param call_record: Whether to record both legs of a call when executing a Call instruction or which leg to record.
+        :param call_timeout: Timeout for call when executing a Call instruction.
+        :param call_to: The Contact URI of the worker when executing a Call instruction.  Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+        :param call_url: TwiML URI executed on answering the worker's leg as a result of the Call instruction.
+        :param call_status_callback_url: The URL to call  for the completed call event when executing a Call instruction.
+        :param call_accept: Whether to accept a reservation when executing a Call instruction.
+        :param redirect_call_sid: The Call SID of the call parked in the queue when executing a Redirect instruction.
+        :param redirect_accept: Whether the reservation should be accepted when executing a Redirect instruction.
+        :param redirect_url: TwiML URI to redirect the call to when executing the Redirect instruction.
+        :param to: The Contact URI of the worker when executing a Conference instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+        :param from_: The Caller ID of the call to the worker when executing a Conference instruction.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
+        :param status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
+        :param timeout: Timeout for call when executing a Conference instruction.
+        :param record: Whether to record the participant and their conferences, including the time between conferences. The default is `false`.
+        :param muted: Whether the agent is muted in the conference. The default is `false`.
+        :param beep: Whether to play a notification beep when the participant joins or when to play a beep. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
+        :param start_conference_on_enter: Whether to start the conference when the participant joins, if it has not already started. The default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
+        :param end_conference_on_exit: Whether to end the conference when the agent leaves.
+        :param wait_url: The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+        :param wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param early_media: Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. The default is `true`.
+        :param max_participants: The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
+        :param conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
+        :param conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+        :param conference_record: Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
+        :param conference_trim: How to trim the leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
+        :param recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
+        :param recording_status_callback: The URL that we should call using the `recording_status_callback_method` when the recording status changes.
+        :param recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
+        :param conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+        :param sip_auth_username: The SIP username used for authentication.
+        :param sip_auth_password: The SIP password for authentication.
+        :param dequeue_status_callback_event: The Call progress events sent via webhooks as a result of a Dequeue instruction.
+        :param post_work_activity_sid: The new worker activity SID after executing a Conference instruction.
+        :param supervisor_mode:
+        :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
+        :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
+        :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
+        :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            if_match=if_match,
+            reservation_status=reservation_status,
+            worker_activity_sid=worker_activity_sid,
+            instruction=instruction,
+            dequeue_post_work_activity_sid=dequeue_post_work_activity_sid,
+            dequeue_from=dequeue_from,
+            dequeue_record=dequeue_record,
+            dequeue_timeout=dequeue_timeout,
+            dequeue_to=dequeue_to,
+            dequeue_status_callback_url=dequeue_status_callback_url,
+            call_from=call_from,
+            call_record=call_record,
+            call_timeout=call_timeout,
+            call_to=call_to,
+            call_url=call_url,
+            call_status_callback_url=call_status_callback_url,
+            call_accept=call_accept,
+            redirect_call_sid=redirect_call_sid,
+            redirect_accept=redirect_accept,
+            redirect_url=redirect_url,
+            to=to,
+            from_=from_,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            status_callback_event=status_callback_event,
+            timeout=timeout,
+            record=record,
+            muted=muted,
+            beep=beep,
+            start_conference_on_enter=start_conference_on_enter,
+            end_conference_on_exit=end_conference_on_exit,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            early_media=early_media,
+            max_participants=max_participants,
+            conference_status_callback=conference_status_callback,
+            conference_status_callback_method=conference_status_callback_method,
+            conference_status_callback_event=conference_status_callback_event,
+            conference_record=conference_record,
+            conference_trim=conference_trim,
+            recording_channels=recording_channels,
+            recording_status_callback=recording_status_callback,
+            recording_status_callback_method=recording_status_callback_method,
+            conference_recording_status_callback=conference_recording_status_callback,
+            conference_recording_status_callback_method=conference_recording_status_callback_method,
+            region=region,
+            sip_auth_username=sip_auth_username,
+            sip_auth_password=sip_auth_password,
+            dequeue_status_callback_event=dequeue_status_callback_event,
+            post_work_activity_sid=post_work_activity_sid,
+            supervisor_mode=supervisor_mode,
+            supervisor=supervisor,
+            end_conference_on_customer_exit=end_conference_on_customer_exit,
+            beep_on_customer_entrance=beep_on_customer_entrance,
+            jitter_buffer_size=jitter_buffer_size,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        if_match: Union[str, object] = values.unset,
+        reservation_status: Union["ReservationInstance.Status", object] = values.unset,
+        worker_activity_sid: Union[str, object] = values.unset,
+        instruction: Union[str, object] = values.unset,
+        dequeue_post_work_activity_sid: Union[str, object] = values.unset,
+        dequeue_from: Union[str, object] = values.unset,
+        dequeue_record: Union[str, object] = values.unset,
+        dequeue_timeout: Union[int, object] = values.unset,
+        dequeue_to: Union[str, object] = values.unset,
+        dequeue_status_callback_url: Union[str, object] = values.unset,
+        call_from: Union[str, object] = values.unset,
+        call_record: Union[str, object] = values.unset,
+        call_timeout: Union[int, object] = values.unset,
+        call_to: Union[str, object] = values.unset,
+        call_url: Union[str, object] = values.unset,
+        call_status_callback_url: Union[str, object] = values.unset,
+        call_accept: Union[bool, object] = values.unset,
+        redirect_call_sid: Union[str, object] = values.unset,
+        redirect_accept: Union[bool, object] = values.unset,
+        redirect_url: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        status_callback_event: Union[
+            List["ReservationInstance.CallStatus"], object
+        ] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        record: Union[bool, object] = values.unset,
+        muted: Union[bool, object] = values.unset,
+        beep: Union[str, object] = values.unset,
+        start_conference_on_enter: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        early_media: Union[bool, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        conference_status_callback: Union[str, object] = values.unset,
+        conference_status_callback_method: Union[str, object] = values.unset,
+        conference_status_callback_event: Union[
+            List["ReservationInstance.ConferenceEvent"], object
+        ] = values.unset,
+        conference_record: Union[str, object] = values.unset,
+        conference_trim: Union[str, object] = values.unset,
+        recording_channels: Union[str, object] = values.unset,
+        recording_status_callback: Union[str, object] = values.unset,
+        recording_status_callback_method: Union[str, object] = values.unset,
+        conference_recording_status_callback: Union[str, object] = values.unset,
+        conference_recording_status_callback_method: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        sip_auth_username: Union[str, object] = values.unset,
+        sip_auth_password: Union[str, object] = values.unset,
+        dequeue_status_callback_event: Union[List[str], object] = values.unset,
+        post_work_activity_sid: Union[str, object] = values.unset,
+        supervisor_mode: Union[
+            "ReservationInstance.SupervisorMode", object
+        ] = values.unset,
+        supervisor: Union[str, object] = values.unset,
+        end_conference_on_customer_exit: Union[bool, object] = values.unset,
+        beep_on_customer_entrance: Union[bool, object] = values.unset,
+        jitter_buffer_size: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ReservationInstance with HTTP info
+
+        :param if_match: The If-Match HTTP request header
+        :param reservation_status:
+        :param worker_activity_sid: The new worker activity SID if rejecting a reservation.
+        :param instruction: The assignment instruction for reservation.
+        :param dequeue_post_work_activity_sid: The SID of the Activity resource to start after executing a Dequeue instruction.
+        :param dequeue_from: The Caller ID of the call to the worker when executing a Dequeue instruction.
+        :param dequeue_record: Whether to record both legs of a call when executing a Dequeue instruction or which leg to record.
+        :param dequeue_timeout: Timeout for call when executing a Dequeue instruction.
+        :param dequeue_to: The Contact URI of the worker when executing a Dequeue instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+        :param dequeue_status_callback_url: The Callback URL for completed call event when executing a Dequeue instruction.
+        :param call_from: The Caller ID of the outbound call when executing a Call instruction.
+        :param call_record: Whether to record both legs of a call when executing a Call instruction or which leg to record.
+        :param call_timeout: Timeout for call when executing a Call instruction.
+        :param call_to: The Contact URI of the worker when executing a Call instruction.  Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+        :param call_url: TwiML URI executed on answering the worker's leg as a result of the Call instruction.
+        :param call_status_callback_url: The URL to call  for the completed call event when executing a Call instruction.
+        :param call_accept: Whether to accept a reservation when executing a Call instruction.
+        :param redirect_call_sid: The Call SID of the call parked in the queue when executing a Redirect instruction.
+        :param redirect_accept: Whether the reservation should be accepted when executing a Redirect instruction.
+        :param redirect_url: TwiML URI to redirect the call to when executing the Redirect instruction.
+        :param to: The Contact URI of the worker when executing a Conference instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+        :param from_: The Caller ID of the call to the worker when executing a Conference instruction.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
+        :param status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
+        :param timeout: Timeout for call when executing a Conference instruction.
+        :param record: Whether to record the participant and their conferences, including the time between conferences. The default is `false`.
+        :param muted: Whether the agent is muted in the conference. The default is `false`.
+        :param beep: Whether to play a notification beep when the participant joins or when to play a beep. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
+        :param start_conference_on_enter: Whether to start the conference when the participant joins, if it has not already started. The default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
+        :param end_conference_on_exit: Whether to end the conference when the agent leaves.
+        :param wait_url: The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+        :param wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param early_media: Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. The default is `true`.
+        :param max_participants: The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
+        :param conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
+        :param conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+        :param conference_record: Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
+        :param conference_trim: How to trim the leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
+        :param recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
+        :param recording_status_callback: The URL that we should call using the `recording_status_callback_method` when the recording status changes.
+        :param recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
+        :param conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+        :param sip_auth_username: The SIP username used for authentication.
+        :param sip_auth_password: The SIP password for authentication.
+        :param dequeue_status_callback_event: The Call progress events sent via webhooks as a result of a Dequeue instruction.
+        :param post_work_activity_sid: The new worker activity SID after executing a Conference instruction.
+        :param supervisor_mode:
+        :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
+        :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
+        :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
+        :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            if_match=if_match,
+            reservation_status=reservation_status,
+            worker_activity_sid=worker_activity_sid,
+            instruction=instruction,
+            dequeue_post_work_activity_sid=dequeue_post_work_activity_sid,
+            dequeue_from=dequeue_from,
+            dequeue_record=dequeue_record,
+            dequeue_timeout=dequeue_timeout,
+            dequeue_to=dequeue_to,
+            dequeue_status_callback_url=dequeue_status_callback_url,
+            call_from=call_from,
+            call_record=call_record,
+            call_timeout=call_timeout,
+            call_to=call_to,
+            call_url=call_url,
+            call_status_callback_url=call_status_callback_url,
+            call_accept=call_accept,
+            redirect_call_sid=redirect_call_sid,
+            redirect_accept=redirect_accept,
+            redirect_url=redirect_url,
+            to=to,
+            from_=from_,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            status_callback_event=status_callback_event,
+            timeout=timeout,
+            record=record,
+            muted=muted,
+            beep=beep,
+            start_conference_on_enter=start_conference_on_enter,
+            end_conference_on_exit=end_conference_on_exit,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            early_media=early_media,
+            max_participants=max_participants,
+            conference_status_callback=conference_status_callback,
+            conference_status_callback_method=conference_status_callback_method,
+            conference_status_callback_event=conference_status_callback_event,
+            conference_record=conference_record,
+            conference_trim=conference_trim,
+            recording_channels=recording_channels,
+            recording_status_callback=recording_status_callback,
+            recording_status_callback_method=recording_status_callback_method,
+            conference_recording_status_callback=conference_recording_status_callback,
+            conference_recording_status_callback_method=conference_recording_status_callback_method,
+            region=region,
+            sip_auth_username=sip_auth_username,
+            sip_auth_password=sip_auth_password,
+            dequeue_status_callback_event=dequeue_status_callback_event,
+            post_work_activity_sid=post_work_activity_sid,
+            supervisor_mode=supervisor_mode,
+            supervisor=supervisor,
+            end_conference_on_customer_exit=end_conference_on_customer_exit,
+            beep_on_customer_entrance=beep_on_customer_entrance,
+            jitter_buffer_size=jitter_buffer_size,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -539,6 +924,22 @@ class ReservationContext(InstanceContext):
             )
         )
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> ReservationInstance:
         """
         Fetch the ReservationInstance
@@ -546,19 +947,46 @@ class ReservationContext(InstanceContext):
 
         :returns: The fetched ReservationInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return ReservationInstance(
             self._version,
             payload,
             workspace_sid=self._solution["workspace_sid"],
             task_sid=self._solution["task_sid"],
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ReservationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = ReservationInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            task_sid=self._solution["task_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> ReservationInstance:
@@ -568,21 +996,188 @@ class ReservationContext(InstanceContext):
 
         :returns: The fetched ReservationInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return ReservationInstance(
             self._version,
             payload,
             workspace_sid=self._solution["workspace_sid"],
             task_sid=self._solution["task_sid"],
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ReservationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = ReservationInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            task_sid=self._solution["task_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        if_match: Union[str, object] = values.unset,
+        reservation_status: Union["ReservationInstance.Status", object] = values.unset,
+        worker_activity_sid: Union[str, object] = values.unset,
+        instruction: Union[str, object] = values.unset,
+        dequeue_post_work_activity_sid: Union[str, object] = values.unset,
+        dequeue_from: Union[str, object] = values.unset,
+        dequeue_record: Union[str, object] = values.unset,
+        dequeue_timeout: Union[int, object] = values.unset,
+        dequeue_to: Union[str, object] = values.unset,
+        dequeue_status_callback_url: Union[str, object] = values.unset,
+        call_from: Union[str, object] = values.unset,
+        call_record: Union[str, object] = values.unset,
+        call_timeout: Union[int, object] = values.unset,
+        call_to: Union[str, object] = values.unset,
+        call_url: Union[str, object] = values.unset,
+        call_status_callback_url: Union[str, object] = values.unset,
+        call_accept: Union[bool, object] = values.unset,
+        redirect_call_sid: Union[str, object] = values.unset,
+        redirect_accept: Union[bool, object] = values.unset,
+        redirect_url: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        status_callback_event: Union[
+            List["ReservationInstance.CallStatus"], object
+        ] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        record: Union[bool, object] = values.unset,
+        muted: Union[bool, object] = values.unset,
+        beep: Union[str, object] = values.unset,
+        start_conference_on_enter: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        early_media: Union[bool, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        conference_status_callback: Union[str, object] = values.unset,
+        conference_status_callback_method: Union[str, object] = values.unset,
+        conference_status_callback_event: Union[
+            List["ReservationInstance.ConferenceEvent"], object
+        ] = values.unset,
+        conference_record: Union[str, object] = values.unset,
+        conference_trim: Union[str, object] = values.unset,
+        recording_channels: Union[str, object] = values.unset,
+        recording_status_callback: Union[str, object] = values.unset,
+        recording_status_callback_method: Union[str, object] = values.unset,
+        conference_recording_status_callback: Union[str, object] = values.unset,
+        conference_recording_status_callback_method: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        sip_auth_username: Union[str, object] = values.unset,
+        sip_auth_password: Union[str, object] = values.unset,
+        dequeue_status_callback_event: Union[List[str], object] = values.unset,
+        post_work_activity_sid: Union[str, object] = values.unset,
+        supervisor_mode: Union[
+            "ReservationInstance.SupervisorMode", object
+        ] = values.unset,
+        supervisor: Union[str, object] = values.unset,
+        end_conference_on_customer_exit: Union[bool, object] = values.unset,
+        beep_on_customer_entrance: Union[bool, object] = values.unset,
+        jitter_buffer_size: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "ReservationStatus": reservation_status,
+                "WorkerActivitySid": worker_activity_sid,
+                "Instruction": instruction,
+                "DequeuePostWorkActivitySid": dequeue_post_work_activity_sid,
+                "DequeueFrom": dequeue_from,
+                "DequeueRecord": dequeue_record,
+                "DequeueTimeout": dequeue_timeout,
+                "DequeueTo": dequeue_to,
+                "DequeueStatusCallbackUrl": dequeue_status_callback_url,
+                "CallFrom": call_from,
+                "CallRecord": call_record,
+                "CallTimeout": call_timeout,
+                "CallTo": call_to,
+                "CallUrl": call_url,
+                "CallStatusCallbackUrl": call_status_callback_url,
+                "CallAccept": serialize.boolean_to_string(call_accept),
+                "RedirectCallSid": redirect_call_sid,
+                "RedirectAccept": serialize.boolean_to_string(redirect_accept),
+                "RedirectUrl": redirect_url,
+                "To": to,
+                "From": from_,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+                "StatusCallbackEvent": serialize.map(
+                    status_callback_event, lambda e: e
+                ),
+                "Timeout": timeout,
+                "Record": serialize.boolean_to_string(record),
+                "Muted": serialize.boolean_to_string(muted),
+                "Beep": beep,
+                "StartConferenceOnEnter": serialize.boolean_to_string(
+                    start_conference_on_enter
+                ),
+                "EndConferenceOnExit": serialize.boolean_to_string(
+                    end_conference_on_exit
+                ),
+                "WaitUrl": wait_url,
+                "WaitMethod": wait_method,
+                "EarlyMedia": serialize.boolean_to_string(early_media),
+                "MaxParticipants": max_participants,
+                "ConferenceStatusCallback": conference_status_callback,
+                "ConferenceStatusCallbackMethod": conference_status_callback_method,
+                "ConferenceStatusCallbackEvent": serialize.map(
+                    conference_status_callback_event, lambda e: e
+                ),
+                "ConferenceRecord": conference_record,
+                "ConferenceTrim": conference_trim,
+                "RecordingChannels": recording_channels,
+                "RecordingStatusCallback": recording_status_callback,
+                "RecordingStatusCallbackMethod": recording_status_callback_method,
+                "ConferenceRecordingStatusCallback": conference_recording_status_callback,
+                "ConferenceRecordingStatusCallbackMethod": conference_recording_status_callback_method,
+                "Region": region,
+                "SipAuthUsername": sip_auth_username,
+                "SipAuthPassword": sip_auth_password,
+                "DequeueStatusCallbackEvent": serialize.map(
+                    dequeue_status_callback_event, lambda e: e
+                ),
+                "PostWorkActivitySid": post_work_activity_sid,
+                "SupervisorMode": supervisor_mode,
+                "Supervisor": supervisor,
+                "EndConferenceOnCustomerExit": serialize.boolean_to_string(
+                    end_conference_on_customer_exit
+                ),
+                "BeepOnCustomerEntrance": serialize.boolean_to_string(
+                    beep_on_customer_entrance
+                ),
+                "JitterBufferSize": jitter_buffer_size,
+            }
+        )
+        headers = values.of({})
+
+        if not (
+            if_match is values.unset or (isinstance(if_match, str) and not if_match)
+        ):
+            headers["If-Match"] = if_match
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -710,6 +1305,332 @@ class ReservationContext(InstanceContext):
 
         :returns: The updated ReservationInstance
         """
+        payload, _, _ = self._update(
+            if_match=if_match,
+            reservation_status=reservation_status,
+            worker_activity_sid=worker_activity_sid,
+            instruction=instruction,
+            dequeue_post_work_activity_sid=dequeue_post_work_activity_sid,
+            dequeue_from=dequeue_from,
+            dequeue_record=dequeue_record,
+            dequeue_timeout=dequeue_timeout,
+            dequeue_to=dequeue_to,
+            dequeue_status_callback_url=dequeue_status_callback_url,
+            call_from=call_from,
+            call_record=call_record,
+            call_timeout=call_timeout,
+            call_to=call_to,
+            call_url=call_url,
+            call_status_callback_url=call_status_callback_url,
+            call_accept=call_accept,
+            redirect_call_sid=redirect_call_sid,
+            redirect_accept=redirect_accept,
+            redirect_url=redirect_url,
+            to=to,
+            from_=from_,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            status_callback_event=status_callback_event,
+            timeout=timeout,
+            record=record,
+            muted=muted,
+            beep=beep,
+            start_conference_on_enter=start_conference_on_enter,
+            end_conference_on_exit=end_conference_on_exit,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            early_media=early_media,
+            max_participants=max_participants,
+            conference_status_callback=conference_status_callback,
+            conference_status_callback_method=conference_status_callback_method,
+            conference_status_callback_event=conference_status_callback_event,
+            conference_record=conference_record,
+            conference_trim=conference_trim,
+            recording_channels=recording_channels,
+            recording_status_callback=recording_status_callback,
+            recording_status_callback_method=recording_status_callback_method,
+            conference_recording_status_callback=conference_recording_status_callback,
+            conference_recording_status_callback_method=conference_recording_status_callback_method,
+            region=region,
+            sip_auth_username=sip_auth_username,
+            sip_auth_password=sip_auth_password,
+            dequeue_status_callback_event=dequeue_status_callback_event,
+            post_work_activity_sid=post_work_activity_sid,
+            supervisor_mode=supervisor_mode,
+            supervisor=supervisor,
+            end_conference_on_customer_exit=end_conference_on_customer_exit,
+            beep_on_customer_entrance=beep_on_customer_entrance,
+            jitter_buffer_size=jitter_buffer_size,
+        )
+        return ReservationInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            task_sid=self._solution["task_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(
+        self,
+        if_match: Union[str, object] = values.unset,
+        reservation_status: Union["ReservationInstance.Status", object] = values.unset,
+        worker_activity_sid: Union[str, object] = values.unset,
+        instruction: Union[str, object] = values.unset,
+        dequeue_post_work_activity_sid: Union[str, object] = values.unset,
+        dequeue_from: Union[str, object] = values.unset,
+        dequeue_record: Union[str, object] = values.unset,
+        dequeue_timeout: Union[int, object] = values.unset,
+        dequeue_to: Union[str, object] = values.unset,
+        dequeue_status_callback_url: Union[str, object] = values.unset,
+        call_from: Union[str, object] = values.unset,
+        call_record: Union[str, object] = values.unset,
+        call_timeout: Union[int, object] = values.unset,
+        call_to: Union[str, object] = values.unset,
+        call_url: Union[str, object] = values.unset,
+        call_status_callback_url: Union[str, object] = values.unset,
+        call_accept: Union[bool, object] = values.unset,
+        redirect_call_sid: Union[str, object] = values.unset,
+        redirect_accept: Union[bool, object] = values.unset,
+        redirect_url: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        status_callback_event: Union[
+            List["ReservationInstance.CallStatus"], object
+        ] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        record: Union[bool, object] = values.unset,
+        muted: Union[bool, object] = values.unset,
+        beep: Union[str, object] = values.unset,
+        start_conference_on_enter: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        early_media: Union[bool, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        conference_status_callback: Union[str, object] = values.unset,
+        conference_status_callback_method: Union[str, object] = values.unset,
+        conference_status_callback_event: Union[
+            List["ReservationInstance.ConferenceEvent"], object
+        ] = values.unset,
+        conference_record: Union[str, object] = values.unset,
+        conference_trim: Union[str, object] = values.unset,
+        recording_channels: Union[str, object] = values.unset,
+        recording_status_callback: Union[str, object] = values.unset,
+        recording_status_callback_method: Union[str, object] = values.unset,
+        conference_recording_status_callback: Union[str, object] = values.unset,
+        conference_recording_status_callback_method: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        sip_auth_username: Union[str, object] = values.unset,
+        sip_auth_password: Union[str, object] = values.unset,
+        dequeue_status_callback_event: Union[List[str], object] = values.unset,
+        post_work_activity_sid: Union[str, object] = values.unset,
+        supervisor_mode: Union[
+            "ReservationInstance.SupervisorMode", object
+        ] = values.unset,
+        supervisor: Union[str, object] = values.unset,
+        end_conference_on_customer_exit: Union[bool, object] = values.unset,
+        beep_on_customer_entrance: Union[bool, object] = values.unset,
+        jitter_buffer_size: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ReservationInstance and return response metadata
+
+        :param if_match: The If-Match HTTP request header
+        :param reservation_status:
+        :param worker_activity_sid: The new worker activity SID if rejecting a reservation.
+        :param instruction: The assignment instruction for reservation.
+        :param dequeue_post_work_activity_sid: The SID of the Activity resource to start after executing a Dequeue instruction.
+        :param dequeue_from: The Caller ID of the call to the worker when executing a Dequeue instruction.
+        :param dequeue_record: Whether to record both legs of a call when executing a Dequeue instruction or which leg to record.
+        :param dequeue_timeout: Timeout for call when executing a Dequeue instruction.
+        :param dequeue_to: The Contact URI of the worker when executing a Dequeue instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+        :param dequeue_status_callback_url: The Callback URL for completed call event when executing a Dequeue instruction.
+        :param call_from: The Caller ID of the outbound call when executing a Call instruction.
+        :param call_record: Whether to record both legs of a call when executing a Call instruction or which leg to record.
+        :param call_timeout: Timeout for call when executing a Call instruction.
+        :param call_to: The Contact URI of the worker when executing a Call instruction.  Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+        :param call_url: TwiML URI executed on answering the worker's leg as a result of the Call instruction.
+        :param call_status_callback_url: The URL to call  for the completed call event when executing a Call instruction.
+        :param call_accept: Whether to accept a reservation when executing a Call instruction.
+        :param redirect_call_sid: The Call SID of the call parked in the queue when executing a Redirect instruction.
+        :param redirect_accept: Whether the reservation should be accepted when executing a Redirect instruction.
+        :param redirect_url: TwiML URI to redirect the call to when executing the Redirect instruction.
+        :param to: The Contact URI of the worker when executing a Conference instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+        :param from_: The Caller ID of the call to the worker when executing a Conference instruction.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
+        :param status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
+        :param timeout: Timeout for call when executing a Conference instruction.
+        :param record: Whether to record the participant and their conferences, including the time between conferences. The default is `false`.
+        :param muted: Whether the agent is muted in the conference. The default is `false`.
+        :param beep: Whether to play a notification beep when the participant joins or when to play a beep. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
+        :param start_conference_on_enter: Whether to start the conference when the participant joins, if it has not already started. The default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
+        :param end_conference_on_exit: Whether to end the conference when the agent leaves.
+        :param wait_url: The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+        :param wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param early_media: Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. The default is `true`.
+        :param max_participants: The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
+        :param conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
+        :param conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+        :param conference_record: Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
+        :param conference_trim: How to trim the leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
+        :param recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
+        :param recording_status_callback: The URL that we should call using the `recording_status_callback_method` when the recording status changes.
+        :param recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
+        :param conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+        :param sip_auth_username: The SIP username used for authentication.
+        :param sip_auth_password: The SIP password for authentication.
+        :param dequeue_status_callback_event: The Call progress events sent via webhooks as a result of a Dequeue instruction.
+        :param post_work_activity_sid: The new worker activity SID after executing a Conference instruction.
+        :param supervisor_mode:
+        :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
+        :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
+        :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
+        :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            if_match=if_match,
+            reservation_status=reservation_status,
+            worker_activity_sid=worker_activity_sid,
+            instruction=instruction,
+            dequeue_post_work_activity_sid=dequeue_post_work_activity_sid,
+            dequeue_from=dequeue_from,
+            dequeue_record=dequeue_record,
+            dequeue_timeout=dequeue_timeout,
+            dequeue_to=dequeue_to,
+            dequeue_status_callback_url=dequeue_status_callback_url,
+            call_from=call_from,
+            call_record=call_record,
+            call_timeout=call_timeout,
+            call_to=call_to,
+            call_url=call_url,
+            call_status_callback_url=call_status_callback_url,
+            call_accept=call_accept,
+            redirect_call_sid=redirect_call_sid,
+            redirect_accept=redirect_accept,
+            redirect_url=redirect_url,
+            to=to,
+            from_=from_,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            status_callback_event=status_callback_event,
+            timeout=timeout,
+            record=record,
+            muted=muted,
+            beep=beep,
+            start_conference_on_enter=start_conference_on_enter,
+            end_conference_on_exit=end_conference_on_exit,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            early_media=early_media,
+            max_participants=max_participants,
+            conference_status_callback=conference_status_callback,
+            conference_status_callback_method=conference_status_callback_method,
+            conference_status_callback_event=conference_status_callback_event,
+            conference_record=conference_record,
+            conference_trim=conference_trim,
+            recording_channels=recording_channels,
+            recording_status_callback=recording_status_callback,
+            recording_status_callback_method=recording_status_callback_method,
+            conference_recording_status_callback=conference_recording_status_callback,
+            conference_recording_status_callback_method=conference_recording_status_callback_method,
+            region=region,
+            sip_auth_username=sip_auth_username,
+            sip_auth_password=sip_auth_password,
+            dequeue_status_callback_event=dequeue_status_callback_event,
+            post_work_activity_sid=post_work_activity_sid,
+            supervisor_mode=supervisor_mode,
+            supervisor=supervisor,
+            end_conference_on_customer_exit=end_conference_on_customer_exit,
+            beep_on_customer_entrance=beep_on_customer_entrance,
+            jitter_buffer_size=jitter_buffer_size,
+        )
+        instance = ReservationInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            task_sid=self._solution["task_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        if_match: Union[str, object] = values.unset,
+        reservation_status: Union["ReservationInstance.Status", object] = values.unset,
+        worker_activity_sid: Union[str, object] = values.unset,
+        instruction: Union[str, object] = values.unset,
+        dequeue_post_work_activity_sid: Union[str, object] = values.unset,
+        dequeue_from: Union[str, object] = values.unset,
+        dequeue_record: Union[str, object] = values.unset,
+        dequeue_timeout: Union[int, object] = values.unset,
+        dequeue_to: Union[str, object] = values.unset,
+        dequeue_status_callback_url: Union[str, object] = values.unset,
+        call_from: Union[str, object] = values.unset,
+        call_record: Union[str, object] = values.unset,
+        call_timeout: Union[int, object] = values.unset,
+        call_to: Union[str, object] = values.unset,
+        call_url: Union[str, object] = values.unset,
+        call_status_callback_url: Union[str, object] = values.unset,
+        call_accept: Union[bool, object] = values.unset,
+        redirect_call_sid: Union[str, object] = values.unset,
+        redirect_accept: Union[bool, object] = values.unset,
+        redirect_url: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        status_callback_event: Union[
+            List["ReservationInstance.CallStatus"], object
+        ] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        record: Union[bool, object] = values.unset,
+        muted: Union[bool, object] = values.unset,
+        beep: Union[str, object] = values.unset,
+        start_conference_on_enter: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        early_media: Union[bool, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        conference_status_callback: Union[str, object] = values.unset,
+        conference_status_callback_method: Union[str, object] = values.unset,
+        conference_status_callback_event: Union[
+            List["ReservationInstance.ConferenceEvent"], object
+        ] = values.unset,
+        conference_record: Union[str, object] = values.unset,
+        conference_trim: Union[str, object] = values.unset,
+        recording_channels: Union[str, object] = values.unset,
+        recording_status_callback: Union[str, object] = values.unset,
+        recording_status_callback_method: Union[str, object] = values.unset,
+        conference_recording_status_callback: Union[str, object] = values.unset,
+        conference_recording_status_callback_method: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        sip_auth_username: Union[str, object] = values.unset,
+        sip_auth_password: Union[str, object] = values.unset,
+        dequeue_status_callback_event: Union[List[str], object] = values.unset,
+        post_work_activity_sid: Union[str, object] = values.unset,
+        supervisor_mode: Union[
+            "ReservationInstance.SupervisorMode", object
+        ] = values.unset,
+        supervisor: Union[str, object] = values.unset,
+        end_conference_on_customer_exit: Union[bool, object] = values.unset,
+        beep_on_customer_entrance: Union[bool, object] = values.unset,
+        jitter_buffer_size: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -794,16 +1715,8 @@ class ReservationContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ReservationInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution["workspace_sid"],
-            task_sid=self._solution["task_sid"],
-            sid=self._solution["sid"],
         )
 
     async def update_async(
@@ -931,94 +1844,63 @@ class ReservationContext(InstanceContext):
 
         :returns: The updated ReservationInstance
         """
-
-        data = values.of(
-            {
-                "ReservationStatus": reservation_status,
-                "WorkerActivitySid": worker_activity_sid,
-                "Instruction": instruction,
-                "DequeuePostWorkActivitySid": dequeue_post_work_activity_sid,
-                "DequeueFrom": dequeue_from,
-                "DequeueRecord": dequeue_record,
-                "DequeueTimeout": dequeue_timeout,
-                "DequeueTo": dequeue_to,
-                "DequeueStatusCallbackUrl": dequeue_status_callback_url,
-                "CallFrom": call_from,
-                "CallRecord": call_record,
-                "CallTimeout": call_timeout,
-                "CallTo": call_to,
-                "CallUrl": call_url,
-                "CallStatusCallbackUrl": call_status_callback_url,
-                "CallAccept": serialize.boolean_to_string(call_accept),
-                "RedirectCallSid": redirect_call_sid,
-                "RedirectAccept": serialize.boolean_to_string(redirect_accept),
-                "RedirectUrl": redirect_url,
-                "To": to,
-                "From": from_,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-                "StatusCallbackEvent": serialize.map(
-                    status_callback_event, lambda e: e
-                ),
-                "Timeout": timeout,
-                "Record": serialize.boolean_to_string(record),
-                "Muted": serialize.boolean_to_string(muted),
-                "Beep": beep,
-                "StartConferenceOnEnter": serialize.boolean_to_string(
-                    start_conference_on_enter
-                ),
-                "EndConferenceOnExit": serialize.boolean_to_string(
-                    end_conference_on_exit
-                ),
-                "WaitUrl": wait_url,
-                "WaitMethod": wait_method,
-                "EarlyMedia": serialize.boolean_to_string(early_media),
-                "MaxParticipants": max_participants,
-                "ConferenceStatusCallback": conference_status_callback,
-                "ConferenceStatusCallbackMethod": conference_status_callback_method,
-                "ConferenceStatusCallbackEvent": serialize.map(
-                    conference_status_callback_event, lambda e: e
-                ),
-                "ConferenceRecord": conference_record,
-                "ConferenceTrim": conference_trim,
-                "RecordingChannels": recording_channels,
-                "RecordingStatusCallback": recording_status_callback,
-                "RecordingStatusCallbackMethod": recording_status_callback_method,
-                "ConferenceRecordingStatusCallback": conference_recording_status_callback,
-                "ConferenceRecordingStatusCallbackMethod": conference_recording_status_callback_method,
-                "Region": region,
-                "SipAuthUsername": sip_auth_username,
-                "SipAuthPassword": sip_auth_password,
-                "DequeueStatusCallbackEvent": serialize.map(
-                    dequeue_status_callback_event, lambda e: e
-                ),
-                "PostWorkActivitySid": post_work_activity_sid,
-                "SupervisorMode": supervisor_mode,
-                "Supervisor": supervisor,
-                "EndConferenceOnCustomerExit": serialize.boolean_to_string(
-                    end_conference_on_customer_exit
-                ),
-                "BeepOnCustomerEntrance": serialize.boolean_to_string(
-                    beep_on_customer_entrance
-                ),
-                "JitterBufferSize": jitter_buffer_size,
-            }
+        payload, _, _ = await self._update_async(
+            if_match=if_match,
+            reservation_status=reservation_status,
+            worker_activity_sid=worker_activity_sid,
+            instruction=instruction,
+            dequeue_post_work_activity_sid=dequeue_post_work_activity_sid,
+            dequeue_from=dequeue_from,
+            dequeue_record=dequeue_record,
+            dequeue_timeout=dequeue_timeout,
+            dequeue_to=dequeue_to,
+            dequeue_status_callback_url=dequeue_status_callback_url,
+            call_from=call_from,
+            call_record=call_record,
+            call_timeout=call_timeout,
+            call_to=call_to,
+            call_url=call_url,
+            call_status_callback_url=call_status_callback_url,
+            call_accept=call_accept,
+            redirect_call_sid=redirect_call_sid,
+            redirect_accept=redirect_accept,
+            redirect_url=redirect_url,
+            to=to,
+            from_=from_,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            status_callback_event=status_callback_event,
+            timeout=timeout,
+            record=record,
+            muted=muted,
+            beep=beep,
+            start_conference_on_enter=start_conference_on_enter,
+            end_conference_on_exit=end_conference_on_exit,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            early_media=early_media,
+            max_participants=max_participants,
+            conference_status_callback=conference_status_callback,
+            conference_status_callback_method=conference_status_callback_method,
+            conference_status_callback_event=conference_status_callback_event,
+            conference_record=conference_record,
+            conference_trim=conference_trim,
+            recording_channels=recording_channels,
+            recording_status_callback=recording_status_callback,
+            recording_status_callback_method=recording_status_callback_method,
+            conference_recording_status_callback=conference_recording_status_callback,
+            conference_recording_status_callback_method=conference_recording_status_callback_method,
+            region=region,
+            sip_auth_username=sip_auth_username,
+            sip_auth_password=sip_auth_password,
+            dequeue_status_callback_event=dequeue_status_callback_event,
+            post_work_activity_sid=post_work_activity_sid,
+            supervisor_mode=supervisor_mode,
+            supervisor=supervisor,
+            end_conference_on_customer_exit=end_conference_on_customer_exit,
+            beep_on_customer_entrance=beep_on_customer_entrance,
+            jitter_buffer_size=jitter_buffer_size,
         )
-        headers = values.of({})
-
-        if not (
-            if_match is values.unset or (isinstance(if_match, str) and not if_match)
-        ):
-            headers["If-Match"] = if_match
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ReservationInstance(
             self._version,
             payload,
@@ -1026,6 +1908,197 @@ class ReservationContext(InstanceContext):
             task_sid=self._solution["task_sid"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(
+        self,
+        if_match: Union[str, object] = values.unset,
+        reservation_status: Union["ReservationInstance.Status", object] = values.unset,
+        worker_activity_sid: Union[str, object] = values.unset,
+        instruction: Union[str, object] = values.unset,
+        dequeue_post_work_activity_sid: Union[str, object] = values.unset,
+        dequeue_from: Union[str, object] = values.unset,
+        dequeue_record: Union[str, object] = values.unset,
+        dequeue_timeout: Union[int, object] = values.unset,
+        dequeue_to: Union[str, object] = values.unset,
+        dequeue_status_callback_url: Union[str, object] = values.unset,
+        call_from: Union[str, object] = values.unset,
+        call_record: Union[str, object] = values.unset,
+        call_timeout: Union[int, object] = values.unset,
+        call_to: Union[str, object] = values.unset,
+        call_url: Union[str, object] = values.unset,
+        call_status_callback_url: Union[str, object] = values.unset,
+        call_accept: Union[bool, object] = values.unset,
+        redirect_call_sid: Union[str, object] = values.unset,
+        redirect_accept: Union[bool, object] = values.unset,
+        redirect_url: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        status_callback_event: Union[
+            List["ReservationInstance.CallStatus"], object
+        ] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        record: Union[bool, object] = values.unset,
+        muted: Union[bool, object] = values.unset,
+        beep: Union[str, object] = values.unset,
+        start_conference_on_enter: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        early_media: Union[bool, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        conference_status_callback: Union[str, object] = values.unset,
+        conference_status_callback_method: Union[str, object] = values.unset,
+        conference_status_callback_event: Union[
+            List["ReservationInstance.ConferenceEvent"], object
+        ] = values.unset,
+        conference_record: Union[str, object] = values.unset,
+        conference_trim: Union[str, object] = values.unset,
+        recording_channels: Union[str, object] = values.unset,
+        recording_status_callback: Union[str, object] = values.unset,
+        recording_status_callback_method: Union[str, object] = values.unset,
+        conference_recording_status_callback: Union[str, object] = values.unset,
+        conference_recording_status_callback_method: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        sip_auth_username: Union[str, object] = values.unset,
+        sip_auth_password: Union[str, object] = values.unset,
+        dequeue_status_callback_event: Union[List[str], object] = values.unset,
+        post_work_activity_sid: Union[str, object] = values.unset,
+        supervisor_mode: Union[
+            "ReservationInstance.SupervisorMode", object
+        ] = values.unset,
+        supervisor: Union[str, object] = values.unset,
+        end_conference_on_customer_exit: Union[bool, object] = values.unset,
+        beep_on_customer_entrance: Union[bool, object] = values.unset,
+        jitter_buffer_size: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ReservationInstance and return response metadata
+
+        :param if_match: The If-Match HTTP request header
+        :param reservation_status:
+        :param worker_activity_sid: The new worker activity SID if rejecting a reservation.
+        :param instruction: The assignment instruction for reservation.
+        :param dequeue_post_work_activity_sid: The SID of the Activity resource to start after executing a Dequeue instruction.
+        :param dequeue_from: The Caller ID of the call to the worker when executing a Dequeue instruction.
+        :param dequeue_record: Whether to record both legs of a call when executing a Dequeue instruction or which leg to record.
+        :param dequeue_timeout: Timeout for call when executing a Dequeue instruction.
+        :param dequeue_to: The Contact URI of the worker when executing a Dequeue instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+        :param dequeue_status_callback_url: The Callback URL for completed call event when executing a Dequeue instruction.
+        :param call_from: The Caller ID of the outbound call when executing a Call instruction.
+        :param call_record: Whether to record both legs of a call when executing a Call instruction or which leg to record.
+        :param call_timeout: Timeout for call when executing a Call instruction.
+        :param call_to: The Contact URI of the worker when executing a Call instruction.  Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+        :param call_url: TwiML URI executed on answering the worker's leg as a result of the Call instruction.
+        :param call_status_callback_url: The URL to call  for the completed call event when executing a Call instruction.
+        :param call_accept: Whether to accept a reservation when executing a Call instruction.
+        :param redirect_call_sid: The Call SID of the call parked in the queue when executing a Redirect instruction.
+        :param redirect_accept: Whether the reservation should be accepted when executing a Redirect instruction.
+        :param redirect_url: TwiML URI to redirect the call to when executing the Redirect instruction.
+        :param to: The Contact URI of the worker when executing a Conference instruction. Can be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone number, depending on the destination.
+        :param from_: The Caller ID of the call to the worker when executing a Conference instruction.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `POST` or `GET` and the default is `POST`.
+        :param status_callback_event: The call progress events that we will send to `status_callback`. Can be: `initiated`, `ringing`, `answered`, or `completed`.
+        :param timeout: Timeout for call when executing a Conference instruction.
+        :param record: Whether to record the participant and their conferences, including the time between conferences. The default is `false`.
+        :param muted: Whether the agent is muted in the conference. The default is `false`.
+        :param beep: Whether to play a notification beep when the participant joins or when to play a beep. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
+        :param start_conference_on_enter: Whether to start the conference when the participant joins, if it has not already started. The default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
+        :param end_conference_on_exit: Whether to end the conference when the agent leaves.
+        :param wait_url: The URL we should call using the `wait_method` for the music to play while participants are waiting for the conference to start. The default value is the URL of our standard hold music. [Learn more about hold music](https://www.twilio.com/labs/twimlets/holdmusic).
+        :param wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param early_media: Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. The default is `true`.
+        :param max_participants: The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
+        :param conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
+        :param conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param conference_status_callback_event: The conference status events that we will send to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `speaker`.
+        :param conference_record: Whether to record the conference the participant is joining or when to record the conference. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
+        :param conference_trim: How to trim the leading and trailing silence from your recorded conference audio files. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
+        :param recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
+        :param recording_status_callback: The URL that we should call using the `recording_status_callback_method` when the recording status changes.
+        :param recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
+        :param conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+        :param sip_auth_username: The SIP username used for authentication.
+        :param sip_auth_password: The SIP password for authentication.
+        :param dequeue_status_callback_event: The Call progress events sent via webhooks as a result of a Dequeue instruction.
+        :param post_work_activity_sid: The new worker activity SID after executing a Conference instruction.
+        :param supervisor_mode:
+        :param supervisor: The Supervisor SID/URI when executing the Supervise instruction.
+        :param end_conference_on_customer_exit: Whether to end the conference when the customer leaves.
+        :param beep_on_customer_entrance: Whether to play a notification beep when the customer joins.
+        :param jitter_buffer_size: The jitter buffer size for conference. Can be: `small`, `medium`, `large`, `off`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            if_match=if_match,
+            reservation_status=reservation_status,
+            worker_activity_sid=worker_activity_sid,
+            instruction=instruction,
+            dequeue_post_work_activity_sid=dequeue_post_work_activity_sid,
+            dequeue_from=dequeue_from,
+            dequeue_record=dequeue_record,
+            dequeue_timeout=dequeue_timeout,
+            dequeue_to=dequeue_to,
+            dequeue_status_callback_url=dequeue_status_callback_url,
+            call_from=call_from,
+            call_record=call_record,
+            call_timeout=call_timeout,
+            call_to=call_to,
+            call_url=call_url,
+            call_status_callback_url=call_status_callback_url,
+            call_accept=call_accept,
+            redirect_call_sid=redirect_call_sid,
+            redirect_accept=redirect_accept,
+            redirect_url=redirect_url,
+            to=to,
+            from_=from_,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            status_callback_event=status_callback_event,
+            timeout=timeout,
+            record=record,
+            muted=muted,
+            beep=beep,
+            start_conference_on_enter=start_conference_on_enter,
+            end_conference_on_exit=end_conference_on_exit,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            early_media=early_media,
+            max_participants=max_participants,
+            conference_status_callback=conference_status_callback,
+            conference_status_callback_method=conference_status_callback_method,
+            conference_status_callback_event=conference_status_callback_event,
+            conference_record=conference_record,
+            conference_trim=conference_trim,
+            recording_channels=recording_channels,
+            recording_status_callback=recording_status_callback,
+            recording_status_callback_method=recording_status_callback_method,
+            conference_recording_status_callback=conference_recording_status_callback,
+            conference_recording_status_callback_method=conference_recording_status_callback_method,
+            region=region,
+            sip_auth_username=sip_auth_username,
+            sip_auth_password=sip_auth_password,
+            dequeue_status_callback_event=dequeue_status_callback_event,
+            post_work_activity_sid=post_work_activity_sid,
+            supervisor_mode=supervisor_mode,
+            supervisor=supervisor,
+            end_conference_on_customer_exit=end_conference_on_customer_exit,
+            beep_on_customer_entrance=beep_on_customer_entrance,
+            jitter_buffer_size=jitter_buffer_size,
+        )
+        instance = ReservationInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            task_sid=self._solution["task_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -1149,6 +2222,70 @@ class ReservationList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        reservation_status: Union["ReservationInstance.Status", object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams ReservationInstance and returns headers from first page
+
+
+        :param &quot;ReservationInstance.Status&quot; reservation_status: Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
+        :param str worker_sid: The SID of the reserved Worker resource to read.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            reservation_status=reservation_status,
+            worker_sid=worker_sid,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        reservation_status: Union["ReservationInstance.Status", object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams ReservationInstance and returns headers from first page
+
+
+        :param &quot;ReservationInstance.Status&quot; reservation_status: Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
+        :param str worker_sid: The SID of the reserved Worker resource to read.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            reservation_status=reservation_status,
+            worker_sid=worker_sid,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         reservation_status: Union["ReservationInstance.Status", object] = values.unset,
@@ -1213,6 +2350,68 @@ class ReservationList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        reservation_status: Union["ReservationInstance.Status", object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists ReservationInstance and returns headers from first page
+
+
+        :param &quot;ReservationInstance.Status&quot; reservation_status: Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
+        :param str worker_sid: The SID of the reserved Worker resource to read.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            reservation_status=reservation_status,
+            worker_sid=worker_sid,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        reservation_status: Union["ReservationInstance.Status", object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists ReservationInstance and returns headers from first page
+
+
+        :param &quot;ReservationInstance.Status&quot; reservation_status: Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
+        :param str worker_sid: The SID of the reserved Worker resource to read.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            reservation_status=reservation_status,
+            worker_sid=worker_sid,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -1291,6 +2490,88 @@ class ReservationList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return ReservationPage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        reservation_status: Union["ReservationInstance.Status", object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param reservation_status: Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
+        :param worker_sid: The SID of the reserved Worker resource to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ReservationPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "ReservationStatus": reservation_status,
+                "WorkerSid": worker_sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = ReservationPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        reservation_status: Union["ReservationInstance.Status", object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param reservation_status: Returns the list of reservations for a task with a specified ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`.
+        :param worker_sid: The SID of the reserved Worker resource to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ReservationPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "ReservationStatus": reservation_status,
+                "WorkerSid": worker_sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = ReservationPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ReservationPage:
         """

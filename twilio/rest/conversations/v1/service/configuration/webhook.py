@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -87,6 +88,24 @@ class WebhookInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the WebhookInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the WebhookInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(
         self,
         pre_webhook_url: Union[str, object] = values.unset,
@@ -135,6 +154,54 @@ class WebhookInstance(InstanceResource):
             method=method,
         )
 
+    def update_with_http_info(
+        self,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        filters: Union[List[str], object] = values.unset,
+        method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the WebhookInstance with HTTP info
+
+        :param pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
+        :param post_webhook_url: The absolute url the post-event webhook request should be sent to.
+        :param filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
+        :param method: The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            pre_webhook_url=pre_webhook_url,
+            post_webhook_url=post_webhook_url,
+            filters=filters,
+            method=method,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        filters: Union[List[str], object] = values.unset,
+        method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the WebhookInstance with HTTP info
+
+        :param pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
+        :param post_webhook_url: The absolute url the post-event webhook request should be sent to.
+        :param filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
+        :param method: The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            pre_webhook_url=pre_webhook_url,
+            post_webhook_url=post_webhook_url,
+            filters=filters,
+            method=method,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -164,6 +231,22 @@ class WebhookContext(InstanceContext):
             **self._solution
         )
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> WebhookInstance:
         """
         Fetch the WebhookInstance
@@ -171,17 +254,42 @@ class WebhookContext(InstanceContext):
 
         :returns: The fetched WebhookInstance
         """
+        payload, _, _ = self._fetch()
+        return WebhookInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the WebhookInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = WebhookInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return WebhookInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> WebhookInstance:
@@ -191,19 +299,58 @@ class WebhookContext(InstanceContext):
 
         :returns: The fetched WebhookInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return WebhookInstance(
             self._version,
             payload,
             chat_service_sid=self._solution["chat_service_sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the WebhookInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = WebhookInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        filters: Union[List[str], object] = values.unset,
+        method: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "PreWebhookUrl": pre_webhook_url,
+                "PostWebhookUrl": post_webhook_url,
+                "Filters": serialize.map(filters, lambda e: e),
+                "Method": method,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -223,6 +370,57 @@ class WebhookContext(InstanceContext):
 
         :returns: The updated WebhookInstance
         """
+        payload, _, _ = self._update(
+            pre_webhook_url=pre_webhook_url,
+            post_webhook_url=post_webhook_url,
+            filters=filters,
+            method=method,
+        )
+        return WebhookInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    def update_with_http_info(
+        self,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        filters: Union[List[str], object] = values.unset,
+        method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the WebhookInstance and return response metadata
+
+        :param pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
+        :param post_webhook_url: The absolute url the post-event webhook request should be sent to.
+        :param filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
+        :param method: The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            pre_webhook_url=pre_webhook_url,
+            post_webhook_url=post_webhook_url,
+            filters=filters,
+            method=method,
+        )
+        instance = WebhookInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        filters: Union[List[str], object] = values.unset,
+        method: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -238,12 +436,8 @@ class WebhookContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return WebhookInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
         )
 
     async def update_async(
@@ -263,28 +457,43 @@ class WebhookContext(InstanceContext):
 
         :returns: The updated WebhookInstance
         """
-
-        data = values.of(
-            {
-                "PreWebhookUrl": pre_webhook_url,
-                "PostWebhookUrl": post_webhook_url,
-                "Filters": serialize.map(filters, lambda e: e),
-                "Method": method,
-            }
+        payload, _, _ = await self._update_async(
+            pre_webhook_url=pre_webhook_url,
+            post_webhook_url=post_webhook_url,
+            filters=filters,
+            method=method,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return WebhookInstance(
             self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
         )
+
+    async def update_with_http_info_async(
+        self,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        filters: Union[List[str], object] = values.unset,
+        method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the WebhookInstance and return response metadata
+
+        :param pre_webhook_url: The absolute url the pre-event webhook request should be sent to.
+        :param post_webhook_url: The absolute url the post-event webhook request should be sent to.
+        :param filters: The list of events that your configured webhook targets will receive. Events not configured here will not fire. Possible values are `onParticipantAdd`, `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`, `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`.
+        :param method: The HTTP method to be used when sending a webhook request. One of `GET` or `POST`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            pre_webhook_url=pre_webhook_url,
+            post_webhook_url=post_webhook_url,
+            filters=filters,
+            method=method,
+        )
+        instance = WebhookInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

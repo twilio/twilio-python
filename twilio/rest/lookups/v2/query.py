@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -381,6 +382,27 @@ class QueryList(ListResource):
 
         self._uri = "/batch/query"
 
+    def _create(
+        self, lookup_request: Union[LookupRequest, object] = values.unset
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = lookup_request.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self, lookup_request: Union[LookupRequest, object] = values.unset
     ) -> QueryInstance:
@@ -391,6 +413,32 @@ class QueryList(ListResource):
 
         :returns: The created QueryInstance
         """
+        payload, _, _ = self._create(lookup_request=lookup_request)
+        return QueryInstance(self._version, payload)
+
+    def create_with_http_info(
+        self, lookup_request: Union[LookupRequest, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Create the QueryInstance and return response metadata
+
+        :param lookup_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(lookup_request=lookup_request)
+        instance = QueryInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self, lookup_request: Union[LookupRequest, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = lookup_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -399,11 +447,9 @@ class QueryList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return QueryInstance(self._version, payload)
 
     async def create_async(
         self, lookup_request: Union[LookupRequest, object] = values.unset
@@ -415,19 +461,24 @@ class QueryList(ListResource):
 
         :returns: The created QueryInstance
         """
-        data = lookup_request.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._create_async(lookup_request=lookup_request)
         return QueryInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self, lookup_request: Union[LookupRequest, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronously create the QueryInstance and return response metadata
+
+        :param lookup_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            lookup_request=lookup_request
+        )
+        instance = QueryInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

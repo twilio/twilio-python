@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -116,6 +117,34 @@ class InteractionChannelParticipantInstance(InstanceResource):
             status=status,
         )
 
+    def update_with_http_info(
+        self, status: "InteractionChannelParticipantInstance.Status"
+    ) -> ApiResponse:
+        """
+        Update the InteractionChannelParticipantInstance with HTTP info
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            status=status,
+        )
+
+    async def update_with_http_info_async(
+        self, status: "InteractionChannelParticipantInstance.Status"
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the InteractionChannelParticipantInstance with HTTP info
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            status=status,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -153,15 +182,12 @@ class InteractionChannelParticipantContext(InstanceContext):
             **self._solution
         )
 
-    def update(
-        self, status: "InteractionChannelParticipantInstance.Status"
-    ) -> InteractionChannelParticipantInstance:
+    def _update(self, status: "InteractionChannelParticipantInstance.Status") -> tuple:
         """
-        Update the InteractionChannelParticipantInstance
+        Internal helper for update operation
 
-        :param status:
-
-        :returns: The updated InteractionChannelParticipantInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -175,16 +201,72 @@ class InteractionChannelParticipantContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return self._version.update_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def update(
+        self, status: "InteractionChannelParticipantInstance.Status"
+    ) -> InteractionChannelParticipantInstance:
+        """
+        Update the InteractionChannelParticipantInstance
+
+        :param status:
+
+        :returns: The updated InteractionChannelParticipantInstance
+        """
+        payload, _, _ = self._update(status=status)
         return InteractionChannelParticipantInstance(
             self._version,
             payload,
             interaction_sid=self._solution["interaction_sid"],
             channel_sid=self._solution["channel_sid"],
             sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(
+        self, status: "InteractionChannelParticipantInstance.Status"
+    ) -> ApiResponse:
+        """
+        Update the InteractionChannelParticipantInstance and return response metadata
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(status=status)
+        instance = InteractionChannelParticipantInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution["interaction_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self, status: "InteractionChannelParticipantInstance.Status"
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Status": status,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.update_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def update_async(
@@ -197,22 +279,7 @@ class InteractionChannelParticipantContext(InstanceContext):
 
         :returns: The updated InteractionChannelParticipantInstance
         """
-
-        data = values.of(
-            {
-                "Status": status,
-            }
-        )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(status=status)
         return InteractionChannelParticipantInstance(
             self._version,
             payload,
@@ -220,6 +287,26 @@ class InteractionChannelParticipantContext(InstanceContext):
             channel_sid=self._solution["channel_sid"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(
+        self, status: "InteractionChannelParticipantInstance.Status"
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the InteractionChannelParticipantInstance and return response metadata
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(status=status)
+        instance = InteractionChannelParticipantInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution["interaction_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -281,20 +368,17 @@ class InteractionChannelParticipantList(ListResource):
             **self._solution
         )
 
-    def create(
+    def _create(
         self,
         type: "InteractionChannelParticipantInstance.Type",
         media_properties: object,
         routing_properties: Union[object, object] = values.unset,
-    ) -> InteractionChannelParticipantInstance:
+    ) -> tuple:
         """
-        Create the InteractionChannelParticipantInstance
+        Internal helper for create operation
 
-        :param type:
-        :param media_properties: JSON representing the Media Properties for the new Participant.
-        :param routing_properties: Object representing the Routing Properties for the new Participant.
-
-        :returns: The created InteractionChannelParticipantInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -310,15 +394,93 @@ class InteractionChannelParticipantList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        type: "InteractionChannelParticipantInstance.Type",
+        media_properties: object,
+        routing_properties: Union[object, object] = values.unset,
+    ) -> InteractionChannelParticipantInstance:
+        """
+        Create the InteractionChannelParticipantInstance
+
+        :param type:
+        :param media_properties: JSON representing the Media Properties for the new Participant.
+        :param routing_properties: Object representing the Routing Properties for the new Participant.
+
+        :returns: The created InteractionChannelParticipantInstance
+        """
+        payload, _, _ = self._create(
+            type=type,
+            media_properties=media_properties,
+            routing_properties=routing_properties,
+        )
         return InteractionChannelParticipantInstance(
             self._version,
             payload,
             interaction_sid=self._solution["interaction_sid"],
             channel_sid=self._solution["channel_sid"],
+        )
+
+    def create_with_http_info(
+        self,
+        type: "InteractionChannelParticipantInstance.Type",
+        media_properties: object,
+        routing_properties: Union[object, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the InteractionChannelParticipantInstance and return response metadata
+
+        :param type:
+        :param media_properties: JSON representing the Media Properties for the new Participant.
+        :param routing_properties: Object representing the Routing Properties for the new Participant.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            type=type,
+            media_properties=media_properties,
+            routing_properties=routing_properties,
+        )
+        instance = InteractionChannelParticipantInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution["interaction_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        type: "InteractionChannelParticipantInstance.Type",
+        media_properties: object,
+        routing_properties: Union[object, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Type": type,
+                "MediaProperties": serialize.object(media_properties),
+                "RoutingProperties": serialize.object(routing_properties),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def create_async(
@@ -336,30 +498,45 @@ class InteractionChannelParticipantList(ListResource):
 
         :returns: The created InteractionChannelParticipantInstance
         """
-
-        data = values.of(
-            {
-                "Type": type,
-                "MediaProperties": serialize.object(media_properties),
-                "RoutingProperties": serialize.object(routing_properties),
-            }
+        payload, _, _ = await self._create_async(
+            type=type,
+            media_properties=media_properties,
+            routing_properties=routing_properties,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return InteractionChannelParticipantInstance(
             self._version,
             payload,
             interaction_sid=self._solution["interaction_sid"],
             channel_sid=self._solution["channel_sid"],
         )
+
+    async def create_with_http_info_async(
+        self,
+        type: "InteractionChannelParticipantInstance.Type",
+        media_properties: object,
+        routing_properties: Union[object, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the InteractionChannelParticipantInstance and return response metadata
+
+        :param type:
+        :param media_properties: JSON representing the Media Properties for the new Participant.
+        :param routing_properties: Object representing the Routing Properties for the new Participant.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            type=type,
+            media_properties=media_properties,
+            routing_properties=routing_properties,
+        )
+        instance = InteractionChannelParticipantInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution["interaction_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -410,6 +587,56 @@ class InteractionChannelParticipantList(ListResource):
         page = await self.page_async(page_size=limits["page_size"])
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams InteractionChannelParticipantInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(page_size=limits["page_size"])
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams InteractionChannelParticipantInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -463,6 +690,56 @@ class InteractionChannelParticipantList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists InteractionChannelParticipantInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists InteractionChannelParticipantInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -533,6 +810,80 @@ class InteractionChannelParticipantList(ListResource):
         return InteractionChannelParticipantPage(
             self._version, response, self._solution
         )
+
+    def page_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with InteractionChannelParticipantPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = InteractionChannelParticipantPage(
+            self._version, response, self._solution
+        )
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with InteractionChannelParticipantPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = InteractionChannelParticipantPage(
+            self._version, response, self._solution
+        )
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> InteractionChannelParticipantPage:
         """

@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -90,6 +91,24 @@ class UserDefinedMessageSubscriptionInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the UserDefinedMessageSubscriptionInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the UserDefinedMessageSubscriptionInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -125,6 +144,20 @@ class UserDefinedMessageSubscriptionContext(InstanceContext):
             **self._solution
         )
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the UserDefinedMessageSubscriptionInstance
@@ -132,10 +165,32 @@ class UserDefinedMessageSubscriptionContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the UserDefinedMessageSubscriptionInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -144,12 +199,18 @@ class UserDefinedMessageSubscriptionContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
 
-        headers = values.of({})
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the UserDefinedMessageSubscriptionInstance and return response metadata
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
-        )
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -185,20 +246,17 @@ class UserDefinedMessageSubscriptionList(ListResource):
             **self._solution
         )
 
-    def create(
+    def _create(
         self,
         callback: str,
         idempotency_key: Union[str, object] = values.unset,
         method: Union[str, object] = values.unset,
-    ) -> UserDefinedMessageSubscriptionInstance:
+    ) -> tuple:
         """
-        Create the UserDefinedMessageSubscriptionInstance
+        Internal helper for create operation
 
-        :param callback: The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
-        :param idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
-        :param method: The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. Default is `POST`.
-
-        :returns: The created UserDefinedMessageSubscriptionInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -214,15 +272,89 @@ class UserDefinedMessageSubscriptionList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        callback: str,
+        idempotency_key: Union[str, object] = values.unset,
+        method: Union[str, object] = values.unset,
+    ) -> UserDefinedMessageSubscriptionInstance:
+        """
+        Create the UserDefinedMessageSubscriptionInstance
+
+        :param callback: The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
+        :param idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+        :param method: The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. Default is `POST`.
+
+        :returns: The created UserDefinedMessageSubscriptionInstance
+        """
+        payload, _, _ = self._create(
+            callback=callback, idempotency_key=idempotency_key, method=method
+        )
         return UserDefinedMessageSubscriptionInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             call_sid=self._solution["call_sid"],
+        )
+
+    def create_with_http_info(
+        self,
+        callback: str,
+        idempotency_key: Union[str, object] = values.unset,
+        method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the UserDefinedMessageSubscriptionInstance and return response metadata
+
+        :param callback: The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
+        :param idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+        :param method: The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. Default is `POST`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            callback=callback, idempotency_key=idempotency_key, method=method
+        )
+        instance = UserDefinedMessageSubscriptionInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        callback: str,
+        idempotency_key: Union[str, object] = values.unset,
+        method: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Callback": callback,
+                "IdempotencyKey": idempotency_key,
+                "Method": method,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def create_async(
@@ -240,30 +372,41 @@ class UserDefinedMessageSubscriptionList(ListResource):
 
         :returns: The created UserDefinedMessageSubscriptionInstance
         """
-
-        data = values.of(
-            {
-                "Callback": callback,
-                "IdempotencyKey": idempotency_key,
-                "Method": method,
-            }
+        payload, _, _ = await self._create_async(
+            callback=callback, idempotency_key=idempotency_key, method=method
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return UserDefinedMessageSubscriptionInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             call_sid=self._solution["call_sid"],
         )
+
+    async def create_with_http_info_async(
+        self,
+        callback: str,
+        idempotency_key: Union[str, object] = values.unset,
+        method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the UserDefinedMessageSubscriptionInstance and return response metadata
+
+        :param callback: The URL we should call using the `method` to send user defined events to your application. URLs must contain a valid hostname (underscores are not permitted).
+        :param idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+        :param method: The HTTP method Twilio will use when requesting the above `Url`. Either `GET` or `POST`. Default is `POST`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            callback=callback, idempotency_key=idempotency_key, method=method
+        )
+        instance = UserDefinedMessageSubscriptionInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def get(self, sid: str) -> UserDefinedMessageSubscriptionContext:
         """

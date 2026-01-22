@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -128,6 +129,34 @@ class WorkerInstance(InstanceResource):
             if_match=if_match,
         )
 
+    def delete_with_http_info(
+        self, if_match: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Deletes the WorkerInstance with HTTP info
+
+        :param if_match: The If-Match HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info(
+            if_match=if_match,
+        )
+
+    async def delete_with_http_info_async(
+        self, if_match: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the WorkerInstance with HTTP info
+
+        :param if_match: The If-Match HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async(
+            if_match=if_match,
+        )
+
     def fetch(self) -> "WorkerInstance":
         """
         Fetch the WorkerInstance
@@ -145,6 +174,24 @@ class WorkerInstance(InstanceResource):
         :returns: The fetched WorkerInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the WorkerInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the WorkerInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -193,6 +240,60 @@ class WorkerInstance(InstanceResource):
         :returns: The updated WorkerInstance
         """
         return await self._proxy.update_async(
+            if_match=if_match,
+            activity_sid=activity_sid,
+            attributes=attributes,
+            friendly_name=friendly_name,
+            reject_pending_reservations=reject_pending_reservations,
+        )
+
+    def update_with_http_info(
+        self,
+        if_match: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        reject_pending_reservations: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the WorkerInstance with HTTP info
+
+        :param if_match: The If-Match HTTP request header
+        :param activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
+        :param attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
+        :param reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            if_match=if_match,
+            activity_sid=activity_sid,
+            attributes=attributes,
+            friendly_name=friendly_name,
+            reject_pending_reservations=reject_pending_reservations,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        if_match: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        reject_pending_reservations: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the WorkerInstance with HTTP info
+
+        :param if_match: The If-Match HTTP request header
+        :param activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
+        :param attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
+        :param reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             if_match=if_match,
             activity_sid=activity_sid,
             attributes=attributes,
@@ -254,13 +355,12 @@ class WorkerContext(InstanceContext):
         self._worker_channels: Optional[WorkerChannelList] = None
         self._statistics: Optional[WorkerStatisticsList] = None
 
-    def delete(self, if_match: Union[str, object] = values.unset) -> bool:
+    def _delete(self, if_match: Union[str, object] = values.unset) -> tuple:
         """
-        Deletes the WorkerInstance
+        Internal helper for delete operation
 
-        :param if_match: The If-Match HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
+        Returns:
+            tuple: (success_boolean, status_code, headers)
         """
         headers = values.of(
             {
@@ -270,7 +370,52 @@ class WorkerContext(InstanceContext):
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
+    def delete(self, if_match: Union[str, object] = values.unset) -> bool:
+        """
+        Deletes the WorkerInstance
+
+        :param if_match: The If-Match HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        success, _, _ = self._delete(if_match=if_match)
+        return success
+
+    def delete_with_http_info(
+        self, if_match: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Deletes the WorkerInstance and return response metadata
+
+        :param if_match: The If-Match HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete(if_match=if_match)
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self, if_match: Union[str, object] = values.unset) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+        headers = values.of(
+            {
+                "If-Match": if_match,
+            }
+        )
+
+        headers = values.of({})
+
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self, if_match: Union[str, object] = values.unset) -> bool:
         """
@@ -280,16 +425,36 @@ class WorkerContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        headers = values.of(
-            {
-                "If-Match": if_match,
-            }
-        )
+        success, _, _ = await self._delete_async(if_match=if_match)
+        return success
+
+    async def delete_with_http_info_async(
+        self, if_match: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the WorkerInstance and return response metadata
+
+        :param if_match: The If-Match HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async(if_match=if_match)
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> WorkerInstance:
@@ -299,18 +464,44 @@ class WorkerContext(InstanceContext):
 
         :returns: The fetched WorkerInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return WorkerInstance(
             self._version,
             payload,
             workspace_sid=self._solution["workspace_sid"],
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the WorkerInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = WorkerInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> WorkerInstance:
@@ -320,20 +511,68 @@ class WorkerContext(InstanceContext):
 
         :returns: The fetched WorkerInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return WorkerInstance(
             self._version,
             payload,
             workspace_sid=self._solution["workspace_sid"],
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the WorkerInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = WorkerInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        if_match: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        reject_pending_reservations: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "ActivitySid": activity_sid,
+                "Attributes": attributes,
+                "FriendlyName": friendly_name,
+                "RejectPendingReservations": serialize.boolean_to_string(
+                    reject_pending_reservations
+                ),
+            }
+        )
+        headers = values.of({})
+
+        if not (
+            if_match is values.unset or (isinstance(if_match, str) and not if_match)
+        ):
+            headers["If-Match"] = if_match
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -355,6 +594,68 @@ class WorkerContext(InstanceContext):
 
         :returns: The updated WorkerInstance
         """
+        payload, _, _ = self._update(
+            if_match=if_match,
+            activity_sid=activity_sid,
+            attributes=attributes,
+            friendly_name=friendly_name,
+            reject_pending_reservations=reject_pending_reservations,
+        )
+        return WorkerInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(
+        self,
+        if_match: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        reject_pending_reservations: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the WorkerInstance and return response metadata
+
+        :param if_match: The If-Match HTTP request header
+        :param activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
+        :param attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
+        :param reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            if_match=if_match,
+            activity_sid=activity_sid,
+            attributes=attributes,
+            friendly_name=friendly_name,
+            reject_pending_reservations=reject_pending_reservations,
+        )
+        instance = WorkerInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        if_match: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        reject_pending_reservations: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -377,15 +678,8 @@ class WorkerContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return WorkerInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution["workspace_sid"],
-            sid=self._solution["sid"],
         )
 
     async def update_async(
@@ -407,38 +701,53 @@ class WorkerContext(InstanceContext):
 
         :returns: The updated WorkerInstance
         """
-
-        data = values.of(
-            {
-                "ActivitySid": activity_sid,
-                "Attributes": attributes,
-                "FriendlyName": friendly_name,
-                "RejectPendingReservations": serialize.boolean_to_string(
-                    reject_pending_reservations
-                ),
-            }
+        payload, _, _ = await self._update_async(
+            if_match=if_match,
+            activity_sid=activity_sid,
+            attributes=attributes,
+            friendly_name=friendly_name,
+            reject_pending_reservations=reject_pending_reservations,
         )
-        headers = values.of({})
-
-        if not (
-            if_match is values.unset or (isinstance(if_match, str) and not if_match)
-        ):
-            headers["If-Match"] = if_match
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return WorkerInstance(
             self._version,
             payload,
             workspace_sid=self._solution["workspace_sid"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(
+        self,
+        if_match: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        reject_pending_reservations: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the WorkerInstance and return response metadata
+
+        :param if_match: The If-Match HTTP request header
+        :param activity_sid: The SID of a valid Activity that will describe the Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information.
+        :param attributes: The JSON string that describes the Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+        :param friendly_name: A descriptive string that you create to describe the Worker. It can be up to 64 characters long.
+        :param reject_pending_reservations: Whether to reject the Worker's pending reservations. This option is only valid if the Worker's new [Activity](https://www.twilio.com/docs/taskrouter/api/activity) resource has its `availability` property set to `False`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            if_match=if_match,
+            activity_sid=activity_sid,
+            attributes=attributes,
+            friendly_name=friendly_name,
+            reject_pending_reservations=reject_pending_reservations,
+        )
+        instance = WorkerInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def reservations(self) -> ReservationList:
@@ -532,20 +841,17 @@ class WorkerList(ListResource):
         self._real_time_statistics: Optional[WorkersRealTimeStatisticsList] = None
         self._statistics: Optional[WorkersStatisticsList] = None
 
-    def create(
+    def _create(
         self,
         friendly_name: str,
         activity_sid: Union[str, object] = values.unset,
         attributes: Union[str, object] = values.unset,
-    ) -> WorkerInstance:
+    ) -> tuple:
         """
-        Create the WorkerInstance
+        Internal helper for create operation
 
-        :param friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
-        :param activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
-        :param attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
-
-        :returns: The created WorkerInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -561,12 +867,87 @@ class WorkerList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        friendly_name: str,
+        activity_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+    ) -> WorkerInstance:
+        """
+        Create the WorkerInstance
+
+        :param friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
+        :param activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
+        :param attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+
+        :returns: The created WorkerInstance
+        """
+        payload, _, _ = self._create(
+            friendly_name=friendly_name,
+            activity_sid=activity_sid,
+            attributes=attributes,
+        )
         return WorkerInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def create_with_http_info(
+        self,
+        friendly_name: str,
+        activity_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the WorkerInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
+        :param activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
+        :param attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            friendly_name=friendly_name,
+            activity_sid=activity_sid,
+            attributes=attributes,
+        )
+        instance = WorkerInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        friendly_name: str,
+        activity_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "ActivitySid": activity_sid,
+                "Attributes": attributes,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def create_async(
@@ -584,27 +965,39 @@ class WorkerList(ListResource):
 
         :returns: The created WorkerInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "ActivitySid": activity_sid,
-                "Attributes": attributes,
-            }
+        payload, _, _ = await self._create_async(
+            friendly_name=friendly_name,
+            activity_sid=activity_sid,
+            attributes=attributes,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return WorkerInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
         )
+
+    async def create_with_http_info_async(
+        self,
+        friendly_name: str,
+        activity_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the WorkerInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the new Worker. It can be up to 64 characters long.
+        :param activity_sid: The SID of a valid Activity that will describe the new Worker's initial state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for more information. If not provided, the new Worker's initial state is the `default_activity_sid` configured on the Workspace.
+        :param attributes: A valid JSON string that describes the new Worker. For example: `{ \\\"email\\\": \\\"Bob@example.com\\\", \\\"phone\\\": \\\"+5095551234\\\" }`. This data is passed to the `assignment_callback_url` when TaskRouter assigns a Task to the Worker. Defaults to {}.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            friendly_name=friendly_name,
+            activity_sid=activity_sid,
+            attributes=attributes,
+        )
+        instance = WorkerInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -708,6 +1101,106 @@ class WorkerList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        activity_name: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers_expression: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams WorkerInstance and returns headers from first page
+
+
+        :param str activity_name: The `activity_name` of the Worker resources to read.
+        :param str activity_sid: The `activity_sid` of the Worker resources to read.
+        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
+        :param str friendly_name: The `friendly_name` of the Worker resources to read.
+        :param str target_workers_expression: Filter by Workers that would match an expression. In addition to fields in the workers' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name`
+        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
+        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
+        :param str ordering: Sorting parameter for Workers
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            activity_name=activity_name,
+            activity_sid=activity_sid,
+            available=available,
+            friendly_name=friendly_name,
+            target_workers_expression=target_workers_expression,
+            task_queue_name=task_queue_name,
+            task_queue_sid=task_queue_sid,
+            ordering=ordering,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        activity_name: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers_expression: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams WorkerInstance and returns headers from first page
+
+
+        :param str activity_name: The `activity_name` of the Worker resources to read.
+        :param str activity_sid: The `activity_sid` of the Worker resources to read.
+        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
+        :param str friendly_name: The `friendly_name` of the Worker resources to read.
+        :param str target_workers_expression: Filter by Workers that would match an expression. In addition to fields in the workers' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name`
+        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
+        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
+        :param str ordering: Sorting parameter for Workers
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            activity_name=activity_name,
+            activity_sid=activity_sid,
+            available=available,
+            friendly_name=friendly_name,
+            target_workers_expression=target_workers_expression,
+            task_queue_name=task_queue_name,
+            task_queue_sid=task_queue_sid,
+            ordering=ordering,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         activity_name: Union[str, object] = values.unset,
@@ -808,6 +1301,104 @@ class WorkerList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        activity_name: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers_expression: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists WorkerInstance and returns headers from first page
+
+
+        :param str activity_name: The `activity_name` of the Worker resources to read.
+        :param str activity_sid: The `activity_sid` of the Worker resources to read.
+        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
+        :param str friendly_name: The `friendly_name` of the Worker resources to read.
+        :param str target_workers_expression: Filter by Workers that would match an expression. In addition to fields in the workers' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name`
+        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
+        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
+        :param str ordering: Sorting parameter for Workers
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            activity_name=activity_name,
+            activity_sid=activity_sid,
+            available=available,
+            friendly_name=friendly_name,
+            target_workers_expression=target_workers_expression,
+            task_queue_name=task_queue_name,
+            task_queue_sid=task_queue_sid,
+            ordering=ordering,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        activity_name: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers_expression: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists WorkerInstance and returns headers from first page
+
+
+        :param str activity_name: The `activity_name` of the Worker resources to read.
+        :param str activity_sid: The `activity_sid` of the Worker resources to read.
+        :param str available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
+        :param str friendly_name: The `friendly_name` of the Worker resources to read.
+        :param str target_workers_expression: Filter by Workers that would match an expression. In addition to fields in the workers' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name`
+        :param str task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
+        :param str task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
+        :param str ordering: Sorting parameter for Workers
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            activity_name=activity_name,
+            activity_sid=activity_sid,
+            available=available,
+            friendly_name=friendly_name,
+            target_workers_expression=target_workers_expression,
+            task_queue_name=task_queue_name,
+            task_queue_sid=task_queue_sid,
+            ordering=ordering,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -922,6 +1513,124 @@ class WorkerList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return WorkerPage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        activity_name: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers_expression: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param activity_name: The `activity_name` of the Worker resources to read.
+        :param activity_sid: The `activity_sid` of the Worker resources to read.
+        :param available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
+        :param friendly_name: The `friendly_name` of the Worker resources to read.
+        :param target_workers_expression: Filter by Workers that would match an expression. In addition to fields in the workers' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name`
+        :param task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
+        :param task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
+        :param ordering: Sorting parameter for Workers
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with WorkerPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "ActivityName": activity_name,
+                "ActivitySid": activity_sid,
+                "Available": available,
+                "FriendlyName": friendly_name,
+                "TargetWorkersExpression": target_workers_expression,
+                "TaskQueueName": task_queue_name,
+                "TaskQueueSid": task_queue_sid,
+                "Ordering": ordering,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = WorkerPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        activity_name: Union[str, object] = values.unset,
+        activity_sid: Union[str, object] = values.unset,
+        available: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers_expression: Union[str, object] = values.unset,
+        task_queue_name: Union[str, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param activity_name: The `activity_name` of the Worker resources to read.
+        :param activity_sid: The `activity_sid` of the Worker resources to read.
+        :param available: Whether to return only Worker resources that are available or unavailable. Can be `true`, `1`, or `yes` to return Worker resources that are available, and `false`, or any value returns the Worker resources that are not available.
+        :param friendly_name: The `friendly_name` of the Worker resources to read.
+        :param target_workers_expression: Filter by Workers that would match an expression. In addition to fields in the workers' attributes, the expression can include the following worker fields: `sid`, `friendly_name`, `activity_sid`, or `activity_name`
+        :param task_queue_name: The `friendly_name` of the TaskQueue that the Workers to read are eligible for.
+        :param task_queue_sid: The SID of the TaskQueue that the Workers to read are eligible for.
+        :param ordering: Sorting parameter for Workers
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with WorkerPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "ActivityName": activity_name,
+                "ActivitySid": activity_sid,
+                "Available": available,
+                "FriendlyName": friendly_name,
+                "TargetWorkersExpression": target_workers_expression,
+                "TaskQueueName": task_queue_name,
+                "TaskQueueSid": task_queue_sid,
+                "Ordering": ordering,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = WorkerPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> WorkerPage:
         """

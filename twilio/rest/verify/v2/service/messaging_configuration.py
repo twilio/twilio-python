@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -94,6 +95,24 @@ class MessagingConfigurationInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the MessagingConfigurationInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the MessagingConfigurationInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "MessagingConfigurationInstance":
         """
         Fetch the MessagingConfigurationInstance
@@ -111,6 +130,24 @@ class MessagingConfigurationInstance(InstanceResource):
         :returns: The fetched MessagingConfigurationInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the MessagingConfigurationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the MessagingConfigurationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(self, messaging_service_sid: str) -> "MessagingConfigurationInstance":
         """
@@ -135,6 +172,32 @@ class MessagingConfigurationInstance(InstanceResource):
         :returns: The updated MessagingConfigurationInstance
         """
         return await self._proxy.update_async(
+            messaging_service_sid=messaging_service_sid,
+        )
+
+    def update_with_http_info(self, messaging_service_sid: str) -> ApiResponse:
+        """
+        Update the MessagingConfigurationInstance with HTTP info
+
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            messaging_service_sid=messaging_service_sid,
+        )
+
+    async def update_with_http_info_async(
+        self, messaging_service_sid: str
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the MessagingConfigurationInstance with HTTP info
+
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             messaging_service_sid=messaging_service_sid,
         )
 
@@ -169,6 +232,20 @@ class MessagingConfigurationContext(InstanceContext):
             **self._solution
         )
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the MessagingConfigurationInstance
@@ -176,10 +253,32 @@ class MessagingConfigurationContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the MessagingConfigurationInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -188,11 +287,33 @@ class MessagingConfigurationContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the MessagingConfigurationInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> MessagingConfigurationInstance:
@@ -202,18 +323,44 @@ class MessagingConfigurationContext(InstanceContext):
 
         :returns: The fetched MessagingConfigurationInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return MessagingConfigurationInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             country=self._solution["country"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the MessagingConfigurationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = MessagingConfigurationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            country=self._solution["country"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> MessagingConfigurationInstance:
@@ -223,15 +370,7 @@ class MessagingConfigurationContext(InstanceContext):
 
         :returns: The fetched MessagingConfigurationInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return MessagingConfigurationInstance(
             self._version,
             payload,
@@ -239,13 +378,28 @@ class MessagingConfigurationContext(InstanceContext):
             country=self._solution["country"],
         )
 
-    def update(self, messaging_service_sid: str) -> MessagingConfigurationInstance:
+    async def fetch_with_http_info_async(self) -> ApiResponse:
         """
-        Update the MessagingConfigurationInstance
+        Asynchronous coroutine to fetch the MessagingConfigurationInstance and return response metadata
 
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
 
-        :returns: The updated MessagingConfigurationInstance
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = MessagingConfigurationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            country=self._solution["country"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(self, messaging_service_sid: str) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -259,15 +413,66 @@ class MessagingConfigurationContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return self._version.update_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def update(self, messaging_service_sid: str) -> MessagingConfigurationInstance:
+        """
+        Update the MessagingConfigurationInstance
+
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
+
+        :returns: The updated MessagingConfigurationInstance
+        """
+        payload, _, _ = self._update(messaging_service_sid=messaging_service_sid)
         return MessagingConfigurationInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             country=self._solution["country"],
+        )
+
+    def update_with_http_info(self, messaging_service_sid: str) -> ApiResponse:
+        """
+        Update the MessagingConfigurationInstance and return response metadata
+
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            messaging_service_sid=messaging_service_sid
+        )
+        instance = MessagingConfigurationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            country=self._solution["country"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(self, messaging_service_sid: str) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "MessagingServiceSid": messaging_service_sid,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.update_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def update_async(
@@ -280,28 +485,36 @@ class MessagingConfigurationContext(InstanceContext):
 
         :returns: The updated MessagingConfigurationInstance
         """
-
-        data = values.of(
-            {
-                "MessagingServiceSid": messaging_service_sid,
-            }
+        payload, _, _ = await self._update_async(
+            messaging_service_sid=messaging_service_sid
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return MessagingConfigurationInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             country=self._solution["country"],
         )
+
+    async def update_with_http_info_async(
+        self, messaging_service_sid: str
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the MessagingConfigurationInstance and return response metadata
+
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            messaging_service_sid=messaging_service_sid
+        )
+        instance = MessagingConfigurationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            country=self._solution["country"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -354,16 +567,12 @@ class MessagingConfigurationList(ListResource):
             **self._solution
         )
 
-    def create(
-        self, country: str, messaging_service_sid: str
-    ) -> MessagingConfigurationInstance:
+    def _create(self, country: str, messaging_service_sid: str) -> tuple:
         """
-        Create the MessagingConfigurationInstance
+        Internal helper for create operation
 
-        :param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
-
-        :returns: The created MessagingConfigurationInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -378,12 +587,69 @@ class MessagingConfigurationList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self, country: str, messaging_service_sid: str
+    ) -> MessagingConfigurationInstance:
+        """
+        Create the MessagingConfigurationInstance
+
+        :param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
+
+        :returns: The created MessagingConfigurationInstance
+        """
+        payload, _, _ = self._create(
+            country=country, messaging_service_sid=messaging_service_sid
+        )
         return MessagingConfigurationInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def create_with_http_info(
+        self, country: str, messaging_service_sid: str
+    ) -> ApiResponse:
+        """
+        Create the MessagingConfigurationInstance and return response metadata
+
+        :param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            country=country, messaging_service_sid=messaging_service_sid
+        )
+        instance = MessagingConfigurationInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(self, country: str, messaging_service_sid: str) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Country": country,
+                "MessagingServiceSid": messaging_service_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def create_async(
@@ -397,26 +663,31 @@ class MessagingConfigurationList(ListResource):
 
         :returns: The created MessagingConfigurationInstance
         """
-
-        data = values.of(
-            {
-                "Country": country,
-                "MessagingServiceSid": messaging_service_sid,
-            }
+        payload, _, _ = await self._create_async(
+            country=country, messaging_service_sid=messaging_service_sid
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return MessagingConfigurationInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
         )
+
+    async def create_with_http_info_async(
+        self, country: str, messaging_service_sid: str
+    ) -> ApiResponse:
+        """
+        Asynchronously create the MessagingConfigurationInstance and return response metadata
+
+        :param country: The [ISO-3166-1](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code of the country this configuration will be applied to. If this is a global configuration, Country will take the value `all`.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to be used to send SMS to the country of this configuration.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            country=country, messaging_service_sid=messaging_service_sid
+        )
+        instance = MessagingConfigurationInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -467,6 +738,56 @@ class MessagingConfigurationList(ListResource):
         page = await self.page_async(page_size=limits["page_size"])
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams MessagingConfigurationInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(page_size=limits["page_size"])
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams MessagingConfigurationInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -520,6 +841,56 @@ class MessagingConfigurationList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists MessagingConfigurationInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists MessagingConfigurationInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -586,6 +957,76 @@ class MessagingConfigurationList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return MessagingConfigurationPage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with MessagingConfigurationPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = MessagingConfigurationPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with MessagingConfigurationPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = MessagingConfigurationPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> MessagingConfigurationPage:
         """

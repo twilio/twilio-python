@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -100,6 +101,34 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
             authorization=authorization,
         )
 
+    def delete_with_http_info(
+        self, authorization: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Deletes the InsightsQuestionnairesQuestionInstance with HTTP info
+
+        :param authorization: The Authorization HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info(
+            authorization=authorization,
+        )
+
+    async def delete_with_http_info_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the InsightsQuestionnairesQuestionInstance with HTTP info
+
+        :param authorization: The Authorization HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async(
+            authorization=authorization,
+        )
+
     def update(
         self,
         allow_na: bool,
@@ -160,6 +189,66 @@ class InsightsQuestionnairesQuestionInstance(InstanceResource):
             answer_set_id=answer_set_id,
         )
 
+    def update_with_http_info(
+        self,
+        allow_na: bool,
+        authorization: Union[str, object] = values.unset,
+        category_sid: Union[str, object] = values.unset,
+        question: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        answer_set_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the InsightsQuestionnairesQuestionInstance with HTTP info
+
+        :param allow_na: The flag to enable for disable NA for answer.
+        :param authorization: The Authorization HTTP request header
+        :param category_sid: The SID of the category
+        :param question: The question.
+        :param description: The description for the question.
+        :param answer_set_id: The answer_set for the question.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            allow_na=allow_na,
+            authorization=authorization,
+            category_sid=category_sid,
+            question=question,
+            description=description,
+            answer_set_id=answer_set_id,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        allow_na: bool,
+        authorization: Union[str, object] = values.unset,
+        category_sid: Union[str, object] = values.unset,
+        question: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        answer_set_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the InsightsQuestionnairesQuestionInstance with HTTP info
+
+        :param allow_na: The flag to enable for disable NA for answer.
+        :param authorization: The Authorization HTTP request header
+        :param category_sid: The SID of the category
+        :param question: The question.
+        :param description: The description for the question.
+        :param answer_set_id: The answer_set for the question.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            allow_na=allow_na,
+            authorization=authorization,
+            category_sid=category_sid,
+            question=question,
+            description=description,
+            answer_set_id=answer_set_id,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -191,13 +280,12 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
             **self._solution
         )
 
-    def delete(self, authorization: Union[str, object] = values.unset) -> bool:
+    def _delete(self, authorization: Union[str, object] = values.unset) -> tuple:
         """
-        Deletes the InsightsQuestionnairesQuestionInstance
+        Internal helper for delete operation
 
-        :param authorization: The Authorization HTTP request header
-
-        :returns: True if delete succeeds, False otherwise
+        Returns:
+            tuple: (success_boolean, status_code, headers)
         """
         headers = values.of(
             {
@@ -207,7 +295,54 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
+    def delete(self, authorization: Union[str, object] = values.unset) -> bool:
+        """
+        Deletes the InsightsQuestionnairesQuestionInstance
+
+        :param authorization: The Authorization HTTP request header
+
+        :returns: True if delete succeeds, False otherwise
+        """
+        success, _, _ = self._delete(authorization=authorization)
+        return success
+
+    def delete_with_http_info(
+        self, authorization: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Deletes the InsightsQuestionnairesQuestionInstance and return response metadata
+
+        :param authorization: The Authorization HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete(authorization=authorization)
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+        headers = values.of(
+            {
+                "Authorization": authorization,
+            }
+        )
+
+        headers = values.of({})
+
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(
         self, authorization: Union[str, object] = values.unset
@@ -219,16 +354,63 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        headers = values.of(
+        success, _, _ = await self._delete_async(authorization=authorization)
+        return success
+
+    async def delete_with_http_info_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the InsightsQuestionnairesQuestionInstance and return response metadata
+
+        :param authorization: The Authorization HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async(
+            authorization=authorization
+        )
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        allow_na: bool,
+        authorization: Union[str, object] = values.unset,
+        category_sid: Union[str, object] = values.unset,
+        question: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        answer_set_id: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
             {
-                "Authorization": authorization,
+                "AllowNa": serialize.boolean_to_string(allow_na),
+                "CategorySid": category_sid,
+                "Question": question,
+                "Description": description,
+                "AnswerSetId": answer_set_id,
             }
         )
-
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        if not (
+            authorization is values.unset
+            or (isinstance(authorization, str) and not authorization)
+        ):
+            headers["Authorization"] = authorization
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -252,6 +434,67 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
 
         :returns: The updated InsightsQuestionnairesQuestionInstance
         """
+        payload, _, _ = self._update(
+            allow_na=allow_na,
+            authorization=authorization,
+            category_sid=category_sid,
+            question=question,
+            description=description,
+            answer_set_id=answer_set_id,
+        )
+        return InsightsQuestionnairesQuestionInstance(
+            self._version, payload, question_sid=self._solution["question_sid"]
+        )
+
+    def update_with_http_info(
+        self,
+        allow_na: bool,
+        authorization: Union[str, object] = values.unset,
+        category_sid: Union[str, object] = values.unset,
+        question: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        answer_set_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the InsightsQuestionnairesQuestionInstance and return response metadata
+
+        :param allow_na: The flag to enable for disable NA for answer.
+        :param authorization: The Authorization HTTP request header
+        :param category_sid: The SID of the category
+        :param question: The question.
+        :param description: The description for the question.
+        :param answer_set_id: The answer_set for the question.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            allow_na=allow_na,
+            authorization=authorization,
+            category_sid=category_sid,
+            question=question,
+            description=description,
+            answer_set_id=answer_set_id,
+        )
+        instance = InsightsQuestionnairesQuestionInstance(
+            self._version, payload, question_sid=self._solution["question_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        allow_na: bool,
+        authorization: Union[str, object] = values.unset,
+        category_sid: Union[str, object] = values.unset,
+        question: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        answer_set_id: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -274,12 +517,8 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return InsightsQuestionnairesQuestionInstance(
-            self._version, payload, question_sid=self._solution["question_sid"]
         )
 
     async def update_async(
@@ -303,35 +542,51 @@ class InsightsQuestionnairesQuestionContext(InstanceContext):
 
         :returns: The updated InsightsQuestionnairesQuestionInstance
         """
-
-        data = values.of(
-            {
-                "AllowNa": serialize.boolean_to_string(allow_na),
-                "CategorySid": category_sid,
-                "Question": question,
-                "Description": description,
-                "AnswerSetId": answer_set_id,
-            }
+        payload, _, _ = await self._update_async(
+            allow_na=allow_na,
+            authorization=authorization,
+            category_sid=category_sid,
+            question=question,
+            description=description,
+            answer_set_id=answer_set_id,
         )
-        headers = values.of({})
-
-        if not (
-            authorization is values.unset
-            or (isinstance(authorization, str) and not authorization)
-        ):
-            headers["Authorization"] = authorization
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return InsightsQuestionnairesQuestionInstance(
             self._version, payload, question_sid=self._solution["question_sid"]
         )
+
+    async def update_with_http_info_async(
+        self,
+        allow_na: bool,
+        authorization: Union[str, object] = values.unset,
+        category_sid: Union[str, object] = values.unset,
+        question: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        answer_set_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the InsightsQuestionnairesQuestionInstance and return response metadata
+
+        :param allow_na: The flag to enable for disable NA for answer.
+        :param authorization: The Authorization HTTP request header
+        :param category_sid: The SID of the category
+        :param question: The question.
+        :param description: The description for the question.
+        :param answer_set_id: The answer_set for the question.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            allow_na=allow_na,
+            authorization=authorization,
+            category_sid=category_sid,
+            question=question,
+            description=description,
+            answer_set_id=answer_set_id,
+        )
+        instance = InsightsQuestionnairesQuestionInstance(
+            self._version, payload, question_sid=self._solution["question_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -379,7 +634,7 @@ class InsightsQuestionnairesQuestionList(ListResource):
 
         self._uri = "/Insights/QualityManagement/Questions"
 
-    def create(
+    def _create(
         self,
         category_sid: str,
         question: str,
@@ -387,18 +642,12 @@ class InsightsQuestionnairesQuestionList(ListResource):
         allow_na: bool,
         authorization: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
-    ) -> InsightsQuestionnairesQuestionInstance:
+    ) -> tuple:
         """
-        Create the InsightsQuestionnairesQuestionInstance
+        Internal helper for create operation
 
-        :param category_sid: The SID of the category
-        :param question: The question.
-        :param answer_set_id: The answer_set for the question.
-        :param allow_na: The flag to enable for disable NA for answer.
-        :param authorization: The Authorization HTTP request header
-        :param description: The description for the question.
-
-        :returns: The created InsightsQuestionnairesQuestionInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -421,11 +670,112 @@ class InsightsQuestionnairesQuestionList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        category_sid: str,
+        question: str,
+        answer_set_id: str,
+        allow_na: bool,
+        authorization: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+    ) -> InsightsQuestionnairesQuestionInstance:
+        """
+        Create the InsightsQuestionnairesQuestionInstance
+
+        :param category_sid: The SID of the category
+        :param question: The question.
+        :param answer_set_id: The answer_set for the question.
+        :param allow_na: The flag to enable for disable NA for answer.
+        :param authorization: The Authorization HTTP request header
+        :param description: The description for the question.
+
+        :returns: The created InsightsQuestionnairesQuestionInstance
+        """
+        payload, _, _ = self._create(
+            category_sid=category_sid,
+            question=question,
+            answer_set_id=answer_set_id,
+            allow_na=allow_na,
+            authorization=authorization,
+            description=description,
+        )
         return InsightsQuestionnairesQuestionInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        category_sid: str,
+        question: str,
+        answer_set_id: str,
+        allow_na: bool,
+        authorization: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the InsightsQuestionnairesQuestionInstance and return response metadata
+
+        :param category_sid: The SID of the category
+        :param question: The question.
+        :param answer_set_id: The answer_set for the question.
+        :param allow_na: The flag to enable for disable NA for answer.
+        :param authorization: The Authorization HTTP request header
+        :param description: The description for the question.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            category_sid=category_sid,
+            question=question,
+            answer_set_id=answer_set_id,
+            allow_na=allow_na,
+            authorization=authorization,
+            description=description,
+        )
+        instance = InsightsQuestionnairesQuestionInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        category_sid: str,
+        question: str,
+        answer_set_id: str,
+        allow_na: bool,
+        authorization: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "CategorySid": category_sid,
+                "Question": question,
+                "AnswerSetId": answer_set_id,
+                "AllowNa": serialize.boolean_to_string(allow_na),
+                "Description": description,
+            }
+        )
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(
         self,
@@ -448,32 +798,47 @@ class InsightsQuestionnairesQuestionList(ListResource):
 
         :returns: The created InsightsQuestionnairesQuestionInstance
         """
-
-        data = values.of(
-            {
-                "CategorySid": category_sid,
-                "Question": question,
-                "AnswerSetId": answer_set_id,
-                "AllowNa": serialize.boolean_to_string(allow_na),
-                "Description": description,
-            }
+        payload, _, _ = await self._create_async(
+            category_sid=category_sid,
+            question=question,
+            answer_set_id=answer_set_id,
+            allow_na=allow_na,
+            authorization=authorization,
+            description=description,
         )
-        headers = values.of(
-            {
-                "Authorization": authorization,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return InsightsQuestionnairesQuestionInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        category_sid: str,
+        question: str,
+        answer_set_id: str,
+        allow_na: bool,
+        authorization: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the InsightsQuestionnairesQuestionInstance and return response metadata
+
+        :param category_sid: The SID of the category
+        :param question: The question.
+        :param answer_set_id: The answer_set for the question.
+        :param allow_na: The flag to enable for disable NA for answer.
+        :param authorization: The Authorization HTTP request header
+        :param description: The description for the question.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            category_sid=category_sid,
+            question=question,
+            answer_set_id=answer_set_id,
+            allow_na=allow_na,
+            authorization=authorization,
+            description=description,
+        )
+        instance = InsightsQuestionnairesQuestionInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -541,6 +906,70 @@ class InsightsQuestionnairesQuestionList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        authorization: Union[str, object] = values.unset,
+        category_sid: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams InsightsQuestionnairesQuestionInstance and returns headers from first page
+
+
+        :param str authorization: The Authorization HTTP request header
+        :param List[str] category_sid: The list of category SIDs
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            authorization=authorization,
+            category_sid=category_sid,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        authorization: Union[str, object] = values.unset,
+        category_sid: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams InsightsQuestionnairesQuestionInstance and returns headers from first page
+
+
+        :param str authorization: The Authorization HTTP request header
+        :param List[str] category_sid: The list of category SIDs
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            authorization=authorization,
+            category_sid=category_sid,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         authorization: Union[str, object] = values.unset,
@@ -605,6 +1034,68 @@ class InsightsQuestionnairesQuestionList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        authorization: Union[str, object] = values.unset,
+        category_sid: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists InsightsQuestionnairesQuestionInstance and returns headers from first page
+
+
+        :param str authorization: The Authorization HTTP request header
+        :param List[str] category_sid: The list of category SIDs
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            authorization=authorization,
+            category_sid=category_sid,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        authorization: Union[str, object] = values.unset,
+        category_sid: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists InsightsQuestionnairesQuestionInstance and returns headers from first page
+
+
+        :param str authorization: The Authorization HTTP request header
+        :param List[str] category_sid: The list of category SIDs
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            authorization=authorization,
+            category_sid=category_sid,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -693,6 +1184,98 @@ class InsightsQuestionnairesQuestionList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return InsightsQuestionnairesQuestionPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        authorization: Union[str, object] = values.unset,
+        category_sid: Union[List[str], object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param authorization: The Authorization HTTP request header
+        :param category_sid: The list of category SIDs
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with InsightsQuestionnairesQuestionPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Authorization": authorization,
+                "CategorySid": serialize.map(category_sid, lambda e: e),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = InsightsQuestionnairesQuestionPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        authorization: Union[str, object] = values.unset,
+        category_sid: Union[List[str], object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param authorization: The Authorization HTTP request header
+        :param category_sid: The list of category SIDs
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with InsightsQuestionnairesQuestionPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Authorization": authorization,
+                "CategorySid": serialize.map(category_sid, lambda e: e),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = InsightsQuestionnairesQuestionPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> InsightsQuestionnairesQuestionPage:
         """

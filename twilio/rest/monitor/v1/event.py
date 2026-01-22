@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -100,6 +101,24 @@ class EventInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the EventInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the EventInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -127,6 +146,22 @@ class EventContext(InstanceContext):
         }
         self._uri = "/Events/{sid}".format(**self._solution)
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> EventInstance:
         """
         Fetch the EventInstance
@@ -134,17 +169,42 @@ class EventContext(InstanceContext):
 
         :returns: The fetched EventInstance
         """
+        payload, _, _ = self._fetch()
+        return EventInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the EventInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = EventInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return EventInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> EventInstance:
@@ -154,20 +214,27 @@ class EventContext(InstanceContext):
 
         :returns: The fetched EventInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return EventInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
         )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the EventInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = EventInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -301,6 +368,94 @@ class EventList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        actor_sid: Union[str, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        resource_sid: Union[str, object] = values.unset,
+        source_ip_address: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams EventInstance and returns headers from first page
+
+
+        :param str actor_sid: Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
+        :param str event_type: Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
+        :param str resource_sid: Only include events that refer to this resource. Useful for discovering the history of a specific resource.
+        :param str source_ip_address: Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
+        :param datetime start_date: Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param datetime end_date: Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            actor_sid=actor_sid,
+            event_type=event_type,
+            resource_sid=resource_sid,
+            source_ip_address=source_ip_address,
+            start_date=start_date,
+            end_date=end_date,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        actor_sid: Union[str, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        resource_sid: Union[str, object] = values.unset,
+        source_ip_address: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams EventInstance and returns headers from first page
+
+
+        :param str actor_sid: Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
+        :param str event_type: Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
+        :param str resource_sid: Only include events that refer to this resource. Useful for discovering the history of a specific resource.
+        :param str source_ip_address: Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
+        :param datetime start_date: Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param datetime end_date: Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            actor_sid=actor_sid,
+            event_type=event_type,
+            resource_sid=resource_sid,
+            source_ip_address=source_ip_address,
+            start_date=start_date,
+            end_date=end_date,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         actor_sid: Union[str, object] = values.unset,
@@ -389,6 +544,92 @@ class EventList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        actor_sid: Union[str, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        resource_sid: Union[str, object] = values.unset,
+        source_ip_address: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists EventInstance and returns headers from first page
+
+
+        :param str actor_sid: Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
+        :param str event_type: Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
+        :param str resource_sid: Only include events that refer to this resource. Useful for discovering the history of a specific resource.
+        :param str source_ip_address: Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
+        :param datetime start_date: Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param datetime end_date: Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            actor_sid=actor_sid,
+            event_type=event_type,
+            resource_sid=resource_sid,
+            source_ip_address=source_ip_address,
+            start_date=start_date,
+            end_date=end_date,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        actor_sid: Union[str, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        resource_sid: Union[str, object] = values.unset,
+        source_ip_address: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists EventInstance and returns headers from first page
+
+
+        :param str actor_sid: Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
+        :param str event_type: Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
+        :param str resource_sid: Only include events that refer to this resource. Useful for discovering the history of a specific resource.
+        :param str source_ip_address: Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
+        :param datetime start_date: Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param datetime end_date: Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            actor_sid=actor_sid,
+            event_type=event_type,
+            resource_sid=resource_sid,
+            source_ip_address=source_ip_address,
+            start_date=start_date,
+            end_date=end_date,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -491,6 +732,112 @@ class EventList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return EventPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        actor_sid: Union[str, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        resource_sid: Union[str, object] = values.unset,
+        source_ip_address: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param actor_sid: Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
+        :param event_type: Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
+        :param resource_sid: Only include events that refer to this resource. Useful for discovering the history of a specific resource.
+        :param source_ip_address: Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
+        :param start_date: Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param end_date: Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with EventPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "ActorSid": actor_sid,
+                "EventType": event_type,
+                "ResourceSid": resource_sid,
+                "SourceIpAddress": source_ip_address,
+                "StartDate": serialize.iso8601_datetime(start_date),
+                "EndDate": serialize.iso8601_datetime(end_date),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = EventPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        actor_sid: Union[str, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        resource_sid: Union[str, object] = values.unset,
+        source_ip_address: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param actor_sid: Only include events initiated by this Actor. Useful for auditing actions taken by specific users or API credentials.
+        :param event_type: Only include events of this [Event Type](https://www.twilio.com/docs/usage/monitor-events#event-types).
+        :param resource_sid: Only include events that refer to this resource. Useful for discovering the history of a specific resource.
+        :param source_ip_address: Only include events that originated from this IP address. Useful for tracking suspicious activity originating from the API or the Twilio Console.
+        :param start_date: Only include events that occurred on or after this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param end_date: Only include events that occurred on or before this date. Specify the date in GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with EventPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "ActorSid": actor_sid,
+                "EventType": event_type,
+                "ResourceSid": resource_sid,
+                "SourceIpAddress": source_ip_address,
+                "StartDate": serialize.iso8601_datetime(start_date),
+                "EndDate": serialize.iso8601_datetime(end_date),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = EventPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> EventPage:
         """

@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -133,6 +134,48 @@ class BundleCloneInstance(InstanceResource):
             friendly_name=friendly_name,
         )
 
+    def create_with_http_info(
+        self,
+        target_account_sid: str,
+        move_to_draft: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the BundleCloneInstance with HTTP info
+
+        :param target_account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) where the bundle needs to be cloned.
+        :param move_to_draft: If set to true, the cloned bundle will be in the DRAFT state, else it will be twilio-approved
+        :param friendly_name: The string that you assigned to describe the cloned bundle.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.create_with_http_info(
+            target_account_sid,
+            move_to_draft=move_to_draft,
+            friendly_name=friendly_name,
+        )
+
+    async def create_with_http_info_async(
+        self,
+        target_account_sid: str,
+        move_to_draft: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to create the BundleCloneInstance with HTTP info
+
+        :param target_account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) where the bundle needs to be cloned.
+        :param move_to_draft: If set to true, the cloned bundle will be in the DRAFT state, else it will be twilio-approved
+        :param friendly_name: The string that you assigned to describe the cloned bundle.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.create_with_http_info_async(
+            target_account_sid,
+            move_to_draft=move_to_draft,
+            friendly_name=friendly_name,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -162,20 +205,17 @@ class BundleCloneContext(InstanceContext):
             **self._solution
         )
 
-    def create(
+    def _create(
         self,
         target_account_sid: str,
         move_to_draft: Union[bool, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
-    ) -> BundleCloneInstance:
+    ) -> tuple:
         """
-        Create the BundleCloneInstance
+        Internal helper for create operation
 
-        :param target_account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) where the bundle needs to be cloned.
-        :param move_to_draft: If set to true, the cloned bundle will be in the DRAFT state, else it will be twilio-approved
-        :param friendly_name: The string that you assigned to describe the cloned bundle.
-
-        :returns: The created BundleCloneInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -191,12 +231,87 @@ class BundleCloneContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        target_account_sid: str,
+        move_to_draft: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+    ) -> BundleCloneInstance:
+        """
+        Create the BundleCloneInstance
+
+        :param target_account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) where the bundle needs to be cloned.
+        :param move_to_draft: If set to true, the cloned bundle will be in the DRAFT state, else it will be twilio-approved
+        :param friendly_name: The string that you assigned to describe the cloned bundle.
+
+        :returns: The created BundleCloneInstance
+        """
+        payload, _, _ = self._create(
+            target_account_sid=target_account_sid,
+            move_to_draft=move_to_draft,
+            friendly_name=friendly_name,
+        )
         return BundleCloneInstance(
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
+        )
+
+    def create_with_http_info(
+        self,
+        target_account_sid: str,
+        move_to_draft: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the BundleCloneInstance and return response metadata
+
+        :param target_account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) where the bundle needs to be cloned.
+        :param move_to_draft: If set to true, the cloned bundle will be in the DRAFT state, else it will be twilio-approved
+        :param friendly_name: The string that you assigned to describe the cloned bundle.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            target_account_sid=target_account_sid,
+            move_to_draft=move_to_draft,
+            friendly_name=friendly_name,
+        )
+        instance = BundleCloneInstance(
+            self._version, payload, bundle_sid=self._solution["bundle_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        target_account_sid: str,
+        move_to_draft: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "TargetAccountSid": target_account_sid,
+                "MoveToDraft": serialize.boolean_to_string(move_to_draft),
+                "FriendlyName": friendly_name,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def create_async(
@@ -214,27 +329,39 @@ class BundleCloneContext(InstanceContext):
 
         :returns: The created BundleCloneInstance
         """
-
-        data = values.of(
-            {
-                "TargetAccountSid": target_account_sid,
-                "MoveToDraft": serialize.boolean_to_string(move_to_draft),
-                "FriendlyName": friendly_name,
-            }
+        payload, _, _ = await self._create_async(
+            target_account_sid=target_account_sid,
+            move_to_draft=move_to_draft,
+            friendly_name=friendly_name,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return BundleCloneInstance(
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
         )
+
+    async def create_with_http_info_async(
+        self,
+        target_account_sid: str,
+        move_to_draft: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to create the BundleCloneInstance and return response metadata
+
+        :param target_account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) where the bundle needs to be cloned.
+        :param move_to_draft: If set to true, the cloned bundle will be in the DRAFT state, else it will be twilio-approved
+        :param friendly_name: The string that you assigned to describe the cloned bundle.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            target_account_sid=target_account_sid,
+            move_to_draft=move_to_draft,
+            friendly_name=friendly_name,
+        )
+        instance = BundleCloneInstance(
+            self._version, payload, bundle_sid=self._solution["bundle_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

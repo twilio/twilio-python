@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -75,13 +76,12 @@ class StreamMessageList(ListResource):
             **self._solution
         )
 
-    def create(self, data: object) -> StreamMessageInstance:
+    def _create(self, data: object) -> tuple:
         """
-        Create the StreamMessageInstance
+        Internal helper for create operation
 
-        :param data: A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
-
-        :returns: The created StreamMessageInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -95,15 +95,64 @@ class StreamMessageList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(self, data: object) -> StreamMessageInstance:
+        """
+        Create the StreamMessageInstance
+
+        :param data: A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
+
+        :returns: The created StreamMessageInstance
+        """
+        payload, _, _ = self._create(data=data)
         return StreamMessageInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             stream_sid=self._solution["stream_sid"],
+        )
+
+    def create_with_http_info(self, data: object) -> ApiResponse:
+        """
+        Create the StreamMessageInstance and return response metadata
+
+        :param data: A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(data=data)
+        instance = StreamMessageInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            stream_sid=self._solution["stream_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(self, data: object) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Data": serialize.object(data),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def create_async(self, data: object) -> StreamMessageInstance:
@@ -114,28 +163,30 @@ class StreamMessageList(ListResource):
 
         :returns: The created StreamMessageInstance
         """
-
-        data = values.of(
-            {
-                "Data": serialize.object(data),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._create_async(data=data)
         return StreamMessageInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             stream_sid=self._solution["stream_sid"],
         )
+
+    async def create_with_http_info_async(self, data: object) -> ApiResponse:
+        """
+        Asynchronously create the StreamMessageInstance and return response metadata
+
+        :param data: A JSON string that represents an arbitrary, schema-less object that makes up the Stream Message body. Can be up to 4 KiB in length.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(data=data)
+        instance = StreamMessageInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            stream_sid=self._solution["stream_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

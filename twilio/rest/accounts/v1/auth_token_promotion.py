@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -77,6 +78,24 @@ class AuthTokenPromotionInstance(InstanceResource):
         """
         return await self._proxy.update_async()
 
+    def update_with_http_info(self) -> ApiResponse:
+        """
+        Update the AuthTokenPromotionInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info()
+
+    async def update_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the AuthTokenPromotionInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async()
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -99,12 +118,12 @@ class AuthTokenPromotionContext(InstanceContext):
 
         self._uri = "/AuthTokens/Promote"
 
-    def update(self) -> AuthTokenPromotionInstance:
+    def _update(self) -> tuple:
         """
-        Update the AuthTokenPromotionInstance
+        Internal helper for update operation
 
-
-        :returns: The updated AuthTokenPromotionInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of({})
@@ -112,11 +131,47 @@ class AuthTokenPromotionContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return self._version.update_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def update(self) -> AuthTokenPromotionInstance:
+        """
+        Update the AuthTokenPromotionInstance
+
+
+        :returns: The updated AuthTokenPromotionInstance
+        """
+        payload, _, _ = self._update()
         return AuthTokenPromotionInstance(self._version, payload)
+
+    def update_with_http_info(self) -> ApiResponse:
+        """
+        Update the AuthTokenPromotionInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update()
+        instance = AuthTokenPromotionInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(self) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of({})
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.update_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def update_async(self) -> AuthTokenPromotionInstance:
         """
@@ -125,17 +180,19 @@ class AuthTokenPromotionContext(InstanceContext):
 
         :returns: The updated AuthTokenPromotionInstance
         """
-
-        data = values.of({})
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async()
         return AuthTokenPromotionInstance(self._version, payload)
+
+    async def update_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the AuthTokenPromotionInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async()
+        instance = AuthTokenPromotionInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

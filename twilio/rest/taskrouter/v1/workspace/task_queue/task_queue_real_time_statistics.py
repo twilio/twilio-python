@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -132,6 +133,34 @@ class TaskQueueRealTimeStatisticsInstance(InstanceResource):
             task_channel=task_channel,
         )
 
+    def fetch_with_http_info(
+        self, task_channel: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the TaskQueueRealTimeStatisticsInstance with HTTP info
+
+        :param task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            task_channel=task_channel,
+        )
+
+    async def fetch_with_http_info_async(
+        self, task_channel: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the TaskQueueRealTimeStatisticsInstance with HTTP info
+
+        :param task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            task_channel=task_channel,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -165,15 +194,12 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(
-        self, task_channel: Union[str, object] = values.unset
-    ) -> TaskQueueRealTimeStatisticsInstance:
+    def _fetch(self, task_channel: Union[str, object] = values.unset) -> tuple:
         """
-        Fetch the TaskQueueRealTimeStatisticsInstance
+        Internal helper for fetch operation
 
-        :param task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
-
-        :returns: The fetched TaskQueueRealTimeStatisticsInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         params = values.of(
@@ -186,15 +212,69 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
+        return self._version.fetch_with_response_info(
             method="GET", uri=self._uri, params=params, headers=headers
         )
 
+    def fetch(
+        self, task_channel: Union[str, object] = values.unset
+    ) -> TaskQueueRealTimeStatisticsInstance:
+        """
+        Fetch the TaskQueueRealTimeStatisticsInstance
+
+        :param task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: The fetched TaskQueueRealTimeStatisticsInstance
+        """
+        payload, _, _ = self._fetch(task_channel=task_channel)
         return TaskQueueRealTimeStatisticsInstance(
             self._version,
             payload,
             workspace_sid=self._solution["workspace_sid"],
             task_queue_sid=self._solution["task_queue_sid"],
+        )
+
+    def fetch_with_http_info(
+        self, task_channel: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the TaskQueueRealTimeStatisticsInstance and return response metadata
+
+        :param task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(task_channel=task_channel)
+        instance = TaskQueueRealTimeStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            task_queue_sid=self._solution["task_queue_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self, task_channel: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        params = values.of(
+            {
+                "TaskChannel": task_channel,
+            }
+        )
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
     async def fetch_async(
@@ -207,27 +287,34 @@ class TaskQueueRealTimeStatisticsContext(InstanceContext):
 
         :returns: The fetched TaskQueueRealTimeStatisticsInstance
         """
-
-        params = values.of(
-            {
-                "TaskChannel": task_channel,
-            }
-        )
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async(task_channel=task_channel)
         return TaskQueueRealTimeStatisticsInstance(
             self._version,
             payload,
             workspace_sid=self._solution["workspace_sid"],
             task_queue_sid=self._solution["task_queue_sid"],
         )
+
+    async def fetch_with_http_info_async(
+        self, task_channel: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the TaskQueueRealTimeStatisticsInstance and return response metadata
+
+        :param task_channel: The TaskChannel for which to fetch statistics. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            task_channel=task_channel
+        )
+        instance = TaskQueueRealTimeStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            task_queue_sid=self._solution["task_queue_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

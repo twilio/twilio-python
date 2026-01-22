@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -214,6 +215,120 @@ class PhoneNumberInstance(InstanceResource):
             partner_sub_id=partner_sub_id,
         )
 
+    def fetch_with_http_info(
+        self,
+        fields: Union[str, object] = values.unset,
+        country_code: Union[str, object] = values.unset,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        address_line1: Union[str, object] = values.unset,
+        address_line2: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        state: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        address_country_code: Union[str, object] = values.unset,
+        national_id: Union[str, object] = values.unset,
+        date_of_birth: Union[str, object] = values.unset,
+        last_verified_date: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        partner_sub_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Fetch the PhoneNumberInstance with HTTP info
+
+        :param fields: A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score, pre_fill.
+        :param country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
+        :param first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
+        :param last_name: User’s last name. This query parameter is only used (optionally) for identity_match package requests.
+        :param address_line1: User’s first address line. This query parameter is only used (optionally) for identity_match package requests.
+        :param address_line2: User’s second address line. This query parameter is only used (optionally) for identity_match package requests.
+        :param city: User’s city. This query parameter is only used (optionally) for identity_match package requests.
+        :param state: User’s country subdivision, such as state, province, or locality. This query parameter is only used (optionally) for identity_match package requests.
+        :param postal_code: User’s postal zip code. This query parameter is only used (optionally) for identity_match package requests.
+        :param address_country_code: User’s country, up to two characters. This query parameter is only used (optionally) for identity_match package requests.
+        :param national_id: User’s national ID, such as SSN or Passport ID. This query parameter is only used (optionally) for identity_match package requests.
+        :param date_of_birth: User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
+        :param last_verified_date: The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests.
+        :param verification_sid: The unique identifier associated with a verification process through verify API. This query parameter is only used (optionally) for pre_fill package requests.
+        :param partner_sub_id: The optional partnerSubId parameter to provide context for your sub-accounts, tenantIDs, sender IDs or other segmentation, enhancing the accuracy of the risk analysis.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            fields=fields,
+            country_code=country_code,
+            first_name=first_name,
+            last_name=last_name,
+            address_line1=address_line1,
+            address_line2=address_line2,
+            city=city,
+            state=state,
+            postal_code=postal_code,
+            address_country_code=address_country_code,
+            national_id=national_id,
+            date_of_birth=date_of_birth,
+            last_verified_date=last_verified_date,
+            verification_sid=verification_sid,
+            partner_sub_id=partner_sub_id,
+        )
+
+    async def fetch_with_http_info_async(
+        self,
+        fields: Union[str, object] = values.unset,
+        country_code: Union[str, object] = values.unset,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        address_line1: Union[str, object] = values.unset,
+        address_line2: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        state: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        address_country_code: Union[str, object] = values.unset,
+        national_id: Union[str, object] = values.unset,
+        date_of_birth: Union[str, object] = values.unset,
+        last_verified_date: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        partner_sub_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the PhoneNumberInstance with HTTP info
+
+        :param fields: A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score, pre_fill.
+        :param country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
+        :param first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
+        :param last_name: User’s last name. This query parameter is only used (optionally) for identity_match package requests.
+        :param address_line1: User’s first address line. This query parameter is only used (optionally) for identity_match package requests.
+        :param address_line2: User’s second address line. This query parameter is only used (optionally) for identity_match package requests.
+        :param city: User’s city. This query parameter is only used (optionally) for identity_match package requests.
+        :param state: User’s country subdivision, such as state, province, or locality. This query parameter is only used (optionally) for identity_match package requests.
+        :param postal_code: User’s postal zip code. This query parameter is only used (optionally) for identity_match package requests.
+        :param address_country_code: User’s country, up to two characters. This query parameter is only used (optionally) for identity_match package requests.
+        :param national_id: User’s national ID, such as SSN or Passport ID. This query parameter is only used (optionally) for identity_match package requests.
+        :param date_of_birth: User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
+        :param last_verified_date: The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests.
+        :param verification_sid: The unique identifier associated with a verification process through verify API. This query parameter is only used (optionally) for pre_fill package requests.
+        :param partner_sub_id: The optional partnerSubId parameter to provide context for your sub-accounts, tenantIDs, sender IDs or other segmentation, enhancing the accuracy of the risk analysis.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            fields=fields,
+            country_code=country_code,
+            first_name=first_name,
+            last_name=last_name,
+            address_line1=address_line1,
+            address_line2=address_line2,
+            city=city,
+            state=state,
+            postal_code=postal_code,
+            address_country_code=address_country_code,
+            national_id=national_id,
+            date_of_birth=date_of_birth,
+            last_verified_date=last_verified_date,
+            verification_sid=verification_sid,
+            partner_sub_id=partner_sub_id,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -240,6 +355,59 @@ class PhoneNumberContext(InstanceContext):
             "phone_number": phone_number,
         }
         self._uri = "/PhoneNumbers/{phone_number}".format(**self._solution)
+
+    def _fetch(
+        self,
+        fields: Union[str, object] = values.unset,
+        country_code: Union[str, object] = values.unset,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        address_line1: Union[str, object] = values.unset,
+        address_line2: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        state: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        address_country_code: Union[str, object] = values.unset,
+        national_id: Union[str, object] = values.unset,
+        date_of_birth: Union[str, object] = values.unset,
+        last_verified_date: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        partner_sub_id: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        params = values.of(
+            {
+                "Fields": fields,
+                "CountryCode": country_code,
+                "FirstName": first_name,
+                "LastName": last_name,
+                "AddressLine1": address_line1,
+                "AddressLine2": address_line2,
+                "City": city,
+                "State": state,
+                "PostalCode": postal_code,
+                "AddressCountryCode": address_country_code,
+                "NationalId": national_id,
+                "DateOfBirth": date_of_birth,
+                "LastVerifiedDate": last_verified_date,
+                "VerificationSid": verification_sid,
+                "PartnerSubId": partner_sub_id,
+            }
+        )
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, params=params, headers=headers
+        )
 
     def fetch(
         self,
@@ -280,6 +448,116 @@ class PhoneNumberContext(InstanceContext):
 
         :returns: The fetched PhoneNumberInstance
         """
+        payload, _, _ = self._fetch(
+            fields=fields,
+            country_code=country_code,
+            first_name=first_name,
+            last_name=last_name,
+            address_line1=address_line1,
+            address_line2=address_line2,
+            city=city,
+            state=state,
+            postal_code=postal_code,
+            address_country_code=address_country_code,
+            national_id=national_id,
+            date_of_birth=date_of_birth,
+            last_verified_date=last_verified_date,
+            verification_sid=verification_sid,
+            partner_sub_id=partner_sub_id,
+        )
+        return PhoneNumberInstance(
+            self._version,
+            payload,
+            phone_number=self._solution["phone_number"],
+        )
+
+    def fetch_with_http_info(
+        self,
+        fields: Union[str, object] = values.unset,
+        country_code: Union[str, object] = values.unset,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        address_line1: Union[str, object] = values.unset,
+        address_line2: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        state: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        address_country_code: Union[str, object] = values.unset,
+        national_id: Union[str, object] = values.unset,
+        date_of_birth: Union[str, object] = values.unset,
+        last_verified_date: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        partner_sub_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Fetch the PhoneNumberInstance and return response metadata
+
+        :param fields: A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score, pre_fill.
+        :param country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
+        :param first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
+        :param last_name: User’s last name. This query parameter is only used (optionally) for identity_match package requests.
+        :param address_line1: User’s first address line. This query parameter is only used (optionally) for identity_match package requests.
+        :param address_line2: User’s second address line. This query parameter is only used (optionally) for identity_match package requests.
+        :param city: User’s city. This query parameter is only used (optionally) for identity_match package requests.
+        :param state: User’s country subdivision, such as state, province, or locality. This query parameter is only used (optionally) for identity_match package requests.
+        :param postal_code: User’s postal zip code. This query parameter is only used (optionally) for identity_match package requests.
+        :param address_country_code: User’s country, up to two characters. This query parameter is only used (optionally) for identity_match package requests.
+        :param national_id: User’s national ID, such as SSN or Passport ID. This query parameter is only used (optionally) for identity_match package requests.
+        :param date_of_birth: User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
+        :param last_verified_date: The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests.
+        :param verification_sid: The unique identifier associated with a verification process through verify API. This query parameter is only used (optionally) for pre_fill package requests.
+        :param partner_sub_id: The optional partnerSubId parameter to provide context for your sub-accounts, tenantIDs, sender IDs or other segmentation, enhancing the accuracy of the risk analysis.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(
+            fields=fields,
+            country_code=country_code,
+            first_name=first_name,
+            last_name=last_name,
+            address_line1=address_line1,
+            address_line2=address_line2,
+            city=city,
+            state=state,
+            postal_code=postal_code,
+            address_country_code=address_country_code,
+            national_id=national_id,
+            date_of_birth=date_of_birth,
+            last_verified_date=last_verified_date,
+            verification_sid=verification_sid,
+            partner_sub_id=partner_sub_id,
+        )
+        instance = PhoneNumberInstance(
+            self._version,
+            payload,
+            phone_number=self._solution["phone_number"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self,
+        fields: Union[str, object] = values.unset,
+        country_code: Union[str, object] = values.unset,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        address_line1: Union[str, object] = values.unset,
+        address_line2: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        state: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        address_country_code: Union[str, object] = values.unset,
+        national_id: Union[str, object] = values.unset,
+        date_of_birth: Union[str, object] = values.unset,
+        last_verified_date: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        partner_sub_id: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         params = values.of(
             {
@@ -305,14 +583,8 @@ class PhoneNumberContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
+        return await self._version.fetch_with_response_info_async(
             method="GET", uri=self._uri, params=params, headers=headers
-        )
-
-        return PhoneNumberInstance(
-            self._version,
-            payload,
-            phone_number=self._solution["phone_number"],
         )
 
     async def fetch_async(
@@ -354,40 +626,91 @@ class PhoneNumberContext(InstanceContext):
 
         :returns: The fetched PhoneNumberInstance
         """
-
-        params = values.of(
-            {
-                "Fields": fields,
-                "CountryCode": country_code,
-                "FirstName": first_name,
-                "LastName": last_name,
-                "AddressLine1": address_line1,
-                "AddressLine2": address_line2,
-                "City": city,
-                "State": state,
-                "PostalCode": postal_code,
-                "AddressCountryCode": address_country_code,
-                "NationalId": national_id,
-                "DateOfBirth": date_of_birth,
-                "LastVerifiedDate": last_verified_date,
-                "VerificationSid": verification_sid,
-                "PartnerSubId": partner_sub_id,
-            }
+        payload, _, _ = await self._fetch_async(
+            fields=fields,
+            country_code=country_code,
+            first_name=first_name,
+            last_name=last_name,
+            address_line1=address_line1,
+            address_line2=address_line2,
+            city=city,
+            state=state,
+            postal_code=postal_code,
+            address_country_code=address_country_code,
+            national_id=national_id,
+            date_of_birth=date_of_birth,
+            last_verified_date=last_verified_date,
+            verification_sid=verification_sid,
+            partner_sub_id=partner_sub_id,
         )
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params, headers=headers
-        )
-
         return PhoneNumberInstance(
             self._version,
             payload,
             phone_number=self._solution["phone_number"],
         )
+
+    async def fetch_with_http_info_async(
+        self,
+        fields: Union[str, object] = values.unset,
+        country_code: Union[str, object] = values.unset,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        address_line1: Union[str, object] = values.unset,
+        address_line2: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        state: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        address_country_code: Union[str, object] = values.unset,
+        national_id: Union[str, object] = values.unset,
+        date_of_birth: Union[str, object] = values.unset,
+        last_verified_date: Union[str, object] = values.unset,
+        verification_sid: Union[str, object] = values.unset,
+        partner_sub_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the PhoneNumberInstance and return response metadata
+
+        :param fields: A comma-separated list of fields to return. Possible values are validation, caller_name, sim_swap, call_forwarding, line_status, line_type_intelligence, identity_match, reassigned_number, sms_pumping_risk, phone_number_quality_score, pre_fill.
+        :param country_code: The [country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) used if the phone number provided is in national format.
+        :param first_name: User’s first name. This query parameter is only used (optionally) for identity_match package requests.
+        :param last_name: User’s last name. This query parameter is only used (optionally) for identity_match package requests.
+        :param address_line1: User’s first address line. This query parameter is only used (optionally) for identity_match package requests.
+        :param address_line2: User’s second address line. This query parameter is only used (optionally) for identity_match package requests.
+        :param city: User’s city. This query parameter is only used (optionally) for identity_match package requests.
+        :param state: User’s country subdivision, such as state, province, or locality. This query parameter is only used (optionally) for identity_match package requests.
+        :param postal_code: User’s postal zip code. This query parameter is only used (optionally) for identity_match package requests.
+        :param address_country_code: User’s country, up to two characters. This query parameter is only used (optionally) for identity_match package requests.
+        :param national_id: User’s national ID, such as SSN or Passport ID. This query parameter is only used (optionally) for identity_match package requests.
+        :param date_of_birth: User’s date of birth, in YYYYMMDD format. This query parameter is only used (optionally) for identity_match package requests.
+        :param last_verified_date: The date you obtained consent to call or text the end-user of the phone number or a date on which you are reasonably certain that the end-user could still be reached at that number. This query parameter is only used (optionally) for reassigned_number package requests.
+        :param verification_sid: The unique identifier associated with a verification process through verify API. This query parameter is only used (optionally) for pre_fill package requests.
+        :param partner_sub_id: The optional partnerSubId parameter to provide context for your sub-accounts, tenantIDs, sender IDs or other segmentation, enhancing the accuracy of the risk analysis.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            fields=fields,
+            country_code=country_code,
+            first_name=first_name,
+            last_name=last_name,
+            address_line1=address_line1,
+            address_line2=address_line2,
+            city=city,
+            state=state,
+            postal_code=postal_code,
+            address_country_code=address_country_code,
+            national_id=national_id,
+            date_of_birth=date_of_birth,
+            last_verified_date=last_verified_date,
+            verification_sid=verification_sid,
+            partner_sub_id=partner_sub_id,
+        )
+        instance = PhoneNumberInstance(
+            self._version,
+            payload,
+            phone_number=self._solution["phone_number"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

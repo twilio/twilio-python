@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -57,13 +58,12 @@ class BulkCountryUpdateList(ListResource):
 
         self._uri = "/DialingPermissions/BulkCountryUpdates"
 
-    def create(self, update_request: str) -> BulkCountryUpdateInstance:
+    def _create(self, update_request: str) -> tuple:
         """
-        Create the BulkCountryUpdateInstance
+        Internal helper for create operation
 
-        :param update_request: URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]`
-
-        :returns: The created BulkCountryUpdateInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -77,11 +77,55 @@ class BulkCountryUpdateList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(self, update_request: str) -> BulkCountryUpdateInstance:
+        """
+        Create the BulkCountryUpdateInstance
+
+        :param update_request: URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]`
+
+        :returns: The created BulkCountryUpdateInstance
+        """
+        payload, _, _ = self._create(update_request=update_request)
         return BulkCountryUpdateInstance(self._version, payload)
+
+    def create_with_http_info(self, update_request: str) -> ApiResponse:
+        """
+        Create the BulkCountryUpdateInstance and return response metadata
+
+        :param update_request: URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]`
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(update_request=update_request)
+        instance = BulkCountryUpdateInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(self, update_request: str) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "UpdateRequest": update_request,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(self, update_request: str) -> BulkCountryUpdateInstance:
         """
@@ -91,23 +135,22 @@ class BulkCountryUpdateList(ListResource):
 
         :returns: The created BulkCountryUpdateInstance
         """
-
-        data = values.of(
-            {
-                "UpdateRequest": update_request,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._create_async(update_request=update_request)
         return BulkCountryUpdateInstance(self._version, payload)
+
+    async def create_with_http_info_async(self, update_request: str) -> ApiResponse:
+        """
+        Asynchronously create the BulkCountryUpdateInstance and return response metadata
+
+        :param update_request: URL encoded JSON array of update objects. example : `[ { \\\"iso_code\\\": \\\"GB\\\", \\\"low_risk_numbers_enabled\\\": \\\"true\\\", \\\"high_risk_special_numbers_enabled\\\":\\\"true\\\", \\\"high_risk_tollfraud_numbers_enabled\\\": \\\"false\\\" } ]`
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            update_request=update_request
+        )
+        instance = BulkCountryUpdateInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

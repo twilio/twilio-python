@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -112,6 +113,66 @@ class NotificationList(ListResource):
         }
         self._uri = "/Services/{service_sid}/Notifications".format(**self._solution)
 
+    def _create(
+        self,
+        body: Union[str, object] = values.unset,
+        priority: Union["NotificationInstance.Priority", object] = values.unset,
+        ttl: Union[int, object] = values.unset,
+        title: Union[str, object] = values.unset,
+        sound: Union[str, object] = values.unset,
+        action: Union[str, object] = values.unset,
+        data: Union[object, object] = values.unset,
+        apn: Union[object, object] = values.unset,
+        gcm: Union[object, object] = values.unset,
+        sms: Union[object, object] = values.unset,
+        facebook_messenger: Union[object, object] = values.unset,
+        fcm: Union[object, object] = values.unset,
+        segment: Union[List[str], object] = values.unset,
+        alexa: Union[object, object] = values.unset,
+        to_binding: Union[List[str], object] = values.unset,
+        delivery_callback_url: Union[str, object] = values.unset,
+        identity: Union[List[str], object] = values.unset,
+        tag: Union[List[str], object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Body": body,
+                "Priority": priority,
+                "Ttl": ttl,
+                "Title": title,
+                "Sound": sound,
+                "Action": action,
+                "Data": serialize.object(data),
+                "Apn": serialize.object(apn),
+                "Gcm": serialize.object(gcm),
+                "Sms": serialize.object(sms),
+                "FacebookMessenger": serialize.object(facebook_messenger),
+                "Fcm": serialize.object(fcm),
+                "Segment": serialize.map(segment, lambda e: e),
+                "Alexa": serialize.object(alexa),
+                "ToBinding": serialize.map(to_binding, lambda e: e),
+                "DeliveryCallbackUrl": delivery_callback_url,
+                "Identity": serialize.map(identity, lambda e: e),
+                "Tag": serialize.map(tag, lambda e: e),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         body: Union[str, object] = values.unset,
@@ -157,6 +218,127 @@ class NotificationList(ListResource):
 
         :returns: The created NotificationInstance
         """
+        payload, _, _ = self._create(
+            body=body,
+            priority=priority,
+            ttl=ttl,
+            title=title,
+            sound=sound,
+            action=action,
+            data=data,
+            apn=apn,
+            gcm=gcm,
+            sms=sms,
+            facebook_messenger=facebook_messenger,
+            fcm=fcm,
+            segment=segment,
+            alexa=alexa,
+            to_binding=to_binding,
+            delivery_callback_url=delivery_callback_url,
+            identity=identity,
+            tag=tag,
+        )
+        return NotificationInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def create_with_http_info(
+        self,
+        body: Union[str, object] = values.unset,
+        priority: Union["NotificationInstance.Priority", object] = values.unset,
+        ttl: Union[int, object] = values.unset,
+        title: Union[str, object] = values.unset,
+        sound: Union[str, object] = values.unset,
+        action: Union[str, object] = values.unset,
+        data: Union[object, object] = values.unset,
+        apn: Union[object, object] = values.unset,
+        gcm: Union[object, object] = values.unset,
+        sms: Union[object, object] = values.unset,
+        facebook_messenger: Union[object, object] = values.unset,
+        fcm: Union[object, object] = values.unset,
+        segment: Union[List[str], object] = values.unset,
+        alexa: Union[object, object] = values.unset,
+        to_binding: Union[List[str], object] = values.unset,
+        delivery_callback_url: Union[str, object] = values.unset,
+        identity: Union[List[str], object] = values.unset,
+        tag: Union[List[str], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the NotificationInstance and return response metadata
+
+        :param body: The notification text. For FCM and GCM, translates to `data.twi_body`. For APNS, translates to `aps.alert.body`. For SMS, translates to `body`. SMS requires either this `body` value, or `media_urls` attribute defined in the `sms` parameter of the notification.
+        :param priority:
+        :param ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
+        :param title: The notification title. For FCM and GCM, this translates to the `data.twi_title` value. For APNS, this translates to the `aps.alert.title` value. SMS does not support this property. This field is not visible on iOS phones and tablets but appears on Apple Watch and Android devices.
+        :param sound: The name of the sound to be played for the notification. For FCM and GCM, this Translates to `data.twi_sound`.  For APNS, this translates to `aps.sound`.  SMS does not support this property.
+        :param action: The actions to display for the notification. For APNS, translates to the `aps.category` value. For GCM, translates to the `data.twi_action` value. For SMS, this parameter is not supported and is omitted from deliveries to those channels.
+        :param data: The custom key-value pairs of the notification's payload. For FCM and GCM, this value translates to `data` in the FCM and GCM payloads. FCM and GCM [reserve certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref) that cannot be used in those channels. For APNS, attributes of `data` are inserted into the APNS payload as custom properties outside of the `aps` dictionary. In all channels, we reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed and are rejected as 400 Bad request with no delivery attempted. For SMS, this parameter is not supported and is omitted from deliveries to those channels.
+        :param apn: The APNS-specific payload that overrides corresponding attributes in the generic payload for APNS Bindings. This property maps to the APNS `Payload` item, therefore the `aps` key must be used to change standard attributes. Adds custom key-value pairs to the root of the dictionary. See the [APNS documentation](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html) for more details. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed.
+        :param gcm: The GCM-specific payload that overrides corresponding attributes in the generic payload for GCM Bindings.  This property maps to the root JSON dictionary. See the [GCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref) for more details. Target parameters `to`, `registration_ids`, and `notification_key` are not allowed. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. GCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref).
+        :param sms: The SMS-specific payload that overrides corresponding attributes in the generic payload for SMS Bindings.  Each attribute in this value maps to the corresponding `form` parameter of the Twilio [Message](https://www.twilio.com/docs/sms/quickstart) resource.  These parameters of the Message resource are supported in snake case format: `body`, `media_urls`, `status_callback`, and `max_price`.  The `status_callback` parameter overrides the corresponding parameter in the messaging service, if configured. The `media_urls` property expects a JSON array.
+        :param facebook_messenger: Deprecated.
+        :param fcm: The FCM-specific payload that overrides corresponding attributes in the generic payload for FCM Bindings. This property maps to the root JSON dictionary. See the [FCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream) for more details. Target parameters `to`, `registration_ids`, `condition`, and `notification_key` are not allowed in this parameter. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. FCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref), which cannot be used in that channel.
+        :param segment: The Segment resource is deprecated. Use the `tag` parameter, instead.
+        :param alexa: Deprecated.
+        :param to_binding: The destination address specified as a JSON string.  Multiple `to_binding` parameters can be included but the total size of the request entity should not exceed 1MB. This is typically sufficient for 10,000 phone numbers.
+        :param delivery_callback_url: URL to send webhooks.
+        :param identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery will be attempted only to Bindings with an Identity in this list. No more than 20 items are allowed in this list.
+        :param tag: A tag that selects the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 5 tags. The implicit tag `all` is available to notify all Bindings in a Service instance. Similarly, the implicit tags `apn`, `fcm`, `gcm`, `sms` and `facebook-messenger` are available to notify all Bindings in a specific channel.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            body=body,
+            priority=priority,
+            ttl=ttl,
+            title=title,
+            sound=sound,
+            action=action,
+            data=data,
+            apn=apn,
+            gcm=gcm,
+            sms=sms,
+            facebook_messenger=facebook_messenger,
+            fcm=fcm,
+            segment=segment,
+            alexa=alexa,
+            to_binding=to_binding,
+            delivery_callback_url=delivery_callback_url,
+            identity=identity,
+            tag=tag,
+        )
+        instance = NotificationInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        body: Union[str, object] = values.unset,
+        priority: Union["NotificationInstance.Priority", object] = values.unset,
+        ttl: Union[int, object] = values.unset,
+        title: Union[str, object] = values.unset,
+        sound: Union[str, object] = values.unset,
+        action: Union[str, object] = values.unset,
+        data: Union[object, object] = values.unset,
+        apn: Union[object, object] = values.unset,
+        gcm: Union[object, object] = values.unset,
+        sms: Union[object, object] = values.unset,
+        facebook_messenger: Union[object, object] = values.unset,
+        fcm: Union[object, object] = values.unset,
+        segment: Union[List[str], object] = values.unset,
+        alexa: Union[object, object] = values.unset,
+        to_binding: Union[List[str], object] = values.unset,
+        delivery_callback_url: Union[str, object] = values.unset,
+        identity: Union[List[str], object] = values.unset,
+        tag: Union[List[str], object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -186,12 +368,8 @@ class NotificationList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return NotificationInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
         )
 
     async def create_async(
@@ -239,42 +417,99 @@ class NotificationList(ListResource):
 
         :returns: The created NotificationInstance
         """
-
-        data = values.of(
-            {
-                "Body": body,
-                "Priority": priority,
-                "Ttl": ttl,
-                "Title": title,
-                "Sound": sound,
-                "Action": action,
-                "Data": serialize.object(data),
-                "Apn": serialize.object(apn),
-                "Gcm": serialize.object(gcm),
-                "Sms": serialize.object(sms),
-                "FacebookMessenger": serialize.object(facebook_messenger),
-                "Fcm": serialize.object(fcm),
-                "Segment": serialize.map(segment, lambda e: e),
-                "Alexa": serialize.object(alexa),
-                "ToBinding": serialize.map(to_binding, lambda e: e),
-                "DeliveryCallbackUrl": delivery_callback_url,
-                "Identity": serialize.map(identity, lambda e: e),
-                "Tag": serialize.map(tag, lambda e: e),
-            }
+        payload, _, _ = await self._create_async(
+            body=body,
+            priority=priority,
+            ttl=ttl,
+            title=title,
+            sound=sound,
+            action=action,
+            data=data,
+            apn=apn,
+            gcm=gcm,
+            sms=sms,
+            facebook_messenger=facebook_messenger,
+            fcm=fcm,
+            segment=segment,
+            alexa=alexa,
+            to_binding=to_binding,
+            delivery_callback_url=delivery_callback_url,
+            identity=identity,
+            tag=tag,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return NotificationInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
         )
+
+    async def create_with_http_info_async(
+        self,
+        body: Union[str, object] = values.unset,
+        priority: Union["NotificationInstance.Priority", object] = values.unset,
+        ttl: Union[int, object] = values.unset,
+        title: Union[str, object] = values.unset,
+        sound: Union[str, object] = values.unset,
+        action: Union[str, object] = values.unset,
+        data: Union[object, object] = values.unset,
+        apn: Union[object, object] = values.unset,
+        gcm: Union[object, object] = values.unset,
+        sms: Union[object, object] = values.unset,
+        facebook_messenger: Union[object, object] = values.unset,
+        fcm: Union[object, object] = values.unset,
+        segment: Union[List[str], object] = values.unset,
+        alexa: Union[object, object] = values.unset,
+        to_binding: Union[List[str], object] = values.unset,
+        delivery_callback_url: Union[str, object] = values.unset,
+        identity: Union[List[str], object] = values.unset,
+        tag: Union[List[str], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the NotificationInstance and return response metadata
+
+        :param body: The notification text. For FCM and GCM, translates to `data.twi_body`. For APNS, translates to `aps.alert.body`. For SMS, translates to `body`. SMS requires either this `body` value, or `media_urls` attribute defined in the `sms` parameter of the notification.
+        :param priority:
+        :param ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 2,419,200, which is 4 weeks, the default and the maximum supported time to live (TTL). Delivery should be attempted if the device is offline until the TTL elapses. Zero means that the notification delivery is attempted immediately, only once, and is not stored for future delivery. SMS does not support this property.
+        :param title: The notification title. For FCM and GCM, this translates to the `data.twi_title` value. For APNS, this translates to the `aps.alert.title` value. SMS does not support this property. This field is not visible on iOS phones and tablets but appears on Apple Watch and Android devices.
+        :param sound: The name of the sound to be played for the notification. For FCM and GCM, this Translates to `data.twi_sound`.  For APNS, this translates to `aps.sound`.  SMS does not support this property.
+        :param action: The actions to display for the notification. For APNS, translates to the `aps.category` value. For GCM, translates to the `data.twi_action` value. For SMS, this parameter is not supported and is omitted from deliveries to those channels.
+        :param data: The custom key-value pairs of the notification's payload. For FCM and GCM, this value translates to `data` in the FCM and GCM payloads. FCM and GCM [reserve certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref) that cannot be used in those channels. For APNS, attributes of `data` are inserted into the APNS payload as custom properties outside of the `aps` dictionary. In all channels, we reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed and are rejected as 400 Bad request with no delivery attempted. For SMS, this parameter is not supported and is omitted from deliveries to those channels.
+        :param apn: The APNS-specific payload that overrides corresponding attributes in the generic payload for APNS Bindings. This property maps to the APNS `Payload` item, therefore the `aps` key must be used to change standard attributes. Adds custom key-value pairs to the root of the dictionary. See the [APNS documentation](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html) for more details. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed.
+        :param gcm: The GCM-specific payload that overrides corresponding attributes in the generic payload for GCM Bindings.  This property maps to the root JSON dictionary. See the [GCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref) for more details. Target parameters `to`, `registration_ids`, and `notification_key` are not allowed. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. GCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref).
+        :param sms: The SMS-specific payload that overrides corresponding attributes in the generic payload for SMS Bindings.  Each attribute in this value maps to the corresponding `form` parameter of the Twilio [Message](https://www.twilio.com/docs/sms/quickstart) resource.  These parameters of the Message resource are supported in snake case format: `body`, `media_urls`, `status_callback`, and `max_price`.  The `status_callback` parameter overrides the corresponding parameter in the messaging service, if configured. The `media_urls` property expects a JSON array.
+        :param facebook_messenger: Deprecated.
+        :param fcm: The FCM-specific payload that overrides corresponding attributes in the generic payload for FCM Bindings. This property maps to the root JSON dictionary. See the [FCM documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream) for more details. Target parameters `to`, `registration_ids`, `condition`, and `notification_key` are not allowed in this parameter. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. FCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref), which cannot be used in that channel.
+        :param segment: The Segment resource is deprecated. Use the `tag` parameter, instead.
+        :param alexa: Deprecated.
+        :param to_binding: The destination address specified as a JSON string.  Multiple `to_binding` parameters can be included but the total size of the request entity should not exceed 1MB. This is typically sufficient for 10,000 phone numbers.
+        :param delivery_callback_url: URL to send webhooks.
+        :param identity: The `identity` value that uniquely identifies the new resource's [User](https://www.twilio.com/docs/chat/rest/user-resource) within the [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery will be attempted only to Bindings with an Identity in this list. No more than 20 items are allowed in this list.
+        :param tag: A tag that selects the Bindings to notify. Repeat this parameter to specify more than one tag, up to a total of 5 tags. The implicit tag `all` is available to notify all Bindings in a Service instance. Similarly, the implicit tags `apn`, `fcm`, `gcm`, `sms` and `facebook-messenger` are available to notify all Bindings in a specific channel.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            body=body,
+            priority=priority,
+            ttl=ttl,
+            title=title,
+            sound=sound,
+            action=action,
+            data=data,
+            apn=apn,
+            gcm=gcm,
+            sms=sms,
+            facebook_messenger=facebook_messenger,
+            fcm=fcm,
+            segment=segment,
+            alexa=alexa,
+            to_binding=to_binding,
+            delivery_callback_url=delivery_callback_url,
+            identity=identity,
+            tag=tag,
+        )
+        instance = NotificationInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

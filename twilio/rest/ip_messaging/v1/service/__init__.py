@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -129,6 +130,24 @@ class ServiceInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the ServiceInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the ServiceInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "ServiceInstance":
         """
         Fetch the ServiceInstance
@@ -146,6 +165,24 @@ class ServiceInstance(InstanceResource):
         :returns: The fetched ServiceInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ServiceInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ServiceInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -495,6 +532,354 @@ class ServiceInstance(InstanceResource):
             limits_user_channels=limits_user_channels,
         )
 
+    def update_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        default_service_role_sid: Union[str, object] = values.unset,
+        default_channel_role_sid: Union[str, object] = values.unset,
+        default_channel_creator_role_sid: Union[str, object] = values.unset,
+        read_status_enabled: Union[bool, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+        typing_indicator_timeout: Union[int, object] = values.unset,
+        consumption_report_interval: Union[int, object] = values.unset,
+        notifications_new_message_enabled: Union[bool, object] = values.unset,
+        notifications_new_message_template: Union[str, object] = values.unset,
+        notifications_added_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_added_to_channel_template: Union[str, object] = values.unset,
+        notifications_removed_from_channel_enabled: Union[bool, object] = values.unset,
+        notifications_removed_from_channel_template: Union[str, object] = values.unset,
+        notifications_invited_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_invited_to_channel_template: Union[str, object] = values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        webhook_filters: Union[List[str], object] = values.unset,
+        webhooks_on_message_send_url: Union[str, object] = values.unset,
+        webhooks_on_message_send_method: Union[str, object] = values.unset,
+        webhooks_on_message_update_url: Union[str, object] = values.unset,
+        webhooks_on_message_update_method: Union[str, object] = values.unset,
+        webhooks_on_message_remove_url: Union[str, object] = values.unset,
+        webhooks_on_message_remove_method: Union[str, object] = values.unset,
+        webhooks_on_channel_add_url: Union[str, object] = values.unset,
+        webhooks_on_channel_add_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_method: Union[str, object] = values.unset,
+        webhooks_on_channel_update_url: Union[str, object] = values.unset,
+        webhooks_on_channel_update_method: Union[str, object] = values.unset,
+        webhooks_on_member_add_url: Union[str, object] = values.unset,
+        webhooks_on_member_add_method: Union[str, object] = values.unset,
+        webhooks_on_member_remove_url: Union[str, object] = values.unset,
+        webhooks_on_member_remove_method: Union[str, object] = values.unset,
+        webhooks_on_message_sent_url: Union[str, object] = values.unset,
+        webhooks_on_message_sent_method: Union[str, object] = values.unset,
+        webhooks_on_message_updated_url: Union[str, object] = values.unset,
+        webhooks_on_message_updated_method: Union[str, object] = values.unset,
+        webhooks_on_message_removed_url: Union[str, object] = values.unset,
+        webhooks_on_message_removed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_added_url: Union[str, object] = values.unset,
+        webhooks_on_channel_added_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_url: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_method: Union[str, object] = values.unset,
+        webhooks_on_member_added_url: Union[str, object] = values.unset,
+        webhooks_on_member_added_method: Union[str, object] = values.unset,
+        webhooks_on_member_removed_url: Union[str, object] = values.unset,
+        webhooks_on_member_removed_method: Union[str, object] = values.unset,
+        limits_channel_members: Union[int, object] = values.unset,
+        limits_user_channels: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ServiceInstance with HTTP info
+
+        :param friendly_name:
+        :param default_service_role_sid:
+        :param default_channel_role_sid:
+        :param default_channel_creator_role_sid:
+        :param read_status_enabled:
+        :param reachability_enabled:
+        :param typing_indicator_timeout:
+        :param consumption_report_interval:
+        :param notifications_new_message_enabled:
+        :param notifications_new_message_template:
+        :param notifications_added_to_channel_enabled:
+        :param notifications_added_to_channel_template:
+        :param notifications_removed_from_channel_enabled:
+        :param notifications_removed_from_channel_template:
+        :param notifications_invited_to_channel_enabled:
+        :param notifications_invited_to_channel_template:
+        :param pre_webhook_url:
+        :param post_webhook_url:
+        :param webhook_method:
+        :param webhook_filters:
+        :param webhooks_on_message_send_url:
+        :param webhooks_on_message_send_method:
+        :param webhooks_on_message_update_url:
+        :param webhooks_on_message_update_method:
+        :param webhooks_on_message_remove_url:
+        :param webhooks_on_message_remove_method:
+        :param webhooks_on_channel_add_url:
+        :param webhooks_on_channel_add_method:
+        :param webhooks_on_channel_destroy_url:
+        :param webhooks_on_channel_destroy_method:
+        :param webhooks_on_channel_update_url:
+        :param webhooks_on_channel_update_method:
+        :param webhooks_on_member_add_url:
+        :param webhooks_on_member_add_method:
+        :param webhooks_on_member_remove_url:
+        :param webhooks_on_member_remove_method:
+        :param webhooks_on_message_sent_url:
+        :param webhooks_on_message_sent_method:
+        :param webhooks_on_message_updated_url:
+        :param webhooks_on_message_updated_method:
+        :param webhooks_on_message_removed_url:
+        :param webhooks_on_message_removed_method:
+        :param webhooks_on_channel_added_url:
+        :param webhooks_on_channel_added_method:
+        :param webhooks_on_channel_destroyed_url:
+        :param webhooks_on_channel_destroyed_method:
+        :param webhooks_on_channel_updated_url:
+        :param webhooks_on_channel_updated_method:
+        :param webhooks_on_member_added_url:
+        :param webhooks_on_member_added_method:
+        :param webhooks_on_member_removed_url:
+        :param webhooks_on_member_removed_method:
+        :param limits_channel_members:
+        :param limits_user_channels:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            friendly_name=friendly_name,
+            default_service_role_sid=default_service_role_sid,
+            default_channel_role_sid=default_channel_role_sid,
+            default_channel_creator_role_sid=default_channel_creator_role_sid,
+            read_status_enabled=read_status_enabled,
+            reachability_enabled=reachability_enabled,
+            typing_indicator_timeout=typing_indicator_timeout,
+            consumption_report_interval=consumption_report_interval,
+            notifications_new_message_enabled=notifications_new_message_enabled,
+            notifications_new_message_template=notifications_new_message_template,
+            notifications_added_to_channel_enabled=notifications_added_to_channel_enabled,
+            notifications_added_to_channel_template=notifications_added_to_channel_template,
+            notifications_removed_from_channel_enabled=notifications_removed_from_channel_enabled,
+            notifications_removed_from_channel_template=notifications_removed_from_channel_template,
+            notifications_invited_to_channel_enabled=notifications_invited_to_channel_enabled,
+            notifications_invited_to_channel_template=notifications_invited_to_channel_template,
+            pre_webhook_url=pre_webhook_url,
+            post_webhook_url=post_webhook_url,
+            webhook_method=webhook_method,
+            webhook_filters=webhook_filters,
+            webhooks_on_message_send_url=webhooks_on_message_send_url,
+            webhooks_on_message_send_method=webhooks_on_message_send_method,
+            webhooks_on_message_update_url=webhooks_on_message_update_url,
+            webhooks_on_message_update_method=webhooks_on_message_update_method,
+            webhooks_on_message_remove_url=webhooks_on_message_remove_url,
+            webhooks_on_message_remove_method=webhooks_on_message_remove_method,
+            webhooks_on_channel_add_url=webhooks_on_channel_add_url,
+            webhooks_on_channel_add_method=webhooks_on_channel_add_method,
+            webhooks_on_channel_destroy_url=webhooks_on_channel_destroy_url,
+            webhooks_on_channel_destroy_method=webhooks_on_channel_destroy_method,
+            webhooks_on_channel_update_url=webhooks_on_channel_update_url,
+            webhooks_on_channel_update_method=webhooks_on_channel_update_method,
+            webhooks_on_member_add_url=webhooks_on_member_add_url,
+            webhooks_on_member_add_method=webhooks_on_member_add_method,
+            webhooks_on_member_remove_url=webhooks_on_member_remove_url,
+            webhooks_on_member_remove_method=webhooks_on_member_remove_method,
+            webhooks_on_message_sent_url=webhooks_on_message_sent_url,
+            webhooks_on_message_sent_method=webhooks_on_message_sent_method,
+            webhooks_on_message_updated_url=webhooks_on_message_updated_url,
+            webhooks_on_message_updated_method=webhooks_on_message_updated_method,
+            webhooks_on_message_removed_url=webhooks_on_message_removed_url,
+            webhooks_on_message_removed_method=webhooks_on_message_removed_method,
+            webhooks_on_channel_added_url=webhooks_on_channel_added_url,
+            webhooks_on_channel_added_method=webhooks_on_channel_added_method,
+            webhooks_on_channel_destroyed_url=webhooks_on_channel_destroyed_url,
+            webhooks_on_channel_destroyed_method=webhooks_on_channel_destroyed_method,
+            webhooks_on_channel_updated_url=webhooks_on_channel_updated_url,
+            webhooks_on_channel_updated_method=webhooks_on_channel_updated_method,
+            webhooks_on_member_added_url=webhooks_on_member_added_url,
+            webhooks_on_member_added_method=webhooks_on_member_added_method,
+            webhooks_on_member_removed_url=webhooks_on_member_removed_url,
+            webhooks_on_member_removed_method=webhooks_on_member_removed_method,
+            limits_channel_members=limits_channel_members,
+            limits_user_channels=limits_user_channels,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        default_service_role_sid: Union[str, object] = values.unset,
+        default_channel_role_sid: Union[str, object] = values.unset,
+        default_channel_creator_role_sid: Union[str, object] = values.unset,
+        read_status_enabled: Union[bool, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+        typing_indicator_timeout: Union[int, object] = values.unset,
+        consumption_report_interval: Union[int, object] = values.unset,
+        notifications_new_message_enabled: Union[bool, object] = values.unset,
+        notifications_new_message_template: Union[str, object] = values.unset,
+        notifications_added_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_added_to_channel_template: Union[str, object] = values.unset,
+        notifications_removed_from_channel_enabled: Union[bool, object] = values.unset,
+        notifications_removed_from_channel_template: Union[str, object] = values.unset,
+        notifications_invited_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_invited_to_channel_template: Union[str, object] = values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        webhook_filters: Union[List[str], object] = values.unset,
+        webhooks_on_message_send_url: Union[str, object] = values.unset,
+        webhooks_on_message_send_method: Union[str, object] = values.unset,
+        webhooks_on_message_update_url: Union[str, object] = values.unset,
+        webhooks_on_message_update_method: Union[str, object] = values.unset,
+        webhooks_on_message_remove_url: Union[str, object] = values.unset,
+        webhooks_on_message_remove_method: Union[str, object] = values.unset,
+        webhooks_on_channel_add_url: Union[str, object] = values.unset,
+        webhooks_on_channel_add_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_method: Union[str, object] = values.unset,
+        webhooks_on_channel_update_url: Union[str, object] = values.unset,
+        webhooks_on_channel_update_method: Union[str, object] = values.unset,
+        webhooks_on_member_add_url: Union[str, object] = values.unset,
+        webhooks_on_member_add_method: Union[str, object] = values.unset,
+        webhooks_on_member_remove_url: Union[str, object] = values.unset,
+        webhooks_on_member_remove_method: Union[str, object] = values.unset,
+        webhooks_on_message_sent_url: Union[str, object] = values.unset,
+        webhooks_on_message_sent_method: Union[str, object] = values.unset,
+        webhooks_on_message_updated_url: Union[str, object] = values.unset,
+        webhooks_on_message_updated_method: Union[str, object] = values.unset,
+        webhooks_on_message_removed_url: Union[str, object] = values.unset,
+        webhooks_on_message_removed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_added_url: Union[str, object] = values.unset,
+        webhooks_on_channel_added_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_url: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_method: Union[str, object] = values.unset,
+        webhooks_on_member_added_url: Union[str, object] = values.unset,
+        webhooks_on_member_added_method: Union[str, object] = values.unset,
+        webhooks_on_member_removed_url: Union[str, object] = values.unset,
+        webhooks_on_member_removed_method: Union[str, object] = values.unset,
+        limits_channel_members: Union[int, object] = values.unset,
+        limits_user_channels: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ServiceInstance with HTTP info
+
+        :param friendly_name:
+        :param default_service_role_sid:
+        :param default_channel_role_sid:
+        :param default_channel_creator_role_sid:
+        :param read_status_enabled:
+        :param reachability_enabled:
+        :param typing_indicator_timeout:
+        :param consumption_report_interval:
+        :param notifications_new_message_enabled:
+        :param notifications_new_message_template:
+        :param notifications_added_to_channel_enabled:
+        :param notifications_added_to_channel_template:
+        :param notifications_removed_from_channel_enabled:
+        :param notifications_removed_from_channel_template:
+        :param notifications_invited_to_channel_enabled:
+        :param notifications_invited_to_channel_template:
+        :param pre_webhook_url:
+        :param post_webhook_url:
+        :param webhook_method:
+        :param webhook_filters:
+        :param webhooks_on_message_send_url:
+        :param webhooks_on_message_send_method:
+        :param webhooks_on_message_update_url:
+        :param webhooks_on_message_update_method:
+        :param webhooks_on_message_remove_url:
+        :param webhooks_on_message_remove_method:
+        :param webhooks_on_channel_add_url:
+        :param webhooks_on_channel_add_method:
+        :param webhooks_on_channel_destroy_url:
+        :param webhooks_on_channel_destroy_method:
+        :param webhooks_on_channel_update_url:
+        :param webhooks_on_channel_update_method:
+        :param webhooks_on_member_add_url:
+        :param webhooks_on_member_add_method:
+        :param webhooks_on_member_remove_url:
+        :param webhooks_on_member_remove_method:
+        :param webhooks_on_message_sent_url:
+        :param webhooks_on_message_sent_method:
+        :param webhooks_on_message_updated_url:
+        :param webhooks_on_message_updated_method:
+        :param webhooks_on_message_removed_url:
+        :param webhooks_on_message_removed_method:
+        :param webhooks_on_channel_added_url:
+        :param webhooks_on_channel_added_method:
+        :param webhooks_on_channel_destroyed_url:
+        :param webhooks_on_channel_destroyed_method:
+        :param webhooks_on_channel_updated_url:
+        :param webhooks_on_channel_updated_method:
+        :param webhooks_on_member_added_url:
+        :param webhooks_on_member_added_method:
+        :param webhooks_on_member_removed_url:
+        :param webhooks_on_member_removed_method:
+        :param limits_channel_members:
+        :param limits_user_channels:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            friendly_name=friendly_name,
+            default_service_role_sid=default_service_role_sid,
+            default_channel_role_sid=default_channel_role_sid,
+            default_channel_creator_role_sid=default_channel_creator_role_sid,
+            read_status_enabled=read_status_enabled,
+            reachability_enabled=reachability_enabled,
+            typing_indicator_timeout=typing_indicator_timeout,
+            consumption_report_interval=consumption_report_interval,
+            notifications_new_message_enabled=notifications_new_message_enabled,
+            notifications_new_message_template=notifications_new_message_template,
+            notifications_added_to_channel_enabled=notifications_added_to_channel_enabled,
+            notifications_added_to_channel_template=notifications_added_to_channel_template,
+            notifications_removed_from_channel_enabled=notifications_removed_from_channel_enabled,
+            notifications_removed_from_channel_template=notifications_removed_from_channel_template,
+            notifications_invited_to_channel_enabled=notifications_invited_to_channel_enabled,
+            notifications_invited_to_channel_template=notifications_invited_to_channel_template,
+            pre_webhook_url=pre_webhook_url,
+            post_webhook_url=post_webhook_url,
+            webhook_method=webhook_method,
+            webhook_filters=webhook_filters,
+            webhooks_on_message_send_url=webhooks_on_message_send_url,
+            webhooks_on_message_send_method=webhooks_on_message_send_method,
+            webhooks_on_message_update_url=webhooks_on_message_update_url,
+            webhooks_on_message_update_method=webhooks_on_message_update_method,
+            webhooks_on_message_remove_url=webhooks_on_message_remove_url,
+            webhooks_on_message_remove_method=webhooks_on_message_remove_method,
+            webhooks_on_channel_add_url=webhooks_on_channel_add_url,
+            webhooks_on_channel_add_method=webhooks_on_channel_add_method,
+            webhooks_on_channel_destroy_url=webhooks_on_channel_destroy_url,
+            webhooks_on_channel_destroy_method=webhooks_on_channel_destroy_method,
+            webhooks_on_channel_update_url=webhooks_on_channel_update_url,
+            webhooks_on_channel_update_method=webhooks_on_channel_update_method,
+            webhooks_on_member_add_url=webhooks_on_member_add_url,
+            webhooks_on_member_add_method=webhooks_on_member_add_method,
+            webhooks_on_member_remove_url=webhooks_on_member_remove_url,
+            webhooks_on_member_remove_method=webhooks_on_member_remove_method,
+            webhooks_on_message_sent_url=webhooks_on_message_sent_url,
+            webhooks_on_message_sent_method=webhooks_on_message_sent_method,
+            webhooks_on_message_updated_url=webhooks_on_message_updated_url,
+            webhooks_on_message_updated_method=webhooks_on_message_updated_method,
+            webhooks_on_message_removed_url=webhooks_on_message_removed_url,
+            webhooks_on_message_removed_method=webhooks_on_message_removed_method,
+            webhooks_on_channel_added_url=webhooks_on_channel_added_url,
+            webhooks_on_channel_added_method=webhooks_on_channel_added_method,
+            webhooks_on_channel_destroyed_url=webhooks_on_channel_destroyed_url,
+            webhooks_on_channel_destroyed_method=webhooks_on_channel_destroyed_method,
+            webhooks_on_channel_updated_url=webhooks_on_channel_updated_url,
+            webhooks_on_channel_updated_method=webhooks_on_channel_updated_method,
+            webhooks_on_member_added_url=webhooks_on_member_added_url,
+            webhooks_on_member_added_method=webhooks_on_member_added_method,
+            webhooks_on_member_removed_url=webhooks_on_member_removed_url,
+            webhooks_on_member_removed_method=webhooks_on_member_removed_method,
+            limits_channel_members=limits_channel_members,
+            limits_user_channels=limits_user_channels,
+        )
+
     @property
     def channels(self) -> ChannelList:
         """
@@ -547,6 +932,20 @@ class ServiceContext(InstanceContext):
         self._roles: Optional[RoleList] = None
         self._users: Optional[UserList] = None
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the ServiceInstance
@@ -554,10 +953,32 @@ class ServiceContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the ServiceInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -566,11 +987,33 @@ class ServiceContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the ServiceInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> ServiceInstance:
@@ -580,17 +1023,42 @@ class ServiceContext(InstanceContext):
 
         :returns: The fetched ServiceInstance
         """
+        payload, _, _ = self._fetch()
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ServiceInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> ServiceInstance:
@@ -600,19 +1068,168 @@ class ServiceContext(InstanceContext):
 
         :returns: The fetched ServiceInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return ServiceInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ServiceInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        default_service_role_sid: Union[str, object] = values.unset,
+        default_channel_role_sid: Union[str, object] = values.unset,
+        default_channel_creator_role_sid: Union[str, object] = values.unset,
+        read_status_enabled: Union[bool, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+        typing_indicator_timeout: Union[int, object] = values.unset,
+        consumption_report_interval: Union[int, object] = values.unset,
+        notifications_new_message_enabled: Union[bool, object] = values.unset,
+        notifications_new_message_template: Union[str, object] = values.unset,
+        notifications_added_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_added_to_channel_template: Union[str, object] = values.unset,
+        notifications_removed_from_channel_enabled: Union[bool, object] = values.unset,
+        notifications_removed_from_channel_template: Union[str, object] = values.unset,
+        notifications_invited_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_invited_to_channel_template: Union[str, object] = values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        webhook_filters: Union[List[str], object] = values.unset,
+        webhooks_on_message_send_url: Union[str, object] = values.unset,
+        webhooks_on_message_send_method: Union[str, object] = values.unset,
+        webhooks_on_message_update_url: Union[str, object] = values.unset,
+        webhooks_on_message_update_method: Union[str, object] = values.unset,
+        webhooks_on_message_remove_url: Union[str, object] = values.unset,
+        webhooks_on_message_remove_method: Union[str, object] = values.unset,
+        webhooks_on_channel_add_url: Union[str, object] = values.unset,
+        webhooks_on_channel_add_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_method: Union[str, object] = values.unset,
+        webhooks_on_channel_update_url: Union[str, object] = values.unset,
+        webhooks_on_channel_update_method: Union[str, object] = values.unset,
+        webhooks_on_member_add_url: Union[str, object] = values.unset,
+        webhooks_on_member_add_method: Union[str, object] = values.unset,
+        webhooks_on_member_remove_url: Union[str, object] = values.unset,
+        webhooks_on_member_remove_method: Union[str, object] = values.unset,
+        webhooks_on_message_sent_url: Union[str, object] = values.unset,
+        webhooks_on_message_sent_method: Union[str, object] = values.unset,
+        webhooks_on_message_updated_url: Union[str, object] = values.unset,
+        webhooks_on_message_updated_method: Union[str, object] = values.unset,
+        webhooks_on_message_removed_url: Union[str, object] = values.unset,
+        webhooks_on_message_removed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_added_url: Union[str, object] = values.unset,
+        webhooks_on_channel_added_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_url: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_method: Union[str, object] = values.unset,
+        webhooks_on_member_added_url: Union[str, object] = values.unset,
+        webhooks_on_member_added_method: Union[str, object] = values.unset,
+        webhooks_on_member_removed_url: Union[str, object] = values.unset,
+        webhooks_on_member_removed_method: Union[str, object] = values.unset,
+        limits_channel_members: Union[int, object] = values.unset,
+        limits_user_channels: Union[int, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "DefaultServiceRoleSid": default_service_role_sid,
+                "DefaultChannelRoleSid": default_channel_role_sid,
+                "DefaultChannelCreatorRoleSid": default_channel_creator_role_sid,
+                "ReadStatusEnabled": serialize.boolean_to_string(read_status_enabled),
+                "ReachabilityEnabled": serialize.boolean_to_string(
+                    reachability_enabled
+                ),
+                "TypingIndicatorTimeout": typing_indicator_timeout,
+                "ConsumptionReportInterval": consumption_report_interval,
+                "Notifications.NewMessage.Enabled": serialize.boolean_to_string(
+                    notifications_new_message_enabled
+                ),
+                "Notifications.NewMessage.Template": notifications_new_message_template,
+                "Notifications.AddedToChannel.Enabled": serialize.boolean_to_string(
+                    notifications_added_to_channel_enabled
+                ),
+                "Notifications.AddedToChannel.Template": notifications_added_to_channel_template,
+                "Notifications.RemovedFromChannel.Enabled": serialize.boolean_to_string(
+                    notifications_removed_from_channel_enabled
+                ),
+                "Notifications.RemovedFromChannel.Template": notifications_removed_from_channel_template,
+                "Notifications.InvitedToChannel.Enabled": serialize.boolean_to_string(
+                    notifications_invited_to_channel_enabled
+                ),
+                "Notifications.InvitedToChannel.Template": notifications_invited_to_channel_template,
+                "PreWebhookUrl": pre_webhook_url,
+                "PostWebhookUrl": post_webhook_url,
+                "WebhookMethod": webhook_method,
+                "WebhookFilters": serialize.map(webhook_filters, lambda e: e),
+                "Webhooks.OnMessageSend.Url": webhooks_on_message_send_url,
+                "Webhooks.OnMessageSend.Method": webhooks_on_message_send_method,
+                "Webhooks.OnMessageUpdate.Url": webhooks_on_message_update_url,
+                "Webhooks.OnMessageUpdate.Method": webhooks_on_message_update_method,
+                "Webhooks.OnMessageRemove.Url": webhooks_on_message_remove_url,
+                "Webhooks.OnMessageRemove.Method": webhooks_on_message_remove_method,
+                "Webhooks.OnChannelAdd.Url": webhooks_on_channel_add_url,
+                "Webhooks.OnChannelAdd.Method": webhooks_on_channel_add_method,
+                "Webhooks.OnChannelDestroy.Url": webhooks_on_channel_destroy_url,
+                "Webhooks.OnChannelDestroy.Method": webhooks_on_channel_destroy_method,
+                "Webhooks.OnChannelUpdate.Url": webhooks_on_channel_update_url,
+                "Webhooks.OnChannelUpdate.Method": webhooks_on_channel_update_method,
+                "Webhooks.OnMemberAdd.Url": webhooks_on_member_add_url,
+                "Webhooks.OnMemberAdd.Method": webhooks_on_member_add_method,
+                "Webhooks.OnMemberRemove.Url": webhooks_on_member_remove_url,
+                "Webhooks.OnMemberRemove.Method": webhooks_on_member_remove_method,
+                "Webhooks.OnMessageSent.Url": webhooks_on_message_sent_url,
+                "Webhooks.OnMessageSent.Method": webhooks_on_message_sent_method,
+                "Webhooks.OnMessageUpdated.Url": webhooks_on_message_updated_url,
+                "Webhooks.OnMessageUpdated.Method": webhooks_on_message_updated_method,
+                "Webhooks.OnMessageRemoved.Url": webhooks_on_message_removed_url,
+                "Webhooks.OnMessageRemoved.Method": webhooks_on_message_removed_method,
+                "Webhooks.OnChannelAdded.Url": webhooks_on_channel_added_url,
+                "Webhooks.OnChannelAdded.Method": webhooks_on_channel_added_method,
+                "Webhooks.OnChannelDestroyed.Url": webhooks_on_channel_destroyed_url,
+                "Webhooks.OnChannelDestroyed.Method": webhooks_on_channel_destroyed_method,
+                "Webhooks.OnChannelUpdated.Url": webhooks_on_channel_updated_url,
+                "Webhooks.OnChannelUpdated.Method": webhooks_on_channel_updated_method,
+                "Webhooks.OnMemberAdded.Url": webhooks_on_member_added_url,
+                "Webhooks.OnMemberAdded.Method": webhooks_on_member_added_method,
+                "Webhooks.OnMemberRemoved.Url": webhooks_on_member_removed_url,
+                "Webhooks.OnMemberRemoved.Method": webhooks_on_member_removed_method,
+                "Limits.ChannelMembers": limits_channel_members,
+                "Limits.UserChannels": limits_user_channels,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -732,6 +1349,303 @@ class ServiceContext(InstanceContext):
 
         :returns: The updated ServiceInstance
         """
+        payload, _, _ = self._update(
+            friendly_name=friendly_name,
+            default_service_role_sid=default_service_role_sid,
+            default_channel_role_sid=default_channel_role_sid,
+            default_channel_creator_role_sid=default_channel_creator_role_sid,
+            read_status_enabled=read_status_enabled,
+            reachability_enabled=reachability_enabled,
+            typing_indicator_timeout=typing_indicator_timeout,
+            consumption_report_interval=consumption_report_interval,
+            notifications_new_message_enabled=notifications_new_message_enabled,
+            notifications_new_message_template=notifications_new_message_template,
+            notifications_added_to_channel_enabled=notifications_added_to_channel_enabled,
+            notifications_added_to_channel_template=notifications_added_to_channel_template,
+            notifications_removed_from_channel_enabled=notifications_removed_from_channel_enabled,
+            notifications_removed_from_channel_template=notifications_removed_from_channel_template,
+            notifications_invited_to_channel_enabled=notifications_invited_to_channel_enabled,
+            notifications_invited_to_channel_template=notifications_invited_to_channel_template,
+            pre_webhook_url=pre_webhook_url,
+            post_webhook_url=post_webhook_url,
+            webhook_method=webhook_method,
+            webhook_filters=webhook_filters,
+            webhooks_on_message_send_url=webhooks_on_message_send_url,
+            webhooks_on_message_send_method=webhooks_on_message_send_method,
+            webhooks_on_message_update_url=webhooks_on_message_update_url,
+            webhooks_on_message_update_method=webhooks_on_message_update_method,
+            webhooks_on_message_remove_url=webhooks_on_message_remove_url,
+            webhooks_on_message_remove_method=webhooks_on_message_remove_method,
+            webhooks_on_channel_add_url=webhooks_on_channel_add_url,
+            webhooks_on_channel_add_method=webhooks_on_channel_add_method,
+            webhooks_on_channel_destroy_url=webhooks_on_channel_destroy_url,
+            webhooks_on_channel_destroy_method=webhooks_on_channel_destroy_method,
+            webhooks_on_channel_update_url=webhooks_on_channel_update_url,
+            webhooks_on_channel_update_method=webhooks_on_channel_update_method,
+            webhooks_on_member_add_url=webhooks_on_member_add_url,
+            webhooks_on_member_add_method=webhooks_on_member_add_method,
+            webhooks_on_member_remove_url=webhooks_on_member_remove_url,
+            webhooks_on_member_remove_method=webhooks_on_member_remove_method,
+            webhooks_on_message_sent_url=webhooks_on_message_sent_url,
+            webhooks_on_message_sent_method=webhooks_on_message_sent_method,
+            webhooks_on_message_updated_url=webhooks_on_message_updated_url,
+            webhooks_on_message_updated_method=webhooks_on_message_updated_method,
+            webhooks_on_message_removed_url=webhooks_on_message_removed_url,
+            webhooks_on_message_removed_method=webhooks_on_message_removed_method,
+            webhooks_on_channel_added_url=webhooks_on_channel_added_url,
+            webhooks_on_channel_added_method=webhooks_on_channel_added_method,
+            webhooks_on_channel_destroyed_url=webhooks_on_channel_destroyed_url,
+            webhooks_on_channel_destroyed_method=webhooks_on_channel_destroyed_method,
+            webhooks_on_channel_updated_url=webhooks_on_channel_updated_url,
+            webhooks_on_channel_updated_method=webhooks_on_channel_updated_method,
+            webhooks_on_member_added_url=webhooks_on_member_added_url,
+            webhooks_on_member_added_method=webhooks_on_member_added_method,
+            webhooks_on_member_removed_url=webhooks_on_member_removed_url,
+            webhooks_on_member_removed_method=webhooks_on_member_removed_method,
+            limits_channel_members=limits_channel_members,
+            limits_user_channels=limits_user_channels,
+        )
+        return ServiceInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        default_service_role_sid: Union[str, object] = values.unset,
+        default_channel_role_sid: Union[str, object] = values.unset,
+        default_channel_creator_role_sid: Union[str, object] = values.unset,
+        read_status_enabled: Union[bool, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+        typing_indicator_timeout: Union[int, object] = values.unset,
+        consumption_report_interval: Union[int, object] = values.unset,
+        notifications_new_message_enabled: Union[bool, object] = values.unset,
+        notifications_new_message_template: Union[str, object] = values.unset,
+        notifications_added_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_added_to_channel_template: Union[str, object] = values.unset,
+        notifications_removed_from_channel_enabled: Union[bool, object] = values.unset,
+        notifications_removed_from_channel_template: Union[str, object] = values.unset,
+        notifications_invited_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_invited_to_channel_template: Union[str, object] = values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        webhook_filters: Union[List[str], object] = values.unset,
+        webhooks_on_message_send_url: Union[str, object] = values.unset,
+        webhooks_on_message_send_method: Union[str, object] = values.unset,
+        webhooks_on_message_update_url: Union[str, object] = values.unset,
+        webhooks_on_message_update_method: Union[str, object] = values.unset,
+        webhooks_on_message_remove_url: Union[str, object] = values.unset,
+        webhooks_on_message_remove_method: Union[str, object] = values.unset,
+        webhooks_on_channel_add_url: Union[str, object] = values.unset,
+        webhooks_on_channel_add_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_method: Union[str, object] = values.unset,
+        webhooks_on_channel_update_url: Union[str, object] = values.unset,
+        webhooks_on_channel_update_method: Union[str, object] = values.unset,
+        webhooks_on_member_add_url: Union[str, object] = values.unset,
+        webhooks_on_member_add_method: Union[str, object] = values.unset,
+        webhooks_on_member_remove_url: Union[str, object] = values.unset,
+        webhooks_on_member_remove_method: Union[str, object] = values.unset,
+        webhooks_on_message_sent_url: Union[str, object] = values.unset,
+        webhooks_on_message_sent_method: Union[str, object] = values.unset,
+        webhooks_on_message_updated_url: Union[str, object] = values.unset,
+        webhooks_on_message_updated_method: Union[str, object] = values.unset,
+        webhooks_on_message_removed_url: Union[str, object] = values.unset,
+        webhooks_on_message_removed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_added_url: Union[str, object] = values.unset,
+        webhooks_on_channel_added_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_url: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_method: Union[str, object] = values.unset,
+        webhooks_on_member_added_url: Union[str, object] = values.unset,
+        webhooks_on_member_added_method: Union[str, object] = values.unset,
+        webhooks_on_member_removed_url: Union[str, object] = values.unset,
+        webhooks_on_member_removed_method: Union[str, object] = values.unset,
+        limits_channel_members: Union[int, object] = values.unset,
+        limits_user_channels: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ServiceInstance and return response metadata
+
+        :param friendly_name:
+        :param default_service_role_sid:
+        :param default_channel_role_sid:
+        :param default_channel_creator_role_sid:
+        :param read_status_enabled:
+        :param reachability_enabled:
+        :param typing_indicator_timeout:
+        :param consumption_report_interval:
+        :param notifications_new_message_enabled:
+        :param notifications_new_message_template:
+        :param notifications_added_to_channel_enabled:
+        :param notifications_added_to_channel_template:
+        :param notifications_removed_from_channel_enabled:
+        :param notifications_removed_from_channel_template:
+        :param notifications_invited_to_channel_enabled:
+        :param notifications_invited_to_channel_template:
+        :param pre_webhook_url:
+        :param post_webhook_url:
+        :param webhook_method:
+        :param webhook_filters:
+        :param webhooks_on_message_send_url:
+        :param webhooks_on_message_send_method:
+        :param webhooks_on_message_update_url:
+        :param webhooks_on_message_update_method:
+        :param webhooks_on_message_remove_url:
+        :param webhooks_on_message_remove_method:
+        :param webhooks_on_channel_add_url:
+        :param webhooks_on_channel_add_method:
+        :param webhooks_on_channel_destroy_url:
+        :param webhooks_on_channel_destroy_method:
+        :param webhooks_on_channel_update_url:
+        :param webhooks_on_channel_update_method:
+        :param webhooks_on_member_add_url:
+        :param webhooks_on_member_add_method:
+        :param webhooks_on_member_remove_url:
+        :param webhooks_on_member_remove_method:
+        :param webhooks_on_message_sent_url:
+        :param webhooks_on_message_sent_method:
+        :param webhooks_on_message_updated_url:
+        :param webhooks_on_message_updated_method:
+        :param webhooks_on_message_removed_url:
+        :param webhooks_on_message_removed_method:
+        :param webhooks_on_channel_added_url:
+        :param webhooks_on_channel_added_method:
+        :param webhooks_on_channel_destroyed_url:
+        :param webhooks_on_channel_destroyed_method:
+        :param webhooks_on_channel_updated_url:
+        :param webhooks_on_channel_updated_method:
+        :param webhooks_on_member_added_url:
+        :param webhooks_on_member_added_method:
+        :param webhooks_on_member_removed_url:
+        :param webhooks_on_member_removed_method:
+        :param limits_channel_members:
+        :param limits_user_channels:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            friendly_name=friendly_name,
+            default_service_role_sid=default_service_role_sid,
+            default_channel_role_sid=default_channel_role_sid,
+            default_channel_creator_role_sid=default_channel_creator_role_sid,
+            read_status_enabled=read_status_enabled,
+            reachability_enabled=reachability_enabled,
+            typing_indicator_timeout=typing_indicator_timeout,
+            consumption_report_interval=consumption_report_interval,
+            notifications_new_message_enabled=notifications_new_message_enabled,
+            notifications_new_message_template=notifications_new_message_template,
+            notifications_added_to_channel_enabled=notifications_added_to_channel_enabled,
+            notifications_added_to_channel_template=notifications_added_to_channel_template,
+            notifications_removed_from_channel_enabled=notifications_removed_from_channel_enabled,
+            notifications_removed_from_channel_template=notifications_removed_from_channel_template,
+            notifications_invited_to_channel_enabled=notifications_invited_to_channel_enabled,
+            notifications_invited_to_channel_template=notifications_invited_to_channel_template,
+            pre_webhook_url=pre_webhook_url,
+            post_webhook_url=post_webhook_url,
+            webhook_method=webhook_method,
+            webhook_filters=webhook_filters,
+            webhooks_on_message_send_url=webhooks_on_message_send_url,
+            webhooks_on_message_send_method=webhooks_on_message_send_method,
+            webhooks_on_message_update_url=webhooks_on_message_update_url,
+            webhooks_on_message_update_method=webhooks_on_message_update_method,
+            webhooks_on_message_remove_url=webhooks_on_message_remove_url,
+            webhooks_on_message_remove_method=webhooks_on_message_remove_method,
+            webhooks_on_channel_add_url=webhooks_on_channel_add_url,
+            webhooks_on_channel_add_method=webhooks_on_channel_add_method,
+            webhooks_on_channel_destroy_url=webhooks_on_channel_destroy_url,
+            webhooks_on_channel_destroy_method=webhooks_on_channel_destroy_method,
+            webhooks_on_channel_update_url=webhooks_on_channel_update_url,
+            webhooks_on_channel_update_method=webhooks_on_channel_update_method,
+            webhooks_on_member_add_url=webhooks_on_member_add_url,
+            webhooks_on_member_add_method=webhooks_on_member_add_method,
+            webhooks_on_member_remove_url=webhooks_on_member_remove_url,
+            webhooks_on_member_remove_method=webhooks_on_member_remove_method,
+            webhooks_on_message_sent_url=webhooks_on_message_sent_url,
+            webhooks_on_message_sent_method=webhooks_on_message_sent_method,
+            webhooks_on_message_updated_url=webhooks_on_message_updated_url,
+            webhooks_on_message_updated_method=webhooks_on_message_updated_method,
+            webhooks_on_message_removed_url=webhooks_on_message_removed_url,
+            webhooks_on_message_removed_method=webhooks_on_message_removed_method,
+            webhooks_on_channel_added_url=webhooks_on_channel_added_url,
+            webhooks_on_channel_added_method=webhooks_on_channel_added_method,
+            webhooks_on_channel_destroyed_url=webhooks_on_channel_destroyed_url,
+            webhooks_on_channel_destroyed_method=webhooks_on_channel_destroyed_method,
+            webhooks_on_channel_updated_url=webhooks_on_channel_updated_url,
+            webhooks_on_channel_updated_method=webhooks_on_channel_updated_method,
+            webhooks_on_member_added_url=webhooks_on_member_added_url,
+            webhooks_on_member_added_method=webhooks_on_member_added_method,
+            webhooks_on_member_removed_url=webhooks_on_member_removed_url,
+            webhooks_on_member_removed_method=webhooks_on_member_removed_method,
+            limits_channel_members=limits_channel_members,
+            limits_user_channels=limits_user_channels,
+        )
+        instance = ServiceInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        default_service_role_sid: Union[str, object] = values.unset,
+        default_channel_role_sid: Union[str, object] = values.unset,
+        default_channel_creator_role_sid: Union[str, object] = values.unset,
+        read_status_enabled: Union[bool, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+        typing_indicator_timeout: Union[int, object] = values.unset,
+        consumption_report_interval: Union[int, object] = values.unset,
+        notifications_new_message_enabled: Union[bool, object] = values.unset,
+        notifications_new_message_template: Union[str, object] = values.unset,
+        notifications_added_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_added_to_channel_template: Union[str, object] = values.unset,
+        notifications_removed_from_channel_enabled: Union[bool, object] = values.unset,
+        notifications_removed_from_channel_template: Union[str, object] = values.unset,
+        notifications_invited_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_invited_to_channel_template: Union[str, object] = values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        webhook_filters: Union[List[str], object] = values.unset,
+        webhooks_on_message_send_url: Union[str, object] = values.unset,
+        webhooks_on_message_send_method: Union[str, object] = values.unset,
+        webhooks_on_message_update_url: Union[str, object] = values.unset,
+        webhooks_on_message_update_method: Union[str, object] = values.unset,
+        webhooks_on_message_remove_url: Union[str, object] = values.unset,
+        webhooks_on_message_remove_method: Union[str, object] = values.unset,
+        webhooks_on_channel_add_url: Union[str, object] = values.unset,
+        webhooks_on_channel_add_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_method: Union[str, object] = values.unset,
+        webhooks_on_channel_update_url: Union[str, object] = values.unset,
+        webhooks_on_channel_update_method: Union[str, object] = values.unset,
+        webhooks_on_member_add_url: Union[str, object] = values.unset,
+        webhooks_on_member_add_method: Union[str, object] = values.unset,
+        webhooks_on_member_remove_url: Union[str, object] = values.unset,
+        webhooks_on_member_remove_method: Union[str, object] = values.unset,
+        webhooks_on_message_sent_url: Union[str, object] = values.unset,
+        webhooks_on_message_sent_method: Union[str, object] = values.unset,
+        webhooks_on_message_updated_url: Union[str, object] = values.unset,
+        webhooks_on_message_updated_method: Union[str, object] = values.unset,
+        webhooks_on_message_removed_url: Union[str, object] = values.unset,
+        webhooks_on_message_removed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_added_url: Union[str, object] = values.unset,
+        webhooks_on_channel_added_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_url: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_method: Union[str, object] = values.unset,
+        webhooks_on_member_added_url: Union[str, object] = values.unset,
+        webhooks_on_member_added_method: Union[str, object] = values.unset,
+        webhooks_on_member_removed_url: Union[str, object] = values.unset,
+        webhooks_on_member_removed_method: Union[str, object] = values.unset,
+        limits_channel_members: Union[int, object] = values.unset,
+        limits_user_channels: Union[int, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -807,11 +1721,9 @@ class ServiceContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return ServiceInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
         self,
@@ -930,86 +1842,239 @@ class ServiceContext(InstanceContext):
 
         :returns: The updated ServiceInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "DefaultServiceRoleSid": default_service_role_sid,
-                "DefaultChannelRoleSid": default_channel_role_sid,
-                "DefaultChannelCreatorRoleSid": default_channel_creator_role_sid,
-                "ReadStatusEnabled": serialize.boolean_to_string(read_status_enabled),
-                "ReachabilityEnabled": serialize.boolean_to_string(
-                    reachability_enabled
-                ),
-                "TypingIndicatorTimeout": typing_indicator_timeout,
-                "ConsumptionReportInterval": consumption_report_interval,
-                "Notifications.NewMessage.Enabled": serialize.boolean_to_string(
-                    notifications_new_message_enabled
-                ),
-                "Notifications.NewMessage.Template": notifications_new_message_template,
-                "Notifications.AddedToChannel.Enabled": serialize.boolean_to_string(
-                    notifications_added_to_channel_enabled
-                ),
-                "Notifications.AddedToChannel.Template": notifications_added_to_channel_template,
-                "Notifications.RemovedFromChannel.Enabled": serialize.boolean_to_string(
-                    notifications_removed_from_channel_enabled
-                ),
-                "Notifications.RemovedFromChannel.Template": notifications_removed_from_channel_template,
-                "Notifications.InvitedToChannel.Enabled": serialize.boolean_to_string(
-                    notifications_invited_to_channel_enabled
-                ),
-                "Notifications.InvitedToChannel.Template": notifications_invited_to_channel_template,
-                "PreWebhookUrl": pre_webhook_url,
-                "PostWebhookUrl": post_webhook_url,
-                "WebhookMethod": webhook_method,
-                "WebhookFilters": serialize.map(webhook_filters, lambda e: e),
-                "Webhooks.OnMessageSend.Url": webhooks_on_message_send_url,
-                "Webhooks.OnMessageSend.Method": webhooks_on_message_send_method,
-                "Webhooks.OnMessageUpdate.Url": webhooks_on_message_update_url,
-                "Webhooks.OnMessageUpdate.Method": webhooks_on_message_update_method,
-                "Webhooks.OnMessageRemove.Url": webhooks_on_message_remove_url,
-                "Webhooks.OnMessageRemove.Method": webhooks_on_message_remove_method,
-                "Webhooks.OnChannelAdd.Url": webhooks_on_channel_add_url,
-                "Webhooks.OnChannelAdd.Method": webhooks_on_channel_add_method,
-                "Webhooks.OnChannelDestroy.Url": webhooks_on_channel_destroy_url,
-                "Webhooks.OnChannelDestroy.Method": webhooks_on_channel_destroy_method,
-                "Webhooks.OnChannelUpdate.Url": webhooks_on_channel_update_url,
-                "Webhooks.OnChannelUpdate.Method": webhooks_on_channel_update_method,
-                "Webhooks.OnMemberAdd.Url": webhooks_on_member_add_url,
-                "Webhooks.OnMemberAdd.Method": webhooks_on_member_add_method,
-                "Webhooks.OnMemberRemove.Url": webhooks_on_member_remove_url,
-                "Webhooks.OnMemberRemove.Method": webhooks_on_member_remove_method,
-                "Webhooks.OnMessageSent.Url": webhooks_on_message_sent_url,
-                "Webhooks.OnMessageSent.Method": webhooks_on_message_sent_method,
-                "Webhooks.OnMessageUpdated.Url": webhooks_on_message_updated_url,
-                "Webhooks.OnMessageUpdated.Method": webhooks_on_message_updated_method,
-                "Webhooks.OnMessageRemoved.Url": webhooks_on_message_removed_url,
-                "Webhooks.OnMessageRemoved.Method": webhooks_on_message_removed_method,
-                "Webhooks.OnChannelAdded.Url": webhooks_on_channel_added_url,
-                "Webhooks.OnChannelAdded.Method": webhooks_on_channel_added_method,
-                "Webhooks.OnChannelDestroyed.Url": webhooks_on_channel_destroyed_url,
-                "Webhooks.OnChannelDestroyed.Method": webhooks_on_channel_destroyed_method,
-                "Webhooks.OnChannelUpdated.Url": webhooks_on_channel_updated_url,
-                "Webhooks.OnChannelUpdated.Method": webhooks_on_channel_updated_method,
-                "Webhooks.OnMemberAdded.Url": webhooks_on_member_added_url,
-                "Webhooks.OnMemberAdded.Method": webhooks_on_member_added_method,
-                "Webhooks.OnMemberRemoved.Url": webhooks_on_member_removed_url,
-                "Webhooks.OnMemberRemoved.Method": webhooks_on_member_removed_method,
-                "Limits.ChannelMembers": limits_channel_members,
-                "Limits.UserChannels": limits_user_channels,
-            }
+        payload, _, _ = await self._update_async(
+            friendly_name=friendly_name,
+            default_service_role_sid=default_service_role_sid,
+            default_channel_role_sid=default_channel_role_sid,
+            default_channel_creator_role_sid=default_channel_creator_role_sid,
+            read_status_enabled=read_status_enabled,
+            reachability_enabled=reachability_enabled,
+            typing_indicator_timeout=typing_indicator_timeout,
+            consumption_report_interval=consumption_report_interval,
+            notifications_new_message_enabled=notifications_new_message_enabled,
+            notifications_new_message_template=notifications_new_message_template,
+            notifications_added_to_channel_enabled=notifications_added_to_channel_enabled,
+            notifications_added_to_channel_template=notifications_added_to_channel_template,
+            notifications_removed_from_channel_enabled=notifications_removed_from_channel_enabled,
+            notifications_removed_from_channel_template=notifications_removed_from_channel_template,
+            notifications_invited_to_channel_enabled=notifications_invited_to_channel_enabled,
+            notifications_invited_to_channel_template=notifications_invited_to_channel_template,
+            pre_webhook_url=pre_webhook_url,
+            post_webhook_url=post_webhook_url,
+            webhook_method=webhook_method,
+            webhook_filters=webhook_filters,
+            webhooks_on_message_send_url=webhooks_on_message_send_url,
+            webhooks_on_message_send_method=webhooks_on_message_send_method,
+            webhooks_on_message_update_url=webhooks_on_message_update_url,
+            webhooks_on_message_update_method=webhooks_on_message_update_method,
+            webhooks_on_message_remove_url=webhooks_on_message_remove_url,
+            webhooks_on_message_remove_method=webhooks_on_message_remove_method,
+            webhooks_on_channel_add_url=webhooks_on_channel_add_url,
+            webhooks_on_channel_add_method=webhooks_on_channel_add_method,
+            webhooks_on_channel_destroy_url=webhooks_on_channel_destroy_url,
+            webhooks_on_channel_destroy_method=webhooks_on_channel_destroy_method,
+            webhooks_on_channel_update_url=webhooks_on_channel_update_url,
+            webhooks_on_channel_update_method=webhooks_on_channel_update_method,
+            webhooks_on_member_add_url=webhooks_on_member_add_url,
+            webhooks_on_member_add_method=webhooks_on_member_add_method,
+            webhooks_on_member_remove_url=webhooks_on_member_remove_url,
+            webhooks_on_member_remove_method=webhooks_on_member_remove_method,
+            webhooks_on_message_sent_url=webhooks_on_message_sent_url,
+            webhooks_on_message_sent_method=webhooks_on_message_sent_method,
+            webhooks_on_message_updated_url=webhooks_on_message_updated_url,
+            webhooks_on_message_updated_method=webhooks_on_message_updated_method,
+            webhooks_on_message_removed_url=webhooks_on_message_removed_url,
+            webhooks_on_message_removed_method=webhooks_on_message_removed_method,
+            webhooks_on_channel_added_url=webhooks_on_channel_added_url,
+            webhooks_on_channel_added_method=webhooks_on_channel_added_method,
+            webhooks_on_channel_destroyed_url=webhooks_on_channel_destroyed_url,
+            webhooks_on_channel_destroyed_method=webhooks_on_channel_destroyed_method,
+            webhooks_on_channel_updated_url=webhooks_on_channel_updated_url,
+            webhooks_on_channel_updated_method=webhooks_on_channel_updated_method,
+            webhooks_on_member_added_url=webhooks_on_member_added_url,
+            webhooks_on_member_added_method=webhooks_on_member_added_method,
+            webhooks_on_member_removed_url=webhooks_on_member_removed_url,
+            webhooks_on_member_removed_method=webhooks_on_member_removed_method,
+            limits_channel_members=limits_channel_members,
+            limits_user_channels=limits_user_channels,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ServiceInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        default_service_role_sid: Union[str, object] = values.unset,
+        default_channel_role_sid: Union[str, object] = values.unset,
+        default_channel_creator_role_sid: Union[str, object] = values.unset,
+        read_status_enabled: Union[bool, object] = values.unset,
+        reachability_enabled: Union[bool, object] = values.unset,
+        typing_indicator_timeout: Union[int, object] = values.unset,
+        consumption_report_interval: Union[int, object] = values.unset,
+        notifications_new_message_enabled: Union[bool, object] = values.unset,
+        notifications_new_message_template: Union[str, object] = values.unset,
+        notifications_added_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_added_to_channel_template: Union[str, object] = values.unset,
+        notifications_removed_from_channel_enabled: Union[bool, object] = values.unset,
+        notifications_removed_from_channel_template: Union[str, object] = values.unset,
+        notifications_invited_to_channel_enabled: Union[bool, object] = values.unset,
+        notifications_invited_to_channel_template: Union[str, object] = values.unset,
+        pre_webhook_url: Union[str, object] = values.unset,
+        post_webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        webhook_filters: Union[List[str], object] = values.unset,
+        webhooks_on_message_send_url: Union[str, object] = values.unset,
+        webhooks_on_message_send_method: Union[str, object] = values.unset,
+        webhooks_on_message_update_url: Union[str, object] = values.unset,
+        webhooks_on_message_update_method: Union[str, object] = values.unset,
+        webhooks_on_message_remove_url: Union[str, object] = values.unset,
+        webhooks_on_message_remove_method: Union[str, object] = values.unset,
+        webhooks_on_channel_add_url: Union[str, object] = values.unset,
+        webhooks_on_channel_add_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroy_method: Union[str, object] = values.unset,
+        webhooks_on_channel_update_url: Union[str, object] = values.unset,
+        webhooks_on_channel_update_method: Union[str, object] = values.unset,
+        webhooks_on_member_add_url: Union[str, object] = values.unset,
+        webhooks_on_member_add_method: Union[str, object] = values.unset,
+        webhooks_on_member_remove_url: Union[str, object] = values.unset,
+        webhooks_on_member_remove_method: Union[str, object] = values.unset,
+        webhooks_on_message_sent_url: Union[str, object] = values.unset,
+        webhooks_on_message_sent_method: Union[str, object] = values.unset,
+        webhooks_on_message_updated_url: Union[str, object] = values.unset,
+        webhooks_on_message_updated_method: Union[str, object] = values.unset,
+        webhooks_on_message_removed_url: Union[str, object] = values.unset,
+        webhooks_on_message_removed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_added_url: Union[str, object] = values.unset,
+        webhooks_on_channel_added_method: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_url: Union[str, object] = values.unset,
+        webhooks_on_channel_destroyed_method: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_url: Union[str, object] = values.unset,
+        webhooks_on_channel_updated_method: Union[str, object] = values.unset,
+        webhooks_on_member_added_url: Union[str, object] = values.unset,
+        webhooks_on_member_added_method: Union[str, object] = values.unset,
+        webhooks_on_member_removed_url: Union[str, object] = values.unset,
+        webhooks_on_member_removed_method: Union[str, object] = values.unset,
+        limits_channel_members: Union[int, object] = values.unset,
+        limits_user_channels: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ServiceInstance and return response metadata
+
+        :param friendly_name:
+        :param default_service_role_sid:
+        :param default_channel_role_sid:
+        :param default_channel_creator_role_sid:
+        :param read_status_enabled:
+        :param reachability_enabled:
+        :param typing_indicator_timeout:
+        :param consumption_report_interval:
+        :param notifications_new_message_enabled:
+        :param notifications_new_message_template:
+        :param notifications_added_to_channel_enabled:
+        :param notifications_added_to_channel_template:
+        :param notifications_removed_from_channel_enabled:
+        :param notifications_removed_from_channel_template:
+        :param notifications_invited_to_channel_enabled:
+        :param notifications_invited_to_channel_template:
+        :param pre_webhook_url:
+        :param post_webhook_url:
+        :param webhook_method:
+        :param webhook_filters:
+        :param webhooks_on_message_send_url:
+        :param webhooks_on_message_send_method:
+        :param webhooks_on_message_update_url:
+        :param webhooks_on_message_update_method:
+        :param webhooks_on_message_remove_url:
+        :param webhooks_on_message_remove_method:
+        :param webhooks_on_channel_add_url:
+        :param webhooks_on_channel_add_method:
+        :param webhooks_on_channel_destroy_url:
+        :param webhooks_on_channel_destroy_method:
+        :param webhooks_on_channel_update_url:
+        :param webhooks_on_channel_update_method:
+        :param webhooks_on_member_add_url:
+        :param webhooks_on_member_add_method:
+        :param webhooks_on_member_remove_url:
+        :param webhooks_on_member_remove_method:
+        :param webhooks_on_message_sent_url:
+        :param webhooks_on_message_sent_method:
+        :param webhooks_on_message_updated_url:
+        :param webhooks_on_message_updated_method:
+        :param webhooks_on_message_removed_url:
+        :param webhooks_on_message_removed_method:
+        :param webhooks_on_channel_added_url:
+        :param webhooks_on_channel_added_method:
+        :param webhooks_on_channel_destroyed_url:
+        :param webhooks_on_channel_destroyed_method:
+        :param webhooks_on_channel_updated_url:
+        :param webhooks_on_channel_updated_method:
+        :param webhooks_on_member_added_url:
+        :param webhooks_on_member_added_method:
+        :param webhooks_on_member_removed_url:
+        :param webhooks_on_member_removed_method:
+        :param limits_channel_members:
+        :param limits_user_channels:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            friendly_name=friendly_name,
+            default_service_role_sid=default_service_role_sid,
+            default_channel_role_sid=default_channel_role_sid,
+            default_channel_creator_role_sid=default_channel_creator_role_sid,
+            read_status_enabled=read_status_enabled,
+            reachability_enabled=reachability_enabled,
+            typing_indicator_timeout=typing_indicator_timeout,
+            consumption_report_interval=consumption_report_interval,
+            notifications_new_message_enabled=notifications_new_message_enabled,
+            notifications_new_message_template=notifications_new_message_template,
+            notifications_added_to_channel_enabled=notifications_added_to_channel_enabled,
+            notifications_added_to_channel_template=notifications_added_to_channel_template,
+            notifications_removed_from_channel_enabled=notifications_removed_from_channel_enabled,
+            notifications_removed_from_channel_template=notifications_removed_from_channel_template,
+            notifications_invited_to_channel_enabled=notifications_invited_to_channel_enabled,
+            notifications_invited_to_channel_template=notifications_invited_to_channel_template,
+            pre_webhook_url=pre_webhook_url,
+            post_webhook_url=post_webhook_url,
+            webhook_method=webhook_method,
+            webhook_filters=webhook_filters,
+            webhooks_on_message_send_url=webhooks_on_message_send_url,
+            webhooks_on_message_send_method=webhooks_on_message_send_method,
+            webhooks_on_message_update_url=webhooks_on_message_update_url,
+            webhooks_on_message_update_method=webhooks_on_message_update_method,
+            webhooks_on_message_remove_url=webhooks_on_message_remove_url,
+            webhooks_on_message_remove_method=webhooks_on_message_remove_method,
+            webhooks_on_channel_add_url=webhooks_on_channel_add_url,
+            webhooks_on_channel_add_method=webhooks_on_channel_add_method,
+            webhooks_on_channel_destroy_url=webhooks_on_channel_destroy_url,
+            webhooks_on_channel_destroy_method=webhooks_on_channel_destroy_method,
+            webhooks_on_channel_update_url=webhooks_on_channel_update_url,
+            webhooks_on_channel_update_method=webhooks_on_channel_update_method,
+            webhooks_on_member_add_url=webhooks_on_member_add_url,
+            webhooks_on_member_add_method=webhooks_on_member_add_method,
+            webhooks_on_member_remove_url=webhooks_on_member_remove_url,
+            webhooks_on_member_remove_method=webhooks_on_member_remove_method,
+            webhooks_on_message_sent_url=webhooks_on_message_sent_url,
+            webhooks_on_message_sent_method=webhooks_on_message_sent_method,
+            webhooks_on_message_updated_url=webhooks_on_message_updated_url,
+            webhooks_on_message_updated_method=webhooks_on_message_updated_method,
+            webhooks_on_message_removed_url=webhooks_on_message_removed_url,
+            webhooks_on_message_removed_method=webhooks_on_message_removed_method,
+            webhooks_on_channel_added_url=webhooks_on_channel_added_url,
+            webhooks_on_channel_added_method=webhooks_on_channel_added_method,
+            webhooks_on_channel_destroyed_url=webhooks_on_channel_destroyed_url,
+            webhooks_on_channel_destroyed_method=webhooks_on_channel_destroyed_method,
+            webhooks_on_channel_updated_url=webhooks_on_channel_updated_url,
+            webhooks_on_channel_updated_method=webhooks_on_channel_updated_method,
+            webhooks_on_member_added_url=webhooks_on_member_added_url,
+            webhooks_on_member_added_method=webhooks_on_member_added_method,
+            webhooks_on_member_removed_url=webhooks_on_member_removed_url,
+            webhooks_on_member_removed_method=webhooks_on_member_removed_method,
+            limits_channel_members=limits_channel_members,
+            limits_user_channels=limits_user_channels,
+        )
+        instance = ServiceInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def channels(self) -> ChannelList:
@@ -1089,13 +2154,12 @@ class ServiceList(ListResource):
 
         self._uri = "/Services"
 
-    def create(self, friendly_name: str) -> ServiceInstance:
+    def _create(self, friendly_name: str) -> tuple:
         """
-        Create the ServiceInstance
+        Internal helper for create operation
 
-        :param friendly_name:
-
-        :returns: The created ServiceInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -1109,11 +2173,55 @@ class ServiceList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(self, friendly_name: str) -> ServiceInstance:
+        """
+        Create the ServiceInstance
+
+        :param friendly_name:
+
+        :returns: The created ServiceInstance
+        """
+        payload, _, _ = self._create(friendly_name=friendly_name)
         return ServiceInstance(self._version, payload)
+
+    def create_with_http_info(self, friendly_name: str) -> ApiResponse:
+        """
+        Create the ServiceInstance and return response metadata
+
+        :param friendly_name:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(friendly_name=friendly_name)
+        instance = ServiceInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(self, friendly_name: str) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(self, friendly_name: str) -> ServiceInstance:
         """
@@ -1123,23 +2231,22 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._create_async(friendly_name=friendly_name)
         return ServiceInstance(self._version, payload)
+
+    async def create_with_http_info_async(self, friendly_name: str) -> ApiResponse:
+        """
+        Asynchronously create the ServiceInstance and return response metadata
+
+        :param friendly_name:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            friendly_name=friendly_name
+        )
+        instance = ServiceInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -1190,6 +2297,56 @@ class ServiceList(ListResource):
         page = await self.page_async(page_size=limits["page_size"])
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams ServiceInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(page_size=limits["page_size"])
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams ServiceInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -1243,6 +2400,56 @@ class ServiceList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists ServiceInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists ServiceInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -1309,6 +2516,76 @@ class ServiceList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return ServicePage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ServicePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = ServicePage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ServicePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = ServicePage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ServicePage:
         """

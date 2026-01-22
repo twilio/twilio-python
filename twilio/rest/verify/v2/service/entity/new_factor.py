@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -126,6 +127,60 @@ class NewFactorList(ListResource):
             **self._solution
         )
 
+    def _create(
+        self,
+        friendly_name: str,
+        factor_type: "NewFactorInstance.FactorTypes",
+        binding_alg: Union[str, object] = values.unset,
+        binding_public_key: Union[str, object] = values.unset,
+        config_app_id: Union[str, object] = values.unset,
+        config_notification_platform: Union[
+            "NewFactorInstance.NotificationPlatforms", object
+        ] = values.unset,
+        config_notification_token: Union[str, object] = values.unset,
+        config_sdk_version: Union[str, object] = values.unset,
+        binding_secret: Union[str, object] = values.unset,
+        config_time_step: Union[int, object] = values.unset,
+        config_skew: Union[int, object] = values.unset,
+        config_code_length: Union[int, object] = values.unset,
+        config_alg: Union["NewFactorInstance.TotpAlgorithms", object] = values.unset,
+        metadata: Union[object, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "FactorType": factor_type,
+                "Binding.Alg": binding_alg,
+                "Binding.PublicKey": binding_public_key,
+                "Config.AppId": config_app_id,
+                "Config.NotificationPlatform": config_notification_platform,
+                "Config.NotificationToken": config_notification_token,
+                "Config.SdkVersion": config_sdk_version,
+                "Binding.Secret": binding_secret,
+                "Config.TimeStep": config_time_step,
+                "Config.Skew": config_skew,
+                "Config.CodeLength": config_code_length,
+                "Config.Alg": config_alg,
+                "Metadata": serialize.object(metadata),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         friendly_name: str,
@@ -165,6 +220,117 @@ class NewFactorList(ListResource):
 
         :returns: The created NewFactorInstance
         """
+        payload, _, _ = self._create(
+            friendly_name=friendly_name,
+            factor_type=factor_type,
+            binding_alg=binding_alg,
+            binding_public_key=binding_public_key,
+            config_app_id=config_app_id,
+            config_notification_platform=config_notification_platform,
+            config_notification_token=config_notification_token,
+            config_sdk_version=config_sdk_version,
+            binding_secret=binding_secret,
+            config_time_step=config_time_step,
+            config_skew=config_skew,
+            config_code_length=config_code_length,
+            config_alg=config_alg,
+            metadata=metadata,
+        )
+        return NewFactorInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+        )
+
+    def create_with_http_info(
+        self,
+        friendly_name: str,
+        factor_type: "NewFactorInstance.FactorTypes",
+        binding_alg: Union[str, object] = values.unset,
+        binding_public_key: Union[str, object] = values.unset,
+        config_app_id: Union[str, object] = values.unset,
+        config_notification_platform: Union[
+            "NewFactorInstance.NotificationPlatforms", object
+        ] = values.unset,
+        config_notification_token: Union[str, object] = values.unset,
+        config_sdk_version: Union[str, object] = values.unset,
+        binding_secret: Union[str, object] = values.unset,
+        config_time_step: Union[int, object] = values.unset,
+        config_skew: Union[int, object] = values.unset,
+        config_code_length: Union[int, object] = values.unset,
+        config_alg: Union["NewFactorInstance.TotpAlgorithms", object] = values.unset,
+        metadata: Union[object, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the NewFactorInstance and return response metadata
+
+        :param friendly_name: The friendly name of this Factor. This can be any string up to 64 characters, meant for humans to distinguish between Factors. For `factor_type` `push`, this could be a device name. For `factor_type` `totp`, this value is used as the “account name” in constructing the `binding.uri` property. At the same time, we recommend avoiding providing PII.
+        :param factor_type:
+        :param binding_alg: The algorithm used when `factor_type` is `push`. Algorithm supported: `ES256`
+        :param binding_public_key: The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64.  Required when `factor_type` is `push`
+        :param config_app_id: The ID that uniquely identifies your app in the Google or Apple store, such as `com.example.myapp`. It can be up to 100 characters long.  Required when `factor_type` is `push`.
+        :param config_notification_platform:
+        :param config_notification_token: For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Must be between 32 and 255 characters long.  Required when `factor_type` is `push`.
+        :param config_sdk_version: The Verify Push SDK version used to configure the factor  Required when `factor_type` is `push`
+        :param binding_secret: The shared secret for TOTP factors encoded in Base32. This can be provided when creating the Factor, otherwise it will be generated.  Used when `factor_type` is `totp`
+        :param config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property `totp.time_step`. Defaults to 30 seconds if not configured.  Used when `factor_type` is `totp`
+        :param config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property `totp.skew`. If not configured defaults to 1.  Used when `factor_type` is `totp`
+        :param config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property `totp.code_length`. If not configured defaults to 6.  Used when `factor_type` is `totp`
+        :param config_alg:
+        :param metadata: Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            friendly_name=friendly_name,
+            factor_type=factor_type,
+            binding_alg=binding_alg,
+            binding_public_key=binding_public_key,
+            config_app_id=config_app_id,
+            config_notification_platform=config_notification_platform,
+            config_notification_token=config_notification_token,
+            config_sdk_version=config_sdk_version,
+            binding_secret=binding_secret,
+            config_time_step=config_time_step,
+            config_skew=config_skew,
+            config_code_length=config_code_length,
+            config_alg=config_alg,
+            metadata=metadata,
+        )
+        instance = NewFactorInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        friendly_name: str,
+        factor_type: "NewFactorInstance.FactorTypes",
+        binding_alg: Union[str, object] = values.unset,
+        binding_public_key: Union[str, object] = values.unset,
+        config_app_id: Union[str, object] = values.unset,
+        config_notification_platform: Union[
+            "NewFactorInstance.NotificationPlatforms", object
+        ] = values.unset,
+        config_notification_token: Union[str, object] = values.unset,
+        config_sdk_version: Union[str, object] = values.unset,
+        binding_secret: Union[str, object] = values.unset,
+        config_time_step: Union[int, object] = values.unset,
+        config_skew: Union[int, object] = values.unset,
+        config_code_length: Union[int, object] = values.unset,
+        config_alg: Union["NewFactorInstance.TotpAlgorithms", object] = values.unset,
+        metadata: Union[object, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -190,15 +356,8 @@ class NewFactorList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return NewFactorInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            identity=self._solution["identity"],
         )
 
     async def create_async(
@@ -240,41 +399,91 @@ class NewFactorList(ListResource):
 
         :returns: The created NewFactorInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "FactorType": factor_type,
-                "Binding.Alg": binding_alg,
-                "Binding.PublicKey": binding_public_key,
-                "Config.AppId": config_app_id,
-                "Config.NotificationPlatform": config_notification_platform,
-                "Config.NotificationToken": config_notification_token,
-                "Config.SdkVersion": config_sdk_version,
-                "Binding.Secret": binding_secret,
-                "Config.TimeStep": config_time_step,
-                "Config.Skew": config_skew,
-                "Config.CodeLength": config_code_length,
-                "Config.Alg": config_alg,
-                "Metadata": serialize.object(metadata),
-            }
+        payload, _, _ = await self._create_async(
+            friendly_name=friendly_name,
+            factor_type=factor_type,
+            binding_alg=binding_alg,
+            binding_public_key=binding_public_key,
+            config_app_id=config_app_id,
+            config_notification_platform=config_notification_platform,
+            config_notification_token=config_notification_token,
+            config_sdk_version=config_sdk_version,
+            binding_secret=binding_secret,
+            config_time_step=config_time_step,
+            config_skew=config_skew,
+            config_code_length=config_code_length,
+            config_alg=config_alg,
+            metadata=metadata,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return NewFactorInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             identity=self._solution["identity"],
         )
+
+    async def create_with_http_info_async(
+        self,
+        friendly_name: str,
+        factor_type: "NewFactorInstance.FactorTypes",
+        binding_alg: Union[str, object] = values.unset,
+        binding_public_key: Union[str, object] = values.unset,
+        config_app_id: Union[str, object] = values.unset,
+        config_notification_platform: Union[
+            "NewFactorInstance.NotificationPlatforms", object
+        ] = values.unset,
+        config_notification_token: Union[str, object] = values.unset,
+        config_sdk_version: Union[str, object] = values.unset,
+        binding_secret: Union[str, object] = values.unset,
+        config_time_step: Union[int, object] = values.unset,
+        config_skew: Union[int, object] = values.unset,
+        config_code_length: Union[int, object] = values.unset,
+        config_alg: Union["NewFactorInstance.TotpAlgorithms", object] = values.unset,
+        metadata: Union[object, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the NewFactorInstance and return response metadata
+
+        :param friendly_name: The friendly name of this Factor. This can be any string up to 64 characters, meant for humans to distinguish between Factors. For `factor_type` `push`, this could be a device name. For `factor_type` `totp`, this value is used as the “account name” in constructing the `binding.uri` property. At the same time, we recommend avoiding providing PII.
+        :param factor_type:
+        :param binding_alg: The algorithm used when `factor_type` is `push`. Algorithm supported: `ES256`
+        :param binding_public_key: The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64.  Required when `factor_type` is `push`
+        :param config_app_id: The ID that uniquely identifies your app in the Google or Apple store, such as `com.example.myapp`. It can be up to 100 characters long.  Required when `factor_type` is `push`.
+        :param config_notification_platform:
+        :param config_notification_token: For APN, the device token. For FCM, the registration token. It is used to send the push notifications. Must be between 32 and 255 characters long.  Required when `factor_type` is `push`.
+        :param config_sdk_version: The Verify Push SDK version used to configure the factor  Required when `factor_type` is `push`
+        :param binding_secret: The shared secret for TOTP factors encoded in Base32. This can be provided when creating the Factor, otherwise it will be generated.  Used when `factor_type` is `totp`
+        :param config_time_step: Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. The default value is defined at the service level in the property `totp.time_step`. Defaults to 30 seconds if not configured.  Used when `factor_type` is `totp`
+        :param config_skew: The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. The default value is defined at the service level in the property `totp.skew`. If not configured defaults to 1.  Used when `factor_type` is `totp`
+        :param config_code_length: Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. The default value is defined at the service level in the property `totp.code_length`. If not configured defaults to 6.  Used when `factor_type` is `totp`
+        :param config_alg:
+        :param metadata: Custom metadata associated with the factor. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            friendly_name=friendly_name,
+            factor_type=factor_type,
+            binding_alg=binding_alg,
+            binding_public_key=binding_public_key,
+            config_app_id=config_app_id,
+            config_notification_platform=config_notification_platform,
+            config_notification_token=config_notification_token,
+            config_sdk_version=config_sdk_version,
+            binding_secret=binding_secret,
+            config_time_step=config_time_step,
+            config_skew=config_skew,
+            config_code_length=config_code_length,
+            config_alg=config_alg,
+            metadata=metadata,
+        )
+        instance = NewFactorInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

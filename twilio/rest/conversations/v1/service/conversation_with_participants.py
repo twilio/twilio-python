@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -114,6 +115,64 @@ class ConversationWithParticipantsList(ListResource):
             **self._solution
         )
 
+    def _create(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationWithParticipantsInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        state: Union[
+            "ConversationWithParticipantsInstance.State", object
+        ] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
+        participant: Union[List[str], object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "UniqueName": unique_name,
+                "DateCreated": serialize.iso8601_datetime(date_created),
+                "DateUpdated": serialize.iso8601_datetime(date_updated),
+                "MessagingServiceSid": messaging_service_sid,
+                "Attributes": attributes,
+                "State": state,
+                "Timers.Inactive": timers_inactive,
+                "Timers.Closed": timers_closed,
+                "Bindings.Email.Address": bindings_email_address,
+                "Bindings.Email.Name": bindings_email_name,
+                "Participant": serialize.map(participant, lambda e: e),
+            }
+        )
+        headers = values.of(
+            {
+                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         x_twilio_webhook_enabled: Union[
@@ -153,6 +212,110 @@ class ConversationWithParticipantsList(ListResource):
 
         :returns: The created ConversationWithParticipantsInstance
         """
+        payload, _, _ = self._create(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            date_created=date_created,
+            date_updated=date_updated,
+            messaging_service_sid=messaging_service_sid,
+            attributes=attributes,
+            state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
+            bindings_email_address=bindings_email_address,
+            bindings_email_name=bindings_email_name,
+            participant=participant,
+        )
+        return ConversationWithParticipantsInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    def create_with_http_info(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationWithParticipantsInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        state: Union[
+            "ConversationWithParticipantsInstance.State", object
+        ] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
+        participant: Union[List[str], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the ConversationWithParticipantsInstance and return response metadata
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param date_created: The date that this resource was created.
+        :param date_updated: The date that this resource was last updated.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param state:
+        :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
+        :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
+        :param participant: The participant to be added to the conversation in JSON format. The JSON object attributes are as parameters in [Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource). The maximum number of participants that can be added in a single request is 10.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            date_created=date_created,
+            date_updated=date_updated,
+            messaging_service_sid=messaging_service_sid,
+            attributes=attributes,
+            state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
+            bindings_email_address=bindings_email_address,
+            bindings_email_name=bindings_email_name,
+            participant=participant,
+        )
+        instance = ConversationWithParticipantsInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationWithParticipantsInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        state: Union[
+            "ConversationWithParticipantsInstance.State", object
+        ] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
+        participant: Union[List[str], object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -181,12 +344,8 @@ class ConversationWithParticipantsList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ConversationWithParticipantsInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
         )
 
     async def create_async(
@@ -228,41 +387,83 @@ class ConversationWithParticipantsList(ListResource):
 
         :returns: The created ConversationWithParticipantsInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "UniqueName": unique_name,
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateUpdated": serialize.iso8601_datetime(date_updated),
-                "MessagingServiceSid": messaging_service_sid,
-                "Attributes": attributes,
-                "State": state,
-                "Timers.Inactive": timers_inactive,
-                "Timers.Closed": timers_closed,
-                "Bindings.Email.Address": bindings_email_address,
-                "Bindings.Email.Name": bindings_email_name,
-                "Participant": serialize.map(participant, lambda e: e),
-            }
+        payload, _, _ = await self._create_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            date_created=date_created,
+            date_updated=date_updated,
+            messaging_service_sid=messaging_service_sid,
+            attributes=attributes,
+            state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
+            bindings_email_address=bindings_email_address,
+            bindings_email_name=bindings_email_name,
+            participant=participant,
         )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ConversationWithParticipantsInstance(
             self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
         )
+
+    async def create_with_http_info_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationWithParticipantsInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        state: Union[
+            "ConversationWithParticipantsInstance.State", object
+        ] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
+        participant: Union[List[str], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the ConversationWithParticipantsInstance and return response metadata
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param date_created: The date that this resource was created.
+        :param date_updated: The date that this resource was last updated.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param state:
+        :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
+        :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
+        :param participant: The participant to be added to the conversation in JSON format. The JSON object attributes are as parameters in [Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource). The maximum number of participants that can be added in a single request is 10.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            date_created=date_created,
+            date_updated=date_updated,
+            messaging_service_sid=messaging_service_sid,
+            attributes=attributes,
+            state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
+            bindings_email_address=bindings_email_address,
+            bindings_email_name=bindings_email_name,
+            participant=participant,
+        )
+        instance = ConversationWithParticipantsInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

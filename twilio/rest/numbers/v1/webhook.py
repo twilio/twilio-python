@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -68,20 +69,56 @@ class WebhookList(ListResource):
 
         self._uri = "/Porting/Configuration/Webhook"
 
-    def fetch(self) -> WebhookInstance:
+    def _fetch(self) -> tuple:
         """
-        Asynchronously fetch the WebhookInstance
+        Internal helper for fetch operation
 
-
-        :returns: The fetched WebhookInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
 
+    def fetch(self) -> WebhookInstance:
+        """
+        Fetch the WebhookInstance
+
+
+        :returns: The fetched WebhookInstance
+        """
+        payload, _, _ = self._fetch()
         return WebhookInstance(self._version, payload)
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the WebhookInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = WebhookInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
+        )
 
     async def fetch_async(self) -> WebhookInstance:
         """
@@ -90,15 +127,19 @@ class WebhookList(ListResource):
 
         :returns: The fetched WebhookInstance
         """
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return WebhookInstance(self._version, payload)
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronously fetch the WebhookInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = WebhookInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

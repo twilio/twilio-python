@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -53,14 +54,12 @@ class MessagingGeopermissionsList(ListResource):
 
         self._uri = "/Messaging/GeoPermissions"
 
-    def fetch(
-        self, country_code: Union[str, object] = values.unset
-    ) -> MessagingGeopermissionsInstance:
+    def _fetch(self, country_code: Union[str, object] = values.unset) -> tuple:
         """
-        Asynchronously fetch the MessagingGeopermissionsInstance
+        Internal helper for fetch operation
 
-        :param country_code: The country code to filter the geo permissions. If provided, only the geo permission for the specified country will be returned.
-        :returns: The fetched MessagingGeopermissionsInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
@@ -72,11 +71,57 @@ class MessagingGeopermissionsList(ListResource):
             }
         )
 
-        payload = self._version.fetch(
+        return self._version.fetch_with_response_info(
             method="GET", uri=self._uri, headers=headers, params=params
         )
 
+    def fetch(
+        self, country_code: Union[str, object] = values.unset
+    ) -> MessagingGeopermissionsInstance:
+        """
+        Fetch the MessagingGeopermissionsInstance
+
+        :param country_code: The country code to filter the geo permissions. If provided, only the geo permission for the specified country will be returned.
+        :returns: The fetched MessagingGeopermissionsInstance
+        """
+        payload, _, _ = self._fetch(country_code=country_code)
         return MessagingGeopermissionsInstance(self._version, payload)
+
+    def fetch_with_http_info(
+        self, country_code: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the MessagingGeopermissionsInstance and return response metadata
+
+        :param country_code: The country code to filter the geo permissions. If provided, only the geo permission for the specified country will be returned.
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(country_code=country_code)
+        instance = MessagingGeopermissionsInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self, country_code: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        params = values.of(
+            {
+                "CountryCode": country_code,
+            }
+        )
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers, params=params
+        )
 
     async def fetch_async(
         self, country_code: Union[str, object] = values.unset
@@ -87,29 +132,30 @@ class MessagingGeopermissionsList(ListResource):
         :param country_code: The country code to filter the geo permissions. If provided, only the geo permission for the specified country will be returned.
         :returns: The fetched MessagingGeopermissionsInstance
         """
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Accept"] = "application/json"
-
-        params = values.of(
-            {
-                "CountryCode": country_code,
-            }
-        )
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers, params=params
-        )
-
+        payload, _, _ = await self._fetch_async(country_code=country_code)
         return MessagingGeopermissionsInstance(self._version, payload)
 
-    def update(self, permissions: List[object]) -> MessagingGeopermissionsInstance:
+    async def fetch_with_http_info_async(
+        self, country_code: Union[str, object] = values.unset
+    ) -> ApiResponse:
         """
-        Update the MessagingGeopermissionsInstance
+        Asynchronously fetch the MessagingGeopermissionsInstance and return response metadata
 
-        :param permissions: A list of objects where each object represents the Geo Permission to be updated. Each object contains the following fields: `country_code`, unique code for each country of Geo Permission; `type`, permission type of the Geo Permission i.e. country; `enabled`, configure true for enabling the Geo Permission, false for disabling the Geo Permission.
+        :param country_code: The country code to filter the geo permissions. If provided, only the geo permission for the specified country will be returned.
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            country_code=country_code
+        )
+        instance = MessagingGeopermissionsInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
-        :returns: The created MessagingGeopermissionsInstance
+    def _update(self, permissions: List[object]) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -125,11 +171,57 @@ class MessagingGeopermissionsList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return self._version.update_with_response_info(
             method="PATCH", uri=self._uri, data=data, headers=headers
         )
 
+    def update(self, permissions: List[object]) -> MessagingGeopermissionsInstance:
+        """
+        Update the MessagingGeopermissionsInstance
+
+        :param permissions: A list of objects where each object represents the Geo Permission to be updated. Each object contains the following fields: `country_code`, unique code for each country of Geo Permission; `type`, permission type of the Geo Permission i.e. country; `enabled`, configure true for enabling the Geo Permission, false for disabling the Geo Permission.
+
+        :returns: The updated MessagingGeopermissionsInstance
+        """
+        payload, _, _ = self._update(permissions=permissions)
         return MessagingGeopermissionsInstance(self._version, payload)
+
+    def update_with_http_info(self, permissions: List[object]) -> ApiResponse:
+        """
+        Update the MessagingGeopermissionsInstance and return response metadata
+
+        :param permissions: A list of objects where each object represents the Geo Permission to be updated. Each object contains the following fields: `country_code`, unique code for each country of Geo Permission; `type`, permission type of the Geo Permission i.e. country; `enabled`, configure true for enabling the Geo Permission, false for disabling the Geo Permission.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(permissions=permissions)
+        instance = MessagingGeopermissionsInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(self, permissions: List[object]) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Permissions": serialize.map(
+                    permissions, lambda e: serialize.object(e)
+                ),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.update_with_response_info_async(
+            method="PATCH", uri=self._uri, data=data, headers=headers
+        )
 
     async def update_async(
         self, permissions: List[object]
@@ -139,27 +231,26 @@ class MessagingGeopermissionsList(ListResource):
 
         :param permissions: A list of objects where each object represents the Geo Permission to be updated. Each object contains the following fields: `country_code`, unique code for each country of Geo Permission; `type`, permission type of the Geo Permission i.e. country; `enabled`, configure true for enabling the Geo Permission, false for disabling the Geo Permission.
 
-        :returns: The created MessagingGeopermissionsInstance
+        :returns: The updated MessagingGeopermissionsInstance
         """
-
-        data = values.of(
-            {
-                "Permissions": serialize.map(
-                    permissions, lambda e: serialize.object(e)
-                ),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="PATCH", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(permissions=permissions)
         return MessagingGeopermissionsInstance(self._version, payload)
+
+    async def update_with_http_info_async(
+        self, permissions: List[object]
+    ) -> ApiResponse:
+        """
+        Asynchronously update the MessagingGeopermissionsInstance and return response metadata
+
+        :param permissions: A list of objects where each object represents the Geo Permission to be updated. Each object contains the following fields: `country_code`, unique code for each country of Geo Permission; `type`, permission type of the Geo Permission i.e. country; `enabled`, configure true for enabling the Geo Permission, false for disabling the Geo Permission.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            permissions=permissions
+        )
+        instance = MessagingGeopermissionsInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

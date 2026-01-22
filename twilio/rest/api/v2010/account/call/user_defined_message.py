@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -80,16 +81,14 @@ class UserDefinedMessageList(ListResource):
             )
         )
 
-    def create(
+    def _create(
         self, content: str, idempotency_key: Union[str, object] = values.unset
-    ) -> UserDefinedMessageInstance:
+    ) -> tuple:
         """
-        Create the UserDefinedMessageInstance
+        Internal helper for create operation
 
-        :param content: The User Defined Message in the form of URL-encoded JSON string.
-        :param idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
-
-        :returns: The created UserDefinedMessageInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -104,15 +103,75 @@ class UserDefinedMessageList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self, content: str, idempotency_key: Union[str, object] = values.unset
+    ) -> UserDefinedMessageInstance:
+        """
+        Create the UserDefinedMessageInstance
+
+        :param content: The User Defined Message in the form of URL-encoded JSON string.
+        :param idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+
+        :returns: The created UserDefinedMessageInstance
+        """
+        payload, _, _ = self._create(content=content, idempotency_key=idempotency_key)
         return UserDefinedMessageInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             call_sid=self._solution["call_sid"],
+        )
+
+    def create_with_http_info(
+        self, content: str, idempotency_key: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Create the UserDefinedMessageInstance and return response metadata
+
+        :param content: The User Defined Message in the form of URL-encoded JSON string.
+        :param idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            content=content, idempotency_key=idempotency_key
+        )
+        instance = UserDefinedMessageInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self, content: str, idempotency_key: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Content": content,
+                "IdempotencyKey": idempotency_key,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def create_async(
@@ -126,29 +185,37 @@ class UserDefinedMessageList(ListResource):
 
         :returns: The created UserDefinedMessageInstance
         """
-
-        data = values.of(
-            {
-                "Content": content,
-                "IdempotencyKey": idempotency_key,
-            }
+        payload, _, _ = await self._create_async(
+            content=content, idempotency_key=idempotency_key
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return UserDefinedMessageInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             call_sid=self._solution["call_sid"],
         )
+
+    async def create_with_http_info_async(
+        self, content: str, idempotency_key: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronously create the UserDefinedMessageInstance and return response metadata
+
+        :param content: The User Defined Message in the form of URL-encoded JSON string.
+        :param idempotency_key: A unique string value to identify API call. This should be a unique string value per API call and can be a randomly generated.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            content=content, idempotency_key=idempotency_key
+        )
+        instance = UserDefinedMessageInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

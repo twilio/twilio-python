@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -449,6 +450,278 @@ class CallSummariesList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        from_: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_carrier: Union[str, object] = values.unset,
+        to_carrier: Union[str, object] = values.unset,
+        from_country_code: Union[str, object] = values.unset,
+        to_country_code: Union[str, object] = values.unset,
+        verified_caller: Union[bool, object] = values.unset,
+        has_tag: Union[bool, object] = values.unset,
+        start_time: Union[str, object] = values.unset,
+        end_time: Union[str, object] = values.unset,
+        call_type: Union[str, object] = values.unset,
+        call_state: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
+        sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        abnormal_session: Union[bool, object] = values.unset,
+        answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
+        branded_enabled: Union[bool, object] = values.unset,
+        voice_integrity_enabled: Union[bool, object] = values.unset,
+        branded_bundle_sid: Union[str, object] = values.unset,
+        branded_logo: Union[bool, object] = values.unset,
+        branded_type: Union[str, object] = values.unset,
+        branded_use_case: Union[str, object] = values.unset,
+        branded_call_reason: Union[str, object] = values.unset,
+        voice_integrity_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_use_case: Union[str, object] = values.unset,
+        business_profile_identity: Union[str, object] = values.unset,
+        business_profile_industry: Union[str, object] = values.unset,
+        business_profile_bundle_sid: Union[str, object] = values.unset,
+        business_profile_type: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams CallSummariesInstance and returns headers from first page
+
+
+        :param str from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str from_carrier: An origination carrier.
+        :param str to_carrier: A destination carrier.
+        :param str from_country_code: A source country code based on phone number in From.
+        :param str to_country_code: A destination country code. Based on phone number in To.
+        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of 'true' or 'false'.
+        :param bool has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param str start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param str end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param str call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param str call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param str direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param str subaccount: A unique SID identifier of a Subaccount.
+        :param bool abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param str answered_by_annotation: Either machine or human.
+        :param str connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param str quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param bool spam_annotation: A boolean flag indicating spam calls.
+        :param str call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param bool branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
+        :param bool voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
+        :param str branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param bool branded_logo: Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present).
+        :param str branded_type: Indicates whether the Branded Call is in_band vs out_of_band.
+        :param str branded_use_case: Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling.
+        :param str branded_call_reason: Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call.
+        :param str voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
+        :param str voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
+        :param str business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
+        :param str business_profile_industry: A Business Industry of the calls. Is of type enum. One of 'automotive', 'agriculture', 'banking', 'consumer', 'construction', 'education', 'engineering', 'energy', 'oil_and_gas', 'fast_moving_consumer_goods', 'financial', 'fintech', 'food_and_beverage', 'government', 'healthcare', 'hospitality', 'insurance', 'legal', 'manufacturing', 'media', 'online', 'professional_services', 'raw_materials', 'real_estate', 'religion', 'retail', 'jewelry', 'technology', 'telecommunications', 'transportation', 'travel', 'electronics', 'not_for_profit'
+        :param str business_profile_bundle_sid: A unique SID identifier of the Business Profile.
+        :param str business_profile_type: A Business Profile Type of the calls. Is of type enum. One of 'primary', 'secondary'.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            from_=from_,
+            to=to,
+            from_carrier=from_carrier,
+            to_carrier=to_carrier,
+            from_country_code=from_country_code,
+            to_country_code=to_country_code,
+            verified_caller=verified_caller,
+            has_tag=has_tag,
+            start_time=start_time,
+            end_time=end_time,
+            call_type=call_type,
+            call_state=call_state,
+            direction=direction,
+            processing_state=processing_state,
+            sort_by=sort_by,
+            subaccount=subaccount,
+            abnormal_session=abnormal_session,
+            answered_by=answered_by,
+            answered_by_annotation=answered_by_annotation,
+            connectivity_issue_annotation=connectivity_issue_annotation,
+            quality_issue_annotation=quality_issue_annotation,
+            spam_annotation=spam_annotation,
+            call_score_annotation=call_score_annotation,
+            branded_enabled=branded_enabled,
+            voice_integrity_enabled=voice_integrity_enabled,
+            branded_bundle_sid=branded_bundle_sid,
+            branded_logo=branded_logo,
+            branded_type=branded_type,
+            branded_use_case=branded_use_case,
+            branded_call_reason=branded_call_reason,
+            voice_integrity_bundle_sid=voice_integrity_bundle_sid,
+            voice_integrity_use_case=voice_integrity_use_case,
+            business_profile_identity=business_profile_identity,
+            business_profile_industry=business_profile_industry,
+            business_profile_bundle_sid=business_profile_bundle_sid,
+            business_profile_type=business_profile_type,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        from_: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_carrier: Union[str, object] = values.unset,
+        to_carrier: Union[str, object] = values.unset,
+        from_country_code: Union[str, object] = values.unset,
+        to_country_code: Union[str, object] = values.unset,
+        verified_caller: Union[bool, object] = values.unset,
+        has_tag: Union[bool, object] = values.unset,
+        start_time: Union[str, object] = values.unset,
+        end_time: Union[str, object] = values.unset,
+        call_type: Union[str, object] = values.unset,
+        call_state: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
+        sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        abnormal_session: Union[bool, object] = values.unset,
+        answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
+        branded_enabled: Union[bool, object] = values.unset,
+        voice_integrity_enabled: Union[bool, object] = values.unset,
+        branded_bundle_sid: Union[str, object] = values.unset,
+        branded_logo: Union[bool, object] = values.unset,
+        branded_type: Union[str, object] = values.unset,
+        branded_use_case: Union[str, object] = values.unset,
+        branded_call_reason: Union[str, object] = values.unset,
+        voice_integrity_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_use_case: Union[str, object] = values.unset,
+        business_profile_identity: Union[str, object] = values.unset,
+        business_profile_industry: Union[str, object] = values.unset,
+        business_profile_bundle_sid: Union[str, object] = values.unset,
+        business_profile_type: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams CallSummariesInstance and returns headers from first page
+
+
+        :param str from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str from_carrier: An origination carrier.
+        :param str to_carrier: A destination carrier.
+        :param str from_country_code: A source country code based on phone number in From.
+        :param str to_country_code: A destination country code. Based on phone number in To.
+        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of 'true' or 'false'.
+        :param bool has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param str start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param str end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param str call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param str call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param str direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param str subaccount: A unique SID identifier of a Subaccount.
+        :param bool abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param str answered_by_annotation: Either machine or human.
+        :param str connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param str quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param bool spam_annotation: A boolean flag indicating spam calls.
+        :param str call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param bool branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
+        :param bool voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
+        :param str branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param bool branded_logo: Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present).
+        :param str branded_type: Indicates whether the Branded Call is in_band vs out_of_band.
+        :param str branded_use_case: Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling.
+        :param str branded_call_reason: Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call.
+        :param str voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
+        :param str voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
+        :param str business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
+        :param str business_profile_industry: A Business Industry of the calls. Is of type enum. One of 'automotive', 'agriculture', 'banking', 'consumer', 'construction', 'education', 'engineering', 'energy', 'oil_and_gas', 'fast_moving_consumer_goods', 'financial', 'fintech', 'food_and_beverage', 'government', 'healthcare', 'hospitality', 'insurance', 'legal', 'manufacturing', 'media', 'online', 'professional_services', 'raw_materials', 'real_estate', 'religion', 'retail', 'jewelry', 'technology', 'telecommunications', 'transportation', 'travel', 'electronics', 'not_for_profit'
+        :param str business_profile_bundle_sid: A unique SID identifier of the Business Profile.
+        :param str business_profile_type: A Business Profile Type of the calls. Is of type enum. One of 'primary', 'secondary'.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            from_=from_,
+            to=to,
+            from_carrier=from_carrier,
+            to_carrier=to_carrier,
+            from_country_code=from_country_code,
+            to_country_code=to_country_code,
+            verified_caller=verified_caller,
+            has_tag=has_tag,
+            start_time=start_time,
+            end_time=end_time,
+            call_type=call_type,
+            call_state=call_state,
+            direction=direction,
+            processing_state=processing_state,
+            sort_by=sort_by,
+            subaccount=subaccount,
+            abnormal_session=abnormal_session,
+            answered_by=answered_by,
+            answered_by_annotation=answered_by_annotation,
+            connectivity_issue_annotation=connectivity_issue_annotation,
+            quality_issue_annotation=quality_issue_annotation,
+            spam_annotation=spam_annotation,
+            call_score_annotation=call_score_annotation,
+            branded_enabled=branded_enabled,
+            voice_integrity_enabled=voice_integrity_enabled,
+            branded_bundle_sid=branded_bundle_sid,
+            branded_logo=branded_logo,
+            branded_type=branded_type,
+            branded_use_case=branded_use_case,
+            branded_call_reason=branded_call_reason,
+            voice_integrity_bundle_sid=voice_integrity_bundle_sid,
+            voice_integrity_use_case=voice_integrity_use_case,
+            business_profile_identity=business_profile_identity,
+            business_profile_industry=business_profile_industry,
+            business_profile_bundle_sid=business_profile_bundle_sid,
+            business_profile_type=business_profile_type,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         from_: Union[str, object] = values.unset,
@@ -721,6 +994,276 @@ class CallSummariesList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        from_: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_carrier: Union[str, object] = values.unset,
+        to_carrier: Union[str, object] = values.unset,
+        from_country_code: Union[str, object] = values.unset,
+        to_country_code: Union[str, object] = values.unset,
+        verified_caller: Union[bool, object] = values.unset,
+        has_tag: Union[bool, object] = values.unset,
+        start_time: Union[str, object] = values.unset,
+        end_time: Union[str, object] = values.unset,
+        call_type: Union[str, object] = values.unset,
+        call_state: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
+        sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        abnormal_session: Union[bool, object] = values.unset,
+        answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
+        branded_enabled: Union[bool, object] = values.unset,
+        voice_integrity_enabled: Union[bool, object] = values.unset,
+        branded_bundle_sid: Union[str, object] = values.unset,
+        branded_logo: Union[bool, object] = values.unset,
+        branded_type: Union[str, object] = values.unset,
+        branded_use_case: Union[str, object] = values.unset,
+        branded_call_reason: Union[str, object] = values.unset,
+        voice_integrity_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_use_case: Union[str, object] = values.unset,
+        business_profile_identity: Union[str, object] = values.unset,
+        business_profile_industry: Union[str, object] = values.unset,
+        business_profile_bundle_sid: Union[str, object] = values.unset,
+        business_profile_type: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists CallSummariesInstance and returns headers from first page
+
+
+        :param str from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str from_carrier: An origination carrier.
+        :param str to_carrier: A destination carrier.
+        :param str from_country_code: A source country code based on phone number in From.
+        :param str to_country_code: A destination country code. Based on phone number in To.
+        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of 'true' or 'false'.
+        :param bool has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param str start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param str end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param str call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param str call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param str direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param str subaccount: A unique SID identifier of a Subaccount.
+        :param bool abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param str answered_by_annotation: Either machine or human.
+        :param str connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param str quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param bool spam_annotation: A boolean flag indicating spam calls.
+        :param str call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param bool branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
+        :param bool voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
+        :param str branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param bool branded_logo: Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present).
+        :param str branded_type: Indicates whether the Branded Call is in_band vs out_of_band.
+        :param str branded_use_case: Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling.
+        :param str branded_call_reason: Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call.
+        :param str voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
+        :param str voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
+        :param str business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
+        :param str business_profile_industry: A Business Industry of the calls. Is of type enum. One of 'automotive', 'agriculture', 'banking', 'consumer', 'construction', 'education', 'engineering', 'energy', 'oil_and_gas', 'fast_moving_consumer_goods', 'financial', 'fintech', 'food_and_beverage', 'government', 'healthcare', 'hospitality', 'insurance', 'legal', 'manufacturing', 'media', 'online', 'professional_services', 'raw_materials', 'real_estate', 'religion', 'retail', 'jewelry', 'technology', 'telecommunications', 'transportation', 'travel', 'electronics', 'not_for_profit'
+        :param str business_profile_bundle_sid: A unique SID identifier of the Business Profile.
+        :param str business_profile_type: A Business Profile Type of the calls. Is of type enum. One of 'primary', 'secondary'.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            from_=from_,
+            to=to,
+            from_carrier=from_carrier,
+            to_carrier=to_carrier,
+            from_country_code=from_country_code,
+            to_country_code=to_country_code,
+            verified_caller=verified_caller,
+            has_tag=has_tag,
+            start_time=start_time,
+            end_time=end_time,
+            call_type=call_type,
+            call_state=call_state,
+            direction=direction,
+            processing_state=processing_state,
+            sort_by=sort_by,
+            subaccount=subaccount,
+            abnormal_session=abnormal_session,
+            answered_by=answered_by,
+            answered_by_annotation=answered_by_annotation,
+            connectivity_issue_annotation=connectivity_issue_annotation,
+            quality_issue_annotation=quality_issue_annotation,
+            spam_annotation=spam_annotation,
+            call_score_annotation=call_score_annotation,
+            branded_enabled=branded_enabled,
+            voice_integrity_enabled=voice_integrity_enabled,
+            branded_bundle_sid=branded_bundle_sid,
+            branded_logo=branded_logo,
+            branded_type=branded_type,
+            branded_use_case=branded_use_case,
+            branded_call_reason=branded_call_reason,
+            voice_integrity_bundle_sid=voice_integrity_bundle_sid,
+            voice_integrity_use_case=voice_integrity_use_case,
+            business_profile_identity=business_profile_identity,
+            business_profile_industry=business_profile_industry,
+            business_profile_bundle_sid=business_profile_bundle_sid,
+            business_profile_type=business_profile_type,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        from_: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_carrier: Union[str, object] = values.unset,
+        to_carrier: Union[str, object] = values.unset,
+        from_country_code: Union[str, object] = values.unset,
+        to_country_code: Union[str, object] = values.unset,
+        verified_caller: Union[bool, object] = values.unset,
+        has_tag: Union[bool, object] = values.unset,
+        start_time: Union[str, object] = values.unset,
+        end_time: Union[str, object] = values.unset,
+        call_type: Union[str, object] = values.unset,
+        call_state: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
+        sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        abnormal_session: Union[bool, object] = values.unset,
+        answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
+        branded_enabled: Union[bool, object] = values.unset,
+        voice_integrity_enabled: Union[bool, object] = values.unset,
+        branded_bundle_sid: Union[str, object] = values.unset,
+        branded_logo: Union[bool, object] = values.unset,
+        branded_type: Union[str, object] = values.unset,
+        branded_use_case: Union[str, object] = values.unset,
+        branded_call_reason: Union[str, object] = values.unset,
+        voice_integrity_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_use_case: Union[str, object] = values.unset,
+        business_profile_identity: Union[str, object] = values.unset,
+        business_profile_industry: Union[str, object] = values.unset,
+        business_profile_bundle_sid: Union[str, object] = values.unset,
+        business_profile_type: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists CallSummariesInstance and returns headers from first page
+
+
+        :param str from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param str from_carrier: An origination carrier.
+        :param str to_carrier: A destination carrier.
+        :param str from_country_code: A source country code based on phone number in From.
+        :param str to_country_code: A destination country code. Based on phone number in To.
+        :param bool verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of 'true' or 'false'.
+        :param bool has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param str start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param str end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param str call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param str call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param str direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param &quot;CallSummariesInstance.ProcessingStateRequest&quot; processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param &quot;CallSummariesInstance.SortBy&quot; sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param str subaccount: A unique SID identifier of a Subaccount.
+        :param bool abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param &quot;CallSummariesInstance.AnsweredBy&quot; answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param str answered_by_annotation: Either machine or human.
+        :param str connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param str quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param bool spam_annotation: A boolean flag indicating spam calls.
+        :param str call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param bool branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
+        :param bool voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
+        :param str branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param bool branded_logo: Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present).
+        :param str branded_type: Indicates whether the Branded Call is in_band vs out_of_band.
+        :param str branded_use_case: Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling.
+        :param str branded_call_reason: Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call.
+        :param str voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
+        :param str voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
+        :param str business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
+        :param str business_profile_industry: A Business Industry of the calls. Is of type enum. One of 'automotive', 'agriculture', 'banking', 'consumer', 'construction', 'education', 'engineering', 'energy', 'oil_and_gas', 'fast_moving_consumer_goods', 'financial', 'fintech', 'food_and_beverage', 'government', 'healthcare', 'hospitality', 'insurance', 'legal', 'manufacturing', 'media', 'online', 'professional_services', 'raw_materials', 'real_estate', 'religion', 'retail', 'jewelry', 'technology', 'telecommunications', 'transportation', 'travel', 'electronics', 'not_for_profit'
+        :param str business_profile_bundle_sid: A unique SID identifier of the Business Profile.
+        :param str business_profile_type: A Business Profile Type of the calls. Is of type enum. One of 'primary', 'secondary'.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            from_=from_,
+            to=to,
+            from_carrier=from_carrier,
+            to_carrier=to_carrier,
+            from_country_code=from_country_code,
+            to_country_code=to_country_code,
+            verified_caller=verified_caller,
+            has_tag=has_tag,
+            start_time=start_time,
+            end_time=end_time,
+            call_type=call_type,
+            call_state=call_state,
+            direction=direction,
+            processing_state=processing_state,
+            sort_by=sort_by,
+            subaccount=subaccount,
+            abnormal_session=abnormal_session,
+            answered_by=answered_by,
+            answered_by_annotation=answered_by_annotation,
+            connectivity_issue_annotation=connectivity_issue_annotation,
+            quality_issue_annotation=quality_issue_annotation,
+            spam_annotation=spam_annotation,
+            call_score_annotation=call_score_annotation,
+            branded_enabled=branded_enabled,
+            voice_integrity_enabled=voice_integrity_enabled,
+            branded_bundle_sid=branded_bundle_sid,
+            branded_logo=branded_logo,
+            branded_type=branded_type,
+            branded_use_case=branded_use_case,
+            branded_call_reason=branded_call_reason,
+            voice_integrity_bundle_sid=voice_integrity_bundle_sid,
+            voice_integrity_use_case=voice_integrity_use_case,
+            business_profile_identity=business_profile_identity,
+            business_profile_industry=business_profile_industry,
+            business_profile_bundle_sid=business_profile_bundle_sid,
+            business_profile_type=business_profile_type,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -1011,6 +1554,300 @@ class CallSummariesList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return CallSummariesPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        from_: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_carrier: Union[str, object] = values.unset,
+        to_carrier: Union[str, object] = values.unset,
+        from_country_code: Union[str, object] = values.unset,
+        to_country_code: Union[str, object] = values.unset,
+        verified_caller: Union[bool, object] = values.unset,
+        has_tag: Union[bool, object] = values.unset,
+        start_time: Union[str, object] = values.unset,
+        end_time: Union[str, object] = values.unset,
+        call_type: Union[str, object] = values.unset,
+        call_state: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
+        sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        abnormal_session: Union[bool, object] = values.unset,
+        answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
+        branded_enabled: Union[bool, object] = values.unset,
+        voice_integrity_enabled: Union[bool, object] = values.unset,
+        branded_bundle_sid: Union[str, object] = values.unset,
+        branded_logo: Union[bool, object] = values.unset,
+        branded_type: Union[str, object] = values.unset,
+        branded_use_case: Union[str, object] = values.unset,
+        branded_call_reason: Union[str, object] = values.unset,
+        voice_integrity_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_use_case: Union[str, object] = values.unset,
+        business_profile_identity: Union[str, object] = values.unset,
+        business_profile_industry: Union[str, object] = values.unset,
+        business_profile_bundle_sid: Union[str, object] = values.unset,
+        business_profile_type: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param from_carrier: An origination carrier.
+        :param to_carrier: A destination carrier.
+        :param from_country_code: A source country code based on phone number in From.
+        :param to_country_code: A destination country code. Based on phone number in To.
+        :param verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of 'true' or 'false'.
+        :param has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param subaccount: A unique SID identifier of a Subaccount.
+        :param abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param answered_by_annotation: Either machine or human.
+        :param connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param spam_annotation: A boolean flag indicating spam calls.
+        :param call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
+        :param voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
+        :param branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param branded_logo: Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present).
+        :param branded_type: Indicates whether the Branded Call is in_band vs out_of_band.
+        :param branded_use_case: Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling.
+        :param branded_call_reason: Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call.
+        :param voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
+        :param voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
+        :param business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
+        :param business_profile_industry: A Business Industry of the calls. Is of type enum. One of 'automotive', 'agriculture', 'banking', 'consumer', 'construction', 'education', 'engineering', 'energy', 'oil_and_gas', 'fast_moving_consumer_goods', 'financial', 'fintech', 'food_and_beverage', 'government', 'healthcare', 'hospitality', 'insurance', 'legal', 'manufacturing', 'media', 'online', 'professional_services', 'raw_materials', 'real_estate', 'religion', 'retail', 'jewelry', 'technology', 'telecommunications', 'transportation', 'travel', 'electronics', 'not_for_profit'
+        :param business_profile_bundle_sid: A unique SID identifier of the Business Profile.
+        :param business_profile_type: A Business Profile Type of the calls. Is of type enum. One of 'primary', 'secondary'.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with CallSummariesPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "From": from_,
+                "To": to,
+                "FromCarrier": from_carrier,
+                "ToCarrier": to_carrier,
+                "FromCountryCode": from_country_code,
+                "ToCountryCode": to_country_code,
+                "VerifiedCaller": serialize.boolean_to_string(verified_caller),
+                "HasTag": serialize.boolean_to_string(has_tag),
+                "StartTime": start_time,
+                "EndTime": end_time,
+                "CallType": call_type,
+                "CallState": call_state,
+                "Direction": direction,
+                "ProcessingState": processing_state,
+                "SortBy": sort_by,
+                "Subaccount": subaccount,
+                "AbnormalSession": serialize.boolean_to_string(abnormal_session),
+                "AnsweredBy": answered_by,
+                "AnsweredByAnnotation": answered_by_annotation,
+                "ConnectivityIssueAnnotation": connectivity_issue_annotation,
+                "QualityIssueAnnotation": quality_issue_annotation,
+                "SpamAnnotation": serialize.boolean_to_string(spam_annotation),
+                "CallScoreAnnotation": call_score_annotation,
+                "BrandedEnabled": serialize.boolean_to_string(branded_enabled),
+                "VoiceIntegrityEnabled": serialize.boolean_to_string(
+                    voice_integrity_enabled
+                ),
+                "BrandedBundleSid": branded_bundle_sid,
+                "BrandedLogo": serialize.boolean_to_string(branded_logo),
+                "BrandedType": branded_type,
+                "BrandedUseCase": branded_use_case,
+                "BrandedCallReason": branded_call_reason,
+                "VoiceIntegrityBundleSid": voice_integrity_bundle_sid,
+                "VoiceIntegrityUseCase": voice_integrity_use_case,
+                "BusinessProfileIdentity": business_profile_identity,
+                "BusinessProfileIndustry": business_profile_industry,
+                "BusinessProfileBundleSid": business_profile_bundle_sid,
+                "BusinessProfileType": business_profile_type,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = CallSummariesPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        from_: Union[str, object] = values.unset,
+        to: Union[str, object] = values.unset,
+        from_carrier: Union[str, object] = values.unset,
+        to_carrier: Union[str, object] = values.unset,
+        from_country_code: Union[str, object] = values.unset,
+        to_country_code: Union[str, object] = values.unset,
+        verified_caller: Union[bool, object] = values.unset,
+        has_tag: Union[bool, object] = values.unset,
+        start_time: Union[str, object] = values.unset,
+        end_time: Union[str, object] = values.unset,
+        call_type: Union[str, object] = values.unset,
+        call_state: Union[str, object] = values.unset,
+        direction: Union[str, object] = values.unset,
+        processing_state: Union[
+            "CallSummariesInstance.ProcessingStateRequest", object
+        ] = values.unset,
+        sort_by: Union["CallSummariesInstance.SortBy", object] = values.unset,
+        subaccount: Union[str, object] = values.unset,
+        abnormal_session: Union[bool, object] = values.unset,
+        answered_by: Union["CallSummariesInstance.AnsweredBy", object] = values.unset,
+        answered_by_annotation: Union[str, object] = values.unset,
+        connectivity_issue_annotation: Union[str, object] = values.unset,
+        quality_issue_annotation: Union[str, object] = values.unset,
+        spam_annotation: Union[bool, object] = values.unset,
+        call_score_annotation: Union[str, object] = values.unset,
+        branded_enabled: Union[bool, object] = values.unset,
+        voice_integrity_enabled: Union[bool, object] = values.unset,
+        branded_bundle_sid: Union[str, object] = values.unset,
+        branded_logo: Union[bool, object] = values.unset,
+        branded_type: Union[str, object] = values.unset,
+        branded_use_case: Union[str, object] = values.unset,
+        branded_call_reason: Union[str, object] = values.unset,
+        voice_integrity_bundle_sid: Union[str, object] = values.unset,
+        voice_integrity_use_case: Union[str, object] = values.unset,
+        business_profile_identity: Union[str, object] = values.unset,
+        business_profile_industry: Union[str, object] = values.unset,
+        business_profile_bundle_sid: Union[str, object] = values.unset,
+        business_profile_type: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param from_: A calling party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param to: A called party. Could be an E.164 number, a SIP URI, or a Twilio Client registered name.
+        :param from_carrier: An origination carrier.
+        :param to_carrier: A destination carrier.
+        :param from_country_code: A source country code based on phone number in From.
+        :param to_country_code: A destination country code. Based on phone number in To.
+        :param verified_caller: A boolean flag indicating whether or not the caller was verified using SHAKEN/STIR.One of 'true' or 'false'.
+        :param has_tag: A boolean flag indicating the presence of one or more [Voice Insights Call Tags](https://www.twilio.com/docs/voice/voice-insights/api/call/details-call-tags).
+        :param start_time: A Start time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 4h.
+        :param end_time: An End Time of the calls. xm (x minutes), xh (x hours), xd (x days), 1w, 30m, 3d, 4w or datetime-ISO. Defaults to 0m.
+        :param call_type: A Call Type of the calls. One of `carrier`, `sip`, `trunking` or `client`.
+        :param call_state: A Call State of the calls. One of `ringing`, `completed`, `busy`, `fail`, `noanswer`, `canceled`, `answered`, `undialed`.
+        :param direction: A Direction of the calls. One of `outbound_api`, `outbound_dial`, `inbound`, `trunking_originating`, `trunking_terminating`.
+        :param processing_state: A Processing State of the Call Summaries. One of `completed`, `partial` or `all`.
+        :param sort_by: A Sort By criterion for the returned list of Call Summaries. One of `start_time` or `end_time`.
+        :param subaccount: A unique SID identifier of a Subaccount.
+        :param abnormal_session: A boolean flag indicating an abnormal session where the last SIP response was not 200 OK.
+        :param answered_by: An Answered By value for the calls based on `Answering Machine Detection (AMD)`. One of `unknown`, `machine_start`, `machine_end_beep`, `machine_end_silence`, `machine_end_other`, `human` or `fax`.
+        :param answered_by_annotation: Either machine or human.
+        :param connectivity_issue_annotation: A Connectivity Issue with the calls. One of `no_connectivity_issue`, `invalid_number`, `caller_id`, `dropped_call`, or `number_reachability`.
+        :param quality_issue_annotation: A subjective Quality Issue with the calls. One of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`.
+        :param spam_annotation: A boolean flag indicating spam calls.
+        :param call_score_annotation: A Call Score of the calls. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for the rated call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param branded_enabled: A boolean flag indicating whether or not the calls were branded using Twilio Branded Calls. One of 'true' or 'false'
+        :param voice_integrity_enabled: A boolean flag indicating whether or not the phone number had voice integrity enabled.One of 'true' or 'false'
+        :param branded_bundle_sid: A unique SID identifier of the Branded Call.
+        :param branded_logo: Indicates whether the branded logo was displayed during the in_brand branded call. Possible values are true (logo was present) or false (logo was not present).
+        :param branded_type: Indicates whether the Branded Call is in_band vs out_of_band.
+        :param branded_use_case: Specifies the user-defined purpose for the call, as provided during the setup of in_band branded calling.
+        :param branded_call_reason: Specifies the user-defined reason for the call, which will be displayed to the end user on their mobile device during an in_band branded call.
+        :param voice_integrity_bundle_sid: A unique SID identifier of the Voice Integrity Profile.
+        :param voice_integrity_use_case: A Voice Integrity Use Case . Is of type enum. One of 'abandoned_cart', 'appointment_reminders', 'appointment_scheduling', 'asset_management', 'automated_support', 'call_tracking', 'click_to_call', 'contact_tracing', 'contactless_delivery', 'customer_support', 'dating/social', 'delivery_notifications', 'distance_learning', 'emergency_notifications', 'employee_notifications', 'exam_proctoring', 'field_notifications', 'first_responder', 'fraud_alerts', 'group_messaging', 'identify_&_verification', 'intelligent_routing', 'lead_alerts', 'lead_distribution', 'lead_generation', 'lead_management', 'lead_nurturing', 'marketing_events', 'mass_alerts', 'meetings/collaboration', 'order_notifications', 'outbound_dialer', 'pharmacy', 'phone_system', 'purchase_confirmation', 'remote_appointments', 'rewards_program', 'self-service', 'service_alerts', 'shift_management', 'survey/research', 'telehealth', 'telemarketing', 'therapy_(individual+group)'.
+        :param business_profile_identity: A Business Identity of the calls. Is of type enum. One of 'direct_customer', 'isv_reseller_or_partner'.
+        :param business_profile_industry: A Business Industry of the calls. Is of type enum. One of 'automotive', 'agriculture', 'banking', 'consumer', 'construction', 'education', 'engineering', 'energy', 'oil_and_gas', 'fast_moving_consumer_goods', 'financial', 'fintech', 'food_and_beverage', 'government', 'healthcare', 'hospitality', 'insurance', 'legal', 'manufacturing', 'media', 'online', 'professional_services', 'raw_materials', 'real_estate', 'religion', 'retail', 'jewelry', 'technology', 'telecommunications', 'transportation', 'travel', 'electronics', 'not_for_profit'
+        :param business_profile_bundle_sid: A unique SID identifier of the Business Profile.
+        :param business_profile_type: A Business Profile Type of the calls. Is of type enum. One of 'primary', 'secondary'.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with CallSummariesPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "From": from_,
+                "To": to,
+                "FromCarrier": from_carrier,
+                "ToCarrier": to_carrier,
+                "FromCountryCode": from_country_code,
+                "ToCountryCode": to_country_code,
+                "VerifiedCaller": serialize.boolean_to_string(verified_caller),
+                "HasTag": serialize.boolean_to_string(has_tag),
+                "StartTime": start_time,
+                "EndTime": end_time,
+                "CallType": call_type,
+                "CallState": call_state,
+                "Direction": direction,
+                "ProcessingState": processing_state,
+                "SortBy": sort_by,
+                "Subaccount": subaccount,
+                "AbnormalSession": serialize.boolean_to_string(abnormal_session),
+                "AnsweredBy": answered_by,
+                "AnsweredByAnnotation": answered_by_annotation,
+                "ConnectivityIssueAnnotation": connectivity_issue_annotation,
+                "QualityIssueAnnotation": quality_issue_annotation,
+                "SpamAnnotation": serialize.boolean_to_string(spam_annotation),
+                "CallScoreAnnotation": call_score_annotation,
+                "BrandedEnabled": serialize.boolean_to_string(branded_enabled),
+                "VoiceIntegrityEnabled": serialize.boolean_to_string(
+                    voice_integrity_enabled
+                ),
+                "BrandedBundleSid": branded_bundle_sid,
+                "BrandedLogo": serialize.boolean_to_string(branded_logo),
+                "BrandedType": branded_type,
+                "BrandedUseCase": branded_use_case,
+                "BrandedCallReason": branded_call_reason,
+                "VoiceIntegrityBundleSid": voice_integrity_bundle_sid,
+                "VoiceIntegrityUseCase": voice_integrity_use_case,
+                "BusinessProfileIdentity": business_profile_identity,
+                "BusinessProfileIndustry": business_profile_industry,
+                "BusinessProfileBundleSid": business_profile_bundle_sid,
+                "BusinessProfileType": business_profile_type,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = CallSummariesPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> CallSummariesPage:
         """

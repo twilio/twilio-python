@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -149,6 +150,24 @@ class HostedNumberOrderInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the HostedNumberOrderInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the HostedNumberOrderInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "HostedNumberOrderInstance":
         """
         Fetch the HostedNumberOrderInstance
@@ -166,6 +185,24 @@ class HostedNumberOrderInstance(InstanceResource):
         :returns: The fetched HostedNumberOrderInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the HostedNumberOrderInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the HostedNumberOrderInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -255,6 +292,94 @@ class HostedNumberOrderInstance(InstanceResource):
             call_delay=call_delay,
         )
 
+    def update_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        verification_code: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the HostedNumberOrderInstance with HTTP info
+
+        :param friendly_name: A 64 character string that is a human readable text that describes this resource.
+        :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param email: Email of the owner of this phone number that is being hosted.
+        :param cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
+        :param status:
+        :param verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
+        :param verification_type:
+        :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
+        :param extension: Digits to dial after connecting the verification call.
+        :param call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            email=email,
+            cc_emails=cc_emails,
+            status=status,
+            verification_code=verification_code,
+            verification_type=verification_type,
+            verification_document_sid=verification_document_sid,
+            extension=extension,
+            call_delay=call_delay,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        verification_code: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the HostedNumberOrderInstance with HTTP info
+
+        :param friendly_name: A 64 character string that is a human readable text that describes this resource.
+        :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param email: Email of the owner of this phone number that is being hosted.
+        :param cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
+        :param status:
+        :param verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
+        :param verification_type:
+        :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
+        :param extension: Digits to dial after connecting the verification call.
+        :param call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            email=email,
+            cc_emails=cc_emails,
+            status=status,
+            verification_code=verification_code,
+            verification_type=verification_type,
+            verification_document_sid=verification_document_sid,
+            extension=extension,
+            call_delay=call_delay,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -284,6 +409,20 @@ class HostedNumberOrderContext(InstanceContext):
         }
         self._uri = "/HostedNumberOrders/{sid}".format(**self._solution)
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the HostedNumberOrderInstance
@@ -291,10 +430,32 @@ class HostedNumberOrderContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the HostedNumberOrderInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -303,11 +464,33 @@ class HostedNumberOrderContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the HostedNumberOrderInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> HostedNumberOrderInstance:
@@ -317,17 +500,42 @@ class HostedNumberOrderContext(InstanceContext):
 
         :returns: The fetched HostedNumberOrderInstance
         """
+        payload, _, _ = self._fetch()
+        return HostedNumberOrderInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the HostedNumberOrderInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = HostedNumberOrderInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return HostedNumberOrderInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> HostedNumberOrderInstance:
@@ -337,19 +545,72 @@ class HostedNumberOrderContext(InstanceContext):
 
         :returns: The fetched HostedNumberOrderInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return HostedNumberOrderInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the HostedNumberOrderInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = HostedNumberOrderInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        verification_code: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "UniqueName": unique_name,
+                "Email": email,
+                "CcEmails": serialize.map(cc_emails, lambda e: e),
+                "Status": status,
+                "VerificationCode": verification_code,
+                "VerificationType": verification_type,
+                "VerificationDocumentSid": verification_document_sid,
+                "Extension": extension,
+                "CallDelay": call_delay,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -383,6 +644,91 @@ class HostedNumberOrderContext(InstanceContext):
 
         :returns: The updated HostedNumberOrderInstance
         """
+        payload, _, _ = self._update(
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            email=email,
+            cc_emails=cc_emails,
+            status=status,
+            verification_code=verification_code,
+            verification_type=verification_type,
+            verification_document_sid=verification_document_sid,
+            extension=extension,
+            call_delay=call_delay,
+        )
+        return HostedNumberOrderInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+
+    def update_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        verification_code: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the HostedNumberOrderInstance and return response metadata
+
+        :param friendly_name: A 64 character string that is a human readable text that describes this resource.
+        :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param email: Email of the owner of this phone number that is being hosted.
+        :param cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
+        :param status:
+        :param verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
+        :param verification_type:
+        :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
+        :param extension: Digits to dial after connecting the verification call.
+        :param call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            email=email,
+            cc_emails=cc_emails,
+            status=status,
+            verification_code=verification_code,
+            verification_type=verification_type,
+            verification_document_sid=verification_document_sid,
+            extension=extension,
+            call_delay=call_delay,
+        )
+        instance = HostedNumberOrderInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        verification_code: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -404,12 +750,8 @@ class HostedNumberOrderContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return HostedNumberOrderInstance(
-            self._version, payload, sid=self._solution["sid"]
         )
 
     async def update_async(
@@ -443,34 +785,69 @@ class HostedNumberOrderContext(InstanceContext):
 
         :returns: The updated HostedNumberOrderInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "UniqueName": unique_name,
-                "Email": email,
-                "CcEmails": serialize.map(cc_emails, lambda e: e),
-                "Status": status,
-                "VerificationCode": verification_code,
-                "VerificationType": verification_type,
-                "VerificationDocumentSid": verification_document_sid,
-                "Extension": extension,
-                "CallDelay": call_delay,
-            }
+        payload, _, _ = await self._update_async(
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            email=email,
+            cc_emails=cc_emails,
+            status=status,
+            verification_code=verification_code,
+            verification_type=verification_type,
+            verification_document_sid=verification_document_sid,
+            extension=extension,
+            call_delay=call_delay,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return HostedNumberOrderInstance(
             self._version, payload, sid=self._solution["sid"]
         )
+
+    async def update_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        verification_code: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the HostedNumberOrderInstance and return response metadata
+
+        :param friendly_name: A 64 character string that is a human readable text that describes this resource.
+        :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param email: Email of the owner of this phone number that is being hosted.
+        :param cc_emails: Optional. A list of emails that LOA document for this HostedNumberOrder will be carbon copied to.
+        :param status:
+        :param verification_code: A verification code that is given to the user via a phone call to the phone number that is being hosted.
+        :param verification_type:
+        :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
+        :param extension: Digits to dial after connecting the verification call.
+        :param call_delay: The number of seconds, between 0 and 60, to delay before initiating the verification call. Defaults to 0.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            email=email,
+            cc_emails=cc_emails,
+            status=status,
+            verification_code=verification_code,
+            verification_type=verification_type,
+            verification_document_sid=verification_document_sid,
+            extension=extension,
+            call_delay=call_delay,
+        )
+        instance = HostedNumberOrderInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -515,6 +892,66 @@ class HostedNumberOrderList(ListResource):
         super().__init__(version)
 
         self._uri = "/HostedNumberOrders"
+
+    def _create(
+        self,
+        phone_number: str,
+        sms_capability: bool,
+        account_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        sms_application_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "PhoneNumber": phone_number,
+                "SmsCapability": serialize.boolean_to_string(sms_capability),
+                "AccountSid": account_sid,
+                "FriendlyName": friendly_name,
+                "UniqueName": unique_name,
+                "CcEmails": serialize.map(cc_emails, lambda e: e),
+                "SmsUrl": sms_url,
+                "SmsMethod": sms_method,
+                "SmsFallbackUrl": sms_fallback_url,
+                "SmsFallbackMethod": sms_fallback_method,
+                "StatusCallbackUrl": status_callback_url,
+                "StatusCallbackMethod": status_callback_method,
+                "SmsApplicationSid": sms_application_sid,
+                "AddressSid": address_sid,
+                "Email": email,
+                "VerificationType": verification_type,
+                "VerificationDocumentSid": verification_document_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     def create(
         self,
@@ -561,6 +998,122 @@ class HostedNumberOrderList(ListResource):
 
         :returns: The created HostedNumberOrderInstance
         """
+        payload, _, _ = self._create(
+            phone_number=phone_number,
+            sms_capability=sms_capability,
+            account_sid=account_sid,
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            cc_emails=cc_emails,
+            sms_url=sms_url,
+            sms_method=sms_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_fallback_method=sms_fallback_method,
+            status_callback_url=status_callback_url,
+            status_callback_method=status_callback_method,
+            sms_application_sid=sms_application_sid,
+            address_sid=address_sid,
+            email=email,
+            verification_type=verification_type,
+            verification_document_sid=verification_document_sid,
+        )
+        return HostedNumberOrderInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        phone_number: str,
+        sms_capability: bool,
+        account_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        sms_application_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the HostedNumberOrderInstance and return response metadata
+
+        :param phone_number: The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format
+        :param sms_capability: Used to specify that the SMS capability will be hosted on Twilio's platform.
+        :param account_sid: This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.
+        :param friendly_name: A 64 character string that is a human readable text that describes this resource.
+        :param unique_name: Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param cc_emails: Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
+        :param sms_url: The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource.
+        :param sms_method: The HTTP method that should be used to request the SmsUrl. Must be either `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource.
+        :param sms_fallback_url: A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource.
+        :param sms_fallback_method: The HTTP method that should be used to request the SmsFallbackUrl. Must be either `GET` or `POST`. This will be copied onto the IncomingPhoneNumber resource.
+        :param status_callback_url: Optional. The Status Callback URL attached to the IncomingPhoneNumber resource.
+        :param status_callback_method: Optional. The Status Callback Method attached to the IncomingPhoneNumber resource.
+        :param sms_application_sid: Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
+        :param address_sid: Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
+        :param email: Optional. Email of the owner of this phone number that is being hosted.
+        :param verification_type:
+        :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            phone_number=phone_number,
+            sms_capability=sms_capability,
+            account_sid=account_sid,
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            cc_emails=cc_emails,
+            sms_url=sms_url,
+            sms_method=sms_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_fallback_method=sms_fallback_method,
+            status_callback_url=status_callback_url,
+            status_callback_method=status_callback_method,
+            sms_application_sid=sms_application_sid,
+            address_sid=address_sid,
+            email=email,
+            verification_type=verification_type,
+            verification_document_sid=verification_document_sid,
+        )
+        instance = HostedNumberOrderInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        phone_number: str,
+        sms_capability: bool,
+        account_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        sms_application_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -589,11 +1142,9 @@ class HostedNumberOrderList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return HostedNumberOrderInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -640,39 +1191,93 @@ class HostedNumberOrderList(ListResource):
 
         :returns: The created HostedNumberOrderInstance
         """
-
-        data = values.of(
-            {
-                "PhoneNumber": phone_number,
-                "SmsCapability": serialize.boolean_to_string(sms_capability),
-                "AccountSid": account_sid,
-                "FriendlyName": friendly_name,
-                "UniqueName": unique_name,
-                "CcEmails": serialize.map(cc_emails, lambda e: e),
-                "SmsUrl": sms_url,
-                "SmsMethod": sms_method,
-                "SmsFallbackUrl": sms_fallback_url,
-                "SmsFallbackMethod": sms_fallback_method,
-                "StatusCallbackUrl": status_callback_url,
-                "StatusCallbackMethod": status_callback_method,
-                "SmsApplicationSid": sms_application_sid,
-                "AddressSid": address_sid,
-                "Email": email,
-                "VerificationType": verification_type,
-                "VerificationDocumentSid": verification_document_sid,
-            }
+        payload, _, _ = await self._create_async(
+            phone_number=phone_number,
+            sms_capability=sms_capability,
+            account_sid=account_sid,
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            cc_emails=cc_emails,
+            sms_url=sms_url,
+            sms_method=sms_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_fallback_method=sms_fallback_method,
+            status_callback_url=status_callback_url,
+            status_callback_method=status_callback_method,
+            sms_application_sid=sms_application_sid,
+            address_sid=address_sid,
+            email=email,
+            verification_type=verification_type,
+            verification_document_sid=verification_document_sid,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return HostedNumberOrderInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        phone_number: str,
+        sms_capability: bool,
+        account_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        sms_application_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        verification_type: Union[
+            "HostedNumberOrderInstance.VerificationType", object
+        ] = values.unset,
+        verification_document_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the HostedNumberOrderInstance and return response metadata
+
+        :param phone_number: The number to host in [+E.164](https://en.wikipedia.org/wiki/E.164) format
+        :param sms_capability: Used to specify that the SMS capability will be hosted on Twilio's platform.
+        :param account_sid: This defaults to the AccountSid of the authorization the user is using. This can be provided to specify a subaccount to add the HostedNumberOrder to.
+        :param friendly_name: A 64 character string that is a human readable text that describes this resource.
+        :param unique_name: Optional. Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param cc_emails: Optional. A list of emails that the LOA document for this HostedNumberOrder will be carbon copied to.
+        :param sms_url: The URL that Twilio should request when somebody sends an SMS to the phone number. This will be copied onto the IncomingPhoneNumber resource.
+        :param sms_method: The HTTP method that should be used to request the SmsUrl. Must be either `GET` or `POST`.  This will be copied onto the IncomingPhoneNumber resource.
+        :param sms_fallback_url: A URL that Twilio will request if an error occurs requesting or executing the TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber resource.
+        :param sms_fallback_method: The HTTP method that should be used to request the SmsFallbackUrl. Must be either `GET` or `POST`. This will be copied onto the IncomingPhoneNumber resource.
+        :param status_callback_url: Optional. The Status Callback URL attached to the IncomingPhoneNumber resource.
+        :param status_callback_method: Optional. The Status Callback Method attached to the IncomingPhoneNumber resource.
+        :param sms_application_sid: Optional. The 34 character sid of the application Twilio should use to handle SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio will ignore all of the SMS urls above and use those set on the application.
+        :param address_sid: Optional. A 34 character string that uniquely identifies the Address resource that represents the address of the owner of this phone number.
+        :param email: Optional. Email of the owner of this phone number that is being hosted.
+        :param verification_type:
+        :param verification_document_sid: Optional. The unique sid identifier of the Identity Document that represents the document for verifying ownership of the number to be hosted. Required when VerificationType is phone-bill.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            phone_number=phone_number,
+            sms_capability=sms_capability,
+            account_sid=account_sid,
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            cc_emails=cc_emails,
+            sms_url=sms_url,
+            sms_method=sms_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_fallback_method=sms_fallback_method,
+            status_callback_url=status_callback_url,
+            status_callback_method=status_callback_method,
+            sms_application_sid=sms_application_sid,
+            address_sid=address_sid,
+            email=email,
+            verification_type=verification_type,
+            verification_document_sid=verification_document_sid,
+        )
+        instance = HostedNumberOrderInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -758,6 +1363,88 @@ class HostedNumberOrderList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams HostedNumberOrderInstance and returns headers from first page
+
+
+        :param &quot;HostedNumberOrderInstance.Status&quot; status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
+        :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
+        :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
+        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            status=status,
+            phone_number=phone_number,
+            incoming_phone_number_sid=incoming_phone_number_sid,
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams HostedNumberOrderInstance and returns headers from first page
+
+
+        :param &quot;HostedNumberOrderInstance.Status&quot; status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
+        :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
+        :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
+        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            status=status,
+            phone_number=phone_number,
+            incoming_phone_number_sid=incoming_phone_number_sid,
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
@@ -840,6 +1527,86 @@ class HostedNumberOrderList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists HostedNumberOrderInstance and returns headers from first page
+
+
+        :param &quot;HostedNumberOrderInstance.Status&quot; status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
+        :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
+        :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
+        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            status=status,
+            phone_number=phone_number,
+            incoming_phone_number_sid=incoming_phone_number_sid,
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists HostedNumberOrderInstance and returns headers from first page
+
+
+        :param &quot;HostedNumberOrderInstance.Status&quot; status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
+        :param str phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
+        :param str incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
+        :param str friendly_name: A human readable description of this resource, up to 64 characters.
+        :param str unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            status=status,
+            phone_number=phone_number,
+            incoming_phone_number_sid=incoming_phone_number_sid,
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -936,6 +1703,106 @@ class HostedNumberOrderList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return HostedNumberOrderPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
+        :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
+        :param incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
+        :param friendly_name: A human readable description of this resource, up to 64 characters.
+        :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with HostedNumberOrderPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Status": status,
+                "PhoneNumber": phone_number,
+                "IncomingPhoneNumberSid": incoming_phone_number_sid,
+                "FriendlyName": friendly_name,
+                "UniqueName": unique_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = HostedNumberOrderPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        status: Union["HostedNumberOrderInstance.Status", object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        incoming_phone_number_sid: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param status: The Status of this HostedNumberOrder. One of `received`, `pending-verification`, `verified`, `pending-loa`, `carrier-processing`, `testing`, `completed`, `failed`, or `action-required`.
+        :param phone_number: An E164 formatted phone number hosted by this HostedNumberOrder.
+        :param incoming_phone_number_sid: A 34 character string that uniquely identifies the IncomingPhoneNumber resource created by this HostedNumberOrder.
+        :param friendly_name: A human readable description of this resource, up to 64 characters.
+        :param unique_name: Provides a unique and addressable name to be assigned to this HostedNumberOrder, assigned by the developer, to be optionally used in addition to SID.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with HostedNumberOrderPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Status": status,
+                "PhoneNumber": phone_number,
+                "IncomingPhoneNumberSid": incoming_phone_number_sid,
+                "FriendlyName": friendly_name,
+                "UniqueName": unique_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = HostedNumberOrderPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> HostedNumberOrderPage:
         """

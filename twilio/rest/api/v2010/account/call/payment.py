@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -151,6 +152,54 @@ class PaymentInstance(InstanceResource):
             status=status,
         )
 
+    def update_with_http_info(
+        self,
+        idempotency_key: str,
+        status_callback: str,
+        capture: Union["PaymentInstance.Capture", object] = values.unset,
+        status: Union["PaymentInstance.Status", object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the PaymentInstance with HTTP info
+
+        :param idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
+        :param status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
+        :param capture:
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            idempotency_key=idempotency_key,
+            status_callback=status_callback,
+            capture=capture,
+            status=status,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        idempotency_key: str,
+        status_callback: str,
+        capture: Union["PaymentInstance.Capture", object] = values.unset,
+        status: Union["PaymentInstance.Status", object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the PaymentInstance with HTTP info
+
+        :param idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
+        :param status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
+        :param capture:
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            idempotency_key=idempotency_key,
+            status_callback=status_callback,
+            capture=capture,
+            status=status,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -186,6 +235,38 @@ class PaymentContext(InstanceContext):
             )
         )
 
+    def _update(
+        self,
+        idempotency_key: str,
+        status_callback: str,
+        capture: Union["PaymentInstance.Capture", object] = values.unset,
+        status: Union["PaymentInstance.Status", object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "IdempotencyKey": idempotency_key,
+                "StatusCallback": status_callback,
+                "Capture": capture,
+                "Status": status,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def update(
         self,
         idempotency_key: str,
@@ -203,6 +284,65 @@ class PaymentContext(InstanceContext):
 
         :returns: The updated PaymentInstance
         """
+        payload, _, _ = self._update(
+            idempotency_key=idempotency_key,
+            status_callback=status_callback,
+            capture=capture,
+            status=status,
+        )
+        return PaymentInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(
+        self,
+        idempotency_key: str,
+        status_callback: str,
+        capture: Union["PaymentInstance.Capture", object] = values.unset,
+        status: Union["PaymentInstance.Status", object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the PaymentInstance and return response metadata
+
+        :param idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
+        :param status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
+        :param capture:
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            idempotency_key=idempotency_key,
+            status_callback=status_callback,
+            capture=capture,
+            status=status,
+        )
+        instance = PaymentInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        idempotency_key: str,
+        status_callback: str,
+        capture: Union["PaymentInstance.Capture", object] = values.unset,
+        status: Union["PaymentInstance.Status", object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -218,16 +358,8 @@ class PaymentContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return PaymentInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            call_sid=self._solution["call_sid"],
-            sid=self._solution["sid"],
         )
 
     async def update_async(
@@ -247,25 +379,12 @@ class PaymentContext(InstanceContext):
 
         :returns: The updated PaymentInstance
         """
-
-        data = values.of(
-            {
-                "IdempotencyKey": idempotency_key,
-                "StatusCallback": status_callback,
-                "Capture": capture,
-                "Status": status,
-            }
+        payload, _, _ = await self._update_async(
+            idempotency_key=idempotency_key,
+            status_callback=status_callback,
+            capture=capture,
+            status=status,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return PaymentInstance(
             self._version,
             payload,
@@ -273,6 +392,38 @@ class PaymentContext(InstanceContext):
             call_sid=self._solution["call_sid"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(
+        self,
+        idempotency_key: str,
+        status_callback: str,
+        capture: Union["PaymentInstance.Capture", object] = values.unset,
+        status: Union["PaymentInstance.Status", object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the PaymentInstance and return response metadata
+
+        :param idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
+        :param status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [Update](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-update) and [Complete/Cancel](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback-cancelcomplete) POST requests.
+        :param capture:
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            idempotency_key=idempotency_key,
+            status_callback=status_callback,
+            capture=capture,
+            status=status,
+        )
+        instance = PaymentInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -304,6 +455,64 @@ class PaymentList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/Calls/{call_sid}/Payments.json".format(
             **self._solution
+        )
+
+    def _create(
+        self,
+        idempotency_key: str,
+        status_callback: str,
+        bank_account_type: Union[
+            "PaymentInstance.BankAccountType", object
+        ] = values.unset,
+        charge_amount: Union[float, object] = values.unset,
+        currency: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        input: Union[str, object] = values.unset,
+        min_postal_code_length: Union[int, object] = values.unset,
+        parameter: Union[object, object] = values.unset,
+        payment_connector: Union[str, object] = values.unset,
+        payment_method: Union["PaymentInstance.PaymentMethod", object] = values.unset,
+        postal_code: Union[bool, object] = values.unset,
+        security_code: Union[bool, object] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        token_type: Union["PaymentInstance.TokenType", object] = values.unset,
+        valid_card_types: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "IdempotencyKey": idempotency_key,
+                "StatusCallback": status_callback,
+                "BankAccountType": bank_account_type,
+                "ChargeAmount": charge_amount,
+                "Currency": currency,
+                "Description": description,
+                "Input": input,
+                "MinPostalCodeLength": min_postal_code_length,
+                "Parameter": serialize.object(parameter),
+                "PaymentConnector": payment_connector,
+                "PaymentMethod": payment_method,
+                "PostalCode": serialize.boolean_to_string(postal_code),
+                "SecurityCode": serialize.boolean_to_string(security_code),
+                "Timeout": timeout,
+                "TokenType": token_type,
+                "ValidCardTypes": valid_card_types,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def create(
@@ -349,6 +558,127 @@ class PaymentList(ListResource):
 
         :returns: The created PaymentInstance
         """
+        payload, _, _ = self._create(
+            idempotency_key=idempotency_key,
+            status_callback=status_callback,
+            bank_account_type=bank_account_type,
+            charge_amount=charge_amount,
+            currency=currency,
+            description=description,
+            input=input,
+            min_postal_code_length=min_postal_code_length,
+            parameter=parameter,
+            payment_connector=payment_connector,
+            payment_method=payment_method,
+            postal_code=postal_code,
+            security_code=security_code,
+            timeout=timeout,
+            token_type=token_type,
+            valid_card_types=valid_card_types,
+        )
+        return PaymentInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+
+    def create_with_http_info(
+        self,
+        idempotency_key: str,
+        status_callback: str,
+        bank_account_type: Union[
+            "PaymentInstance.BankAccountType", object
+        ] = values.unset,
+        charge_amount: Union[float, object] = values.unset,
+        currency: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        input: Union[str, object] = values.unset,
+        min_postal_code_length: Union[int, object] = values.unset,
+        parameter: Union[object, object] = values.unset,
+        payment_connector: Union[str, object] = values.unset,
+        payment_method: Union["PaymentInstance.PaymentMethod", object] = values.unset,
+        postal_code: Union[bool, object] = values.unset,
+        security_code: Union[bool, object] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        token_type: Union["PaymentInstance.TokenType", object] = values.unset,
+        valid_card_types: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the PaymentInstance and return response metadata
+
+        :param idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
+        :param status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback)
+        :param bank_account_type:
+        :param charge_amount: A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with `currency` field. Leave blank or set to 0 to tokenize.
+        :param currency: The currency of the `charge_amount`, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is `USD` and all values allowed from the Pay Connector are accepted.
+        :param description: The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions.
+        :param input: A list of inputs that should be accepted. Currently only `dtmf` is supported. All digits captured during a pay session are redacted from the logs.
+        :param min_postal_code_length: A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits.
+        :param parameter: A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
+        :param payment_connector: This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
+        :param payment_method:
+        :param postal_code: Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is `true`.
+        :param security_code: Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is `true`.
+        :param timeout: The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
+        :param token_type:
+        :param valid_card_types: Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            idempotency_key=idempotency_key,
+            status_callback=status_callback,
+            bank_account_type=bank_account_type,
+            charge_amount=charge_amount,
+            currency=currency,
+            description=description,
+            input=input,
+            min_postal_code_length=min_postal_code_length,
+            parameter=parameter,
+            payment_connector=payment_connector,
+            payment_method=payment_method,
+            postal_code=postal_code,
+            security_code=security_code,
+            timeout=timeout,
+            token_type=token_type,
+            valid_card_types=valid_card_types,
+        )
+        instance = PaymentInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        idempotency_key: str,
+        status_callback: str,
+        bank_account_type: Union[
+            "PaymentInstance.BankAccountType", object
+        ] = values.unset,
+        charge_amount: Union[float, object] = values.unset,
+        currency: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        input: Union[str, object] = values.unset,
+        min_postal_code_length: Union[int, object] = values.unset,
+        parameter: Union[object, object] = values.unset,
+        payment_connector: Union[str, object] = values.unset,
+        payment_method: Union["PaymentInstance.PaymentMethod", object] = values.unset,
+        postal_code: Union[bool, object] = values.unset,
+        security_code: Union[bool, object] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        token_type: Union["PaymentInstance.TokenType", object] = values.unset,
+        valid_card_types: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -376,15 +706,8 @@ class PaymentList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return PaymentInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            call_sid=self._solution["call_sid"],
         )
 
     async def create_async(
@@ -430,43 +753,99 @@ class PaymentList(ListResource):
 
         :returns: The created PaymentInstance
         """
-
-        data = values.of(
-            {
-                "IdempotencyKey": idempotency_key,
-                "StatusCallback": status_callback,
-                "BankAccountType": bank_account_type,
-                "ChargeAmount": charge_amount,
-                "Currency": currency,
-                "Description": description,
-                "Input": input,
-                "MinPostalCodeLength": min_postal_code_length,
-                "Parameter": serialize.object(parameter),
-                "PaymentConnector": payment_connector,
-                "PaymentMethod": payment_method,
-                "PostalCode": serialize.boolean_to_string(postal_code),
-                "SecurityCode": serialize.boolean_to_string(security_code),
-                "Timeout": timeout,
-                "TokenType": token_type,
-                "ValidCardTypes": valid_card_types,
-            }
+        payload, _, _ = await self._create_async(
+            idempotency_key=idempotency_key,
+            status_callback=status_callback,
+            bank_account_type=bank_account_type,
+            charge_amount=charge_amount,
+            currency=currency,
+            description=description,
+            input=input,
+            min_postal_code_length=min_postal_code_length,
+            parameter=parameter,
+            payment_connector=payment_connector,
+            payment_method=payment_method,
+            postal_code=postal_code,
+            security_code=security_code,
+            timeout=timeout,
+            token_type=token_type,
+            valid_card_types=valid_card_types,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return PaymentInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             call_sid=self._solution["call_sid"],
         )
+
+    async def create_with_http_info_async(
+        self,
+        idempotency_key: str,
+        status_callback: str,
+        bank_account_type: Union[
+            "PaymentInstance.BankAccountType", object
+        ] = values.unset,
+        charge_amount: Union[float, object] = values.unset,
+        currency: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        input: Union[str, object] = values.unset,
+        min_postal_code_length: Union[int, object] = values.unset,
+        parameter: Union[object, object] = values.unset,
+        payment_connector: Union[str, object] = values.unset,
+        payment_method: Union["PaymentInstance.PaymentMethod", object] = values.unset,
+        postal_code: Union[bool, object] = values.unset,
+        security_code: Union[bool, object] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        token_type: Union["PaymentInstance.TokenType", object] = values.unset,
+        valid_card_types: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the PaymentInstance and return response metadata
+
+        :param idempotency_key: A unique token that will be used to ensure that multiple API calls with the same information do not result in multiple transactions. This should be a unique string value per API call and can be a randomly generated.
+        :param status_callback: Provide an absolute or relative URL to receive status updates regarding your Pay session. Read more about the [expected StatusCallback values](https://www.twilio.com/docs/voice/api/payment-resource#statuscallback)
+        :param bank_account_type:
+        :param charge_amount: A positive decimal value less than 1,000,000 to charge against the credit card or bank account. Default currency can be overwritten with `currency` field. Leave blank or set to 0 to tokenize.
+        :param currency: The currency of the `charge_amount`, formatted as [ISO 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The default value is `USD` and all values allowed from the Pay Connector are accepted.
+        :param description: The description can be used to provide more details regarding the transaction. This information is submitted along with the payment details to the Payment Connector which are then posted on the transactions.
+        :param input: A list of inputs that should be accepted. Currently only `dtmf` is supported. All digits captured during a pay session are redacted from the logs.
+        :param min_postal_code_length: A positive integer that is used to validate the length of the `PostalCode` inputted by the user. User must enter this many digits.
+        :param parameter: A single-level JSON object used to pass custom parameters to payment processors. (Required for ACH payments). The information that has to be included here depends on the <Pay> Connector. [Read more](https://www.twilio.com/console/voice/pay-connectors).
+        :param payment_connector: This is the unique name corresponding to the Pay Connector installed in the Twilio Add-ons. Learn more about [<Pay> Connectors](https://www.twilio.com/console/voice/pay-connectors). The default value is `Default`.
+        :param payment_method:
+        :param postal_code: Indicates whether the credit card postal code (zip code) is a required piece of payment information that must be provided by the caller. The default is `true`.
+        :param security_code: Indicates whether the credit card security code is a required piece of payment information that must be provided by the caller. The default is `true`.
+        :param timeout: The number of seconds that <Pay> should wait for the caller to press a digit between each subsequent digit, after the first one, before moving on to validate the digits captured. The default is `5`, maximum is `600`.
+        :param token_type:
+        :param valid_card_types: Credit card types separated by space that Pay should accept. The default value is `visa mastercard amex`
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            idempotency_key=idempotency_key,
+            status_callback=status_callback,
+            bank_account_type=bank_account_type,
+            charge_amount=charge_amount,
+            currency=currency,
+            description=description,
+            input=input,
+            min_postal_code_length=min_postal_code_length,
+            parameter=parameter,
+            payment_connector=payment_connector,
+            payment_method=payment_method,
+            postal_code=postal_code,
+            security_code=security_code,
+            timeout=timeout,
+            token_type=token_type,
+            valid_card_types=valid_card_types,
+        )
+        instance = PaymentInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def get(self, sid: str) -> PaymentContext:
         """

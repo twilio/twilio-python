@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -139,6 +140,34 @@ class LookupOverrideInstance(InstanceResource):
             overrides_request=overrides_request,
         )
 
+    def create_with_http_info(
+        self, overrides_request: Union[OverridesRequest, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Create the LookupOverrideInstance with HTTP info
+
+        :param overrides_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.create_with_http_info(
+            overrides_request=overrides_request,
+        )
+
+    async def create_with_http_info_async(
+        self, overrides_request: Union[OverridesRequest, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to create the LookupOverrideInstance with HTTP info
+
+        :param overrides_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.create_with_http_info_async(
+            overrides_request=overrides_request,
+        )
+
     def delete(self) -> bool:
         """
         Deletes the LookupOverrideInstance
@@ -157,6 +186,24 @@ class LookupOverrideInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the LookupOverrideInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the LookupOverrideInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "LookupOverrideInstance":
         """
         Fetch the LookupOverrideInstance
@@ -174,6 +221,24 @@ class LookupOverrideInstance(InstanceResource):
         :returns: The fetched LookupOverrideInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the LookupOverrideInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the LookupOverrideInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self, overrides_request: Union[OverridesRequest, object] = values.unset
@@ -200,6 +265,34 @@ class LookupOverrideInstance(InstanceResource):
         :returns: The updated LookupOverrideInstance
         """
         return await self._proxy.update_async(
+            overrides_request=overrides_request,
+        )
+
+    def update_with_http_info(
+        self, overrides_request: Union[OverridesRequest, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the LookupOverrideInstance with HTTP info
+
+        :param overrides_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            overrides_request=overrides_request,
+        )
+
+    async def update_with_http_info_async(
+        self, overrides_request: Union[OverridesRequest, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the LookupOverrideInstance with HTTP info
+
+        :param overrides_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             overrides_request=overrides_request,
         )
 
@@ -253,6 +346,27 @@ class LookupOverrideContext(InstanceContext):
             **self._solution
         )
 
+    def _create(
+        self, overrides_request: Union[OverridesRequest, object] = values.unset
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = overrides_request.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self, overrides_request: Union[OverridesRequest, object] = values.unset
     ) -> LookupOverrideInstance:
@@ -263,6 +377,44 @@ class LookupOverrideContext(InstanceContext):
 
         :returns: The created LookupOverrideInstance
         """
+        payload, _, _ = self._create(overrides_request=overrides_request)
+        return LookupOverrideInstance(
+            self._version,
+            payload,
+            field=self._solution["field"],
+            phone_number=self._solution["phone_number"],
+        )
+
+    def create_with_http_info(
+        self, overrides_request: Union[OverridesRequest, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Create the LookupOverrideInstance and return response metadata
+
+        :param overrides_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            overrides_request=overrides_request
+        )
+        instance = LookupOverrideInstance(
+            self._version,
+            payload,
+            field=self._solution["field"],
+            phone_number=self._solution["phone_number"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self, overrides_request: Union[OverridesRequest, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = overrides_request.to_dict()
 
         headers = values.of({})
@@ -271,15 +423,8 @@ class LookupOverrideContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return LookupOverrideInstance(
-            self._version,
-            payload,
-            field=self._solution["field"],
-            phone_number=self._solution["phone_number"],
         )
 
     async def create_async(
@@ -292,23 +437,49 @@ class LookupOverrideContext(InstanceContext):
 
         :returns: The created LookupOverrideInstance
         """
-        data = overrides_request.to_dict()
-
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._create_async(overrides_request=overrides_request)
         return LookupOverrideInstance(
             self._version,
             payload,
             field=self._solution["field"],
             phone_number=self._solution["phone_number"],
+        )
+
+    async def create_with_http_info_async(
+        self, overrides_request: Union[OverridesRequest, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to create the LookupOverrideInstance and return response metadata
+
+        :param overrides_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            overrides_request=overrides_request
+        )
+        instance = LookupOverrideInstance(
+            self._version,
+            payload,
+            field=self._solution["field"],
+            phone_number=self._solution["phone_number"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
         )
 
     def delete(self) -> bool:
@@ -318,12 +489,34 @@ class LookupOverrideContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the LookupOverrideInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -332,13 +525,33 @@ class LookupOverrideContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the LookupOverrideInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> LookupOverrideInstance:
@@ -348,18 +561,44 @@ class LookupOverrideContext(InstanceContext):
 
         :returns: The fetched LookupOverrideInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return LookupOverrideInstance(
             self._version,
             payload,
             field=self._solution["field"],
             phone_number=self._solution["phone_number"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the LookupOverrideInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = LookupOverrideInstance(
+            self._version,
+            payload,
+            field=self._solution["field"],
+            phone_number=self._solution["phone_number"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> LookupOverrideInstance:
@@ -369,20 +608,49 @@ class LookupOverrideContext(InstanceContext):
 
         :returns: The fetched LookupOverrideInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return LookupOverrideInstance(
             self._version,
             payload,
             field=self._solution["field"],
             phone_number=self._solution["phone_number"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the LookupOverrideInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = LookupOverrideInstance(
+            self._version,
+            payload,
+            field=self._solution["field"],
+            phone_number=self._solution["phone_number"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self, overrides_request: Union[OverridesRequest, object] = values.unset
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = overrides_request.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="PUT", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -395,6 +663,44 @@ class LookupOverrideContext(InstanceContext):
 
         :returns: The updated LookupOverrideInstance
         """
+        payload, _, _ = self._update(overrides_request=overrides_request)
+        return LookupOverrideInstance(
+            self._version,
+            payload,
+            field=self._solution["field"],
+            phone_number=self._solution["phone_number"],
+        )
+
+    def update_with_http_info(
+        self, overrides_request: Union[OverridesRequest, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the LookupOverrideInstance and return response metadata
+
+        :param overrides_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            overrides_request=overrides_request
+        )
+        instance = LookupOverrideInstance(
+            self._version,
+            payload,
+            field=self._solution["field"],
+            phone_number=self._solution["phone_number"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self, overrides_request: Union[OverridesRequest, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = overrides_request.to_dict()
 
         headers = values.of({})
@@ -403,15 +709,8 @@ class LookupOverrideContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="PUT", uri=self._uri, data=data, headers=headers
-        )
-
-        return LookupOverrideInstance(
-            self._version,
-            payload,
-            field=self._solution["field"],
-            phone_number=self._solution["phone_number"],
         )
 
     async def update_async(
@@ -424,24 +723,34 @@ class LookupOverrideContext(InstanceContext):
 
         :returns: The updated LookupOverrideInstance
         """
-        data = overrides_request.to_dict()
-
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="PUT", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(overrides_request=overrides_request)
         return LookupOverrideInstance(
             self._version,
             payload,
             field=self._solution["field"],
             phone_number=self._solution["phone_number"],
         )
+
+    async def update_with_http_info_async(
+        self, overrides_request: Union[OverridesRequest, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the LookupOverrideInstance and return response metadata
+
+        :param overrides_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            overrides_request=overrides_request
+        )
+        instance = LookupOverrideInstance(
+            self._version,
+            payload,
+            field=self._solution["field"],
+            phone_number=self._solution["phone_number"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -160,6 +161,24 @@ class RoomInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the RoomInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the RoomInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(self, status: "RoomInstance.RoomStatus") -> "RoomInstance":
         """
         Update the RoomInstance
@@ -181,6 +200,32 @@ class RoomInstance(InstanceResource):
         :returns: The updated RoomInstance
         """
         return await self._proxy.update_async(
+            status=status,
+        )
+
+    def update_with_http_info(self, status: "RoomInstance.RoomStatus") -> ApiResponse:
+        """
+        Update the RoomInstance with HTTP info
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            status=status,
+        )
+
+    async def update_with_http_info_async(
+        self, status: "RoomInstance.RoomStatus"
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the RoomInstance with HTTP info
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             status=status,
         )
 
@@ -244,6 +289,22 @@ class RoomContext(InstanceContext):
         self._recordings: Optional[RoomRecordingList] = None
         self._transcriptions: Optional[TranscriptionsList] = None
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> RoomInstance:
         """
         Fetch the RoomInstance
@@ -251,17 +312,42 @@ class RoomContext(InstanceContext):
 
         :returns: The fetched RoomInstance
         """
+        payload, _, _ = self._fetch()
+        return RoomInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the RoomInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = RoomInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return RoomInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> RoomInstance:
@@ -271,19 +357,49 @@ class RoomContext(InstanceContext):
 
         :returns: The fetched RoomInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return RoomInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the RoomInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = RoomInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(self, status: "RoomInstance.RoomStatus") -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Status": status,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(self, status: "RoomInstance.RoomStatus") -> RoomInstance:
@@ -294,6 +410,28 @@ class RoomContext(InstanceContext):
 
         :returns: The updated RoomInstance
         """
+        payload, _, _ = self._update(status=status)
+        return RoomInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(self, status: "RoomInstance.RoomStatus") -> ApiResponse:
+        """
+        Update the RoomInstance and return response metadata
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(status=status)
+        instance = RoomInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(self, status: "RoomInstance.RoomStatus") -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -306,11 +444,9 @@ class RoomContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return RoomInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(self, status: "RoomInstance.RoomStatus") -> RoomInstance:
         """
@@ -320,23 +456,22 @@ class RoomContext(InstanceContext):
 
         :returns: The updated RoomInstance
         """
-
-        data = values.of(
-            {
-                "Status": status,
-            }
-        )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(status=status)
         return RoomInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(
+        self, status: "RoomInstance.RoomStatus"
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the RoomInstance and return response metadata
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(status=status)
+        instance = RoomInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def participants(self) -> ParticipantList:
@@ -428,6 +563,70 @@ class RoomList(ListResource):
 
         self._uri = "/Rooms"
 
+    def _create(
+        self,
+        enable_turn: Union[bool, object] = values.unset,
+        type: Union["RoomInstance.RoomType", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        record_participants_on_connect: Union[bool, object] = values.unset,
+        transcribe_participants_on_connect: Union[bool, object] = values.unset,
+        video_codecs: Union[List["RoomInstance.VideoCodec"], object] = values.unset,
+        media_region: Union[str, object] = values.unset,
+        recording_rules: Union[object, object] = values.unset,
+        transcriptions_configuration: Union[object, object] = values.unset,
+        audio_only: Union[bool, object] = values.unset,
+        max_participant_duration: Union[int, object] = values.unset,
+        empty_room_timeout: Union[int, object] = values.unset,
+        unused_room_timeout: Union[int, object] = values.unset,
+        large_room: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "EnableTurn": serialize.boolean_to_string(enable_turn),
+                "Type": type,
+                "UniqueName": unique_name,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+                "MaxParticipants": max_participants,
+                "RecordParticipantsOnConnect": serialize.boolean_to_string(
+                    record_participants_on_connect
+                ),
+                "TranscribeParticipantsOnConnect": serialize.boolean_to_string(
+                    transcribe_participants_on_connect
+                ),
+                "VideoCodecs": serialize.map(video_codecs, lambda e: e),
+                "MediaRegion": media_region,
+                "RecordingRules": serialize.object(recording_rules),
+                "TranscriptionsConfiguration": serialize.object(
+                    transcriptions_configuration
+                ),
+                "AudioOnly": serialize.boolean_to_string(audio_only),
+                "MaxParticipantDuration": max_participant_duration,
+                "EmptyRoomTimeout": empty_room_timeout,
+                "UnusedRoomTimeout": unused_room_timeout,
+                "LargeRoom": serialize.boolean_to_string(large_room),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         enable_turn: Union[bool, object] = values.unset,
@@ -471,6 +670,118 @@ class RoomList(ListResource):
 
         :returns: The created RoomInstance
         """
+        payload, _, _ = self._create(
+            enable_turn=enable_turn,
+            type=type,
+            unique_name=unique_name,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            max_participants=max_participants,
+            record_participants_on_connect=record_participants_on_connect,
+            transcribe_participants_on_connect=transcribe_participants_on_connect,
+            video_codecs=video_codecs,
+            media_region=media_region,
+            recording_rules=recording_rules,
+            transcriptions_configuration=transcriptions_configuration,
+            audio_only=audio_only,
+            max_participant_duration=max_participant_duration,
+            empty_room_timeout=empty_room_timeout,
+            unused_room_timeout=unused_room_timeout,
+            large_room=large_room,
+        )
+        return RoomInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        enable_turn: Union[bool, object] = values.unset,
+        type: Union["RoomInstance.RoomType", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        record_participants_on_connect: Union[bool, object] = values.unset,
+        transcribe_participants_on_connect: Union[bool, object] = values.unset,
+        video_codecs: Union[List["RoomInstance.VideoCodec"], object] = values.unset,
+        media_region: Union[str, object] = values.unset,
+        recording_rules: Union[object, object] = values.unset,
+        transcriptions_configuration: Union[object, object] = values.unset,
+        audio_only: Union[bool, object] = values.unset,
+        max_participant_duration: Union[int, object] = values.unset,
+        empty_room_timeout: Union[int, object] = values.unset,
+        unused_room_timeout: Union[int, object] = values.unset,
+        large_room: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the RoomInstance and return response metadata
+
+        :param enable_turn: Deprecated, now always considered to be true.
+        :param type:
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
+        :param status_callback: The URL Twilio should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
+        :param status_callback_method: The HTTP method Twilio should use to call `status_callback`. Can be `POST` or `GET`.
+        :param max_participants: The maximum number of concurrent Participants allowed in the room. The maximum allowed value is 50.
+        :param record_participants_on_connect: Whether to start recording when Participants connect.
+        :param transcribe_participants_on_connect: Whether to start transcriptions when Participants connect. If TranscriptionsConfiguration is not provided, default settings will be used.
+        :param video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.
+        :param media_region: The region for the Room's media server.  Can be one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers).
+        :param recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
+        :param transcriptions_configuration: A collection of properties that describe transcription behaviour. If TranscribeParticipantsOnConnect is set to true and TranscriptionsConfiguration is not provided, default settings will be used.
+        :param audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed.
+        :param max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
+        :param empty_room_timeout: Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
+        :param unused_room_timeout: Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
+        :param large_room: When set to true, indicated that this is the large room.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            enable_turn=enable_turn,
+            type=type,
+            unique_name=unique_name,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            max_participants=max_participants,
+            record_participants_on_connect=record_participants_on_connect,
+            transcribe_participants_on_connect=transcribe_participants_on_connect,
+            video_codecs=video_codecs,
+            media_region=media_region,
+            recording_rules=recording_rules,
+            transcriptions_configuration=transcriptions_configuration,
+            audio_only=audio_only,
+            max_participant_duration=max_participant_duration,
+            empty_room_timeout=empty_room_timeout,
+            unused_room_timeout=unused_room_timeout,
+            large_room=large_room,
+        )
+        instance = RoomInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        enable_turn: Union[bool, object] = values.unset,
+        type: Union["RoomInstance.RoomType", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        record_participants_on_connect: Union[bool, object] = values.unset,
+        transcribe_participants_on_connect: Union[bool, object] = values.unset,
+        video_codecs: Union[List["RoomInstance.VideoCodec"], object] = values.unset,
+        media_region: Union[str, object] = values.unset,
+        recording_rules: Union[object, object] = values.unset,
+        transcriptions_configuration: Union[object, object] = values.unset,
+        audio_only: Union[bool, object] = values.unset,
+        max_participant_duration: Union[int, object] = values.unset,
+        empty_room_timeout: Union[int, object] = values.unset,
+        unused_room_timeout: Union[int, object] = values.unset,
+        large_room: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -505,11 +816,9 @@ class RoomList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return RoomInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -554,45 +863,91 @@ class RoomList(ListResource):
 
         :returns: The created RoomInstance
         """
-
-        data = values.of(
-            {
-                "EnableTurn": serialize.boolean_to_string(enable_turn),
-                "Type": type,
-                "UniqueName": unique_name,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-                "MaxParticipants": max_participants,
-                "RecordParticipantsOnConnect": serialize.boolean_to_string(
-                    record_participants_on_connect
-                ),
-                "TranscribeParticipantsOnConnect": serialize.boolean_to_string(
-                    transcribe_participants_on_connect
-                ),
-                "VideoCodecs": serialize.map(video_codecs, lambda e: e),
-                "MediaRegion": media_region,
-                "RecordingRules": serialize.object(recording_rules),
-                "TranscriptionsConfiguration": serialize.object(
-                    transcriptions_configuration
-                ),
-                "AudioOnly": serialize.boolean_to_string(audio_only),
-                "MaxParticipantDuration": max_participant_duration,
-                "EmptyRoomTimeout": empty_room_timeout,
-                "UnusedRoomTimeout": unused_room_timeout,
-                "LargeRoom": serialize.boolean_to_string(large_room),
-            }
+        payload, _, _ = await self._create_async(
+            enable_turn=enable_turn,
+            type=type,
+            unique_name=unique_name,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            max_participants=max_participants,
+            record_participants_on_connect=record_participants_on_connect,
+            transcribe_participants_on_connect=transcribe_participants_on_connect,
+            video_codecs=video_codecs,
+            media_region=media_region,
+            recording_rules=recording_rules,
+            transcriptions_configuration=transcriptions_configuration,
+            audio_only=audio_only,
+            max_participant_duration=max_participant_duration,
+            empty_room_timeout=empty_room_timeout,
+            unused_room_timeout=unused_room_timeout,
+            large_room=large_room,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return RoomInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        enable_turn: Union[bool, object] = values.unset,
+        type: Union["RoomInstance.RoomType", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        record_participants_on_connect: Union[bool, object] = values.unset,
+        transcribe_participants_on_connect: Union[bool, object] = values.unset,
+        video_codecs: Union[List["RoomInstance.VideoCodec"], object] = values.unset,
+        media_region: Union[str, object] = values.unset,
+        recording_rules: Union[object, object] = values.unset,
+        transcriptions_configuration: Union[object, object] = values.unset,
+        audio_only: Union[bool, object] = values.unset,
+        max_participant_duration: Union[int, object] = values.unset,
+        empty_room_timeout: Union[int, object] = values.unset,
+        unused_room_timeout: Union[int, object] = values.unset,
+        large_room: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the RoomInstance and return response metadata
+
+        :param enable_turn: Deprecated, now always considered to be true.
+        :param type:
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used as a `room_sid` in place of the resource's `sid` in the URL to address the resource, assuming it does not contain any [reserved characters](https://tools.ietf.org/html/rfc3986#section-2.2) that would need to be URL encoded. This value is unique for `in-progress` rooms. SDK clients can use this name to connect to the room. REST API clients can use this name in place of the Room SID to interact with the room as long as the room is `in-progress`.
+        :param status_callback: The URL Twilio should call using the `status_callback_method` to send status information to your application on every room event. See [Status Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more info.
+        :param status_callback_method: The HTTP method Twilio should use to call `status_callback`. Can be `POST` or `GET`.
+        :param max_participants: The maximum number of concurrent Participants allowed in the room. The maximum allowed value is 50.
+        :param record_participants_on_connect: Whether to start recording when Participants connect.
+        :param transcribe_participants_on_connect: Whether to start transcriptions when Participants connect. If TranscriptionsConfiguration is not provided, default settings will be used.
+        :param video_codecs: An array of the video codecs that are supported when publishing a track in the room.  Can be: `VP8` and `H264`.
+        :param media_region: The region for the Room's media server.  Can be one of the [available Media Regions](https://www.twilio.com/docs/video/ip-addresses#group-rooms-media-servers).
+        :param recording_rules: A collection of Recording Rules that describe how to include or exclude matching tracks for recording
+        :param transcriptions_configuration: A collection of properties that describe transcription behaviour. If TranscribeParticipantsOnConnect is set to true and TranscriptionsConfiguration is not provided, default settings will be used.
+        :param audio_only: When set to true, indicates that the participants in the room will only publish audio. No video tracks will be allowed.
+        :param max_participant_duration: The maximum number of seconds a Participant can be connected to the room. The maximum possible value is 86400 seconds (24 hours). The default is 14400 seconds (4 hours).
+        :param empty_room_timeout: Configures how long (in minutes) a room will remain active after last participant leaves. Valid values range from 1 to 60 minutes (no fractions).
+        :param unused_room_timeout: Configures how long (in minutes) a room will remain active if no one joins. Valid values range from 1 to 60 minutes (no fractions).
+        :param large_room: When set to true, indicated that this is the large room.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            enable_turn=enable_turn,
+            type=type,
+            unique_name=unique_name,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            max_participants=max_participants,
+            record_participants_on_connect=record_participants_on_connect,
+            transcribe_participants_on_connect=transcribe_participants_on_connect,
+            video_codecs=video_codecs,
+            media_region=media_region,
+            recording_rules=recording_rules,
+            transcriptions_configuration=transcriptions_configuration,
+            audio_only=audio_only,
+            max_participant_duration=max_participant_duration,
+            empty_room_timeout=empty_room_timeout,
+            unused_room_timeout=unused_room_timeout,
+            large_room=large_room,
+        )
+        instance = RoomInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -672,6 +1027,82 @@ class RoomList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        status: Union["RoomInstance.RoomStatus", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams RoomInstance and returns headers from first page
+
+
+        :param &quot;RoomInstance.RoomStatus&quot; status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param str unique_name: Read only rooms with the this `unique_name`.
+        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
+        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            status=status,
+            unique_name=unique_name,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        status: Union["RoomInstance.RoomStatus", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams RoomInstance and returns headers from first page
+
+
+        :param &quot;RoomInstance.RoomStatus&quot; status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param str unique_name: Read only rooms with the this `unique_name`.
+        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
+        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            status=status,
+            unique_name=unique_name,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         status: Union["RoomInstance.RoomStatus", object] = values.unset,
@@ -748,6 +1179,80 @@ class RoomList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        status: Union["RoomInstance.RoomStatus", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists RoomInstance and returns headers from first page
+
+
+        :param &quot;RoomInstance.RoomStatus&quot; status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param str unique_name: Read only rooms with the this `unique_name`.
+        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
+        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            status=status,
+            unique_name=unique_name,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        status: Union["RoomInstance.RoomStatus", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists RoomInstance and returns headers from first page
+
+
+        :param &quot;RoomInstance.RoomStatus&quot; status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param str unique_name: Read only rooms with the this `unique_name`.
+        :param datetime date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
+        :param datetime date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            status=status,
+            unique_name=unique_name,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -838,6 +1343,100 @@ class RoomList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return RoomPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        status: Union["RoomInstance.RoomStatus", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param unique_name: Read only rooms with the this `unique_name`.
+        :param date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
+        :param date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with RoomPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Status": status,
+                "UniqueName": unique_name,
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = RoomPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        status: Union["RoomInstance.RoomStatus", object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param status: Read only the rooms with this status. Can be: `in-progress` (default) or `completed`
+        :param unique_name: Read only rooms with the this `unique_name`.
+        :param date_created_after: Read only rooms that started on or after this date, given as `YYYY-MM-DD`.
+        :param date_created_before: Read only rooms that started before this date, given as `YYYY-MM-DD`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with RoomPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Status": status,
+                "UniqueName": unique_name,
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = RoomPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> RoomPage:
         """

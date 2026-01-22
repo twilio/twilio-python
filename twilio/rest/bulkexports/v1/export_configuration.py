@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -81,6 +82,24 @@ class ExportConfigurationInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ExportConfigurationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ExportConfigurationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(
         self,
         enabled: Union[bool, object] = values.unset,
@@ -123,6 +142,48 @@ class ExportConfigurationInstance(InstanceResource):
             webhook_method=webhook_method,
         )
 
+    def update_with_http_info(
+        self,
+        enabled: Union[bool, object] = values.unset,
+        webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ExportConfigurationInstance with HTTP info
+
+        :param enabled: If true, Twilio will automatically generate every day's file when the day is over.
+        :param webhook_url: Stores the URL destination for the method specified in webhook_method.
+        :param webhook_method: Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            enabled=enabled,
+            webhook_url=webhook_url,
+            webhook_method=webhook_method,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        enabled: Union[bool, object] = values.unset,
+        webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ExportConfigurationInstance with HTTP info
+
+        :param enabled: If true, Twilio will automatically generate every day's file when the day is over.
+        :param webhook_url: Stores the URL destination for the method specified in webhook_method.
+        :param webhook_method: Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            enabled=enabled,
+            webhook_url=webhook_url,
+            webhook_method=webhook_method,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -150,6 +211,22 @@ class ExportConfigurationContext(InstanceContext):
         }
         self._uri = "/Exports/{resource_type}/Configuration".format(**self._solution)
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> ExportConfigurationInstance:
         """
         Fetch the ExportConfigurationInstance
@@ -157,17 +234,42 @@ class ExportConfigurationContext(InstanceContext):
 
         :returns: The fetched ExportConfigurationInstance
         """
+        payload, _, _ = self._fetch()
+        return ExportConfigurationInstance(
+            self._version,
+            payload,
+            resource_type=self._solution["resource_type"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ExportConfigurationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = ExportConfigurationInstance(
+            self._version,
+            payload,
+            resource_type=self._solution["resource_type"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return ExportConfigurationInstance(
-            self._version,
-            payload,
-            resource_type=self._solution["resource_type"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> ExportConfigurationInstance:
@@ -177,19 +279,56 @@ class ExportConfigurationContext(InstanceContext):
 
         :returns: The fetched ExportConfigurationInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return ExportConfigurationInstance(
             self._version,
             payload,
             resource_type=self._solution["resource_type"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ExportConfigurationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = ExportConfigurationInstance(
+            self._version,
+            payload,
+            resource_type=self._solution["resource_type"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        enabled: Union[bool, object] = values.unset,
+        webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Enabled": serialize.boolean_to_string(enabled),
+                "WebhookUrl": webhook_url,
+                "WebhookMethod": webhook_method,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -207,6 +346,48 @@ class ExportConfigurationContext(InstanceContext):
 
         :returns: The updated ExportConfigurationInstance
         """
+        payload, _, _ = self._update(
+            enabled=enabled, webhook_url=webhook_url, webhook_method=webhook_method
+        )
+        return ExportConfigurationInstance(
+            self._version, payload, resource_type=self._solution["resource_type"]
+        )
+
+    def update_with_http_info(
+        self,
+        enabled: Union[bool, object] = values.unset,
+        webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ExportConfigurationInstance and return response metadata
+
+        :param enabled: If true, Twilio will automatically generate every day's file when the day is over.
+        :param webhook_url: Stores the URL destination for the method specified in webhook_method.
+        :param webhook_method: Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            enabled=enabled, webhook_url=webhook_url, webhook_method=webhook_method
+        )
+        instance = ExportConfigurationInstance(
+            self._version, payload, resource_type=self._solution["resource_type"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        enabled: Union[bool, object] = values.unset,
+        webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -221,12 +402,8 @@ class ExportConfigurationContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ExportConfigurationInstance(
-            self._version, payload, resource_type=self._solution["resource_type"]
         )
 
     async def update_async(
@@ -244,27 +421,35 @@ class ExportConfigurationContext(InstanceContext):
 
         :returns: The updated ExportConfigurationInstance
         """
-
-        data = values.of(
-            {
-                "Enabled": serialize.boolean_to_string(enabled),
-                "WebhookUrl": webhook_url,
-                "WebhookMethod": webhook_method,
-            }
+        payload, _, _ = await self._update_async(
+            enabled=enabled, webhook_url=webhook_url, webhook_method=webhook_method
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ExportConfigurationInstance(
             self._version, payload, resource_type=self._solution["resource_type"]
         )
+
+    async def update_with_http_info_async(
+        self,
+        enabled: Union[bool, object] = values.unset,
+        webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ExportConfigurationInstance and return response metadata
+
+        :param enabled: If true, Twilio will automatically generate every day's file when the day is over.
+        :param webhook_url: Stores the URL destination for the method specified in webhook_method.
+        :param webhook_method: Sets whether Twilio should call a webhook URL when the automatic generation is complete, using GET or POST. The actual destination is set in the webhook_url
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            enabled=enabled, webhook_url=webhook_url, webhook_method=webhook_method
+        )
+        instance = ExportConfigurationInstance(
+            self._version, payload, resource_type=self._solution["resource_type"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

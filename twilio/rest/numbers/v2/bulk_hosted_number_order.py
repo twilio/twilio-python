@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -114,6 +115,34 @@ class BulkHostedNumberOrderInstance(InstanceResource):
             order_status=order_status,
         )
 
+    def fetch_with_http_info(
+        self, order_status: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the BulkHostedNumberOrderInstance with HTTP info
+
+        :param order_status: Order status can be used for filtering on Hosted Number Order status values. To see a complete list of order statuses, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            order_status=order_status,
+        )
+
+    async def fetch_with_http_info_async(
+        self, order_status: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the BulkHostedNumberOrderInstance with HTTP info
+
+        :param order_status: Order status can be used for filtering on Hosted Number Order status values. To see a complete list of order statuses, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            order_status=order_status,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -143,15 +172,12 @@ class BulkHostedNumberOrderContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(
-        self, order_status: Union[str, object] = values.unset
-    ) -> BulkHostedNumberOrderInstance:
+    def _fetch(self, order_status: Union[str, object] = values.unset) -> tuple:
         """
-        Fetch the BulkHostedNumberOrderInstance
+        Internal helper for fetch operation
 
-        :param order_status: Order status can be used for filtering on Hosted Number Order status values. To see a complete list of order statuses, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
-
-        :returns: The fetched BulkHostedNumberOrderInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         params = values.of(
@@ -164,14 +190,67 @@ class BulkHostedNumberOrderContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
+        return self._version.fetch_with_response_info(
             method="GET", uri=self._uri, params=params, headers=headers
         )
 
+    def fetch(
+        self, order_status: Union[str, object] = values.unset
+    ) -> BulkHostedNumberOrderInstance:
+        """
+        Fetch the BulkHostedNumberOrderInstance
+
+        :param order_status: Order status can be used for filtering on Hosted Number Order status values. To see a complete list of order statuses, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
+
+        :returns: The fetched BulkHostedNumberOrderInstance
+        """
+        payload, _, _ = self._fetch(order_status=order_status)
         return BulkHostedNumberOrderInstance(
             self._version,
             payload,
             bulk_hosting_sid=self._solution["bulk_hosting_sid"],
+        )
+
+    def fetch_with_http_info(
+        self, order_status: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the BulkHostedNumberOrderInstance and return response metadata
+
+        :param order_status: Order status can be used for filtering on Hosted Number Order status values. To see a complete list of order statuses, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(order_status=order_status)
+        instance = BulkHostedNumberOrderInstance(
+            self._version,
+            payload,
+            bulk_hosting_sid=self._solution["bulk_hosting_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self, order_status: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        params = values.of(
+            {
+                "OrderStatus": order_status,
+            }
+        )
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
     async def fetch_async(
@@ -184,26 +263,32 @@ class BulkHostedNumberOrderContext(InstanceContext):
 
         :returns: The fetched BulkHostedNumberOrderInstance
         """
-
-        params = values.of(
-            {
-                "OrderStatus": order_status,
-            }
-        )
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async(order_status=order_status)
         return BulkHostedNumberOrderInstance(
             self._version,
             payload,
             bulk_hosting_sid=self._solution["bulk_hosting_sid"],
         )
+
+    async def fetch_with_http_info_async(
+        self, order_status: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the BulkHostedNumberOrderInstance and return response metadata
+
+        :param order_status: Order status can be used for filtering on Hosted Number Order status values. To see a complete list of order statuses, please check 'https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/hosted-number-order-resource#status-values'.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            order_status=order_status
+        )
+        instance = BulkHostedNumberOrderInstance(
+            self._version,
+            payload,
+            bulk_hosting_sid=self._solution["bulk_hosting_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -228,6 +313,25 @@ class BulkHostedNumberOrderList(ListResource):
 
         self._uri = "/HostedNumber/Orders/Bulk"
 
+    def _create(self, body: Union[object, object] = values.unset) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = body.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self, body: Union[object, object] = values.unset
     ) -> BulkHostedNumberOrderInstance:
@@ -238,6 +342,30 @@ class BulkHostedNumberOrderList(ListResource):
 
         :returns: The created BulkHostedNumberOrderInstance
         """
+        payload, _, _ = self._create(body=body)
+        return BulkHostedNumberOrderInstance(self._version, payload)
+
+    def create_with_http_info(
+        self, body: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Create the BulkHostedNumberOrderInstance and return response metadata
+
+        :param body:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(body=body)
+        instance = BulkHostedNumberOrderInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(self, body: Union[object, object] = values.unset) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = body.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -246,11 +374,9 @@ class BulkHostedNumberOrderList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return BulkHostedNumberOrderInstance(self._version, payload)
 
     async def create_async(
         self, body: Union[object, object] = values.unset
@@ -262,19 +388,22 @@ class BulkHostedNumberOrderList(ListResource):
 
         :returns: The created BulkHostedNumberOrderInstance
         """
-        data = body.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._create_async(body=body)
         return BulkHostedNumberOrderInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self, body: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronously create the BulkHostedNumberOrderInstance and return response metadata
+
+        :param body:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(body=body)
+        instance = BulkHostedNumberOrderInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def get(self, bulk_hosting_sid: str) -> BulkHostedNumberOrderContext:
         """

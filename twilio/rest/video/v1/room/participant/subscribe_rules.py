@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -88,24 +89,65 @@ class SubscribeRulesList(ListResource):
             )
         )
 
-    def fetch(self) -> SubscribeRulesInstance:
+    def _fetch(self) -> tuple:
         """
-        Asynchronously fetch the SubscribeRulesInstance
+        Internal helper for fetch operation
 
-
-        :returns: The fetched SubscribeRulesInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
 
+    def fetch(self) -> SubscribeRulesInstance:
+        """
+        Fetch the SubscribeRulesInstance
+
+
+        :returns: The fetched SubscribeRulesInstance
+        """
+        payload, _, _ = self._fetch()
         return SubscribeRulesInstance(
             self._version,
             payload,
             room_sid=self._solution["room_sid"],
             participant_sid=self._solution["participant_sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the SubscribeRulesInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = SubscribeRulesInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            participant_sid=self._solution["participant_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> SubscribeRulesInstance:
@@ -115,19 +157,51 @@ class SubscribeRulesList(ListResource):
 
         :returns: The fetched SubscribeRulesInstance
         """
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return SubscribeRulesInstance(
             self._version,
             payload,
             room_sid=self._solution["room_sid"],
             participant_sid=self._solution["participant_sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronously fetch the SubscribeRulesInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = SubscribeRulesInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            participant_sid=self._solution["participant_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(self, rules: Union[object, object] = values.unset) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Rules": serialize.object(rules),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -138,7 +212,41 @@ class SubscribeRulesList(ListResource):
 
         :param rules: A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
 
-        :returns: The created SubscribeRulesInstance
+        :returns: The updated SubscribeRulesInstance
+        """
+        payload, _, _ = self._update(rules=rules)
+        return SubscribeRulesInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            participant_sid=self._solution["participant_sid"],
+        )
+
+    def update_with_http_info(
+        self, rules: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the SubscribeRulesInstance and return response metadata
+
+        :param rules: A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(rules=rules)
+        instance = SubscribeRulesInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            participant_sid=self._solution["participant_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(self, rules: Union[object, object] = values.unset) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -152,15 +260,8 @@ class SubscribeRulesList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return SubscribeRulesInstance(
-            self._version,
-            payload,
-            room_sid=self._solution["room_sid"],
-            participant_sid=self._solution["participant_sid"],
         )
 
     async def update_async(
@@ -171,30 +272,34 @@ class SubscribeRulesList(ListResource):
 
         :param rules: A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
 
-        :returns: The created SubscribeRulesInstance
+        :returns: The updated SubscribeRulesInstance
         """
-
-        data = values.of(
-            {
-                "Rules": serialize.object(rules),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(rules=rules)
         return SubscribeRulesInstance(
             self._version,
             payload,
             room_sid=self._solution["room_sid"],
             participant_sid=self._solution["participant_sid"],
         )
+
+    async def update_with_http_info_async(
+        self, rules: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronously update the SubscribeRulesInstance and return response metadata
+
+        :param rules: A JSON-encoded array of subscribe rules. See the [Specifying Subscribe Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(rules=rules)
+        instance = SubscribeRulesInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            participant_sid=self._solution["participant_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

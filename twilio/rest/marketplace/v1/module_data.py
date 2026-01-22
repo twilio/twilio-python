@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -71,18 +72,16 @@ class ModuleDataList(ListResource):
 
         self._uri = "/Listings"
 
-    def create(
+    def _create(
         self,
         module_info: Union[str, object] = values.unset,
         configuration: Union[str, object] = values.unset,
-    ) -> ModuleDataInstance:
+    ) -> tuple:
         """
-        Create the ModuleDataInstance
+        Internal helper for create operation
 
-        :param module_info: A JSON object containing essential attributes that define a Listing.
-        :param configuration: A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
-
-        :returns: The created ModuleDataInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -97,11 +96,74 @@ class ModuleDataList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        module_info: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
+    ) -> ModuleDataInstance:
+        """
+        Create the ModuleDataInstance
+
+        :param module_info: A JSON object containing essential attributes that define a Listing.
+        :param configuration: A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
+
+        :returns: The created ModuleDataInstance
+        """
+        payload, _, _ = self._create(
+            module_info=module_info, configuration=configuration
+        )
         return ModuleDataInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        module_info: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the ModuleDataInstance and return response metadata
+
+        :param module_info: A JSON object containing essential attributes that define a Listing.
+        :param configuration: A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            module_info=module_info, configuration=configuration
+        )
+        instance = ModuleDataInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        module_info: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "ModuleInfo": module_info,
+                "Configuration": configuration,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(
         self,
@@ -116,39 +178,80 @@ class ModuleDataList(ListResource):
 
         :returns: The created ModuleDataInstance
         """
-
-        data = values.of(
-            {
-                "ModuleInfo": module_info,
-                "Configuration": configuration,
-            }
+        payload, _, _ = await self._create_async(
+            module_info=module_info, configuration=configuration
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+        return ModuleDataInstance(self._version, payload)
 
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
+    async def create_with_http_info_async(
+        self,
+        module_info: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the ModuleDataInstance and return response metadata
+
+        :param module_info: A JSON object containing essential attributes that define a Listing.
+        :param configuration: A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            module_info=module_info, configuration=configuration
+        )
+        instance = ModuleDataInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Accept"] = "application/json"
 
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
-
-        return ModuleDataInstance(self._version, payload)
 
     def fetch(self) -> ModuleDataInstance:
         """
-        Asynchronously fetch the ModuleDataInstance
+        Fetch the ModuleDataInstance
 
 
         :returns: The fetched ModuleDataInstance
         """
+        payload, _, _ = self._fetch()
+        return ModuleDataInstance(self._version, payload)
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ModuleDataInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = ModuleDataInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return ModuleDataInstance(self._version, payload)
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
+        )
 
     async def fetch_async(self) -> ModuleDataInstance:
         """
@@ -157,15 +260,19 @@ class ModuleDataList(ListResource):
 
         :returns: The fetched ModuleDataInstance
         """
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return ModuleDataInstance(self._version, payload)
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronously fetch the ModuleDataInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = ModuleDataInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

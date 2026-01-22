@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -133,6 +134,24 @@ class BundleInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the BundleInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the BundleInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "BundleInstance":
         """
         Fetch the BundleInstance
@@ -150,6 +169,24 @@ class BundleInstance(InstanceResource):
         :returns: The fetched BundleInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the BundleInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the BundleInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -193,6 +230,54 @@ class BundleInstance(InstanceResource):
         :returns: The updated BundleInstance
         """
         return await self._proxy.update_async(
+            status=status,
+            status_callback=status_callback,
+            friendly_name=friendly_name,
+            email=email,
+        )
+
+    def update_with_http_info(
+        self,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the BundleInstance with HTTP info
+
+        :param status:
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Bundle resource changes status.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            status=status,
+            status_callback=status_callback,
+            friendly_name=friendly_name,
+            email=email,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the BundleInstance with HTTP info
+
+        :param status:
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Bundle resource changes status.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             status=status,
             status_callback=status_callback,
             friendly_name=friendly_name,
@@ -259,6 +344,20 @@ class BundleContext(InstanceContext):
         self._item_assignments: Optional[ItemAssignmentList] = None
         self._replace_items: Optional[ReplaceItemsList] = None
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the BundleInstance
@@ -266,10 +365,32 @@ class BundleContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the BundleInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -278,11 +399,33 @@ class BundleContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the BundleInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> BundleInstance:
@@ -292,17 +435,42 @@ class BundleContext(InstanceContext):
 
         :returns: The fetched BundleInstance
         """
+        payload, _, _ = self._fetch()
+        return BundleInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the BundleInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = BundleInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return BundleInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> BundleInstance:
@@ -312,19 +480,58 @@ class BundleContext(InstanceContext):
 
         :returns: The fetched BundleInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return BundleInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the BundleInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = BundleInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Status": status,
+                "StatusCallback": status_callback,
+                "FriendlyName": friendly_name,
+                "Email": email,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -344,6 +551,53 @@ class BundleContext(InstanceContext):
 
         :returns: The updated BundleInstance
         """
+        payload, _, _ = self._update(
+            status=status,
+            status_callback=status_callback,
+            friendly_name=friendly_name,
+            email=email,
+        )
+        return BundleInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(
+        self,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the BundleInstance and return response metadata
+
+        :param status:
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Bundle resource changes status.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            status=status,
+            status_callback=status_callback,
+            friendly_name=friendly_name,
+            email=email,
+        )
+        instance = BundleInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -359,11 +613,9 @@ class BundleContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return BundleInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
         self,
@@ -382,26 +634,39 @@ class BundleContext(InstanceContext):
 
         :returns: The updated BundleInstance
         """
-
-        data = values.of(
-            {
-                "Status": status,
-                "StatusCallback": status_callback,
-                "FriendlyName": friendly_name,
-                "Email": email,
-            }
+        payload, _, _ = await self._update_async(
+            status=status,
+            status_callback=status_callback,
+            friendly_name=friendly_name,
+            email=email,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return BundleInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(
+        self,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the BundleInstance and return response metadata
+
+        :param status:
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Bundle resource changes status.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            status=status,
+            status_callback=status_callback,
+            friendly_name=friendly_name,
+            email=email,
+        )
+        instance = BundleInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def bundle_copies(self) -> BundleCopyList:
@@ -493,6 +758,46 @@ class BundleList(ListResource):
 
         self._uri = "/RegulatoryCompliance/Bundles"
 
+    def _create(
+        self,
+        friendly_name: str,
+        email: str,
+        status_callback: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        end_user_type: Union["BundleInstance.EndUserType", object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        is_test: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Email": email,
+                "StatusCallback": status_callback,
+                "RegulationSid": regulation_sid,
+                "IsoCountry": iso_country,
+                "EndUserType": end_user_type,
+                "NumberType": number_type,
+                "IsTest": serialize.boolean_to_string(is_test),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         friendly_name: str,
@@ -518,6 +823,73 @@ class BundleList(ListResource):
 
         :returns: The created BundleInstance
         """
+        payload, _, _ = self._create(
+            friendly_name=friendly_name,
+            email=email,
+            status_callback=status_callback,
+            regulation_sid=regulation_sid,
+            iso_country=iso_country,
+            end_user_type=end_user_type,
+            number_type=number_type,
+            is_test=is_test,
+        )
+        return BundleInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        friendly_name: str,
+        email: str,
+        status_callback: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        end_user_type: Union["BundleInstance.EndUserType", object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        is_test: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the BundleInstance and return response metadata
+
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Bundle resource changes status.
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param regulation_sid: The unique string of a regulation that is associated to the Bundle resource.
+        :param iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
+        :param end_user_type:
+        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param is_test: Indicates that Bundle is a Test Bundle and will be Auto-Rejected
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            friendly_name=friendly_name,
+            email=email,
+            status_callback=status_callback,
+            regulation_sid=regulation_sid,
+            iso_country=iso_country,
+            end_user_type=end_user_type,
+            number_type=number_type,
+            is_test=is_test,
+        )
+        instance = BundleInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        friendly_name: str,
+        email: str,
+        status_callback: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        end_user_type: Union["BundleInstance.EndUserType", object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        is_test: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -537,11 +909,9 @@ class BundleList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return BundleInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -568,30 +938,55 @@ class BundleList(ListResource):
 
         :returns: The created BundleInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Email": email,
-                "StatusCallback": status_callback,
-                "RegulationSid": regulation_sid,
-                "IsoCountry": iso_country,
-                "EndUserType": end_user_type,
-                "NumberType": number_type,
-                "IsTest": serialize.boolean_to_string(is_test),
-            }
+        payload, _, _ = await self._create_async(
+            friendly_name=friendly_name,
+            email=email,
+            status_callback=status_callback,
+            regulation_sid=regulation_sid,
+            iso_country=iso_country,
+            end_user_type=end_user_type,
+            number_type=number_type,
+            is_test=is_test,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return BundleInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        friendly_name: str,
+        email: str,
+        status_callback: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        end_user_type: Union["BundleInstance.EndUserType", object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        is_test: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the BundleInstance and return response metadata
+
+        :param friendly_name: The string that you assigned to describe the resource.
+        :param email: The email address that will receive updates when the Bundle resource changes status.
+        :param status_callback: The URL we call to inform your application of status changes.
+        :param regulation_sid: The unique string of a regulation that is associated to the Bundle resource.
+        :param iso_country: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
+        :param end_user_type:
+        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param is_test: Indicates that Bundle is a Test Bundle and will be Auto-Rejected
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            friendly_name=friendly_name,
+            email=email,
+            status_callback=status_callback,
+            regulation_sid=regulation_sid,
+            iso_country=iso_country,
+            end_user_type=end_user_type,
+            number_type=number_type,
+            is_test=is_test,
+        )
+        instance = BundleInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -713,6 +1108,124 @@ class BundleList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        has_valid_until_date: Union[bool, object] = values.unset,
+        sort_by: Union["BundleInstance.SortBy", object] = values.unset,
+        sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
+        valid_until_date: Union[datetime, object] = values.unset,
+        valid_until_date_before: Union[datetime, object] = values.unset,
+        valid_until_date_after: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams BundleInstance and returns headers from first page
+
+
+        :param &quot;BundleInstance.Status&quot; status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
+        :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
+        :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
+        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
+        :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+        :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
+        :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            status=status,
+            friendly_name=friendly_name,
+            regulation_sid=regulation_sid,
+            iso_country=iso_country,
+            number_type=number_type,
+            has_valid_until_date=has_valid_until_date,
+            sort_by=sort_by,
+            sort_direction=sort_direction,
+            valid_until_date=valid_until_date,
+            valid_until_date_before=valid_until_date_before,
+            valid_until_date_after=valid_until_date_after,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        has_valid_until_date: Union[bool, object] = values.unset,
+        sort_by: Union["BundleInstance.SortBy", object] = values.unset,
+        sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
+        valid_until_date: Union[datetime, object] = values.unset,
+        valid_until_date_before: Union[datetime, object] = values.unset,
+        valid_until_date_after: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams BundleInstance and returns headers from first page
+
+
+        :param &quot;BundleInstance.Status&quot; status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
+        :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
+        :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
+        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
+        :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+        :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
+        :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            status=status,
+            friendly_name=friendly_name,
+            regulation_sid=regulation_sid,
+            iso_country=iso_country,
+            number_type=number_type,
+            has_valid_until_date=has_valid_until_date,
+            sort_by=sort_by,
+            sort_direction=sort_direction,
+            valid_until_date=valid_until_date,
+            valid_until_date_before=valid_until_date_before,
+            valid_until_date_after=valid_until_date_after,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         status: Union["BundleInstance.Status", object] = values.unset,
@@ -831,6 +1344,122 @@ class BundleList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        has_valid_until_date: Union[bool, object] = values.unset,
+        sort_by: Union["BundleInstance.SortBy", object] = values.unset,
+        sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
+        valid_until_date: Union[datetime, object] = values.unset,
+        valid_until_date_before: Union[datetime, object] = values.unset,
+        valid_until_date_after: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists BundleInstance and returns headers from first page
+
+
+        :param &quot;BundleInstance.Status&quot; status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
+        :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
+        :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
+        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
+        :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+        :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
+        :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            status=status,
+            friendly_name=friendly_name,
+            regulation_sid=regulation_sid,
+            iso_country=iso_country,
+            number_type=number_type,
+            has_valid_until_date=has_valid_until_date,
+            sort_by=sort_by,
+            sort_direction=sort_direction,
+            valid_until_date=valid_until_date,
+            valid_until_date_before=valid_until_date_before,
+            valid_until_date_after=valid_until_date_after,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        has_valid_until_date: Union[bool, object] = values.unset,
+        sort_by: Union["BundleInstance.SortBy", object] = values.unset,
+        sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
+        valid_until_date: Union[datetime, object] = values.unset,
+        valid_until_date_before: Union[datetime, object] = values.unset,
+        valid_until_date_after: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists BundleInstance and returns headers from first page
+
+
+        :param &quot;BundleInstance.Status&quot; status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param str friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
+        :param str regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
+        :param str iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
+        :param str number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param bool has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
+        :param &quot;BundleInstance.SortBy&quot; sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+        :param &quot;BundleInstance.SortDirection&quot; sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
+        :param datetime valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param datetime valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param datetime valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            status=status,
+            friendly_name=friendly_name,
+            regulation_sid=regulation_sid,
+            iso_country=iso_country,
+            number_type=number_type,
+            has_valid_until_date=has_valid_until_date,
+            sort_by=sort_by,
+            sort_direction=sort_direction,
+            valid_until_date=valid_until_date,
+            valid_until_date_before=valid_until_date_before,
+            valid_until_date_after=valid_until_date_after,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -963,6 +1592,142 @@ class BundleList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return BundlePage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        has_valid_until_date: Union[bool, object] = values.unset,
+        sort_by: Union["BundleInstance.SortBy", object] = values.unset,
+        sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
+        valid_until_date: Union[datetime, object] = values.unset,
+        valid_until_date_before: Union[datetime, object] = values.unset,
+        valid_until_date_after: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
+        :param regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
+        :param iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
+        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
+        :param sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+        :param sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
+        :param valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with BundlePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Status": status,
+                "FriendlyName": friendly_name,
+                "RegulationSid": regulation_sid,
+                "IsoCountry": iso_country,
+                "NumberType": number_type,
+                "HasValidUntilDate": serialize.boolean_to_string(has_valid_until_date),
+                "SortBy": sort_by,
+                "SortDirection": sort_direction,
+                "ValidUntilDate": serialize.iso8601_datetime(valid_until_date),
+                "ValidUntilDate<": serialize.iso8601_datetime(valid_until_date_before),
+                "ValidUntilDate>": serialize.iso8601_datetime(valid_until_date_after),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = BundlePage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        status: Union["BundleInstance.Status", object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        regulation_sid: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        has_valid_until_date: Union[bool, object] = values.unset,
+        sort_by: Union["BundleInstance.SortBy", object] = values.unset,
+        sort_direction: Union["BundleInstance.SortDirection", object] = values.unset,
+        valid_until_date: Union[datetime, object] = values.unset,
+        valid_until_date_before: Union[datetime, object] = values.unset,
+        valid_until_date_after: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param status: The verification status of the Bundle resource. Please refer to [Bundle Statuses](https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses) for more details.
+        :param friendly_name: The string that you assigned to describe the resource. The column can contain 255 variable characters.
+        :param regulation_sid: The unique string of a [Regulation resource](https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations) that is associated to the Bundle resource.
+        :param iso_country: The 2-digit [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the Bundle's phone number country ownership request.
+        :param number_type: The type of phone number of the Bundle's ownership request. Can be `local`, `mobile`, `national`, or `toll-free`.
+        :param has_valid_until_date: Indicates that the Bundle is a valid Bundle until a specified expiration date.
+        :param sort_by: Can be `valid-until` or `date-updated`. Defaults to `date-created`.
+        :param sort_direction: Default is `DESC`. Can be `ASC` or `DESC`.
+        :param valid_until_date: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param valid_until_date_before: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param valid_until_date_after: Date to filter Bundles having their `valid_until_date` before or after the specified date. Can be `ValidUntilDate>=` or `ValidUntilDate<=`. Both can be used in conjunction as well. [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) is the acceptable date format.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with BundlePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Status": status,
+                "FriendlyName": friendly_name,
+                "RegulationSid": regulation_sid,
+                "IsoCountry": iso_country,
+                "NumberType": number_type,
+                "HasValidUntilDate": serialize.boolean_to_string(has_valid_until_date),
+                "SortBy": sort_by,
+                "SortDirection": sort_direction,
+                "ValidUntilDate": serialize.iso8601_datetime(valid_until_date),
+                "ValidUntilDate<": serialize.iso8601_datetime(valid_until_date_before),
+                "ValidUntilDate>": serialize.iso8601_datetime(valid_until_date_after),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = BundlePage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> BundlePage:
         """

@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -142,6 +143,24 @@ class UsAppToPersonInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the UsAppToPersonInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the UsAppToPersonInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "UsAppToPersonInstance":
         """
         Fetch the UsAppToPersonInstance
@@ -159,6 +178,24 @@ class UsAppToPersonInstance(InstanceResource):
         :returns: The fetched UsAppToPersonInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the UsAppToPersonInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the UsAppToPersonInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -226,6 +263,72 @@ class UsAppToPersonInstance(InstanceResource):
             direct_lending=direct_lending,
         )
 
+    def update_with_http_info(
+        self,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        message_samples: List[str],
+        message_flow: str,
+        description: str,
+        age_gated: bool,
+        direct_lending: bool,
+    ) -> ApiResponse:
+        """
+        Update the UsAppToPersonInstance with HTTP info
+
+        :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
+        :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
+        :param message_samples: An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
+        :param message_flow: Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
+        :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
+        :param age_gated: A boolean that specifies whether campaign requires age gate for federally legal content.
+        :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            has_embedded_links=has_embedded_links,
+            has_embedded_phone=has_embedded_phone,
+            message_samples=message_samples,
+            message_flow=message_flow,
+            description=description,
+            age_gated=age_gated,
+            direct_lending=direct_lending,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        message_samples: List[str],
+        message_flow: str,
+        description: str,
+        age_gated: bool,
+        direct_lending: bool,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the UsAppToPersonInstance with HTTP info
+
+        :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
+        :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
+        :param message_samples: An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
+        :param message_flow: Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
+        :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
+        :param age_gated: A boolean that specifies whether campaign requires age gate for federally legal content.
+        :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            has_embedded_links=has_embedded_links,
+            has_embedded_phone=has_embedded_phone,
+            message_samples=message_samples,
+            message_flow=message_flow,
+            description=description,
+            age_gated=age_gated,
+            direct_lending=direct_lending,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -257,6 +360,20 @@ class UsAppToPersonContext(InstanceContext):
             **self._solution
         )
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the UsAppToPersonInstance
@@ -264,10 +381,32 @@ class UsAppToPersonContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the UsAppToPersonInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -276,11 +415,33 @@ class UsAppToPersonContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the UsAppToPersonInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> UsAppToPersonInstance:
@@ -290,18 +451,44 @@ class UsAppToPersonContext(InstanceContext):
 
         :returns: The fetched UsAppToPersonInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return UsAppToPersonInstance(
             self._version,
             payload,
             messaging_service_sid=self._solution["messaging_service_sid"],
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the UsAppToPersonInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = UsAppToPersonInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution["messaging_service_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> UsAppToPersonInstance:
@@ -311,20 +498,66 @@ class UsAppToPersonContext(InstanceContext):
 
         :returns: The fetched UsAppToPersonInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return UsAppToPersonInstance(
             self._version,
             payload,
             messaging_service_sid=self._solution["messaging_service_sid"],
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the UsAppToPersonInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = UsAppToPersonInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution["messaging_service_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        message_samples: List[str],
+        message_flow: str,
+        description: str,
+        age_gated: bool,
+        direct_lending: bool,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "HasEmbeddedLinks": serialize.boolean_to_string(has_embedded_links),
+                "HasEmbeddedPhone": serialize.boolean_to_string(has_embedded_phone),
+                "MessageSamples": serialize.map(message_samples, lambda e: e),
+                "MessageFlow": message_flow,
+                "Description": description,
+                "AgeGated": serialize.boolean_to_string(age_gated),
+                "DirectLending": serialize.boolean_to_string(direct_lending),
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -350,6 +583,78 @@ class UsAppToPersonContext(InstanceContext):
 
         :returns: The updated UsAppToPersonInstance
         """
+        payload, _, _ = self._update(
+            has_embedded_links=has_embedded_links,
+            has_embedded_phone=has_embedded_phone,
+            message_samples=message_samples,
+            message_flow=message_flow,
+            description=description,
+            age_gated=age_gated,
+            direct_lending=direct_lending,
+        )
+        return UsAppToPersonInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution["messaging_service_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(
+        self,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        message_samples: List[str],
+        message_flow: str,
+        description: str,
+        age_gated: bool,
+        direct_lending: bool,
+    ) -> ApiResponse:
+        """
+        Update the UsAppToPersonInstance and return response metadata
+
+        :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
+        :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
+        :param message_samples: An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
+        :param message_flow: Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
+        :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
+        :param age_gated: A boolean that specifies whether campaign requires age gate for federally legal content.
+        :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            has_embedded_links=has_embedded_links,
+            has_embedded_phone=has_embedded_phone,
+            message_samples=message_samples,
+            message_flow=message_flow,
+            description=description,
+            age_gated=age_gated,
+            direct_lending=direct_lending,
+        )
+        instance = UsAppToPersonInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution["messaging_service_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        message_samples: List[str],
+        message_flow: str,
+        description: str,
+        age_gated: bool,
+        direct_lending: bool,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -368,15 +673,8 @@ class UsAppToPersonContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return UsAppToPersonInstance(
-            self._version,
-            payload,
-            messaging_service_sid=self._solution["messaging_service_sid"],
-            sid=self._solution["sid"],
         )
 
     async def update_async(
@@ -402,34 +700,61 @@ class UsAppToPersonContext(InstanceContext):
 
         :returns: The updated UsAppToPersonInstance
         """
-
-        data = values.of(
-            {
-                "HasEmbeddedLinks": serialize.boolean_to_string(has_embedded_links),
-                "HasEmbeddedPhone": serialize.boolean_to_string(has_embedded_phone),
-                "MessageSamples": serialize.map(message_samples, lambda e: e),
-                "MessageFlow": message_flow,
-                "Description": description,
-                "AgeGated": serialize.boolean_to_string(age_gated),
-                "DirectLending": serialize.boolean_to_string(direct_lending),
-            }
+        payload, _, _ = await self._update_async(
+            has_embedded_links=has_embedded_links,
+            has_embedded_phone=has_embedded_phone,
+            message_samples=message_samples,
+            message_flow=message_flow,
+            description=description,
+            age_gated=age_gated,
+            direct_lending=direct_lending,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return UsAppToPersonInstance(
             self._version,
             payload,
             messaging_service_sid=self._solution["messaging_service_sid"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(
+        self,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        message_samples: List[str],
+        message_flow: str,
+        description: str,
+        age_gated: bool,
+        direct_lending: bool,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the UsAppToPersonInstance and return response metadata
+
+        :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
+        :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
+        :param message_samples: An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
+        :param message_flow: Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
+        :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
+        :param age_gated: A boolean that specifies whether campaign requires age gate for federally legal content.
+        :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            has_embedded_links=has_embedded_links,
+            has_embedded_phone=has_embedded_phone,
+            message_samples=message_samples,
+            message_flow=message_flow,
+            description=description,
+            age_gated=age_gated,
+            direct_lending=direct_lending,
+        )
+        instance = UsAppToPersonInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution["messaging_service_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -484,6 +809,62 @@ class UsAppToPersonList(ListResource):
             **self._solution
         )
 
+    def _create(
+        self,
+        brand_registration_sid: str,
+        description: str,
+        message_flow: str,
+        message_samples: List[str],
+        us_app_to_person_usecase: str,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        opt_in_message: Union[str, object] = values.unset,
+        opt_out_message: Union[str, object] = values.unset,
+        help_message: Union[str, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        opt_out_keywords: Union[List[str], object] = values.unset,
+        help_keywords: Union[List[str], object] = values.unset,
+        subscriber_opt_in: Union[bool, object] = values.unset,
+        age_gated: Union[bool, object] = values.unset,
+        direct_lending: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "BrandRegistrationSid": brand_registration_sid,
+                "Description": description,
+                "MessageFlow": message_flow,
+                "MessageSamples": serialize.map(message_samples, lambda e: e),
+                "UsAppToPersonUsecase": us_app_to_person_usecase,
+                "HasEmbeddedLinks": serialize.boolean_to_string(has_embedded_links),
+                "HasEmbeddedPhone": serialize.boolean_to_string(has_embedded_phone),
+                "OptInMessage": opt_in_message,
+                "OptOutMessage": opt_out_message,
+                "HelpMessage": help_message,
+                "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
+                "OptOutKeywords": serialize.map(opt_out_keywords, lambda e: e),
+                "HelpKeywords": serialize.map(help_keywords, lambda e: e),
+                "SubscriberOptIn": serialize.boolean_to_string(subscriber_opt_in),
+                "AgeGated": serialize.boolean_to_string(age_gated),
+                "DirectLending": serialize.boolean_to_string(direct_lending),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         brand_registration_sid: str,
@@ -525,6 +906,121 @@ class UsAppToPersonList(ListResource):
 
         :returns: The created UsAppToPersonInstance
         """
+        payload, _, _ = self._create(
+            brand_registration_sid=brand_registration_sid,
+            description=description,
+            message_flow=message_flow,
+            message_samples=message_samples,
+            us_app_to_person_usecase=us_app_to_person_usecase,
+            has_embedded_links=has_embedded_links,
+            has_embedded_phone=has_embedded_phone,
+            opt_in_message=opt_in_message,
+            opt_out_message=opt_out_message,
+            help_message=help_message,
+            opt_in_keywords=opt_in_keywords,
+            opt_out_keywords=opt_out_keywords,
+            help_keywords=help_keywords,
+            subscriber_opt_in=subscriber_opt_in,
+            age_gated=age_gated,
+            direct_lending=direct_lending,
+        )
+        return UsAppToPersonInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution["messaging_service_sid"],
+        )
+
+    def create_with_http_info(
+        self,
+        brand_registration_sid: str,
+        description: str,
+        message_flow: str,
+        message_samples: List[str],
+        us_app_to_person_usecase: str,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        opt_in_message: Union[str, object] = values.unset,
+        opt_out_message: Union[str, object] = values.unset,
+        help_message: Union[str, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        opt_out_keywords: Union[List[str], object] = values.unset,
+        help_keywords: Union[List[str], object] = values.unset,
+        subscriber_opt_in: Union[bool, object] = values.unset,
+        age_gated: Union[bool, object] = values.unset,
+        direct_lending: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the UsAppToPersonInstance and return response metadata
+
+        :param brand_registration_sid: A2P Brand Registration SID
+        :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
+        :param message_flow: Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
+        :param message_samples: An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
+        :param us_app_to_person_usecase: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
+        :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
+        :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
+        :param opt_in_message: If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
+        :param opt_out_message: Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
+        :param help_message: When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
+        :param opt_in_keywords: If end users can text in a keyword to start receiving messages from this campaign, those keywords must be provided. This field is required if end users can text in a keyword to start receiving messages from this campaign. Values must be alphanumeric. 255 character maximum.
+        :param opt_out_keywords: End users should be able to text in a keyword to stop receiving messages from this campaign. Those keywords must be provided. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
+        :param help_keywords: End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
+        :param subscriber_opt_in: A boolean that specifies whether campaign has Subscriber Optin or not.
+        :param age_gated: A boolean that specifies whether campaign is age gated or not.
+        :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            brand_registration_sid=brand_registration_sid,
+            description=description,
+            message_flow=message_flow,
+            message_samples=message_samples,
+            us_app_to_person_usecase=us_app_to_person_usecase,
+            has_embedded_links=has_embedded_links,
+            has_embedded_phone=has_embedded_phone,
+            opt_in_message=opt_in_message,
+            opt_out_message=opt_out_message,
+            help_message=help_message,
+            opt_in_keywords=opt_in_keywords,
+            opt_out_keywords=opt_out_keywords,
+            help_keywords=help_keywords,
+            subscriber_opt_in=subscriber_opt_in,
+            age_gated=age_gated,
+            direct_lending=direct_lending,
+        )
+        instance = UsAppToPersonInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution["messaging_service_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        brand_registration_sid: str,
+        description: str,
+        message_flow: str,
+        message_samples: List[str],
+        us_app_to_person_usecase: str,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        opt_in_message: Union[str, object] = values.unset,
+        opt_out_message: Union[str, object] = values.unset,
+        help_message: Union[str, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        opt_out_keywords: Union[List[str], object] = values.unset,
+        help_keywords: Union[List[str], object] = values.unset,
+        subscriber_opt_in: Union[bool, object] = values.unset,
+        age_gated: Union[bool, object] = values.unset,
+        direct_lending: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -552,14 +1048,8 @@ class UsAppToPersonList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return UsAppToPersonInstance(
-            self._version,
-            payload,
-            messaging_service_sid=self._solution["messaging_service_sid"],
         )
 
     async def create_async(
@@ -603,42 +1093,95 @@ class UsAppToPersonList(ListResource):
 
         :returns: The created UsAppToPersonInstance
         """
-
-        data = values.of(
-            {
-                "BrandRegistrationSid": brand_registration_sid,
-                "Description": description,
-                "MessageFlow": message_flow,
-                "MessageSamples": serialize.map(message_samples, lambda e: e),
-                "UsAppToPersonUsecase": us_app_to_person_usecase,
-                "HasEmbeddedLinks": serialize.boolean_to_string(has_embedded_links),
-                "HasEmbeddedPhone": serialize.boolean_to_string(has_embedded_phone),
-                "OptInMessage": opt_in_message,
-                "OptOutMessage": opt_out_message,
-                "HelpMessage": help_message,
-                "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
-                "OptOutKeywords": serialize.map(opt_out_keywords, lambda e: e),
-                "HelpKeywords": serialize.map(help_keywords, lambda e: e),
-                "SubscriberOptIn": serialize.boolean_to_string(subscriber_opt_in),
-                "AgeGated": serialize.boolean_to_string(age_gated),
-                "DirectLending": serialize.boolean_to_string(direct_lending),
-            }
+        payload, _, _ = await self._create_async(
+            brand_registration_sid=brand_registration_sid,
+            description=description,
+            message_flow=message_flow,
+            message_samples=message_samples,
+            us_app_to_person_usecase=us_app_to_person_usecase,
+            has_embedded_links=has_embedded_links,
+            has_embedded_phone=has_embedded_phone,
+            opt_in_message=opt_in_message,
+            opt_out_message=opt_out_message,
+            help_message=help_message,
+            opt_in_keywords=opt_in_keywords,
+            opt_out_keywords=opt_out_keywords,
+            help_keywords=help_keywords,
+            subscriber_opt_in=subscriber_opt_in,
+            age_gated=age_gated,
+            direct_lending=direct_lending,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return UsAppToPersonInstance(
             self._version,
             payload,
             messaging_service_sid=self._solution["messaging_service_sid"],
         )
+
+    async def create_with_http_info_async(
+        self,
+        brand_registration_sid: str,
+        description: str,
+        message_flow: str,
+        message_samples: List[str],
+        us_app_to_person_usecase: str,
+        has_embedded_links: bool,
+        has_embedded_phone: bool,
+        opt_in_message: Union[str, object] = values.unset,
+        opt_out_message: Union[str, object] = values.unset,
+        help_message: Union[str, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        opt_out_keywords: Union[List[str], object] = values.unset,
+        help_keywords: Union[List[str], object] = values.unset,
+        subscriber_opt_in: Union[bool, object] = values.unset,
+        age_gated: Union[bool, object] = values.unset,
+        direct_lending: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the UsAppToPersonInstance and return response metadata
+
+        :param brand_registration_sid: A2P Brand Registration SID
+        :param description: A short description of what this SMS campaign does. Min length: 40 characters. Max length: 4096 characters.
+        :param message_flow: Required for all Campaigns. Details around how a consumer opts-in to their campaign, therefore giving consent to receive their messages. If multiple opt-in methods can be used for the same campaign, they must all be listed. 40 character minimum. 2048 character maximum.
+        :param message_samples: An array of sample message strings, min two and max five. Min length for each sample: 20 chars. Max length for each sample: 1024 chars.
+        :param us_app_to_person_usecase: A2P Campaign Use Case. Examples: [ 2FA, EMERGENCY, MARKETING..]
+        :param has_embedded_links: Indicates that this SMS campaign will send messages that contain links.
+        :param has_embedded_phone: Indicates that this SMS campaign will send messages that contain phone numbers.
+        :param opt_in_message: If end users can text in a keyword to start receiving messages from this campaign, the auto-reply messages sent to the end users must be provided. The opt-in response should include the Brand name, confirmation of opt-in enrollment to a recurring message campaign, how to get help, and clear description of how to opt-out. This field is required if end users can text in a keyword to start receiving messages from this campaign. 20 character minimum. 320 character maximum.
+        :param opt_out_message: Upon receiving the opt-out keywords from the end users, Twilio customers are expected to send back an auto-generated response, which must provide acknowledgment of the opt-out request and confirmation that no further messages will be sent. It is also recommended that these opt-out messages include the brand name. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
+        :param help_message: When customers receive the help keywords from their end users, Twilio customers are expected to send back an auto-generated response; this may include the brand name and additional support contact information. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). 20 character minimum. 320 character maximum.
+        :param opt_in_keywords: If end users can text in a keyword to start receiving messages from this campaign, those keywords must be provided. This field is required if end users can text in a keyword to start receiving messages from this campaign. Values must be alphanumeric. 255 character maximum.
+        :param opt_out_keywords: End users should be able to text in a keyword to stop receiving messages from this campaign. Those keywords must be provided. This field is required if managing opt out keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
+        :param help_keywords: End users should be able to text in a keyword to receive help. Those keywords must be provided as part of the campaign registration request. This field is required if managing help keywords yourself (i.e. not using Twilio's Default or Advanced Opt Out features). Values must be alphanumeric. 255 character maximum.
+        :param subscriber_opt_in: A boolean that specifies whether campaign has Subscriber Optin or not.
+        :param age_gated: A boolean that specifies whether campaign is age gated or not.
+        :param direct_lending: A boolean that specifies whether campaign allows direct lending or not.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            brand_registration_sid=brand_registration_sid,
+            description=description,
+            message_flow=message_flow,
+            message_samples=message_samples,
+            us_app_to_person_usecase=us_app_to_person_usecase,
+            has_embedded_links=has_embedded_links,
+            has_embedded_phone=has_embedded_phone,
+            opt_in_message=opt_in_message,
+            opt_out_message=opt_out_message,
+            help_message=help_message,
+            opt_in_keywords=opt_in_keywords,
+            opt_out_keywords=opt_out_keywords,
+            help_keywords=help_keywords,
+            subscriber_opt_in=subscriber_opt_in,
+            age_gated=age_gated,
+            direct_lending=direct_lending,
+        )
+        instance = UsAppToPersonInstance(
+            self._version,
+            payload,
+            messaging_service_sid=self._solution["messaging_service_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -689,6 +1232,56 @@ class UsAppToPersonList(ListResource):
         page = await self.page_async(page_size=limits["page_size"])
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams UsAppToPersonInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(page_size=limits["page_size"])
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams UsAppToPersonInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -742,6 +1335,56 @@ class UsAppToPersonList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists UsAppToPersonInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists UsAppToPersonInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -808,6 +1451,76 @@ class UsAppToPersonList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return UsAppToPersonPage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with UsAppToPersonPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = UsAppToPersonPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with UsAppToPersonPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = UsAppToPersonPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> UsAppToPersonPage:
         """

@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -115,6 +116,24 @@ class AddressInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the AddressInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the AddressInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "AddressInstance":
         """
         Fetch the AddressInstance
@@ -132,6 +151,24 @@ class AddressInstance(InstanceResource):
         :returns: The fetched AddressInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the AddressInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the AddressInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -211,6 +248,84 @@ class AddressInstance(InstanceResource):
             street_secondary=street_secondary,
         )
 
+    def update_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        customer_name: Union[str, object] = values.unset,
+        street: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the AddressInstance with HTTP info
+
+        :param friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
+        :param customer_name: The name to associate with the address.
+        :param street: The number and street address of the address.
+        :param city: The city of the address.
+        :param region: The state or region of the address.
+        :param postal_code: The postal code of the address.
+        :param emergency_enabled: Whether to enable emergency calling on the address. Can be: `true` or `false`.
+        :param auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :param street_secondary: The additional number and street address of the address.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            friendly_name=friendly_name,
+            customer_name=customer_name,
+            street=street,
+            city=city,
+            region=region,
+            postal_code=postal_code,
+            emergency_enabled=emergency_enabled,
+            auto_correct_address=auto_correct_address,
+            street_secondary=street_secondary,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        customer_name: Union[str, object] = values.unset,
+        street: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the AddressInstance with HTTP info
+
+        :param friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
+        :param customer_name: The name to associate with the address.
+        :param street: The number and street address of the address.
+        :param city: The city of the address.
+        :param region: The state or region of the address.
+        :param postal_code: The postal code of the address.
+        :param emergency_enabled: Whether to enable emergency calling on the address. Can be: `true` or `false`.
+        :param auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :param street_secondary: The additional number and street address of the address.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            friendly_name=friendly_name,
+            customer_name=customer_name,
+            street=street,
+            city=city,
+            region=region,
+            postal_code=postal_code,
+            emergency_enabled=emergency_enabled,
+            auto_correct_address=auto_correct_address,
+            street_secondary=street_secondary,
+        )
+
     @property
     def dependent_phone_numbers(self) -> DependentPhoneNumberList:
         """
@@ -251,6 +366,20 @@ class AddressContext(InstanceContext):
 
         self._dependent_phone_numbers: Optional[DependentPhoneNumberList] = None
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the AddressInstance
@@ -258,10 +387,32 @@ class AddressContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the AddressInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -270,11 +421,33 @@ class AddressContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the AddressInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> AddressInstance:
@@ -284,18 +457,44 @@ class AddressContext(InstanceContext):
 
         :returns: The fetched AddressInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return AddressInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the AddressInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = AddressInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> AddressInstance:
@@ -305,20 +504,70 @@ class AddressContext(InstanceContext):
 
         :returns: The fetched AddressInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return AddressInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the AddressInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = AddressInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        customer_name: Union[str, object] = values.unset,
+        street: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "CustomerName": customer_name,
+                "Street": street,
+                "City": city,
+                "Region": region,
+                "PostalCode": postal_code,
+                "EmergencyEnabled": serialize.boolean_to_string(emergency_enabled),
+                "AutoCorrectAddress": serialize.boolean_to_string(auto_correct_address),
+                "StreetSecondary": street_secondary,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -348,6 +597,88 @@ class AddressContext(InstanceContext):
 
         :returns: The updated AddressInstance
         """
+        payload, _, _ = self._update(
+            friendly_name=friendly_name,
+            customer_name=customer_name,
+            street=street,
+            city=city,
+            region=region,
+            postal_code=postal_code,
+            emergency_enabled=emergency_enabled,
+            auto_correct_address=auto_correct_address,
+            street_secondary=street_secondary,
+        )
+        return AddressInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        customer_name: Union[str, object] = values.unset,
+        street: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the AddressInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
+        :param customer_name: The name to associate with the address.
+        :param street: The number and street address of the address.
+        :param city: The city of the address.
+        :param region: The state or region of the address.
+        :param postal_code: The postal code of the address.
+        :param emergency_enabled: Whether to enable emergency calling on the address. Can be: `true` or `false`.
+        :param auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :param street_secondary: The additional number and street address of the address.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            friendly_name=friendly_name,
+            customer_name=customer_name,
+            street=street,
+            city=city,
+            region=region,
+            postal_code=postal_code,
+            emergency_enabled=emergency_enabled,
+            auto_correct_address=auto_correct_address,
+            street_secondary=street_secondary,
+        )
+        instance = AddressInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        customer_name: Union[str, object] = values.unset,
+        street: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -368,15 +699,8 @@ class AddressContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return AddressInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            sid=self._solution["sid"],
         )
 
     async def update_async(
@@ -406,36 +730,69 @@ class AddressContext(InstanceContext):
 
         :returns: The updated AddressInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "CustomerName": customer_name,
-                "Street": street,
-                "City": city,
-                "Region": region,
-                "PostalCode": postal_code,
-                "EmergencyEnabled": serialize.boolean_to_string(emergency_enabled),
-                "AutoCorrectAddress": serialize.boolean_to_string(auto_correct_address),
-                "StreetSecondary": street_secondary,
-            }
+        payload, _, _ = await self._update_async(
+            friendly_name=friendly_name,
+            customer_name=customer_name,
+            street=street,
+            city=city,
+            region=region,
+            postal_code=postal_code,
+            emergency_enabled=emergency_enabled,
+            auto_correct_address=auto_correct_address,
+            street_secondary=street_secondary,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return AddressInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        customer_name: Union[str, object] = values.unset,
+        street: Union[str, object] = values.unset,
+        city: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        postal_code: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the AddressInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
+        :param customer_name: The name to associate with the address.
+        :param street: The number and street address of the address.
+        :param city: The city of the address.
+        :param region: The state or region of the address.
+        :param postal_code: The postal code of the address.
+        :param emergency_enabled: Whether to enable emergency calling on the address. Can be: `true` or `false`.
+        :param auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :param street_secondary: The additional number and street address of the address.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            friendly_name=friendly_name,
+            customer_name=customer_name,
+            street=street,
+            city=city,
+            region=region,
+            postal_code=postal_code,
+            emergency_enabled=emergency_enabled,
+            auto_correct_address=auto_correct_address,
+            street_secondary=street_secondary,
+        )
+        instance = AddressInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def dependent_phone_numbers(self) -> DependentPhoneNumberList:
@@ -499,6 +856,50 @@ class AddressList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/Addresses.json".format(**self._solution)
 
+    def _create(
+        self,
+        customer_name: str,
+        street: str,
+        city: str,
+        region: str,
+        postal_code: str,
+        iso_country: str,
+        friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "CustomerName": customer_name,
+                "Street": street,
+                "City": city,
+                "Region": region,
+                "PostalCode": postal_code,
+                "IsoCountry": iso_country,
+                "FriendlyName": friendly_name,
+                "EmergencyEnabled": serialize.boolean_to_string(emergency_enabled),
+                "AutoCorrectAddress": serialize.boolean_to_string(auto_correct_address),
+                "StreetSecondary": street_secondary,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         customer_name: str,
@@ -528,6 +929,87 @@ class AddressList(ListResource):
 
         :returns: The created AddressInstance
         """
+        payload, _, _ = self._create(
+            customer_name=customer_name,
+            street=street,
+            city=city,
+            region=region,
+            postal_code=postal_code,
+            iso_country=iso_country,
+            friendly_name=friendly_name,
+            emergency_enabled=emergency_enabled,
+            auto_correct_address=auto_correct_address,
+            street_secondary=street_secondary,
+        )
+        return AddressInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def create_with_http_info(
+        self,
+        customer_name: str,
+        street: str,
+        city: str,
+        region: str,
+        postal_code: str,
+        iso_country: str,
+        friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the AddressInstance and return response metadata
+
+        :param customer_name: The name to associate with the new address.
+        :param street: The number and street address of the new address.
+        :param city: The city of the new address.
+        :param region: The state or region of the new address.
+        :param postal_code: The postal code of the new address.
+        :param iso_country: The ISO country code of the new address.
+        :param friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
+        :param emergency_enabled: Whether to enable emergency calling on the new address. Can be: `true` or `false`.
+        :param auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :param street_secondary: The additional number and street address of the address.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            customer_name=customer_name,
+            street=street,
+            city=city,
+            region=region,
+            postal_code=postal_code,
+            iso_country=iso_country,
+            friendly_name=friendly_name,
+            emergency_enabled=emergency_enabled,
+            auto_correct_address=auto_correct_address,
+            street_secondary=street_secondary,
+        )
+        instance = AddressInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        customer_name: str,
+        street: str,
+        city: str,
+        region: str,
+        postal_code: str,
+        iso_country: str,
+        friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -549,12 +1031,8 @@ class AddressList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return AddressInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
         )
 
     async def create_async(
@@ -586,34 +1064,67 @@ class AddressList(ListResource):
 
         :returns: The created AddressInstance
         """
-
-        data = values.of(
-            {
-                "CustomerName": customer_name,
-                "Street": street,
-                "City": city,
-                "Region": region,
-                "PostalCode": postal_code,
-                "IsoCountry": iso_country,
-                "FriendlyName": friendly_name,
-                "EmergencyEnabled": serialize.boolean_to_string(emergency_enabled),
-                "AutoCorrectAddress": serialize.boolean_to_string(auto_correct_address),
-                "StreetSecondary": street_secondary,
-            }
+        payload, _, _ = await self._create_async(
+            customer_name=customer_name,
+            street=street,
+            city=city,
+            region=region,
+            postal_code=postal_code,
+            iso_country=iso_country,
+            friendly_name=friendly_name,
+            emergency_enabled=emergency_enabled,
+            auto_correct_address=auto_correct_address,
+            street_secondary=street_secondary,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return AddressInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
         )
+
+    async def create_with_http_info_async(
+        self,
+        customer_name: str,
+        street: str,
+        city: str,
+        region: str,
+        postal_code: str,
+        iso_country: str,
+        friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        auto_correct_address: Union[bool, object] = values.unset,
+        street_secondary: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the AddressInstance and return response metadata
+
+        :param customer_name: The name to associate with the new address.
+        :param street: The number and street address of the new address.
+        :param city: The city of the new address.
+        :param region: The state or region of the new address.
+        :param postal_code: The postal code of the new address.
+        :param iso_country: The ISO country code of the new address.
+        :param friendly_name: A descriptive string that you create to describe the new address. It can be up to 64 characters long for Regulatory Compliance addresses and 32 characters long for Emergency addresses.
+        :param emergency_enabled: Whether to enable emergency calling on the new address. Can be: `true` or `false`.
+        :param auto_correct_address: Whether we should automatically correct the address. Can be: `true` or `false` and the default is `true`. If empty or `true`, we will correct the address you provide if necessary. If `false`, we won't alter the address you provide.
+        :param street_secondary: The additional number and street address of the address.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            customer_name=customer_name,
+            street=street,
+            city=city,
+            region=region,
+            postal_code=postal_code,
+            iso_country=iso_country,
+            friendly_name=friendly_name,
+            emergency_enabled=emergency_enabled,
+            auto_correct_address=auto_correct_address,
+            street_secondary=street_secondary,
+        )
+        instance = AddressInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -693,6 +1204,82 @@ class AddressList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        customer_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams AddressInstance and returns headers from first page
+
+
+        :param str customer_name: The `customer_name` of the Address resources to read.
+        :param str friendly_name: The string that identifies the Address resources to read.
+        :param bool emergency_enabled: Whether the address can be associated to a number for emergency calling.
+        :param str iso_country: The ISO country code of the Address resources to read.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            customer_name=customer_name,
+            friendly_name=friendly_name,
+            emergency_enabled=emergency_enabled,
+            iso_country=iso_country,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        customer_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams AddressInstance and returns headers from first page
+
+
+        :param str customer_name: The `customer_name` of the Address resources to read.
+        :param str friendly_name: The string that identifies the Address resources to read.
+        :param bool emergency_enabled: Whether the address can be associated to a number for emergency calling.
+        :param str iso_country: The ISO country code of the Address resources to read.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            customer_name=customer_name,
+            friendly_name=friendly_name,
+            emergency_enabled=emergency_enabled,
+            iso_country=iso_country,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         customer_name: Union[str, object] = values.unset,
@@ -769,6 +1356,80 @@ class AddressList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        customer_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists AddressInstance and returns headers from first page
+
+
+        :param str customer_name: The `customer_name` of the Address resources to read.
+        :param str friendly_name: The string that identifies the Address resources to read.
+        :param bool emergency_enabled: Whether the address can be associated to a number for emergency calling.
+        :param str iso_country: The ISO country code of the Address resources to read.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            customer_name=customer_name,
+            friendly_name=friendly_name,
+            emergency_enabled=emergency_enabled,
+            iso_country=iso_country,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        customer_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists AddressInstance and returns headers from first page
+
+
+        :param str customer_name: The `customer_name` of the Address resources to read.
+        :param str friendly_name: The string that identifies the Address resources to read.
+        :param bool emergency_enabled: Whether the address can be associated to a number for emergency calling.
+        :param str iso_country: The ISO country code of the Address resources to read.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            customer_name=customer_name,
+            friendly_name=friendly_name,
+            emergency_enabled=emergency_enabled,
+            iso_country=iso_country,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -859,6 +1520,100 @@ class AddressList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return AddressPage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        customer_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param customer_name: The `customer_name` of the Address resources to read.
+        :param friendly_name: The string that identifies the Address resources to read.
+        :param emergency_enabled: Whether the address can be associated to a number for emergency calling.
+        :param iso_country: The ISO country code of the Address resources to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with AddressPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "CustomerName": customer_name,
+                "FriendlyName": friendly_name,
+                "EmergencyEnabled": serialize.boolean_to_string(emergency_enabled),
+                "IsoCountry": iso_country,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = AddressPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        customer_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        emergency_enabled: Union[bool, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param customer_name: The `customer_name` of the Address resources to read.
+        :param friendly_name: The string that identifies the Address resources to read.
+        :param emergency_enabled: Whether the address can be associated to a number for emergency calling.
+        :param iso_country: The ISO country code of the Address resources to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with AddressPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "CustomerName": customer_name,
+                "FriendlyName": friendly_name,
+                "EmergencyEnabled": serialize.boolean_to_string(emergency_enabled),
+                "IsoCountry": iso_country,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = AddressPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> AddressPage:
         """

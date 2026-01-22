@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -115,6 +116,54 @@ class PhoneNumberInstance(InstanceResource):
             add_ons_data=add_ons_data,
         )
 
+    def fetch_with_http_info(
+        self,
+        country_code: Union[str, object] = values.unset,
+        type: Union[List[str], object] = values.unset,
+        add_ons: Union[List[str], object] = values.unset,
+        add_ons_data: Union[Dict[str, object], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Fetch the PhoneNumberInstance with HTTP info
+
+        :param country_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the phone number to fetch. This is used to specify the country when the phone number is provided in a national format.
+        :param type: The type of information to return. Can be: `carrier` or `caller-name`. The default is null. To retrieve both types of information, specify this parameter twice; once with `carrier` and once with `caller-name` as the value.
+        :param add_ons: The `unique_name` of an Add-on you would like to invoke. Can be the `unique_name` of an Add-on that is installed on your account. You can specify multiple instances of this parameter to invoke multiple Add-ons. For more information about  Add-ons, see the [Add-ons documentation](https://www.twilio.com/docs/add-ons).
+        :param add_ons_data: Data specific to the add-on you would like to invoke. The content and format of this value depends on the add-on.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            country_code=country_code,
+            type=type,
+            add_ons=add_ons,
+            add_ons_data=add_ons_data,
+        )
+
+    async def fetch_with_http_info_async(
+        self,
+        country_code: Union[str, object] = values.unset,
+        type: Union[List[str], object] = values.unset,
+        add_ons: Union[List[str], object] = values.unset,
+        add_ons_data: Union[Dict[str, object], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the PhoneNumberInstance with HTTP info
+
+        :param country_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the phone number to fetch. This is used to specify the country when the phone number is provided in a national format.
+        :param type: The type of information to return. Can be: `carrier` or `caller-name`. The default is null. To retrieve both types of information, specify this parameter twice; once with `carrier` and once with `caller-name` as the value.
+        :param add_ons: The `unique_name` of an Add-on you would like to invoke. Can be the `unique_name` of an Add-on that is installed on your account. You can specify multiple instances of this parameter to invoke multiple Add-ons. For more information about  Add-ons, see the [Add-ons documentation](https://www.twilio.com/docs/add-ons).
+        :param add_ons_data: Data specific to the add-on you would like to invoke. The content and format of this value depends on the add-on.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            country_code=country_code,
+            type=type,
+            add_ons=add_ons,
+            add_ons_data=add_ons_data,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -142,6 +191,38 @@ class PhoneNumberContext(InstanceContext):
         }
         self._uri = "/PhoneNumbers/{phone_number}".format(**self._solution)
 
+    def _fetch(
+        self,
+        country_code: Union[str, object] = values.unset,
+        type: Union[List[str], object] = values.unset,
+        add_ons: Union[List[str], object] = values.unset,
+        add_ons_data: Union[Dict[str, object], object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        params = values.of(
+            {
+                "CountryCode": country_code,
+                "Type": serialize.map(type, lambda e: e),
+                "AddOns": serialize.map(add_ons, lambda e: e),
+            }
+        )
+
+        params.update(serialize.prefixed_collapsible_map(add_ons_data, "AddOns"))
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, params=params, headers=headers
+        )
+
     def fetch(
         self,
         country_code: Union[str, object] = values.unset,
@@ -159,6 +240,61 @@ class PhoneNumberContext(InstanceContext):
 
         :returns: The fetched PhoneNumberInstance
         """
+        payload, _, _ = self._fetch(
+            country_code=country_code,
+            type=type,
+            add_ons=add_ons,
+            add_ons_data=add_ons_data,
+        )
+        return PhoneNumberInstance(
+            self._version,
+            payload,
+            phone_number=self._solution["phone_number"],
+        )
+
+    def fetch_with_http_info(
+        self,
+        country_code: Union[str, object] = values.unset,
+        type: Union[List[str], object] = values.unset,
+        add_ons: Union[List[str], object] = values.unset,
+        add_ons_data: Union[Dict[str, object], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Fetch the PhoneNumberInstance and return response metadata
+
+        :param country_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the phone number to fetch. This is used to specify the country when the phone number is provided in a national format.
+        :param type: The type of information to return. Can be: `carrier` or `caller-name`. The default is null. To retrieve both types of information, specify this parameter twice; once with `carrier` and once with `caller-name` as the value.
+        :param add_ons: The `unique_name` of an Add-on you would like to invoke. Can be the `unique_name` of an Add-on that is installed on your account. You can specify multiple instances of this parameter to invoke multiple Add-ons. For more information about  Add-ons, see the [Add-ons documentation](https://www.twilio.com/docs/add-ons).
+        :param add_ons_data: Data specific to the add-on you would like to invoke. The content and format of this value depends on the add-on.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(
+            country_code=country_code,
+            type=type,
+            add_ons=add_ons,
+            add_ons_data=add_ons_data,
+        )
+        instance = PhoneNumberInstance(
+            self._version,
+            payload,
+            phone_number=self._solution["phone_number"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self,
+        country_code: Union[str, object] = values.unset,
+        type: Union[List[str], object] = values.unset,
+        add_ons: Union[List[str], object] = values.unset,
+        add_ons_data: Union[Dict[str, object], object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         params = values.of(
             {
@@ -174,14 +310,8 @@ class PhoneNumberContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
+        return await self._version.fetch_with_response_info_async(
             method="GET", uri=self._uri, params=params, headers=headers
-        )
-
-        return PhoneNumberInstance(
-            self._version,
-            payload,
-            phone_number=self._solution["phone_number"],
         )
 
     async def fetch_async(
@@ -201,30 +331,47 @@ class PhoneNumberContext(InstanceContext):
 
         :returns: The fetched PhoneNumberInstance
         """
-
-        params = values.of(
-            {
-                "CountryCode": country_code,
-                "Type": serialize.map(type, lambda e: e),
-                "AddOns": serialize.map(add_ons, lambda e: e),
-            }
+        payload, _, _ = await self._fetch_async(
+            country_code=country_code,
+            type=type,
+            add_ons=add_ons,
+            add_ons_data=add_ons_data,
         )
-
-        params.update(serialize.prefixed_collapsible_map(add_ons_data, "AddOns"))
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params, headers=headers
-        )
-
         return PhoneNumberInstance(
             self._version,
             payload,
             phone_number=self._solution["phone_number"],
         )
+
+    async def fetch_with_http_info_async(
+        self,
+        country_code: Union[str, object] = values.unset,
+        type: Union[List[str], object] = values.unset,
+        add_ons: Union[List[str], object] = values.unset,
+        add_ons_data: Union[Dict[str, object], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the PhoneNumberInstance and return response metadata
+
+        :param country_code: The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the phone number to fetch. This is used to specify the country when the phone number is provided in a national format.
+        :param type: The type of information to return. Can be: `carrier` or `caller-name`. The default is null. To retrieve both types of information, specify this parameter twice; once with `carrier` and once with `caller-name` as the value.
+        :param add_ons: The `unique_name` of an Add-on you would like to invoke. Can be the `unique_name` of an Add-on that is installed on your account. You can specify multiple instances of this parameter to invoke multiple Add-ons. For more information about  Add-ons, see the [Add-ons documentation](https://www.twilio.com/docs/add-ons).
+        :param add_ons_data: Data specific to the add-on you would like to invoke. The content and format of this value depends on the add-on.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            country_code=country_code,
+            type=type,
+            add_ons=add_ons,
+            add_ons_data=add_ons_data,
+        )
+        instance = PhoneNumberInstance(
+            self._version,
+            payload,
+            phone_number=self._solution["phone_number"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

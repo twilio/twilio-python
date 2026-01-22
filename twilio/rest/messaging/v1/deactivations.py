@@ -15,6 +15,7 @@ r"""
 from datetime import date
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -75,6 +76,34 @@ class DeactivationsInstance(InstanceResource):
             date=date,
         )
 
+    def fetch_with_http_info(
+        self, date: Union[date, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the DeactivationsInstance with HTTP info
+
+        :param date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            date=date,
+        )
+
+    async def fetch_with_http_info_async(
+        self, date: Union[date, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the DeactivationsInstance with HTTP info
+
+        :param date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            date=date,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -97,13 +126,12 @@ class DeactivationsContext(InstanceContext):
 
         self._uri = "/Deactivations"
 
-    def fetch(self, date: Union[date, object] = values.unset) -> DeactivationsInstance:
+    def _fetch(self, date: Union[date, object] = values.unset) -> tuple:
         """
-        Fetch the DeactivationsInstance
+        Internal helper for fetch operation
 
-        :param date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
-
-        :returns: The fetched DeactivationsInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         params = values.of(
@@ -116,13 +144,61 @@ class DeactivationsContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
+        return self._version.fetch_with_response_info(
             method="GET", uri=self._uri, params=params, headers=headers
         )
 
+    def fetch(self, date: Union[date, object] = values.unset) -> DeactivationsInstance:
+        """
+        Fetch the DeactivationsInstance
+
+        :param date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
+
+        :returns: The fetched DeactivationsInstance
+        """
+        payload, _, _ = self._fetch(date=date)
         return DeactivationsInstance(
             self._version,
             payload,
+        )
+
+    def fetch_with_http_info(
+        self, date: Union[date, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the DeactivationsInstance and return response metadata
+
+        :param date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(date=date)
+        instance = DeactivationsInstance(
+            self._version,
+            payload,
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self, date: Union[date, object] = values.unset) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        params = values.of(
+            {
+                "Date": serialize.iso8601_date(date),
+            }
+        )
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
     async def fetch_async(
@@ -135,25 +211,28 @@ class DeactivationsContext(InstanceContext):
 
         :returns: The fetched DeactivationsInstance
         """
-
-        params = values.of(
-            {
-                "Date": serialize.iso8601_date(date),
-            }
-        )
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async(date=date)
         return DeactivationsInstance(
             self._version,
             payload,
         )
+
+    async def fetch_with_http_info_async(
+        self, date: Union[date, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the DeactivationsInstance and return response metadata
+
+        :param date: The request will return a list of all United States Phone Numbers that were deactivated on the day specified by this parameter. This date should be specified in YYYY-MM-DD format.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(date=date)
+        instance = DeactivationsInstance(
+            self._version,
+            payload,
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

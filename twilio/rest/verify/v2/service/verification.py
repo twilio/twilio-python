@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -127,6 +128,24 @@ class VerificationInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the VerificationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the VerificationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(self, status: "VerificationInstance.Status") -> "VerificationInstance":
         """
         Update the VerificationInstance
@@ -150,6 +169,34 @@ class VerificationInstance(InstanceResource):
         :returns: The updated VerificationInstance
         """
         return await self._proxy.update_async(
+            status=status,
+        )
+
+    def update_with_http_info(
+        self, status: "VerificationInstance.Status"
+    ) -> ApiResponse:
+        """
+        Update the VerificationInstance with HTTP info
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            status=status,
+        )
+
+    async def update_with_http_info_async(
+        self, status: "VerificationInstance.Status"
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the VerificationInstance with HTTP info
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             status=status,
         )
 
@@ -184,6 +231,22 @@ class VerificationContext(InstanceContext):
             **self._solution
         )
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> VerificationInstance:
         """
         Fetch the VerificationInstance
@@ -191,18 +254,44 @@ class VerificationContext(InstanceContext):
 
         :returns: The fetched VerificationInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return VerificationInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the VerificationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = VerificationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> VerificationInstance:
@@ -212,15 +301,7 @@ class VerificationContext(InstanceContext):
 
         :returns: The fetched VerificationInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return VerificationInstance(
             self._version,
             payload,
@@ -228,13 +309,28 @@ class VerificationContext(InstanceContext):
             sid=self._solution["sid"],
         )
 
-    def update(self, status: "VerificationInstance.Status") -> VerificationInstance:
+    async def fetch_with_http_info_async(self) -> ApiResponse:
         """
-        Update the VerificationInstance
+        Asynchronous coroutine to fetch the VerificationInstance and return response metadata
 
-        :param status:
 
-        :returns: The updated VerificationInstance
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = VerificationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(self, status: "VerificationInstance.Status") -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -248,15 +344,66 @@ class VerificationContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return self._version.update_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def update(self, status: "VerificationInstance.Status") -> VerificationInstance:
+        """
+        Update the VerificationInstance
+
+        :param status:
+
+        :returns: The updated VerificationInstance
+        """
+        payload, _, _ = self._update(status=status)
         return VerificationInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(
+        self, status: "VerificationInstance.Status"
+    ) -> ApiResponse:
+        """
+        Update the VerificationInstance and return response metadata
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(status=status)
+        instance = VerificationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(self, status: "VerificationInstance.Status") -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Status": status,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.update_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def update_async(
@@ -269,28 +416,32 @@ class VerificationContext(InstanceContext):
 
         :returns: The updated VerificationInstance
         """
-
-        data = values.of(
-            {
-                "Status": status,
-            }
-        )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(status=status)
         return VerificationInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(
+        self, status: "VerificationInstance.Status"
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the VerificationInstance and return response metadata
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(status=status)
+        instance = VerificationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -319,6 +470,68 @@ class VerificationList(ListResource):
             "service_sid": service_sid,
         }
         self._uri = "/Services/{service_sid}/Verifications".format(**self._solution)
+
+    def _create(
+        self,
+        to: str,
+        channel: str,
+        custom_friendly_name: Union[str, object] = values.unset,
+        custom_message: Union[str, object] = values.unset,
+        send_digits: Union[str, object] = values.unset,
+        locale: Union[str, object] = values.unset,
+        custom_code: Union[str, object] = values.unset,
+        amount: Union[str, object] = values.unset,
+        payee: Union[str, object] = values.unset,
+        rate_limits: Union[object, object] = values.unset,
+        channel_configuration: Union[object, object] = values.unset,
+        app_hash: Union[str, object] = values.unset,
+        template_sid: Union[str, object] = values.unset,
+        template_custom_substitutions: Union[str, object] = values.unset,
+        device_ip: Union[str, object] = values.unset,
+        enable_sna_client_token: Union[bool, object] = values.unset,
+        risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
+        tags: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "To": to,
+                "Channel": channel,
+                "CustomFriendlyName": custom_friendly_name,
+                "CustomMessage": custom_message,
+                "SendDigits": send_digits,
+                "Locale": locale,
+                "CustomCode": custom_code,
+                "Amount": amount,
+                "Payee": payee,
+                "RateLimits": serialize.object(rate_limits),
+                "ChannelConfiguration": serialize.object(channel_configuration),
+                "AppHash": app_hash,
+                "TemplateSid": template_sid,
+                "TemplateCustomSubstitutions": template_custom_substitutions,
+                "DeviceIp": device_ip,
+                "EnableSnaClientToken": serialize.boolean_to_string(
+                    enable_sna_client_token
+                ),
+                "RiskCheck": risk_check,
+                "Tags": tags,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     def create(
         self,
@@ -365,6 +578,127 @@ class VerificationList(ListResource):
 
         :returns: The created VerificationInstance
         """
+        payload, _, _ = self._create(
+            to=to,
+            channel=channel,
+            custom_friendly_name=custom_friendly_name,
+            custom_message=custom_message,
+            send_digits=send_digits,
+            locale=locale,
+            custom_code=custom_code,
+            amount=amount,
+            payee=payee,
+            rate_limits=rate_limits,
+            channel_configuration=channel_configuration,
+            app_hash=app_hash,
+            template_sid=template_sid,
+            template_custom_substitutions=template_custom_substitutions,
+            device_ip=device_ip,
+            enable_sna_client_token=enable_sna_client_token,
+            risk_check=risk_check,
+            tags=tags,
+        )
+        return VerificationInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def create_with_http_info(
+        self,
+        to: str,
+        channel: str,
+        custom_friendly_name: Union[str, object] = values.unset,
+        custom_message: Union[str, object] = values.unset,
+        send_digits: Union[str, object] = values.unset,
+        locale: Union[str, object] = values.unset,
+        custom_code: Union[str, object] = values.unset,
+        amount: Union[str, object] = values.unset,
+        payee: Union[str, object] = values.unset,
+        rate_limits: Union[object, object] = values.unset,
+        channel_configuration: Union[object, object] = values.unset,
+        app_hash: Union[str, object] = values.unset,
+        template_sid: Union[str, object] = values.unset,
+        template_custom_substitutions: Union[str, object] = values.unset,
+        device_ip: Union[str, object] = values.unset,
+        enable_sna_client_token: Union[bool, object] = values.unset,
+        risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
+        tags: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the VerificationInstance and return response metadata
+
+        :param to: The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+        :param channel: The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, `sna` or `auto`.
+        :param custom_friendly_name: A custom user defined friendly name that overwrites the existing one in the verification message
+        :param custom_message: The text of a custom message to use for the verification.
+        :param send_digits: The digits to send after a phone call is answered, for example, to dial an extension. For more information, see the Programmable Voice documentation of [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits).
+        :param locale: Locale will automatically resolve based on phone number country code for SMS, WhatsApp, and call channel verifications. It will fallback to English or the template’s default translation if the selected translation is not available. This parameter will override the automatic locale resolution. [See supported languages and more information here](https://www.twilio.com/docs/verify/supported-languages).
+        :param custom_code: A pre-generated code to use for verification. The code can be between 4 and 10 characters, inclusive.
+        :param amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+        :param payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+        :param rate_limits: The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
+        :param channel_configuration: [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields 'from' and 'from_name' are optional but if included the 'from' field must have a valid email address.
+        :param app_hash: Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`.
+        :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
+        :param template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
+        :param device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
+        :param enable_sna_client_token: An optional Boolean value to indicate the requirement of sna client token in the SNA URL invocation response for added security. This token must match in the Verification Check request to confirm phone number verification.
+        :param risk_check:
+        :param tags: A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            to=to,
+            channel=channel,
+            custom_friendly_name=custom_friendly_name,
+            custom_message=custom_message,
+            send_digits=send_digits,
+            locale=locale,
+            custom_code=custom_code,
+            amount=amount,
+            payee=payee,
+            rate_limits=rate_limits,
+            channel_configuration=channel_configuration,
+            app_hash=app_hash,
+            template_sid=template_sid,
+            template_custom_substitutions=template_custom_substitutions,
+            device_ip=device_ip,
+            enable_sna_client_token=enable_sna_client_token,
+            risk_check=risk_check,
+            tags=tags,
+        )
+        instance = VerificationInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        to: str,
+        channel: str,
+        custom_friendly_name: Union[str, object] = values.unset,
+        custom_message: Union[str, object] = values.unset,
+        send_digits: Union[str, object] = values.unset,
+        locale: Union[str, object] = values.unset,
+        custom_code: Union[str, object] = values.unset,
+        amount: Union[str, object] = values.unset,
+        payee: Union[str, object] = values.unset,
+        rate_limits: Union[object, object] = values.unset,
+        channel_configuration: Union[object, object] = values.unset,
+        app_hash: Union[str, object] = values.unset,
+        template_sid: Union[str, object] = values.unset,
+        template_custom_substitutions: Union[str, object] = values.unset,
+        device_ip: Union[str, object] = values.unset,
+        enable_sna_client_token: Union[bool, object] = values.unset,
+        risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
+        tags: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -396,12 +730,8 @@ class VerificationList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return VerificationInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
         )
 
     async def create_async(
@@ -449,44 +779,99 @@ class VerificationList(ListResource):
 
         :returns: The created VerificationInstance
         """
-
-        data = values.of(
-            {
-                "To": to,
-                "Channel": channel,
-                "CustomFriendlyName": custom_friendly_name,
-                "CustomMessage": custom_message,
-                "SendDigits": send_digits,
-                "Locale": locale,
-                "CustomCode": custom_code,
-                "Amount": amount,
-                "Payee": payee,
-                "RateLimits": serialize.object(rate_limits),
-                "ChannelConfiguration": serialize.object(channel_configuration),
-                "AppHash": app_hash,
-                "TemplateSid": template_sid,
-                "TemplateCustomSubstitutions": template_custom_substitutions,
-                "DeviceIp": device_ip,
-                "EnableSnaClientToken": serialize.boolean_to_string(
-                    enable_sna_client_token
-                ),
-                "RiskCheck": risk_check,
-                "Tags": tags,
-            }
+        payload, _, _ = await self._create_async(
+            to=to,
+            channel=channel,
+            custom_friendly_name=custom_friendly_name,
+            custom_message=custom_message,
+            send_digits=send_digits,
+            locale=locale,
+            custom_code=custom_code,
+            amount=amount,
+            payee=payee,
+            rate_limits=rate_limits,
+            channel_configuration=channel_configuration,
+            app_hash=app_hash,
+            template_sid=template_sid,
+            template_custom_substitutions=template_custom_substitutions,
+            device_ip=device_ip,
+            enable_sna_client_token=enable_sna_client_token,
+            risk_check=risk_check,
+            tags=tags,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return VerificationInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
         )
+
+    async def create_with_http_info_async(
+        self,
+        to: str,
+        channel: str,
+        custom_friendly_name: Union[str, object] = values.unset,
+        custom_message: Union[str, object] = values.unset,
+        send_digits: Union[str, object] = values.unset,
+        locale: Union[str, object] = values.unset,
+        custom_code: Union[str, object] = values.unset,
+        amount: Union[str, object] = values.unset,
+        payee: Union[str, object] = values.unset,
+        rate_limits: Union[object, object] = values.unset,
+        channel_configuration: Union[object, object] = values.unset,
+        app_hash: Union[str, object] = values.unset,
+        template_sid: Union[str, object] = values.unset,
+        template_custom_substitutions: Union[str, object] = values.unset,
+        device_ip: Union[str, object] = values.unset,
+        enable_sna_client_token: Union[bool, object] = values.unset,
+        risk_check: Union["VerificationInstance.RiskCheck", object] = values.unset,
+        tags: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the VerificationInstance and return response metadata
+
+        :param to: The phone number or [email](https://www.twilio.com/docs/verify/email) to verify. Phone numbers must be in [E.164 format](https://www.twilio.com/docs/glossary/what-e164).
+        :param channel: The verification method to use. One of: [`email`](https://www.twilio.com/docs/verify/email), `sms`, `whatsapp`, `call`, `sna` or `auto`.
+        :param custom_friendly_name: A custom user defined friendly name that overwrites the existing one in the verification message
+        :param custom_message: The text of a custom message to use for the verification.
+        :param send_digits: The digits to send after a phone call is answered, for example, to dial an extension. For more information, see the Programmable Voice documentation of [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits).
+        :param locale: Locale will automatically resolve based on phone number country code for SMS, WhatsApp, and call channel verifications. It will fallback to English or the template’s default translation if the selected translation is not available. This parameter will override the automatic locale resolution. [See supported languages and more information here](https://www.twilio.com/docs/verify/supported-languages).
+        :param custom_code: A pre-generated code to use for verification. The code can be between 4 and 10 characters, inclusive.
+        :param amount: The amount of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+        :param payee: The payee of the associated PSD2 compliant transaction. Requires the PSD2 Service flag enabled.
+        :param rate_limits: The custom key-value pairs of Programmable Rate Limits. Keys correspond to `unique_name` fields defined when [creating your Rate Limit](https://www.twilio.com/docs/verify/api/service-rate-limits). Associated value pairs represent values in the request that you are rate limiting on. You may include multiple Rate Limit values in each request.
+        :param channel_configuration: [`email`](https://www.twilio.com/docs/verify/email) channel configuration in json format. The fields 'from' and 'from_name' are optional but if included the 'from' field must have a valid email address.
+        :param app_hash: Your [App Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `<#> Your AppName verification code is: 1234 He42w354ol9`.
+        :param template_sid: The message [template](https://www.twilio.com/docs/verify/api/templates). If provided, will override the default template for the Service. SMS and Voice channels only.
+        :param template_custom_substitutions: A stringified JSON object in which the keys are the template's special variables and the values are the variables substitutions.
+        :param device_ip: Strongly encouraged if using the auto channel. The IP address of the client's device. If provided, it has to be a valid IPv4 or IPv6 address.
+        :param enable_sna_client_token: An optional Boolean value to indicate the requirement of sna client token in the SNA URL invocation response for added security. This token must match in the Verification Check request to confirm phone number verification.
+        :param risk_check:
+        :param tags: A string containing a JSON map of key value pairs of tags to be recorded as metadata for the message. The object may contain up to 10 tags. Keys and values can each be up to 128 characters in length.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            to=to,
+            channel=channel,
+            custom_friendly_name=custom_friendly_name,
+            custom_message=custom_message,
+            send_digits=send_digits,
+            locale=locale,
+            custom_code=custom_code,
+            amount=amount,
+            payee=payee,
+            rate_limits=rate_limits,
+            channel_configuration=channel_configuration,
+            app_hash=app_hash,
+            template_sid=template_sid,
+            template_custom_substitutions=template_custom_substitutions,
+            device_ip=device_ip,
+            enable_sna_client_token=enable_sna_client_token,
+            risk_check=risk_check,
+            tags=tags,
+        )
+        instance = VerificationInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def get(self, sid: str) -> VerificationContext:
         """

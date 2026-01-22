@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -72,6 +73,24 @@ class FlowTestUserInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the FlowTestUserInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the FlowTestUserInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(self, test_users: List[str]) -> "FlowTestUserInstance":
         """
         Update the FlowTestUserInstance
@@ -93,6 +112,30 @@ class FlowTestUserInstance(InstanceResource):
         :returns: The updated FlowTestUserInstance
         """
         return await self._proxy.update_async(
+            test_users=test_users,
+        )
+
+    def update_with_http_info(self, test_users: List[str]) -> ApiResponse:
+        """
+        Update the FlowTestUserInstance with HTTP info
+
+        :param test_users: List of test user identities that can test draft versions of the flow.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            test_users=test_users,
+        )
+
+    async def update_with_http_info_async(self, test_users: List[str]) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the FlowTestUserInstance with HTTP info
+
+        :param test_users: List of test user identities that can test draft versions of the flow.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             test_users=test_users,
         )
 
@@ -123,6 +166,22 @@ class FlowTestUserContext(InstanceContext):
         }
         self._uri = "/Flows/{sid}/TestUsers".format(**self._solution)
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> FlowTestUserInstance:
         """
         Fetch the FlowTestUserInstance
@@ -130,17 +189,42 @@ class FlowTestUserContext(InstanceContext):
 
         :returns: The fetched FlowTestUserInstance
         """
+        payload, _, _ = self._fetch()
+        return FlowTestUserInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the FlowTestUserInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = FlowTestUserInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return FlowTestUserInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> FlowTestUserInstance:
@@ -150,19 +234,49 @@ class FlowTestUserContext(InstanceContext):
 
         :returns: The fetched FlowTestUserInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return FlowTestUserInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the FlowTestUserInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = FlowTestUserInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(self, test_users: List[str]) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "TestUsers": serialize.map(test_users, lambda e: e),
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(self, test_users: List[str]) -> FlowTestUserInstance:
@@ -173,6 +287,30 @@ class FlowTestUserContext(InstanceContext):
 
         :returns: The updated FlowTestUserInstance
         """
+        payload, _, _ = self._update(test_users=test_users)
+        return FlowTestUserInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(self, test_users: List[str]) -> ApiResponse:
+        """
+        Update the FlowTestUserInstance and return response metadata
+
+        :param test_users: List of test user identities that can test draft versions of the flow.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(test_users=test_users)
+        instance = FlowTestUserInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(self, test_users: List[str]) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -185,11 +323,9 @@ class FlowTestUserContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return FlowTestUserInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(self, test_users: List[str]) -> FlowTestUserInstance:
         """
@@ -199,23 +335,22 @@ class FlowTestUserContext(InstanceContext):
 
         :returns: The updated FlowTestUserInstance
         """
-
-        data = values.of(
-            {
-                "TestUsers": serialize.map(test_users, lambda e: e),
-            }
-        )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(test_users=test_users)
         return FlowTestUserInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(self, test_users: List[str]) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the FlowTestUserInstance and return response metadata
+
+        :param test_users: List of test user identities that can test draft versions of the flow.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(test_users=test_users)
+        instance = FlowTestUserInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

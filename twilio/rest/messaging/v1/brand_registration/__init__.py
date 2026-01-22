@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -157,6 +158,24 @@ class BrandRegistrationInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the BrandRegistrationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the BrandRegistrationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(self) -> "BrandRegistrationInstance":
         """
         Update the BrandRegistrationInstance
@@ -174,6 +193,24 @@ class BrandRegistrationInstance(InstanceResource):
         :returns: The updated BrandRegistrationInstance
         """
         return await self._proxy.update_async()
+
+    def update_with_http_info(self) -> ApiResponse:
+        """
+        Update the BrandRegistrationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info()
+
+    async def update_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the BrandRegistrationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async()
 
     @property
     def brand_registration_otps(self) -> BrandRegistrationOtpList:
@@ -219,6 +256,22 @@ class BrandRegistrationContext(InstanceContext):
         self._brand_registration_otps: Optional[BrandRegistrationOtpList] = None
         self._brand_vettings: Optional[BrandVettingList] = None
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> BrandRegistrationInstance:
         """
         Fetch the BrandRegistrationInstance
@@ -226,17 +279,42 @@ class BrandRegistrationContext(InstanceContext):
 
         :returns: The fetched BrandRegistrationInstance
         """
+        payload, _, _ = self._fetch()
+        return BrandRegistrationInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the BrandRegistrationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = BrandRegistrationInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return BrandRegistrationInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> BrandRegistrationInstance:
@@ -246,19 +324,43 @@ class BrandRegistrationContext(InstanceContext):
 
         :returns: The fetched BrandRegistrationInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return BrandRegistrationInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the BrandRegistrationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = BrandRegistrationInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(self) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of({})
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(self) -> BrandRegistrationInstance:
@@ -268,18 +370,39 @@ class BrandRegistrationContext(InstanceContext):
 
         :returns: The updated BrandRegistrationInstance
         """
+        payload, _, _ = self._update()
+        return BrandRegistrationInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+
+    def update_with_http_info(self) -> ApiResponse:
+        """
+        Update the BrandRegistrationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update()
+        instance = BrandRegistrationInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(self) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of({})
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return BrandRegistrationInstance(
-            self._version, payload, sid=self._solution["sid"]
         )
 
     async def update_async(self) -> BrandRegistrationInstance:
@@ -289,19 +412,23 @@ class BrandRegistrationContext(InstanceContext):
 
         :returns: The updated BrandRegistrationInstance
         """
-
-        data = values.of({})
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async()
         return BrandRegistrationInstance(
             self._version, payload, sid=self._solution["sid"]
         )
+
+    async def update_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the BrandRegistrationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async()
+        instance = BrandRegistrationInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def brand_registration_otps(self) -> BrandRegistrationOtpList:
@@ -369,24 +496,19 @@ class BrandRegistrationList(ListResource):
 
         self._uri = "/a2p/BrandRegistrations"
 
-    def create(
+    def _create(
         self,
         customer_profile_bundle_sid: str,
         a2p_profile_bundle_sid: str,
         brand_type: Union[str, object] = values.unset,
         mock: Union[bool, object] = values.unset,
         skip_automatic_sec_vet: Union[bool, object] = values.unset,
-    ) -> BrandRegistrationInstance:
+    ) -> tuple:
         """
-        Create the BrandRegistrationInstance
+        Internal helper for create operation
 
-        :param customer_profile_bundle_sid: Customer Profile Bundle Sid.
-        :param a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid.
-        :param brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"SOLE_PROPRIETOR\\\". SOLE_PROPRIETOR is for low volume, SOLE_PROPRIETOR use cases. STANDARD is for all other use cases.
-        :param mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
-        :param skip_automatic_sec_vet: A flag to disable automatic secondary vetting for brands which it would otherwise be done.
-
-        :returns: The created BrandRegistrationInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -406,11 +528,102 @@ class BrandRegistrationList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        customer_profile_bundle_sid: str,
+        a2p_profile_bundle_sid: str,
+        brand_type: Union[str, object] = values.unset,
+        mock: Union[bool, object] = values.unset,
+        skip_automatic_sec_vet: Union[bool, object] = values.unset,
+    ) -> BrandRegistrationInstance:
+        """
+        Create the BrandRegistrationInstance
+
+        :param customer_profile_bundle_sid: Customer Profile Bundle Sid.
+        :param a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid.
+        :param brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"SOLE_PROPRIETOR\\\". SOLE_PROPRIETOR is for low volume, SOLE_PROPRIETOR use cases. STANDARD is for all other use cases.
+        :param mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
+        :param skip_automatic_sec_vet: A flag to disable automatic secondary vetting for brands which it would otherwise be done.
+
+        :returns: The created BrandRegistrationInstance
+        """
+        payload, _, _ = self._create(
+            customer_profile_bundle_sid=customer_profile_bundle_sid,
+            a2p_profile_bundle_sid=a2p_profile_bundle_sid,
+            brand_type=brand_type,
+            mock=mock,
+            skip_automatic_sec_vet=skip_automatic_sec_vet,
+        )
         return BrandRegistrationInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        customer_profile_bundle_sid: str,
+        a2p_profile_bundle_sid: str,
+        brand_type: Union[str, object] = values.unset,
+        mock: Union[bool, object] = values.unset,
+        skip_automatic_sec_vet: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the BrandRegistrationInstance and return response metadata
+
+        :param customer_profile_bundle_sid: Customer Profile Bundle Sid.
+        :param a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid.
+        :param brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"SOLE_PROPRIETOR\\\". SOLE_PROPRIETOR is for low volume, SOLE_PROPRIETOR use cases. STANDARD is for all other use cases.
+        :param mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
+        :param skip_automatic_sec_vet: A flag to disable automatic secondary vetting for brands which it would otherwise be done.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            customer_profile_bundle_sid=customer_profile_bundle_sid,
+            a2p_profile_bundle_sid=a2p_profile_bundle_sid,
+            brand_type=brand_type,
+            mock=mock,
+            skip_automatic_sec_vet=skip_automatic_sec_vet,
+        )
+        instance = BrandRegistrationInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        customer_profile_bundle_sid: str,
+        a2p_profile_bundle_sid: str,
+        brand_type: Union[str, object] = values.unset,
+        mock: Union[bool, object] = values.unset,
+        skip_automatic_sec_vet: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "CustomerProfileBundleSid": customer_profile_bundle_sid,
+                "A2PProfileBundleSid": a2p_profile_bundle_sid,
+                "BrandType": brand_type,
+                "Mock": serialize.boolean_to_string(mock),
+                "SkipAutomaticSecVet": serialize.boolean_to_string(
+                    skip_automatic_sec_vet
+                ),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(
         self,
@@ -431,29 +644,43 @@ class BrandRegistrationList(ListResource):
 
         :returns: The created BrandRegistrationInstance
         """
-
-        data = values.of(
-            {
-                "CustomerProfileBundleSid": customer_profile_bundle_sid,
-                "A2PProfileBundleSid": a2p_profile_bundle_sid,
-                "BrandType": brand_type,
-                "Mock": serialize.boolean_to_string(mock),
-                "SkipAutomaticSecVet": serialize.boolean_to_string(
-                    skip_automatic_sec_vet
-                ),
-            }
+        payload, _, _ = await self._create_async(
+            customer_profile_bundle_sid=customer_profile_bundle_sid,
+            a2p_profile_bundle_sid=a2p_profile_bundle_sid,
+            brand_type=brand_type,
+            mock=mock,
+            skip_automatic_sec_vet=skip_automatic_sec_vet,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return BrandRegistrationInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        customer_profile_bundle_sid: str,
+        a2p_profile_bundle_sid: str,
+        brand_type: Union[str, object] = values.unset,
+        mock: Union[bool, object] = values.unset,
+        skip_automatic_sec_vet: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the BrandRegistrationInstance and return response metadata
+
+        :param customer_profile_bundle_sid: Customer Profile Bundle Sid.
+        :param a2p_profile_bundle_sid: A2P Messaging Profile Bundle Sid.
+        :param brand_type: Type of brand being created. One of: \\\"STANDARD\\\", \\\"SOLE_PROPRIETOR\\\". SOLE_PROPRIETOR is for low volume, SOLE_PROPRIETOR use cases. STANDARD is for all other use cases.
+        :param mock: A boolean that specifies whether brand should be a mock or not. If true, brand will be registered as a mock brand. Defaults to false if no value is provided.
+        :param skip_automatic_sec_vet: A flag to disable automatic secondary vetting for brands which it would otherwise be done.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            customer_profile_bundle_sid=customer_profile_bundle_sid,
+            a2p_profile_bundle_sid=a2p_profile_bundle_sid,
+            brand_type=brand_type,
+            mock=mock,
+            skip_automatic_sec_vet=skip_automatic_sec_vet,
+        )
+        instance = BrandRegistrationInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -504,6 +731,56 @@ class BrandRegistrationList(ListResource):
         page = await self.page_async(page_size=limits["page_size"])
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams BrandRegistrationInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(page_size=limits["page_size"])
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams BrandRegistrationInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -557,6 +834,56 @@ class BrandRegistrationList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists BrandRegistrationInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists BrandRegistrationInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -623,6 +950,76 @@ class BrandRegistrationList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return BrandRegistrationPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with BrandRegistrationPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = BrandRegistrationPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with BrandRegistrationPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = BrandRegistrationPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> BrandRegistrationPage:
         """

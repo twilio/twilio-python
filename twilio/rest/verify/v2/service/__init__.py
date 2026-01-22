@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -137,6 +138,24 @@ class ServiceInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the ServiceInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the ServiceInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "ServiceInstance":
         """
         Fetch the ServiceInstance
@@ -154,6 +173,24 @@ class ServiceInstance(InstanceResource):
         :returns: The fetched ServiceInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ServiceInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ServiceInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -335,6 +372,186 @@ class ServiceInstance(InstanceResource):
             verify_event_subscription_enabled=verify_event_subscription_enabled,
         )
 
+    def update_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        code_length: Union[int, object] = values.unset,
+        lookup_enabled: Union[bool, object] = values.unset,
+        skip_sms_to_landlines: Union[bool, object] = values.unset,
+        dtmf_input_required: Union[bool, object] = values.unset,
+        tts_name: Union[str, object] = values.unset,
+        psd2_enabled: Union[bool, object] = values.unset,
+        do_not_share_warning_enabled: Union[bool, object] = values.unset,
+        custom_code_enabled: Union[bool, object] = values.unset,
+        push_include_date: Union[bool, object] = values.unset,
+        push_apn_credential_sid: Union[str, object] = values.unset,
+        push_fcm_credential_sid: Union[str, object] = values.unset,
+        totp_issuer: Union[str, object] = values.unset,
+        totp_time_step: Union[int, object] = values.unset,
+        totp_code_length: Union[int, object] = values.unset,
+        totp_skew: Union[int, object] = values.unset,
+        default_template_sid: Union[str, object] = values.unset,
+        whatsapp_msg_service_sid: Union[str, object] = values.unset,
+        whatsapp_from: Union[str, object] = values.unset,
+        passkeys_relying_party_id: Union[str, object] = values.unset,
+        passkeys_relying_party_name: Union[str, object] = values.unset,
+        passkeys_relying_party_origins: Union[str, object] = values.unset,
+        passkeys_authenticator_attachment: Union[str, object] = values.unset,
+        passkeys_discoverable_credentials: Union[str, object] = values.unset,
+        passkeys_user_verification: Union[str, object] = values.unset,
+        verify_event_subscription_enabled: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ServiceInstance with HTTP info
+
+        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
+        :param code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
+        :param lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
+        :param skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
+        :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
+        :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
+        :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
+        :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
+        :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
+        :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param totp_issuer: Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI.
+        :param totp_time_step: Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
+        :param totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+        :param totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+        :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+        :param whatsapp_msg_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service.
+        :param whatsapp_from: The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service.
+        :param passkeys_relying_party_id: The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_name: The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_origins: The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
+        :param passkeys_authenticator_attachment: The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`.
+        :param passkeys_discoverable_credentials: Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param passkeys_user_verification: The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            friendly_name=friendly_name,
+            code_length=code_length,
+            lookup_enabled=lookup_enabled,
+            skip_sms_to_landlines=skip_sms_to_landlines,
+            dtmf_input_required=dtmf_input_required,
+            tts_name=tts_name,
+            psd2_enabled=psd2_enabled,
+            do_not_share_warning_enabled=do_not_share_warning_enabled,
+            custom_code_enabled=custom_code_enabled,
+            push_include_date=push_include_date,
+            push_apn_credential_sid=push_apn_credential_sid,
+            push_fcm_credential_sid=push_fcm_credential_sid,
+            totp_issuer=totp_issuer,
+            totp_time_step=totp_time_step,
+            totp_code_length=totp_code_length,
+            totp_skew=totp_skew,
+            default_template_sid=default_template_sid,
+            whatsapp_msg_service_sid=whatsapp_msg_service_sid,
+            whatsapp_from=whatsapp_from,
+            passkeys_relying_party_id=passkeys_relying_party_id,
+            passkeys_relying_party_name=passkeys_relying_party_name,
+            passkeys_relying_party_origins=passkeys_relying_party_origins,
+            passkeys_authenticator_attachment=passkeys_authenticator_attachment,
+            passkeys_discoverable_credentials=passkeys_discoverable_credentials,
+            passkeys_user_verification=passkeys_user_verification,
+            verify_event_subscription_enabled=verify_event_subscription_enabled,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        code_length: Union[int, object] = values.unset,
+        lookup_enabled: Union[bool, object] = values.unset,
+        skip_sms_to_landlines: Union[bool, object] = values.unset,
+        dtmf_input_required: Union[bool, object] = values.unset,
+        tts_name: Union[str, object] = values.unset,
+        psd2_enabled: Union[bool, object] = values.unset,
+        do_not_share_warning_enabled: Union[bool, object] = values.unset,
+        custom_code_enabled: Union[bool, object] = values.unset,
+        push_include_date: Union[bool, object] = values.unset,
+        push_apn_credential_sid: Union[str, object] = values.unset,
+        push_fcm_credential_sid: Union[str, object] = values.unset,
+        totp_issuer: Union[str, object] = values.unset,
+        totp_time_step: Union[int, object] = values.unset,
+        totp_code_length: Union[int, object] = values.unset,
+        totp_skew: Union[int, object] = values.unset,
+        default_template_sid: Union[str, object] = values.unset,
+        whatsapp_msg_service_sid: Union[str, object] = values.unset,
+        whatsapp_from: Union[str, object] = values.unset,
+        passkeys_relying_party_id: Union[str, object] = values.unset,
+        passkeys_relying_party_name: Union[str, object] = values.unset,
+        passkeys_relying_party_origins: Union[str, object] = values.unset,
+        passkeys_authenticator_attachment: Union[str, object] = values.unset,
+        passkeys_discoverable_credentials: Union[str, object] = values.unset,
+        passkeys_user_verification: Union[str, object] = values.unset,
+        verify_event_subscription_enabled: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ServiceInstance with HTTP info
+
+        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
+        :param code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
+        :param lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
+        :param skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
+        :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
+        :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
+        :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
+        :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
+        :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
+        :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param totp_issuer: Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI.
+        :param totp_time_step: Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
+        :param totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+        :param totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+        :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+        :param whatsapp_msg_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service.
+        :param whatsapp_from: The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service.
+        :param passkeys_relying_party_id: The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_name: The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_origins: The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
+        :param passkeys_authenticator_attachment: The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`.
+        :param passkeys_discoverable_credentials: Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param passkeys_user_verification: The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            friendly_name=friendly_name,
+            code_length=code_length,
+            lookup_enabled=lookup_enabled,
+            skip_sms_to_landlines=skip_sms_to_landlines,
+            dtmf_input_required=dtmf_input_required,
+            tts_name=tts_name,
+            psd2_enabled=psd2_enabled,
+            do_not_share_warning_enabled=do_not_share_warning_enabled,
+            custom_code_enabled=custom_code_enabled,
+            push_include_date=push_include_date,
+            push_apn_credential_sid=push_apn_credential_sid,
+            push_fcm_credential_sid=push_fcm_credential_sid,
+            totp_issuer=totp_issuer,
+            totp_time_step=totp_time_step,
+            totp_code_length=totp_code_length,
+            totp_skew=totp_skew,
+            default_template_sid=default_template_sid,
+            whatsapp_msg_service_sid=whatsapp_msg_service_sid,
+            whatsapp_from=whatsapp_from,
+            passkeys_relying_party_id=passkeys_relying_party_id,
+            passkeys_relying_party_name=passkeys_relying_party_name,
+            passkeys_relying_party_origins=passkeys_relying_party_origins,
+            passkeys_authenticator_attachment=passkeys_authenticator_attachment,
+            passkeys_discoverable_credentials=passkeys_discoverable_credentials,
+            passkeys_user_verification=passkeys_user_verification,
+            verify_event_subscription_enabled=verify_event_subscription_enabled,
+        )
+
     @property
     def access_tokens(self) -> AccessTokenList:
         """
@@ -451,6 +668,20 @@ class ServiceContext(InstanceContext):
         self._verification_checks: Optional[VerificationCheckList] = None
         self._webhooks: Optional[WebhookList] = None
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the ServiceInstance
@@ -458,10 +689,32 @@ class ServiceContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the ServiceInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -470,11 +723,33 @@ class ServiceContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the ServiceInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> ServiceInstance:
@@ -484,17 +759,42 @@ class ServiceContext(InstanceContext):
 
         :returns: The fetched ServiceInstance
         """
+        payload, _, _ = self._fetch()
+        return ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ServiceInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return ServiceInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> ServiceInstance:
@@ -504,19 +804,108 @@ class ServiceContext(InstanceContext):
 
         :returns: The fetched ServiceInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return ServiceInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ServiceInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = ServiceInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        code_length: Union[int, object] = values.unset,
+        lookup_enabled: Union[bool, object] = values.unset,
+        skip_sms_to_landlines: Union[bool, object] = values.unset,
+        dtmf_input_required: Union[bool, object] = values.unset,
+        tts_name: Union[str, object] = values.unset,
+        psd2_enabled: Union[bool, object] = values.unset,
+        do_not_share_warning_enabled: Union[bool, object] = values.unset,
+        custom_code_enabled: Union[bool, object] = values.unset,
+        push_include_date: Union[bool, object] = values.unset,
+        push_apn_credential_sid: Union[str, object] = values.unset,
+        push_fcm_credential_sid: Union[str, object] = values.unset,
+        totp_issuer: Union[str, object] = values.unset,
+        totp_time_step: Union[int, object] = values.unset,
+        totp_code_length: Union[int, object] = values.unset,
+        totp_skew: Union[int, object] = values.unset,
+        default_template_sid: Union[str, object] = values.unset,
+        whatsapp_msg_service_sid: Union[str, object] = values.unset,
+        whatsapp_from: Union[str, object] = values.unset,
+        passkeys_relying_party_id: Union[str, object] = values.unset,
+        passkeys_relying_party_name: Union[str, object] = values.unset,
+        passkeys_relying_party_origins: Union[str, object] = values.unset,
+        passkeys_authenticator_attachment: Union[str, object] = values.unset,
+        passkeys_discoverable_credentials: Union[str, object] = values.unset,
+        passkeys_user_verification: Union[str, object] = values.unset,
+        verify_event_subscription_enabled: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "CodeLength": code_length,
+                "LookupEnabled": serialize.boolean_to_string(lookup_enabled),
+                "SkipSmsToLandlines": serialize.boolean_to_string(
+                    skip_sms_to_landlines
+                ),
+                "DtmfInputRequired": serialize.boolean_to_string(dtmf_input_required),
+                "TtsName": tts_name,
+                "Psd2Enabled": serialize.boolean_to_string(psd2_enabled),
+                "DoNotShareWarningEnabled": serialize.boolean_to_string(
+                    do_not_share_warning_enabled
+                ),
+                "CustomCodeEnabled": serialize.boolean_to_string(custom_code_enabled),
+                "Push.IncludeDate": serialize.boolean_to_string(push_include_date),
+                "Push.ApnCredentialSid": push_apn_credential_sid,
+                "Push.FcmCredentialSid": push_fcm_credential_sid,
+                "Totp.Issuer": totp_issuer,
+                "Totp.TimeStep": totp_time_step,
+                "Totp.CodeLength": totp_code_length,
+                "Totp.Skew": totp_skew,
+                "DefaultTemplateSid": default_template_sid,
+                "Whatsapp.MsgServiceSid": whatsapp_msg_service_sid,
+                "Whatsapp.From": whatsapp_from,
+                "Passkeys.RelyingParty.Id": passkeys_relying_party_id,
+                "Passkeys.RelyingParty.Name": passkeys_relying_party_name,
+                "Passkeys.RelyingParty.Origins": passkeys_relying_party_origins,
+                "Passkeys.AuthenticatorAttachment": passkeys_authenticator_attachment,
+                "Passkeys.DiscoverableCredentials": passkeys_discoverable_credentials,
+                "Passkeys.UserVerification": passkeys_user_verification,
+                "VerifyEventSubscriptionEnabled": serialize.boolean_to_string(
+                    verify_event_subscription_enabled
+                ),
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -580,6 +969,163 @@ class ServiceContext(InstanceContext):
 
         :returns: The updated ServiceInstance
         """
+        payload, _, _ = self._update(
+            friendly_name=friendly_name,
+            code_length=code_length,
+            lookup_enabled=lookup_enabled,
+            skip_sms_to_landlines=skip_sms_to_landlines,
+            dtmf_input_required=dtmf_input_required,
+            tts_name=tts_name,
+            psd2_enabled=psd2_enabled,
+            do_not_share_warning_enabled=do_not_share_warning_enabled,
+            custom_code_enabled=custom_code_enabled,
+            push_include_date=push_include_date,
+            push_apn_credential_sid=push_apn_credential_sid,
+            push_fcm_credential_sid=push_fcm_credential_sid,
+            totp_issuer=totp_issuer,
+            totp_time_step=totp_time_step,
+            totp_code_length=totp_code_length,
+            totp_skew=totp_skew,
+            default_template_sid=default_template_sid,
+            whatsapp_msg_service_sid=whatsapp_msg_service_sid,
+            whatsapp_from=whatsapp_from,
+            passkeys_relying_party_id=passkeys_relying_party_id,
+            passkeys_relying_party_name=passkeys_relying_party_name,
+            passkeys_relying_party_origins=passkeys_relying_party_origins,
+            passkeys_authenticator_attachment=passkeys_authenticator_attachment,
+            passkeys_discoverable_credentials=passkeys_discoverable_credentials,
+            passkeys_user_verification=passkeys_user_verification,
+            verify_event_subscription_enabled=verify_event_subscription_enabled,
+        )
+        return ServiceInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        code_length: Union[int, object] = values.unset,
+        lookup_enabled: Union[bool, object] = values.unset,
+        skip_sms_to_landlines: Union[bool, object] = values.unset,
+        dtmf_input_required: Union[bool, object] = values.unset,
+        tts_name: Union[str, object] = values.unset,
+        psd2_enabled: Union[bool, object] = values.unset,
+        do_not_share_warning_enabled: Union[bool, object] = values.unset,
+        custom_code_enabled: Union[bool, object] = values.unset,
+        push_include_date: Union[bool, object] = values.unset,
+        push_apn_credential_sid: Union[str, object] = values.unset,
+        push_fcm_credential_sid: Union[str, object] = values.unset,
+        totp_issuer: Union[str, object] = values.unset,
+        totp_time_step: Union[int, object] = values.unset,
+        totp_code_length: Union[int, object] = values.unset,
+        totp_skew: Union[int, object] = values.unset,
+        default_template_sid: Union[str, object] = values.unset,
+        whatsapp_msg_service_sid: Union[str, object] = values.unset,
+        whatsapp_from: Union[str, object] = values.unset,
+        passkeys_relying_party_id: Union[str, object] = values.unset,
+        passkeys_relying_party_name: Union[str, object] = values.unset,
+        passkeys_relying_party_origins: Union[str, object] = values.unset,
+        passkeys_authenticator_attachment: Union[str, object] = values.unset,
+        passkeys_discoverable_credentials: Union[str, object] = values.unset,
+        passkeys_user_verification: Union[str, object] = values.unset,
+        verify_event_subscription_enabled: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ServiceInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
+        :param code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
+        :param lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
+        :param skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
+        :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
+        :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
+        :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
+        :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
+        :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
+        :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param totp_issuer: Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI.
+        :param totp_time_step: Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
+        :param totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+        :param totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+        :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+        :param whatsapp_msg_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service.
+        :param whatsapp_from: The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service.
+        :param passkeys_relying_party_id: The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_name: The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_origins: The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
+        :param passkeys_authenticator_attachment: The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`.
+        :param passkeys_discoverable_credentials: Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param passkeys_user_verification: The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            friendly_name=friendly_name,
+            code_length=code_length,
+            lookup_enabled=lookup_enabled,
+            skip_sms_to_landlines=skip_sms_to_landlines,
+            dtmf_input_required=dtmf_input_required,
+            tts_name=tts_name,
+            psd2_enabled=psd2_enabled,
+            do_not_share_warning_enabled=do_not_share_warning_enabled,
+            custom_code_enabled=custom_code_enabled,
+            push_include_date=push_include_date,
+            push_apn_credential_sid=push_apn_credential_sid,
+            push_fcm_credential_sid=push_fcm_credential_sid,
+            totp_issuer=totp_issuer,
+            totp_time_step=totp_time_step,
+            totp_code_length=totp_code_length,
+            totp_skew=totp_skew,
+            default_template_sid=default_template_sid,
+            whatsapp_msg_service_sid=whatsapp_msg_service_sid,
+            whatsapp_from=whatsapp_from,
+            passkeys_relying_party_id=passkeys_relying_party_id,
+            passkeys_relying_party_name=passkeys_relying_party_name,
+            passkeys_relying_party_origins=passkeys_relying_party_origins,
+            passkeys_authenticator_attachment=passkeys_authenticator_attachment,
+            passkeys_discoverable_credentials=passkeys_discoverable_credentials,
+            passkeys_user_verification=passkeys_user_verification,
+            verify_event_subscription_enabled=verify_event_subscription_enabled,
+        )
+        instance = ServiceInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        code_length: Union[int, object] = values.unset,
+        lookup_enabled: Union[bool, object] = values.unset,
+        skip_sms_to_landlines: Union[bool, object] = values.unset,
+        dtmf_input_required: Union[bool, object] = values.unset,
+        tts_name: Union[str, object] = values.unset,
+        psd2_enabled: Union[bool, object] = values.unset,
+        do_not_share_warning_enabled: Union[bool, object] = values.unset,
+        custom_code_enabled: Union[bool, object] = values.unset,
+        push_include_date: Union[bool, object] = values.unset,
+        push_apn_credential_sid: Union[str, object] = values.unset,
+        push_fcm_credential_sid: Union[str, object] = values.unset,
+        totp_issuer: Union[str, object] = values.unset,
+        totp_time_step: Union[int, object] = values.unset,
+        totp_code_length: Union[int, object] = values.unset,
+        totp_skew: Union[int, object] = values.unset,
+        default_template_sid: Union[str, object] = values.unset,
+        whatsapp_msg_service_sid: Union[str, object] = values.unset,
+        whatsapp_from: Union[str, object] = values.unset,
+        passkeys_relying_party_id: Union[str, object] = values.unset,
+        passkeys_relying_party_name: Union[str, object] = values.unset,
+        passkeys_relying_party_origins: Union[str, object] = values.unset,
+        passkeys_authenticator_attachment: Union[str, object] = values.unset,
+        passkeys_discoverable_credentials: Union[str, object] = values.unset,
+        passkeys_user_verification: Union[str, object] = values.unset,
+        verify_event_subscription_enabled: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -623,11 +1169,9 @@ class ServiceContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return ServiceInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
         self,
@@ -690,54 +1234,127 @@ class ServiceContext(InstanceContext):
 
         :returns: The updated ServiceInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "CodeLength": code_length,
-                "LookupEnabled": serialize.boolean_to_string(lookup_enabled),
-                "SkipSmsToLandlines": serialize.boolean_to_string(
-                    skip_sms_to_landlines
-                ),
-                "DtmfInputRequired": serialize.boolean_to_string(dtmf_input_required),
-                "TtsName": tts_name,
-                "Psd2Enabled": serialize.boolean_to_string(psd2_enabled),
-                "DoNotShareWarningEnabled": serialize.boolean_to_string(
-                    do_not_share_warning_enabled
-                ),
-                "CustomCodeEnabled": serialize.boolean_to_string(custom_code_enabled),
-                "Push.IncludeDate": serialize.boolean_to_string(push_include_date),
-                "Push.ApnCredentialSid": push_apn_credential_sid,
-                "Push.FcmCredentialSid": push_fcm_credential_sid,
-                "Totp.Issuer": totp_issuer,
-                "Totp.TimeStep": totp_time_step,
-                "Totp.CodeLength": totp_code_length,
-                "Totp.Skew": totp_skew,
-                "DefaultTemplateSid": default_template_sid,
-                "Whatsapp.MsgServiceSid": whatsapp_msg_service_sid,
-                "Whatsapp.From": whatsapp_from,
-                "Passkeys.RelyingParty.Id": passkeys_relying_party_id,
-                "Passkeys.RelyingParty.Name": passkeys_relying_party_name,
-                "Passkeys.RelyingParty.Origins": passkeys_relying_party_origins,
-                "Passkeys.AuthenticatorAttachment": passkeys_authenticator_attachment,
-                "Passkeys.DiscoverableCredentials": passkeys_discoverable_credentials,
-                "Passkeys.UserVerification": passkeys_user_verification,
-                "VerifyEventSubscriptionEnabled": serialize.boolean_to_string(
-                    verify_event_subscription_enabled
-                ),
-            }
+        payload, _, _ = await self._update_async(
+            friendly_name=friendly_name,
+            code_length=code_length,
+            lookup_enabled=lookup_enabled,
+            skip_sms_to_landlines=skip_sms_to_landlines,
+            dtmf_input_required=dtmf_input_required,
+            tts_name=tts_name,
+            psd2_enabled=psd2_enabled,
+            do_not_share_warning_enabled=do_not_share_warning_enabled,
+            custom_code_enabled=custom_code_enabled,
+            push_include_date=push_include_date,
+            push_apn_credential_sid=push_apn_credential_sid,
+            push_fcm_credential_sid=push_fcm_credential_sid,
+            totp_issuer=totp_issuer,
+            totp_time_step=totp_time_step,
+            totp_code_length=totp_code_length,
+            totp_skew=totp_skew,
+            default_template_sid=default_template_sid,
+            whatsapp_msg_service_sid=whatsapp_msg_service_sid,
+            whatsapp_from=whatsapp_from,
+            passkeys_relying_party_id=passkeys_relying_party_id,
+            passkeys_relying_party_name=passkeys_relying_party_name,
+            passkeys_relying_party_origins=passkeys_relying_party_origins,
+            passkeys_authenticator_attachment=passkeys_authenticator_attachment,
+            passkeys_discoverable_credentials=passkeys_discoverable_credentials,
+            passkeys_user_verification=passkeys_user_verification,
+            verify_event_subscription_enabled=verify_event_subscription_enabled,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ServiceInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        code_length: Union[int, object] = values.unset,
+        lookup_enabled: Union[bool, object] = values.unset,
+        skip_sms_to_landlines: Union[bool, object] = values.unset,
+        dtmf_input_required: Union[bool, object] = values.unset,
+        tts_name: Union[str, object] = values.unset,
+        psd2_enabled: Union[bool, object] = values.unset,
+        do_not_share_warning_enabled: Union[bool, object] = values.unset,
+        custom_code_enabled: Union[bool, object] = values.unset,
+        push_include_date: Union[bool, object] = values.unset,
+        push_apn_credential_sid: Union[str, object] = values.unset,
+        push_fcm_credential_sid: Union[str, object] = values.unset,
+        totp_issuer: Union[str, object] = values.unset,
+        totp_time_step: Union[int, object] = values.unset,
+        totp_code_length: Union[int, object] = values.unset,
+        totp_skew: Union[int, object] = values.unset,
+        default_template_sid: Union[str, object] = values.unset,
+        whatsapp_msg_service_sid: Union[str, object] = values.unset,
+        whatsapp_from: Union[str, object] = values.unset,
+        passkeys_relying_party_id: Union[str, object] = values.unset,
+        passkeys_relying_party_name: Union[str, object] = values.unset,
+        passkeys_relying_party_origins: Union[str, object] = values.unset,
+        passkeys_authenticator_attachment: Union[str, object] = values.unset,
+        passkeys_discoverable_credentials: Union[str, object] = values.unset,
+        passkeys_user_verification: Union[str, object] = values.unset,
+        verify_event_subscription_enabled: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ServiceInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
+        :param code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
+        :param lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
+        :param skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
+        :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
+        :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
+        :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
+        :param do_not_share_warning_enabled: Whether to add a privacy warning at the end of an SMS. **Disabled by default and applies only for SMS.**
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
+        :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter.
+        :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param totp_issuer: Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI.
+        :param totp_time_step: Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
+        :param totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+        :param totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+        :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+        :param whatsapp_msg_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/services) to associate with the Verification Service.
+        :param whatsapp_from: The WhatsApp number to use as the sender of the verification messages. This number must be associated with the WhatsApp Message Service.
+        :param passkeys_relying_party_id: The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_name: The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_origins: The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
+        :param passkeys_authenticator_attachment: The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`.
+        :param passkeys_discoverable_credentials: Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param passkeys_user_verification: The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            friendly_name=friendly_name,
+            code_length=code_length,
+            lookup_enabled=lookup_enabled,
+            skip_sms_to_landlines=skip_sms_to_landlines,
+            dtmf_input_required=dtmf_input_required,
+            tts_name=tts_name,
+            psd2_enabled=psd2_enabled,
+            do_not_share_warning_enabled=do_not_share_warning_enabled,
+            custom_code_enabled=custom_code_enabled,
+            push_include_date=push_include_date,
+            push_apn_credential_sid=push_apn_credential_sid,
+            push_fcm_credential_sid=push_fcm_credential_sid,
+            totp_issuer=totp_issuer,
+            totp_time_step=totp_time_step,
+            totp_code_length=totp_code_length,
+            totp_skew=totp_skew,
+            default_template_sid=default_template_sid,
+            whatsapp_msg_service_sid=whatsapp_msg_service_sid,
+            whatsapp_from=whatsapp_from,
+            passkeys_relying_party_id=passkeys_relying_party_id,
+            passkeys_relying_party_name=passkeys_relying_party_name,
+            passkeys_relying_party_origins=passkeys_relying_party_origins,
+            passkeys_authenticator_attachment=passkeys_authenticator_attachment,
+            passkeys_discoverable_credentials=passkeys_discoverable_credentials,
+            passkeys_user_verification=passkeys_user_verification,
+            verify_event_subscription_enabled=verify_event_subscription_enabled,
+        )
+        instance = ServiceInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def access_tokens(self) -> AccessTokenList:
@@ -913,6 +1530,88 @@ class ServiceList(ListResource):
 
         self._uri = "/Services"
 
+    def _create(
+        self,
+        friendly_name: str,
+        code_length: Union[int, object] = values.unset,
+        lookup_enabled: Union[bool, object] = values.unset,
+        skip_sms_to_landlines: Union[bool, object] = values.unset,
+        dtmf_input_required: Union[bool, object] = values.unset,
+        tts_name: Union[str, object] = values.unset,
+        psd2_enabled: Union[bool, object] = values.unset,
+        do_not_share_warning_enabled: Union[bool, object] = values.unset,
+        custom_code_enabled: Union[bool, object] = values.unset,
+        push_include_date: Union[bool, object] = values.unset,
+        push_apn_credential_sid: Union[str, object] = values.unset,
+        push_fcm_credential_sid: Union[str, object] = values.unset,
+        totp_issuer: Union[str, object] = values.unset,
+        totp_time_step: Union[int, object] = values.unset,
+        totp_code_length: Union[int, object] = values.unset,
+        totp_skew: Union[int, object] = values.unset,
+        default_template_sid: Union[str, object] = values.unset,
+        whatsapp_msg_service_sid: Union[str, object] = values.unset,
+        whatsapp_from: Union[str, object] = values.unset,
+        passkeys_relying_party_id: Union[str, object] = values.unset,
+        passkeys_relying_party_name: Union[str, object] = values.unset,
+        passkeys_relying_party_origins: Union[str, object] = values.unset,
+        passkeys_authenticator_attachment: Union[str, object] = values.unset,
+        passkeys_discoverable_credentials: Union[str, object] = values.unset,
+        passkeys_user_verification: Union[str, object] = values.unset,
+        verify_event_subscription_enabled: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "CodeLength": code_length,
+                "LookupEnabled": serialize.boolean_to_string(lookup_enabled),
+                "SkipSmsToLandlines": serialize.boolean_to_string(
+                    skip_sms_to_landlines
+                ),
+                "DtmfInputRequired": serialize.boolean_to_string(dtmf_input_required),
+                "TtsName": tts_name,
+                "Psd2Enabled": serialize.boolean_to_string(psd2_enabled),
+                "DoNotShareWarningEnabled": serialize.boolean_to_string(
+                    do_not_share_warning_enabled
+                ),
+                "CustomCodeEnabled": serialize.boolean_to_string(custom_code_enabled),
+                "Push.IncludeDate": serialize.boolean_to_string(push_include_date),
+                "Push.ApnCredentialSid": push_apn_credential_sid,
+                "Push.FcmCredentialSid": push_fcm_credential_sid,
+                "Totp.Issuer": totp_issuer,
+                "Totp.TimeStep": totp_time_step,
+                "Totp.CodeLength": totp_code_length,
+                "Totp.Skew": totp_skew,
+                "DefaultTemplateSid": default_template_sid,
+                "Whatsapp.MsgServiceSid": whatsapp_msg_service_sid,
+                "Whatsapp.From": whatsapp_from,
+                "Passkeys.RelyingParty.Id": passkeys_relying_party_id,
+                "Passkeys.RelyingParty.Name": passkeys_relying_party_name,
+                "Passkeys.RelyingParty.Origins": passkeys_relying_party_origins,
+                "Passkeys.AuthenticatorAttachment": passkeys_authenticator_attachment,
+                "Passkeys.DiscoverableCredentials": passkeys_discoverable_credentials,
+                "Passkeys.UserVerification": passkeys_user_verification,
+                "VerifyEventSubscriptionEnabled": serialize.boolean_to_string(
+                    verify_event_subscription_enabled
+                ),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         friendly_name: str,
@@ -974,6 +1673,163 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
+        payload, _, _ = self._create(
+            friendly_name=friendly_name,
+            code_length=code_length,
+            lookup_enabled=lookup_enabled,
+            skip_sms_to_landlines=skip_sms_to_landlines,
+            dtmf_input_required=dtmf_input_required,
+            tts_name=tts_name,
+            psd2_enabled=psd2_enabled,
+            do_not_share_warning_enabled=do_not_share_warning_enabled,
+            custom_code_enabled=custom_code_enabled,
+            push_include_date=push_include_date,
+            push_apn_credential_sid=push_apn_credential_sid,
+            push_fcm_credential_sid=push_fcm_credential_sid,
+            totp_issuer=totp_issuer,
+            totp_time_step=totp_time_step,
+            totp_code_length=totp_code_length,
+            totp_skew=totp_skew,
+            default_template_sid=default_template_sid,
+            whatsapp_msg_service_sid=whatsapp_msg_service_sid,
+            whatsapp_from=whatsapp_from,
+            passkeys_relying_party_id=passkeys_relying_party_id,
+            passkeys_relying_party_name=passkeys_relying_party_name,
+            passkeys_relying_party_origins=passkeys_relying_party_origins,
+            passkeys_authenticator_attachment=passkeys_authenticator_attachment,
+            passkeys_discoverable_credentials=passkeys_discoverable_credentials,
+            passkeys_user_verification=passkeys_user_verification,
+            verify_event_subscription_enabled=verify_event_subscription_enabled,
+        )
+        return ServiceInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        friendly_name: str,
+        code_length: Union[int, object] = values.unset,
+        lookup_enabled: Union[bool, object] = values.unset,
+        skip_sms_to_landlines: Union[bool, object] = values.unset,
+        dtmf_input_required: Union[bool, object] = values.unset,
+        tts_name: Union[str, object] = values.unset,
+        psd2_enabled: Union[bool, object] = values.unset,
+        do_not_share_warning_enabled: Union[bool, object] = values.unset,
+        custom_code_enabled: Union[bool, object] = values.unset,
+        push_include_date: Union[bool, object] = values.unset,
+        push_apn_credential_sid: Union[str, object] = values.unset,
+        push_fcm_credential_sid: Union[str, object] = values.unset,
+        totp_issuer: Union[str, object] = values.unset,
+        totp_time_step: Union[int, object] = values.unset,
+        totp_code_length: Union[int, object] = values.unset,
+        totp_skew: Union[int, object] = values.unset,
+        default_template_sid: Union[str, object] = values.unset,
+        whatsapp_msg_service_sid: Union[str, object] = values.unset,
+        whatsapp_from: Union[str, object] = values.unset,
+        passkeys_relying_party_id: Union[str, object] = values.unset,
+        passkeys_relying_party_name: Union[str, object] = values.unset,
+        passkeys_relying_party_origins: Union[str, object] = values.unset,
+        passkeys_authenticator_attachment: Union[str, object] = values.unset,
+        passkeys_discoverable_credentials: Union[str, object] = values.unset,
+        passkeys_user_verification: Union[str, object] = values.unset,
+        verify_event_subscription_enabled: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the ServiceInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
+        :param code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
+        :param lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
+        :param skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
+        :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
+        :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
+        :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
+        :param do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
+        :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
+        :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param totp_issuer: Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI. Defaults to the service friendly name if not provided.
+        :param totp_time_step: Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
+        :param totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+        :param totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+        :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+        :param whatsapp_msg_service_sid: The SID of the Messaging Service containing WhatsApp Sender(s) that Verify will use to send WhatsApp messages to your users.
+        :param whatsapp_from: The number to use as the WhatsApp Sender that Verify will use to send WhatsApp messages to your users.This WhatsApp Sender must be associated with a Messaging Service SID.
+        :param passkeys_relying_party_id: The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_name: The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_origins: The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
+        :param passkeys_authenticator_attachment: The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`.
+        :param passkeys_discoverable_credentials: Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param passkeys_user_verification: The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            friendly_name=friendly_name,
+            code_length=code_length,
+            lookup_enabled=lookup_enabled,
+            skip_sms_to_landlines=skip_sms_to_landlines,
+            dtmf_input_required=dtmf_input_required,
+            tts_name=tts_name,
+            psd2_enabled=psd2_enabled,
+            do_not_share_warning_enabled=do_not_share_warning_enabled,
+            custom_code_enabled=custom_code_enabled,
+            push_include_date=push_include_date,
+            push_apn_credential_sid=push_apn_credential_sid,
+            push_fcm_credential_sid=push_fcm_credential_sid,
+            totp_issuer=totp_issuer,
+            totp_time_step=totp_time_step,
+            totp_code_length=totp_code_length,
+            totp_skew=totp_skew,
+            default_template_sid=default_template_sid,
+            whatsapp_msg_service_sid=whatsapp_msg_service_sid,
+            whatsapp_from=whatsapp_from,
+            passkeys_relying_party_id=passkeys_relying_party_id,
+            passkeys_relying_party_name=passkeys_relying_party_name,
+            passkeys_relying_party_origins=passkeys_relying_party_origins,
+            passkeys_authenticator_attachment=passkeys_authenticator_attachment,
+            passkeys_discoverable_credentials=passkeys_discoverable_credentials,
+            passkeys_user_verification=passkeys_user_verification,
+            verify_event_subscription_enabled=verify_event_subscription_enabled,
+        )
+        instance = ServiceInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        friendly_name: str,
+        code_length: Union[int, object] = values.unset,
+        lookup_enabled: Union[bool, object] = values.unset,
+        skip_sms_to_landlines: Union[bool, object] = values.unset,
+        dtmf_input_required: Union[bool, object] = values.unset,
+        tts_name: Union[str, object] = values.unset,
+        psd2_enabled: Union[bool, object] = values.unset,
+        do_not_share_warning_enabled: Union[bool, object] = values.unset,
+        custom_code_enabled: Union[bool, object] = values.unset,
+        push_include_date: Union[bool, object] = values.unset,
+        push_apn_credential_sid: Union[str, object] = values.unset,
+        push_fcm_credential_sid: Union[str, object] = values.unset,
+        totp_issuer: Union[str, object] = values.unset,
+        totp_time_step: Union[int, object] = values.unset,
+        totp_code_length: Union[int, object] = values.unset,
+        totp_skew: Union[int, object] = values.unset,
+        default_template_sid: Union[str, object] = values.unset,
+        whatsapp_msg_service_sid: Union[str, object] = values.unset,
+        whatsapp_from: Union[str, object] = values.unset,
+        passkeys_relying_party_id: Union[str, object] = values.unset,
+        passkeys_relying_party_name: Union[str, object] = values.unset,
+        passkeys_relying_party_origins: Union[str, object] = values.unset,
+        passkeys_authenticator_attachment: Union[str, object] = values.unset,
+        passkeys_discoverable_credentials: Union[str, object] = values.unset,
+        passkeys_user_verification: Union[str, object] = values.unset,
+        verify_event_subscription_enabled: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -1017,11 +1873,9 @@ class ServiceList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return ServiceInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -1084,54 +1938,127 @@ class ServiceList(ListResource):
 
         :returns: The created ServiceInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "CodeLength": code_length,
-                "LookupEnabled": serialize.boolean_to_string(lookup_enabled),
-                "SkipSmsToLandlines": serialize.boolean_to_string(
-                    skip_sms_to_landlines
-                ),
-                "DtmfInputRequired": serialize.boolean_to_string(dtmf_input_required),
-                "TtsName": tts_name,
-                "Psd2Enabled": serialize.boolean_to_string(psd2_enabled),
-                "DoNotShareWarningEnabled": serialize.boolean_to_string(
-                    do_not_share_warning_enabled
-                ),
-                "CustomCodeEnabled": serialize.boolean_to_string(custom_code_enabled),
-                "Push.IncludeDate": serialize.boolean_to_string(push_include_date),
-                "Push.ApnCredentialSid": push_apn_credential_sid,
-                "Push.FcmCredentialSid": push_fcm_credential_sid,
-                "Totp.Issuer": totp_issuer,
-                "Totp.TimeStep": totp_time_step,
-                "Totp.CodeLength": totp_code_length,
-                "Totp.Skew": totp_skew,
-                "DefaultTemplateSid": default_template_sid,
-                "Whatsapp.MsgServiceSid": whatsapp_msg_service_sid,
-                "Whatsapp.From": whatsapp_from,
-                "Passkeys.RelyingParty.Id": passkeys_relying_party_id,
-                "Passkeys.RelyingParty.Name": passkeys_relying_party_name,
-                "Passkeys.RelyingParty.Origins": passkeys_relying_party_origins,
-                "Passkeys.AuthenticatorAttachment": passkeys_authenticator_attachment,
-                "Passkeys.DiscoverableCredentials": passkeys_discoverable_credentials,
-                "Passkeys.UserVerification": passkeys_user_verification,
-                "VerifyEventSubscriptionEnabled": serialize.boolean_to_string(
-                    verify_event_subscription_enabled
-                ),
-            }
+        payload, _, _ = await self._create_async(
+            friendly_name=friendly_name,
+            code_length=code_length,
+            lookup_enabled=lookup_enabled,
+            skip_sms_to_landlines=skip_sms_to_landlines,
+            dtmf_input_required=dtmf_input_required,
+            tts_name=tts_name,
+            psd2_enabled=psd2_enabled,
+            do_not_share_warning_enabled=do_not_share_warning_enabled,
+            custom_code_enabled=custom_code_enabled,
+            push_include_date=push_include_date,
+            push_apn_credential_sid=push_apn_credential_sid,
+            push_fcm_credential_sid=push_fcm_credential_sid,
+            totp_issuer=totp_issuer,
+            totp_time_step=totp_time_step,
+            totp_code_length=totp_code_length,
+            totp_skew=totp_skew,
+            default_template_sid=default_template_sid,
+            whatsapp_msg_service_sid=whatsapp_msg_service_sid,
+            whatsapp_from=whatsapp_from,
+            passkeys_relying_party_id=passkeys_relying_party_id,
+            passkeys_relying_party_name=passkeys_relying_party_name,
+            passkeys_relying_party_origins=passkeys_relying_party_origins,
+            passkeys_authenticator_attachment=passkeys_authenticator_attachment,
+            passkeys_discoverable_credentials=passkeys_discoverable_credentials,
+            passkeys_user_verification=passkeys_user_verification,
+            verify_event_subscription_enabled=verify_event_subscription_enabled,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ServiceInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        friendly_name: str,
+        code_length: Union[int, object] = values.unset,
+        lookup_enabled: Union[bool, object] = values.unset,
+        skip_sms_to_landlines: Union[bool, object] = values.unset,
+        dtmf_input_required: Union[bool, object] = values.unset,
+        tts_name: Union[str, object] = values.unset,
+        psd2_enabled: Union[bool, object] = values.unset,
+        do_not_share_warning_enabled: Union[bool, object] = values.unset,
+        custom_code_enabled: Union[bool, object] = values.unset,
+        push_include_date: Union[bool, object] = values.unset,
+        push_apn_credential_sid: Union[str, object] = values.unset,
+        push_fcm_credential_sid: Union[str, object] = values.unset,
+        totp_issuer: Union[str, object] = values.unset,
+        totp_time_step: Union[int, object] = values.unset,
+        totp_code_length: Union[int, object] = values.unset,
+        totp_skew: Union[int, object] = values.unset,
+        default_template_sid: Union[str, object] = values.unset,
+        whatsapp_msg_service_sid: Union[str, object] = values.unset,
+        whatsapp_from: Union[str, object] = values.unset,
+        passkeys_relying_party_id: Union[str, object] = values.unset,
+        passkeys_relying_party_name: Union[str, object] = values.unset,
+        passkeys_relying_party_origins: Union[str, object] = values.unset,
+        passkeys_authenticator_attachment: Union[str, object] = values.unset,
+        passkeys_discoverable_credentials: Union[str, object] = values.unset,
+        passkeys_user_verification: Union[str, object] = values.unset,
+        verify_event_subscription_enabled: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the ServiceInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the verification service. It can be up to 32 characters long. **This value should not contain PII.**
+        :param code_length: The length of the verification code to generate. Must be an integer value between 4 and 10, inclusive.
+        :param lookup_enabled: Whether to perform a lookup with each verification started and return info about the phone number.
+        :param skip_sms_to_landlines: Whether to skip sending SMS verifications to landlines. Requires `lookup_enabled`.
+        :param dtmf_input_required: Whether to ask the user to press a number before delivering the verify code in a phone call.
+        :param tts_name: The name of an alternative text-to-speech service to use in phone calls. Applies only to TTS languages.
+        :param psd2_enabled: Whether to pass PSD2 transaction parameters when starting a verification.
+        :param do_not_share_warning_enabled: Whether to add a security warning at the end of an SMS verification body. Disabled by default and applies only to SMS. Example SMS body: `Your AppName verification code is: 1234. Don’t share this code with anyone; our employees will never ask for the code`
+        :param custom_code_enabled: Whether to allow sending verifications with a custom code instead of a randomly generated one.
+        :param push_include_date: Optional configuration for the Push factors. If true, include the date in the Challenge's response. Otherwise, the date is omitted from the response. See [Challenge](https://www.twilio.com/docs/verify/api/challenge) resource’s details parameter for more info. Default: false. **Deprecated** do not use this parameter. This timestamp value is the same one as the one found in `date_created`, please use that one instead.
+        :param push_apn_credential_sid: Optional configuration for the Push factors. Set the APN Credential for this service. This will allow to send push notifications to iOS devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param push_fcm_credential_sid: Optional configuration for the Push factors. Set the FCM Credential for this service. This will allow to send push notifications to Android devices. See [Credential Resource](https://www.twilio.com/docs/notify/api/credential-resource)
+        :param totp_issuer: Optional configuration for the TOTP factors. Set TOTP Issuer for this service. This will allow to configure the issuer of the TOTP URI. Defaults to the service friendly name if not provided.
+        :param totp_time_step: Optional configuration for the TOTP factors. Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code is generated every time_step seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30 seconds
+        :param totp_code_length: Optional configuration for the TOTP factors. Number of digits for generated TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6
+        :param totp_skew: Optional configuration for the TOTP factors. The number of time-steps, past and future, that are valid for validation of TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1
+        :param default_template_sid: The default message [template](https://www.twilio.com/docs/verify/api/templates). Will be used for all SMS verifications unless explicitly overriden. SMS channel only.
+        :param whatsapp_msg_service_sid: The SID of the Messaging Service containing WhatsApp Sender(s) that Verify will use to send WhatsApp messages to your users.
+        :param whatsapp_from: The number to use as the WhatsApp Sender that Verify will use to send WhatsApp messages to your users.This WhatsApp Sender must be associated with a Messaging Service SID.
+        :param passkeys_relying_party_id: The Relying Party ID for Passkeys. This is the domain of your application, e.g. `example.com`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_name: The Relying Party Name for Passkeys. This is the name of your application, e.g. `Example App`. It is used to identify your application when creating Passkeys.
+        :param passkeys_relying_party_origins: The Relying Party Origins for Passkeys. This is the origin of your application, e.g. `login.example.com,www.example.com`. It is used to identify your application when creating Passkeys, it can have multiple origins split by `,`.
+        :param passkeys_authenticator_attachment: The Authenticator Attachment for Passkeys. This is the type of authenticator that will be used to create Passkeys. It can be empty or it can have the values `platform`, `cross-platform` or `any`.
+        :param passkeys_discoverable_credentials: Indicates whether credentials must be discoverable by the authenticator. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param passkeys_user_verification: The User Verification for Passkeys. This is the type of user verification that will be used to create Passkeys. It can be empty or it can have the values `required`, `preferred` or `discouraged`.
+        :param verify_event_subscription_enabled: Whether to allow verifications from the service to reach the stream-events sinks if configured
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            friendly_name=friendly_name,
+            code_length=code_length,
+            lookup_enabled=lookup_enabled,
+            skip_sms_to_landlines=skip_sms_to_landlines,
+            dtmf_input_required=dtmf_input_required,
+            tts_name=tts_name,
+            psd2_enabled=psd2_enabled,
+            do_not_share_warning_enabled=do_not_share_warning_enabled,
+            custom_code_enabled=custom_code_enabled,
+            push_include_date=push_include_date,
+            push_apn_credential_sid=push_apn_credential_sid,
+            push_fcm_credential_sid=push_fcm_credential_sid,
+            totp_issuer=totp_issuer,
+            totp_time_step=totp_time_step,
+            totp_code_length=totp_code_length,
+            totp_skew=totp_skew,
+            default_template_sid=default_template_sid,
+            whatsapp_msg_service_sid=whatsapp_msg_service_sid,
+            whatsapp_from=whatsapp_from,
+            passkeys_relying_party_id=passkeys_relying_party_id,
+            passkeys_relying_party_name=passkeys_relying_party_name,
+            passkeys_relying_party_origins=passkeys_relying_party_origins,
+            passkeys_authenticator_attachment=passkeys_authenticator_attachment,
+            passkeys_discoverable_credentials=passkeys_discoverable_credentials,
+            passkeys_user_verification=passkeys_user_verification,
+            verify_event_subscription_enabled=verify_event_subscription_enabled,
+        )
+        instance = ServiceInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -1182,6 +2109,56 @@ class ServiceList(ListResource):
         page = await self.page_async(page_size=limits["page_size"])
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams ServiceInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(page_size=limits["page_size"])
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams ServiceInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -1235,6 +2212,56 @@ class ServiceList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists ServiceInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists ServiceInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -1301,6 +2328,76 @@ class ServiceList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return ServicePage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ServicePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = ServicePage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ServicePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = ServicePage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ServicePage:
         """

@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -106,6 +107,42 @@ class ExportCustomJobList(ListResource):
         }
         self._uri = "/Exports/{resource_type}/Jobs".format(**self._solution)
 
+    def _create(
+        self,
+        start_day: str,
+        end_day: str,
+        friendly_name: str,
+        webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "StartDay": start_day,
+                "EndDay": end_day,
+                "FriendlyName": friendly_name,
+                "WebhookUrl": webhook_url,
+                "WebhookMethod": webhook_method,
+                "Email": email,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         start_day: str,
@@ -127,6 +164,67 @@ class ExportCustomJobList(ListResource):
 
         :returns: The created ExportCustomJobInstance
         """
+        payload, _, _ = self._create(
+            start_day=start_day,
+            end_day=end_day,
+            friendly_name=friendly_name,
+            webhook_url=webhook_url,
+            webhook_method=webhook_method,
+            email=email,
+        )
+        return ExportCustomJobInstance(
+            self._version, payload, resource_type=self._solution["resource_type"]
+        )
+
+    def create_with_http_info(
+        self,
+        start_day: str,
+        end_day: str,
+        friendly_name: str,
+        webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the ExportCustomJobInstance and return response metadata
+
+        :param start_day: The start day for the custom export specified as a string in the format of yyyy-mm-dd
+        :param end_day: The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day.
+        :param friendly_name: The friendly name specified when creating the job
+        :param webhook_url: The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied. If you set neither webhook nor email, you will have to check your job's status manually.
+        :param webhook_method: This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
+        :param email: The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job's status.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            start_day=start_day,
+            end_day=end_day,
+            friendly_name=friendly_name,
+            webhook_url=webhook_url,
+            webhook_method=webhook_method,
+            email=email,
+        )
+        instance = ExportCustomJobInstance(
+            self._version, payload, resource_type=self._solution["resource_type"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        start_day: str,
+        end_day: str,
+        friendly_name: str,
+        webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -144,12 +242,8 @@ class ExportCustomJobList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ExportCustomJobInstance(
-            self._version, payload, resource_type=self._solution["resource_type"]
         )
 
     async def create_async(
@@ -173,30 +267,51 @@ class ExportCustomJobList(ListResource):
 
         :returns: The created ExportCustomJobInstance
         """
-
-        data = values.of(
-            {
-                "StartDay": start_day,
-                "EndDay": end_day,
-                "FriendlyName": friendly_name,
-                "WebhookUrl": webhook_url,
-                "WebhookMethod": webhook_method,
-                "Email": email,
-            }
+        payload, _, _ = await self._create_async(
+            start_day=start_day,
+            end_day=end_day,
+            friendly_name=friendly_name,
+            webhook_url=webhook_url,
+            webhook_method=webhook_method,
+            email=email,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ExportCustomJobInstance(
             self._version, payload, resource_type=self._solution["resource_type"]
         )
+
+    async def create_with_http_info_async(
+        self,
+        start_day: str,
+        end_day: str,
+        friendly_name: str,
+        webhook_url: Union[str, object] = values.unset,
+        webhook_method: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the ExportCustomJobInstance and return response metadata
+
+        :param start_day: The start day for the custom export specified as a string in the format of yyyy-mm-dd
+        :param end_day: The end day for the custom export specified as a string in the format of yyyy-mm-dd. End day is inclusive and must be 2 days earlier than the current UTC day.
+        :param friendly_name: The friendly name specified when creating the job
+        :param webhook_url: The optional webhook url called on completion of the job. If this is supplied, `WebhookMethod` must also be supplied. If you set neither webhook nor email, you will have to check your job's status manually.
+        :param webhook_method: This is the method used to call the webhook on completion of the job. If this is supplied, `WebhookUrl` must also be supplied.
+        :param email: The optional email to send the completion notification to. You can set both webhook, and email, or one or the other. If you set neither, the job will run but you will have to query to determine your job's status.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            start_day=start_day,
+            end_day=end_day,
+            friendly_name=friendly_name,
+            webhook_url=webhook_url,
+            webhook_method=webhook_method,
+            email=email,
+        )
+        instance = ExportCustomJobInstance(
+            self._version, payload, resource_type=self._solution["resource_type"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -247,6 +362,56 @@ class ExportCustomJobList(ListResource):
         page = await self.page_async(page_size=limits["page_size"])
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams ExportCustomJobInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(page_size=limits["page_size"])
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams ExportCustomJobInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -300,6 +465,56 @@ class ExportCustomJobList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists ExportCustomJobInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists ExportCustomJobInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -366,6 +581,76 @@ class ExportCustomJobList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return ExportCustomJobPage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ExportCustomJobPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = ExportCustomJobPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ExportCustomJobPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = ExportCustomJobPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ExportCustomJobPage:
         """

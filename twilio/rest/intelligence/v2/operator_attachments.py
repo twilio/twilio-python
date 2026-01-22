@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -77,6 +78,24 @@ class OperatorAttachmentsInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the OperatorAttachmentsInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the OperatorAttachmentsInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -104,6 +123,22 @@ class OperatorAttachmentsContext(InstanceContext):
         }
         self._uri = "/Services/{service_sid}/Operators".format(**self._solution)
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> OperatorAttachmentsInstance:
         """
         Fetch the OperatorAttachmentsInstance
@@ -111,17 +146,42 @@ class OperatorAttachmentsContext(InstanceContext):
 
         :returns: The fetched OperatorAttachmentsInstance
         """
+        payload, _, _ = self._fetch()
+        return OperatorAttachmentsInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the OperatorAttachmentsInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = OperatorAttachmentsInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return OperatorAttachmentsInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> OperatorAttachmentsInstance:
@@ -131,20 +191,27 @@ class OperatorAttachmentsContext(InstanceContext):
 
         :returns: The fetched OperatorAttachmentsInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return OperatorAttachmentsInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
         )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the OperatorAttachmentsInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = OperatorAttachmentsInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

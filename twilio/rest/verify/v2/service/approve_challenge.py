@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -220,15 +221,14 @@ class ApproveChallengeList(ListResource):
             **self._solution
         )
 
-    def update(
+    def _update(
         self, approve_passkeys_challenge_request: ApprovePasskeysChallengeRequest
-    ) -> ApproveChallengeInstance:
+    ) -> tuple:
         """
-        Update the ApproveChallengeInstance
+        Internal helper for update operation
 
-        :param approve_passkeys_challenge_request:
-
-        :returns: The created ApproveChallengeInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
         data = approve_passkeys_challenge_request.to_dict()
 
@@ -238,12 +238,64 @@ class ApproveChallengeList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return self._version.update_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def update(
+        self, approve_passkeys_challenge_request: ApprovePasskeysChallengeRequest
+    ) -> ApproveChallengeInstance:
+        """
+        Update the ApproveChallengeInstance
+
+        :param approve_passkeys_challenge_request:
+
+        :returns: The updated ApproveChallengeInstance
+        """
+        payload, _, _ = self._update(
+            approve_passkeys_challenge_request=approve_passkeys_challenge_request
+        )
         return ApproveChallengeInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def update_with_http_info(
+        self, approve_passkeys_challenge_request: ApprovePasskeysChallengeRequest
+    ) -> ApiResponse:
+        """
+        Update the ApproveChallengeInstance and return response metadata
+
+        :param approve_passkeys_challenge_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            approve_passkeys_challenge_request=approve_passkeys_challenge_request
+        )
+        instance = ApproveChallengeInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self, approve_passkeys_challenge_request: ApprovePasskeysChallengeRequest
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = approve_passkeys_challenge_request.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.update_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def update_async(
@@ -254,23 +306,32 @@ class ApproveChallengeList(ListResource):
 
         :param approve_passkeys_challenge_request:
 
-        :returns: The created ApproveChallengeInstance
+        :returns: The updated ApproveChallengeInstance
         """
-        data = approve_passkeys_challenge_request.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
+        payload, _, _ = await self._update_async(
+            approve_passkeys_challenge_request=approve_passkeys_challenge_request
         )
-
         return ApproveChallengeInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
         )
+
+    async def update_with_http_info_async(
+        self, approve_passkeys_challenge_request: ApprovePasskeysChallengeRequest
+    ) -> ApiResponse:
+        """
+        Asynchronously update the ApproveChallengeInstance and return response metadata
+
+        :param approve_passkeys_challenge_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            approve_passkeys_challenge_request=approve_passkeys_challenge_request
+        )
+        instance = ApproveChallengeInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

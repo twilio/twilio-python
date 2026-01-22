@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -79,13 +80,12 @@ class TokenList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/Tokens.json".format(**self._solution)
 
-    def create(self, ttl: Union[int, object] = values.unset) -> TokenInstance:
+    def _create(self, ttl: Union[int, object] = values.unset) -> tuple:
         """
-        Create the TokenInstance
+        Internal helper for create operation
 
-        :param ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
-
-        :returns: The created TokenInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -99,12 +99,60 @@ class TokenList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(self, ttl: Union[int, object] = values.unset) -> TokenInstance:
+        """
+        Create the TokenInstance
+
+        :param ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
+
+        :returns: The created TokenInstance
+        """
+        payload, _, _ = self._create(ttl=ttl)
         return TokenInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def create_with_http_info(
+        self, ttl: Union[int, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Create the TokenInstance and return response metadata
+
+        :param ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(ttl=ttl)
+        instance = TokenInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(self, ttl: Union[int, object] = values.unset) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Ttl": ttl,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def create_async(
@@ -117,25 +165,26 @@ class TokenList(ListResource):
 
         :returns: The created TokenInstance
         """
-
-        data = values.of(
-            {
-                "Ttl": ttl,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._create_async(ttl=ttl)
         return TokenInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
         )
+
+    async def create_with_http_info_async(
+        self, ttl: Union[int, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronously create the TokenInstance and return response metadata
+
+        :param ttl: The duration in seconds for which the generated credentials are valid. The default value is 86400 (24 hours).
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(ttl=ttl)
+        instance = TokenInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

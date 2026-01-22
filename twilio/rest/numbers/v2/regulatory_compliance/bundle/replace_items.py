@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -98,13 +99,12 @@ class ReplaceItemsList(ListResource):
             **self._solution
         )
 
-    def create(self, from_bundle_sid: str) -> ReplaceItemsInstance:
+    def _create(self, from_bundle_sid: str) -> tuple:
         """
-        Create the ReplaceItemsInstance
+        Internal helper for create operation
 
-        :param from_bundle_sid: The source bundle sid to copy the item assignments from.
-
-        :returns: The created ReplaceItemsInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -118,12 +118,58 @@ class ReplaceItemsList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(self, from_bundle_sid: str) -> ReplaceItemsInstance:
+        """
+        Create the ReplaceItemsInstance
+
+        :param from_bundle_sid: The source bundle sid to copy the item assignments from.
+
+        :returns: The created ReplaceItemsInstance
+        """
+        payload, _, _ = self._create(from_bundle_sid=from_bundle_sid)
         return ReplaceItemsInstance(
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
+        )
+
+    def create_with_http_info(self, from_bundle_sid: str) -> ApiResponse:
+        """
+        Create the ReplaceItemsInstance and return response metadata
+
+        :param from_bundle_sid: The source bundle sid to copy the item assignments from.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(from_bundle_sid=from_bundle_sid)
+        instance = ReplaceItemsInstance(
+            self._version, payload, bundle_sid=self._solution["bundle_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(self, from_bundle_sid: str) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FromBundleSid": from_bundle_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def create_async(self, from_bundle_sid: str) -> ReplaceItemsInstance:
@@ -134,25 +180,26 @@ class ReplaceItemsList(ListResource):
 
         :returns: The created ReplaceItemsInstance
         """
-
-        data = values.of(
-            {
-                "FromBundleSid": from_bundle_sid,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._create_async(from_bundle_sid=from_bundle_sid)
         return ReplaceItemsInstance(
             self._version, payload, bundle_sid=self._solution["bundle_sid"]
         )
+
+    async def create_with_http_info_async(self, from_bundle_sid: str) -> ApiResponse:
+        """
+        Asynchronously create the ReplaceItemsInstance and return response metadata
+
+        :param from_bundle_sid: The source bundle sid to copy the item assignments from.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            from_bundle_sid=from_bundle_sid
+        )
+        instance = ReplaceItemsInstance(
+            self._version, payload, bundle_sid=self._solution["bundle_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -64,20 +65,17 @@ class ExternalCampaignList(ListResource):
 
         self._uri = "/Services/PreregisteredUsa2p"
 
-    def create(
+    def _create(
         self,
         campaign_id: str,
         messaging_service_sid: str,
         cnp_migration: Union[bool, object] = values.unset,
-    ) -> ExternalCampaignInstance:
+    ) -> tuple:
         """
-        Create the ExternalCampaignInstance
+        Internal helper for create operation
 
-        :param campaign_id: ID of the preregistered campaign.
-        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
-        :param cnp_migration: Customers should use this flag during the ERC registration process to indicate to Twilio that the campaign being registered is undergoing CNP migration. It is important for the user to first trigger the CNP migration process for said campaign in their CSP portal and have Twilio accept the sharing request, before making this api call.
-
-        :returns: The created ExternalCampaignInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -93,11 +91,84 @@ class ExternalCampaignList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        campaign_id: str,
+        messaging_service_sid: str,
+        cnp_migration: Union[bool, object] = values.unset,
+    ) -> ExternalCampaignInstance:
+        """
+        Create the ExternalCampaignInstance
+
+        :param campaign_id: ID of the preregistered campaign.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
+        :param cnp_migration: Customers should use this flag during the ERC registration process to indicate to Twilio that the campaign being registered is undergoing CNP migration. It is important for the user to first trigger the CNP migration process for said campaign in their CSP portal and have Twilio accept the sharing request, before making this api call.
+
+        :returns: The created ExternalCampaignInstance
+        """
+        payload, _, _ = self._create(
+            campaign_id=campaign_id,
+            messaging_service_sid=messaging_service_sid,
+            cnp_migration=cnp_migration,
+        )
         return ExternalCampaignInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        campaign_id: str,
+        messaging_service_sid: str,
+        cnp_migration: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the ExternalCampaignInstance and return response metadata
+
+        :param campaign_id: ID of the preregistered campaign.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
+        :param cnp_migration: Customers should use this flag during the ERC registration process to indicate to Twilio that the campaign being registered is undergoing CNP migration. It is important for the user to first trigger the CNP migration process for said campaign in their CSP portal and have Twilio accept the sharing request, before making this api call.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            campaign_id=campaign_id,
+            messaging_service_sid=messaging_service_sid,
+            cnp_migration=cnp_migration,
+        )
+        instance = ExternalCampaignInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        campaign_id: str,
+        messaging_service_sid: str,
+        cnp_migration: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "CampaignId": campaign_id,
+                "MessagingServiceSid": messaging_service_sid,
+                "CnpMigration": serialize.boolean_to_string(cnp_migration),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(
         self,
@@ -114,25 +185,35 @@ class ExternalCampaignList(ListResource):
 
         :returns: The created ExternalCampaignInstance
         """
-
-        data = values.of(
-            {
-                "CampaignId": campaign_id,
-                "MessagingServiceSid": messaging_service_sid,
-                "CnpMigration": serialize.boolean_to_string(cnp_migration),
-            }
+        payload, _, _ = await self._create_async(
+            campaign_id=campaign_id,
+            messaging_service_sid=messaging_service_sid,
+            cnp_migration=cnp_migration,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ExternalCampaignInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        campaign_id: str,
+        messaging_service_sid: str,
+        cnp_migration: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the ExternalCampaignInstance and return response metadata
+
+        :param campaign_id: ID of the preregistered campaign.
+        :param messaging_service_sid: The SID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) that the resource is associated with.
+        :param cnp_migration: Customers should use this flag during the ERC registration process to indicate to Twilio that the campaign being registered is undergoing CNP migration. It is important for the user to first trigger the CNP migration process for said campaign in their CSP portal and have Twilio accept the sharing request, before making this api call.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            campaign_id=campaign_id,
+            messaging_service_sid=messaging_service_sid,
+            cnp_migration=cnp_migration,
+        )
+        instance = ExternalCampaignInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

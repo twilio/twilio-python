@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -123,6 +124,60 @@ class TaskQueueStatisticsInstance(InstanceResource):
             split_by_wait_time=split_by_wait_time,
         )
 
+    def fetch_with_http_info(
+        self,
+        end_date: Union[datetime, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        split_by_wait_time: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Fetch the TaskQueueStatisticsInstance with HTTP info
+
+        :param end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            end_date=end_date,
+            minutes=minutes,
+            start_date=start_date,
+            task_channel=task_channel,
+            split_by_wait_time=split_by_wait_time,
+        )
+
+    async def fetch_with_http_info_async(
+        self,
+        end_date: Union[datetime, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        split_by_wait_time: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the TaskQueueStatisticsInstance with HTTP info
+
+        :param end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            end_date=end_date,
+            minutes=minutes,
+            start_date=start_date,
+            task_channel=task_channel,
+            split_by_wait_time=split_by_wait_time,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -156,6 +211,39 @@ class TaskQueueStatisticsContext(InstanceContext):
             )
         )
 
+    def _fetch(
+        self,
+        end_date: Union[datetime, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        split_by_wait_time: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        params = values.of(
+            {
+                "EndDate": serialize.iso8601_datetime(end_date),
+                "Minutes": minutes,
+                "StartDate": serialize.iso8601_datetime(start_date),
+                "TaskChannel": task_channel,
+                "SplitByWaitTime": split_by_wait_time,
+            }
+        )
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, params=params, headers=headers
+        )
+
     def fetch(
         self,
         end_date: Union[datetime, object] = values.unset,
@@ -175,6 +263,68 @@ class TaskQueueStatisticsContext(InstanceContext):
 
         :returns: The fetched TaskQueueStatisticsInstance
         """
+        payload, _, _ = self._fetch(
+            end_date=end_date,
+            minutes=minutes,
+            start_date=start_date,
+            task_channel=task_channel,
+            split_by_wait_time=split_by_wait_time,
+        )
+        return TaskQueueStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            task_queue_sid=self._solution["task_queue_sid"],
+        )
+
+    def fetch_with_http_info(
+        self,
+        end_date: Union[datetime, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        split_by_wait_time: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Fetch the TaskQueueStatisticsInstance and return response metadata
+
+        :param end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(
+            end_date=end_date,
+            minutes=minutes,
+            start_date=start_date,
+            task_channel=task_channel,
+            split_by_wait_time=split_by_wait_time,
+        )
+        instance = TaskQueueStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            task_queue_sid=self._solution["task_queue_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self,
+        end_date: Union[datetime, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        split_by_wait_time: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         params = values.of(
             {
@@ -190,15 +340,8 @@ class TaskQueueStatisticsContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
+        return await self._version.fetch_with_response_info_async(
             method="GET", uri=self._uri, params=params, headers=headers
-        )
-
-        return TaskQueueStatisticsInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution["workspace_sid"],
-            task_queue_sid=self._solution["task_queue_sid"],
         )
 
     async def fetch_async(
@@ -220,31 +363,53 @@ class TaskQueueStatisticsContext(InstanceContext):
 
         :returns: The fetched TaskQueueStatisticsInstance
         """
-
-        params = values.of(
-            {
-                "EndDate": serialize.iso8601_datetime(end_date),
-                "Minutes": minutes,
-                "StartDate": serialize.iso8601_datetime(start_date),
-                "TaskChannel": task_channel,
-                "SplitByWaitTime": split_by_wait_time,
-            }
+        payload, _, _ = await self._fetch_async(
+            end_date=end_date,
+            minutes=minutes,
+            start_date=start_date,
+            task_channel=task_channel,
+            split_by_wait_time=split_by_wait_time,
         )
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params, headers=headers
-        )
-
         return TaskQueueStatisticsInstance(
             self._version,
             payload,
             workspace_sid=self._solution["workspace_sid"],
             task_queue_sid=self._solution["task_queue_sid"],
         )
+
+    async def fetch_with_http_info_async(
+        self,
+        end_date: Union[datetime, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        split_by_wait_time: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the TaskQueueStatisticsInstance and return response metadata
+
+        :param end_date: Only calculate statistics from this date and time and earlier, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param minutes: Only calculate statistics since this many minutes in the past. The default is 15 minutes.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param task_channel: Only calculate real-time and cumulative statistics for the specified TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+        :param split_by_wait_time: A comma separated list of values that describes the thresholds, in seconds, to calculate statistics on. For each threshold specified, the number of Tasks canceled and reservations accepted above and below the specified thresholds in seconds are computed.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            end_date=end_date,
+            minutes=minutes,
+            start_date=start_date,
+            task_channel=task_channel,
+            split_by_wait_time=split_by_wait_time,
+        )
+        instance = TaskQueueStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            task_queue_sid=self._solution["task_queue_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

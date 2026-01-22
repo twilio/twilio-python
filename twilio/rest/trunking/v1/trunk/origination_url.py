@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -102,6 +103,24 @@ class OriginationUrlInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the OriginationUrlInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the OriginationUrlInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "OriginationUrlInstance":
         """
         Fetch the OriginationUrlInstance
@@ -119,6 +138,24 @@ class OriginationUrlInstance(InstanceResource):
         :returns: The fetched OriginationUrlInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the OriginationUrlInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the OriginationUrlInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -174,6 +211,60 @@ class OriginationUrlInstance(InstanceResource):
             sip_url=sip_url,
         )
 
+    def update_with_http_info(
+        self,
+        weight: Union[int, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sip_url: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the OriginationUrlInstance with HTTP info
+
+        :param weight: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+        :param priority: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+        :param enabled: Whether the URL is enabled. The default is `true`.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param sip_url: The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema. `sips` is NOT supported.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            weight=weight,
+            priority=priority,
+            enabled=enabled,
+            friendly_name=friendly_name,
+            sip_url=sip_url,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        weight: Union[int, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sip_url: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the OriginationUrlInstance with HTTP info
+
+        :param weight: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+        :param priority: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+        :param enabled: Whether the URL is enabled. The default is `true`.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param sip_url: The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema. `sips` is NOT supported.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            weight=weight,
+            priority=priority,
+            enabled=enabled,
+            friendly_name=friendly_name,
+            sip_url=sip_url,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -203,6 +294,20 @@ class OriginationUrlContext(InstanceContext):
         }
         self._uri = "/Trunks/{trunk_sid}/OriginationUrls/{sid}".format(**self._solution)
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the OriginationUrlInstance
@@ -210,10 +315,32 @@ class OriginationUrlContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the OriginationUrlInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -222,11 +349,33 @@ class OriginationUrlContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the OriginationUrlInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> OriginationUrlInstance:
@@ -236,18 +385,44 @@ class OriginationUrlContext(InstanceContext):
 
         :returns: The fetched OriginationUrlInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return OriginationUrlInstance(
             self._version,
             payload,
             trunk_sid=self._solution["trunk_sid"],
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the OriginationUrlInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = OriginationUrlInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution["trunk_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> OriginationUrlInstance:
@@ -257,20 +432,62 @@ class OriginationUrlContext(InstanceContext):
 
         :returns: The fetched OriginationUrlInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return OriginationUrlInstance(
             self._version,
             payload,
             trunk_sid=self._solution["trunk_sid"],
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the OriginationUrlInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = OriginationUrlInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution["trunk_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        weight: Union[int, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sip_url: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Weight": weight,
+                "Priority": priority,
+                "Enabled": serialize.boolean_to_string(enabled),
+                "FriendlyName": friendly_name,
+                "SipUrl": sip_url,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -292,6 +509,68 @@ class OriginationUrlContext(InstanceContext):
 
         :returns: The updated OriginationUrlInstance
         """
+        payload, _, _ = self._update(
+            weight=weight,
+            priority=priority,
+            enabled=enabled,
+            friendly_name=friendly_name,
+            sip_url=sip_url,
+        )
+        return OriginationUrlInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution["trunk_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(
+        self,
+        weight: Union[int, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sip_url: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the OriginationUrlInstance and return response metadata
+
+        :param weight: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+        :param priority: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+        :param enabled: Whether the URL is enabled. The default is `true`.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param sip_url: The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema. `sips` is NOT supported.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            weight=weight,
+            priority=priority,
+            enabled=enabled,
+            friendly_name=friendly_name,
+            sip_url=sip_url,
+        )
+        instance = OriginationUrlInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution["trunk_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        weight: Union[int, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sip_url: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -308,15 +587,8 @@ class OriginationUrlContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return OriginationUrlInstance(
-            self._version,
-            payload,
-            trunk_sid=self._solution["trunk_sid"],
-            sid=self._solution["sid"],
         )
 
     async def update_async(
@@ -338,32 +610,53 @@ class OriginationUrlContext(InstanceContext):
 
         :returns: The updated OriginationUrlInstance
         """
-
-        data = values.of(
-            {
-                "Weight": weight,
-                "Priority": priority,
-                "Enabled": serialize.boolean_to_string(enabled),
-                "FriendlyName": friendly_name,
-                "SipUrl": sip_url,
-            }
+        payload, _, _ = await self._update_async(
+            weight=weight,
+            priority=priority,
+            enabled=enabled,
+            friendly_name=friendly_name,
+            sip_url=sip_url,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return OriginationUrlInstance(
             self._version,
             payload,
             trunk_sid=self._solution["trunk_sid"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(
+        self,
+        weight: Union[int, object] = values.unset,
+        priority: Union[int, object] = values.unset,
+        enabled: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sip_url: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the OriginationUrlInstance and return response metadata
+
+        :param weight: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+        :param priority: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+        :param enabled: Whether the URL is enabled. The default is `true`.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param sip_url: The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema. `sips` is NOT supported.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            weight=weight,
+            priority=priority,
+            enabled=enabled,
+            friendly_name=friendly_name,
+            sip_url=sip_url,
+        )
+        instance = OriginationUrlInstance(
+            self._version,
+            payload,
+            trunk_sid=self._solution["trunk_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -414,6 +707,40 @@ class OriginationUrlList(ListResource):
         }
         self._uri = "/Trunks/{trunk_sid}/OriginationUrls".format(**self._solution)
 
+    def _create(
+        self,
+        weight: int,
+        priority: int,
+        enabled: bool,
+        friendly_name: str,
+        sip_url: str,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Weight": weight,
+                "Priority": priority,
+                "Enabled": serialize.boolean_to_string(enabled),
+                "FriendlyName": friendly_name,
+                "SipUrl": sip_url,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         weight: int,
@@ -433,6 +760,62 @@ class OriginationUrlList(ListResource):
 
         :returns: The created OriginationUrlInstance
         """
+        payload, _, _ = self._create(
+            weight=weight,
+            priority=priority,
+            enabled=enabled,
+            friendly_name=friendly_name,
+            sip_url=sip_url,
+        )
+        return OriginationUrlInstance(
+            self._version, payload, trunk_sid=self._solution["trunk_sid"]
+        )
+
+    def create_with_http_info(
+        self,
+        weight: int,
+        priority: int,
+        enabled: bool,
+        friendly_name: str,
+        sip_url: str,
+    ) -> ApiResponse:
+        """
+        Create the OriginationUrlInstance and return response metadata
+
+        :param weight: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+        :param priority: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+        :param enabled: Whether the URL is enabled. The default is `true`.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param sip_url: The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            weight=weight,
+            priority=priority,
+            enabled=enabled,
+            friendly_name=friendly_name,
+            sip_url=sip_url,
+        )
+        instance = OriginationUrlInstance(
+            self._version, payload, trunk_sid=self._solution["trunk_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        weight: int,
+        priority: int,
+        enabled: bool,
+        friendly_name: str,
+        sip_url: str,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -449,12 +832,8 @@ class OriginationUrlList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return OriginationUrlInstance(
-            self._version, payload, trunk_sid=self._solution["trunk_sid"]
         )
 
     async def create_async(
@@ -476,29 +855,47 @@ class OriginationUrlList(ListResource):
 
         :returns: The created OriginationUrlInstance
         """
-
-        data = values.of(
-            {
-                "Weight": weight,
-                "Priority": priority,
-                "Enabled": serialize.boolean_to_string(enabled),
-                "FriendlyName": friendly_name,
-                "SipUrl": sip_url,
-            }
+        payload, _, _ = await self._create_async(
+            weight=weight,
+            priority=priority,
+            enabled=enabled,
+            friendly_name=friendly_name,
+            sip_url=sip_url,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return OriginationUrlInstance(
             self._version, payload, trunk_sid=self._solution["trunk_sid"]
         )
+
+    async def create_with_http_info_async(
+        self,
+        weight: int,
+        priority: int,
+        enabled: bool,
+        friendly_name: str,
+        sip_url: str,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the OriginationUrlInstance and return response metadata
+
+        :param weight: The value that determines the relative share of the load the URI should receive compared to other URIs with the same priority. Can be an integer from 1 to 65535, inclusive, and the default is 10. URLs with higher values receive more load than those with lower ones with the same priority.
+        :param priority: The relative importance of the URI. Can be an integer from 0 to 65535, inclusive, and the default is 10. The lowest number represents the most important URI.
+        :param enabled: Whether the URL is enabled. The default is `true`.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param sip_url: The SIP address you want Twilio to route your Origination calls to. This must be a `sip:` schema.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            weight=weight,
+            priority=priority,
+            enabled=enabled,
+            friendly_name=friendly_name,
+            sip_url=sip_url,
+        )
+        instance = OriginationUrlInstance(
+            self._version, payload, trunk_sid=self._solution["trunk_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -549,6 +946,56 @@ class OriginationUrlList(ListResource):
         page = await self.page_async(page_size=limits["page_size"])
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams OriginationUrlInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(page_size=limits["page_size"])
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams OriginationUrlInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -602,6 +1049,56 @@ class OriginationUrlList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists OriginationUrlInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists OriginationUrlInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -668,6 +1165,76 @@ class OriginationUrlList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return OriginationUrlPage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with OriginationUrlPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = OriginationUrlPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with OriginationUrlPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = OriginationUrlPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> OriginationUrlPage:
         """

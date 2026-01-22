@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -110,6 +111,24 @@ class ConnectAppInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the ConnectAppInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the ConnectAppInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "ConnectAppInstance":
         """
         Fetch the ConnectAppInstance
@@ -127,6 +146,24 @@ class ConnectAppInstance(InstanceResource):
         :returns: The fetched ConnectAppInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ConnectAppInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ConnectAppInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -204,6 +241,82 @@ class ConnectAppInstance(InstanceResource):
             permissions=permissions,
         )
 
+    def update_with_http_info(
+        self,
+        authorize_redirect_url: Union[str, object] = values.unset,
+        company_name: Union[str, object] = values.unset,
+        deauthorize_callback_method: Union[str, object] = values.unset,
+        deauthorize_callback_url: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        homepage_url: Union[str, object] = values.unset,
+        permissions: Union[
+            List["ConnectAppInstance.Permission"], object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ConnectAppInstance with HTTP info
+
+        :param authorize_redirect_url: The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
+        :param company_name: The company name to set for the Connect App.
+        :param deauthorize_callback_method: The HTTP method to use when calling `deauthorize_callback_url`.
+        :param deauthorize_callback_url: The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
+        :param description: A description of the Connect App.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param homepage_url: A public URL where users can obtain more information about this Connect App.
+        :param permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            authorize_redirect_url=authorize_redirect_url,
+            company_name=company_name,
+            deauthorize_callback_method=deauthorize_callback_method,
+            deauthorize_callback_url=deauthorize_callback_url,
+            description=description,
+            friendly_name=friendly_name,
+            homepage_url=homepage_url,
+            permissions=permissions,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        authorize_redirect_url: Union[str, object] = values.unset,
+        company_name: Union[str, object] = values.unset,
+        deauthorize_callback_method: Union[str, object] = values.unset,
+        deauthorize_callback_url: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        homepage_url: Union[str, object] = values.unset,
+        permissions: Union[
+            List["ConnectAppInstance.Permission"], object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ConnectAppInstance with HTTP info
+
+        :param authorize_redirect_url: The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
+        :param company_name: The company name to set for the Connect App.
+        :param deauthorize_callback_method: The HTTP method to use when calling `deauthorize_callback_url`.
+        :param deauthorize_callback_url: The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
+        :param description: A description of the Connect App.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param homepage_url: A public URL where users can obtain more information about this Connect App.
+        :param permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            authorize_redirect_url=authorize_redirect_url,
+            company_name=company_name,
+            deauthorize_callback_method=deauthorize_callback_method,
+            deauthorize_callback_url=deauthorize_callback_url,
+            description=description,
+            friendly_name=friendly_name,
+            homepage_url=homepage_url,
+            permissions=permissions,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -235,6 +348,20 @@ class ConnectAppContext(InstanceContext):
             **self._solution
         )
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the ConnectAppInstance
@@ -242,10 +369,32 @@ class ConnectAppContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the ConnectAppInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -254,11 +403,33 @@ class ConnectAppContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the ConnectAppInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> ConnectAppInstance:
@@ -268,18 +439,44 @@ class ConnectAppContext(InstanceContext):
 
         :returns: The fetched ConnectAppInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return ConnectAppInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ConnectAppInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = ConnectAppInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> ConnectAppInstance:
@@ -289,20 +486,70 @@ class ConnectAppContext(InstanceContext):
 
         :returns: The fetched ConnectAppInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return ConnectAppInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ConnectAppInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = ConnectAppInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        authorize_redirect_url: Union[str, object] = values.unset,
+        company_name: Union[str, object] = values.unset,
+        deauthorize_callback_method: Union[str, object] = values.unset,
+        deauthorize_callback_url: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        homepage_url: Union[str, object] = values.unset,
+        permissions: Union[
+            List["ConnectAppInstance.Permission"], object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "AuthorizeRedirectUrl": authorize_redirect_url,
+                "CompanyName": company_name,
+                "DeauthorizeCallbackMethod": deauthorize_callback_method,
+                "DeauthorizeCallbackUrl": deauthorize_callback_url,
+                "Description": description,
+                "FriendlyName": friendly_name,
+                "HomepageUrl": homepage_url,
+                "Permissions": serialize.map(permissions, lambda e: e),
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -332,6 +579,87 @@ class ConnectAppContext(InstanceContext):
 
         :returns: The updated ConnectAppInstance
         """
+        payload, _, _ = self._update(
+            authorize_redirect_url=authorize_redirect_url,
+            company_name=company_name,
+            deauthorize_callback_method=deauthorize_callback_method,
+            deauthorize_callback_url=deauthorize_callback_url,
+            description=description,
+            friendly_name=friendly_name,
+            homepage_url=homepage_url,
+            permissions=permissions,
+        )
+        return ConnectAppInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(
+        self,
+        authorize_redirect_url: Union[str, object] = values.unset,
+        company_name: Union[str, object] = values.unset,
+        deauthorize_callback_method: Union[str, object] = values.unset,
+        deauthorize_callback_url: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        homepage_url: Union[str, object] = values.unset,
+        permissions: Union[
+            List["ConnectAppInstance.Permission"], object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ConnectAppInstance and return response metadata
+
+        :param authorize_redirect_url: The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
+        :param company_name: The company name to set for the Connect App.
+        :param deauthorize_callback_method: The HTTP method to use when calling `deauthorize_callback_url`.
+        :param deauthorize_callback_url: The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
+        :param description: A description of the Connect App.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param homepage_url: A public URL where users can obtain more information about this Connect App.
+        :param permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            authorize_redirect_url=authorize_redirect_url,
+            company_name=company_name,
+            deauthorize_callback_method=deauthorize_callback_method,
+            deauthorize_callback_url=deauthorize_callback_url,
+            description=description,
+            friendly_name=friendly_name,
+            homepage_url=homepage_url,
+            permissions=permissions,
+        )
+        instance = ConnectAppInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        authorize_redirect_url: Union[str, object] = values.unset,
+        company_name: Union[str, object] = values.unset,
+        deauthorize_callback_method: Union[str, object] = values.unset,
+        deauthorize_callback_url: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        homepage_url: Union[str, object] = values.unset,
+        permissions: Union[
+            List["ConnectAppInstance.Permission"], object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -351,15 +679,8 @@ class ConnectAppContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ConnectAppInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            sid=self._solution["sid"],
         )
 
     async def update_async(
@@ -389,35 +710,67 @@ class ConnectAppContext(InstanceContext):
 
         :returns: The updated ConnectAppInstance
         """
-
-        data = values.of(
-            {
-                "AuthorizeRedirectUrl": authorize_redirect_url,
-                "CompanyName": company_name,
-                "DeauthorizeCallbackMethod": deauthorize_callback_method,
-                "DeauthorizeCallbackUrl": deauthorize_callback_url,
-                "Description": description,
-                "FriendlyName": friendly_name,
-                "HomepageUrl": homepage_url,
-                "Permissions": serialize.map(permissions, lambda e: e),
-            }
+        payload, _, _ = await self._update_async(
+            authorize_redirect_url=authorize_redirect_url,
+            company_name=company_name,
+            deauthorize_callback_method=deauthorize_callback_method,
+            deauthorize_callback_url=deauthorize_callback_url,
+            description=description,
+            friendly_name=friendly_name,
+            homepage_url=homepage_url,
+            permissions=permissions,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ConnectAppInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(
+        self,
+        authorize_redirect_url: Union[str, object] = values.unset,
+        company_name: Union[str, object] = values.unset,
+        deauthorize_callback_method: Union[str, object] = values.unset,
+        deauthorize_callback_url: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        homepage_url: Union[str, object] = values.unset,
+        permissions: Union[
+            List["ConnectAppInstance.Permission"], object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ConnectAppInstance and return response metadata
+
+        :param authorize_redirect_url: The URL to redirect the user to after we authenticate the user and obtain authorization to access the Connect App.
+        :param company_name: The company name to set for the Connect App.
+        :param deauthorize_callback_method: The HTTP method to use when calling `deauthorize_callback_url`.
+        :param deauthorize_callback_url: The URL to call using the `deauthorize_callback_method` to de-authorize the Connect App.
+        :param description: A description of the Connect App.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param homepage_url: A public URL where users can obtain more information about this Connect App.
+        :param permissions: A comma-separated list of the permissions you will request from the users of this ConnectApp.  Can include: `get-all` and `post-all`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            authorize_redirect_url=authorize_redirect_url,
+            company_name=company_name,
+            deauthorize_callback_method=deauthorize_callback_method,
+            deauthorize_callback_url=deauthorize_callback_url,
+            description=description,
+            friendly_name=friendly_name,
+            homepage_url=homepage_url,
+            permissions=permissions,
+        )
+        instance = ConnectAppInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -518,6 +871,56 @@ class ConnectAppList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams ConnectAppInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(page_size=limits["page_size"])
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams ConnectAppInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         limit: Optional[int] = None,
@@ -570,6 +973,56 @@ class ConnectAppList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists ConnectAppInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists ConnectAppInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -636,6 +1089,76 @@ class ConnectAppList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return ConnectAppPage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ConnectAppPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = ConnectAppPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ConnectAppPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = ConnectAppPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ConnectAppPage:
         """

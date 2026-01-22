@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -141,6 +142,34 @@ class NewChallengeInstance(InstanceResource):
             create_passkeys_challenge_request,
         )
 
+    def create_with_http_info(
+        self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
+    ) -> ApiResponse:
+        """
+        Create the NewChallengeInstance with HTTP info
+
+        :param create_passkeys_challenge_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.create_with_http_info(
+            create_passkeys_challenge_request,
+        )
+
+    async def create_with_http_info_async(
+        self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to create the NewChallengeInstance with HTTP info
+
+        :param create_passkeys_challenge_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.create_with_http_info_async(
+            create_passkeys_challenge_request,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -187,6 +216,27 @@ class NewChallengeContext(InstanceContext):
             **self._solution
         )
 
+    def _create(
+        self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = create_passkeys_challenge_request.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
     ) -> NewChallengeInstance:
@@ -197,6 +247,40 @@ class NewChallengeContext(InstanceContext):
 
         :returns: The created NewChallengeInstance
         """
+        payload, _, _ = self._create(
+            create_passkeys_challenge_request=create_passkeys_challenge_request
+        )
+        return NewChallengeInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def create_with_http_info(
+        self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
+    ) -> ApiResponse:
+        """
+        Create the NewChallengeInstance and return response metadata
+
+        :param create_passkeys_challenge_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            create_passkeys_challenge_request=create_passkeys_challenge_request
+        )
+        instance = NewChallengeInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = create_passkeys_challenge_request.to_dict()
 
         headers = values.of({})
@@ -205,12 +289,8 @@ class NewChallengeContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return NewChallengeInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
         )
 
     async def create_async(
@@ -223,21 +303,30 @@ class NewChallengeContext(InstanceContext):
 
         :returns: The created NewChallengeInstance
         """
-        data = create_passkeys_challenge_request.to_dict()
-
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
+        payload, _, _ = await self._create_async(
+            create_passkeys_challenge_request=create_passkeys_challenge_request
         )
-
         return NewChallengeInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
         )
+
+    async def create_with_http_info_async(
+        self, create_passkeys_challenge_request: CreatePasskeysChallengeRequest
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to create the NewChallengeInstance and return response metadata
+
+        :param create_passkeys_challenge_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            create_passkeys_challenge_request=create_passkeys_challenge_request
+        )
+        instance = NewChallengeInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

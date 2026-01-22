@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -80,6 +81,34 @@ class SettingInstance(InstanceResource):
             subaccount_sid=subaccount_sid,
         )
 
+    def fetch_with_http_info(
+        self, subaccount_sid: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the SettingInstance with HTTP info
+
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            subaccount_sid=subaccount_sid,
+        )
+
+    async def fetch_with_http_info_async(
+        self, subaccount_sid: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the SettingInstance with HTTP info
+
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            subaccount_sid=subaccount_sid,
+        )
+
     def update(
         self,
         advanced_features: Union[bool, object] = values.unset,
@@ -122,6 +151,48 @@ class SettingInstance(InstanceResource):
             subaccount_sid=subaccount_sid,
         )
 
+    def update_with_http_info(
+        self,
+        advanced_features: Union[bool, object] = values.unset,
+        voice_trace: Union[bool, object] = values.unset,
+        subaccount_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the SettingInstance with HTTP info
+
+        :param advanced_features: A boolean flag to enable Advanced Features for Voice Insights.
+        :param voice_trace: A boolean flag to enable Voice Trace.
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            advanced_features=advanced_features,
+            voice_trace=voice_trace,
+            subaccount_sid=subaccount_sid,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        advanced_features: Union[bool, object] = values.unset,
+        voice_trace: Union[bool, object] = values.unset,
+        subaccount_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the SettingInstance with HTTP info
+
+        :param advanced_features: A boolean flag to enable Advanced Features for Voice Insights.
+        :param voice_trace: A boolean flag to enable Voice Trace.
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            advanced_features=advanced_features,
+            voice_trace=voice_trace,
+            subaccount_sid=subaccount_sid,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -144,15 +215,12 @@ class SettingContext(InstanceContext):
 
         self._uri = "/Voice/Settings"
 
-    def fetch(
-        self, subaccount_sid: Union[str, object] = values.unset
-    ) -> SettingInstance:
+    def _fetch(self, subaccount_sid: Union[str, object] = values.unset) -> tuple:
         """
-        Fetch the SettingInstance
+        Internal helper for fetch operation
 
-        :param subaccount_sid: The unique SID identifier of the Subaccount.
-
-        :returns: The fetched SettingInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         params = values.of(
@@ -165,13 +233,65 @@ class SettingContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
+        return self._version.fetch_with_response_info(
             method="GET", uri=self._uri, params=params, headers=headers
         )
 
+    def fetch(
+        self, subaccount_sid: Union[str, object] = values.unset
+    ) -> SettingInstance:
+        """
+        Fetch the SettingInstance
+
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
+
+        :returns: The fetched SettingInstance
+        """
+        payload, _, _ = self._fetch(subaccount_sid=subaccount_sid)
         return SettingInstance(
             self._version,
             payload,
+        )
+
+    def fetch_with_http_info(
+        self, subaccount_sid: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the SettingInstance and return response metadata
+
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(subaccount_sid=subaccount_sid)
+        instance = SettingInstance(
+            self._version,
+            payload,
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self, subaccount_sid: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        params = values.of(
+            {
+                "SubaccountSid": subaccount_sid,
+            }
+        )
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
     async def fetch_async(
@@ -184,24 +304,59 @@ class SettingContext(InstanceContext):
 
         :returns: The fetched SettingInstance
         """
-
-        params = values.of(
-            {
-                "SubaccountSid": subaccount_sid,
-            }
-        )
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async(subaccount_sid=subaccount_sid)
         return SettingInstance(
             self._version,
             payload,
+        )
+
+    async def fetch_with_http_info_async(
+        self, subaccount_sid: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the SettingInstance and return response metadata
+
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            subaccount_sid=subaccount_sid
+        )
+        instance = SettingInstance(
+            self._version,
+            payload,
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        advanced_features: Union[bool, object] = values.unset,
+        voice_trace: Union[bool, object] = values.unset,
+        subaccount_sid: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "AdvancedFeatures": serialize.boolean_to_string(advanced_features),
+                "VoiceTrace": serialize.boolean_to_string(voice_trace),
+                "SubaccountSid": subaccount_sid,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -219,6 +374,48 @@ class SettingContext(InstanceContext):
 
         :returns: The updated SettingInstance
         """
+        payload, _, _ = self._update(
+            advanced_features=advanced_features,
+            voice_trace=voice_trace,
+            subaccount_sid=subaccount_sid,
+        )
+        return SettingInstance(self._version, payload)
+
+    def update_with_http_info(
+        self,
+        advanced_features: Union[bool, object] = values.unset,
+        voice_trace: Union[bool, object] = values.unset,
+        subaccount_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the SettingInstance and return response metadata
+
+        :param advanced_features: A boolean flag to enable Advanced Features for Voice Insights.
+        :param voice_trace: A boolean flag to enable Voice Trace.
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            advanced_features=advanced_features,
+            voice_trace=voice_trace,
+            subaccount_sid=subaccount_sid,
+        )
+        instance = SettingInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        advanced_features: Union[bool, object] = values.unset,
+        voice_trace: Union[bool, object] = values.unset,
+        subaccount_sid: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -233,11 +430,9 @@ class SettingContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return SettingInstance(self._version, payload)
 
     async def update_async(
         self,
@@ -254,25 +449,35 @@ class SettingContext(InstanceContext):
 
         :returns: The updated SettingInstance
         """
-
-        data = values.of(
-            {
-                "AdvancedFeatures": serialize.boolean_to_string(advanced_features),
-                "VoiceTrace": serialize.boolean_to_string(voice_trace),
-                "SubaccountSid": subaccount_sid,
-            }
+        payload, _, _ = await self._update_async(
+            advanced_features=advanced_features,
+            voice_trace=voice_trace,
+            subaccount_sid=subaccount_sid,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return SettingInstance(self._version, payload)
+
+    async def update_with_http_info_async(
+        self,
+        advanced_features: Union[bool, object] = values.unset,
+        voice_trace: Union[bool, object] = values.unset,
+        subaccount_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the SettingInstance and return response metadata
+
+        :param advanced_features: A boolean flag to enable Advanced Features for Voice Insights.
+        :param voice_trace: A boolean flag to enable Voice Trace.
+        :param subaccount_sid: The unique SID identifier of the Subaccount.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            advanced_features=advanced_features,
+            voice_trace=voice_trace,
+            subaccount_sid=subaccount_sid,
+        )
+        instance = SettingInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

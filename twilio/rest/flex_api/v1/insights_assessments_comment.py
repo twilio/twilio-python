@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -97,7 +98,7 @@ class InsightsAssessmentsCommentList(ListResource):
 
         self._uri = "/Insights/QualityManagement/Assessments/Comments"
 
-    def create(
+    def _create(
         self,
         category_id: str,
         category_name: str,
@@ -106,19 +107,12 @@ class InsightsAssessmentsCommentList(ListResource):
         agent_id: str,
         offset: float,
         authorization: Union[str, object] = values.unset,
-    ) -> InsightsAssessmentsCommentInstance:
+    ) -> tuple:
         """
-        Create the InsightsAssessmentsCommentInstance
+        Internal helper for create operation
 
-        :param category_id: The ID of the category
-        :param category_name: The name of the category
-        :param comment: The Assessment comment.
-        :param segment_id: The id of the segment.
-        :param agent_id: The id of the agent.
-        :param offset: The offset
-        :param authorization: The Authorization HTTP request header
-
-        :returns: The created InsightsAssessmentsCommentInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -142,11 +136,120 @@ class InsightsAssessmentsCommentList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        category_id: str,
+        category_name: str,
+        comment: str,
+        segment_id: str,
+        agent_id: str,
+        offset: float,
+        authorization: Union[str, object] = values.unset,
+    ) -> InsightsAssessmentsCommentInstance:
+        """
+        Create the InsightsAssessmentsCommentInstance
+
+        :param category_id: The ID of the category
+        :param category_name: The name of the category
+        :param comment: The Assessment comment.
+        :param segment_id: The id of the segment.
+        :param agent_id: The id of the agent.
+        :param offset: The offset
+        :param authorization: The Authorization HTTP request header
+
+        :returns: The created InsightsAssessmentsCommentInstance
+        """
+        payload, _, _ = self._create(
+            category_id=category_id,
+            category_name=category_name,
+            comment=comment,
+            segment_id=segment_id,
+            agent_id=agent_id,
+            offset=offset,
+            authorization=authorization,
+        )
         return InsightsAssessmentsCommentInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        category_id: str,
+        category_name: str,
+        comment: str,
+        segment_id: str,
+        agent_id: str,
+        offset: float,
+        authorization: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the InsightsAssessmentsCommentInstance and return response metadata
+
+        :param category_id: The ID of the category
+        :param category_name: The name of the category
+        :param comment: The Assessment comment.
+        :param segment_id: The id of the segment.
+        :param agent_id: The id of the agent.
+        :param offset: The offset
+        :param authorization: The Authorization HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            category_id=category_id,
+            category_name=category_name,
+            comment=comment,
+            segment_id=segment_id,
+            agent_id=agent_id,
+            offset=offset,
+            authorization=authorization,
+        )
+        instance = InsightsAssessmentsCommentInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        category_id: str,
+        category_name: str,
+        comment: str,
+        segment_id: str,
+        agent_id: str,
+        offset: float,
+        authorization: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "CategoryId": category_id,
+                "CategoryName": category_name,
+                "Comment": comment,
+                "SegmentId": segment_id,
+                "AgentId": agent_id,
+                "Offset": offset,
+            }
+        )
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(
         self,
@@ -171,33 +274,51 @@ class InsightsAssessmentsCommentList(ListResource):
 
         :returns: The created InsightsAssessmentsCommentInstance
         """
-
-        data = values.of(
-            {
-                "CategoryId": category_id,
-                "CategoryName": category_name,
-                "Comment": comment,
-                "SegmentId": segment_id,
-                "AgentId": agent_id,
-                "Offset": offset,
-            }
+        payload, _, _ = await self._create_async(
+            category_id=category_id,
+            category_name=category_name,
+            comment=comment,
+            segment_id=segment_id,
+            agent_id=agent_id,
+            offset=offset,
+            authorization=authorization,
         )
-        headers = values.of(
-            {
-                "Authorization": authorization,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return InsightsAssessmentsCommentInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        category_id: str,
+        category_name: str,
+        comment: str,
+        segment_id: str,
+        agent_id: str,
+        offset: float,
+        authorization: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the InsightsAssessmentsCommentInstance and return response metadata
+
+        :param category_id: The ID of the category
+        :param category_name: The name of the category
+        :param comment: The Assessment comment.
+        :param segment_id: The id of the segment.
+        :param agent_id: The id of the agent.
+        :param offset: The offset
+        :param authorization: The Authorization HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            category_id=category_id,
+            category_name=category_name,
+            comment=comment,
+            segment_id=segment_id,
+            agent_id=agent_id,
+            offset=offset,
+            authorization=authorization,
+        )
+        instance = InsightsAssessmentsCommentInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -271,6 +392,76 @@ class InsightsAssessmentsCommentList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        authorization: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        agent_id: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams InsightsAssessmentsCommentInstance and returns headers from first page
+
+
+        :param str authorization: The Authorization HTTP request header
+        :param str segment_id: The id of the segment.
+        :param str agent_id: The id of the agent.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            authorization=authorization,
+            segment_id=segment_id,
+            agent_id=agent_id,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        authorization: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        agent_id: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams InsightsAssessmentsCommentInstance and returns headers from first page
+
+
+        :param str authorization: The Authorization HTTP request header
+        :param str segment_id: The id of the segment.
+        :param str agent_id: The id of the agent.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            authorization=authorization,
+            segment_id=segment_id,
+            agent_id=agent_id,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         authorization: Union[str, object] = values.unset,
@@ -341,6 +532,74 @@ class InsightsAssessmentsCommentList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        authorization: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        agent_id: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists InsightsAssessmentsCommentInstance and returns headers from first page
+
+
+        :param str authorization: The Authorization HTTP request header
+        :param str segment_id: The id of the segment.
+        :param str agent_id: The id of the agent.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            authorization=authorization,
+            segment_id=segment_id,
+            agent_id=agent_id,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        authorization: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        agent_id: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists InsightsAssessmentsCommentInstance and returns headers from first page
+
+
+        :param str authorization: The Authorization HTTP request header
+        :param str segment_id: The id of the segment.
+        :param str agent_id: The id of the agent.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            authorization=authorization,
+            segment_id=segment_id,
+            agent_id=agent_id,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -435,6 +694,104 @@ class InsightsAssessmentsCommentList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return InsightsAssessmentsCommentPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        authorization: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        agent_id: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param authorization: The Authorization HTTP request header
+        :param segment_id: The id of the segment.
+        :param agent_id: The id of the agent.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with InsightsAssessmentsCommentPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Authorization": authorization,
+                "SegmentId": segment_id,
+                "AgentId": agent_id,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = InsightsAssessmentsCommentPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        authorization: Union[str, object] = values.unset,
+        segment_id: Union[str, object] = values.unset,
+        agent_id: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param authorization: The Authorization HTTP request header
+        :param segment_id: The id of the segment.
+        :param agent_id: The id of the agent.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with InsightsAssessmentsCommentPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Authorization": authorization,
+                "SegmentId": segment_id,
+                "AgentId": agent_id,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = InsightsAssessmentsCommentPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> InsightsAssessmentsCommentPage:
         """

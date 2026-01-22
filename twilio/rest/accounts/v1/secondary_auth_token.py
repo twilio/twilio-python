@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -77,6 +78,24 @@ class SecondaryAuthTokenInstance(InstanceResource):
         """
         return await self._proxy.create_async()
 
+    def create_with_http_info(self) -> ApiResponse:
+        """
+        Create the SecondaryAuthTokenInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.create_with_http_info()
+
+    async def create_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to create the SecondaryAuthTokenInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.create_with_http_info_async()
+
     def delete(self) -> bool:
         """
         Deletes the SecondaryAuthTokenInstance
@@ -94,6 +113,24 @@ class SecondaryAuthTokenInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the SecondaryAuthTokenInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the SecondaryAuthTokenInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
 
     def __repr__(self) -> str:
         """
@@ -117,12 +154,12 @@ class SecondaryAuthTokenContext(InstanceContext):
 
         self._uri = "/AuthTokens/Secondary"
 
-    def create(self) -> SecondaryAuthTokenInstance:
+    def _create(self) -> tuple:
         """
-        Create the SecondaryAuthTokenInstance
+        Internal helper for create operation
 
-
-        :returns: The created SecondaryAuthTokenInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of({})
@@ -130,11 +167,47 @@ class SecondaryAuthTokenContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(self) -> SecondaryAuthTokenInstance:
+        """
+        Create the SecondaryAuthTokenInstance
+
+
+        :returns: The created SecondaryAuthTokenInstance
+        """
+        payload, _, _ = self._create()
         return SecondaryAuthTokenInstance(self._version, payload)
+
+    def create_with_http_info(self) -> ApiResponse:
+        """
+        Create the SecondaryAuthTokenInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create()
+        instance = SecondaryAuthTokenInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(self) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of({})
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(self) -> SecondaryAuthTokenInstance:
         """
@@ -143,17 +216,33 @@ class SecondaryAuthTokenContext(InstanceContext):
 
         :returns: The created SecondaryAuthTokenInstance
         """
+        payload, _, _ = await self._create_async()
+        return SecondaryAuthTokenInstance(self._version, payload)
 
-        data = values.of({})
+    async def create_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to create the SecondaryAuthTokenInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async()
+        instance = SecondaryAuthTokenInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
         headers = values.of({})
 
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
         )
-
-        return SecondaryAuthTokenInstance(self._version, payload)
 
     def delete(self) -> bool:
         """
@@ -162,10 +251,32 @@ class SecondaryAuthTokenContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the SecondaryAuthTokenInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -174,12 +285,18 @@ class SecondaryAuthTokenContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
 
-        headers = values.of({})
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the SecondaryAuthTokenInstance and return response metadata
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
-        )
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

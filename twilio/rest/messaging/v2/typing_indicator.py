@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -53,14 +54,12 @@ class TypingIndicatorList(ListResource):
 
         self._uri = "/Indicators/Typing.json"
 
-    def create(self, channel: str, message_id: str) -> TypingIndicatorInstance:
+    def _create(self, channel: str, message_id: str) -> tuple:
         """
-        Create the TypingIndicatorInstance
+        Internal helper for create operation
 
-        :param channel: Shared channel identifier
-        :param message_id: Message SID that identifies the conversation thread for the typing indicator. Must be a valid Twilio Message SID (SM*) or Media SID (MM*) from an existing WhatsApp conversation.
-
-        :returns: The created TypingIndicatorInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -75,11 +74,60 @@ class TypingIndicatorList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(self, channel: str, message_id: str) -> TypingIndicatorInstance:
+        """
+        Create the TypingIndicatorInstance
+
+        :param channel: Shared channel identifier
+        :param message_id: Message SID that identifies the conversation thread for the typing indicator. Must be a valid Twilio Message SID (SM*) or Media SID (MM*) from an existing WhatsApp conversation.
+
+        :returns: The created TypingIndicatorInstance
+        """
+        payload, _, _ = self._create(channel=channel, message_id=message_id)
         return TypingIndicatorInstance(self._version, payload)
+
+    def create_with_http_info(self, channel: str, message_id: str) -> ApiResponse:
+        """
+        Create the TypingIndicatorInstance and return response metadata
+
+        :param channel: Shared channel identifier
+        :param message_id: Message SID that identifies the conversation thread for the typing indicator. Must be a valid Twilio Message SID (SM*) or Media SID (MM*) from an existing WhatsApp conversation.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            channel=channel, message_id=message_id
+        )
+        instance = TypingIndicatorInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(self, channel: str, message_id: str) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "channel": channel,
+                "messageId": message_id,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(
         self, channel: str, message_id: str
@@ -92,24 +140,25 @@ class TypingIndicatorList(ListResource):
 
         :returns: The created TypingIndicatorInstance
         """
-
-        data = values.of(
-            {
-                "channel": channel,
-                "messageId": message_id,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._create_async(channel=channel, message_id=message_id)
         return TypingIndicatorInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self, channel: str, message_id: str
+    ) -> ApiResponse:
+        """
+        Asynchronously create the TypingIndicatorInstance and return response metadata
+
+        :param channel: Shared channel identifier
+        :param message_id: Message SID that identifies the conversation thread for the typing indicator. Must be a valid Twilio Message SID (SM*) or Media SID (MM*) from an existing WhatsApp conversation.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            channel=channel, message_id=message_id
+        )
+        instance = TypingIndicatorInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

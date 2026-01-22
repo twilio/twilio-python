@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -151,6 +152,24 @@ class ChallengeInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ChallengeInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ChallengeInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(
         self,
         auth_payload: Union[str, object] = values.unset,
@@ -183,6 +202,42 @@ class ChallengeInstance(InstanceResource):
         :returns: The updated ChallengeInstance
         """
         return await self._proxy.update_async(
+            auth_payload=auth_payload,
+            metadata=metadata,
+        )
+
+    def update_with_http_info(
+        self,
+        auth_payload: Union[str, object] = values.unset,
+        metadata: Union[object, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ChallengeInstance with HTTP info
+
+        :param auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
+        :param metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            auth_payload=auth_payload,
+            metadata=metadata,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        auth_payload: Union[str, object] = values.unset,
+        metadata: Union[object, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ChallengeInstance with HTTP info
+
+        :param auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
+        :param metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             auth_payload=auth_payload,
             metadata=metadata,
         )
@@ -231,6 +286,22 @@ class ChallengeContext(InstanceContext):
 
         self._notifications: Optional[NotificationList] = None
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> ChallengeInstance:
         """
         Fetch the ChallengeInstance
@@ -238,19 +309,46 @@ class ChallengeContext(InstanceContext):
 
         :returns: The fetched ChallengeInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return ChallengeInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             identity=self._solution["identity"],
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ChallengeInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = ChallengeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> ChallengeInstance:
@@ -260,21 +358,58 @@ class ChallengeContext(InstanceContext):
 
         :returns: The fetched ChallengeInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return ChallengeInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             identity=self._solution["identity"],
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ChallengeInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = ChallengeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        auth_payload: Union[str, object] = values.unset,
+        metadata: Union[object, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "AuthPayload": auth_payload,
+                "Metadata": serialize.object(metadata),
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -290,6 +425,51 @@ class ChallengeContext(InstanceContext):
 
         :returns: The updated ChallengeInstance
         """
+        payload, _, _ = self._update(auth_payload=auth_payload, metadata=metadata)
+        return ChallengeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+            sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(
+        self,
+        auth_payload: Union[str, object] = values.unset,
+        metadata: Union[object, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ChallengeInstance and return response metadata
+
+        :param auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
+        :param metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            auth_payload=auth_payload, metadata=metadata
+        )
+        instance = ChallengeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        auth_payload: Union[str, object] = values.unset,
+        metadata: Union[object, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -303,16 +483,8 @@ class ChallengeContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ChallengeInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            identity=self._solution["identity"],
-            sid=self._solution["sid"],
         )
 
     async def update_async(
@@ -328,23 +500,9 @@ class ChallengeContext(InstanceContext):
 
         :returns: The updated ChallengeInstance
         """
-
-        data = values.of(
-            {
-                "AuthPayload": auth_payload,
-                "Metadata": serialize.object(metadata),
-            }
+        payload, _, _ = await self._update_async(
+            auth_payload=auth_payload, metadata=metadata
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ChallengeInstance(
             self._version,
             payload,
@@ -352,6 +510,31 @@ class ChallengeContext(InstanceContext):
             identity=self._solution["identity"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(
+        self,
+        auth_payload: Union[str, object] = values.unset,
+        metadata: Union[object, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ChallengeInstance and return response metadata
+
+        :param auth_payload: The optional payload needed to verify the Challenge. E.g., a TOTP would use the numeric code. For `TOTP` this value must be between 3 and 8 characters long. For `Push` this value can be up to 5456 characters in length
+        :param metadata: Custom metadata associated with the challenge. This is added by the Device/SDK directly to allow for the inclusion of device information. It must be a stringified JSON with only strings values eg. `{\\\"os\\\": \\\"Android\\\"}`. Can be up to 1024 characters in length.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            auth_payload=auth_payload, metadata=metadata
+        )
+        instance = ChallengeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def notifications(self) -> NotificationList:
@@ -423,6 +606,44 @@ class ChallengeList(ListResource):
             **self._solution
         )
 
+    def _create(
+        self,
+        factor_sid: str,
+        expiration_date: Union[datetime, object] = values.unset,
+        details_message: Union[str, object] = values.unset,
+        details_fields: Union[List[object], object] = values.unset,
+        hidden_details: Union[object, object] = values.unset,
+        auth_payload: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FactorSid": factor_sid,
+                "ExpirationDate": serialize.iso8601_datetime(expiration_date),
+                "Details.Message": details_message,
+                "Details.Fields": serialize.map(
+                    details_fields, lambda e: serialize.object(e)
+                ),
+                "HiddenDetails": serialize.object(hidden_details),
+                "AuthPayload": auth_payload,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         factor_sid: str,
@@ -444,6 +665,73 @@ class ChallengeList(ListResource):
 
         :returns: The created ChallengeInstance
         """
+        payload, _, _ = self._create(
+            factor_sid=factor_sid,
+            expiration_date=expiration_date,
+            details_message=details_message,
+            details_fields=details_fields,
+            hidden_details=hidden_details,
+            auth_payload=auth_payload,
+        )
+        return ChallengeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+        )
+
+    def create_with_http_info(
+        self,
+        factor_sid: str,
+        expiration_date: Union[datetime, object] = values.unset,
+        details_message: Union[str, object] = values.unset,
+        details_fields: Union[List[object], object] = values.unset,
+        hidden_details: Union[object, object] = values.unset,
+        auth_payload: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the ChallengeInstance and return response metadata
+
+        :param factor_sid: The unique SID identifier of the Factor.
+        :param expiration_date: The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
+        :param details_message: Shown to the user when the push notification arrives. Required when `factor_type` is `push`. Can be up to 256 characters in length
+        :param details_fields: A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when `factor_type` is `push`. There can be up to 20 details fields.
+        :param hidden_details: Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\\\"ip\\\": \\\"172.168.1.234\\\"}`. Can be up to 1024 characters in length
+        :param auth_payload: Optional payload used to verify the Challenge upon creation. Only used with a Factor of type `totp` to carry the TOTP code that needs to be verified. For `TOTP` this value must be between 3 and 8 characters long.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            factor_sid=factor_sid,
+            expiration_date=expiration_date,
+            details_message=details_message,
+            details_fields=details_fields,
+            hidden_details=hidden_details,
+            auth_payload=auth_payload,
+        )
+        instance = ChallengeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        factor_sid: str,
+        expiration_date: Union[datetime, object] = values.unset,
+        details_message: Union[str, object] = values.unset,
+        details_fields: Union[List[object], object] = values.unset,
+        hidden_details: Union[object, object] = values.unset,
+        auth_payload: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -463,15 +751,8 @@ class ChallengeList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ChallengeInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            identity=self._solution["identity"],
         )
 
     async def create_async(
@@ -495,35 +776,57 @@ class ChallengeList(ListResource):
 
         :returns: The created ChallengeInstance
         """
-
-        data = values.of(
-            {
-                "FactorSid": factor_sid,
-                "ExpirationDate": serialize.iso8601_datetime(expiration_date),
-                "Details.Message": details_message,
-                "Details.Fields": serialize.map(
-                    details_fields, lambda e: serialize.object(e)
-                ),
-                "HiddenDetails": serialize.object(hidden_details),
-                "AuthPayload": auth_payload,
-            }
+        payload, _, _ = await self._create_async(
+            factor_sid=factor_sid,
+            expiration_date=expiration_date,
+            details_message=details_message,
+            details_fields=details_fields,
+            hidden_details=hidden_details,
+            auth_payload=auth_payload,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ChallengeInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             identity=self._solution["identity"],
         )
+
+    async def create_with_http_info_async(
+        self,
+        factor_sid: str,
+        expiration_date: Union[datetime, object] = values.unset,
+        details_message: Union[str, object] = values.unset,
+        details_fields: Union[List[object], object] = values.unset,
+        hidden_details: Union[object, object] = values.unset,
+        auth_payload: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the ChallengeInstance and return response metadata
+
+        :param factor_sid: The unique SID identifier of the Factor.
+        :param expiration_date: The date-time when this Challenge expires, given in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. The default value is five (5) minutes after Challenge creation. The max value is sixty (60) minutes after creation.
+        :param details_message: Shown to the user when the push notification arrives. Required when `factor_type` is `push`. Can be up to 256 characters in length
+        :param details_fields: A list of objects that describe the Fields included in the Challenge. Each object contains the label and value of the field, the label can be up to 36 characters in length and the value can be up to 128 characters in length. Used when `factor_type` is `push`. There can be up to 20 details fields.
+        :param hidden_details: Details provided to give context about the Challenge. Not shown to the end user. It must be a stringified JSON with only strings values eg. `{\\\"ip\\\": \\\"172.168.1.234\\\"}`. Can be up to 1024 characters in length
+        :param auth_payload: Optional payload used to verify the Challenge upon creation. Only used with a Factor of type `totp` to carry the TOTP code that needs to be verified. For `TOTP` this value must be between 3 and 8 characters long.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            factor_sid=factor_sid,
+            expiration_date=expiration_date,
+            details_message=details_message,
+            details_fields=details_fields,
+            hidden_details=hidden_details,
+            auth_payload=auth_payload,
+        )
+        instance = ChallengeInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -597,6 +900,76 @@ class ChallengeList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        factor_sid: Union[str, object] = values.unset,
+        status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
+        order: Union["ChallengeInstance.ListOrders", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams ChallengeInstance and returns headers from first page
+
+
+        :param str factor_sid: The unique SID identifier of the Factor.
+        :param &quot;ChallengeInstance.ChallengeStatuses&quot; status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
+        :param &quot;ChallengeInstance.ListOrders&quot; order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            factor_sid=factor_sid,
+            status=status,
+            order=order,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        factor_sid: Union[str, object] = values.unset,
+        status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
+        order: Union["ChallengeInstance.ListOrders", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams ChallengeInstance and returns headers from first page
+
+
+        :param str factor_sid: The unique SID identifier of the Factor.
+        :param &quot;ChallengeInstance.ChallengeStatuses&quot; status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
+        :param &quot;ChallengeInstance.ListOrders&quot; order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            factor_sid=factor_sid,
+            status=status,
+            order=order,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         factor_sid: Union[str, object] = values.unset,
@@ -667,6 +1040,74 @@ class ChallengeList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        factor_sid: Union[str, object] = values.unset,
+        status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
+        order: Union["ChallengeInstance.ListOrders", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists ChallengeInstance and returns headers from first page
+
+
+        :param str factor_sid: The unique SID identifier of the Factor.
+        :param &quot;ChallengeInstance.ChallengeStatuses&quot; status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
+        :param &quot;ChallengeInstance.ListOrders&quot; order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            factor_sid=factor_sid,
+            status=status,
+            order=order,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        factor_sid: Union[str, object] = values.unset,
+        status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
+        order: Union["ChallengeInstance.ListOrders", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists ChallengeInstance and returns headers from first page
+
+
+        :param str factor_sid: The unique SID identifier of the Factor.
+        :param &quot;ChallengeInstance.ChallengeStatuses&quot; status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
+        :param &quot;ChallengeInstance.ListOrders&quot; order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            factor_sid=factor_sid,
+            status=status,
+            order=order,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -751,6 +1192,94 @@ class ChallengeList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return ChallengePage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        factor_sid: Union[str, object] = values.unset,
+        status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
+        order: Union["ChallengeInstance.ListOrders", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param factor_sid: The unique SID identifier of the Factor.
+        :param status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
+        :param order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ChallengePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "FactorSid": factor_sid,
+                "Status": status,
+                "Order": order,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = ChallengePage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        factor_sid: Union[str, object] = values.unset,
+        status: Union["ChallengeInstance.ChallengeStatuses", object] = values.unset,
+        order: Union["ChallengeInstance.ListOrders", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param factor_sid: The unique SID identifier of the Factor.
+        :param status: The Status of the Challenges to fetch. One of `pending`, `expired`, `approved` or `denied`.
+        :param order: The desired sort order of the Challenges list. One of `asc` or `desc` for ascending and descending respectively. Defaults to `asc`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ChallengePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "FactorSid": factor_sid,
+                "Status": status,
+                "Order": order,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = ChallengePage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ChallengePage:
         """

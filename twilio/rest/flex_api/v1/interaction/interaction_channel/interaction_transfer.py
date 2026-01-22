@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -127,6 +128,24 @@ class InteractionTransferInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the InteractionTransferInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the InteractionTransferInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(
         self, body: Union[object, object] = values.unset
     ) -> "InteractionTransferInstance":
@@ -152,6 +171,34 @@ class InteractionTransferInstance(InstanceResource):
         :returns: The updated InteractionTransferInstance
         """
         return await self._proxy.update_async(
+            body=body,
+        )
+
+    def update_with_http_info(
+        self, body: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the InteractionTransferInstance with HTTP info
+
+        :param body:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            body=body,
+        )
+
+    async def update_with_http_info_async(
+        self, body: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the InteractionTransferInstance with HTTP info
+
+        :param body:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             body=body,
         )
 
@@ -190,6 +237,22 @@ class InteractionTransferContext(InstanceContext):
             **self._solution
         )
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> InteractionTransferInstance:
         """
         Fetch the InteractionTransferInstance
@@ -197,19 +260,46 @@ class InteractionTransferContext(InstanceContext):
 
         :returns: The fetched InteractionTransferInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return InteractionTransferInstance(
             self._version,
             payload,
             interaction_sid=self._solution["interaction_sid"],
             channel_sid=self._solution["channel_sid"],
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the InteractionTransferInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = InteractionTransferInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution["interaction_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> InteractionTransferInstance:
@@ -219,21 +309,49 @@ class InteractionTransferContext(InstanceContext):
 
         :returns: The fetched InteractionTransferInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return InteractionTransferInstance(
             self._version,
             payload,
             interaction_sid=self._solution["interaction_sid"],
             channel_sid=self._solution["channel_sid"],
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the InteractionTransferInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = InteractionTransferInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution["interaction_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(self, body: Union[object, object] = values.unset) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = body.to_dict()
+
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -246,6 +364,42 @@ class InteractionTransferContext(InstanceContext):
 
         :returns: The updated InteractionTransferInstance
         """
+        payload, _, _ = self._update(body=body)
+        return InteractionTransferInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution["interaction_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(
+        self, body: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the InteractionTransferInstance and return response metadata
+
+        :param body:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(body=body)
+        instance = InteractionTransferInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution["interaction_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(self, body: Union[object, object] = values.unset) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = body.to_dict()
 
         headers = values.of({})
@@ -254,16 +408,8 @@ class InteractionTransferContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return InteractionTransferInstance(
-            self._version,
-            payload,
-            interaction_sid=self._solution["interaction_sid"],
-            channel_sid=self._solution["channel_sid"],
-            sid=self._solution["sid"],
         )
 
     async def update_async(
@@ -276,18 +422,7 @@ class InteractionTransferContext(InstanceContext):
 
         :returns: The updated InteractionTransferInstance
         """
-        data = body.to_dict()
-
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(body=body)
         return InteractionTransferInstance(
             self._version,
             payload,
@@ -295,6 +430,26 @@ class InteractionTransferContext(InstanceContext):
             channel_sid=self._solution["channel_sid"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(
+        self, body: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the InteractionTransferInstance and return response metadata
+
+        :param body:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(body=body)
+        instance = InteractionTransferInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution["interaction_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -330,6 +485,25 @@ class InteractionTransferList(ListResource):
             )
         )
 
+    def _create(self, body: Union[object, object] = values.unset) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = body.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self, body: Union[object, object] = values.unset
     ) -> InteractionTransferInstance:
@@ -340,6 +514,40 @@ class InteractionTransferList(ListResource):
 
         :returns: The created InteractionTransferInstance
         """
+        payload, _, _ = self._create(body=body)
+        return InteractionTransferInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution["interaction_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+
+    def create_with_http_info(
+        self, body: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Create the InteractionTransferInstance and return response metadata
+
+        :param body:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(body=body)
+        instance = InteractionTransferInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution["interaction_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(self, body: Union[object, object] = values.unset) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = body.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -348,15 +556,8 @@ class InteractionTransferList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return InteractionTransferInstance(
-            self._version,
-            payload,
-            interaction_sid=self._solution["interaction_sid"],
-            channel_sid=self._solution["channel_sid"],
         )
 
     async def create_async(
@@ -369,24 +570,32 @@ class InteractionTransferList(ListResource):
 
         :returns: The created InteractionTransferInstance
         """
-        data = body.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._create_async(body=body)
         return InteractionTransferInstance(
             self._version,
             payload,
             interaction_sid=self._solution["interaction_sid"],
             channel_sid=self._solution["channel_sid"],
         )
+
+    async def create_with_http_info_async(
+        self, body: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronously create the InteractionTransferInstance and return response metadata
+
+        :param body:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(body=body)
+        instance = InteractionTransferInstance(
+            self._version,
+            payload,
+            interaction_sid=self._solution["interaction_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def get(self, sid: str) -> InteractionTransferContext:
         """

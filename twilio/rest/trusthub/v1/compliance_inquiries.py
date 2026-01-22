@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -93,6 +94,38 @@ class ComplianceInquiriesInstance(InstanceResource):
             theme_set_id=theme_set_id,
         )
 
+    def update_with_http_info(
+        self, primary_profile_sid: str, theme_set_id: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the ComplianceInquiriesInstance with HTTP info
+
+        :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+        :param theme_set_id: Theme id for styling the inquiry form.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            primary_profile_sid=primary_profile_sid,
+            theme_set_id=theme_set_id,
+        )
+
+    async def update_with_http_info_async(
+        self, primary_profile_sid: str, theme_set_id: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ComplianceInquiriesInstance with HTTP info
+
+        :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+        :param theme_set_id: Theme id for styling the inquiry form.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            primary_profile_sid=primary_profile_sid,
+            theme_set_id=theme_set_id,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -122,16 +155,14 @@ class ComplianceInquiriesContext(InstanceContext):
             **self._solution
         )
 
-    def update(
+    def _update(
         self, primary_profile_sid: str, theme_set_id: Union[str, object] = values.unset
-    ) -> ComplianceInquiriesInstance:
+    ) -> tuple:
         """
-        Update the ComplianceInquiriesInstance
+        Internal helper for update operation
 
-        :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
-        :param theme_set_id: Theme id for styling the inquiry form.
-
-        :returns: The updated ComplianceInquiriesInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -146,12 +177,71 @@ class ComplianceInquiriesContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return self._version.update_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def update(
+        self, primary_profile_sid: str, theme_set_id: Union[str, object] = values.unset
+    ) -> ComplianceInquiriesInstance:
+        """
+        Update the ComplianceInquiriesInstance
+
+        :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+        :param theme_set_id: Theme id for styling the inquiry form.
+
+        :returns: The updated ComplianceInquiriesInstance
+        """
+        payload, _, _ = self._update(
+            primary_profile_sid=primary_profile_sid, theme_set_id=theme_set_id
+        )
         return ComplianceInquiriesInstance(
             self._version, payload, customer_id=self._solution["customer_id"]
+        )
+
+    def update_with_http_info(
+        self, primary_profile_sid: str, theme_set_id: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the ComplianceInquiriesInstance and return response metadata
+
+        :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+        :param theme_set_id: Theme id for styling the inquiry form.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            primary_profile_sid=primary_profile_sid, theme_set_id=theme_set_id
+        )
+        instance = ComplianceInquiriesInstance(
+            self._version, payload, customer_id=self._solution["customer_id"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self, primary_profile_sid: str, theme_set_id: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "PrimaryProfileSid": primary_profile_sid,
+                "ThemeSetId": theme_set_id,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.update_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def update_async(
@@ -165,26 +255,31 @@ class ComplianceInquiriesContext(InstanceContext):
 
         :returns: The updated ComplianceInquiriesInstance
         """
-
-        data = values.of(
-            {
-                "PrimaryProfileSid": primary_profile_sid,
-                "ThemeSetId": theme_set_id,
-            }
+        payload, _, _ = await self._update_async(
+            primary_profile_sid=primary_profile_sid, theme_set_id=theme_set_id
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ComplianceInquiriesInstance(
             self._version, payload, customer_id=self._solution["customer_id"]
         )
+
+    async def update_with_http_info_async(
+        self, primary_profile_sid: str, theme_set_id: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ComplianceInquiriesInstance and return response metadata
+
+        :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+        :param theme_set_id: Theme id for styling the inquiry form.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            primary_profile_sid=primary_profile_sid, theme_set_id=theme_set_id
+        )
+        instance = ComplianceInquiriesInstance(
+            self._version, payload, customer_id=self._solution["customer_id"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -209,20 +304,17 @@ class ComplianceInquiriesList(ListResource):
 
         self._uri = "/ComplianceInquiries/Customers/Initialize"
 
-    def create(
+    def _create(
         self,
         notification_email: Union[str, object] = values.unset,
         theme_set_id: Union[str, object] = values.unset,
         primary_profile_sid: Union[str, object] = values.unset,
-    ) -> ComplianceInquiriesInstance:
+    ) -> tuple:
         """
-        Create the ComplianceInquiriesInstance
+        Internal helper for create operation
 
-        :param notification_email: The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used.
-        :param theme_set_id: Theme id for styling the inquiry form.
-        :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
-
-        :returns: The created ComplianceInquiriesInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -238,11 +330,84 @@ class ComplianceInquiriesList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        notification_email: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+        primary_profile_sid: Union[str, object] = values.unset,
+    ) -> ComplianceInquiriesInstance:
+        """
+        Create the ComplianceInquiriesInstance
+
+        :param notification_email: The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used.
+        :param theme_set_id: Theme id for styling the inquiry form.
+        :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+
+        :returns: The created ComplianceInquiriesInstance
+        """
+        payload, _, _ = self._create(
+            notification_email=notification_email,
+            theme_set_id=theme_set_id,
+            primary_profile_sid=primary_profile_sid,
+        )
         return ComplianceInquiriesInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        notification_email: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+        primary_profile_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the ComplianceInquiriesInstance and return response metadata
+
+        :param notification_email: The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used.
+        :param theme_set_id: Theme id for styling the inquiry form.
+        :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            notification_email=notification_email,
+            theme_set_id=theme_set_id,
+            primary_profile_sid=primary_profile_sid,
+        )
+        instance = ComplianceInquiriesInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        notification_email: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+        primary_profile_sid: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "NotificationEmail": notification_email,
+                "ThemeSetId": theme_set_id,
+                "PrimaryProfileSid": primary_profile_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(
         self,
@@ -259,25 +424,35 @@ class ComplianceInquiriesList(ListResource):
 
         :returns: The created ComplianceInquiriesInstance
         """
-
-        data = values.of(
-            {
-                "NotificationEmail": notification_email,
-                "ThemeSetId": theme_set_id,
-                "PrimaryProfileSid": primary_profile_sid,
-            }
+        payload, _, _ = await self._create_async(
+            notification_email=notification_email,
+            theme_set_id=theme_set_id,
+            primary_profile_sid=primary_profile_sid,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ComplianceInquiriesInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        notification_email: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+        primary_profile_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the ComplianceInquiriesInstance and return response metadata
+
+        :param notification_email: The email address that approval status updates will be sent to. If not specified, the email address associated with your primary customer profile will be used.
+        :param theme_set_id: Theme id for styling the inquiry form.
+        :param primary_profile_sid: The unique SID identifier of the Primary Customer Profile that should be used as a parent. Only necessary when creating a secondary Customer Profile.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            notification_email=notification_email,
+            theme_set_id=theme_set_id,
+            primary_profile_sid=primary_profile_sid,
+        )
+        instance = ComplianceInquiriesInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def get(self, customer_id: str) -> ComplianceInquiriesContext:
         """

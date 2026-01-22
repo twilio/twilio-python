@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -101,6 +102,34 @@ class NumberInstance(InstanceResource):
             origination_number=origination_number,
         )
 
+    def fetch_with_http_info(
+        self, origination_number: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the NumberInstance with HTTP info
+
+        :param origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            origination_number=origination_number,
+        )
+
+    async def fetch_with_http_info_async(
+        self, origination_number: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the NumberInstance with HTTP info
+
+        :param origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            origination_number=origination_number,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -128,15 +157,12 @@ class NumberContext(InstanceContext):
         }
         self._uri = "/Trunking/Numbers/{destination_number}".format(**self._solution)
 
-    def fetch(
-        self, origination_number: Union[str, object] = values.unset
-    ) -> NumberInstance:
+    def _fetch(self, origination_number: Union[str, object] = values.unset) -> tuple:
         """
-        Fetch the NumberInstance
+        Internal helper for fetch operation
 
-        :param origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
-
-        :returns: The fetched NumberInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         params = values.of(
@@ -149,14 +175,69 @@ class NumberContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
+        return self._version.fetch_with_response_info(
             method="GET", uri=self._uri, params=params, headers=headers
         )
 
+    def fetch(
+        self, origination_number: Union[str, object] = values.unset
+    ) -> NumberInstance:
+        """
+        Fetch the NumberInstance
+
+        :param origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
+
+        :returns: The fetched NumberInstance
+        """
+        payload, _, _ = self._fetch(origination_number=origination_number)
         return NumberInstance(
             self._version,
             payload,
             destination_number=self._solution["destination_number"],
+        )
+
+    def fetch_with_http_info(
+        self, origination_number: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the NumberInstance and return response metadata
+
+        :param origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(
+            origination_number=origination_number
+        )
+        instance = NumberInstance(
+            self._version,
+            payload,
+            destination_number=self._solution["destination_number"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self, origination_number: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        params = values.of(
+            {
+                "OriginationNumber": origination_number,
+            }
+        )
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
     async def fetch_async(
@@ -169,26 +250,32 @@ class NumberContext(InstanceContext):
 
         :returns: The fetched NumberInstance
         """
-
-        params = values.of(
-            {
-                "OriginationNumber": origination_number,
-            }
-        )
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async(origination_number=origination_number)
         return NumberInstance(
             self._version,
             payload,
             destination_number=self._solution["destination_number"],
         )
+
+    async def fetch_with_http_info_async(
+        self, origination_number: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the NumberInstance and return response metadata
+
+        :param origination_number: The origination phone number, in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to fetch the origin-based voice pricing information. E.164 format consists of a + followed by the country code and subscriber number.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            origination_number=origination_number
+        )
+        instance = NumberInstance(
+            self._version,
+            payload,
+            destination_number=self._solution["destination_number"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

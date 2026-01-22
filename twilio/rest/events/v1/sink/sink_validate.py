@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -62,13 +63,12 @@ class SinkValidateList(ListResource):
         }
         self._uri = "/Sinks/{sid}/Validate".format(**self._solution)
 
-    def create(self, test_id: str) -> SinkValidateInstance:
+    def _create(self, test_id: str) -> tuple:
         """
-        Create the SinkValidateInstance
+        Internal helper for create operation
 
-        :param test_id: A 34 character string that uniquely identifies the test event for a Sink being validated.
-
-        :returns: The created SinkValidateInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -82,11 +82,57 @@ class SinkValidateList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(self, test_id: str) -> SinkValidateInstance:
+        """
+        Create the SinkValidateInstance
+
+        :param test_id: A 34 character string that uniquely identifies the test event for a Sink being validated.
+
+        :returns: The created SinkValidateInstance
+        """
+        payload, _, _ = self._create(test_id=test_id)
         return SinkValidateInstance(self._version, payload, sid=self._solution["sid"])
+
+    def create_with_http_info(self, test_id: str) -> ApiResponse:
+        """
+        Create the SinkValidateInstance and return response metadata
+
+        :param test_id: A 34 character string that uniquely identifies the test event for a Sink being validated.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(test_id=test_id)
+        instance = SinkValidateInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(self, test_id: str) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "TestId": test_id,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(self, test_id: str) -> SinkValidateInstance:
         """
@@ -96,23 +142,22 @@ class SinkValidateList(ListResource):
 
         :returns: The created SinkValidateInstance
         """
-
-        data = values.of(
-            {
-                "TestId": test_id,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._create_async(test_id=test_id)
         return SinkValidateInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def create_with_http_info_async(self, test_id: str) -> ApiResponse:
+        """
+        Asynchronously create the SinkValidateInstance and return response metadata
+
+        :param test_id: A 34 character string that uniquely identifies the test event for a Sink being validated.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(test_id=test_id)
+        instance = SinkValidateInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

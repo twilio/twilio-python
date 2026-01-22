@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -120,6 +121,42 @@ class ComplianceRegistrationInquiriesInstance(InstanceResource):
             theme_set_id=theme_set_id,
         )
 
+    def update_with_http_info(
+        self,
+        is_isv_embed: Union[bool, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ComplianceRegistrationInquiriesInstance with HTTP info
+
+        :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
+        :param theme_set_id: Theme id for styling the inquiry form.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            is_isv_embed=is_isv_embed,
+            theme_set_id=theme_set_id,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        is_isv_embed: Union[bool, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ComplianceRegistrationInquiriesInstance with HTTP info
+
+        :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
+        :param theme_set_id: Theme id for styling the inquiry form.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            is_isv_embed=is_isv_embed,
+            theme_set_id=theme_set_id,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -151,18 +188,16 @@ class ComplianceRegistrationInquiriesContext(InstanceContext):
             **self._solution
         )
 
-    def update(
+    def _update(
         self,
         is_isv_embed: Union[bool, object] = values.unset,
         theme_set_id: Union[str, object] = values.unset,
-    ) -> ComplianceRegistrationInquiriesInstance:
+    ) -> tuple:
         """
-        Update the ComplianceRegistrationInquiriesInstance
+        Internal helper for update operation
 
-        :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
-        :param theme_set_id: Theme id for styling the inquiry form.
-
-        :returns: The updated ComplianceRegistrationInquiriesInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -177,12 +212,77 @@ class ComplianceRegistrationInquiriesContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return self._version.update_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def update(
+        self,
+        is_isv_embed: Union[bool, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+    ) -> ComplianceRegistrationInquiriesInstance:
+        """
+        Update the ComplianceRegistrationInquiriesInstance
+
+        :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
+        :param theme_set_id: Theme id for styling the inquiry form.
+
+        :returns: The updated ComplianceRegistrationInquiriesInstance
+        """
+        payload, _, _ = self._update(
+            is_isv_embed=is_isv_embed, theme_set_id=theme_set_id
+        )
         return ComplianceRegistrationInquiriesInstance(
             self._version, payload, registration_id=self._solution["registration_id"]
+        )
+
+    def update_with_http_info(
+        self,
+        is_isv_embed: Union[bool, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ComplianceRegistrationInquiriesInstance and return response metadata
+
+        :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
+        :param theme_set_id: Theme id for styling the inquiry form.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            is_isv_embed=is_isv_embed, theme_set_id=theme_set_id
+        )
+        instance = ComplianceRegistrationInquiriesInstance(
+            self._version, payload, registration_id=self._solution["registration_id"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        is_isv_embed: Union[bool, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "IsIsvEmbed": serialize.boolean_to_string(is_isv_embed),
+                "ThemeSetId": theme_set_id,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.update_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def update_async(
@@ -198,26 +298,33 @@ class ComplianceRegistrationInquiriesContext(InstanceContext):
 
         :returns: The updated ComplianceRegistrationInquiriesInstance
         """
-
-        data = values.of(
-            {
-                "IsIsvEmbed": serialize.boolean_to_string(is_isv_embed),
-                "ThemeSetId": theme_set_id,
-            }
+        payload, _, _ = await self._update_async(
+            is_isv_embed=is_isv_embed, theme_set_id=theme_set_id
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ComplianceRegistrationInquiriesInstance(
             self._version, payload, registration_id=self._solution["registration_id"]
         )
+
+    async def update_with_http_info_async(
+        self,
+        is_isv_embed: Union[bool, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ComplianceRegistrationInquiriesInstance and return response metadata
+
+        :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
+        :param theme_set_id: Theme id for styling the inquiry form.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            is_isv_embed=is_isv_embed, theme_set_id=theme_set_id
+        )
+        instance = ComplianceRegistrationInquiriesInstance(
+            self._version, payload, registration_id=self._solution["registration_id"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -244,6 +351,117 @@ class ComplianceRegistrationInquiriesList(ListResource):
 
         self._uri = (
             "/ComplianceInquiries/Registration/RegulatoryCompliance/GB/Initialize"
+        )
+
+    def _create(
+        self,
+        end_user_type: "ComplianceRegistrationInquiriesInstance.EndUserType",
+        phone_number_type: "ComplianceRegistrationInquiriesInstance.PhoneNumberType",
+        business_identity_type: Union[
+            "ComplianceRegistrationInquiriesInstance.BusinessIdentityType", object
+        ] = values.unset,
+        business_registration_authority: Union[
+            "ComplianceRegistrationInquiriesInstance.BusinessRegistrationAuthority",
+            object,
+        ] = values.unset,
+        business_legal_name: Union[str, object] = values.unset,
+        notification_email: Union[str, object] = values.unset,
+        accepted_notification_receipt: Union[bool, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_website_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        authorized_representative1_first_name: Union[str, object] = values.unset,
+        authorized_representative1_last_name: Union[str, object] = values.unset,
+        authorized_representative1_phone: Union[str, object] = values.unset,
+        authorized_representative1_email: Union[str, object] = values.unset,
+        authorized_representative1_date_of_birth: Union[str, object] = values.unset,
+        address_street: Union[str, object] = values.unset,
+        address_street_secondary: Union[str, object] = values.unset,
+        address_city: Union[str, object] = values.unset,
+        address_subdivision: Union[str, object] = values.unset,
+        address_postal_code: Union[str, object] = values.unset,
+        address_country_code: Union[str, object] = values.unset,
+        emergency_address_street: Union[str, object] = values.unset,
+        emergency_address_street_secondary: Union[str, object] = values.unset,
+        emergency_address_city: Union[str, object] = values.unset,
+        emergency_address_subdivision: Union[str, object] = values.unset,
+        emergency_address_postal_code: Union[str, object] = values.unset,
+        emergency_address_country_code: Union[str, object] = values.unset,
+        use_address_as_emergency_address: Union[bool, object] = values.unset,
+        file_name: Union[str, object] = values.unset,
+        file: Union[str, object] = values.unset,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        date_of_birth: Union[str, object] = values.unset,
+        individual_email: Union[str, object] = values.unset,
+        individual_phone: Union[str, object] = values.unset,
+        is_isv_embed: Union[bool, object] = values.unset,
+        isv_registering_for_self_or_tenant: Union[str, object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "EndUserType": end_user_type,
+                "PhoneNumberType": phone_number_type,
+                "BusinessIdentityType": business_identity_type,
+                "BusinessRegistrationAuthority": business_registration_authority,
+                "BusinessLegalName": business_legal_name,
+                "NotificationEmail": notification_email,
+                "AcceptedNotificationReceipt": serialize.boolean_to_string(
+                    accepted_notification_receipt
+                ),
+                "BusinessRegistrationNumber": business_registration_number,
+                "BusinessWebsiteUrl": business_website_url,
+                "FriendlyName": friendly_name,
+                "AuthorizedRepresentative1FirstName": authorized_representative1_first_name,
+                "AuthorizedRepresentative1LastName": authorized_representative1_last_name,
+                "AuthorizedRepresentative1Phone": authorized_representative1_phone,
+                "AuthorizedRepresentative1Email": authorized_representative1_email,
+                "AuthorizedRepresentative1DateOfBirth": authorized_representative1_date_of_birth,
+                "AddressStreet": address_street,
+                "AddressStreetSecondary": address_street_secondary,
+                "AddressCity": address_city,
+                "AddressSubdivision": address_subdivision,
+                "AddressPostalCode": address_postal_code,
+                "AddressCountryCode": address_country_code,
+                "EmergencyAddressStreet": emergency_address_street,
+                "EmergencyAddressStreetSecondary": emergency_address_street_secondary,
+                "EmergencyAddressCity": emergency_address_city,
+                "EmergencyAddressSubdivision": emergency_address_subdivision,
+                "EmergencyAddressPostalCode": emergency_address_postal_code,
+                "EmergencyAddressCountryCode": emergency_address_country_code,
+                "UseAddressAsEmergencyAddress": serialize.boolean_to_string(
+                    use_address_as_emergency_address
+                ),
+                "FileName": file_name,
+                "File": file,
+                "FirstName": first_name,
+                "LastName": last_name,
+                "DateOfBirth": date_of_birth,
+                "IndividualEmail": individual_email,
+                "IndividualPhone": individual_phone,
+                "IsIsvEmbed": serialize.boolean_to_string(is_isv_embed),
+                "IsvRegisteringForSelfOrTenant": isv_registering_for_self_or_tenant,
+                "StatusCallbackUrl": status_callback_url,
+                "ThemeSetId": theme_set_id,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def create(
@@ -338,6 +556,238 @@ class ComplianceRegistrationInquiriesList(ListResource):
 
         :returns: The created ComplianceRegistrationInquiriesInstance
         """
+        payload, _, _ = self._create(
+            end_user_type=end_user_type,
+            phone_number_type=phone_number_type,
+            business_identity_type=business_identity_type,
+            business_registration_authority=business_registration_authority,
+            business_legal_name=business_legal_name,
+            notification_email=notification_email,
+            accepted_notification_receipt=accepted_notification_receipt,
+            business_registration_number=business_registration_number,
+            business_website_url=business_website_url,
+            friendly_name=friendly_name,
+            authorized_representative1_first_name=authorized_representative1_first_name,
+            authorized_representative1_last_name=authorized_representative1_last_name,
+            authorized_representative1_phone=authorized_representative1_phone,
+            authorized_representative1_email=authorized_representative1_email,
+            authorized_representative1_date_of_birth=authorized_representative1_date_of_birth,
+            address_street=address_street,
+            address_street_secondary=address_street_secondary,
+            address_city=address_city,
+            address_subdivision=address_subdivision,
+            address_postal_code=address_postal_code,
+            address_country_code=address_country_code,
+            emergency_address_street=emergency_address_street,
+            emergency_address_street_secondary=emergency_address_street_secondary,
+            emergency_address_city=emergency_address_city,
+            emergency_address_subdivision=emergency_address_subdivision,
+            emergency_address_postal_code=emergency_address_postal_code,
+            emergency_address_country_code=emergency_address_country_code,
+            use_address_as_emergency_address=use_address_as_emergency_address,
+            file_name=file_name,
+            file=file,
+            first_name=first_name,
+            last_name=last_name,
+            date_of_birth=date_of_birth,
+            individual_email=individual_email,
+            individual_phone=individual_phone,
+            is_isv_embed=is_isv_embed,
+            isv_registering_for_self_or_tenant=isv_registering_for_self_or_tenant,
+            status_callback_url=status_callback_url,
+            theme_set_id=theme_set_id,
+        )
+        return ComplianceRegistrationInquiriesInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        end_user_type: "ComplianceRegistrationInquiriesInstance.EndUserType",
+        phone_number_type: "ComplianceRegistrationInquiriesInstance.PhoneNumberType",
+        business_identity_type: Union[
+            "ComplianceRegistrationInquiriesInstance.BusinessIdentityType", object
+        ] = values.unset,
+        business_registration_authority: Union[
+            "ComplianceRegistrationInquiriesInstance.BusinessRegistrationAuthority",
+            object,
+        ] = values.unset,
+        business_legal_name: Union[str, object] = values.unset,
+        notification_email: Union[str, object] = values.unset,
+        accepted_notification_receipt: Union[bool, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_website_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        authorized_representative1_first_name: Union[str, object] = values.unset,
+        authorized_representative1_last_name: Union[str, object] = values.unset,
+        authorized_representative1_phone: Union[str, object] = values.unset,
+        authorized_representative1_email: Union[str, object] = values.unset,
+        authorized_representative1_date_of_birth: Union[str, object] = values.unset,
+        address_street: Union[str, object] = values.unset,
+        address_street_secondary: Union[str, object] = values.unset,
+        address_city: Union[str, object] = values.unset,
+        address_subdivision: Union[str, object] = values.unset,
+        address_postal_code: Union[str, object] = values.unset,
+        address_country_code: Union[str, object] = values.unset,
+        emergency_address_street: Union[str, object] = values.unset,
+        emergency_address_street_secondary: Union[str, object] = values.unset,
+        emergency_address_city: Union[str, object] = values.unset,
+        emergency_address_subdivision: Union[str, object] = values.unset,
+        emergency_address_postal_code: Union[str, object] = values.unset,
+        emergency_address_country_code: Union[str, object] = values.unset,
+        use_address_as_emergency_address: Union[bool, object] = values.unset,
+        file_name: Union[str, object] = values.unset,
+        file: Union[str, object] = values.unset,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        date_of_birth: Union[str, object] = values.unset,
+        individual_email: Union[str, object] = values.unset,
+        individual_phone: Union[str, object] = values.unset,
+        is_isv_embed: Union[bool, object] = values.unset,
+        isv_registering_for_self_or_tenant: Union[str, object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the ComplianceRegistrationInquiriesInstance and return response metadata
+
+        :param end_user_type:
+        :param phone_number_type:
+        :param business_identity_type:
+        :param business_registration_authority:
+        :param business_legal_name: he name of the business or organization using the Tollfree number.
+        :param notification_email: he email address to receive the notification about the verification result.
+        :param accepted_notification_receipt: The email address to receive the notification about the verification result.
+        :param business_registration_number: Business registration number of the business
+        :param business_website_url: The URL of the business website
+        :param friendly_name: Friendly name for your business information
+        :param authorized_representative1_first_name: First name of the authorized representative
+        :param authorized_representative1_last_name: Last name of the authorized representative
+        :param authorized_representative1_phone: Phone number of the authorized representative
+        :param authorized_representative1_email: Email address of the authorized representative
+        :param authorized_representative1_date_of_birth: Birthdate of the authorized representative
+        :param address_street: Street address of the business
+        :param address_street_secondary: Street address of the business
+        :param address_city: City of the business
+        :param address_subdivision: State or province of the business
+        :param address_postal_code: Postal code of the business
+        :param address_country_code: Country code of the business
+        :param emergency_address_street: Street address of the business
+        :param emergency_address_street_secondary: Street address of the business
+        :param emergency_address_city: City of the business
+        :param emergency_address_subdivision: State or province of the business
+        :param emergency_address_postal_code: Postal code of the business
+        :param emergency_address_country_code: Country code of the business
+        :param use_address_as_emergency_address: Use the business address as the emergency address
+        :param file_name: The name of the verification document to upload
+        :param file: The verification document to upload
+        :param first_name: The first name of the Individual User.
+        :param last_name: The last name of the Individual User.
+        :param date_of_birth: The date of birth of the Individual User.
+        :param individual_email: The email address of the Individual User.
+        :param individual_phone: The phone number of the Individual User.
+        :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
+        :param isv_registering_for_self_or_tenant: Indicates if the isv registering for self or tenant.
+        :param status_callback_url: The url we call to inform you of bundle changes.
+        :param theme_set_id: Theme id for styling the inquiry form.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            end_user_type=end_user_type,
+            phone_number_type=phone_number_type,
+            business_identity_type=business_identity_type,
+            business_registration_authority=business_registration_authority,
+            business_legal_name=business_legal_name,
+            notification_email=notification_email,
+            accepted_notification_receipt=accepted_notification_receipt,
+            business_registration_number=business_registration_number,
+            business_website_url=business_website_url,
+            friendly_name=friendly_name,
+            authorized_representative1_first_name=authorized_representative1_first_name,
+            authorized_representative1_last_name=authorized_representative1_last_name,
+            authorized_representative1_phone=authorized_representative1_phone,
+            authorized_representative1_email=authorized_representative1_email,
+            authorized_representative1_date_of_birth=authorized_representative1_date_of_birth,
+            address_street=address_street,
+            address_street_secondary=address_street_secondary,
+            address_city=address_city,
+            address_subdivision=address_subdivision,
+            address_postal_code=address_postal_code,
+            address_country_code=address_country_code,
+            emergency_address_street=emergency_address_street,
+            emergency_address_street_secondary=emergency_address_street_secondary,
+            emergency_address_city=emergency_address_city,
+            emergency_address_subdivision=emergency_address_subdivision,
+            emergency_address_postal_code=emergency_address_postal_code,
+            emergency_address_country_code=emergency_address_country_code,
+            use_address_as_emergency_address=use_address_as_emergency_address,
+            file_name=file_name,
+            file=file,
+            first_name=first_name,
+            last_name=last_name,
+            date_of_birth=date_of_birth,
+            individual_email=individual_email,
+            individual_phone=individual_phone,
+            is_isv_embed=is_isv_embed,
+            isv_registering_for_self_or_tenant=isv_registering_for_self_or_tenant,
+            status_callback_url=status_callback_url,
+            theme_set_id=theme_set_id,
+        )
+        instance = ComplianceRegistrationInquiriesInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        end_user_type: "ComplianceRegistrationInquiriesInstance.EndUserType",
+        phone_number_type: "ComplianceRegistrationInquiriesInstance.PhoneNumberType",
+        business_identity_type: Union[
+            "ComplianceRegistrationInquiriesInstance.BusinessIdentityType", object
+        ] = values.unset,
+        business_registration_authority: Union[
+            "ComplianceRegistrationInquiriesInstance.BusinessRegistrationAuthority",
+            object,
+        ] = values.unset,
+        business_legal_name: Union[str, object] = values.unset,
+        notification_email: Union[str, object] = values.unset,
+        accepted_notification_receipt: Union[bool, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_website_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        authorized_representative1_first_name: Union[str, object] = values.unset,
+        authorized_representative1_last_name: Union[str, object] = values.unset,
+        authorized_representative1_phone: Union[str, object] = values.unset,
+        authorized_representative1_email: Union[str, object] = values.unset,
+        authorized_representative1_date_of_birth: Union[str, object] = values.unset,
+        address_street: Union[str, object] = values.unset,
+        address_street_secondary: Union[str, object] = values.unset,
+        address_city: Union[str, object] = values.unset,
+        address_subdivision: Union[str, object] = values.unset,
+        address_postal_code: Union[str, object] = values.unset,
+        address_country_code: Union[str, object] = values.unset,
+        emergency_address_street: Union[str, object] = values.unset,
+        emergency_address_street_secondary: Union[str, object] = values.unset,
+        emergency_address_city: Union[str, object] = values.unset,
+        emergency_address_subdivision: Union[str, object] = values.unset,
+        emergency_address_postal_code: Union[str, object] = values.unset,
+        emergency_address_country_code: Union[str, object] = values.unset,
+        use_address_as_emergency_address: Union[bool, object] = values.unset,
+        file_name: Union[str, object] = values.unset,
+        file: Union[str, object] = values.unset,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        date_of_birth: Union[str, object] = values.unset,
+        individual_email: Union[str, object] = values.unset,
+        individual_phone: Union[str, object] = values.unset,
+        is_isv_embed: Union[bool, object] = values.unset,
+        isv_registering_for_self_or_tenant: Union[str, object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -392,11 +842,9 @@ class ComplianceRegistrationInquiriesList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return ComplianceRegistrationInquiriesInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -490,65 +938,184 @@ class ComplianceRegistrationInquiriesList(ListResource):
 
         :returns: The created ComplianceRegistrationInquiriesInstance
         """
-
-        data = values.of(
-            {
-                "EndUserType": end_user_type,
-                "PhoneNumberType": phone_number_type,
-                "BusinessIdentityType": business_identity_type,
-                "BusinessRegistrationAuthority": business_registration_authority,
-                "BusinessLegalName": business_legal_name,
-                "NotificationEmail": notification_email,
-                "AcceptedNotificationReceipt": serialize.boolean_to_string(
-                    accepted_notification_receipt
-                ),
-                "BusinessRegistrationNumber": business_registration_number,
-                "BusinessWebsiteUrl": business_website_url,
-                "FriendlyName": friendly_name,
-                "AuthorizedRepresentative1FirstName": authorized_representative1_first_name,
-                "AuthorizedRepresentative1LastName": authorized_representative1_last_name,
-                "AuthorizedRepresentative1Phone": authorized_representative1_phone,
-                "AuthorizedRepresentative1Email": authorized_representative1_email,
-                "AuthorizedRepresentative1DateOfBirth": authorized_representative1_date_of_birth,
-                "AddressStreet": address_street,
-                "AddressStreetSecondary": address_street_secondary,
-                "AddressCity": address_city,
-                "AddressSubdivision": address_subdivision,
-                "AddressPostalCode": address_postal_code,
-                "AddressCountryCode": address_country_code,
-                "EmergencyAddressStreet": emergency_address_street,
-                "EmergencyAddressStreetSecondary": emergency_address_street_secondary,
-                "EmergencyAddressCity": emergency_address_city,
-                "EmergencyAddressSubdivision": emergency_address_subdivision,
-                "EmergencyAddressPostalCode": emergency_address_postal_code,
-                "EmergencyAddressCountryCode": emergency_address_country_code,
-                "UseAddressAsEmergencyAddress": serialize.boolean_to_string(
-                    use_address_as_emergency_address
-                ),
-                "FileName": file_name,
-                "File": file,
-                "FirstName": first_name,
-                "LastName": last_name,
-                "DateOfBirth": date_of_birth,
-                "IndividualEmail": individual_email,
-                "IndividualPhone": individual_phone,
-                "IsIsvEmbed": serialize.boolean_to_string(is_isv_embed),
-                "IsvRegisteringForSelfOrTenant": isv_registering_for_self_or_tenant,
-                "StatusCallbackUrl": status_callback_url,
-                "ThemeSetId": theme_set_id,
-            }
+        payload, _, _ = await self._create_async(
+            end_user_type=end_user_type,
+            phone_number_type=phone_number_type,
+            business_identity_type=business_identity_type,
+            business_registration_authority=business_registration_authority,
+            business_legal_name=business_legal_name,
+            notification_email=notification_email,
+            accepted_notification_receipt=accepted_notification_receipt,
+            business_registration_number=business_registration_number,
+            business_website_url=business_website_url,
+            friendly_name=friendly_name,
+            authorized_representative1_first_name=authorized_representative1_first_name,
+            authorized_representative1_last_name=authorized_representative1_last_name,
+            authorized_representative1_phone=authorized_representative1_phone,
+            authorized_representative1_email=authorized_representative1_email,
+            authorized_representative1_date_of_birth=authorized_representative1_date_of_birth,
+            address_street=address_street,
+            address_street_secondary=address_street_secondary,
+            address_city=address_city,
+            address_subdivision=address_subdivision,
+            address_postal_code=address_postal_code,
+            address_country_code=address_country_code,
+            emergency_address_street=emergency_address_street,
+            emergency_address_street_secondary=emergency_address_street_secondary,
+            emergency_address_city=emergency_address_city,
+            emergency_address_subdivision=emergency_address_subdivision,
+            emergency_address_postal_code=emergency_address_postal_code,
+            emergency_address_country_code=emergency_address_country_code,
+            use_address_as_emergency_address=use_address_as_emergency_address,
+            file_name=file_name,
+            file=file,
+            first_name=first_name,
+            last_name=last_name,
+            date_of_birth=date_of_birth,
+            individual_email=individual_email,
+            individual_phone=individual_phone,
+            is_isv_embed=is_isv_embed,
+            isv_registering_for_self_or_tenant=isv_registering_for_self_or_tenant,
+            status_callback_url=status_callback_url,
+            theme_set_id=theme_set_id,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ComplianceRegistrationInquiriesInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        end_user_type: "ComplianceRegistrationInquiriesInstance.EndUserType",
+        phone_number_type: "ComplianceRegistrationInquiriesInstance.PhoneNumberType",
+        business_identity_type: Union[
+            "ComplianceRegistrationInquiriesInstance.BusinessIdentityType", object
+        ] = values.unset,
+        business_registration_authority: Union[
+            "ComplianceRegistrationInquiriesInstance.BusinessRegistrationAuthority",
+            object,
+        ] = values.unset,
+        business_legal_name: Union[str, object] = values.unset,
+        notification_email: Union[str, object] = values.unset,
+        accepted_notification_receipt: Union[bool, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_website_url: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        authorized_representative1_first_name: Union[str, object] = values.unset,
+        authorized_representative1_last_name: Union[str, object] = values.unset,
+        authorized_representative1_phone: Union[str, object] = values.unset,
+        authorized_representative1_email: Union[str, object] = values.unset,
+        authorized_representative1_date_of_birth: Union[str, object] = values.unset,
+        address_street: Union[str, object] = values.unset,
+        address_street_secondary: Union[str, object] = values.unset,
+        address_city: Union[str, object] = values.unset,
+        address_subdivision: Union[str, object] = values.unset,
+        address_postal_code: Union[str, object] = values.unset,
+        address_country_code: Union[str, object] = values.unset,
+        emergency_address_street: Union[str, object] = values.unset,
+        emergency_address_street_secondary: Union[str, object] = values.unset,
+        emergency_address_city: Union[str, object] = values.unset,
+        emergency_address_subdivision: Union[str, object] = values.unset,
+        emergency_address_postal_code: Union[str, object] = values.unset,
+        emergency_address_country_code: Union[str, object] = values.unset,
+        use_address_as_emergency_address: Union[bool, object] = values.unset,
+        file_name: Union[str, object] = values.unset,
+        file: Union[str, object] = values.unset,
+        first_name: Union[str, object] = values.unset,
+        last_name: Union[str, object] = values.unset,
+        date_of_birth: Union[str, object] = values.unset,
+        individual_email: Union[str, object] = values.unset,
+        individual_phone: Union[str, object] = values.unset,
+        is_isv_embed: Union[bool, object] = values.unset,
+        isv_registering_for_self_or_tenant: Union[str, object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        theme_set_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the ComplianceRegistrationInquiriesInstance and return response metadata
+
+        :param end_user_type:
+        :param phone_number_type:
+        :param business_identity_type:
+        :param business_registration_authority:
+        :param business_legal_name: he name of the business or organization using the Tollfree number.
+        :param notification_email: he email address to receive the notification about the verification result.
+        :param accepted_notification_receipt: The email address to receive the notification about the verification result.
+        :param business_registration_number: Business registration number of the business
+        :param business_website_url: The URL of the business website
+        :param friendly_name: Friendly name for your business information
+        :param authorized_representative1_first_name: First name of the authorized representative
+        :param authorized_representative1_last_name: Last name of the authorized representative
+        :param authorized_representative1_phone: Phone number of the authorized representative
+        :param authorized_representative1_email: Email address of the authorized representative
+        :param authorized_representative1_date_of_birth: Birthdate of the authorized representative
+        :param address_street: Street address of the business
+        :param address_street_secondary: Street address of the business
+        :param address_city: City of the business
+        :param address_subdivision: State or province of the business
+        :param address_postal_code: Postal code of the business
+        :param address_country_code: Country code of the business
+        :param emergency_address_street: Street address of the business
+        :param emergency_address_street_secondary: Street address of the business
+        :param emergency_address_city: City of the business
+        :param emergency_address_subdivision: State or province of the business
+        :param emergency_address_postal_code: Postal code of the business
+        :param emergency_address_country_code: Country code of the business
+        :param use_address_as_emergency_address: Use the business address as the emergency address
+        :param file_name: The name of the verification document to upload
+        :param file: The verification document to upload
+        :param first_name: The first name of the Individual User.
+        :param last_name: The last name of the Individual User.
+        :param date_of_birth: The date of birth of the Individual User.
+        :param individual_email: The email address of the Individual User.
+        :param individual_phone: The phone number of the Individual User.
+        :param is_isv_embed: Indicates if the inquiry is being started from an ISV embedded component.
+        :param isv_registering_for_self_or_tenant: Indicates if the isv registering for self or tenant.
+        :param status_callback_url: The url we call to inform you of bundle changes.
+        :param theme_set_id: Theme id for styling the inquiry form.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            end_user_type=end_user_type,
+            phone_number_type=phone_number_type,
+            business_identity_type=business_identity_type,
+            business_registration_authority=business_registration_authority,
+            business_legal_name=business_legal_name,
+            notification_email=notification_email,
+            accepted_notification_receipt=accepted_notification_receipt,
+            business_registration_number=business_registration_number,
+            business_website_url=business_website_url,
+            friendly_name=friendly_name,
+            authorized_representative1_first_name=authorized_representative1_first_name,
+            authorized_representative1_last_name=authorized_representative1_last_name,
+            authorized_representative1_phone=authorized_representative1_phone,
+            authorized_representative1_email=authorized_representative1_email,
+            authorized_representative1_date_of_birth=authorized_representative1_date_of_birth,
+            address_street=address_street,
+            address_street_secondary=address_street_secondary,
+            address_city=address_city,
+            address_subdivision=address_subdivision,
+            address_postal_code=address_postal_code,
+            address_country_code=address_country_code,
+            emergency_address_street=emergency_address_street,
+            emergency_address_street_secondary=emergency_address_street_secondary,
+            emergency_address_city=emergency_address_city,
+            emergency_address_subdivision=emergency_address_subdivision,
+            emergency_address_postal_code=emergency_address_postal_code,
+            emergency_address_country_code=emergency_address_country_code,
+            use_address_as_emergency_address=use_address_as_emergency_address,
+            file_name=file_name,
+            file=file,
+            first_name=first_name,
+            last_name=last_name,
+            date_of_birth=date_of_birth,
+            individual_email=individual_email,
+            individual_phone=individual_phone,
+            is_isv_embed=is_isv_embed,
+            isv_registering_for_self_or_tenant=isv_registering_for_self_or_tenant,
+            status_callback_url=status_callback_url,
+            theme_set_id=theme_set_id,
+        )
+        instance = ComplianceRegistrationInquiriesInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def get(self, registration_id: str) -> ComplianceRegistrationInquiriesContext:
         """

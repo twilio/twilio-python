@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -109,6 +110,24 @@ class SinkInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the SinkInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the SinkInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "SinkInstance":
         """
         Fetch the SinkInstance
@@ -126,6 +145,24 @@ class SinkInstance(InstanceResource):
         :returns: The fetched SinkInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the SinkInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the SinkInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(self, description: str) -> "SinkInstance":
         """
@@ -148,6 +185,30 @@ class SinkInstance(InstanceResource):
         :returns: The updated SinkInstance
         """
         return await self._proxy.update_async(
+            description=description,
+        )
+
+    def update_with_http_info(self, description: str) -> ApiResponse:
+        """
+        Update the SinkInstance with HTTP info
+
+        :param description: A human readable description for the Sink **This value should not contain PII.**
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            description=description,
+        )
+
+    async def update_with_http_info_async(self, description: str) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the SinkInstance with HTTP info
+
+        :param description: A human readable description for the Sink **This value should not contain PII.**
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             description=description,
         )
 
@@ -195,6 +256,20 @@ class SinkContext(InstanceContext):
         self._sink_test: Optional[SinkTestList] = None
         self._sink_validate: Optional[SinkValidateList] = None
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the SinkInstance
@@ -202,10 +277,32 @@ class SinkContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the SinkInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -214,11 +311,33 @@ class SinkContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the SinkInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> SinkInstance:
@@ -228,17 +347,42 @@ class SinkContext(InstanceContext):
 
         :returns: The fetched SinkInstance
         """
+        payload, _, _ = self._fetch()
+        return SinkInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the SinkInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = SinkInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return SinkInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> SinkInstance:
@@ -248,19 +392,49 @@ class SinkContext(InstanceContext):
 
         :returns: The fetched SinkInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return SinkInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the SinkInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = SinkInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(self, description: str) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Description": description,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(self, description: str) -> SinkInstance:
@@ -271,6 +445,28 @@ class SinkContext(InstanceContext):
 
         :returns: The updated SinkInstance
         """
+        payload, _, _ = self._update(description=description)
+        return SinkInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(self, description: str) -> ApiResponse:
+        """
+        Update the SinkInstance and return response metadata
+
+        :param description: A human readable description for the Sink **This value should not contain PII.**
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(description=description)
+        instance = SinkInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(self, description: str) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -283,11 +479,9 @@ class SinkContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return SinkInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(self, description: str) -> SinkInstance:
         """
@@ -297,23 +491,22 @@ class SinkContext(InstanceContext):
 
         :returns: The updated SinkInstance
         """
-
-        data = values.of(
-            {
-                "Description": description,
-            }
-        )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(description=description)
         return SinkInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(self, description: str) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the SinkInstance and return response metadata
+
+        :param description: A human readable description for the Sink **This value should not contain PII.**
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            description=description
+        )
+        instance = SinkInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def sink_test(self) -> SinkTestList:
@@ -381,20 +574,17 @@ class SinkList(ListResource):
 
         self._uri = "/Sinks"
 
-    def create(
+    def _create(
         self,
         description: str,
         sink_configuration: object,
         sink_type: "SinkInstance.SinkType",
-    ) -> SinkInstance:
+    ) -> tuple:
         """
-        Create the SinkInstance
+        Internal helper for create operation
 
-        :param description: A human readable description for the Sink **This value should not contain PII.**
-        :param sink_configuration: The information required for Twilio to connect to the provided Sink encoded as JSON.
-        :param sink_type:
-
-        :returns: The created SinkInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -410,11 +600,84 @@ class SinkList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        description: str,
+        sink_configuration: object,
+        sink_type: "SinkInstance.SinkType",
+    ) -> SinkInstance:
+        """
+        Create the SinkInstance
+
+        :param description: A human readable description for the Sink **This value should not contain PII.**
+        :param sink_configuration: The information required for Twilio to connect to the provided Sink encoded as JSON.
+        :param sink_type:
+
+        :returns: The created SinkInstance
+        """
+        payload, _, _ = self._create(
+            description=description,
+            sink_configuration=sink_configuration,
+            sink_type=sink_type,
+        )
         return SinkInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        description: str,
+        sink_configuration: object,
+        sink_type: "SinkInstance.SinkType",
+    ) -> ApiResponse:
+        """
+        Create the SinkInstance and return response metadata
+
+        :param description: A human readable description for the Sink **This value should not contain PII.**
+        :param sink_configuration: The information required for Twilio to connect to the provided Sink encoded as JSON.
+        :param sink_type:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            description=description,
+            sink_configuration=sink_configuration,
+            sink_type=sink_type,
+        )
+        instance = SinkInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        description: str,
+        sink_configuration: object,
+        sink_type: "SinkInstance.SinkType",
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Description": description,
+                "SinkConfiguration": serialize.object(sink_configuration),
+                "SinkType": sink_type,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(
         self,
@@ -431,25 +694,35 @@ class SinkList(ListResource):
 
         :returns: The created SinkInstance
         """
-
-        data = values.of(
-            {
-                "Description": description,
-                "SinkConfiguration": serialize.object(sink_configuration),
-                "SinkType": sink_type,
-            }
+        payload, _, _ = await self._create_async(
+            description=description,
+            sink_configuration=sink_configuration,
+            sink_type=sink_type,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return SinkInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        description: str,
+        sink_configuration: object,
+        sink_type: "SinkInstance.SinkType",
+    ) -> ApiResponse:
+        """
+        Asynchronously create the SinkInstance and return response metadata
+
+        :param description: A human readable description for the Sink **This value should not contain PII.**
+        :param sink_configuration: The information required for Twilio to connect to the provided Sink encoded as JSON.
+        :param sink_type:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            description=description,
+            sink_configuration=sink_configuration,
+            sink_type=sink_type,
+        )
+        instance = SinkInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -510,6 +783,66 @@ class SinkList(ListResource):
         )
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        in_use: Union[bool, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams SinkInstance and returns headers from first page
+
+
+        :param bool in_use: A boolean query parameter filtering the results to return sinks used/not used by a subscription.
+        :param str status: A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            in_use=in_use, status=status, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        in_use: Union[bool, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams SinkInstance and returns headers from first page
+
+
+        :param bool in_use: A boolean query parameter filtering the results to return sinks used/not used by a subscription.
+        :param str status: A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            in_use=in_use, status=status, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -575,6 +908,68 @@ class SinkList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        in_use: Union[bool, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists SinkInstance and returns headers from first page
+
+
+        :param bool in_use: A boolean query parameter filtering the results to return sinks used/not used by a subscription.
+        :param str status: A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            in_use=in_use,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        in_use: Union[bool, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists SinkInstance and returns headers from first page
+
+
+        :param bool in_use: A boolean query parameter filtering the results to return sinks used/not used by a subscription.
+        :param str status: A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            in_use=in_use,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -653,6 +1048,88 @@ class SinkList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return SinkPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        in_use: Union[bool, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param in_use: A boolean query parameter filtering the results to return sinks used/not used by a subscription.
+        :param status: A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with SinkPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "InUse": serialize.boolean_to_string(in_use),
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = SinkPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        in_use: Union[bool, object] = values.unset,
+        status: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param in_use: A boolean query parameter filtering the results to return sinks used/not used by a subscription.
+        :param status: A String query parameter filtering the results by status `initialized`, `validating`, `active` or `failed`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with SinkPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "InUse": serialize.boolean_to_string(in_use),
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = SinkPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> SinkPage:
         """

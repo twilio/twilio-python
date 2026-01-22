@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -135,6 +136,70 @@ class VerificationAttemptsSummaryInstance(InstanceResource):
             destination_prefix=destination_prefix,
         )
 
+    def fetch_with_http_info(
+        self,
+        verify_service_sid: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union[
+            "VerificationAttemptsSummaryInstance.Channels", object
+        ] = values.unset,
+        destination_prefix: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Fetch the VerificationAttemptsSummaryInstance with HTTP info
+
+        :param verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
+        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
+        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel.
+        :param destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            verify_service_sid=verify_service_sid,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            country=country,
+            channel=channel,
+            destination_prefix=destination_prefix,
+        )
+
+    async def fetch_with_http_info_async(
+        self,
+        verify_service_sid: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union[
+            "VerificationAttemptsSummaryInstance.Channels", object
+        ] = values.unset,
+        destination_prefix: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the VerificationAttemptsSummaryInstance with HTTP info
+
+        :param verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
+        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
+        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel.
+        :param destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            verify_service_sid=verify_service_sid,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            country=country,
+            channel=channel,
+            destination_prefix=destination_prefix,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -156,6 +221,43 @@ class VerificationAttemptsSummaryContext(InstanceContext):
         super().__init__(version)
 
         self._uri = "/Attempts/Summary"
+
+    def _fetch(
+        self,
+        verify_service_sid: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union[
+            "VerificationAttemptsSummaryInstance.Channels", object
+        ] = values.unset,
+        destination_prefix: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        params = values.of(
+            {
+                "VerifyServiceSid": verify_service_sid,
+                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
+                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
+                "Country": country,
+                "Channel": channel,
+                "DestinationPrefix": destination_prefix,
+            }
+        )
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, params=params, headers=headers
+        )
 
     def fetch(
         self,
@@ -180,6 +282,73 @@ class VerificationAttemptsSummaryContext(InstanceContext):
 
         :returns: The fetched VerificationAttemptsSummaryInstance
         """
+        payload, _, _ = self._fetch(
+            verify_service_sid=verify_service_sid,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            country=country,
+            channel=channel,
+            destination_prefix=destination_prefix,
+        )
+        return VerificationAttemptsSummaryInstance(
+            self._version,
+            payload,
+        )
+
+    def fetch_with_http_info(
+        self,
+        verify_service_sid: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union[
+            "VerificationAttemptsSummaryInstance.Channels", object
+        ] = values.unset,
+        destination_prefix: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Fetch the VerificationAttemptsSummaryInstance and return response metadata
+
+        :param verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
+        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
+        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel.
+        :param destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(
+            verify_service_sid=verify_service_sid,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            country=country,
+            channel=channel,
+            destination_prefix=destination_prefix,
+        )
+        instance = VerificationAttemptsSummaryInstance(
+            self._version,
+            payload,
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self,
+        verify_service_sid: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union[
+            "VerificationAttemptsSummaryInstance.Channels", object
+        ] = values.unset,
+        destination_prefix: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         params = values.of(
             {
@@ -196,13 +365,8 @@ class VerificationAttemptsSummaryContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
+        return await self._version.fetch_with_response_info_async(
             method="GET", uri=self._uri, params=params, headers=headers
-        )
-
-        return VerificationAttemptsSummaryInstance(
-            self._version,
-            payload,
         )
 
     async def fetch_async(
@@ -228,30 +392,55 @@ class VerificationAttemptsSummaryContext(InstanceContext):
 
         :returns: The fetched VerificationAttemptsSummaryInstance
         """
-
-        params = values.of(
-            {
-                "VerifyServiceSid": verify_service_sid,
-                "DateCreatedAfter": serialize.iso8601_datetime(date_created_after),
-                "DateCreatedBefore": serialize.iso8601_datetime(date_created_before),
-                "Country": country,
-                "Channel": channel,
-                "DestinationPrefix": destination_prefix,
-            }
+        payload, _, _ = await self._fetch_async(
+            verify_service_sid=verify_service_sid,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            country=country,
+            channel=channel,
+            destination_prefix=destination_prefix,
         )
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params, headers=headers
-        )
-
         return VerificationAttemptsSummaryInstance(
             self._version,
             payload,
         )
+
+    async def fetch_with_http_info_async(
+        self,
+        verify_service_sid: Union[str, object] = values.unset,
+        date_created_after: Union[datetime, object] = values.unset,
+        date_created_before: Union[datetime, object] = values.unset,
+        country: Union[str, object] = values.unset,
+        channel: Union[
+            "VerificationAttemptsSummaryInstance.Channels", object
+        ] = values.unset,
+        destination_prefix: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the VerificationAttemptsSummaryInstance and return response metadata
+
+        :param verify_service_sid: Filter used to consider only Verification Attempts of the given verify service on the summary aggregation.
+        :param date_created_after: Datetime filter used to consider only Verification Attempts created after this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param date_created_before: Datetime filter used to consider only Verification Attempts created before this datetime on the summary aggregation. Given as GMT in ISO 8601 formatted datetime string: yyyy-MM-dd'T'HH:mm:ss'Z.
+        :param country: Filter used to consider only Verification Attempts sent to the specified destination country on the summary aggregation.
+        :param channel: Filter Verification Attempts considered on the summary aggregation by communication channel.
+        :param destination_prefix: Filter the Verification Attempts considered on the summary aggregation by Destination prefix. It is the prefix of a phone number in E.164 format.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            verify_service_sid=verify_service_sid,
+            date_created_after=date_created_after,
+            date_created_before=date_created_before,
+            country=country,
+            channel=channel,
+            destination_prefix=destination_prefix,
+        )
+        instance = VerificationAttemptsSummaryInstance(
+            self._version,
+            payload,
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -91,6 +92,24 @@ class NetworkAccessProfileInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the NetworkAccessProfileInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the NetworkAccessProfileInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(
         self, unique_name: Union[str, object] = values.unset
     ) -> "NetworkAccessProfileInstance":
@@ -116,6 +135,34 @@ class NetworkAccessProfileInstance(InstanceResource):
         :returns: The updated NetworkAccessProfileInstance
         """
         return await self._proxy.update_async(
+            unique_name=unique_name,
+        )
+
+    def update_with_http_info(
+        self, unique_name: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the NetworkAccessProfileInstance with HTTP info
+
+        :param unique_name: The new unique name of the Network Access Profile.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            unique_name=unique_name,
+        )
+
+    async def update_with_http_info_async(
+        self, unique_name: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the NetworkAccessProfileInstance with HTTP info
+
+        :param unique_name: The new unique name of the Network Access Profile.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             unique_name=unique_name,
         )
 
@@ -155,6 +202,22 @@ class NetworkAccessProfileContext(InstanceContext):
 
         self._networks: Optional[NetworkAccessProfileNetworkList] = None
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> NetworkAccessProfileInstance:
         """
         Fetch the NetworkAccessProfileInstance
@@ -162,17 +225,42 @@ class NetworkAccessProfileContext(InstanceContext):
 
         :returns: The fetched NetworkAccessProfileInstance
         """
+        payload, _, _ = self._fetch()
+        return NetworkAccessProfileInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the NetworkAccessProfileInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = NetworkAccessProfileInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return NetworkAccessProfileInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> NetworkAccessProfileInstance:
@@ -182,19 +270,49 @@ class NetworkAccessProfileContext(InstanceContext):
 
         :returns: The fetched NetworkAccessProfileInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return NetworkAccessProfileInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the NetworkAccessProfileInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = NetworkAccessProfileInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(self, unique_name: Union[str, object] = values.unset) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -207,6 +325,36 @@ class NetworkAccessProfileContext(InstanceContext):
 
         :returns: The updated NetworkAccessProfileInstance
         """
+        payload, _, _ = self._update(unique_name=unique_name)
+        return NetworkAccessProfileInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+
+    def update_with_http_info(
+        self, unique_name: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the NetworkAccessProfileInstance and return response metadata
+
+        :param unique_name: The new unique name of the Network Access Profile.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(unique_name=unique_name)
+        instance = NetworkAccessProfileInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self, unique_name: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -219,12 +367,8 @@ class NetworkAccessProfileContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return NetworkAccessProfileInstance(
-            self._version, payload, sid=self._solution["sid"]
         )
 
     async def update_async(
@@ -237,25 +381,28 @@ class NetworkAccessProfileContext(InstanceContext):
 
         :returns: The updated NetworkAccessProfileInstance
         """
-
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-            }
-        )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(unique_name=unique_name)
         return NetworkAccessProfileInstance(
             self._version, payload, sid=self._solution["sid"]
         )
+
+    async def update_with_http_info_async(
+        self, unique_name: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the NetworkAccessProfileInstance and return response metadata
+
+        :param unique_name: The new unique name of the Network Access Profile.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            unique_name=unique_name
+        )
+        instance = NetworkAccessProfileInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def networks(self) -> NetworkAccessProfileNetworkList:
@@ -311,18 +458,16 @@ class NetworkAccessProfileList(ListResource):
 
         self._uri = "/NetworkAccessProfiles"
 
-    def create(
+    def _create(
         self,
         unique_name: Union[str, object] = values.unset,
         networks: Union[List[str], object] = values.unset,
-    ) -> NetworkAccessProfileInstance:
+    ) -> tuple:
         """
-        Create the NetworkAccessProfileInstance
+        Internal helper for create operation
 
-        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
-        :param networks: List of Network SIDs that this Network Access Profile will allow connections to.
-
-        :returns: The created NetworkAccessProfileInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -337,11 +482,72 @@ class NetworkAccessProfileList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        networks: Union[List[str], object] = values.unset,
+    ) -> NetworkAccessProfileInstance:
+        """
+        Create the NetworkAccessProfileInstance
+
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param networks: List of Network SIDs that this Network Access Profile will allow connections to.
+
+        :returns: The created NetworkAccessProfileInstance
+        """
+        payload, _, _ = self._create(unique_name=unique_name, networks=networks)
         return NetworkAccessProfileInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        networks: Union[List[str], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the NetworkAccessProfileInstance and return response metadata
+
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param networks: List of Network SIDs that this Network Access Profile will allow connections to.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            unique_name=unique_name, networks=networks
+        )
+        instance = NetworkAccessProfileInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        networks: Union[List[str], object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "Networks": serialize.map(networks, lambda e: e),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(
         self,
@@ -356,24 +562,29 @@ class NetworkAccessProfileList(ListResource):
 
         :returns: The created NetworkAccessProfileInstance
         """
-
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-                "Networks": serialize.map(networks, lambda e: e),
-            }
+        payload, _, _ = await self._create_async(
+            unique_name=unique_name, networks=networks
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return NetworkAccessProfileInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        networks: Union[List[str], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the NetworkAccessProfileInstance and return response metadata
+
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param networks: List of Network SIDs that this Network Access Profile will allow connections to.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            unique_name=unique_name, networks=networks
+        )
+        instance = NetworkAccessProfileInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -424,6 +635,56 @@ class NetworkAccessProfileList(ListResource):
         page = await self.page_async(page_size=limits["page_size"])
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams NetworkAccessProfileInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(page_size=limits["page_size"])
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams NetworkAccessProfileInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -477,6 +738,56 @@ class NetworkAccessProfileList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists NetworkAccessProfileInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists NetworkAccessProfileInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -543,6 +854,76 @@ class NetworkAccessProfileList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return NetworkAccessProfilePage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with NetworkAccessProfilePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = NetworkAccessProfilePage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with NetworkAccessProfilePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = NetworkAccessProfilePage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> NetworkAccessProfilePage:
         """

@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -101,6 +102,34 @@ class PluginArchiveInstance(InstanceResource):
             flex_metadata=flex_metadata,
         )
 
+    def update_with_http_info(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the PluginArchiveInstance with HTTP info
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            flex_metadata=flex_metadata,
+        )
+
+    async def update_with_http_info_async(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the PluginArchiveInstance with HTTP info
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            flex_metadata=flex_metadata,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -128,15 +157,12 @@ class PluginArchiveContext(InstanceContext):
         }
         self._uri = "/PluginService/Plugins/{sid}/Archive".format(**self._solution)
 
-    def update(
-        self, flex_metadata: Union[str, object] = values.unset
-    ) -> PluginArchiveInstance:
+    def _update(self, flex_metadata: Union[str, object] = values.unset) -> tuple:
         """
-        Update the PluginArchiveInstance
+        Internal helper for update operation
 
-        :param flex_metadata: The Flex-Metadata HTTP request header
-
-        :returns: The updated PluginArchiveInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of({})
@@ -150,11 +176,63 @@ class PluginArchiveContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return self._version.update_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def update(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> PluginArchiveInstance:
+        """
+        Update the PluginArchiveInstance
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: The updated PluginArchiveInstance
+        """
+        payload, _, _ = self._update(flex_metadata=flex_metadata)
         return PluginArchiveInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the PluginArchiveInstance and return response metadata
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(flex_metadata=flex_metadata)
+        instance = PluginArchiveInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of({})
+        headers = values.of({})
+
+        if not (
+            flex_metadata is values.unset
+            or (isinstance(flex_metadata, str) and not flex_metadata)
+        ):
+            headers["Flex-Metadata"] = flex_metadata
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.update_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def update_async(
         self, flex_metadata: Union[str, object] = values.unset
@@ -166,23 +244,26 @@ class PluginArchiveContext(InstanceContext):
 
         :returns: The updated PluginArchiveInstance
         """
-
-        data = values.of({})
-        headers = values.of({})
-
-        if not (
-            flex_metadata is values.unset
-            or (isinstance(flex_metadata, str) and not flex_metadata)
-        ):
-            headers["Flex-Metadata"] = flex_metadata
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(flex_metadata=flex_metadata)
         return PluginArchiveInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the PluginArchiveInstance and return response metadata
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            flex_metadata=flex_metadata
+        )
+        instance = PluginArchiveInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

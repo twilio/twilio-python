@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -96,6 +97,24 @@ class CountryInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the CountryInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the CountryInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     @property
     def highrisk_special_prefixes(self) -> HighriskSpecialPrefixList:
         """
@@ -132,6 +151,22 @@ class CountryContext(InstanceContext):
 
         self._highrisk_special_prefixes: Optional[HighriskSpecialPrefixList] = None
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> CountryInstance:
         """
         Fetch the CountryInstance
@@ -139,17 +174,42 @@ class CountryContext(InstanceContext):
 
         :returns: The fetched CountryInstance
         """
+        payload, _, _ = self._fetch()
+        return CountryInstance(
+            self._version,
+            payload,
+            iso_code=self._solution["iso_code"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the CountryInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = CountryInstance(
+            self._version,
+            payload,
+            iso_code=self._solution["iso_code"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return CountryInstance(
-            self._version,
-            payload,
-            iso_code=self._solution["iso_code"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> CountryInstance:
@@ -159,20 +219,27 @@ class CountryContext(InstanceContext):
 
         :returns: The fetched CountryInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return CountryInstance(
             self._version,
             payload,
             iso_code=self._solution["iso_code"],
         )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the CountryInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = CountryInstance(
+            self._version,
+            payload,
+            iso_code=self._solution["iso_code"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def highrisk_special_prefixes(self) -> HighriskSpecialPrefixList:
@@ -318,6 +385,94 @@ class CountryList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        iso_code: Union[str, object] = values.unset,
+        continent: Union[str, object] = values.unset,
+        country_code: Union[str, object] = values.unset,
+        low_risk_numbers_enabled: Union[bool, object] = values.unset,
+        high_risk_special_numbers_enabled: Union[bool, object] = values.unset,
+        high_risk_tollfraud_numbers_enabled: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams CountryInstance and returns headers from first page
+
+
+        :param str iso_code: Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+        :param str continent: Filter to retrieve the country permissions by specifying the continent
+        :param str country_code: Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
+        :param bool low_risk_numbers_enabled: Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`.
+        :param bool high_risk_special_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false`
+        :param bool high_risk_tollfraud_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html) numbers enabled. Can be: `true` or `false`.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            iso_code=iso_code,
+            continent=continent,
+            country_code=country_code,
+            low_risk_numbers_enabled=low_risk_numbers_enabled,
+            high_risk_special_numbers_enabled=high_risk_special_numbers_enabled,
+            high_risk_tollfraud_numbers_enabled=high_risk_tollfraud_numbers_enabled,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        iso_code: Union[str, object] = values.unset,
+        continent: Union[str, object] = values.unset,
+        country_code: Union[str, object] = values.unset,
+        low_risk_numbers_enabled: Union[bool, object] = values.unset,
+        high_risk_special_numbers_enabled: Union[bool, object] = values.unset,
+        high_risk_tollfraud_numbers_enabled: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams CountryInstance and returns headers from first page
+
+
+        :param str iso_code: Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+        :param str continent: Filter to retrieve the country permissions by specifying the continent
+        :param str country_code: Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
+        :param bool low_risk_numbers_enabled: Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`.
+        :param bool high_risk_special_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false`
+        :param bool high_risk_tollfraud_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html) numbers enabled. Can be: `true` or `false`.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            iso_code=iso_code,
+            continent=continent,
+            country_code=country_code,
+            low_risk_numbers_enabled=low_risk_numbers_enabled,
+            high_risk_special_numbers_enabled=high_risk_special_numbers_enabled,
+            high_risk_tollfraud_numbers_enabled=high_risk_tollfraud_numbers_enabled,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         iso_code: Union[str, object] = values.unset,
@@ -406,6 +561,92 @@ class CountryList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        iso_code: Union[str, object] = values.unset,
+        continent: Union[str, object] = values.unset,
+        country_code: Union[str, object] = values.unset,
+        low_risk_numbers_enabled: Union[bool, object] = values.unset,
+        high_risk_special_numbers_enabled: Union[bool, object] = values.unset,
+        high_risk_tollfraud_numbers_enabled: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists CountryInstance and returns headers from first page
+
+
+        :param str iso_code: Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+        :param str continent: Filter to retrieve the country permissions by specifying the continent
+        :param str country_code: Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
+        :param bool low_risk_numbers_enabled: Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`.
+        :param bool high_risk_special_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false`
+        :param bool high_risk_tollfraud_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html) numbers enabled. Can be: `true` or `false`.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            iso_code=iso_code,
+            continent=continent,
+            country_code=country_code,
+            low_risk_numbers_enabled=low_risk_numbers_enabled,
+            high_risk_special_numbers_enabled=high_risk_special_numbers_enabled,
+            high_risk_tollfraud_numbers_enabled=high_risk_tollfraud_numbers_enabled,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        iso_code: Union[str, object] = values.unset,
+        continent: Union[str, object] = values.unset,
+        country_code: Union[str, object] = values.unset,
+        low_risk_numbers_enabled: Union[bool, object] = values.unset,
+        high_risk_special_numbers_enabled: Union[bool, object] = values.unset,
+        high_risk_tollfraud_numbers_enabled: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists CountryInstance and returns headers from first page
+
+
+        :param str iso_code: Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+        :param str continent: Filter to retrieve the country permissions by specifying the continent
+        :param str country_code: Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
+        :param bool low_risk_numbers_enabled: Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`.
+        :param bool high_risk_special_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false`
+        :param bool high_risk_tollfraud_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html) numbers enabled. Can be: `true` or `false`.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            iso_code=iso_code,
+            continent=continent,
+            country_code=country_code,
+            low_risk_numbers_enabled=low_risk_numbers_enabled,
+            high_risk_special_numbers_enabled=high_risk_special_numbers_enabled,
+            high_risk_tollfraud_numbers_enabled=high_risk_tollfraud_numbers_enabled,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -520,6 +761,124 @@ class CountryList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return CountryPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        iso_code: Union[str, object] = values.unset,
+        continent: Union[str, object] = values.unset,
+        country_code: Union[str, object] = values.unset,
+        low_risk_numbers_enabled: Union[bool, object] = values.unset,
+        high_risk_special_numbers_enabled: Union[bool, object] = values.unset,
+        high_risk_tollfraud_numbers_enabled: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param iso_code: Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+        :param continent: Filter to retrieve the country permissions by specifying the continent
+        :param country_code: Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
+        :param low_risk_numbers_enabled: Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`.
+        :param high_risk_special_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false`
+        :param high_risk_tollfraud_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html) numbers enabled. Can be: `true` or `false`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with CountryPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "IsoCode": iso_code,
+                "Continent": continent,
+                "CountryCode": country_code,
+                "LowRiskNumbersEnabled": serialize.boolean_to_string(
+                    low_risk_numbers_enabled
+                ),
+                "HighRiskSpecialNumbersEnabled": serialize.boolean_to_string(
+                    high_risk_special_numbers_enabled
+                ),
+                "HighRiskTollfraudNumbersEnabled": serialize.boolean_to_string(
+                    high_risk_tollfraud_numbers_enabled
+                ),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = CountryPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        iso_code: Union[str, object] = values.unset,
+        continent: Union[str, object] = values.unset,
+        country_code: Union[str, object] = values.unset,
+        low_risk_numbers_enabled: Union[bool, object] = values.unset,
+        high_risk_special_numbers_enabled: Union[bool, object] = values.unset,
+        high_risk_tollfraud_numbers_enabled: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param iso_code: Filter to retrieve the country permissions by specifying the [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+        :param continent: Filter to retrieve the country permissions by specifying the continent
+        :param country_code: Filter the results by specified [country codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html)
+        :param low_risk_numbers_enabled: Filter to retrieve the country permissions with dialing to low-risk numbers enabled. Can be: `true` or `false`.
+        :param high_risk_special_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk special service numbers enabled. Can be: `true` or `false`
+        :param high_risk_tollfraud_numbers_enabled: Filter to retrieve the country permissions with dialing to high-risk [toll fraud](https://www.twilio.com/blog/how-to-protect-your-account-from-toll-fraud-with-voice-dialing-geo-permissions-html) numbers enabled. Can be: `true` or `false`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with CountryPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "IsoCode": iso_code,
+                "Continent": continent,
+                "CountryCode": country_code,
+                "LowRiskNumbersEnabled": serialize.boolean_to_string(
+                    low_risk_numbers_enabled
+                ),
+                "HighRiskSpecialNumbersEnabled": serialize.boolean_to_string(
+                    high_risk_special_numbers_enabled
+                ),
+                "HighRiskTollfraudNumbersEnabled": serialize.boolean_to_string(
+                    high_risk_tollfraud_numbers_enabled
+                ),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = CountryPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> CountryPage:
         """

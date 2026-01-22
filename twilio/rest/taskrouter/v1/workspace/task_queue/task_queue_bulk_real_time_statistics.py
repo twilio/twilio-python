@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -80,6 +81,25 @@ class TaskQueueBulkRealTimeStatisticsList(ListResource):
             **self._solution
         )
 
+    def _create(self, body: Union[object, object] = values.unset) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = body.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self, body: Union[object, object] = values.unset
     ) -> TaskQueueBulkRealTimeStatisticsInstance:
@@ -90,6 +110,34 @@ class TaskQueueBulkRealTimeStatisticsList(ListResource):
 
         :returns: The created TaskQueueBulkRealTimeStatisticsInstance
         """
+        payload, _, _ = self._create(body=body)
+        return TaskQueueBulkRealTimeStatisticsInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def create_with_http_info(
+        self, body: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Create the TaskQueueBulkRealTimeStatisticsInstance and return response metadata
+
+        :param body:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(body=body)
+        instance = TaskQueueBulkRealTimeStatisticsInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(self, body: Union[object, object] = values.unset) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = body.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -98,12 +146,8 @@ class TaskQueueBulkRealTimeStatisticsList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return TaskQueueBulkRealTimeStatisticsInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
         )
 
     async def create_async(
@@ -116,21 +160,26 @@ class TaskQueueBulkRealTimeStatisticsList(ListResource):
 
         :returns: The created TaskQueueBulkRealTimeStatisticsInstance
         """
-        data = body.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._create_async(body=body)
         return TaskQueueBulkRealTimeStatisticsInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
         )
+
+    async def create_with_http_info_async(
+        self, body: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronously create the TaskQueueBulkRealTimeStatisticsInstance and return response metadata
+
+        :param body:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(body=body)
+        instance = TaskQueueBulkRealTimeStatisticsInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

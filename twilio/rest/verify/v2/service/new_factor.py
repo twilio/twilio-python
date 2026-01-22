@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -250,6 +251,27 @@ class NewFactorList(ListResource):
         }
         self._uri = "/Services/{service_sid}/Passkeys/Factors".format(**self._solution)
 
+    def _create(
+        self, create_new_passkeys_factor_request: CreateNewPasskeysFactorRequest
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = create_new_passkeys_factor_request.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self, create_new_passkeys_factor_request: CreateNewPasskeysFactorRequest
     ) -> NewFactorInstance:
@@ -260,6 +282,40 @@ class NewFactorList(ListResource):
 
         :returns: The created NewFactorInstance
         """
+        payload, _, _ = self._create(
+            create_new_passkeys_factor_request=create_new_passkeys_factor_request
+        )
+        return NewFactorInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def create_with_http_info(
+        self, create_new_passkeys_factor_request: CreateNewPasskeysFactorRequest
+    ) -> ApiResponse:
+        """
+        Create the NewFactorInstance and return response metadata
+
+        :param create_new_passkeys_factor_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            create_new_passkeys_factor_request=create_new_passkeys_factor_request
+        )
+        instance = NewFactorInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self, create_new_passkeys_factor_request: CreateNewPasskeysFactorRequest
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = create_new_passkeys_factor_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -268,12 +324,8 @@ class NewFactorList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return NewFactorInstance(
-            self._version, payload, service_sid=self._solution["service_sid"]
         )
 
     async def create_async(
@@ -286,21 +338,30 @@ class NewFactorList(ListResource):
 
         :returns: The created NewFactorInstance
         """
-        data = create_new_passkeys_factor_request.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
+        payload, _, _ = await self._create_async(
+            create_new_passkeys_factor_request=create_new_passkeys_factor_request
         )
-
         return NewFactorInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
         )
+
+    async def create_with_http_info_async(
+        self, create_new_passkeys_factor_request: CreateNewPasskeysFactorRequest
+    ) -> ApiResponse:
+        """
+        Asynchronously create the NewFactorInstance and return response metadata
+
+        :param create_new_passkeys_factor_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            create_new_passkeys_factor_request=create_new_passkeys_factor_request
+        )
+        instance = NewFactorInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

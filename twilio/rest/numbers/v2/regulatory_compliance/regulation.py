@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -100,6 +101,34 @@ class RegulationInstance(InstanceResource):
             include_constraints=include_constraints,
         )
 
+    def fetch_with_http_info(
+        self, include_constraints: Union[bool, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the RegulationInstance with HTTP info
+
+        :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            include_constraints=include_constraints,
+        )
+
+    async def fetch_with_http_info_async(
+        self, include_constraints: Union[bool, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the RegulationInstance with HTTP info
+
+        :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            include_constraints=include_constraints,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -127,15 +156,12 @@ class RegulationContext(InstanceContext):
         }
         self._uri = "/RegulatoryCompliance/Regulations/{sid}".format(**self._solution)
 
-    def fetch(
-        self, include_constraints: Union[bool, object] = values.unset
-    ) -> RegulationInstance:
+    def _fetch(self, include_constraints: Union[bool, object] = values.unset) -> tuple:
         """
-        Fetch the RegulationInstance
+        Internal helper for fetch operation
 
-        :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
-
-        :returns: The fetched RegulationInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         params = values.of(
@@ -148,14 +174,69 @@ class RegulationContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
+        return self._version.fetch_with_response_info(
             method="GET", uri=self._uri, params=params, headers=headers
         )
 
+    def fetch(
+        self, include_constraints: Union[bool, object] = values.unset
+    ) -> RegulationInstance:
+        """
+        Fetch the RegulationInstance
+
+        :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
+
+        :returns: The fetched RegulationInstance
+        """
+        payload, _, _ = self._fetch(include_constraints=include_constraints)
         return RegulationInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(
+        self, include_constraints: Union[bool, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the RegulationInstance and return response metadata
+
+        :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(
+            include_constraints=include_constraints
+        )
+        instance = RegulationInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self, include_constraints: Union[bool, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        params = values.of(
+            {
+                "IncludeConstraints": serialize.boolean_to_string(include_constraints),
+            }
+        )
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
     async def fetch_async(
@@ -168,26 +249,32 @@ class RegulationContext(InstanceContext):
 
         :returns: The fetched RegulationInstance
         """
-
-        params = values.of(
-            {
-                "IncludeConstraints": serialize.boolean_to_string(include_constraints),
-            }
-        )
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async(include_constraints=include_constraints)
         return RegulationInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
         )
+
+    async def fetch_with_http_info_async(
+        self, include_constraints: Union[bool, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the RegulationInstance and return response metadata
+
+        :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            include_constraints=include_constraints
+        )
+        instance = RegulationInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -309,6 +396,82 @@ class RegulationList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        include_constraints: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams RegulationInstance and returns headers from first page
+
+
+        :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
+        :param str iso_country: The ISO country code of the phone number's country.
+        :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
+        :param bool include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            end_user_type=end_user_type,
+            iso_country=iso_country,
+            number_type=number_type,
+            include_constraints=include_constraints,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        include_constraints: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams RegulationInstance and returns headers from first page
+
+
+        :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
+        :param str iso_country: The ISO country code of the phone number's country.
+        :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
+        :param bool include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            end_user_type=end_user_type,
+            iso_country=iso_country,
+            number_type=number_type,
+            include_constraints=include_constraints,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
@@ -385,6 +548,80 @@ class RegulationList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        include_constraints: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists RegulationInstance and returns headers from first page
+
+
+        :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
+        :param str iso_country: The ISO country code of the phone number's country.
+        :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
+        :param bool include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            end_user_type=end_user_type,
+            iso_country=iso_country,
+            number_type=number_type,
+            include_constraints=include_constraints,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        include_constraints: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists RegulationInstance and returns headers from first page
+
+
+        :param &quot;RegulationInstance.EndUserType&quot; end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
+        :param str iso_country: The ISO country code of the phone number's country.
+        :param str number_type: The type of phone number that the regulatory requiremnt is restricting.
+        :param bool include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            end_user_type=end_user_type,
+            iso_country=iso_country,
+            number_type=number_type,
+            include_constraints=include_constraints,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -475,6 +712,100 @@ class RegulationList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return RegulationPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        include_constraints: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
+        :param iso_country: The ISO country code of the phone number's country.
+        :param number_type: The type of phone number that the regulatory requiremnt is restricting.
+        :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with RegulationPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "EndUserType": end_user_type,
+                "IsoCountry": iso_country,
+                "NumberType": number_type,
+                "IncludeConstraints": serialize.boolean_to_string(include_constraints),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = RegulationPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        end_user_type: Union["RegulationInstance.EndUserType", object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        number_type: Union[str, object] = values.unset,
+        include_constraints: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param end_user_type: The type of End User the regulation requires - can be `individual` or `business`.
+        :param iso_country: The ISO country code of the phone number's country.
+        :param number_type: The type of phone number that the regulatory requiremnt is restricting.
+        :param include_constraints: A boolean parameter indicating whether to include constraints or not for supporting end user, documents and their fields
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with RegulationPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "EndUserType": end_user_type,
+                "IsoCountry": iso_country,
+                "NumberType": number_type,
+                "IncludeConstraints": serialize.boolean_to_string(include_constraints),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = RegulationPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> RegulationPage:
         """

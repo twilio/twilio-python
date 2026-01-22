@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -167,6 +168,28 @@ class InstalledAddOnUsageList(ListResource):
             **self._solution
         )
 
+    def _create(
+        self,
+        marketplace_v1_installed_add_on_installed_add_on_usage: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = marketplace_v1_installed_add_on_installed_add_on_usage.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         marketplace_v1_installed_add_on_installed_add_on_usage: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
@@ -178,6 +201,46 @@ class InstalledAddOnUsageList(ListResource):
 
         :returns: The created InstalledAddOnUsageInstance
         """
+        payload, _, _ = self._create(
+            marketplace_v1_installed_add_on_installed_add_on_usage=marketplace_v1_installed_add_on_installed_add_on_usage
+        )
+        return InstalledAddOnUsageInstance(
+            self._version,
+            payload,
+            installed_add_on_sid=self._solution["installed_add_on_sid"],
+        )
+
+    def create_with_http_info(
+        self,
+        marketplace_v1_installed_add_on_installed_add_on_usage: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
+    ) -> ApiResponse:
+        """
+        Create the InstalledAddOnUsageInstance and return response metadata
+
+        :param marketplace_v1_installed_add_on_installed_add_on_usage:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            marketplace_v1_installed_add_on_installed_add_on_usage=marketplace_v1_installed_add_on_installed_add_on_usage
+        )
+        instance = InstalledAddOnUsageInstance(
+            self._version,
+            payload,
+            installed_add_on_sid=self._solution["installed_add_on_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        marketplace_v1_installed_add_on_installed_add_on_usage: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = marketplace_v1_installed_add_on_installed_add_on_usage.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -186,14 +249,8 @@ class InstalledAddOnUsageList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return InstalledAddOnUsageInstance(
-            self._version,
-            payload,
-            installed_add_on_sid=self._solution["installed_add_on_sid"],
         )
 
     async def create_async(
@@ -207,23 +264,35 @@ class InstalledAddOnUsageList(ListResource):
 
         :returns: The created InstalledAddOnUsageInstance
         """
-        data = marketplace_v1_installed_add_on_installed_add_on_usage.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
+        payload, _, _ = await self._create_async(
+            marketplace_v1_installed_add_on_installed_add_on_usage=marketplace_v1_installed_add_on_installed_add_on_usage
         )
-
         return InstalledAddOnUsageInstance(
             self._version,
             payload,
             installed_add_on_sid=self._solution["installed_add_on_sid"],
         )
+
+    async def create_with_http_info_async(
+        self,
+        marketplace_v1_installed_add_on_installed_add_on_usage: MarketplaceV1InstalledAddOnInstalledAddOnUsage,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the InstalledAddOnUsageInstance and return response metadata
+
+        :param marketplace_v1_installed_add_on_installed_add_on_usage:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            marketplace_v1_installed_add_on_installed_add_on_usage=marketplace_v1_installed_add_on_installed_add_on_usage
+        )
+        instance = InstalledAddOnUsageInstance(
+            self._version,
+            payload,
+            installed_add_on_sid=self._solution["installed_add_on_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

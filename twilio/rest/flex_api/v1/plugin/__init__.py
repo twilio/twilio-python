@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -105,6 +106,34 @@ class PluginInstance(InstanceResource):
             flex_metadata=flex_metadata,
         )
 
+    def fetch_with_http_info(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the PluginInstance with HTTP info
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            flex_metadata=flex_metadata,
+        )
+
+    async def fetch_with_http_info_async(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the PluginInstance with HTTP info
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            flex_metadata=flex_metadata,
+        )
+
     def update(
         self,
         flex_metadata: Union[str, object] = values.unset,
@@ -147,6 +176,48 @@ class PluginInstance(InstanceResource):
             description=description,
         )
 
+    def update_with_http_info(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the PluginInstance with HTTP info
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+        :param friendly_name: The Flex Plugin's friendly name.
+        :param description: A descriptive string that you update to describe the plugin resource. It can be up to 500 characters long
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            flex_metadata=flex_metadata,
+            friendly_name=friendly_name,
+            description=description,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the PluginInstance with HTTP info
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+        :param friendly_name: The Flex Plugin's friendly name.
+        :param description: A descriptive string that you update to describe the plugin resource. It can be up to 500 characters long
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            flex_metadata=flex_metadata,
+            friendly_name=friendly_name,
+            description=description,
+        )
+
     @property
     def plugin_versions(self) -> PluginVersionsList:
         """
@@ -183,13 +254,12 @@ class PluginContext(InstanceContext):
 
         self._plugin_versions: Optional[PluginVersionsList] = None
 
-    def fetch(self, flex_metadata: Union[str, object] = values.unset) -> PluginInstance:
+    def _fetch(self, flex_metadata: Union[str, object] = values.unset) -> tuple:
         """
-        Fetch the PluginInstance
+        Internal helper for fetch operation
 
-        :param flex_metadata: The Flex-Metadata HTTP request header
-
-        :returns: The fetched PluginInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         headers = values.of({})
@@ -202,12 +272,65 @@ class PluginContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
 
+    def fetch(self, flex_metadata: Union[str, object] = values.unset) -> PluginInstance:
+        """
+        Fetch the PluginInstance
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: The fetched PluginInstance
+        """
+        payload, _, _ = self._fetch(flex_metadata=flex_metadata)
         return PluginInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the PluginInstance and return response metadata
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(flex_metadata=flex_metadata)
+        instance = PluginInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        if not (
+            flex_metadata is values.unset
+            or (isinstance(flex_metadata, str) and not flex_metadata)
+        ):
+            headers["Flex-Metadata"] = flex_metadata
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(
@@ -220,7 +343,52 @@ class PluginContext(InstanceContext):
 
         :returns: The fetched PluginInstance
         """
+        payload, _, _ = await self._fetch_async(flex_metadata=flex_metadata)
+        return PluginInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
 
+    async def fetch_with_http_info_async(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the PluginInstance and return response metadata
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            flex_metadata=flex_metadata
+        )
+        instance = PluginInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Description": description,
+            }
+        )
         headers = values.of({})
 
         if not (
@@ -229,16 +397,12 @@ class PluginContext(InstanceContext):
         ):
             headers["Flex-Metadata"] = flex_metadata
 
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
         headers["Accept"] = "application/json"
 
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
-        return PluginInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -256,6 +420,48 @@ class PluginContext(InstanceContext):
 
         :returns: The updated PluginInstance
         """
+        payload, _, _ = self._update(
+            flex_metadata=flex_metadata,
+            friendly_name=friendly_name,
+            description=description,
+        )
+        return PluginInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the PluginInstance and return response metadata
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+        :param friendly_name: The Flex Plugin's friendly name.
+        :param description: A descriptive string that you update to describe the plugin resource. It can be up to 500 characters long
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            flex_metadata=flex_metadata,
+            friendly_name=friendly_name,
+            description=description,
+        )
+        instance = PluginInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -275,11 +481,9 @@ class PluginContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return PluginInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
         self,
@@ -296,30 +500,35 @@ class PluginContext(InstanceContext):
 
         :returns: The updated PluginInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Description": description,
-            }
+        payload, _, _ = await self._update_async(
+            flex_metadata=flex_metadata,
+            friendly_name=friendly_name,
+            description=description,
         )
-        headers = values.of({})
-
-        if not (
-            flex_metadata is values.unset
-            or (isinstance(flex_metadata, str) and not flex_metadata)
-        ):
-            headers["Flex-Metadata"] = flex_metadata
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return PluginInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the PluginInstance and return response metadata
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+        :param friendly_name: The Flex Plugin's friendly name.
+        :param description: A descriptive string that you update to describe the plugin resource. It can be up to 500 characters long
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            flex_metadata=flex_metadata,
+            friendly_name=friendly_name,
+            description=description,
+        )
+        instance = PluginInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def plugin_versions(self) -> PluginVersionsList:
@@ -375,22 +584,18 @@ class PluginList(ListResource):
 
         self._uri = "/PluginService/Plugins"
 
-    def create(
+    def _create(
         self,
         unique_name: str,
         flex_metadata: Union[str, object] = values.unset,
         friendly_name: Union[str, object] = values.unset,
         description: Union[str, object] = values.unset,
-    ) -> PluginInstance:
+    ) -> tuple:
         """
-        Create the PluginInstance
+        Internal helper for create operation
 
-        :param unique_name: The Flex Plugin's unique name.
-        :param flex_metadata: The Flex-Metadata HTTP request header
-        :param friendly_name: The Flex Plugin's friendly name.
-        :param description: A descriptive string that you create to describe the plugin resource. It can be up to 500 characters long
-
-        :returns: The created PluginInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -411,11 +616,96 @@ class PluginList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        unique_name: str,
+        flex_metadata: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+    ) -> PluginInstance:
+        """
+        Create the PluginInstance
+
+        :param unique_name: The Flex Plugin's unique name.
+        :param flex_metadata: The Flex-Metadata HTTP request header
+        :param friendly_name: The Flex Plugin's friendly name.
+        :param description: A descriptive string that you create to describe the plugin resource. It can be up to 500 characters long
+
+        :returns: The created PluginInstance
+        """
+        payload, _, _ = self._create(
+            unique_name=unique_name,
+            flex_metadata=flex_metadata,
+            friendly_name=friendly_name,
+            description=description,
+        )
         return PluginInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        unique_name: str,
+        flex_metadata: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the PluginInstance and return response metadata
+
+        :param unique_name: The Flex Plugin's unique name.
+        :param flex_metadata: The Flex-Metadata HTTP request header
+        :param friendly_name: The Flex Plugin's friendly name.
+        :param description: A descriptive string that you create to describe the plugin resource. It can be up to 500 characters long
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            unique_name=unique_name,
+            flex_metadata=flex_metadata,
+            friendly_name=friendly_name,
+            description=description,
+        )
+        instance = PluginInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        unique_name: str,
+        flex_metadata: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "FriendlyName": friendly_name,
+                "Description": description,
+            }
+        )
+        headers = values.of(
+            {
+                "Flex-Metadata": flex_metadata,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(
         self,
@@ -434,30 +724,39 @@ class PluginList(ListResource):
 
         :returns: The created PluginInstance
         """
-
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-                "FriendlyName": friendly_name,
-                "Description": description,
-            }
+        payload, _, _ = await self._create_async(
+            unique_name=unique_name,
+            flex_metadata=flex_metadata,
+            friendly_name=friendly_name,
+            description=description,
         )
-        headers = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return PluginInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        unique_name: str,
+        flex_metadata: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the PluginInstance and return response metadata
+
+        :param unique_name: The Flex Plugin's unique name.
+        :param flex_metadata: The Flex-Metadata HTTP request header
+        :param friendly_name: The Flex Plugin's friendly name.
+        :param description: A descriptive string that you create to describe the plugin resource. It can be up to 500 characters long
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            unique_name=unique_name,
+            flex_metadata=flex_metadata,
+            friendly_name=friendly_name,
+            description=description,
+        )
+        instance = PluginInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -514,6 +813,62 @@ class PluginList(ListResource):
         )
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams PluginInstance and returns headers from first page
+
+
+        :param str flex_metadata: The Flex-Metadata HTTP request header
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            flex_metadata=flex_metadata, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams PluginInstance and returns headers from first page
+
+
+        :param str flex_metadata: The Flex-Metadata HTTP request header
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            flex_metadata=flex_metadata, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -573,6 +928,62 @@ class PluginList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists PluginInstance and returns headers from first page
+
+
+        :param str flex_metadata: The Flex-Metadata HTTP request header
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            flex_metadata=flex_metadata,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists PluginInstance and returns headers from first page
+
+
+        :param str flex_metadata: The Flex-Metadata HTTP request header
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            flex_metadata=flex_metadata,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -655,6 +1066,92 @@ class PluginList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return PluginPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with PluginPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Flex-Metadata": flex_metadata,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of(
+            {
+                "Flex-Metadata": flex_metadata,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = PluginPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with PluginPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Flex-Metadata": flex_metadata,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of(
+            {
+                "Flex-Metadata": flex_metadata,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = PluginPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> PluginPage:
         """

@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -142,6 +143,24 @@ class TaskQueueInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the TaskQueueInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the TaskQueueInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "TaskQueueInstance":
         """
         Fetch the TaskQueueInstance
@@ -159,6 +178,24 @@ class TaskQueueInstance(InstanceResource):
         :returns: The fetched TaskQueueInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the TaskQueueInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the TaskQueueInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -212,6 +249,66 @@ class TaskQueueInstance(InstanceResource):
         :returns: The updated TaskQueueInstance
         """
         return await self._proxy.update_async(
+            friendly_name=friendly_name,
+            target_workers=target_workers,
+            reservation_activity_sid=reservation_activity_sid,
+            assignment_activity_sid=assignment_activity_sid,
+            max_reserved_workers=max_reserved_workers,
+            task_order=task_order,
+        )
+
+    def update_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers: Union[str, object] = values.unset,
+        reservation_activity_sid: Union[str, object] = values.unset,
+        assignment_activity_sid: Union[str, object] = values.unset,
+        max_reserved_workers: Union[int, object] = values.unset,
+        task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the TaskQueueInstance with HTTP info
+
+        :param friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :param target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
+        :param reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
+        :param max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
+        :param task_order:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            friendly_name=friendly_name,
+            target_workers=target_workers,
+            reservation_activity_sid=reservation_activity_sid,
+            assignment_activity_sid=assignment_activity_sid,
+            max_reserved_workers=max_reserved_workers,
+            task_order=task_order,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers: Union[str, object] = values.unset,
+        reservation_activity_sid: Union[str, object] = values.unset,
+        assignment_activity_sid: Union[str, object] = values.unset,
+        max_reserved_workers: Union[int, object] = values.unset,
+        task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the TaskQueueInstance with HTTP info
+
+        :param friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :param target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
+        :param reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
+        :param max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
+        :param task_order:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             friendly_name=friendly_name,
             target_workers=target_workers,
             reservation_activity_sid=reservation_activity_sid,
@@ -276,6 +373,20 @@ class TaskQueueContext(InstanceContext):
         self._real_time_statistics: Optional[TaskQueueRealTimeStatisticsList] = None
         self._statistics: Optional[TaskQueueStatisticsList] = None
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the TaskQueueInstance
@@ -283,10 +394,32 @@ class TaskQueueContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the TaskQueueInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -295,11 +428,33 @@ class TaskQueueContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the TaskQueueInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> TaskQueueInstance:
@@ -309,18 +464,44 @@ class TaskQueueContext(InstanceContext):
 
         :returns: The fetched TaskQueueInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return TaskQueueInstance(
             self._version,
             payload,
             workspace_sid=self._solution["workspace_sid"],
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the TaskQueueInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = TaskQueueInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> TaskQueueInstance:
@@ -330,20 +511,64 @@ class TaskQueueContext(InstanceContext):
 
         :returns: The fetched TaskQueueInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return TaskQueueInstance(
             self._version,
             payload,
             workspace_sid=self._solution["workspace_sid"],
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the TaskQueueInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = TaskQueueInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers: Union[str, object] = values.unset,
+        reservation_activity_sid: Union[str, object] = values.unset,
+        assignment_activity_sid: Union[str, object] = values.unset,
+        max_reserved_workers: Union[int, object] = values.unset,
+        task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "TargetWorkers": target_workers,
+                "ReservationActivitySid": reservation_activity_sid,
+                "AssignmentActivitySid": assignment_activity_sid,
+                "MaxReservedWorkers": max_reserved_workers,
+                "TaskOrder": task_order,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -367,6 +592,73 @@ class TaskQueueContext(InstanceContext):
 
         :returns: The updated TaskQueueInstance
         """
+        payload, _, _ = self._update(
+            friendly_name=friendly_name,
+            target_workers=target_workers,
+            reservation_activity_sid=reservation_activity_sid,
+            assignment_activity_sid=assignment_activity_sid,
+            max_reserved_workers=max_reserved_workers,
+            task_order=task_order,
+        )
+        return TaskQueueInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers: Union[str, object] = values.unset,
+        reservation_activity_sid: Union[str, object] = values.unset,
+        assignment_activity_sid: Union[str, object] = values.unset,
+        max_reserved_workers: Union[int, object] = values.unset,
+        task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the TaskQueueInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :param target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
+        :param reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
+        :param max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
+        :param task_order:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            friendly_name=friendly_name,
+            target_workers=target_workers,
+            reservation_activity_sid=reservation_activity_sid,
+            assignment_activity_sid=assignment_activity_sid,
+            max_reserved_workers=max_reserved_workers,
+            task_order=task_order,
+        )
+        instance = TaskQueueInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers: Union[str, object] = values.unset,
+        reservation_activity_sid: Union[str, object] = values.unset,
+        assignment_activity_sid: Union[str, object] = values.unset,
+        max_reserved_workers: Union[int, object] = values.unset,
+        task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -384,15 +676,8 @@ class TaskQueueContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return TaskQueueInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution["workspace_sid"],
-            sid=self._solution["sid"],
         )
 
     async def update_async(
@@ -416,33 +701,57 @@ class TaskQueueContext(InstanceContext):
 
         :returns: The updated TaskQueueInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "TargetWorkers": target_workers,
-                "ReservationActivitySid": reservation_activity_sid,
-                "AssignmentActivitySid": assignment_activity_sid,
-                "MaxReservedWorkers": max_reserved_workers,
-                "TaskOrder": task_order,
-            }
+        payload, _, _ = await self._update_async(
+            friendly_name=friendly_name,
+            target_workers=target_workers,
+            reservation_activity_sid=reservation_activity_sid,
+            assignment_activity_sid=assignment_activity_sid,
+            max_reserved_workers=max_reserved_workers,
+            task_order=task_order,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return TaskQueueInstance(
             self._version,
             payload,
             workspace_sid=self._solution["workspace_sid"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        target_workers: Union[str, object] = values.unset,
+        reservation_activity_sid: Union[str, object] = values.unset,
+        assignment_activity_sid: Union[str, object] = values.unset,
+        max_reserved_workers: Union[int, object] = values.unset,
+        task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the TaskQueueInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :param target_workers: A string describing the Worker selection criteria for any Tasks that enter the TaskQueue. For example '\\\"language\\\" == \\\"spanish\\\"' If no TargetWorkers parameter is provided, Tasks will wait in the queue until they are either deleted or moved to another queue. Additional examples on how to describing Worker selection criteria below.
+        :param reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned for them.
+        :param max_reserved_workers: The maximum number of Workers to create reservations for the assignment of a task while in the queue. Maximum of 50.
+        :param task_order:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            friendly_name=friendly_name,
+            target_workers=target_workers,
+            reservation_activity_sid=reservation_activity_sid,
+            assignment_activity_sid=assignment_activity_sid,
+            max_reserved_workers=max_reserved_workers,
+            task_order=task_order,
+        )
+        instance = TaskQueueInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def cumulative_statistics(self) -> TaskQueueCumulativeStatisticsList:
@@ -537,6 +846,42 @@ class TaskQueueList(ListResource):
         ] = None
         self._statistics: Optional[TaskQueuesStatisticsList] = None
 
+    def _create(
+        self,
+        friendly_name: str,
+        target_workers: Union[str, object] = values.unset,
+        max_reserved_workers: Union[int, object] = values.unset,
+        task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
+        reservation_activity_sid: Union[str, object] = values.unset,
+        assignment_activity_sid: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "TargetWorkers": target_workers,
+                "MaxReservedWorkers": max_reserved_workers,
+                "TaskOrder": task_order,
+                "ReservationActivitySid": reservation_activity_sid,
+                "AssignmentActivitySid": assignment_activity_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         friendly_name: str,
@@ -558,6 +903,67 @@ class TaskQueueList(ListResource):
 
         :returns: The created TaskQueueInstance
         """
+        payload, _, _ = self._create(
+            friendly_name=friendly_name,
+            target_workers=target_workers,
+            max_reserved_workers=max_reserved_workers,
+            task_order=task_order,
+            reservation_activity_sid=reservation_activity_sid,
+            assignment_activity_sid=assignment_activity_sid,
+        )
+        return TaskQueueInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+
+    def create_with_http_info(
+        self,
+        friendly_name: str,
+        target_workers: Union[str, object] = values.unset,
+        max_reserved_workers: Union[int, object] = values.unset,
+        task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
+        reservation_activity_sid: Union[str, object] = values.unset,
+        assignment_activity_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the TaskQueueInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :param target_workers: A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
+        :param max_reserved_workers: The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
+        :param task_order:
+        :param reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            friendly_name=friendly_name,
+            target_workers=target_workers,
+            max_reserved_workers=max_reserved_workers,
+            task_order=task_order,
+            reservation_activity_sid=reservation_activity_sid,
+            assignment_activity_sid=assignment_activity_sid,
+        )
+        instance = TaskQueueInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        friendly_name: str,
+        target_workers: Union[str, object] = values.unset,
+        max_reserved_workers: Union[int, object] = values.unset,
+        task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
+        reservation_activity_sid: Union[str, object] = values.unset,
+        assignment_activity_sid: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -575,12 +981,8 @@ class TaskQueueList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return TaskQueueInstance(
-            self._version, payload, workspace_sid=self._solution["workspace_sid"]
         )
 
     async def create_async(
@@ -604,30 +1006,51 @@ class TaskQueueList(ListResource):
 
         :returns: The created TaskQueueInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "TargetWorkers": target_workers,
-                "MaxReservedWorkers": max_reserved_workers,
-                "TaskOrder": task_order,
-                "ReservationActivitySid": reservation_activity_sid,
-                "AssignmentActivitySid": assignment_activity_sid,
-            }
+        payload, _, _ = await self._create_async(
+            friendly_name=friendly_name,
+            target_workers=target_workers,
+            max_reserved_workers=max_reserved_workers,
+            task_order=task_order,
+            reservation_activity_sid=reservation_activity_sid,
+            assignment_activity_sid=assignment_activity_sid,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return TaskQueueInstance(
             self._version, payload, workspace_sid=self._solution["workspace_sid"]
         )
+
+    async def create_with_http_info_async(
+        self,
+        friendly_name: str,
+        target_workers: Union[str, object] = values.unset,
+        max_reserved_workers: Union[int, object] = values.unset,
+        task_order: Union["TaskQueueInstance.TaskOrder", object] = values.unset,
+        reservation_activity_sid: Union[str, object] = values.unset,
+        assignment_activity_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the TaskQueueInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the TaskQueue. For example `Support-Tier 1`, `Sales`, or `Escalation`.
+        :param target_workers: A string that describes the Worker selection criteria for any Tasks that enter the TaskQueue. For example, `'\\\"language\\\" == \\\"spanish\\\"'`. The default value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue until they are deleted or moved to another TaskQueue. For more information about Worker selection, see [Describing Worker selection criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers).
+        :param max_reserved_workers: The maximum number of Workers to reserve for the assignment of a Task in the queue. Can be an integer between 1 and 50, inclusive and defaults to 1.
+        :param task_order:
+        :param reservation_activity_sid: The SID of the Activity to assign Workers when a task is reserved for them.
+        :param assignment_activity_sid: The SID of the Activity to assign Workers when a task is assigned to them.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            friendly_name=friendly_name,
+            target_workers=target_workers,
+            max_reserved_workers=max_reserved_workers,
+            task_order=task_order,
+            reservation_activity_sid=reservation_activity_sid,
+            assignment_activity_sid=assignment_activity_sid,
+        )
+        instance = TaskQueueInstance(
+            self._version, payload, workspace_sid=self._solution["workspace_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -707,6 +1130,82 @@ class TaskQueueList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        evaluate_worker_attributes: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams TaskQueueInstance and returns headers from first page
+
+
+        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
+        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
+        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
+        :param str ordering: Sorting parameter for TaskQueues
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            friendly_name=friendly_name,
+            evaluate_worker_attributes=evaluate_worker_attributes,
+            worker_sid=worker_sid,
+            ordering=ordering,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        evaluate_worker_attributes: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams TaskQueueInstance and returns headers from first page
+
+
+        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
+        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
+        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
+        :param str ordering: Sorting parameter for TaskQueues
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            friendly_name=friendly_name,
+            evaluate_worker_attributes=evaluate_worker_attributes,
+            worker_sid=worker_sid,
+            ordering=ordering,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         friendly_name: Union[str, object] = values.unset,
@@ -783,6 +1282,80 @@ class TaskQueueList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        evaluate_worker_attributes: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists TaskQueueInstance and returns headers from first page
+
+
+        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
+        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
+        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
+        :param str ordering: Sorting parameter for TaskQueues
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            friendly_name=friendly_name,
+            evaluate_worker_attributes=evaluate_worker_attributes,
+            worker_sid=worker_sid,
+            ordering=ordering,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        evaluate_worker_attributes: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists TaskQueueInstance and returns headers from first page
+
+
+        :param str friendly_name: The `friendly_name` of the TaskQueue resources to read.
+        :param str evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
+        :param str worker_sid: The SID of the Worker with the TaskQueue resources to read.
+        :param str ordering: Sorting parameter for TaskQueues
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            friendly_name=friendly_name,
+            evaluate_worker_attributes=evaluate_worker_attributes,
+            worker_sid=worker_sid,
+            ordering=ordering,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -873,6 +1446,100 @@ class TaskQueueList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return TaskQueuePage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        evaluate_worker_attributes: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param friendly_name: The `friendly_name` of the TaskQueue resources to read.
+        :param evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
+        :param worker_sid: The SID of the Worker with the TaskQueue resources to read.
+        :param ordering: Sorting parameter for TaskQueues
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with TaskQueuePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "EvaluateWorkerAttributes": evaluate_worker_attributes,
+                "WorkerSid": worker_sid,
+                "Ordering": ordering,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = TaskQueuePage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        evaluate_worker_attributes: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        ordering: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param friendly_name: The `friendly_name` of the TaskQueue resources to read.
+        :param evaluate_worker_attributes: The attributes of the Workers to read. Returns the TaskQueues with Workers that match the attributes specified in this parameter.
+        :param worker_sid: The SID of the Worker with the TaskQueue resources to read.
+        :param ordering: Sorting parameter for TaskQueues
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with TaskQueuePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "EvaluateWorkerAttributes": evaluate_worker_attributes,
+                "WorkerSid": worker_sid,
+                "Ordering": ordering,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = TaskQueuePage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> TaskQueuePage:
         """

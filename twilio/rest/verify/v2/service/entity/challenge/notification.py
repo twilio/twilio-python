@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -98,13 +99,12 @@ class NotificationList(ListResource):
             **self._solution
         )
 
-    def create(self, ttl: Union[int, object] = values.unset) -> NotificationInstance:
+    def _create(self, ttl: Union[int, object] = values.unset) -> tuple:
         """
-        Create the NotificationInstance
+        Internal helper for create operation
 
-        :param ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
-
-        :returns: The created NotificationInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -118,16 +118,68 @@ class NotificationList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(self, ttl: Union[int, object] = values.unset) -> NotificationInstance:
+        """
+        Create the NotificationInstance
+
+        :param ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
+
+        :returns: The created NotificationInstance
+        """
+        payload, _, _ = self._create(ttl=ttl)
         return NotificationInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             identity=self._solution["identity"],
             challenge_sid=self._solution["challenge_sid"],
+        )
+
+    def create_with_http_info(
+        self, ttl: Union[int, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Create the NotificationInstance and return response metadata
+
+        :param ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(ttl=ttl)
+        instance = NotificationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+            challenge_sid=self._solution["challenge_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(self, ttl: Union[int, object] = values.unset) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Ttl": ttl,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def create_async(
@@ -140,22 +192,7 @@ class NotificationList(ListResource):
 
         :returns: The created NotificationInstance
         """
-
-        data = values.of(
-            {
-                "Ttl": ttl,
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._create_async(ttl=ttl)
         return NotificationInstance(
             self._version,
             payload,
@@ -163,6 +200,26 @@ class NotificationList(ListResource):
             identity=self._solution["identity"],
             challenge_sid=self._solution["challenge_sid"],
         )
+
+    async def create_with_http_info_async(
+        self, ttl: Union[int, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronously create the NotificationInstance and return response metadata
+
+        :param ttl: How long, in seconds, the notification is valid. Can be an integer between 0 and 300. Default is 300. Delivery is attempted until the TTL elapses, even if the device is offline. 0 means that the notification delivery is attempted immediately, only once, and is not stored for future delivery.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(ttl=ttl)
+        instance = NotificationInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            identity=self._solution["identity"],
+            challenge_sid=self._solution["challenge_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

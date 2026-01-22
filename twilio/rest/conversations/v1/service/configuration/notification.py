@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -85,6 +86,24 @@ class NotificationInstance(InstanceResource):
         :returns: The fetched NotificationInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the NotificationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the NotificationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -188,6 +207,108 @@ class NotificationInstance(InstanceResource):
             new_message_with_media_template=new_message_with_media_template,
         )
 
+    def update_with_http_info(
+        self,
+        log_enabled: Union[bool, object] = values.unset,
+        new_message_enabled: Union[bool, object] = values.unset,
+        new_message_template: Union[str, object] = values.unset,
+        new_message_sound: Union[str, object] = values.unset,
+        new_message_badge_count_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_template: Union[str, object] = values.unset,
+        added_to_conversation_sound: Union[str, object] = values.unset,
+        removed_from_conversation_enabled: Union[bool, object] = values.unset,
+        removed_from_conversation_template: Union[str, object] = values.unset,
+        removed_from_conversation_sound: Union[str, object] = values.unset,
+        new_message_with_media_enabled: Union[bool, object] = values.unset,
+        new_message_with_media_template: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the NotificationInstance with HTTP info
+
+        :param log_enabled: Weather the notification logging is enabled.
+        :param new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
+        :param new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
+        :param new_message_sound: The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
+        :param new_message_badge_count_enabled: Whether the new message badge is enabled. The default is `false`.
+        :param added_to_conversation_enabled: Whether to send a notification when a participant is added to a conversation. The default is `false`.
+        :param added_to_conversation_template: The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+        :param added_to_conversation_sound: The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+        :param removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
+        :param removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+        :param removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+        :param new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is `false`.
+        :param new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            log_enabled=log_enabled,
+            new_message_enabled=new_message_enabled,
+            new_message_template=new_message_template,
+            new_message_sound=new_message_sound,
+            new_message_badge_count_enabled=new_message_badge_count_enabled,
+            added_to_conversation_enabled=added_to_conversation_enabled,
+            added_to_conversation_template=added_to_conversation_template,
+            added_to_conversation_sound=added_to_conversation_sound,
+            removed_from_conversation_enabled=removed_from_conversation_enabled,
+            removed_from_conversation_template=removed_from_conversation_template,
+            removed_from_conversation_sound=removed_from_conversation_sound,
+            new_message_with_media_enabled=new_message_with_media_enabled,
+            new_message_with_media_template=new_message_with_media_template,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        log_enabled: Union[bool, object] = values.unset,
+        new_message_enabled: Union[bool, object] = values.unset,
+        new_message_template: Union[str, object] = values.unset,
+        new_message_sound: Union[str, object] = values.unset,
+        new_message_badge_count_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_template: Union[str, object] = values.unset,
+        added_to_conversation_sound: Union[str, object] = values.unset,
+        removed_from_conversation_enabled: Union[bool, object] = values.unset,
+        removed_from_conversation_template: Union[str, object] = values.unset,
+        removed_from_conversation_sound: Union[str, object] = values.unset,
+        new_message_with_media_enabled: Union[bool, object] = values.unset,
+        new_message_with_media_template: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the NotificationInstance with HTTP info
+
+        :param log_enabled: Weather the notification logging is enabled.
+        :param new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
+        :param new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
+        :param new_message_sound: The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
+        :param new_message_badge_count_enabled: Whether the new message badge is enabled. The default is `false`.
+        :param added_to_conversation_enabled: Whether to send a notification when a participant is added to a conversation. The default is `false`.
+        :param added_to_conversation_template: The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+        :param added_to_conversation_sound: The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+        :param removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
+        :param removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+        :param removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+        :param new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is `false`.
+        :param new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            log_enabled=log_enabled,
+            new_message_enabled=new_message_enabled,
+            new_message_template=new_message_template,
+            new_message_sound=new_message_sound,
+            new_message_badge_count_enabled=new_message_badge_count_enabled,
+            added_to_conversation_enabled=added_to_conversation_enabled,
+            added_to_conversation_template=added_to_conversation_template,
+            added_to_conversation_sound=added_to_conversation_sound,
+            removed_from_conversation_enabled=removed_from_conversation_enabled,
+            removed_from_conversation_template=removed_from_conversation_template,
+            removed_from_conversation_sound=removed_from_conversation_sound,
+            new_message_with_media_enabled=new_message_with_media_enabled,
+            new_message_with_media_template=new_message_with_media_template,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -217,6 +338,22 @@ class NotificationContext(InstanceContext):
             **self._solution
         )
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> NotificationInstance:
         """
         Fetch the NotificationInstance
@@ -224,17 +361,42 @@ class NotificationContext(InstanceContext):
 
         :returns: The fetched NotificationInstance
         """
+        payload, _, _ = self._fetch()
+        return NotificationInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the NotificationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = NotificationInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return NotificationInstance(
-            self._version,
-            payload,
-            chat_service_sid=self._solution["chat_service_sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> NotificationInstance:
@@ -244,19 +406,84 @@ class NotificationContext(InstanceContext):
 
         :returns: The fetched NotificationInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return NotificationInstance(
             self._version,
             payload,
             chat_service_sid=self._solution["chat_service_sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the NotificationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = NotificationInstance(
+            self._version,
+            payload,
+            chat_service_sid=self._solution["chat_service_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        log_enabled: Union[bool, object] = values.unset,
+        new_message_enabled: Union[bool, object] = values.unset,
+        new_message_template: Union[str, object] = values.unset,
+        new_message_sound: Union[str, object] = values.unset,
+        new_message_badge_count_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_template: Union[str, object] = values.unset,
+        added_to_conversation_sound: Union[str, object] = values.unset,
+        removed_from_conversation_enabled: Union[bool, object] = values.unset,
+        removed_from_conversation_template: Union[str, object] = values.unset,
+        removed_from_conversation_sound: Union[str, object] = values.unset,
+        new_message_with_media_enabled: Union[bool, object] = values.unset,
+        new_message_with_media_template: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "LogEnabled": serialize.boolean_to_string(log_enabled),
+                "NewMessage.Enabled": serialize.boolean_to_string(new_message_enabled),
+                "NewMessage.Template": new_message_template,
+                "NewMessage.Sound": new_message_sound,
+                "NewMessage.BadgeCountEnabled": serialize.boolean_to_string(
+                    new_message_badge_count_enabled
+                ),
+                "AddedToConversation.Enabled": serialize.boolean_to_string(
+                    added_to_conversation_enabled
+                ),
+                "AddedToConversation.Template": added_to_conversation_template,
+                "AddedToConversation.Sound": added_to_conversation_sound,
+                "RemovedFromConversation.Enabled": serialize.boolean_to_string(
+                    removed_from_conversation_enabled
+                ),
+                "RemovedFromConversation.Template": removed_from_conversation_template,
+                "RemovedFromConversation.Sound": removed_from_conversation_sound,
+                "NewMessage.WithMedia.Enabled": serialize.boolean_to_string(
+                    new_message_with_media_enabled
+                ),
+                "NewMessage.WithMedia.Template": new_message_with_media_template,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -294,6 +521,102 @@ class NotificationContext(InstanceContext):
 
         :returns: The updated NotificationInstance
         """
+        payload, _, _ = self._update(
+            log_enabled=log_enabled,
+            new_message_enabled=new_message_enabled,
+            new_message_template=new_message_template,
+            new_message_sound=new_message_sound,
+            new_message_badge_count_enabled=new_message_badge_count_enabled,
+            added_to_conversation_enabled=added_to_conversation_enabled,
+            added_to_conversation_template=added_to_conversation_template,
+            added_to_conversation_sound=added_to_conversation_sound,
+            removed_from_conversation_enabled=removed_from_conversation_enabled,
+            removed_from_conversation_template=removed_from_conversation_template,
+            removed_from_conversation_sound=removed_from_conversation_sound,
+            new_message_with_media_enabled=new_message_with_media_enabled,
+            new_message_with_media_template=new_message_with_media_template,
+        )
+        return NotificationInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+
+    def update_with_http_info(
+        self,
+        log_enabled: Union[bool, object] = values.unset,
+        new_message_enabled: Union[bool, object] = values.unset,
+        new_message_template: Union[str, object] = values.unset,
+        new_message_sound: Union[str, object] = values.unset,
+        new_message_badge_count_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_template: Union[str, object] = values.unset,
+        added_to_conversation_sound: Union[str, object] = values.unset,
+        removed_from_conversation_enabled: Union[bool, object] = values.unset,
+        removed_from_conversation_template: Union[str, object] = values.unset,
+        removed_from_conversation_sound: Union[str, object] = values.unset,
+        new_message_with_media_enabled: Union[bool, object] = values.unset,
+        new_message_with_media_template: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the NotificationInstance and return response metadata
+
+        :param log_enabled: Weather the notification logging is enabled.
+        :param new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
+        :param new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
+        :param new_message_sound: The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
+        :param new_message_badge_count_enabled: Whether the new message badge is enabled. The default is `false`.
+        :param added_to_conversation_enabled: Whether to send a notification when a participant is added to a conversation. The default is `false`.
+        :param added_to_conversation_template: The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+        :param added_to_conversation_sound: The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+        :param removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
+        :param removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+        :param removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+        :param new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is `false`.
+        :param new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            log_enabled=log_enabled,
+            new_message_enabled=new_message_enabled,
+            new_message_template=new_message_template,
+            new_message_sound=new_message_sound,
+            new_message_badge_count_enabled=new_message_badge_count_enabled,
+            added_to_conversation_enabled=added_to_conversation_enabled,
+            added_to_conversation_template=added_to_conversation_template,
+            added_to_conversation_sound=added_to_conversation_sound,
+            removed_from_conversation_enabled=removed_from_conversation_enabled,
+            removed_from_conversation_template=removed_from_conversation_template,
+            removed_from_conversation_sound=removed_from_conversation_sound,
+            new_message_with_media_enabled=new_message_with_media_enabled,
+            new_message_with_media_template=new_message_with_media_template,
+        )
+        instance = NotificationInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        log_enabled: Union[bool, object] = values.unset,
+        new_message_enabled: Union[bool, object] = values.unset,
+        new_message_template: Union[str, object] = values.unset,
+        new_message_sound: Union[str, object] = values.unset,
+        new_message_badge_count_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_template: Union[str, object] = values.unset,
+        added_to_conversation_sound: Union[str, object] = values.unset,
+        removed_from_conversation_enabled: Union[bool, object] = values.unset,
+        removed_from_conversation_template: Union[str, object] = values.unset,
+        removed_from_conversation_sound: Union[str, object] = values.unset,
+        new_message_with_media_enabled: Union[bool, object] = values.unset,
+        new_message_with_media_template: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -326,12 +649,8 @@ class NotificationContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return NotificationInstance(
-            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
         )
 
     async def update_async(
@@ -369,45 +688,79 @@ class NotificationContext(InstanceContext):
 
         :returns: The updated NotificationInstance
         """
-
-        data = values.of(
-            {
-                "LogEnabled": serialize.boolean_to_string(log_enabled),
-                "NewMessage.Enabled": serialize.boolean_to_string(new_message_enabled),
-                "NewMessage.Template": new_message_template,
-                "NewMessage.Sound": new_message_sound,
-                "NewMessage.BadgeCountEnabled": serialize.boolean_to_string(
-                    new_message_badge_count_enabled
-                ),
-                "AddedToConversation.Enabled": serialize.boolean_to_string(
-                    added_to_conversation_enabled
-                ),
-                "AddedToConversation.Template": added_to_conversation_template,
-                "AddedToConversation.Sound": added_to_conversation_sound,
-                "RemovedFromConversation.Enabled": serialize.boolean_to_string(
-                    removed_from_conversation_enabled
-                ),
-                "RemovedFromConversation.Template": removed_from_conversation_template,
-                "RemovedFromConversation.Sound": removed_from_conversation_sound,
-                "NewMessage.WithMedia.Enabled": serialize.boolean_to_string(
-                    new_message_with_media_enabled
-                ),
-                "NewMessage.WithMedia.Template": new_message_with_media_template,
-            }
+        payload, _, _ = await self._update_async(
+            log_enabled=log_enabled,
+            new_message_enabled=new_message_enabled,
+            new_message_template=new_message_template,
+            new_message_sound=new_message_sound,
+            new_message_badge_count_enabled=new_message_badge_count_enabled,
+            added_to_conversation_enabled=added_to_conversation_enabled,
+            added_to_conversation_template=added_to_conversation_template,
+            added_to_conversation_sound=added_to_conversation_sound,
+            removed_from_conversation_enabled=removed_from_conversation_enabled,
+            removed_from_conversation_template=removed_from_conversation_template,
+            removed_from_conversation_sound=removed_from_conversation_sound,
+            new_message_with_media_enabled=new_message_with_media_enabled,
+            new_message_with_media_template=new_message_with_media_template,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return NotificationInstance(
             self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
         )
+
+    async def update_with_http_info_async(
+        self,
+        log_enabled: Union[bool, object] = values.unset,
+        new_message_enabled: Union[bool, object] = values.unset,
+        new_message_template: Union[str, object] = values.unset,
+        new_message_sound: Union[str, object] = values.unset,
+        new_message_badge_count_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_enabled: Union[bool, object] = values.unset,
+        added_to_conversation_template: Union[str, object] = values.unset,
+        added_to_conversation_sound: Union[str, object] = values.unset,
+        removed_from_conversation_enabled: Union[bool, object] = values.unset,
+        removed_from_conversation_template: Union[str, object] = values.unset,
+        removed_from_conversation_sound: Union[str, object] = values.unset,
+        new_message_with_media_enabled: Union[bool, object] = values.unset,
+        new_message_with_media_template: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the NotificationInstance and return response metadata
+
+        :param log_enabled: Weather the notification logging is enabled.
+        :param new_message_enabled: Whether to send a notification when a new message is added to a conversation. The default is `false`.
+        :param new_message_template: The template to use to create the notification text displayed when a new message is added to a conversation and `new_message.enabled` is `true`.
+        :param new_message_sound: The name of the sound to play when a new message is added to a conversation and `new_message.enabled` is `true`.
+        :param new_message_badge_count_enabled: Whether the new message badge is enabled. The default is `false`.
+        :param added_to_conversation_enabled: Whether to send a notification when a participant is added to a conversation. The default is `false`.
+        :param added_to_conversation_template: The template to use to create the notification text displayed when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+        :param added_to_conversation_sound: The name of the sound to play when a participant is added to a conversation and `added_to_conversation.enabled` is `true`.
+        :param removed_from_conversation_enabled: Whether to send a notification to a user when they are removed from a conversation. The default is `false`.
+        :param removed_from_conversation_template: The template to use to create the notification text displayed to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+        :param removed_from_conversation_sound: The name of the sound to play to a user when they are removed from a conversation and `removed_from_conversation.enabled` is `true`.
+        :param new_message_with_media_enabled: Whether to send a notification when a new message with media/file attachments is added to a conversation. The default is `false`.
+        :param new_message_with_media_template: The template to use to create the notification text displayed when a new message with media/file attachments is added to a conversation and `new_message.attachments.enabled` is `true`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            log_enabled=log_enabled,
+            new_message_enabled=new_message_enabled,
+            new_message_template=new_message_template,
+            new_message_sound=new_message_sound,
+            new_message_badge_count_enabled=new_message_badge_count_enabled,
+            added_to_conversation_enabled=added_to_conversation_enabled,
+            added_to_conversation_template=added_to_conversation_template,
+            added_to_conversation_sound=added_to_conversation_sound,
+            removed_from_conversation_enabled=removed_from_conversation_enabled,
+            removed_from_conversation_template=removed_from_conversation_template,
+            removed_from_conversation_sound=removed_from_conversation_sound,
+            new_message_with_media_enabled=new_message_with_media_enabled,
+            new_message_with_media_template=new_message_with_media_template,
+        )
+        instance = NotificationInstance(
+            self._version, payload, chat_service_sid=self._solution["chat_service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

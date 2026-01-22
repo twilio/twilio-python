@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -119,6 +120,24 @@ class RatePlanInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the RatePlanInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the RatePlanInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "RatePlanInstance":
         """
         Fetch the RatePlanInstance
@@ -136,6 +155,24 @@ class RatePlanInstance(InstanceResource):
         :returns: The fetched RatePlanInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the RatePlanInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the RatePlanInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -173,6 +210,42 @@ class RatePlanInstance(InstanceResource):
             friendly_name=friendly_name,
         )
 
+    def update_with_http_info(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the RatePlanInstance with HTTP info
+
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            unique_name=unique_name,
+            friendly_name=friendly_name,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the RatePlanInstance with HTTP info
+
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            unique_name=unique_name,
+            friendly_name=friendly_name,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -200,6 +273,20 @@ class RatePlanContext(InstanceContext):
         }
         self._uri = "/RatePlans/{sid}".format(**self._solution)
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the RatePlanInstance
@@ -207,10 +294,32 @@ class RatePlanContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the RatePlanInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -219,11 +328,33 @@ class RatePlanContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the RatePlanInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> RatePlanInstance:
@@ -233,17 +364,42 @@ class RatePlanContext(InstanceContext):
 
         :returns: The fetched RatePlanInstance
         """
+        payload, _, _ = self._fetch()
+        return RatePlanInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the RatePlanInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = RatePlanInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return RatePlanInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> RatePlanInstance:
@@ -253,19 +409,54 @@ class RatePlanContext(InstanceContext):
 
         :returns: The fetched RatePlanInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return RatePlanInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the RatePlanInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = RatePlanInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "FriendlyName": friendly_name,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -281,6 +472,41 @@ class RatePlanContext(InstanceContext):
 
         :returns: The updated RatePlanInstance
         """
+        payload, _, _ = self._update(
+            unique_name=unique_name, friendly_name=friendly_name
+        )
+        return RatePlanInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the RatePlanInstance and return response metadata
+
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            unique_name=unique_name, friendly_name=friendly_name
+        )
+        instance = RatePlanInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -294,11 +520,9 @@ class RatePlanContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return RatePlanInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
         self,
@@ -313,24 +537,29 @@ class RatePlanContext(InstanceContext):
 
         :returns: The updated RatePlanInstance
         """
-
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-                "FriendlyName": friendly_name,
-            }
+        payload, _, _ = await self._update_async(
+            unique_name=unique_name, friendly_name=friendly_name
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return RatePlanInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the RatePlanInstance and return response metadata
+
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            unique_name=unique_name, friendly_name=friendly_name
+        )
+        instance = RatePlanInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -374,6 +603,60 @@ class RatePlanList(ListResource):
 
         self._uri = "/RatePlans"
 
+    def _create(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        data_enabled: Union[bool, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+        data_metering: Union[str, object] = values.unset,
+        messaging_enabled: Union[bool, object] = values.unset,
+        voice_enabled: Union[bool, object] = values.unset,
+        national_roaming_enabled: Union[bool, object] = values.unset,
+        international_roaming: Union[List[str], object] = values.unset,
+        national_roaming_data_limit: Union[int, object] = values.unset,
+        international_roaming_data_limit: Union[int, object] = values.unset,
+        data_limit_strategy: Union[
+            "RatePlanInstance.DataLimitStrategy", object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "FriendlyName": friendly_name,
+                "DataEnabled": serialize.boolean_to_string(data_enabled),
+                "DataLimit": data_limit,
+                "DataMetering": data_metering,
+                "MessagingEnabled": serialize.boolean_to_string(messaging_enabled),
+                "VoiceEnabled": serialize.boolean_to_string(voice_enabled),
+                "NationalRoamingEnabled": serialize.boolean_to_string(
+                    national_roaming_enabled
+                ),
+                "InternationalRoaming": serialize.map(
+                    international_roaming, lambda e: e
+                ),
+                "NationalRoamingDataLimit": national_roaming_data_limit,
+                "InternationalRoamingDataLimit": international_roaming_data_limit,
+                "DataLimitStrategy": data_limit_strategy,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         unique_name: Union[str, object] = values.unset,
@@ -409,6 +692,97 @@ class RatePlanList(ListResource):
 
         :returns: The created RatePlanInstance
         """
+        payload, _, _ = self._create(
+            unique_name=unique_name,
+            friendly_name=friendly_name,
+            data_enabled=data_enabled,
+            data_limit=data_limit,
+            data_metering=data_metering,
+            messaging_enabled=messaging_enabled,
+            voice_enabled=voice_enabled,
+            national_roaming_enabled=national_roaming_enabled,
+            international_roaming=international_roaming,
+            national_roaming_data_limit=national_roaming_data_limit,
+            international_roaming_data_limit=international_roaming_data_limit,
+            data_limit_strategy=data_limit_strategy,
+        )
+        return RatePlanInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        data_enabled: Union[bool, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+        data_metering: Union[str, object] = values.unset,
+        messaging_enabled: Union[bool, object] = values.unset,
+        voice_enabled: Union[bool, object] = values.unset,
+        national_roaming_enabled: Union[bool, object] = values.unset,
+        international_roaming: Union[List[str], object] = values.unset,
+        national_roaming_data_limit: Union[int, object] = values.unset,
+        international_roaming_data_limit: Union[int, object] = values.unset,
+        data_limit_strategy: Union[
+            "RatePlanInstance.DataLimitStrategy", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the RatePlanInstance and return response metadata
+
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
+        :param data_enabled: Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
+        :param data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB and the default value is `1000`.
+        :param data_metering: The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource#payg-vs-quota-data-plans).
+        :param messaging_enabled: Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/iot/wireless/api/command-resource).
+        :param voice_enabled: Deprecated.
+        :param national_roaming_enabled: Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource#national-roaming).
+        :param international_roaming: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
+        :param national_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource#national-roaming) for more info.
+        :param international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
+        :param data_limit_strategy:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            unique_name=unique_name,
+            friendly_name=friendly_name,
+            data_enabled=data_enabled,
+            data_limit=data_limit,
+            data_metering=data_metering,
+            messaging_enabled=messaging_enabled,
+            voice_enabled=voice_enabled,
+            national_roaming_enabled=national_roaming_enabled,
+            international_roaming=international_roaming,
+            national_roaming_data_limit=national_roaming_data_limit,
+            international_roaming_data_limit=international_roaming_data_limit,
+            data_limit_strategy=data_limit_strategy,
+        )
+        instance = RatePlanInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        data_enabled: Union[bool, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+        data_metering: Union[str, object] = values.unset,
+        messaging_enabled: Union[bool, object] = values.unset,
+        voice_enabled: Union[bool, object] = values.unset,
+        national_roaming_enabled: Union[bool, object] = values.unset,
+        international_roaming: Union[List[str], object] = values.unset,
+        national_roaming_data_limit: Union[int, object] = values.unset,
+        international_roaming_data_limit: Union[int, object] = values.unset,
+        data_limit_strategy: Union[
+            "RatePlanInstance.DataLimitStrategy", object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -436,11 +810,9 @@ class RatePlanList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return RatePlanInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -477,38 +849,73 @@ class RatePlanList(ListResource):
 
         :returns: The created RatePlanInstance
         """
-
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-                "FriendlyName": friendly_name,
-                "DataEnabled": serialize.boolean_to_string(data_enabled),
-                "DataLimit": data_limit,
-                "DataMetering": data_metering,
-                "MessagingEnabled": serialize.boolean_to_string(messaging_enabled),
-                "VoiceEnabled": serialize.boolean_to_string(voice_enabled),
-                "NationalRoamingEnabled": serialize.boolean_to_string(
-                    national_roaming_enabled
-                ),
-                "InternationalRoaming": serialize.map(
-                    international_roaming, lambda e: e
-                ),
-                "NationalRoamingDataLimit": national_roaming_data_limit,
-                "InternationalRoamingDataLimit": international_roaming_data_limit,
-                "DataLimitStrategy": data_limit_strategy,
-            }
+        payload, _, _ = await self._create_async(
+            unique_name=unique_name,
+            friendly_name=friendly_name,
+            data_enabled=data_enabled,
+            data_limit=data_limit,
+            data_metering=data_metering,
+            messaging_enabled=messaging_enabled,
+            voice_enabled=voice_enabled,
+            national_roaming_enabled=national_roaming_enabled,
+            international_roaming=international_roaming,
+            national_roaming_data_limit=national_roaming_data_limit,
+            international_roaming_data_limit=international_roaming_data_limit,
+            data_limit_strategy=data_limit_strategy,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return RatePlanInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        data_enabled: Union[bool, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+        data_metering: Union[str, object] = values.unset,
+        messaging_enabled: Union[bool, object] = values.unset,
+        voice_enabled: Union[bool, object] = values.unset,
+        national_roaming_enabled: Union[bool, object] = values.unset,
+        international_roaming: Union[List[str], object] = values.unset,
+        national_roaming_data_limit: Union[int, object] = values.unset,
+        international_roaming_data_limit: Union[int, object] = values.unset,
+        data_limit_strategy: Union[
+            "RatePlanInstance.DataLimitStrategy", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the RatePlanInstance and return response metadata
+
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param friendly_name: A descriptive string that you create to describe the resource. It does not have to be unique.
+        :param data_enabled: Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
+        :param data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on the home network (T-Mobile USA). The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB and the default value is `1000`.
+        :param data_metering: The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`, and `quota-50`. Learn more about the available [data metering models](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource#payg-vs-quota-data-plans).
+        :param messaging_enabled: Whether SIMs can make, send, and receive SMS using [Commands](https://www.twilio.com/docs/iot/wireless/api/command-resource).
+        :param voice_enabled: Deprecated.
+        :param national_roaming_enabled: Whether SIMs can roam on networks other than the home network (T-Mobile USA) in the United States. See [national roaming](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource#national-roaming).
+        :param international_roaming: The list of services that SIMs capable of using GPRS/3G/4G/LTE data connectivity can use outside of the United States. Can contain: `data` and `messaging`.
+        :param national_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month on non-home networks in the United States. The metering period begins the day of activation and ends on the same day in the following month. Can be up to 2TB. See [national roaming](https://www.twilio.com/docs/iot/wireless/api/rateplan-resource#national-roaming) for more info.
+        :param international_roaming_data_limit: The total data usage (download and upload combined) in Megabytes that the Network allows during one month when roaming outside the United States. Can be up to 2TB.
+        :param data_limit_strategy:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            unique_name=unique_name,
+            friendly_name=friendly_name,
+            data_enabled=data_enabled,
+            data_limit=data_limit,
+            data_metering=data_metering,
+            messaging_enabled=messaging_enabled,
+            voice_enabled=voice_enabled,
+            national_roaming_enabled=national_roaming_enabled,
+            international_roaming=international_roaming,
+            national_roaming_data_limit=national_roaming_data_limit,
+            international_roaming_data_limit=international_roaming_data_limit,
+            data_limit_strategy=data_limit_strategy,
+        )
+        instance = RatePlanInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -559,6 +966,56 @@ class RatePlanList(ListResource):
         page = await self.page_async(page_size=limits["page_size"])
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams RatePlanInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(page_size=limits["page_size"])
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams RatePlanInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -612,6 +1069,56 @@ class RatePlanList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists RatePlanInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists RatePlanInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -678,6 +1185,76 @@ class RatePlanList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return RatePlanPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with RatePlanPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = RatePlanPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with RatePlanPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = RatePlanPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> RatePlanPage:
         """

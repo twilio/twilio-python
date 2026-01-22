@@ -16,12 +16,14 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
 from twilio.base.version import Version
 from twilio.base.page import Page
 from twilio.rest.serverless.v1.service.build.build_status import BuildStatusList
+
 
 
 class BuildInstance(InstanceResource):
@@ -57,7 +59,7 @@ class BuildInstance(InstanceResource):
     :ivar links: 
     """
 
-    def __init__(self, version: Version, payload: Dict[str, Any], service_sid: str, sid: Optional[str] = None):
+    def __init__(self, version: Version, payload:Dict[str, Any], service_sid: str, sid: Optional[str] = None):
         super().__init__(version)
 
         
@@ -110,6 +112,24 @@ class BuildInstance(InstanceResource):
         :returns: True if delete succeeds, False otherwise
         """
         return await self._proxy.delete_async()
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the BuildInstance with HTTP info
+        
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the BuildInstance with HTTP info
+        
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
     
     
     def fetch(self) -> "BuildInstance":
@@ -129,6 +149,24 @@ class BuildInstance(InstanceResource):
         :returns: The fetched BuildInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the BuildInstance with HTTP info
+        
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the BuildInstance with HTTP info
+        
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
     
     @property
     def build_status(self) -> BuildStatusList:
@@ -169,12 +207,12 @@ class BuildContext(InstanceContext):
         self._build_status: Optional[BuildStatusList] = None
     
     
-    def delete(self) -> bool:
+    def _delete(self) -> tuple:
         """
-        Deletes the BuildInstance
+        Internal helper for delete operation
 
-        
-        :returns: True if delete succeeds, False otherwise
+        Returns:
+            tuple: (success_boolean, status_code, headers)
         """
 
         
@@ -182,7 +220,41 @@ class BuildContext(InstanceContext):
         
         
         
-        return self._version.delete(method='DELETE', uri=self._uri, headers=headers)
+        return self._version.delete_with_response_info(method='DELETE', uri=self._uri, headers=headers)
+
+    def delete(self) -> bool:
+        """
+        Deletes the BuildInstance
+
+        
+        :returns: True if delete succeeds, False otherwise
+        """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the BuildInstance and return response metadata
+
+        
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+        
+        headers = values.of({})
+        
+        
+        
+        return await self._version.delete_with_response_info_async(method='DELETE', uri=self._uri, headers=headers)
 
     async def delete_async(self) -> bool:
         """
@@ -191,20 +263,26 @@ class BuildContext(InstanceContext):
         
         :returns: True if delete succeeds, False otherwise
         """
-        
-        headers = values.of({})
-        
-        
-        
-        return await self._version.delete_async(method='DELETE', uri=self._uri, headers=headers)
-    
-    
-    def fetch(self) -> BuildInstance:
-        """
-        Fetch the BuildInstance
-        
+        success, _, _ = await self._delete_async()
+        return success
 
-        :returns: The fetched BuildInstance
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the BuildInstance and return response metadata
+
+        
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+    
+    
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
         """
         
 
@@ -214,8 +292,16 @@ class BuildContext(InstanceContext):
         
         headers["Accept"] = "application/json"
         
-        payload = self._version.fetch(method='GET', uri=self._uri  , headers=headers)
+        return self._version.fetch_with_response_info(method='GET', uri=self._uri, headers=headers)
 
+    def fetch(self) -> BuildInstance:
+        """
+        Fetch the BuildInstance
+        
+
+        :returns: The fetched BuildInstance
+        """
+        payload, _, _ = self._fetch()
         return BuildInstance(
             self._version,
             payload,
@@ -223,6 +309,40 @@ class BuildContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the BuildInstance and return response metadata
+        
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = BuildInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        
+
+        headers = values.of({})
+        
+        
+        
+        headers["Accept"] = "application/json"
+        
+        return await self._version.fetch_with_response_info_async(method='GET', uri=self._uri, headers=headers)
 
     async def fetch_async(self) -> BuildInstance:
         """
@@ -231,16 +351,7 @@ class BuildContext(InstanceContext):
 
         :returns: The fetched BuildInstance
         """
-        
-
-        headers = values.of({})
-        
-        
-        
-        headers["Accept"] = "application/json"
-        
-        payload = await self._version.fetch_async(method='GET', uri=self._uri , headers=headers)
-
+        payload, _, _ = await self._fetch_async()
         return BuildInstance(
             self._version,
             payload,
@@ -248,6 +359,23 @@ class BuildContext(InstanceContext):
             sid=self._solution['sid'],
             
         )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the BuildInstance and return response metadata
+        
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = BuildInstance(
+            self._version,
+            payload,
+            service_sid=self._solution['service_sid'],
+            sid=self._solution['sid'],
+            
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
     
     
     @property
@@ -323,16 +451,12 @@ class BuildList(ListResource):
     
     
     
-    def create(self, asset_versions: Union[List[str], object]=values.unset, function_versions: Union[List[str], object]=values.unset, dependencies: Union[str, object]=values.unset, runtime: Union[str, object]=values.unset) -> BuildInstance:
+    def _create(self, asset_versions: Union[List[str], object]=values.unset, function_versions: Union[List[str], object]=values.unset, dependencies: Union[str, object]=values.unset, runtime: Union[str, object]=values.unset) -> tuple:
         """
-        Create the BuildInstance
+        Internal helper for create operation
 
-        :param asset_versions: The list of Asset Version resource SIDs to include in the Build.
-        :param function_versions: The list of the Function Version resource SIDs to include in the Build.
-        :param dependencies: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
-        :param runtime: The Runtime version that will be used to run the Build resource when it is deployed.
-        
-        :returns: The created BuildInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
         
         data = values.of({ 
@@ -351,9 +475,62 @@ class BuildList(ListResource):
         headers["Accept"] = "application/json"
         
         
-        payload = self._version.create(method='POST', uri=self._uri, data=data, headers=headers)
+        return self._version.create_with_response_info(method='POST', uri=self._uri, data=data, headers=headers)
 
+    def create(self, asset_versions: Union[List[str], object]=values.unset, function_versions: Union[List[str], object]=values.unset, dependencies: Union[str, object]=values.unset, runtime: Union[str, object]=values.unset) -> BuildInstance:
+        """
+        Create the BuildInstance
+
+        :param asset_versions: The list of Asset Version resource SIDs to include in the Build.
+        :param function_versions: The list of the Function Version resource SIDs to include in the Build.
+        :param dependencies: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
+        :param runtime: The Runtime version that will be used to run the Build resource when it is deployed.
+        
+        :returns: The created BuildInstance
+        """
+        payload, _, _ = self._create(asset_versions=asset_versions, function_versions=function_versions, dependencies=dependencies, runtime=runtime)
         return BuildInstance(self._version, payload, service_sid=self._solution['service_sid'])
+
+    def create_with_http_info(self, asset_versions: Union[List[str], object]=values.unset, function_versions: Union[List[str], object]=values.unset, dependencies: Union[str, object]=values.unset, runtime: Union[str, object]=values.unset) -> ApiResponse:
+        """
+        Create the BuildInstance and return response metadata
+
+        :param asset_versions: The list of Asset Version resource SIDs to include in the Build.
+        :param function_versions: The list of the Function Version resource SIDs to include in the Build.
+        :param dependencies: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
+        :param runtime: The Runtime version that will be used to run the Build resource when it is deployed.
+        
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(asset_versions=asset_versions, function_versions=function_versions, dependencies=dependencies, runtime=runtime)
+        instance = BuildInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(self, asset_versions: Union[List[str], object]=values.unset, function_versions: Union[List[str], object]=values.unset, dependencies: Union[str, object]=values.unset, runtime: Union[str, object]=values.unset) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        
+        data = values.of({ 
+            'AssetVersions': serialize.map(asset_versions, lambda e: e),
+            'FunctionVersions': serialize.map(function_versions, lambda e: e),
+            'Dependencies': dependencies,
+            'Runtime': runtime,
+        })
+        headers = values.of({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            })
+        
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+        
+        
+        headers["Accept"] = "application/json"
+        
+        
+        return await self._version.create_with_response_info_async(method='POST', uri=self._uri, data=data, headers=headers)
 
     async def create_async(self, asset_versions: Union[List[str], object]=values.unset, function_versions: Union[List[str], object]=values.unset, dependencies: Union[str, object]=values.unset, runtime: Union[str, object]=values.unset) -> BuildInstance:
         """
@@ -366,26 +543,23 @@ class BuildList(ListResource):
         
         :returns: The created BuildInstance
         """
-        
-        data = values.of({ 
-            'AssetVersions': serialize.map(asset_versions, lambda e: e),
-            'FunctionVersions': serialize.map(function_versions, lambda e: e),
-            'Dependencies': dependencies,
-            'Runtime': runtime,
-        })
-        headers = values.of({
-                'Content-Type': 'application/x-www-form-urlencoded'
-            })
-        
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-        
-        
-        headers["Accept"] = "application/json"
-        
-        
-        payload = await self._version.create_async(method='POST', uri=self._uri, data=data, headers=headers)
-
+        payload, _, _ = await self._create_async(asset_versions=asset_versions, function_versions=function_versions, dependencies=dependencies, runtime=runtime)
         return BuildInstance(self._version, payload, service_sid=self._solution['service_sid'])
+
+    async def create_with_http_info_async(self, asset_versions: Union[List[str], object]=values.unset, function_versions: Union[List[str], object]=values.unset, dependencies: Union[str, object]=values.unset, runtime: Union[str, object]=values.unset) -> ApiResponse:
+        """
+        Asynchronously create the BuildInstance and return response metadata
+
+        :param asset_versions: The list of Asset Version resource SIDs to include in the Build.
+        :param function_versions: The list of the Function Version resource SIDs to include in the Build.
+        :param dependencies: A list of objects that describe the Dependencies included in the Build. Each object contains the `name` and `version` of the dependency.
+        :param runtime: The Runtime version that will be used to run the Build resource when it is deployed.
+        
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(asset_versions=asset_versions, function_versions=function_versions, dependencies=dependencies, runtime=runtime)
+        instance = BuildInstance(self._version, payload, service_sid=self._solution['service_sid'])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
     
     
     def stream(self, 
@@ -442,6 +616,58 @@ class BuildList(ListResource):
 
         return self._version.stream_async(page, limits['limit'])
 
+    def stream_with_http_info(self, 
+        
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams BuildInstance and returns headers from first page
+
+        
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            page_size=limits['page_size']
+        )
+
+        generator = self._version.stream(page_response.data, limits['limit'])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(self, 
+        
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams BuildInstance and returns headers from first page
+
+        
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_size=limits['page_size']
+        )
+
+        generator = self._version.stream_async(page_response.data, limits['limit'])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(self, 
         
         limit: Optional[int] = None,
@@ -490,8 +716,58 @@ class BuildList(ListResource):
             page_size=page_size,
         )]
 
-    def page(self, 
+    def list_with_http_info(self, 
         
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists BuildInstance and returns headers from first page
+
+        
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(self, 
+        
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists BuildInstance and returns headers from first page
+
+        
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    def page(self, 
+      
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -524,7 +800,7 @@ class BuildList(ListResource):
         return BuildPage(self._version, response, self._solution)
 
     async def page_async(self, 
-        
+      
         page_token: Union[str, object] = values.unset,
         page_number: Union[int, object] = values.unset,
         page_size: Union[int, object] = values.unset,
@@ -555,6 +831,74 @@ class BuildList(ListResource):
 
         response = await self._version.page_async(method='GET', uri=self._uri, params=data, headers=headers)
         return BuildPage(self._version, response, self._solution)
+
+    def page_with_http_info(self, 
+        
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+        
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with BuildPage, status code, and headers
+        """
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
+
+        headers = values.of({
+        'Content-Type': 'application/x-www-form-urlencoded'
+        })
+        
+        
+        headers["Accept"] = "application/json"
+        
+
+        response, status_code, response_headers = self._version.page_with_response_info(method='GET', uri=self._uri, params=data, headers=headers)
+        page = BuildPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(self, 
+        
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+        
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with BuildPage, status code, and headers
+        """
+        data = values.of({ 
+            'PageToken': page_token,
+            'Page': page_number,
+            'PageSize': page_size,
+        })
+
+        headers = values.of({
+        'Content-Type': 'application/x-www-form-urlencoded'
+        })
+        
+        
+        headers["Accept"] = "application/json"
+        
+
+        response, status_code, response_headers = await self._version.page_with_response_info_async(method='GET', uri=self._uri, params=data, headers=headers)
+        page = BuildPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> BuildPage:
         """

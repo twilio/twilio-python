@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -139,6 +140,40 @@ class UserChannelInstance(InstanceResource):
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 
+    def delete_with_http_info(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "UserChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Deletes the UserChannelInstance with HTTP info
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+        )
+
+    async def delete_with_http_info_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "UserChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the UserChannelInstance with HTTP info
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+        )
+
     def fetch(self) -> "UserChannelInstance":
         """
         Fetch the UserChannelInstance
@@ -156,6 +191,24 @@ class UserChannelInstance(InstanceResource):
         :returns: The fetched UserChannelInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the UserChannelInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the UserChannelInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -203,6 +256,52 @@ class UserChannelInstance(InstanceResource):
             last_consumption_timestamp=last_consumption_timestamp,
         )
 
+    def update_with_http_info(
+        self,
+        notification_level: Union[
+            "UserChannelInstance.NotificationLevel", object
+        ] = values.unset,
+        last_consumed_message_index: Union[int, object] = values.unset,
+        last_consumption_timestamp: Union[datetime, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the UserChannelInstance with HTTP info
+
+        :param notification_level:
+        :param last_consumed_message_index: The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
+        :param last_consumption_timestamp: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            notification_level=notification_level,
+            last_consumed_message_index=last_consumed_message_index,
+            last_consumption_timestamp=last_consumption_timestamp,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        notification_level: Union[
+            "UserChannelInstance.NotificationLevel", object
+        ] = values.unset,
+        last_consumed_message_index: Union[int, object] = values.unset,
+        last_consumption_timestamp: Union[datetime, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the UserChannelInstance with HTTP info
+
+        :param notification_level:
+        :param last_consumed_message_index: The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
+        :param last_consumption_timestamp: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            notification_level=notification_level,
+            last_consumed_message_index=last_consumed_message_index,
+            last_consumption_timestamp=last_consumption_timestamp,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -240,6 +339,30 @@ class UserChannelContext(InstanceContext):
             )
         )
 
+    def _delete(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "UserChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+        headers = values.of(
+            {
+                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
+            }
+        )
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(
         self,
         x_twilio_webhook_enabled: Union[
@@ -253,6 +376,39 @@ class UserChannelContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete(x_twilio_webhook_enabled=x_twilio_webhook_enabled)
+        return success
+
+    def delete_with_http_info(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "UserChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Deletes the UserChannelInstance and return response metadata
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled
+        )
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "UserChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
         headers = values.of(
             {
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
@@ -261,7 +417,9 @@ class UserChannelContext(InstanceContext):
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(
         self,
@@ -276,16 +434,43 @@ class UserChannelContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
+        success, _, _ = await self._delete_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled
         )
+        return success
+
+    async def delete_with_http_info_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "UserChannelInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the UserChannelInstance and return response metadata
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled
+        )
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> UserChannelInstance:
@@ -295,19 +480,46 @@ class UserChannelContext(InstanceContext):
 
         :returns: The fetched UserChannelInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return UserChannelInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             user_sid=self._solution["user_sid"],
             channel_sid=self._solution["channel_sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the UserChannelInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = UserChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            user_sid=self._solution["user_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> UserChannelInstance:
@@ -317,21 +529,64 @@ class UserChannelContext(InstanceContext):
 
         :returns: The fetched UserChannelInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return UserChannelInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             user_sid=self._solution["user_sid"],
             channel_sid=self._solution["channel_sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the UserChannelInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = UserChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            user_sid=self._solution["user_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        notification_level: Union[
+            "UserChannelInstance.NotificationLevel", object
+        ] = values.unset,
+        last_consumed_message_index: Union[int, object] = values.unset,
+        last_consumption_timestamp: Union[datetime, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "NotificationLevel": notification_level,
+                "LastConsumedMessageIndex": last_consumed_message_index,
+                "LastConsumptionTimestamp": serialize.iso8601_datetime(
+                    last_consumption_timestamp
+                ),
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -351,6 +606,64 @@ class UserChannelContext(InstanceContext):
 
         :returns: The updated UserChannelInstance
         """
+        payload, _, _ = self._update(
+            notification_level=notification_level,
+            last_consumed_message_index=last_consumed_message_index,
+            last_consumption_timestamp=last_consumption_timestamp,
+        )
+        return UserChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            user_sid=self._solution["user_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+
+    def update_with_http_info(
+        self,
+        notification_level: Union[
+            "UserChannelInstance.NotificationLevel", object
+        ] = values.unset,
+        last_consumed_message_index: Union[int, object] = values.unset,
+        last_consumption_timestamp: Union[datetime, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the UserChannelInstance and return response metadata
+
+        :param notification_level:
+        :param last_consumed_message_index: The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
+        :param last_consumption_timestamp: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            notification_level=notification_level,
+            last_consumed_message_index=last_consumed_message_index,
+            last_consumption_timestamp=last_consumption_timestamp,
+        )
+        instance = UserChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            user_sid=self._solution["user_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        notification_level: Union[
+            "UserChannelInstance.NotificationLevel", object
+        ] = values.unset,
+        last_consumed_message_index: Union[int, object] = values.unset,
+        last_consumption_timestamp: Union[datetime, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -367,16 +680,8 @@ class UserChannelContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return UserChannelInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            user_sid=self._solution["user_sid"],
-            channel_sid=self._solution["channel_sid"],
         )
 
     async def update_async(
@@ -396,26 +701,11 @@ class UserChannelContext(InstanceContext):
 
         :returns: The updated UserChannelInstance
         """
-
-        data = values.of(
-            {
-                "NotificationLevel": notification_level,
-                "LastConsumedMessageIndex": last_consumed_message_index,
-                "LastConsumptionTimestamp": serialize.iso8601_datetime(
-                    last_consumption_timestamp
-                ),
-            }
+        payload, _, _ = await self._update_async(
+            notification_level=notification_level,
+            last_consumed_message_index=last_consumed_message_index,
+            last_consumption_timestamp=last_consumption_timestamp,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return UserChannelInstance(
             self._version,
             payload,
@@ -423,6 +713,37 @@ class UserChannelContext(InstanceContext):
             user_sid=self._solution["user_sid"],
             channel_sid=self._solution["channel_sid"],
         )
+
+    async def update_with_http_info_async(
+        self,
+        notification_level: Union[
+            "UserChannelInstance.NotificationLevel", object
+        ] = values.unset,
+        last_consumed_message_index: Union[int, object] = values.unset,
+        last_consumption_timestamp: Union[datetime, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the UserChannelInstance and return response metadata
+
+        :param notification_level:
+        :param last_consumed_message_index: The index of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the [Channel](https://www.twilio.com/docs/chat/channels) that the Member has read.
+        :param last_consumption_timestamp: The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event for the Member within the [Channel](https://www.twilio.com/docs/chat/channels).
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            notification_level=notification_level,
+            last_consumed_message_index=last_consumed_message_index,
+            last_consumption_timestamp=last_consumption_timestamp,
+        )
+        instance = UserChannelInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            user_sid=self._solution["user_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -530,6 +851,56 @@ class UserChannelList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams UserChannelInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(page_size=limits["page_size"])
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams UserChannelInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         limit: Optional[int] = None,
@@ -582,6 +953,56 @@ class UserChannelList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists UserChannelInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists UserChannelInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -648,6 +1069,76 @@ class UserChannelList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return UserChannelPage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with UserChannelPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = UserChannelPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with UserChannelPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = UserChannelPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> UserChannelPage:
         """

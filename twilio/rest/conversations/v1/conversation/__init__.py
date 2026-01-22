@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -132,6 +133,40 @@ class ConversationInstance(InstanceResource):
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 
+    def delete_with_http_info(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Deletes the ConversationInstance with HTTP info
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+        )
+
+    async def delete_with_http_info_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the ConversationInstance with HTTP info
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+        )
+
     def fetch(self) -> "ConversationInstance":
         """
         Fetch the ConversationInstance
@@ -149,6 +184,24 @@ class ConversationInstance(InstanceResource):
         :returns: The fetched ConversationInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ConversationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ConversationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -250,6 +303,106 @@ class ConversationInstance(InstanceResource):
             bindings_email_name=bindings_email_name,
         )
 
+    def update_with_http_info(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ConversationInstance with HTTP info
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param date_created: The date that this resource was created.
+        :param date_updated: The date that this resource was last updated.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
+        :param state:
+        :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
+        :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+            messaging_service_sid=messaging_service_sid,
+            state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
+            unique_name=unique_name,
+            bindings_email_address=bindings_email_address,
+            bindings_email_name=bindings_email_name,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ConversationInstance with HTTP info
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param date_created: The date that this resource was created.
+        :param date_updated: The date that this resource was last updated.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
+        :param state:
+        :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
+        :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+            messaging_service_sid=messaging_service_sid,
+            state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
+            unique_name=unique_name,
+            bindings_email_address=bindings_email_address,
+            bindings_email_name=bindings_email_name,
+        )
+
     @property
     def messages(self) -> MessageList:
         """
@@ -302,6 +455,30 @@ class ConversationContext(InstanceContext):
         self._participants: Optional[ParticipantList] = None
         self._webhooks: Optional[WebhookList] = None
 
+    def _delete(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+        headers = values.of(
+            {
+                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
+            }
+        )
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(
         self,
         x_twilio_webhook_enabled: Union[
@@ -315,6 +492,39 @@ class ConversationContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete(x_twilio_webhook_enabled=x_twilio_webhook_enabled)
+        return success
+
+    def delete_with_http_info(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Deletes the ConversationInstance and return response metadata
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled
+        )
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
         headers = values.of(
             {
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
@@ -323,7 +533,9 @@ class ConversationContext(InstanceContext):
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(
         self,
@@ -338,16 +550,43 @@ class ConversationContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
+        success, _, _ = await self._delete_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled
         )
+        return success
+
+    async def delete_with_http_info_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the ConversationInstance and return response metadata
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled
+        )
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> ConversationInstance:
@@ -357,17 +596,42 @@ class ConversationContext(InstanceContext):
 
         :returns: The fetched ConversationInstance
         """
+        payload, _, _ = self._fetch()
+        return ConversationInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ConversationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = ConversationInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return ConversationInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> ConversationInstance:
@@ -377,19 +641,84 @@ class ConversationContext(InstanceContext):
 
         :returns: The fetched ConversationInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return ConversationInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ConversationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = ConversationInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "DateCreated": serialize.iso8601_datetime(date_created),
+                "DateUpdated": serialize.iso8601_datetime(date_updated),
+                "Attributes": attributes,
+                "MessagingServiceSid": messaging_service_sid,
+                "State": state,
+                "Timers.Inactive": timers_inactive,
+                "Timers.Closed": timers_closed,
+                "UniqueName": unique_name,
+                "Bindings.Email.Address": bindings_email_address,
+                "Bindings.Email.Name": bindings_email_name,
+            }
+        )
+        headers = values.of({})
+
+        if not (
+            x_twilio_webhook_enabled is values.unset
+            or (
+                isinstance(x_twilio_webhook_enabled, str)
+                and not x_twilio_webhook_enabled
+            )
+        ):
+            headers["X-Twilio-Webhook-Enabled"] = x_twilio_webhook_enabled
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -427,6 +756,99 @@ class ConversationContext(InstanceContext):
 
         :returns: The updated ConversationInstance
         """
+        payload, _, _ = self._update(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+            messaging_service_sid=messaging_service_sid,
+            state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
+            unique_name=unique_name,
+            bindings_email_address=bindings_email_address,
+            bindings_email_name=bindings_email_name,
+        )
+        return ConversationInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ConversationInstance and return response metadata
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param date_created: The date that this resource was created.
+        :param date_updated: The date that this resource was last updated.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
+        :param state:
+        :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
+        :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+            messaging_service_sid=messaging_service_sid,
+            state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
+            unique_name=unique_name,
+            bindings_email_address=bindings_email_address,
+            bindings_email_name=bindings_email_name,
+        )
+        instance = ConversationInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -458,11 +880,9 @@ class ConversationContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return ConversationInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
         self,
@@ -499,42 +919,75 @@ class ConversationContext(InstanceContext):
 
         :returns: The updated ConversationInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateUpdated": serialize.iso8601_datetime(date_updated),
-                "Attributes": attributes,
-                "MessagingServiceSid": messaging_service_sid,
-                "State": state,
-                "Timers.Inactive": timers_inactive,
-                "Timers.Closed": timers_closed,
-                "UniqueName": unique_name,
-                "Bindings.Email.Address": bindings_email_address,
-                "Bindings.Email.Name": bindings_email_name,
-            }
+        payload, _, _ = await self._update_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+            messaging_service_sid=messaging_service_sid,
+            state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
+            unique_name=unique_name,
+            bindings_email_address=bindings_email_address,
+            bindings_email_name=bindings_email_name,
         )
-        headers = values.of({})
-
-        if not (
-            x_twilio_webhook_enabled is values.unset
-            or (
-                isinstance(x_twilio_webhook_enabled, str)
-                and not x_twilio_webhook_enabled
-            )
-        ):
-            headers["X-Twilio-Webhook-Enabled"] = x_twilio_webhook_enabled
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ConversationInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ConversationInstance and return response metadata
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param date_created: The date that this resource was created.
+        :param date_updated: The date that this resource was last updated.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
+        :param state:
+        :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
+        :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+            messaging_service_sid=messaging_service_sid,
+            state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
+            unique_name=unique_name,
+            bindings_email_address=bindings_email_address,
+            bindings_email_name=bindings_email_name,
+        )
+        instance = ConversationInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def messages(self) -> MessageList:
@@ -614,6 +1067,60 @@ class ConversationList(ListResource):
 
         self._uri = "/Conversations"
 
+    def _create(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "UniqueName": unique_name,
+                "DateCreated": serialize.iso8601_datetime(date_created),
+                "DateUpdated": serialize.iso8601_datetime(date_updated),
+                "MessagingServiceSid": messaging_service_sid,
+                "Attributes": attributes,
+                "State": state,
+                "Timers.Inactive": timers_inactive,
+                "Timers.Closed": timers_closed,
+                "Bindings.Email.Address": bindings_email_address,
+                "Bindings.Email.Name": bindings_email_name,
+            }
+        )
+        headers = values.of(
+            {
+                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         x_twilio_webhook_enabled: Union[
@@ -649,6 +1156,97 @@ class ConversationList(ListResource):
 
         :returns: The created ConversationInstance
         """
+        payload, _, _ = self._create(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            date_created=date_created,
+            date_updated=date_updated,
+            messaging_service_sid=messaging_service_sid,
+            attributes=attributes,
+            state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
+            bindings_email_address=bindings_email_address,
+            bindings_email_name=bindings_email_name,
+        )
+        return ConversationInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the ConversationInstance and return response metadata
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param date_created: The date that this resource was created.
+        :param date_updated: The date that this resource was last updated.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param state:
+        :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
+        :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            date_created=date_created,
+            date_updated=date_updated,
+            messaging_service_sid=messaging_service_sid,
+            attributes=attributes,
+            state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
+            bindings_email_address=bindings_email_address,
+            bindings_email_name=bindings_email_name,
+        )
+        instance = ConversationInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -676,11 +1274,9 @@ class ConversationList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return ConversationInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -717,38 +1313,73 @@ class ConversationList(ListResource):
 
         :returns: The created ConversationInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "UniqueName": unique_name,
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateUpdated": serialize.iso8601_datetime(date_updated),
-                "MessagingServiceSid": messaging_service_sid,
-                "Attributes": attributes,
-                "State": state,
-                "Timers.Inactive": timers_inactive,
-                "Timers.Closed": timers_closed,
-                "Bindings.Email.Address": bindings_email_address,
-                "Bindings.Email.Name": bindings_email_name,
-            }
+        payload, _, _ = await self._create_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            date_created=date_created,
+            date_updated=date_updated,
+            messaging_service_sid=messaging_service_sid,
+            attributes=attributes,
+            state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
+            bindings_email_address=bindings_email_address,
+            bindings_email_name=bindings_email_name,
         )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ConversationInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "ConversationInstance.WebhookEnabledType", object
+        ] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        unique_name: Union[str, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        messaging_service_sid: Union[str, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        timers_inactive: Union[str, object] = values.unset,
+        timers_closed: Union[str, object] = values.unset,
+        bindings_email_address: Union[str, object] = values.unset,
+        bindings_email_name: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the ConversationInstance and return response metadata
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param friendly_name: The human-readable name of this conversation, limited to 256 characters. Optional.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used to address the resource in place of the resource's `sid` in the URL.
+        :param date_created: The date that this resource was created.
+        :param date_updated: The date that this resource was last updated.
+        :param messaging_service_sid: The unique ID of the [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) this conversation belongs to.
+        :param attributes: An optional string metadata field you can use to store any data you wish. The string value must contain structurally valid JSON if specified.  **Note** that if the attributes are not set \\\"{}\\\" will be returned.
+        :param state:
+        :param timers_inactive: ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param timers_closed: ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+        :param bindings_email_address: The default email address that will be used when sending outbound emails in this conversation.
+        :param bindings_email_name: The default name that will be used when sending outbound emails in this conversation.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            friendly_name=friendly_name,
+            unique_name=unique_name,
+            date_created=date_created,
+            date_updated=date_updated,
+            messaging_service_sid=messaging_service_sid,
+            attributes=attributes,
+            state=state,
+            timers_inactive=timers_inactive,
+            timers_closed=timers_closed,
+            bindings_email_address=bindings_email_address,
+            bindings_email_name=bindings_email_name,
+        )
+        instance = ConversationInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -822,6 +1453,76 @@ class ConversationList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        start_date: Union[str, object] = values.unset,
+        end_date: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams ConversationInstance and returns headers from first page
+
+
+        :param str start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param str end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            start_date=start_date,
+            end_date=end_date,
+            state=state,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        start_date: Union[str, object] = values.unset,
+        end_date: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams ConversationInstance and returns headers from first page
+
+
+        :param str start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param str end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            start_date=start_date,
+            end_date=end_date,
+            state=state,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         start_date: Union[str, object] = values.unset,
@@ -892,6 +1593,74 @@ class ConversationList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        start_date: Union[str, object] = values.unset,
+        end_date: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists ConversationInstance and returns headers from first page
+
+
+        :param str start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param str end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            start_date=start_date,
+            end_date=end_date,
+            state=state,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        start_date: Union[str, object] = values.unset,
+        end_date: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists ConversationInstance and returns headers from first page
+
+
+        :param str start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param str end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param &quot;ConversationInstance.State&quot; state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            start_date=start_date,
+            end_date=end_date,
+            state=state,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -976,6 +1745,94 @@ class ConversationList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return ConversationPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        start_date: Union[str, object] = values.unset,
+        end_date: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ConversationPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "StartDate": start_date,
+                "EndDate": end_date,
+                "State": state,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = ConversationPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        start_date: Union[str, object] = values.unset,
+        end_date: Union[str, object] = values.unset,
+        state: Union["ConversationInstance.State", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param start_date: Specifies the beginning of the date range for filtering Conversations based on their creation date. Conversations that were created on or after this date will be included in the results. The date must be in ISO8601 format, specifically starting at the beginning of the specified date (YYYY-MM-DDT00:00:00Z), for precise filtering. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param end_date: Defines the end of the date range for filtering conversations by their creation date. Only conversations that were created on or before this date will appear in the results.  The date must be in ISO8601 format, specifically capturing up to the end of the specified date (YYYY-MM-DDT23:59:59Z), to ensure that conversations from the entire end day are included. This parameter can be combined with other filters. If this filter is used, the returned list is sorted by latest conversation creation date in descending order.
+        :param state: State for sorting and filtering list of Conversations. Can be `active`, `inactive` or `closed`
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ConversationPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "StartDate": start_date,
+                "EndDate": end_date,
+                "State": state,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = ConversationPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ConversationPage:
         """

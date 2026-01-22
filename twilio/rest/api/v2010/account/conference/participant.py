@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -126,6 +127,24 @@ class ParticipantInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the ParticipantInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the ParticipantInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "ParticipantInstance":
         """
         Fetch the ParticipantInstance
@@ -143,6 +162,24 @@ class ParticipantInstance(InstanceResource):
         :returns: The fetched ParticipantInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ParticipantInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ParticipantInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -240,6 +277,102 @@ class ParticipantInstance(InstanceResource):
             call_sid_to_coach=call_sid_to_coach,
         )
 
+    def update_with_http_info(
+        self,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        hold_url: Union[str, object] = values.unset,
+        hold_method: Union[str, object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        beep_on_exit: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        call_sid_to_coach: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ParticipantInstance with HTTP info
+
+        :param muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
+        :param hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
+        :param hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
+        :param announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param wait_url: The URL that Twilio calls using the `wait_method` before the conference has started. The URL may return an MP3 file, a WAV file, or a TwiML document. The default value is the URL of our standard hold music. If you do not want anything to play while waiting for the conference to start, specify an empty string by setting `wait_url` to `''`. For more details on the allowable verbs within the `waitUrl`, see the `waitUrl` attribute in the [<Conference> TwiML instruction](https://www.twilio.com/docs/voice/twiml/conference#attributes-waiturl).
+        :param wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
+        :param end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            muted=muted,
+            hold=hold,
+            hold_url=hold_url,
+            hold_method=hold_method,
+            announce_url=announce_url,
+            announce_method=announce_method,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            beep_on_exit=beep_on_exit,
+            end_conference_on_exit=end_conference_on_exit,
+            coaching=coaching,
+            call_sid_to_coach=call_sid_to_coach,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        hold_url: Union[str, object] = values.unset,
+        hold_method: Union[str, object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        beep_on_exit: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        call_sid_to_coach: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ParticipantInstance with HTTP info
+
+        :param muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
+        :param hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
+        :param hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
+        :param announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param wait_url: The URL that Twilio calls using the `wait_method` before the conference has started. The URL may return an MP3 file, a WAV file, or a TwiML document. The default value is the URL of our standard hold music. If you do not want anything to play while waiting for the conference to start, specify an empty string by setting `wait_url` to `''`. For more details on the allowable verbs within the `waitUrl`, see the `waitUrl` attribute in the [<Conference> TwiML instruction](https://www.twilio.com/docs/voice/twiml/conference#attributes-waiturl).
+        :param wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
+        :param end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            muted=muted,
+            hold=hold,
+            hold_url=hold_url,
+            hold_method=hold_method,
+            announce_url=announce_url,
+            announce_method=announce_method,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            beep_on_exit=beep_on_exit,
+            end_conference_on_exit=end_conference_on_exit,
+            coaching=coaching,
+            call_sid_to_coach=call_sid_to_coach,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -275,6 +408,20 @@ class ParticipantContext(InstanceContext):
             **self._solution
         )
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the ParticipantInstance
@@ -282,10 +429,32 @@ class ParticipantContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the ParticipantInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -294,11 +463,33 @@ class ParticipantContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the ParticipantInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> ParticipantInstance:
@@ -308,19 +499,46 @@ class ParticipantContext(InstanceContext):
 
         :returns: The fetched ParticipantInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return ParticipantInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             conference_sid=self._solution["conference_sid"],
             call_sid=self._solution["call_sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ParticipantInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = ParticipantInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> ParticipantInstance:
@@ -330,21 +548,80 @@ class ParticipantContext(InstanceContext):
 
         :returns: The fetched ParticipantInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return ParticipantInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             conference_sid=self._solution["conference_sid"],
             call_sid=self._solution["call_sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ParticipantInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = ParticipantInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        hold_url: Union[str, object] = values.unset,
+        hold_method: Union[str, object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        beep_on_exit: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        call_sid_to_coach: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Muted": serialize.boolean_to_string(muted),
+                "Hold": serialize.boolean_to_string(hold),
+                "HoldUrl": hold_url,
+                "HoldMethod": hold_method,
+                "AnnounceUrl": announce_url,
+                "AnnounceMethod": announce_method,
+                "WaitUrl": wait_url,
+                "WaitMethod": wait_method,
+                "BeepOnExit": serialize.boolean_to_string(beep_on_exit),
+                "EndConferenceOnExit": serialize.boolean_to_string(
+                    end_conference_on_exit
+                ),
+                "Coaching": serialize.boolean_to_string(coaching),
+                "CallSidToCoach": call_sid_to_coach,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -380,6 +657,105 @@ class ParticipantContext(InstanceContext):
 
         :returns: The updated ParticipantInstance
         """
+        payload, _, _ = self._update(
+            muted=muted,
+            hold=hold,
+            hold_url=hold_url,
+            hold_method=hold_method,
+            announce_url=announce_url,
+            announce_method=announce_method,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            beep_on_exit=beep_on_exit,
+            end_conference_on_exit=end_conference_on_exit,
+            coaching=coaching,
+            call_sid_to_coach=call_sid_to_coach,
+        )
+        return ParticipantInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+
+    def update_with_http_info(
+        self,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        hold_url: Union[str, object] = values.unset,
+        hold_method: Union[str, object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        beep_on_exit: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        call_sid_to_coach: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ParticipantInstance and return response metadata
+
+        :param muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
+        :param hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
+        :param hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
+        :param announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param wait_url: The URL that Twilio calls using the `wait_method` before the conference has started. The URL may return an MP3 file, a WAV file, or a TwiML document. The default value is the URL of our standard hold music. If you do not want anything to play while waiting for the conference to start, specify an empty string by setting `wait_url` to `''`. For more details on the allowable verbs within the `waitUrl`, see the `waitUrl` attribute in the [<Conference> TwiML instruction](https://www.twilio.com/docs/voice/twiml/conference#attributes-waiturl).
+        :param wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
+        :param end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            muted=muted,
+            hold=hold,
+            hold_url=hold_url,
+            hold_method=hold_method,
+            announce_url=announce_url,
+            announce_method=announce_method,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            beep_on_exit=beep_on_exit,
+            end_conference_on_exit=end_conference_on_exit,
+            coaching=coaching,
+            call_sid_to_coach=call_sid_to_coach,
+        )
+        instance = ParticipantInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        hold_url: Union[str, object] = values.unset,
+        hold_method: Union[str, object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        beep_on_exit: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        call_sid_to_coach: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -405,16 +781,8 @@ class ParticipantContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ParticipantInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            conference_sid=self._solution["conference_sid"],
-            call_sid=self._solution["call_sid"],
         )
 
     async def update_async(
@@ -450,35 +818,20 @@ class ParticipantContext(InstanceContext):
 
         :returns: The updated ParticipantInstance
         """
-
-        data = values.of(
-            {
-                "Muted": serialize.boolean_to_string(muted),
-                "Hold": serialize.boolean_to_string(hold),
-                "HoldUrl": hold_url,
-                "HoldMethod": hold_method,
-                "AnnounceUrl": announce_url,
-                "AnnounceMethod": announce_method,
-                "WaitUrl": wait_url,
-                "WaitMethod": wait_method,
-                "BeepOnExit": serialize.boolean_to_string(beep_on_exit),
-                "EndConferenceOnExit": serialize.boolean_to_string(
-                    end_conference_on_exit
-                ),
-                "Coaching": serialize.boolean_to_string(coaching),
-                "CallSidToCoach": call_sid_to_coach,
-            }
+        payload, _, _ = await self._update_async(
+            muted=muted,
+            hold=hold,
+            hold_url=hold_url,
+            hold_method=hold_method,
+            announce_url=announce_url,
+            announce_method=announce_method,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            beep_on_exit=beep_on_exit,
+            end_conference_on_exit=end_conference_on_exit,
+            coaching=coaching,
+            call_sid_to_coach=call_sid_to_coach,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ParticipantInstance(
             self._version,
             payload,
@@ -486,6 +839,62 @@ class ParticipantContext(InstanceContext):
             conference_sid=self._solution["conference_sid"],
             call_sid=self._solution["call_sid"],
         )
+
+    async def update_with_http_info_async(
+        self,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        hold_url: Union[str, object] = values.unset,
+        hold_method: Union[str, object] = values.unset,
+        announce_url: Union[str, object] = values.unset,
+        announce_method: Union[str, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        beep_on_exit: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        call_sid_to_coach: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ParticipantInstance and return response metadata
+
+        :param muted: Whether the participant should be muted. Can be `true` or `false`. `true` will mute the participant, and `false` will un-mute them. Anything value other than `true` or `false` is interpreted as `false`.
+        :param hold: Whether the participant should be on hold. Can be: `true` or `false`. `true` puts the participant on hold, and `false` lets them rejoin the conference.
+        :param hold_url: The URL we call using the `hold_method` for music that plays when the participant is on hold. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param hold_method: The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and the default is `GET`.
+        :param announce_url: The URL we call using the `announce_method` for an announcement to the participant. The URL may return an MP3 file, a WAV file, or a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+        :param announce_method: The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param wait_url: The URL that Twilio calls using the `wait_method` before the conference has started. The URL may return an MP3 file, a WAV file, or a TwiML document. The default value is the URL of our standard hold music. If you do not want anything to play while waiting for the conference to start, specify an empty string by setting `wait_url` to `''`. For more details on the allowable verbs within the `waitUrl`, see the `waitUrl` attribute in the [<Conference> TwiML instruction](https://www.twilio.com/docs/voice/twiml/conference#attributes-waiturl).
+        :param wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param beep_on_exit: Whether to play a notification beep to the conference when the participant exits. Can be: `true` or `false`.
+        :param end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            muted=muted,
+            hold=hold,
+            hold_url=hold_url,
+            hold_method=hold_method,
+            announce_url=announce_url,
+            announce_method=announce_method,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            beep_on_exit=beep_on_exit,
+            end_conference_on_exit=end_conference_on_exit,
+            coaching=coaching,
+            call_sid_to_coach=call_sid_to_coach,
+        )
+        instance = ParticipantInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -541,6 +950,144 @@ class ParticipantList(ListResource):
         }
         self._uri = "/Accounts/{account_sid}/Conferences/{conference_sid}/Participants.json".format(
             **self._solution
+        )
+
+    def _create(
+        self,
+        from_: str,
+        to: str,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        status_callback_event: Union[List[str], object] = values.unset,
+        label: Union[str, object] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        record: Union[bool, object] = values.unset,
+        muted: Union[bool, object] = values.unset,
+        beep: Union[str, object] = values.unset,
+        start_conference_on_enter: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        early_media: Union[bool, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        conference_record: Union[str, object] = values.unset,
+        conference_trim: Union[str, object] = values.unset,
+        conference_status_callback: Union[str, object] = values.unset,
+        conference_status_callback_method: Union[str, object] = values.unset,
+        conference_status_callback_event: Union[List[str], object] = values.unset,
+        recording_channels: Union[str, object] = values.unset,
+        recording_status_callback: Union[str, object] = values.unset,
+        recording_status_callback_method: Union[str, object] = values.unset,
+        sip_auth_username: Union[str, object] = values.unset,
+        sip_auth_password: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        conference_recording_status_callback: Union[str, object] = values.unset,
+        conference_recording_status_callback_method: Union[str, object] = values.unset,
+        recording_status_callback_event: Union[List[str], object] = values.unset,
+        conference_recording_status_callback_event: Union[
+            List[str], object
+        ] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        call_sid_to_coach: Union[str, object] = values.unset,
+        jitter_buffer_size: Union[str, object] = values.unset,
+        byoc: Union[str, object] = values.unset,
+        caller_id: Union[str, object] = values.unset,
+        call_reason: Union[str, object] = values.unset,
+        recording_track: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
+        machine_detection: Union[str, object] = values.unset,
+        machine_detection_timeout: Union[int, object] = values.unset,
+        machine_detection_speech_threshold: Union[int, object] = values.unset,
+        machine_detection_speech_end_threshold: Union[int, object] = values.unset,
+        machine_detection_silence_timeout: Union[int, object] = values.unset,
+        amd_status_callback: Union[str, object] = values.unset,
+        amd_status_callback_method: Union[str, object] = values.unset,
+        trim: Union[str, object] = values.unset,
+        call_token: Union[str, object] = values.unset,
+        client_notification_url: Union[str, object] = values.unset,
+        caller_display_name: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "From": from_,
+                "To": to,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+                "StatusCallbackEvent": serialize.map(
+                    status_callback_event, lambda e: e
+                ),
+                "Label": label,
+                "Timeout": timeout,
+                "Record": serialize.boolean_to_string(record),
+                "Muted": serialize.boolean_to_string(muted),
+                "Beep": beep,
+                "StartConferenceOnEnter": serialize.boolean_to_string(
+                    start_conference_on_enter
+                ),
+                "EndConferenceOnExit": serialize.boolean_to_string(
+                    end_conference_on_exit
+                ),
+                "WaitUrl": wait_url,
+                "WaitMethod": wait_method,
+                "EarlyMedia": serialize.boolean_to_string(early_media),
+                "MaxParticipants": max_participants,
+                "ConferenceRecord": conference_record,
+                "ConferenceTrim": conference_trim,
+                "ConferenceStatusCallback": conference_status_callback,
+                "ConferenceStatusCallbackMethod": conference_status_callback_method,
+                "ConferenceStatusCallbackEvent": serialize.map(
+                    conference_status_callback_event, lambda e: e
+                ),
+                "RecordingChannels": recording_channels,
+                "RecordingStatusCallback": recording_status_callback,
+                "RecordingStatusCallbackMethod": recording_status_callback_method,
+                "SipAuthUsername": sip_auth_username,
+                "SipAuthPassword": sip_auth_password,
+                "Region": region,
+                "ConferenceRecordingStatusCallback": conference_recording_status_callback,
+                "ConferenceRecordingStatusCallbackMethod": conference_recording_status_callback_method,
+                "RecordingStatusCallbackEvent": serialize.map(
+                    recording_status_callback_event, lambda e: e
+                ),
+                "ConferenceRecordingStatusCallbackEvent": serialize.map(
+                    conference_recording_status_callback_event, lambda e: e
+                ),
+                "Coaching": serialize.boolean_to_string(coaching),
+                "CallSidToCoach": call_sid_to_coach,
+                "JitterBufferSize": jitter_buffer_size,
+                "Byoc": byoc,
+                "CallerId": caller_id,
+                "CallReason": call_reason,
+                "RecordingTrack": recording_track,
+                "TimeLimit": time_limit,
+                "MachineDetection": machine_detection,
+                "MachineDetectionTimeout": machine_detection_timeout,
+                "MachineDetectionSpeechThreshold": machine_detection_speech_threshold,
+                "MachineDetectionSpeechEndThreshold": machine_detection_speech_end_threshold,
+                "MachineDetectionSilenceTimeout": machine_detection_silence_timeout,
+                "AmdStatusCallback": amd_status_callback,
+                "AmdStatusCallbackMethod": amd_status_callback_method,
+                "Trim": trim,
+                "CallToken": call_token,
+                "ClientNotificationUrl": client_notification_url,
+                "CallerDisplayName": caller_display_name,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def create(
@@ -654,6 +1201,297 @@ class ParticipantList(ListResource):
 
         :returns: The created ParticipantInstance
         """
+        payload, _, _ = self._create(
+            from_=from_,
+            to=to,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            status_callback_event=status_callback_event,
+            label=label,
+            timeout=timeout,
+            record=record,
+            muted=muted,
+            beep=beep,
+            start_conference_on_enter=start_conference_on_enter,
+            end_conference_on_exit=end_conference_on_exit,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            early_media=early_media,
+            max_participants=max_participants,
+            conference_record=conference_record,
+            conference_trim=conference_trim,
+            conference_status_callback=conference_status_callback,
+            conference_status_callback_method=conference_status_callback_method,
+            conference_status_callback_event=conference_status_callback_event,
+            recording_channels=recording_channels,
+            recording_status_callback=recording_status_callback,
+            recording_status_callback_method=recording_status_callback_method,
+            sip_auth_username=sip_auth_username,
+            sip_auth_password=sip_auth_password,
+            region=region,
+            conference_recording_status_callback=conference_recording_status_callback,
+            conference_recording_status_callback_method=conference_recording_status_callback_method,
+            recording_status_callback_event=recording_status_callback_event,
+            conference_recording_status_callback_event=conference_recording_status_callback_event,
+            coaching=coaching,
+            call_sid_to_coach=call_sid_to_coach,
+            jitter_buffer_size=jitter_buffer_size,
+            byoc=byoc,
+            caller_id=caller_id,
+            call_reason=call_reason,
+            recording_track=recording_track,
+            time_limit=time_limit,
+            machine_detection=machine_detection,
+            machine_detection_timeout=machine_detection_timeout,
+            machine_detection_speech_threshold=machine_detection_speech_threshold,
+            machine_detection_speech_end_threshold=machine_detection_speech_end_threshold,
+            machine_detection_silence_timeout=machine_detection_silence_timeout,
+            amd_status_callback=amd_status_callback,
+            amd_status_callback_method=amd_status_callback_method,
+            trim=trim,
+            call_token=call_token,
+            client_notification_url=client_notification_url,
+            caller_display_name=caller_display_name,
+        )
+        return ParticipantInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+        )
+
+    def create_with_http_info(
+        self,
+        from_: str,
+        to: str,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        status_callback_event: Union[List[str], object] = values.unset,
+        label: Union[str, object] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        record: Union[bool, object] = values.unset,
+        muted: Union[bool, object] = values.unset,
+        beep: Union[str, object] = values.unset,
+        start_conference_on_enter: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        early_media: Union[bool, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        conference_record: Union[str, object] = values.unset,
+        conference_trim: Union[str, object] = values.unset,
+        conference_status_callback: Union[str, object] = values.unset,
+        conference_status_callback_method: Union[str, object] = values.unset,
+        conference_status_callback_event: Union[List[str], object] = values.unset,
+        recording_channels: Union[str, object] = values.unset,
+        recording_status_callback: Union[str, object] = values.unset,
+        recording_status_callback_method: Union[str, object] = values.unset,
+        sip_auth_username: Union[str, object] = values.unset,
+        sip_auth_password: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        conference_recording_status_callback: Union[str, object] = values.unset,
+        conference_recording_status_callback_method: Union[str, object] = values.unset,
+        recording_status_callback_event: Union[List[str], object] = values.unset,
+        conference_recording_status_callback_event: Union[
+            List[str], object
+        ] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        call_sid_to_coach: Union[str, object] = values.unset,
+        jitter_buffer_size: Union[str, object] = values.unset,
+        byoc: Union[str, object] = values.unset,
+        caller_id: Union[str, object] = values.unset,
+        call_reason: Union[str, object] = values.unset,
+        recording_track: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
+        machine_detection: Union[str, object] = values.unset,
+        machine_detection_timeout: Union[int, object] = values.unset,
+        machine_detection_speech_threshold: Union[int, object] = values.unset,
+        machine_detection_speech_end_threshold: Union[int, object] = values.unset,
+        machine_detection_silence_timeout: Union[int, object] = values.unset,
+        amd_status_callback: Union[str, object] = values.unset,
+        amd_status_callback_method: Union[str, object] = values.unset,
+        trim: Union[str, object] = values.unset,
+        call_token: Union[str, object] = values.unset,
+        client_notification_url: Union[str, object] = values.unset,
+        caller_display_name: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the ParticipantInstance and return response metadata
+
+        :param from_: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `from` must also be a phone number. If `to` is sip address, this value of `from` should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint.
+        :param to: The phone number, SIP address, Client, TwiML App identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. TwiML App identifiers are formatted `app:<APP_SID>`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` and `POST` and defaults to `POST`.
+        :param status_callback_event: The conference state changes that should generate a call to `status_callback`. Can be: `initiated`, `ringing`, `answered`, and `completed`. Separate multiple values with a space. The default value is `completed`.
+        :param label: A label for this participant. If one is supplied, it may subsequently be used to fetch, update or delete the participant.
+        :param timeout: The number of seconds that we should allow the phone to ring before assuming there is no answer. Can be an integer between `5` and `600`, inclusive. The default value is `60`. We always add a 5-second timeout buffer to outgoing calls, so  value of 10 would result in an actual timeout that was closer to 15 seconds.
+        :param record: Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
+        :param muted: Whether the agent is muted in the conference. Can be `true` or `false` and the default is `false`.
+        :param beep: Whether to play a notification beep to the conference when the participant joins. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
+        :param start_conference_on_enter: Whether to start the conference when the participant joins, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
+        :param end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param wait_url: The URL that Twilio calls using the `wait_method` before the conference has started. The URL may return an MP3 file, a WAV file, or a TwiML document. The default value is the URL of our standard hold music. If you do not want anything to play while waiting for the conference to start, specify an empty string by setting `wait_url` to `''`. For more details on the allowable verbs within the `waitUrl`, see the `waitUrl` attribute in the [<Conference> TwiML instruction](https://www.twilio.com/docs/voice/twiml/conference#attributes-waiturl).
+        :param wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param early_media: Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. Can be: `true` or `false` and defaults to `true`.
+        :param max_participants: The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
+        :param conference_record: Whether to record the conference the participant is joining. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
+        :param conference_trim: Whether to trim leading and trailing silence from the conference recording. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
+        :param conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
+        :param conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param conference_status_callback_event: The conference state changes that should generate a call to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `modify`, `speaker`, and `announcement`. Separate multiple values with a space. Defaults to `start end`.
+        :param recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
+        :param recording_status_callback: The URL that we should call using the `recording_status_callback_method` when the recording status changes.
+        :param recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param sip_auth_username: The SIP username used for authentication.
+        :param sip_auth_password: The SIP password for authentication.
+        :param region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+        :param conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
+        :param conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param recording_status_callback_event: The recording state changes that should generate a call to `recording_status_callback`. Can be: `started`, `in-progress`, `paused`, `resumed`, `stopped`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `'in-progress completed failed'`.
+        :param conference_recording_status_callback_event: The conference recording state changes that generate a call to `conference_recording_status_callback`. Can be: `in-progress`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `'in-progress completed failed'`
+        :param coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+        :param jitter_buffer_size: Jitter buffer size for the connecting participant. Twilio will use this setting to apply Jitter Buffer before participant's audio is mixed into the conference. Can be: `off`, `small`, `medium`, and `large`. Default to `large`.
+        :param byoc: The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
+        :param caller_id: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint.
+        :param call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
+        :param recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
+        :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
+        :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
+        :param machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
+        :param machine_detection_speech_threshold: The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400.
+        :param machine_detection_speech_end_threshold: The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200.
+        :param machine_detection_silence_timeout: The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
+        :param amd_status_callback: The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
+        :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+        :param trim: Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
+        :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
+        :param client_notification_url: The URL that we should use to deliver `push call notification`.
+        :param caller_display_name: The name that populates the display name in the From header. Must be between 2 and 255 characters. Only applicable for calls to sip address.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            from_=from_,
+            to=to,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            status_callback_event=status_callback_event,
+            label=label,
+            timeout=timeout,
+            record=record,
+            muted=muted,
+            beep=beep,
+            start_conference_on_enter=start_conference_on_enter,
+            end_conference_on_exit=end_conference_on_exit,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            early_media=early_media,
+            max_participants=max_participants,
+            conference_record=conference_record,
+            conference_trim=conference_trim,
+            conference_status_callback=conference_status_callback,
+            conference_status_callback_method=conference_status_callback_method,
+            conference_status_callback_event=conference_status_callback_event,
+            recording_channels=recording_channels,
+            recording_status_callback=recording_status_callback,
+            recording_status_callback_method=recording_status_callback_method,
+            sip_auth_username=sip_auth_username,
+            sip_auth_password=sip_auth_password,
+            region=region,
+            conference_recording_status_callback=conference_recording_status_callback,
+            conference_recording_status_callback_method=conference_recording_status_callback_method,
+            recording_status_callback_event=recording_status_callback_event,
+            conference_recording_status_callback_event=conference_recording_status_callback_event,
+            coaching=coaching,
+            call_sid_to_coach=call_sid_to_coach,
+            jitter_buffer_size=jitter_buffer_size,
+            byoc=byoc,
+            caller_id=caller_id,
+            call_reason=call_reason,
+            recording_track=recording_track,
+            time_limit=time_limit,
+            machine_detection=machine_detection,
+            machine_detection_timeout=machine_detection_timeout,
+            machine_detection_speech_threshold=machine_detection_speech_threshold,
+            machine_detection_speech_end_threshold=machine_detection_speech_end_threshold,
+            machine_detection_silence_timeout=machine_detection_silence_timeout,
+            amd_status_callback=amd_status_callback,
+            amd_status_callback_method=amd_status_callback_method,
+            trim=trim,
+            call_token=call_token,
+            client_notification_url=client_notification_url,
+            caller_display_name=caller_display_name,
+        )
+        instance = ParticipantInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        from_: str,
+        to: str,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        status_callback_event: Union[List[str], object] = values.unset,
+        label: Union[str, object] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        record: Union[bool, object] = values.unset,
+        muted: Union[bool, object] = values.unset,
+        beep: Union[str, object] = values.unset,
+        start_conference_on_enter: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        early_media: Union[bool, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        conference_record: Union[str, object] = values.unset,
+        conference_trim: Union[str, object] = values.unset,
+        conference_status_callback: Union[str, object] = values.unset,
+        conference_status_callback_method: Union[str, object] = values.unset,
+        conference_status_callback_event: Union[List[str], object] = values.unset,
+        recording_channels: Union[str, object] = values.unset,
+        recording_status_callback: Union[str, object] = values.unset,
+        recording_status_callback_method: Union[str, object] = values.unset,
+        sip_auth_username: Union[str, object] = values.unset,
+        sip_auth_password: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        conference_recording_status_callback: Union[str, object] = values.unset,
+        conference_recording_status_callback_method: Union[str, object] = values.unset,
+        recording_status_callback_event: Union[List[str], object] = values.unset,
+        conference_recording_status_callback_event: Union[
+            List[str], object
+        ] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        call_sid_to_coach: Union[str, object] = values.unset,
+        jitter_buffer_size: Union[str, object] = values.unset,
+        byoc: Union[str, object] = values.unset,
+        caller_id: Union[str, object] = values.unset,
+        call_reason: Union[str, object] = values.unset,
+        recording_track: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
+        machine_detection: Union[str, object] = values.unset,
+        machine_detection_timeout: Union[int, object] = values.unset,
+        machine_detection_speech_threshold: Union[int, object] = values.unset,
+        machine_detection_speech_end_threshold: Union[int, object] = values.unset,
+        machine_detection_silence_timeout: Union[int, object] = values.unset,
+        amd_status_callback: Union[str, object] = values.unset,
+        amd_status_callback_method: Union[str, object] = values.unset,
+        trim: Union[str, object] = values.unset,
+        call_token: Union[str, object] = values.unset,
+        client_notification_url: Union[str, object] = values.unset,
+        caller_display_name: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -727,15 +1565,8 @@ class ParticipantList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ParticipantInstance(
-            self._version,
-            payload,
-            account_sid=self._solution["account_sid"],
-            conference_sid=self._solution["conference_sid"],
         )
 
     async def create_async(
@@ -849,89 +1680,235 @@ class ParticipantList(ListResource):
 
         :returns: The created ParticipantInstance
         """
-
-        data = values.of(
-            {
-                "From": from_,
-                "To": to,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-                "StatusCallbackEvent": serialize.map(
-                    status_callback_event, lambda e: e
-                ),
-                "Label": label,
-                "Timeout": timeout,
-                "Record": serialize.boolean_to_string(record),
-                "Muted": serialize.boolean_to_string(muted),
-                "Beep": beep,
-                "StartConferenceOnEnter": serialize.boolean_to_string(
-                    start_conference_on_enter
-                ),
-                "EndConferenceOnExit": serialize.boolean_to_string(
-                    end_conference_on_exit
-                ),
-                "WaitUrl": wait_url,
-                "WaitMethod": wait_method,
-                "EarlyMedia": serialize.boolean_to_string(early_media),
-                "MaxParticipants": max_participants,
-                "ConferenceRecord": conference_record,
-                "ConferenceTrim": conference_trim,
-                "ConferenceStatusCallback": conference_status_callback,
-                "ConferenceStatusCallbackMethod": conference_status_callback_method,
-                "ConferenceStatusCallbackEvent": serialize.map(
-                    conference_status_callback_event, lambda e: e
-                ),
-                "RecordingChannels": recording_channels,
-                "RecordingStatusCallback": recording_status_callback,
-                "RecordingStatusCallbackMethod": recording_status_callback_method,
-                "SipAuthUsername": sip_auth_username,
-                "SipAuthPassword": sip_auth_password,
-                "Region": region,
-                "ConferenceRecordingStatusCallback": conference_recording_status_callback,
-                "ConferenceRecordingStatusCallbackMethod": conference_recording_status_callback_method,
-                "RecordingStatusCallbackEvent": serialize.map(
-                    recording_status_callback_event, lambda e: e
-                ),
-                "ConferenceRecordingStatusCallbackEvent": serialize.map(
-                    conference_recording_status_callback_event, lambda e: e
-                ),
-                "Coaching": serialize.boolean_to_string(coaching),
-                "CallSidToCoach": call_sid_to_coach,
-                "JitterBufferSize": jitter_buffer_size,
-                "Byoc": byoc,
-                "CallerId": caller_id,
-                "CallReason": call_reason,
-                "RecordingTrack": recording_track,
-                "TimeLimit": time_limit,
-                "MachineDetection": machine_detection,
-                "MachineDetectionTimeout": machine_detection_timeout,
-                "MachineDetectionSpeechThreshold": machine_detection_speech_threshold,
-                "MachineDetectionSpeechEndThreshold": machine_detection_speech_end_threshold,
-                "MachineDetectionSilenceTimeout": machine_detection_silence_timeout,
-                "AmdStatusCallback": amd_status_callback,
-                "AmdStatusCallbackMethod": amd_status_callback_method,
-                "Trim": trim,
-                "CallToken": call_token,
-                "ClientNotificationUrl": client_notification_url,
-                "CallerDisplayName": caller_display_name,
-            }
+        payload, _, _ = await self._create_async(
+            from_=from_,
+            to=to,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            status_callback_event=status_callback_event,
+            label=label,
+            timeout=timeout,
+            record=record,
+            muted=muted,
+            beep=beep,
+            start_conference_on_enter=start_conference_on_enter,
+            end_conference_on_exit=end_conference_on_exit,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            early_media=early_media,
+            max_participants=max_participants,
+            conference_record=conference_record,
+            conference_trim=conference_trim,
+            conference_status_callback=conference_status_callback,
+            conference_status_callback_method=conference_status_callback_method,
+            conference_status_callback_event=conference_status_callback_event,
+            recording_channels=recording_channels,
+            recording_status_callback=recording_status_callback,
+            recording_status_callback_method=recording_status_callback_method,
+            sip_auth_username=sip_auth_username,
+            sip_auth_password=sip_auth_password,
+            region=region,
+            conference_recording_status_callback=conference_recording_status_callback,
+            conference_recording_status_callback_method=conference_recording_status_callback_method,
+            recording_status_callback_event=recording_status_callback_event,
+            conference_recording_status_callback_event=conference_recording_status_callback_event,
+            coaching=coaching,
+            call_sid_to_coach=call_sid_to_coach,
+            jitter_buffer_size=jitter_buffer_size,
+            byoc=byoc,
+            caller_id=caller_id,
+            call_reason=call_reason,
+            recording_track=recording_track,
+            time_limit=time_limit,
+            machine_detection=machine_detection,
+            machine_detection_timeout=machine_detection_timeout,
+            machine_detection_speech_threshold=machine_detection_speech_threshold,
+            machine_detection_speech_end_threshold=machine_detection_speech_end_threshold,
+            machine_detection_silence_timeout=machine_detection_silence_timeout,
+            amd_status_callback=amd_status_callback,
+            amd_status_callback_method=amd_status_callback_method,
+            trim=trim,
+            call_token=call_token,
+            client_notification_url=client_notification_url,
+            caller_display_name=caller_display_name,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ParticipantInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             conference_sid=self._solution["conference_sid"],
         )
+
+    async def create_with_http_info_async(
+        self,
+        from_: str,
+        to: str,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        status_callback_event: Union[List[str], object] = values.unset,
+        label: Union[str, object] = values.unset,
+        timeout: Union[int, object] = values.unset,
+        record: Union[bool, object] = values.unset,
+        muted: Union[bool, object] = values.unset,
+        beep: Union[str, object] = values.unset,
+        start_conference_on_enter: Union[bool, object] = values.unset,
+        end_conference_on_exit: Union[bool, object] = values.unset,
+        wait_url: Union[str, object] = values.unset,
+        wait_method: Union[str, object] = values.unset,
+        early_media: Union[bool, object] = values.unset,
+        max_participants: Union[int, object] = values.unset,
+        conference_record: Union[str, object] = values.unset,
+        conference_trim: Union[str, object] = values.unset,
+        conference_status_callback: Union[str, object] = values.unset,
+        conference_status_callback_method: Union[str, object] = values.unset,
+        conference_status_callback_event: Union[List[str], object] = values.unset,
+        recording_channels: Union[str, object] = values.unset,
+        recording_status_callback: Union[str, object] = values.unset,
+        recording_status_callback_method: Union[str, object] = values.unset,
+        sip_auth_username: Union[str, object] = values.unset,
+        sip_auth_password: Union[str, object] = values.unset,
+        region: Union[str, object] = values.unset,
+        conference_recording_status_callback: Union[str, object] = values.unset,
+        conference_recording_status_callback_method: Union[str, object] = values.unset,
+        recording_status_callback_event: Union[List[str], object] = values.unset,
+        conference_recording_status_callback_event: Union[
+            List[str], object
+        ] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        call_sid_to_coach: Union[str, object] = values.unset,
+        jitter_buffer_size: Union[str, object] = values.unset,
+        byoc: Union[str, object] = values.unset,
+        caller_id: Union[str, object] = values.unset,
+        call_reason: Union[str, object] = values.unset,
+        recording_track: Union[str, object] = values.unset,
+        time_limit: Union[int, object] = values.unset,
+        machine_detection: Union[str, object] = values.unset,
+        machine_detection_timeout: Union[int, object] = values.unset,
+        machine_detection_speech_threshold: Union[int, object] = values.unset,
+        machine_detection_speech_end_threshold: Union[int, object] = values.unset,
+        machine_detection_silence_timeout: Union[int, object] = values.unset,
+        amd_status_callback: Union[str, object] = values.unset,
+        amd_status_callback_method: Union[str, object] = values.unset,
+        trim: Union[str, object] = values.unset,
+        call_token: Union[str, object] = values.unset,
+        client_notification_url: Union[str, object] = values.unset,
+        caller_display_name: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the ParticipantInstance and return response metadata
+
+        :param from_: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `from` must also be a phone number. If `to` is sip address, this value of `from` should be a username portion to be used to populate the P-Asserted-Identity header that is passed to the SIP endpoint.
+        :param to: The phone number, SIP address, Client, TwiML App identifier that received this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). SIP addresses are formatted as `sip:name@company.com`. Client identifiers are formatted `client:name`. TwiML App identifiers are formatted `app:<APP_SID>`. [Custom parameters](https://www.twilio.com/docs/voice/api/conference-participant-resource#custom-parameters) may also be specified.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` and `POST` and defaults to `POST`.
+        :param status_callback_event: The conference state changes that should generate a call to `status_callback`. Can be: `initiated`, `ringing`, `answered`, and `completed`. Separate multiple values with a space. The default value is `completed`.
+        :param label: A label for this participant. If one is supplied, it may subsequently be used to fetch, update or delete the participant.
+        :param timeout: The number of seconds that we should allow the phone to ring before assuming there is no answer. Can be an integer between `5` and `600`, inclusive. The default value is `60`. We always add a 5-second timeout buffer to outgoing calls, so  value of 10 would result in an actual timeout that was closer to 15 seconds.
+        :param record: Whether to record the participant and their conferences, including the time between conferences. Can be `true` or `false` and the default is `false`.
+        :param muted: Whether the agent is muted in the conference. Can be `true` or `false` and the default is `false`.
+        :param beep: Whether to play a notification beep to the conference when the participant joins. Can be: `true`, `false`, `onEnter`, or `onExit`. The default value is `true`.
+        :param start_conference_on_enter: Whether to start the conference when the participant joins, if it has not already started. Can be: `true` or `false` and the default is `true`. If `false` and the conference has not started, the participant is muted and hears background music until another participant starts the conference.
+        :param end_conference_on_exit: Whether to end the conference when the participant leaves. Can be: `true` or `false` and defaults to `false`.
+        :param wait_url: The URL that Twilio calls using the `wait_method` before the conference has started. The URL may return an MP3 file, a WAV file, or a TwiML document. The default value is the URL of our standard hold music. If you do not want anything to play while waiting for the conference to start, specify an empty string by setting `wait_url` to `''`. For more details on the allowable verbs within the `waitUrl`, see the `waitUrl` attribute in the [<Conference> TwiML instruction](https://www.twilio.com/docs/voice/twiml/conference#attributes-waiturl).
+        :param wait_method: The HTTP method we should use to call `wait_url`. Can be `GET` or `POST` and the default is `POST`. When using a static audio file, this should be `GET` so that we can cache the file.
+        :param early_media: Whether to allow an agent to hear the state of the outbound call, including ringing or disconnect messages. Can be: `true` or `false` and defaults to `true`.
+        :param max_participants: The maximum number of participants in the conference. Can be a positive integer from `2` to `250`. The default value is `250`.
+        :param conference_record: Whether to record the conference the participant is joining. Can be: `true`, `false`, `record-from-start`, and `do-not-record`. The default value is `false`.
+        :param conference_trim: Whether to trim leading and trailing silence from the conference recording. Can be: `trim-silence` or `do-not-trim` and defaults to `trim-silence`.
+        :param conference_status_callback: The URL we should call using the `conference_status_callback_method` when the conference events in `conference_status_callback_event` occur. Only the value set by the first participant to join the conference is used. Subsequent `conference_status_callback` values are ignored.
+        :param conference_status_callback_method: The HTTP method we should use to call `conference_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param conference_status_callback_event: The conference state changes that should generate a call to `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`, `mute`, `hold`, `modify`, `speaker`, and `announcement`. Separate multiple values with a space. Defaults to `start end`.
+        :param recording_channels: The recording channels for the final recording. Can be: `mono` or `dual` and the default is `mono`.
+        :param recording_status_callback: The URL that we should call using the `recording_status_callback_method` when the recording status changes.
+        :param recording_status_callback_method: The HTTP method we should use when we call `recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param sip_auth_username: The SIP username used for authentication.
+        :param sip_auth_password: The SIP password for authentication.
+        :param region: The [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `us2`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`.
+        :param conference_recording_status_callback: The URL we should call using the `conference_recording_status_callback_method` when the conference recording is available.
+        :param conference_recording_status_callback_method: The HTTP method we should use to call `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param recording_status_callback_event: The recording state changes that should generate a call to `recording_status_callback`. Can be: `started`, `in-progress`, `paused`, `resumed`, `stopped`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `'in-progress completed failed'`.
+        :param conference_recording_status_callback_event: The conference recording state changes that generate a call to `conference_recording_status_callback`. Can be: `in-progress`, `completed`, `failed`, and `absent`. Separate multiple values with a space, ex: `'in-progress completed failed'`
+        :param coaching: Whether the participant is coaching another call. Can be: `true` or `false`. If not present, defaults to `false` unless `call_sid_to_coach` is defined. If `true`, `call_sid_to_coach` must be defined.
+        :param call_sid_to_coach: The SID of the participant who is being `coached`. The participant being coached is the only participant who can hear the participant who is `coaching`.
+        :param jitter_buffer_size: Jitter buffer size for the connecting participant. Twilio will use this setting to apply Jitter Buffer before participant's audio is mixed into the conference. Can be: `off`, `small`, `medium`, and `large`. Default to `large`.
+        :param byoc: The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with. Note that `byoc` is only meaningful when `to` is a phone number; it will otherwise be ignored. (Beta)
+        :param caller_id: The phone number, Client identifier, or username portion of SIP address that made this call. Phone numbers are in [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g., +16175551212). Client identifiers are formatted `client:name`. If using a phone number, it must be a Twilio number or a Verified [outgoing caller id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your account. If the `to` parameter is a phone number, `callerId` must also be a phone number. If `to` is sip address, this value of `callerId` should be a username portion to be used to populate the From header that is passed to the SIP endpoint.
+        :param call_reason: The Reason for the outgoing call. Use it to specify the purpose of the call that is presented on the called party's phone. (Branded Calls Beta)
+        :param recording_track: The audio track to record for the call. Can be: `inbound`, `outbound` or `both`. The default is `both`. `inbound` records the audio that is received by Twilio. `outbound` records the audio that is sent from Twilio. `both` records the audio that is received and sent by Twilio.
+        :param time_limit: The maximum duration of the call in seconds. Constraints depend on account and configuration.
+        :param machine_detection: Whether to detect if a human, answering machine, or fax has picked up the call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return `AnsweredBy` as soon as the called party is identified. Use `DetectMessageEnd`, if you would like to leave a message on an answering machine. For more information, see [Answering Machine Detection](https://www.twilio.com/docs/voice/answering-machine-detection).
+        :param machine_detection_timeout: The number of seconds that we should attempt to detect an answering machine before timing out and sending a voice request with `AnsweredBy` of `unknown`. The default timeout is 30 seconds.
+        :param machine_detection_speech_threshold: The number of milliseconds that is used as the measuring stick for the length of the speech activity, where durations lower than this value will be interpreted as a human and longer than this value as a machine. Possible Values: 1000-6000. Default: 2400.
+        :param machine_detection_speech_end_threshold: The number of milliseconds of silence after speech activity at which point the speech activity is considered complete. Possible Values: 500-5000. Default: 1200.
+        :param machine_detection_silence_timeout: The number of milliseconds of initial silence after which an `unknown` AnsweredBy result will be returned. Possible Values: 2000-10000. Default: 5000.
+        :param amd_status_callback: The URL that we should call using the `amd_status_callback_method` to notify customer application whether the call was answered by human, machine or fax.
+        :param amd_status_callback_method: The HTTP method we should use when calling the `amd_status_callback` URL. Can be: `GET` or `POST` and the default is `POST`.
+        :param trim: Whether to trim any leading and trailing silence from the participant recording. Can be: `trim-silence` or `do-not-trim` and the default is `trim-silence`.
+        :param call_token: A token string needed to invoke a forwarded call. A call_token is generated when an incoming call is received on a Twilio number. Pass an incoming call's call_token value to a forwarded call via the call_token parameter when creating a new call. A forwarded call should bear the same CallerID of the original incoming call.
+        :param client_notification_url: The URL that we should use to deliver `push call notification`.
+        :param caller_display_name: The name that populates the display name in the From header. Must be between 2 and 255 characters. Only applicable for calls to sip address.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            from_=from_,
+            to=to,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            status_callback_event=status_callback_event,
+            label=label,
+            timeout=timeout,
+            record=record,
+            muted=muted,
+            beep=beep,
+            start_conference_on_enter=start_conference_on_enter,
+            end_conference_on_exit=end_conference_on_exit,
+            wait_url=wait_url,
+            wait_method=wait_method,
+            early_media=early_media,
+            max_participants=max_participants,
+            conference_record=conference_record,
+            conference_trim=conference_trim,
+            conference_status_callback=conference_status_callback,
+            conference_status_callback_method=conference_status_callback_method,
+            conference_status_callback_event=conference_status_callback_event,
+            recording_channels=recording_channels,
+            recording_status_callback=recording_status_callback,
+            recording_status_callback_method=recording_status_callback_method,
+            sip_auth_username=sip_auth_username,
+            sip_auth_password=sip_auth_password,
+            region=region,
+            conference_recording_status_callback=conference_recording_status_callback,
+            conference_recording_status_callback_method=conference_recording_status_callback_method,
+            recording_status_callback_event=recording_status_callback_event,
+            conference_recording_status_callback_event=conference_recording_status_callback_event,
+            coaching=coaching,
+            call_sid_to_coach=call_sid_to_coach,
+            jitter_buffer_size=jitter_buffer_size,
+            byoc=byoc,
+            caller_id=caller_id,
+            call_reason=call_reason,
+            recording_track=recording_track,
+            time_limit=time_limit,
+            machine_detection=machine_detection,
+            machine_detection_timeout=machine_detection_timeout,
+            machine_detection_speech_threshold=machine_detection_speech_threshold,
+            machine_detection_speech_end_threshold=machine_detection_speech_end_threshold,
+            machine_detection_silence_timeout=machine_detection_silence_timeout,
+            amd_status_callback=amd_status_callback,
+            amd_status_callback_method=amd_status_callback_method,
+            trim=trim,
+            call_token=call_token,
+            client_notification_url=client_notification_url,
+            caller_display_name=caller_display_name,
+        )
+        instance = ParticipantInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            conference_sid=self._solution["conference_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -998,6 +1975,70 @@ class ParticipantList(ListResource):
         )
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams ParticipantInstance and returns headers from first page
+
+
+        :param bool muted: Whether to return only participants that are muted. Can be: `true` or `false`.
+        :param bool hold: Whether to return only participants that are on hold. Can be: `true` or `false`.
+        :param bool coaching: Whether to return only participants who are coaching another call. Can be: `true` or `false`.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            muted=muted, hold=hold, coaching=coaching, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams ParticipantInstance and returns headers from first page
+
+
+        :param bool muted: Whether to return only participants that are muted. Can be: `true` or `false`.
+        :param bool hold: Whether to return only participants that are on hold. Can be: `true` or `false`.
+        :param bool coaching: Whether to return only participants who are coaching another call. Can be: `true` or `false`.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            muted=muted, hold=hold, coaching=coaching, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -1069,6 +2110,74 @@ class ParticipantList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists ParticipantInstance and returns headers from first page
+
+
+        :param bool muted: Whether to return only participants that are muted. Can be: `true` or `false`.
+        :param bool hold: Whether to return only participants that are on hold. Can be: `true` or `false`.
+        :param bool coaching: Whether to return only participants who are coaching another call. Can be: `true` or `false`.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            muted=muted,
+            hold=hold,
+            coaching=coaching,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists ParticipantInstance and returns headers from first page
+
+
+        :param bool muted: Whether to return only participants that are muted. Can be: `true` or `false`.
+        :param bool hold: Whether to return only participants that are on hold. Can be: `true` or `false`.
+        :param bool coaching: Whether to return only participants who are coaching another call. Can be: `true` or `false`.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            muted=muted,
+            hold=hold,
+            coaching=coaching,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -1153,6 +2262,94 @@ class ParticipantList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return ParticipantPage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param muted: Whether to return only participants that are muted. Can be: `true` or `false`.
+        :param hold: Whether to return only participants that are on hold. Can be: `true` or `false`.
+        :param coaching: Whether to return only participants who are coaching another call. Can be: `true` or `false`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ParticipantPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Muted": serialize.boolean_to_string(muted),
+                "Hold": serialize.boolean_to_string(hold),
+                "Coaching": serialize.boolean_to_string(coaching),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = ParticipantPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        muted: Union[bool, object] = values.unset,
+        hold: Union[bool, object] = values.unset,
+        coaching: Union[bool, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param muted: Whether to return only participants that are muted. Can be: `true` or `false`.
+        :param hold: Whether to return only participants that are on hold. Can be: `true` or `false`.
+        :param coaching: Whether to return only participants who are coaching another call. Can be: `true` or `false`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with ParticipantPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Muted": serialize.boolean_to_string(muted),
+                "Hold": serialize.boolean_to_string(hold),
+                "Coaching": serialize.boolean_to_string(coaching),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = ParticipantPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> ParticipantPage:
         """

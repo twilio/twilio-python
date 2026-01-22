@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -88,6 +89,24 @@ class ModuleDataManagementInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ModuleDataManagementInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ModuleDataManagementInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(
         self,
         module_info: Union[str, object] = values.unset,
@@ -154,6 +173,72 @@ class ModuleDataManagementInstance(InstanceResource):
             pricing=pricing,
         )
 
+    def update_with_http_info(
+        self,
+        module_info: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        documentation: Union[str, object] = values.unset,
+        policies: Union[str, object] = values.unset,
+        support: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
+        pricing: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ModuleDataManagementInstance with HTTP info
+
+        :param module_info: A JSON object containing essential attributes that define a Listing.
+        :param description: A JSON object describing the Listing. You can define the main body of the description, highlight key features or aspects of the Listing, and provide code samples for developers if applicable.
+        :param documentation: A JSON object for providing comprehensive information, instructions, and resources related to the Listing.
+        :param policies: A JSON object describing the Listing's privacy and legal policies. The maximum file size for Policies is 5MB.
+        :param support: A JSON object containing information on how Marketplace users can obtain support for the Listing. Use this parameter to provide details such as contact information and support description.
+        :param configuration: A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
+        :param pricing: A JSON object for providing Listing's purchase options.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            module_info=module_info,
+            description=description,
+            documentation=documentation,
+            policies=policies,
+            support=support,
+            configuration=configuration,
+            pricing=pricing,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        module_info: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        documentation: Union[str, object] = values.unset,
+        policies: Union[str, object] = values.unset,
+        support: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
+        pricing: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ModuleDataManagementInstance with HTTP info
+
+        :param module_info: A JSON object containing essential attributes that define a Listing.
+        :param description: A JSON object describing the Listing. You can define the main body of the description, highlight key features or aspects of the Listing, and provide code samples for developers if applicable.
+        :param documentation: A JSON object for providing comprehensive information, instructions, and resources related to the Listing.
+        :param policies: A JSON object describing the Listing's privacy and legal policies. The maximum file size for Policies is 5MB.
+        :param support: A JSON object containing information on how Marketplace users can obtain support for the Listing. Use this parameter to provide details such as contact information and support description.
+        :param configuration: A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
+        :param pricing: A JSON object for providing Listing's purchase options.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            module_info=module_info,
+            description=description,
+            documentation=documentation,
+            policies=policies,
+            support=support,
+            configuration=configuration,
+            pricing=pricing,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -181,6 +266,22 @@ class ModuleDataManagementContext(InstanceContext):
         }
         self._uri = "/Listing/{sid}".format(**self._solution)
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> ModuleDataManagementInstance:
         """
         Fetch the ModuleDataManagementInstance
@@ -188,17 +289,42 @@ class ModuleDataManagementContext(InstanceContext):
 
         :returns: The fetched ModuleDataManagementInstance
         """
+        payload, _, _ = self._fetch()
+        return ModuleDataManagementInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ModuleDataManagementInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = ModuleDataManagementInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return ModuleDataManagementInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> ModuleDataManagementInstance:
@@ -208,19 +334,64 @@ class ModuleDataManagementContext(InstanceContext):
 
         :returns: The fetched ModuleDataManagementInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return ModuleDataManagementInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ModuleDataManagementInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = ModuleDataManagementInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        module_info: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        documentation: Union[str, object] = values.unset,
+        policies: Union[str, object] = values.unset,
+        support: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
+        pricing: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "ModuleInfo": module_info,
+                "Description": description,
+                "Documentation": documentation,
+                "Policies": policies,
+                "Support": support,
+                "Configuration": configuration,
+                "Pricing": pricing,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -246,6 +417,72 @@ class ModuleDataManagementContext(InstanceContext):
 
         :returns: The updated ModuleDataManagementInstance
         """
+        payload, _, _ = self._update(
+            module_info=module_info,
+            description=description,
+            documentation=documentation,
+            policies=policies,
+            support=support,
+            configuration=configuration,
+            pricing=pricing,
+        )
+        return ModuleDataManagementInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+
+    def update_with_http_info(
+        self,
+        module_info: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        documentation: Union[str, object] = values.unset,
+        policies: Union[str, object] = values.unset,
+        support: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
+        pricing: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ModuleDataManagementInstance and return response metadata
+
+        :param module_info: A JSON object containing essential attributes that define a Listing.
+        :param description: A JSON object describing the Listing. You can define the main body of the description, highlight key features or aspects of the Listing, and provide code samples for developers if applicable.
+        :param documentation: A JSON object for providing comprehensive information, instructions, and resources related to the Listing.
+        :param policies: A JSON object describing the Listing's privacy and legal policies. The maximum file size for Policies is 5MB.
+        :param support: A JSON object containing information on how Marketplace users can obtain support for the Listing. Use this parameter to provide details such as contact information and support description.
+        :param configuration: A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
+        :param pricing: A JSON object for providing Listing's purchase options.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            module_info=module_info,
+            description=description,
+            documentation=documentation,
+            policies=policies,
+            support=support,
+            configuration=configuration,
+            pricing=pricing,
+        )
+        instance = ModuleDataManagementInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        module_info: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        documentation: Union[str, object] = values.unset,
+        policies: Union[str, object] = values.unset,
+        support: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
+        pricing: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -264,12 +501,8 @@ class ModuleDataManagementContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ModuleDataManagementInstance(
-            self._version, payload, sid=self._solution["sid"]
         )
 
     async def update_async(
@@ -295,31 +528,55 @@ class ModuleDataManagementContext(InstanceContext):
 
         :returns: The updated ModuleDataManagementInstance
         """
-
-        data = values.of(
-            {
-                "ModuleInfo": module_info,
-                "Description": description,
-                "Documentation": documentation,
-                "Policies": policies,
-                "Support": support,
-                "Configuration": configuration,
-                "Pricing": pricing,
-            }
+        payload, _, _ = await self._update_async(
+            module_info=module_info,
+            description=description,
+            documentation=documentation,
+            policies=policies,
+            support=support,
+            configuration=configuration,
+            pricing=pricing,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ModuleDataManagementInstance(
             self._version, payload, sid=self._solution["sid"]
         )
+
+    async def update_with_http_info_async(
+        self,
+        module_info: Union[str, object] = values.unset,
+        description: Union[str, object] = values.unset,
+        documentation: Union[str, object] = values.unset,
+        policies: Union[str, object] = values.unset,
+        support: Union[str, object] = values.unset,
+        configuration: Union[str, object] = values.unset,
+        pricing: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ModuleDataManagementInstance and return response metadata
+
+        :param module_info: A JSON object containing essential attributes that define a Listing.
+        :param description: A JSON object describing the Listing. You can define the main body of the description, highlight key features or aspects of the Listing, and provide code samples for developers if applicable.
+        :param documentation: A JSON object for providing comprehensive information, instructions, and resources related to the Listing.
+        :param policies: A JSON object describing the Listing's privacy and legal policies. The maximum file size for Policies is 5MB.
+        :param support: A JSON object containing information on how Marketplace users can obtain support for the Listing. Use this parameter to provide details such as contact information and support description.
+        :param configuration: A JSON object for providing Listing-specific configuration. Contains button setup, notification URL, and more.
+        :param pricing: A JSON object for providing Listing's purchase options.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            module_info=module_info,
+            description=description,
+            documentation=documentation,
+            policies=policies,
+            support=support,
+            configuration=configuration,
+            pricing=pricing,
+        )
+        instance = ModuleDataManagementInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

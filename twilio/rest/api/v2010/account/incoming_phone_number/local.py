@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -192,6 +193,80 @@ class LocalList(ListResource):
             **self._solution
         )
 
+    def _create(
+        self,
+        phone_number: str,
+        api_version: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sms_application_sid: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_application_sid: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        identity_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        emergency_status: Union["LocalInstance.EmergencyStatus", object] = values.unset,
+        emergency_address_sid: Union[str, object] = values.unset,
+        trunk_sid: Union[str, object] = values.unset,
+        voice_receive_mode: Union[
+            "LocalInstance.VoiceReceiveMode", object
+        ] = values.unset,
+        bundle_sid: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "PhoneNumber": phone_number,
+                "ApiVersion": api_version,
+                "FriendlyName": friendly_name,
+                "SmsApplicationSid": sms_application_sid,
+                "SmsFallbackMethod": sms_fallback_method,
+                "SmsFallbackUrl": sms_fallback_url,
+                "SmsMethod": sms_method,
+                "SmsUrl": sms_url,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+                "VoiceApplicationSid": voice_application_sid,
+                "VoiceCallerIdLookup": serialize.boolean_to_string(
+                    voice_caller_id_lookup
+                ),
+                "VoiceFallbackMethod": voice_fallback_method,
+                "VoiceFallbackUrl": voice_fallback_url,
+                "VoiceMethod": voice_method,
+                "VoiceUrl": voice_url,
+                "IdentitySid": identity_sid,
+                "AddressSid": address_sid,
+                "EmergencyStatus": emergency_status,
+                "EmergencyAddressSid": emergency_address_sid,
+                "TrunkSid": trunk_sid,
+                "VoiceReceiveMode": voice_receive_mode,
+                "BundleSid": bundle_sid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         phone_number: str,
@@ -249,6 +324,156 @@ class LocalList(ListResource):
 
         :returns: The created LocalInstance
         """
+        payload, _, _ = self._create(
+            phone_number=phone_number,
+            api_version=api_version,
+            friendly_name=friendly_name,
+            sms_application_sid=sms_application_sid,
+            sms_fallback_method=sms_fallback_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_method=sms_method,
+            sms_url=sms_url,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            voice_application_sid=voice_application_sid,
+            voice_caller_id_lookup=voice_caller_id_lookup,
+            voice_fallback_method=voice_fallback_method,
+            voice_fallback_url=voice_fallback_url,
+            voice_method=voice_method,
+            voice_url=voice_url,
+            identity_sid=identity_sid,
+            address_sid=address_sid,
+            emergency_status=emergency_status,
+            emergency_address_sid=emergency_address_sid,
+            trunk_sid=trunk_sid,
+            voice_receive_mode=voice_receive_mode,
+            bundle_sid=bundle_sid,
+        )
+        return LocalInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def create_with_http_info(
+        self,
+        phone_number: str,
+        api_version: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sms_application_sid: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_application_sid: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        identity_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        emergency_status: Union["LocalInstance.EmergencyStatus", object] = values.unset,
+        emergency_address_sid: Union[str, object] = values.unset,
+        trunk_sid: Union[str, object] = values.unset,
+        voice_receive_mode: Union[
+            "LocalInstance.VoiceReceiveMode", object
+        ] = values.unset,
+        bundle_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the LocalInstance and return response metadata
+
+        :param phone_number: The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
+        :param api_version: The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
+        :param friendly_name: A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
+        :param sms_application_sid: The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
+        :param sms_fallback_method: The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param sms_fallback_url: The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
+        :param sms_method: The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param sms_url: The URL we should call when the new phone number receives an incoming SMS message.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param voice_application_sid: The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
+        :param voice_caller_id_lookup: Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
+        :param voice_fallback_method: The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+        :param voice_method: The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param voice_url: The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
+        :param identity_sid: The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
+        :param address_sid: The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
+        :param emergency_status:
+        :param emergency_address_sid: The SID of the emergency address configuration to use for emergency calling from the new phone number.
+        :param trunk_sid: The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
+        :param voice_receive_mode:
+        :param bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            phone_number=phone_number,
+            api_version=api_version,
+            friendly_name=friendly_name,
+            sms_application_sid=sms_application_sid,
+            sms_fallback_method=sms_fallback_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_method=sms_method,
+            sms_url=sms_url,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            voice_application_sid=voice_application_sid,
+            voice_caller_id_lookup=voice_caller_id_lookup,
+            voice_fallback_method=voice_fallback_method,
+            voice_fallback_url=voice_fallback_url,
+            voice_method=voice_method,
+            voice_url=voice_url,
+            identity_sid=identity_sid,
+            address_sid=address_sid,
+            emergency_status=emergency_status,
+            emergency_address_sid=emergency_address_sid,
+            trunk_sid=trunk_sid,
+            voice_receive_mode=voice_receive_mode,
+            bundle_sid=bundle_sid,
+        )
+        instance = LocalInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        phone_number: str,
+        api_version: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sms_application_sid: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_application_sid: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        identity_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        emergency_status: Union["LocalInstance.EmergencyStatus", object] = values.unset,
+        emergency_address_sid: Union[str, object] = values.unset,
+        trunk_sid: Union[str, object] = values.unset,
+        voice_receive_mode: Union[
+            "LocalInstance.VoiceReceiveMode", object
+        ] = values.unset,
+        bundle_sid: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -285,12 +510,8 @@ class LocalList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return LocalInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
         )
 
     async def create_async(
@@ -350,49 +571,121 @@ class LocalList(ListResource):
 
         :returns: The created LocalInstance
         """
-
-        data = values.of(
-            {
-                "PhoneNumber": phone_number,
-                "ApiVersion": api_version,
-                "FriendlyName": friendly_name,
-                "SmsApplicationSid": sms_application_sid,
-                "SmsFallbackMethod": sms_fallback_method,
-                "SmsFallbackUrl": sms_fallback_url,
-                "SmsMethod": sms_method,
-                "SmsUrl": sms_url,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-                "VoiceApplicationSid": voice_application_sid,
-                "VoiceCallerIdLookup": serialize.boolean_to_string(
-                    voice_caller_id_lookup
-                ),
-                "VoiceFallbackMethod": voice_fallback_method,
-                "VoiceFallbackUrl": voice_fallback_url,
-                "VoiceMethod": voice_method,
-                "VoiceUrl": voice_url,
-                "IdentitySid": identity_sid,
-                "AddressSid": address_sid,
-                "EmergencyStatus": emergency_status,
-                "EmergencyAddressSid": emergency_address_sid,
-                "TrunkSid": trunk_sid,
-                "VoiceReceiveMode": voice_receive_mode,
-                "BundleSid": bundle_sid,
-            }
+        payload, _, _ = await self._create_async(
+            phone_number=phone_number,
+            api_version=api_version,
+            friendly_name=friendly_name,
+            sms_application_sid=sms_application_sid,
+            sms_fallback_method=sms_fallback_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_method=sms_method,
+            sms_url=sms_url,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            voice_application_sid=voice_application_sid,
+            voice_caller_id_lookup=voice_caller_id_lookup,
+            voice_fallback_method=voice_fallback_method,
+            voice_fallback_url=voice_fallback_url,
+            voice_method=voice_method,
+            voice_url=voice_url,
+            identity_sid=identity_sid,
+            address_sid=address_sid,
+            emergency_status=emergency_status,
+            emergency_address_sid=emergency_address_sid,
+            trunk_sid=trunk_sid,
+            voice_receive_mode=voice_receive_mode,
+            bundle_sid=bundle_sid,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return LocalInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
         )
+
+    async def create_with_http_info_async(
+        self,
+        phone_number: str,
+        api_version: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        sms_application_sid: Union[str, object] = values.unset,
+        sms_fallback_method: Union[str, object] = values.unset,
+        sms_fallback_url: Union[str, object] = values.unset,
+        sms_method: Union[str, object] = values.unset,
+        sms_url: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        voice_application_sid: Union[str, object] = values.unset,
+        voice_caller_id_lookup: Union[bool, object] = values.unset,
+        voice_fallback_method: Union[str, object] = values.unset,
+        voice_fallback_url: Union[str, object] = values.unset,
+        voice_method: Union[str, object] = values.unset,
+        voice_url: Union[str, object] = values.unset,
+        identity_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        emergency_status: Union["LocalInstance.EmergencyStatus", object] = values.unset,
+        emergency_address_sid: Union[str, object] = values.unset,
+        trunk_sid: Union[str, object] = values.unset,
+        voice_receive_mode: Union[
+            "LocalInstance.VoiceReceiveMode", object
+        ] = values.unset,
+        bundle_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the LocalInstance and return response metadata
+
+        :param phone_number: The phone number to purchase specified in [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone numbers consist of a + followed by the country code and subscriber number without punctuation characters. For example, +14155551234.
+        :param api_version: The API version to use for incoming calls made to the new phone number. The default is `2010-04-01`.
+        :param friendly_name: A descriptive string that you created to describe the new phone number. It can be up to 64 characters long. By default, this is a formatted version of the phone number.
+        :param sms_application_sid: The SID of the application that should handle SMS messages sent to the new phone number. If an `sms_application_sid` is present, we ignore all of the `sms_*_url` urls and use those set on the application.
+        :param sms_fallback_method: The HTTP method that we should use to call `sms_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param sms_fallback_url: The URL that we should call when an error occurs while requesting or executing the TwiML defined by `sms_url`.
+        :param sms_method: The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param sms_url: The URL we should call when the new phone number receives an incoming SMS message.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param voice_application_sid: The SID of the application we should use to handle calls to the new phone number. If a `voice_application_sid` is present, we ignore all of the voice urls and use only those set on the application. Setting a `voice_application_sid` will automatically delete your `trunk_sid` and vice versa.
+        :param voice_caller_id_lookup: Whether to lookup the caller's name from the CNAM database and post it to your app. Can be: `true` or `false` and defaults to `false`.
+        :param voice_fallback_method: The HTTP method that we should use to call `voice_fallback_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param voice_fallback_url: The URL that we should call when an error occurs retrieving or executing the TwiML requested by `url`.
+        :param voice_method: The HTTP method that we should use to call `voice_url`. Can be: `GET` or `POST` and defaults to `POST`.
+        :param voice_url: The URL that we should call to answer a call to the new phone number. The `voice_url` will not be called if a `voice_application_sid` or a `trunk_sid` is set.
+        :param identity_sid: The SID of the Identity resource that we should associate with the new phone number. Some regions require an identity to meet local regulations.
+        :param address_sid: The SID of the Address resource we should associate with the new phone number. Some regions require addresses to meet local regulations.
+        :param emergency_status:
+        :param emergency_address_sid: The SID of the emergency address configuration to use for emergency calling from the new phone number.
+        :param trunk_sid: The SID of the Trunk we should use to handle calls to the new phone number. If a `trunk_sid` is present, we ignore all of the voice urls and voice applications and use only those set on the Trunk. Setting a `trunk_sid` will automatically delete your `voice_application_sid` and vice versa.
+        :param voice_receive_mode:
+        :param bundle_sid: The SID of the Bundle resource that you associate with the phone number. Some regions require a Bundle to meet local Regulations.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            phone_number=phone_number,
+            api_version=api_version,
+            friendly_name=friendly_name,
+            sms_application_sid=sms_application_sid,
+            sms_fallback_method=sms_fallback_method,
+            sms_fallback_url=sms_fallback_url,
+            sms_method=sms_method,
+            sms_url=sms_url,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+            voice_application_sid=voice_application_sid,
+            voice_caller_id_lookup=voice_caller_id_lookup,
+            voice_fallback_method=voice_fallback_method,
+            voice_fallback_url=voice_fallback_url,
+            voice_method=voice_method,
+            voice_url=voice_url,
+            identity_sid=identity_sid,
+            address_sid=address_sid,
+            emergency_status=emergency_status,
+            emergency_address_sid=emergency_address_sid,
+            trunk_sid=trunk_sid,
+            voice_receive_mode=voice_receive_mode,
+            bundle_sid=bundle_sid,
+        )
+        instance = LocalInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -472,6 +765,82 @@ class LocalList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        beta: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        origin: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams LocalInstance and returns headers from first page
+
+
+        :param bool beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+        :param str friendly_name: A string that identifies the resources to read.
+        :param str phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
+        :param str origin: Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            beta=beta,
+            friendly_name=friendly_name,
+            phone_number=phone_number,
+            origin=origin,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        beta: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        origin: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams LocalInstance and returns headers from first page
+
+
+        :param bool beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+        :param str friendly_name: A string that identifies the resources to read.
+        :param str phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
+        :param str origin: Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            beta=beta,
+            friendly_name=friendly_name,
+            phone_number=phone_number,
+            origin=origin,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         beta: Union[bool, object] = values.unset,
@@ -548,6 +917,80 @@ class LocalList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        beta: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        origin: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists LocalInstance and returns headers from first page
+
+
+        :param bool beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+        :param str friendly_name: A string that identifies the resources to read.
+        :param str phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
+        :param str origin: Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            beta=beta,
+            friendly_name=friendly_name,
+            phone_number=phone_number,
+            origin=origin,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        beta: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        origin: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists LocalInstance and returns headers from first page
+
+
+        :param bool beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+        :param str friendly_name: A string that identifies the resources to read.
+        :param str phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
+        :param str origin: Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            beta=beta,
+            friendly_name=friendly_name,
+            phone_number=phone_number,
+            origin=origin,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -638,6 +1081,100 @@ class LocalList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return LocalPage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        beta: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        origin: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+        :param friendly_name: A string that identifies the resources to read.
+        :param phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
+        :param origin: Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with LocalPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Beta": serialize.boolean_to_string(beta),
+                "FriendlyName": friendly_name,
+                "PhoneNumber": phone_number,
+                "Origin": origin,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = LocalPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        beta: Union[bool, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        phone_number: Union[str, object] = values.unset,
+        origin: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param beta: Whether to include phone numbers new to the Twilio platform. Can be: `true` or `false` and the default is `true`.
+        :param friendly_name: A string that identifies the resources to read.
+        :param phone_number: The phone numbers of the IncomingPhoneNumber resources to read. You can specify partial numbers and use '*' as a wildcard for any digit.
+        :param origin: Whether to include phone numbers based on their origin. Can be: `twilio` or `hosted`. By default, phone numbers of all origin are included.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with LocalPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Beta": serialize.boolean_to_string(beta),
+                "FriendlyName": friendly_name,
+                "PhoneNumber": phone_number,
+                "Origin": origin,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = LocalPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> LocalPage:
         """

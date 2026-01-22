@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -53,19 +54,19 @@ class AuthorizeList(ListResource):
 
         self._uri = "/authorize"
 
-    def fetch(
+    def _fetch(
         self,
         response_type: Union[str, object] = values.unset,
         client_id: Union[str, object] = values.unset,
         redirect_uri: Union[str, object] = values.unset,
         scope: Union[str, object] = values.unset,
         state: Union[str, object] = values.unset,
-    ) -> AuthorizeInstance:
+    ) -> tuple:
         """
-        Asynchronously fetch the AuthorizeInstance
+        Internal helper for fetch operation
 
-        :param response_type: Response Type:param client_id: The Client Identifier:param redirect_uri: The url to which response will be redirected to:param scope: The scope of the access request:param state: An opaque value which can be used to maintain state between the request and callback
-        :returns: The fetched AuthorizeInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
@@ -81,11 +82,88 @@ class AuthorizeList(ListResource):
             }
         )
 
-        payload = self._version.fetch(
+        return self._version.fetch_with_response_info(
             method="GET", uri=self._uri, headers=headers, params=params
         )
 
+    def fetch(
+        self,
+        response_type: Union[str, object] = values.unset,
+        client_id: Union[str, object] = values.unset,
+        redirect_uri: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
+        state: Union[str, object] = values.unset,
+    ) -> AuthorizeInstance:
+        """
+        Fetch the AuthorizeInstance
+
+        :param response_type: Response Type:param client_id: The Client Identifier:param redirect_uri: The url to which response will be redirected to:param scope: The scope of the access request:param state: An opaque value which can be used to maintain state between the request and callback
+        :returns: The fetched AuthorizeInstance
+        """
+        payload, _, _ = self._fetch(
+            response_type=response_type,
+            client_id=client_id,
+            redirect_uri=redirect_uri,
+            scope=scope,
+            state=state,
+        )
         return AuthorizeInstance(self._version, payload)
+
+    def fetch_with_http_info(
+        self,
+        response_type: Union[str, object] = values.unset,
+        client_id: Union[str, object] = values.unset,
+        redirect_uri: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
+        state: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Fetch the AuthorizeInstance and return response metadata
+
+        :param response_type: Response Type:param client_id: The Client Identifier:param redirect_uri: The url to which response will be redirected to:param scope: The scope of the access request:param state: An opaque value which can be used to maintain state between the request and callback
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(
+            response_type=response_type,
+            client_id=client_id,
+            redirect_uri=redirect_uri,
+            scope=scope,
+            state=state,
+        )
+        instance = AuthorizeInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self,
+        response_type: Union[str, object] = values.unset,
+        client_id: Union[str, object] = values.unset,
+        redirect_uri: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
+        state: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        params = values.of(
+            {
+                "response_type": response_type,
+                "client_id": client_id,
+                "redirect_uri": redirect_uri,
+                "scope": scope,
+                "state": state,
+            }
+        )
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers, params=params
+        )
 
     async def fetch_async(
         self,
@@ -101,25 +179,38 @@ class AuthorizeList(ListResource):
         :param response_type: Response Type:param client_id: The Client Identifier:param redirect_uri: The url to which response will be redirected to:param scope: The scope of the access request:param state: An opaque value which can be used to maintain state between the request and callback
         :returns: The fetched AuthorizeInstance
         """
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Accept"] = "application/json"
-
-        params = values.of(
-            {
-                "response_type": response_type,
-                "client_id": client_id,
-                "redirect_uri": redirect_uri,
-                "scope": scope,
-                "state": state,
-            }
+        payload, _, _ = await self._fetch_async(
+            response_type=response_type,
+            client_id=client_id,
+            redirect_uri=redirect_uri,
+            scope=scope,
+            state=state,
         )
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers, params=params
-        )
-
         return AuthorizeInstance(self._version, payload)
+
+    async def fetch_with_http_info_async(
+        self,
+        response_type: Union[str, object] = values.unset,
+        client_id: Union[str, object] = values.unset,
+        redirect_uri: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
+        state: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously fetch the AuthorizeInstance and return response metadata
+
+        :param response_type: Response Type:param client_id: The Client Identifier:param redirect_uri: The url to which response will be redirected to:param scope: The scope of the access request:param state: An opaque value which can be used to maintain state between the request and callback
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            response_type=response_type,
+            client_id=client_id,
+            redirect_uri=redirect_uri,
+            scope=scope,
+            state=state,
+        )
+        instance = AuthorizeInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

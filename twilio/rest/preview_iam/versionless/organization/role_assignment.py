@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -112,6 +113,24 @@ class RoleAssignmentInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the RoleAssignmentInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the RoleAssignmentInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -163,6 +182,22 @@ class RoleAssignmentContext(InstanceContext):
         }
         self._uri = "/{organization_sid}/RoleAssignments/{sid}".format(**self._solution)
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/scim+json"
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the RoleAssignmentInstance
@@ -170,12 +205,34 @@ class RoleAssignmentContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the RoleAssignmentInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/scim+json"
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -184,14 +241,18 @@ class RoleAssignmentContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
 
-        headers = values.of({})
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the RoleAssignmentInstance and return response metadata
 
-        headers["Accept"] = "application/scim+json"
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
-        )
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -264,6 +325,28 @@ class RoleAssignmentList(ListResource):
         }
         self._uri = "/{organization_sid}/RoleAssignments".format(**self._solution)
 
+    def _create(
+        self,
+        public_api_create_role_assignment_request: PublicApiCreateRoleAssignmentRequest,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = public_api_create_role_assignment_request.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         public_api_create_role_assignment_request: PublicApiCreateRoleAssignmentRequest,
@@ -275,6 +358,42 @@ class RoleAssignmentList(ListResource):
 
         :returns: The created RoleAssignmentInstance
         """
+        payload, _, _ = self._create(
+            public_api_create_role_assignment_request=public_api_create_role_assignment_request
+        )
+        return RoleAssignmentInstance(
+            self._version, payload, organization_sid=self._solution["organization_sid"]
+        )
+
+    def create_with_http_info(
+        self,
+        public_api_create_role_assignment_request: PublicApiCreateRoleAssignmentRequest,
+    ) -> ApiResponse:
+        """
+        Create the RoleAssignmentInstance and return response metadata
+
+        :param public_api_create_role_assignment_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            public_api_create_role_assignment_request=public_api_create_role_assignment_request
+        )
+        instance = RoleAssignmentInstance(
+            self._version, payload, organization_sid=self._solution["organization_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        public_api_create_role_assignment_request: PublicApiCreateRoleAssignmentRequest,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = public_api_create_role_assignment_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -283,12 +402,8 @@ class RoleAssignmentList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return RoleAssignmentInstance(
-            self._version, payload, organization_sid=self._solution["organization_sid"]
         )
 
     async def create_async(
@@ -302,21 +417,31 @@ class RoleAssignmentList(ListResource):
 
         :returns: The created RoleAssignmentInstance
         """
-        data = public_api_create_role_assignment_request.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
+        payload, _, _ = await self._create_async(
+            public_api_create_role_assignment_request=public_api_create_role_assignment_request
         )
-
         return RoleAssignmentInstance(
             self._version, payload, organization_sid=self._solution["organization_sid"]
         )
+
+    async def create_with_http_info_async(
+        self,
+        public_api_create_role_assignment_request: PublicApiCreateRoleAssignmentRequest,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the RoleAssignmentInstance and return response metadata
+
+        :param public_api_create_role_assignment_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            public_api_create_role_assignment_request=public_api_create_role_assignment_request
+        )
+        instance = RoleAssignmentInstance(
+            self._version, payload, organization_sid=self._solution["organization_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -377,6 +502,66 @@ class RoleAssignmentList(ListResource):
         )
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        identity: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams RoleAssignmentInstance and returns headers from first page
+
+
+        :param str identity:
+        :param str scope:
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            identity=identity, scope=scope, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        identity: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams RoleAssignmentInstance and returns headers from first page
+
+
+        :param str identity:
+        :param str scope:
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            identity=identity, scope=scope, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -442,6 +627,68 @@ class RoleAssignmentList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        identity: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists RoleAssignmentInstance and returns headers from first page
+
+
+        :param str identity:
+        :param str scope:
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            identity=identity,
+            scope=scope,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        identity: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists RoleAssignmentInstance and returns headers from first page
+
+
+        :param str identity:
+        :param str scope:
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            identity=identity,
+            scope=scope,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -520,6 +767,88 @@ class RoleAssignmentList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return RoleAssignmentPage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        identity: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param identity:
+        :param scope:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with RoleAssignmentPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Identity": identity,
+                "Scope": scope,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = RoleAssignmentPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        identity: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param identity:
+        :param scope:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with RoleAssignmentPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Identity": identity,
+                "Scope": scope,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = RoleAssignmentPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> RoleAssignmentPage:
         """

@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -112,6 +113,24 @@ class FleetInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the FleetInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the FleetInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(
         self,
         unique_name: Union[str, object] = values.unset,
@@ -178,6 +197,72 @@ class FleetInstance(InstanceResource):
             data_limit=data_limit,
         )
 
+    def update_with_http_info(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        network_access_profile: Union[str, object] = values.unset,
+        ip_commands_url: Union[str, object] = values.unset,
+        ip_commands_method: Union[str, object] = values.unset,
+        sms_commands_url: Union[str, object] = values.unset,
+        sms_commands_method: Union[str, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the FleetInstance with HTTP info
+
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+        :param ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            unique_name=unique_name,
+            network_access_profile=network_access_profile,
+            ip_commands_url=ip_commands_url,
+            ip_commands_method=ip_commands_method,
+            sms_commands_url=sms_commands_url,
+            sms_commands_method=sms_commands_method,
+            data_limit=data_limit,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        network_access_profile: Union[str, object] = values.unset,
+        ip_commands_url: Union[str, object] = values.unset,
+        ip_commands_method: Union[str, object] = values.unset,
+        sms_commands_url: Union[str, object] = values.unset,
+        sms_commands_method: Union[str, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the FleetInstance with HTTP info
+
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+        :param ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            unique_name=unique_name,
+            network_access_profile=network_access_profile,
+            ip_commands_url=ip_commands_url,
+            ip_commands_method=ip_commands_method,
+            sms_commands_url=sms_commands_url,
+            sms_commands_method=sms_commands_method,
+            data_limit=data_limit,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -205,6 +290,22 @@ class FleetContext(InstanceContext):
         }
         self._uri = "/Fleets/{sid}".format(**self._solution)
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> FleetInstance:
         """
         Fetch the FleetInstance
@@ -212,17 +313,42 @@ class FleetContext(InstanceContext):
 
         :returns: The fetched FleetInstance
         """
+        payload, _, _ = self._fetch()
+        return FleetInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the FleetInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = FleetInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return FleetInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> FleetInstance:
@@ -232,19 +358,64 @@ class FleetContext(InstanceContext):
 
         :returns: The fetched FleetInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return FleetInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the FleetInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = FleetInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        network_access_profile: Union[str, object] = values.unset,
+        ip_commands_url: Union[str, object] = values.unset,
+        ip_commands_method: Union[str, object] = values.unset,
+        sms_commands_url: Union[str, object] = values.unset,
+        sms_commands_method: Union[str, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "UniqueName": unique_name,
+                "NetworkAccessProfile": network_access_profile,
+                "IpCommandsUrl": ip_commands_url,
+                "IpCommandsMethod": ip_commands_method,
+                "SmsCommandsUrl": sms_commands_url,
+                "SmsCommandsMethod": sms_commands_method,
+                "DataLimit": data_limit,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -270,6 +441,68 @@ class FleetContext(InstanceContext):
 
         :returns: The updated FleetInstance
         """
+        payload, _, _ = self._update(
+            unique_name=unique_name,
+            network_access_profile=network_access_profile,
+            ip_commands_url=ip_commands_url,
+            ip_commands_method=ip_commands_method,
+            sms_commands_url=sms_commands_url,
+            sms_commands_method=sms_commands_method,
+            data_limit=data_limit,
+        )
+        return FleetInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        network_access_profile: Union[str, object] = values.unset,
+        ip_commands_url: Union[str, object] = values.unset,
+        ip_commands_method: Union[str, object] = values.unset,
+        sms_commands_url: Union[str, object] = values.unset,
+        sms_commands_method: Union[str, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the FleetInstance and return response metadata
+
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+        :param ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            unique_name=unique_name,
+            network_access_profile=network_access_profile,
+            ip_commands_url=ip_commands_url,
+            ip_commands_method=ip_commands_method,
+            sms_commands_url=sms_commands_url,
+            sms_commands_method=sms_commands_method,
+            data_limit=data_limit,
+        )
+        instance = FleetInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        network_access_profile: Union[str, object] = values.unset,
+        ip_commands_url: Union[str, object] = values.unset,
+        ip_commands_method: Union[str, object] = values.unset,
+        sms_commands_url: Union[str, object] = values.unset,
+        sms_commands_method: Union[str, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -288,11 +521,9 @@ class FleetContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return FleetInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
         self,
@@ -317,29 +548,51 @@ class FleetContext(InstanceContext):
 
         :returns: The updated FleetInstance
         """
-
-        data = values.of(
-            {
-                "UniqueName": unique_name,
-                "NetworkAccessProfile": network_access_profile,
-                "IpCommandsUrl": ip_commands_url,
-                "IpCommandsMethod": ip_commands_method,
-                "SmsCommandsUrl": sms_commands_url,
-                "SmsCommandsMethod": sms_commands_method,
-                "DataLimit": data_limit,
-            }
+        payload, _, _ = await self._update_async(
+            unique_name=unique_name,
+            network_access_profile=network_access_profile,
+            ip_commands_url=ip_commands_url,
+            ip_commands_method=ip_commands_method,
+            sms_commands_url=sms_commands_url,
+            sms_commands_method=sms_commands_method,
+            data_limit=data_limit,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return FleetInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(
+        self,
+        unique_name: Union[str, object] = values.unset,
+        network_access_profile: Union[str, object] = values.unset,
+        ip_commands_url: Union[str, object] = values.unset,
+        ip_commands_method: Union[str, object] = values.unset,
+        sms_commands_url: Union[str, object] = values.unset,
+        sms_commands_method: Union[str, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the FleetInstance and return response metadata
+
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+        :param ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            unique_name=unique_name,
+            network_access_profile=network_access_profile,
+            ip_commands_url=ip_commands_url,
+            ip_commands_method=ip_commands_method,
+            sms_commands_url=sms_commands_url,
+            sms_commands_method=sms_commands_method,
+            data_limit=data_limit,
+        )
+        instance = FleetInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -383,6 +636,48 @@ class FleetList(ListResource):
 
         self._uri = "/Fleets"
 
+    def _create(
+        self,
+        network_access_profile: str,
+        unique_name: Union[str, object] = values.unset,
+        data_enabled: Union[bool, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+        ip_commands_url: Union[str, object] = values.unset,
+        ip_commands_method: Union[str, object] = values.unset,
+        sms_commands_enabled: Union[bool, object] = values.unset,
+        sms_commands_url: Union[str, object] = values.unset,
+        sms_commands_method: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "NetworkAccessProfile": network_access_profile,
+                "UniqueName": unique_name,
+                "DataEnabled": serialize.boolean_to_string(data_enabled),
+                "DataLimit": data_limit,
+                "IpCommandsUrl": ip_commands_url,
+                "IpCommandsMethod": ip_commands_method,
+                "SmsCommandsEnabled": serialize.boolean_to_string(sms_commands_enabled),
+                "SmsCommandsUrl": sms_commands_url,
+                "SmsCommandsMethod": sms_commands_method,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         network_access_profile: str,
@@ -410,6 +705,78 @@ class FleetList(ListResource):
 
         :returns: The created FleetInstance
         """
+        payload, _, _ = self._create(
+            network_access_profile=network_access_profile,
+            unique_name=unique_name,
+            data_enabled=data_enabled,
+            data_limit=data_limit,
+            ip_commands_url=ip_commands_url,
+            ip_commands_method=ip_commands_method,
+            sms_commands_enabled=sms_commands_enabled,
+            sms_commands_url=sms_commands_url,
+            sms_commands_method=sms_commands_method,
+        )
+        return FleetInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        network_access_profile: str,
+        unique_name: Union[str, object] = values.unset,
+        data_enabled: Union[bool, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+        ip_commands_url: Union[str, object] = values.unset,
+        ip_commands_method: Union[str, object] = values.unset,
+        sms_commands_enabled: Union[bool, object] = values.unset,
+        sms_commands_url: Union[str, object] = values.unset,
+        sms_commands_method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the FleetInstance and return response metadata
+
+        :param network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param data_enabled: Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
+        :param data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+        :param ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param sms_commands_enabled: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
+        :param sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            network_access_profile=network_access_profile,
+            unique_name=unique_name,
+            data_enabled=data_enabled,
+            data_limit=data_limit,
+            ip_commands_url=ip_commands_url,
+            ip_commands_method=ip_commands_method,
+            sms_commands_enabled=sms_commands_enabled,
+            sms_commands_url=sms_commands_url,
+            sms_commands_method=sms_commands_method,
+        )
+        instance = FleetInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        network_access_profile: str,
+        unique_name: Union[str, object] = values.unset,
+        data_enabled: Union[bool, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+        ip_commands_url: Union[str, object] = values.unset,
+        ip_commands_method: Union[str, object] = values.unset,
+        sms_commands_enabled: Union[bool, object] = values.unset,
+        sms_commands_url: Union[str, object] = values.unset,
+        sms_commands_method: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -430,11 +797,9 @@ class FleetList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return FleetInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -463,31 +828,59 @@ class FleetList(ListResource):
 
         :returns: The created FleetInstance
         """
-
-        data = values.of(
-            {
-                "NetworkAccessProfile": network_access_profile,
-                "UniqueName": unique_name,
-                "DataEnabled": serialize.boolean_to_string(data_enabled),
-                "DataLimit": data_limit,
-                "IpCommandsUrl": ip_commands_url,
-                "IpCommandsMethod": ip_commands_method,
-                "SmsCommandsEnabled": serialize.boolean_to_string(sms_commands_enabled),
-                "SmsCommandsUrl": sms_commands_url,
-                "SmsCommandsMethod": sms_commands_method,
-            }
+        payload, _, _ = await self._create_async(
+            network_access_profile=network_access_profile,
+            unique_name=unique_name,
+            data_enabled=data_enabled,
+            data_limit=data_limit,
+            ip_commands_url=ip_commands_url,
+            ip_commands_method=ip_commands_method,
+            sms_commands_enabled=sms_commands_enabled,
+            sms_commands_url=sms_commands_url,
+            sms_commands_method=sms_commands_method,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return FleetInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        network_access_profile: str,
+        unique_name: Union[str, object] = values.unset,
+        data_enabled: Union[bool, object] = values.unset,
+        data_limit: Union[int, object] = values.unset,
+        ip_commands_url: Union[str, object] = values.unset,
+        ip_commands_method: Union[str, object] = values.unset,
+        sms_commands_enabled: Union[bool, object] = values.unset,
+        sms_commands_url: Union[str, object] = values.unset,
+        sms_commands_method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the FleetInstance and return response metadata
+
+        :param network_access_profile: The SID or unique name of the Network Access Profile that will control which cellular networks the Fleet's SIMs can connect to.
+        :param unique_name: An application-defined string that uniquely identifies the resource. It can be used in place of the resource's `sid` in the URL to address the resource.
+        :param data_enabled: Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M data connectivity. Defaults to `true`.
+        :param data_limit: The total data usage (download and upload combined) in Megabytes that each Super SIM assigned to the Fleet can consume during a billing period (normally one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to 1GB (1,000).
+        :param ip_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an IP Command from your device to a special IP address. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param ip_commands_method: A string representing the HTTP method to use when making a request to `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+        :param sms_commands_enabled: Defines whether SIMs in the Fleet are capable of sending and receiving machine-to-machine SMS via Commands. Defaults to `true`.
+        :param sms_commands_url: The URL that will receive a webhook when a Super SIM in the Fleet is used to send an SMS from your device to the SMS Commands number. Your server should respond with an HTTP status code in the 200 range; any response body will be ignored.
+        :param sms_commands_method: A string representing the HTTP method to use when making a request to `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            network_access_profile=network_access_profile,
+            unique_name=unique_name,
+            data_enabled=data_enabled,
+            data_limit=data_limit,
+            ip_commands_url=ip_commands_url,
+            ip_commands_method=ip_commands_method,
+            sms_commands_enabled=sms_commands_enabled,
+            sms_commands_url=sms_commands_url,
+            sms_commands_method=sms_commands_method,
+        )
+        instance = FleetInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -547,6 +940,62 @@ class FleetList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        network_access_profile: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams FleetInstance and returns headers from first page
+
+
+        :param str network_access_profile: The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            network_access_profile=network_access_profile, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        network_access_profile: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams FleetInstance and returns headers from first page
+
+
+        :param str network_access_profile: The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            network_access_profile=network_access_profile, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         network_access_profile: Union[str, object] = values.unset,
@@ -605,6 +1054,62 @@ class FleetList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        network_access_profile: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists FleetInstance and returns headers from first page
+
+
+        :param str network_access_profile: The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            network_access_profile=network_access_profile,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        network_access_profile: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists FleetInstance and returns headers from first page
+
+
+        :param str network_access_profile: The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            network_access_profile=network_access_profile,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -677,6 +1182,82 @@ class FleetList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return FleetPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        network_access_profile: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param network_access_profile: The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with FleetPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "NetworkAccessProfile": network_access_profile,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = FleetPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        network_access_profile: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param network_access_profile: The SID or unique name of the Network Access Profile that controls which cellular networks the Fleet's SIMs can connect to.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with FleetPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "NetworkAccessProfile": network_access_profile,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = FleetPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> FleetPage:
         """

@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -104,6 +105,24 @@ class AnnotationInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the AnnotationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the AnnotationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(
         self,
         answered_by: Union["AnnotationInstance.AnsweredBy", object] = values.unset,
@@ -174,6 +193,76 @@ class AnnotationInstance(InstanceResource):
             incident=incident,
         )
 
+    def update_with_http_info(
+        self,
+        answered_by: Union["AnnotationInstance.AnsweredBy", object] = values.unset,
+        connectivity_issue: Union[
+            "AnnotationInstance.ConnectivityIssue", object
+        ] = values.unset,
+        quality_issues: Union[str, object] = values.unset,
+        spam: Union[bool, object] = values.unset,
+        call_score: Union[int, object] = values.unset,
+        comment: Union[str, object] = values.unset,
+        incident: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the AnnotationInstance with HTTP info
+
+        :param answered_by:
+        :param connectivity_issue:
+        :param quality_issues: Specify if the call had any subjective quality issues. Possible values, one or more of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`. Use comma separated values to indicate multiple quality issues for the same call.
+        :param spam: A boolean flag to indicate if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Use `true` if the call was a spam call.
+        :param call_score: Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param comment: Specify any comments pertaining to the call. `comment` has a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in the `comment`.
+        :param incident: Associate this call with an incident or support ticket. The `incident` parameter is of type string with a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in `incident`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            answered_by=answered_by,
+            connectivity_issue=connectivity_issue,
+            quality_issues=quality_issues,
+            spam=spam,
+            call_score=call_score,
+            comment=comment,
+            incident=incident,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        answered_by: Union["AnnotationInstance.AnsweredBy", object] = values.unset,
+        connectivity_issue: Union[
+            "AnnotationInstance.ConnectivityIssue", object
+        ] = values.unset,
+        quality_issues: Union[str, object] = values.unset,
+        spam: Union[bool, object] = values.unset,
+        call_score: Union[int, object] = values.unset,
+        comment: Union[str, object] = values.unset,
+        incident: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the AnnotationInstance with HTTP info
+
+        :param answered_by:
+        :param connectivity_issue:
+        :param quality_issues: Specify if the call had any subjective quality issues. Possible values, one or more of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`. Use comma separated values to indicate multiple quality issues for the same call.
+        :param spam: A boolean flag to indicate if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Use `true` if the call was a spam call.
+        :param call_score: Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param comment: Specify any comments pertaining to the call. `comment` has a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in the `comment`.
+        :param incident: Associate this call with an incident or support ticket. The `incident` parameter is of type string with a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in `incident`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            answered_by=answered_by,
+            connectivity_issue=connectivity_issue,
+            quality_issues=quality_issues,
+            spam=spam,
+            call_score=call_score,
+            comment=comment,
+            incident=incident,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -201,6 +290,22 @@ class AnnotationContext(InstanceContext):
         }
         self._uri = "/Voice/{call_sid}/Annotation".format(**self._solution)
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> AnnotationInstance:
         """
         Fetch the AnnotationInstance
@@ -208,17 +313,42 @@ class AnnotationContext(InstanceContext):
 
         :returns: The fetched AnnotationInstance
         """
+        payload, _, _ = self._fetch()
+        return AnnotationInstance(
+            self._version,
+            payload,
+            call_sid=self._solution["call_sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the AnnotationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = AnnotationInstance(
+            self._version,
+            payload,
+            call_sid=self._solution["call_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return AnnotationInstance(
-            self._version,
-            payload,
-            call_sid=self._solution["call_sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> AnnotationInstance:
@@ -228,19 +358,66 @@ class AnnotationContext(InstanceContext):
 
         :returns: The fetched AnnotationInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return AnnotationInstance(
             self._version,
             payload,
             call_sid=self._solution["call_sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the AnnotationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = AnnotationInstance(
+            self._version,
+            payload,
+            call_sid=self._solution["call_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        answered_by: Union["AnnotationInstance.AnsweredBy", object] = values.unset,
+        connectivity_issue: Union[
+            "AnnotationInstance.ConnectivityIssue", object
+        ] = values.unset,
+        quality_issues: Union[str, object] = values.unset,
+        spam: Union[bool, object] = values.unset,
+        call_score: Union[int, object] = values.unset,
+        comment: Union[str, object] = values.unset,
+        incident: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "AnsweredBy": answered_by,
+                "ConnectivityIssue": connectivity_issue,
+                "QualityIssues": quality_issues,
+                "Spam": serialize.boolean_to_string(spam),
+                "CallScore": call_score,
+                "Comment": comment,
+                "Incident": incident,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -268,6 +445,76 @@ class AnnotationContext(InstanceContext):
 
         :returns: The updated AnnotationInstance
         """
+        payload, _, _ = self._update(
+            answered_by=answered_by,
+            connectivity_issue=connectivity_issue,
+            quality_issues=quality_issues,
+            spam=spam,
+            call_score=call_score,
+            comment=comment,
+            incident=incident,
+        )
+        return AnnotationInstance(
+            self._version, payload, call_sid=self._solution["call_sid"]
+        )
+
+    def update_with_http_info(
+        self,
+        answered_by: Union["AnnotationInstance.AnsweredBy", object] = values.unset,
+        connectivity_issue: Union[
+            "AnnotationInstance.ConnectivityIssue", object
+        ] = values.unset,
+        quality_issues: Union[str, object] = values.unset,
+        spam: Union[bool, object] = values.unset,
+        call_score: Union[int, object] = values.unset,
+        comment: Union[str, object] = values.unset,
+        incident: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the AnnotationInstance and return response metadata
+
+        :param answered_by:
+        :param connectivity_issue:
+        :param quality_issues: Specify if the call had any subjective quality issues. Possible values, one or more of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`. Use comma separated values to indicate multiple quality issues for the same call.
+        :param spam: A boolean flag to indicate if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Use `true` if the call was a spam call.
+        :param call_score: Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param comment: Specify any comments pertaining to the call. `comment` has a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in the `comment`.
+        :param incident: Associate this call with an incident or support ticket. The `incident` parameter is of type string with a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in `incident`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            answered_by=answered_by,
+            connectivity_issue=connectivity_issue,
+            quality_issues=quality_issues,
+            spam=spam,
+            call_score=call_score,
+            comment=comment,
+            incident=incident,
+        )
+        instance = AnnotationInstance(
+            self._version, payload, call_sid=self._solution["call_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        answered_by: Union["AnnotationInstance.AnsweredBy", object] = values.unset,
+        connectivity_issue: Union[
+            "AnnotationInstance.ConnectivityIssue", object
+        ] = values.unset,
+        quality_issues: Union[str, object] = values.unset,
+        spam: Union[bool, object] = values.unset,
+        call_score: Union[int, object] = values.unset,
+        comment: Union[str, object] = values.unset,
+        incident: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -286,12 +533,8 @@ class AnnotationContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return AnnotationInstance(
-            self._version, payload, call_sid=self._solution["call_sid"]
         )
 
     async def update_async(
@@ -319,31 +562,57 @@ class AnnotationContext(InstanceContext):
 
         :returns: The updated AnnotationInstance
         """
-
-        data = values.of(
-            {
-                "AnsweredBy": answered_by,
-                "ConnectivityIssue": connectivity_issue,
-                "QualityIssues": quality_issues,
-                "Spam": serialize.boolean_to_string(spam),
-                "CallScore": call_score,
-                "Comment": comment,
-                "Incident": incident,
-            }
+        payload, _, _ = await self._update_async(
+            answered_by=answered_by,
+            connectivity_issue=connectivity_issue,
+            quality_issues=quality_issues,
+            spam=spam,
+            call_score=call_score,
+            comment=comment,
+            incident=incident,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return AnnotationInstance(
             self._version, payload, call_sid=self._solution["call_sid"]
         )
+
+    async def update_with_http_info_async(
+        self,
+        answered_by: Union["AnnotationInstance.AnsweredBy", object] = values.unset,
+        connectivity_issue: Union[
+            "AnnotationInstance.ConnectivityIssue", object
+        ] = values.unset,
+        quality_issues: Union[str, object] = values.unset,
+        spam: Union[bool, object] = values.unset,
+        call_score: Union[int, object] = values.unset,
+        comment: Union[str, object] = values.unset,
+        incident: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the AnnotationInstance and return response metadata
+
+        :param answered_by:
+        :param connectivity_issue:
+        :param quality_issues: Specify if the call had any subjective quality issues. Possible values, one or more of `no_quality_issue`, `low_volume`, `choppy_robotic`, `echo`, `dtmf`, `latency`, `owa`, `static_noise`. Use comma separated values to indicate multiple quality issues for the same call.
+        :param spam: A boolean flag to indicate if the call was a spam call. Use this to provide feedback on whether calls placed from your account were marked as spam, or if inbound calls received by your account were unwanted spam. Use `true` if the call was a spam call.
+        :param call_score: Specify the call score. This is of type integer. Use a range of 1-5 to indicate the call experience score, with the following mapping as a reference for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad].
+        :param comment: Specify any comments pertaining to the call. `comment` has a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in the `comment`.
+        :param incident: Associate this call with an incident or support ticket. The `incident` parameter is of type string with a maximum character limit of 100. Twilio does not treat this field as PII, so no PII should be included in `incident`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            answered_by=answered_by,
+            connectivity_issue=connectivity_issue,
+            quality_issues=quality_issues,
+            spam=spam,
+            call_score=call_score,
+            comment=comment,
+            incident=incident,
+        )
+        instance = AnnotationInstance(
+            self._version, payload, call_sid=self._solution["call_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

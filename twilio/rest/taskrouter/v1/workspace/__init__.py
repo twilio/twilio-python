@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -127,6 +128,24 @@ class WorkspaceInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the WorkspaceInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the WorkspaceInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "WorkspaceInstance":
         """
         Fetch the WorkspaceInstance
@@ -144,6 +163,24 @@ class WorkspaceInstance(InstanceResource):
         :returns: The fetched WorkspaceInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the WorkspaceInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the WorkspaceInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -206,6 +243,76 @@ class WorkspaceInstance(InstanceResource):
         :returns: The updated WorkspaceInstance
         """
         return await self._proxy.update_async(
+            default_activity_sid=default_activity_sid,
+            event_callback_url=event_callback_url,
+            events_filter=events_filter,
+            friendly_name=friendly_name,
+            multi_task_enabled=multi_task_enabled,
+            timeout_activity_sid=timeout_activity_sid,
+            prioritize_queue_order=prioritize_queue_order,
+        )
+
+    def update_with_http_info(
+        self,
+        default_activity_sid: Union[str, object] = values.unset,
+        event_callback_url: Union[str, object] = values.unset,
+        events_filter: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        multi_task_enabled: Union[bool, object] = values.unset,
+        timeout_activity_sid: Union[str, object] = values.unset,
+        prioritize_queue_order: Union[
+            "WorkspaceInstance.QueueOrder", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the WorkspaceInstance with HTTP info
+
+        :param default_activity_sid: The SID of the Activity that will be used when new Workers are created in the Workspace.
+        :param event_callback_url: The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+        :param events_filter: The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+        :param friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
+        :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+        :param timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+        :param prioritize_queue_order:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            default_activity_sid=default_activity_sid,
+            event_callback_url=event_callback_url,
+            events_filter=events_filter,
+            friendly_name=friendly_name,
+            multi_task_enabled=multi_task_enabled,
+            timeout_activity_sid=timeout_activity_sid,
+            prioritize_queue_order=prioritize_queue_order,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        default_activity_sid: Union[str, object] = values.unset,
+        event_callback_url: Union[str, object] = values.unset,
+        events_filter: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        multi_task_enabled: Union[bool, object] = values.unset,
+        timeout_activity_sid: Union[str, object] = values.unset,
+        prioritize_queue_order: Union[
+            "WorkspaceInstance.QueueOrder", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the WorkspaceInstance with HTTP info
+
+        :param default_activity_sid: The SID of the Activity that will be used when new Workers are created in the Workspace.
+        :param event_callback_url: The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+        :param events_filter: The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+        :param friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
+        :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+        :param timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+        :param prioritize_queue_order:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             default_activity_sid=default_activity_sid,
             event_callback_url=event_callback_url,
             events_filter=events_filter,
@@ -323,6 +430,20 @@ class WorkspaceContext(InstanceContext):
         self._real_time_statistics: Optional[WorkspaceRealTimeStatisticsList] = None
         self._statistics: Optional[WorkspaceStatisticsList] = None
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the WorkspaceInstance
@@ -330,10 +451,32 @@ class WorkspaceContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the WorkspaceInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -342,11 +485,33 @@ class WorkspaceContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the WorkspaceInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> WorkspaceInstance:
@@ -356,17 +521,42 @@ class WorkspaceContext(InstanceContext):
 
         :returns: The fetched WorkspaceInstance
         """
+        payload, _, _ = self._fetch()
+        return WorkspaceInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the WorkspaceInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = WorkspaceInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return WorkspaceInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> WorkspaceInstance:
@@ -376,19 +566,66 @@ class WorkspaceContext(InstanceContext):
 
         :returns: The fetched WorkspaceInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return WorkspaceInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the WorkspaceInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = WorkspaceInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        default_activity_sid: Union[str, object] = values.unset,
+        event_callback_url: Union[str, object] = values.unset,
+        events_filter: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        multi_task_enabled: Union[bool, object] = values.unset,
+        timeout_activity_sid: Union[str, object] = values.unset,
+        prioritize_queue_order: Union[
+            "WorkspaceInstance.QueueOrder", object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "DefaultActivitySid": default_activity_sid,
+                "EventCallbackUrl": event_callback_url,
+                "EventsFilter": events_filter,
+                "FriendlyName": friendly_name,
+                "MultiTaskEnabled": serialize.boolean_to_string(multi_task_enabled),
+                "TimeoutActivitySid": timeout_activity_sid,
+                "PrioritizeQueueOrder": prioritize_queue_order,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -416,6 +653,72 @@ class WorkspaceContext(InstanceContext):
 
         :returns: The updated WorkspaceInstance
         """
+        payload, _, _ = self._update(
+            default_activity_sid=default_activity_sid,
+            event_callback_url=event_callback_url,
+            events_filter=events_filter,
+            friendly_name=friendly_name,
+            multi_task_enabled=multi_task_enabled,
+            timeout_activity_sid=timeout_activity_sid,
+            prioritize_queue_order=prioritize_queue_order,
+        )
+        return WorkspaceInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(
+        self,
+        default_activity_sid: Union[str, object] = values.unset,
+        event_callback_url: Union[str, object] = values.unset,
+        events_filter: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        multi_task_enabled: Union[bool, object] = values.unset,
+        timeout_activity_sid: Union[str, object] = values.unset,
+        prioritize_queue_order: Union[
+            "WorkspaceInstance.QueueOrder", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the WorkspaceInstance and return response metadata
+
+        :param default_activity_sid: The SID of the Activity that will be used when new Workers are created in the Workspace.
+        :param event_callback_url: The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+        :param events_filter: The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+        :param friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
+        :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+        :param timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+        :param prioritize_queue_order:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            default_activity_sid=default_activity_sid,
+            event_callback_url=event_callback_url,
+            events_filter=events_filter,
+            friendly_name=friendly_name,
+            multi_task_enabled=multi_task_enabled,
+            timeout_activity_sid=timeout_activity_sid,
+            prioritize_queue_order=prioritize_queue_order,
+        )
+        instance = WorkspaceInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        default_activity_sid: Union[str, object] = values.unset,
+        event_callback_url: Union[str, object] = values.unset,
+        events_filter: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        multi_task_enabled: Union[bool, object] = values.unset,
+        timeout_activity_sid: Union[str, object] = values.unset,
+        prioritize_queue_order: Union[
+            "WorkspaceInstance.QueueOrder", object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -434,11 +737,9 @@ class WorkspaceContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return WorkspaceInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
         self,
@@ -465,29 +766,53 @@ class WorkspaceContext(InstanceContext):
 
         :returns: The updated WorkspaceInstance
         """
-
-        data = values.of(
-            {
-                "DefaultActivitySid": default_activity_sid,
-                "EventCallbackUrl": event_callback_url,
-                "EventsFilter": events_filter,
-                "FriendlyName": friendly_name,
-                "MultiTaskEnabled": serialize.boolean_to_string(multi_task_enabled),
-                "TimeoutActivitySid": timeout_activity_sid,
-                "PrioritizeQueueOrder": prioritize_queue_order,
-            }
+        payload, _, _ = await self._update_async(
+            default_activity_sid=default_activity_sid,
+            event_callback_url=event_callback_url,
+            events_filter=events_filter,
+            friendly_name=friendly_name,
+            multi_task_enabled=multi_task_enabled,
+            timeout_activity_sid=timeout_activity_sid,
+            prioritize_queue_order=prioritize_queue_order,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return WorkspaceInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(
+        self,
+        default_activity_sid: Union[str, object] = values.unset,
+        event_callback_url: Union[str, object] = values.unset,
+        events_filter: Union[str, object] = values.unset,
+        friendly_name: Union[str, object] = values.unset,
+        multi_task_enabled: Union[bool, object] = values.unset,
+        timeout_activity_sid: Union[str, object] = values.unset,
+        prioritize_queue_order: Union[
+            "WorkspaceInstance.QueueOrder", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the WorkspaceInstance and return response metadata
+
+        :param default_activity_sid: The SID of the Activity that will be used when new Workers are created in the Workspace.
+        :param event_callback_url: The URL we should call when an event occurs. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+        :param events_filter: The list of Workspace events for which to call event_callback_url. For example if `EventsFilter=task.created,task.canceled,worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+        :param friendly_name: A descriptive string that you create to describe the Workspace resource. For example: `Sales Call Center` or `Customer Support Team`.
+        :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be maintained as multi-tasking. There is no default when omitting this parameter. A multi-tasking Workspace can't be updated to single-tasking unless it is not a Flex Project and another (legacy) single-tasking Workspace exists. Multi-tasking allows Workers to handle multiple Tasks simultaneously. In multi-tasking mode, each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+        :param timeout_activity_sid: The SID of the Activity that will be assigned to a Worker when a Task reservation times out without a response.
+        :param prioritize_queue_order:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            default_activity_sid=default_activity_sid,
+            event_callback_url=event_callback_url,
+            events_filter=events_filter,
+            friendly_name=friendly_name,
+            multi_task_enabled=multi_task_enabled,
+            timeout_activity_sid=timeout_activity_sid,
+            prioritize_queue_order=prioritize_queue_order,
+        )
+        instance = WorkspaceInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def activities(self) -> ActivityList:
@@ -651,6 +976,44 @@ class WorkspaceList(ListResource):
 
         self._uri = "/Workspaces"
 
+    def _create(
+        self,
+        friendly_name: str,
+        event_callback_url: Union[str, object] = values.unset,
+        events_filter: Union[str, object] = values.unset,
+        multi_task_enabled: Union[bool, object] = values.unset,
+        template: Union[str, object] = values.unset,
+        prioritize_queue_order: Union[
+            "WorkspaceInstance.QueueOrder", object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "EventCallbackUrl": event_callback_url,
+                "EventsFilter": events_filter,
+                "MultiTaskEnabled": serialize.boolean_to_string(multi_task_enabled),
+                "Template": template,
+                "PrioritizeQueueOrder": prioritize_queue_order,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         friendly_name: str,
@@ -674,6 +1037,67 @@ class WorkspaceList(ListResource):
 
         :returns: The created WorkspaceInstance
         """
+        payload, _, _ = self._create(
+            friendly_name=friendly_name,
+            event_callback_url=event_callback_url,
+            events_filter=events_filter,
+            multi_task_enabled=multi_task_enabled,
+            template=template,
+            prioritize_queue_order=prioritize_queue_order,
+        )
+        return WorkspaceInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        friendly_name: str,
+        event_callback_url: Union[str, object] = values.unset,
+        events_filter: Union[str, object] = values.unset,
+        multi_task_enabled: Union[bool, object] = values.unset,
+        template: Union[str, object] = values.unset,
+        prioritize_queue_order: Union[
+            "WorkspaceInstance.QueueOrder", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the WorkspaceInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`.
+        :param event_callback_url: The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+        :param events_filter: The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+        :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be created as multi-tasking. The default is `true`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+        :param template: An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
+        :param prioritize_queue_order:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            friendly_name=friendly_name,
+            event_callback_url=event_callback_url,
+            events_filter=events_filter,
+            multi_task_enabled=multi_task_enabled,
+            template=template,
+            prioritize_queue_order=prioritize_queue_order,
+        )
+        instance = WorkspaceInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        friendly_name: str,
+        event_callback_url: Union[str, object] = values.unset,
+        events_filter: Union[str, object] = values.unset,
+        multi_task_enabled: Union[bool, object] = values.unset,
+        template: Union[str, object] = values.unset,
+        prioritize_queue_order: Union[
+            "WorkspaceInstance.QueueOrder", object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -691,11 +1115,9 @@ class WorkspaceList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return WorkspaceInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -720,28 +1142,49 @@ class WorkspaceList(ListResource):
 
         :returns: The created WorkspaceInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "EventCallbackUrl": event_callback_url,
-                "EventsFilter": events_filter,
-                "MultiTaskEnabled": serialize.boolean_to_string(multi_task_enabled),
-                "Template": template,
-                "PrioritizeQueueOrder": prioritize_queue_order,
-            }
+        payload, _, _ = await self._create_async(
+            friendly_name=friendly_name,
+            event_callback_url=event_callback_url,
+            events_filter=events_filter,
+            multi_task_enabled=multi_task_enabled,
+            template=template,
+            prioritize_queue_order=prioritize_queue_order,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return WorkspaceInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        friendly_name: str,
+        event_callback_url: Union[str, object] = values.unset,
+        events_filter: Union[str, object] = values.unset,
+        multi_task_enabled: Union[bool, object] = values.unset,
+        template: Union[str, object] = values.unset,
+        prioritize_queue_order: Union[
+            "WorkspaceInstance.QueueOrder", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the WorkspaceInstance and return response metadata
+
+        :param friendly_name: A descriptive string that you create to describe the Workspace resource. It can be up to 64 characters long. For example: `Customer Support` or `2014 Election Campaign`.
+        :param event_callback_url: The URL we should call when an event occurs. If provided, the Workspace will publish events to this URL, for example, to collect data for reporting. See [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more information. This parameter supports Twilio's [Webhooks (HTTP callbacks) Connection Overrides](https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides).
+        :param events_filter: The list of Workspace events for which to call event_callback_url. For example, if `EventsFilter=task.created, task.canceled, worker.activity.update`, then TaskRouter will call event_callback_url only when a task is created, canceled, or a Worker activity is updated.
+        :param multi_task_enabled: Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or `false` to disable it. However, all workspaces should be created as multi-tasking. The default is `true`. Multi-tasking allows Workers to handle multiple Tasks simultaneously. When enabled (`true`), each Worker can receive parallel reservations up to the per-channel maximums defined in the Workers section. In single-tasking mode (legacy mode), each Worker will only receive a new reservation when the previous task is completed. Learn more at [Multitasking](https://www.twilio.com/docs/taskrouter/multitasking).
+        :param template: An available template name. Can be: `NONE` or `FIFO` and the default is `NONE`. Pre-configures the Workspace with the Workflow and Activities specified in the template. `NONE` will create a Workspace with only a set of default activities. `FIFO` will configure TaskRouter with a set of default activities and a single TaskQueue for first-in, first-out distribution, which can be useful when you are getting started with TaskRouter.
+        :param prioritize_queue_order:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            friendly_name=friendly_name,
+            event_callback_url=event_callback_url,
+            events_filter=events_filter,
+            multi_task_enabled=multi_task_enabled,
+            template=template,
+            prioritize_queue_order=prioritize_queue_order,
+        )
+        instance = WorkspaceInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -798,6 +1241,62 @@ class WorkspaceList(ListResource):
         )
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams WorkspaceInstance and returns headers from first page
+
+
+        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            friendly_name=friendly_name, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams WorkspaceInstance and returns headers from first page
+
+
+        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            friendly_name=friendly_name, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -857,6 +1356,62 @@ class WorkspaceList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists WorkspaceInstance and returns headers from first page
+
+
+        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            friendly_name=friendly_name,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists WorkspaceInstance and returns headers from first page
+
+
+        :param str friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            friendly_name=friendly_name,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -929,6 +1484,82 @@ class WorkspaceList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return WorkspacePage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with WorkspacePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = WorkspacePage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        friendly_name: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param friendly_name: The `friendly_name` of the Workspace resources to read. For example `Customer Support` or `2014 Election Campaign`.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with WorkspacePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = WorkspacePage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> WorkspacePage:
         """

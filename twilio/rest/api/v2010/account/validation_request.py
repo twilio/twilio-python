@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -72,6 +73,42 @@ class ValidationRequestList(ListResource):
             **self._solution
         )
 
+    def _create(
+        self,
+        phone_number: str,
+        friendly_name: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "PhoneNumber": phone_number,
+                "FriendlyName": friendly_name,
+                "CallDelay": call_delay,
+                "Extension": extension,
+                "StatusCallback": status_callback,
+                "StatusCallbackMethod": status_callback_method,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         phone_number: str,
@@ -93,6 +130,67 @@ class ValidationRequestList(ListResource):
 
         :returns: The created ValidationRequestInstance
         """
+        payload, _, _ = self._create(
+            phone_number=phone_number,
+            friendly_name=friendly_name,
+            call_delay=call_delay,
+            extension=extension,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+        )
+        return ValidationRequestInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+
+    def create_with_http_info(
+        self,
+        phone_number: str,
+        friendly_name: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the ValidationRequestInstance and return response metadata
+
+        :param phone_number: The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+        :param friendly_name: A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number.
+        :param call_delay: The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.
+        :param extension: The digits to dial after connecting the verification call.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information about the verification process to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            phone_number=phone_number,
+            friendly_name=friendly_name,
+            call_delay=call_delay,
+            extension=extension,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+        )
+        instance = ValidationRequestInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        phone_number: str,
+        friendly_name: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -110,12 +208,8 @@ class ValidationRequestList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return ValidationRequestInstance(
-            self._version, payload, account_sid=self._solution["account_sid"]
         )
 
     async def create_async(
@@ -139,30 +233,51 @@ class ValidationRequestList(ListResource):
 
         :returns: The created ValidationRequestInstance
         """
-
-        data = values.of(
-            {
-                "PhoneNumber": phone_number,
-                "FriendlyName": friendly_name,
-                "CallDelay": call_delay,
-                "Extension": extension,
-                "StatusCallback": status_callback,
-                "StatusCallbackMethod": status_callback_method,
-            }
+        payload, _, _ = await self._create_async(
+            phone_number=phone_number,
+            friendly_name=friendly_name,
+            call_delay=call_delay,
+            extension=extension,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ValidationRequestInstance(
             self._version, payload, account_sid=self._solution["account_sid"]
         )
+
+    async def create_with_http_info_async(
+        self,
+        phone_number: str,
+        friendly_name: Union[str, object] = values.unset,
+        call_delay: Union[int, object] = values.unset,
+        extension: Union[str, object] = values.unset,
+        status_callback: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the ValidationRequestInstance and return response metadata
+
+        :param phone_number: The phone number to verify in [E.164](https://www.twilio.com/docs/glossary/what-e164) format, which consists of a + followed by the country code and subscriber number.
+        :param friendly_name: A descriptive string that you create to describe the new caller ID resource. It can be up to 64 characters long. The default value is a formatted version of the phone number.
+        :param call_delay: The number of seconds to delay before initiating the verification call. Can be an integer between `0` and `60`, inclusive. The default is `0`.
+        :param extension: The digits to dial after connecting the verification call.
+        :param status_callback: The URL we should call using the `status_callback_method` to send status information about the verification process to your application.
+        :param status_callback_method: The HTTP method we should use to call `status_callback`. Can be: `GET` or `POST`, and the default is `POST`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            phone_number=phone_number,
+            friendly_name=friendly_name,
+            call_delay=call_delay,
+            extension=extension,
+            status_callback=status_callback,
+            status_callback_method=status_callback_method,
+        )
+        instance = ValidationRequestInstance(
+            self._version, payload, account_sid=self._solution["account_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

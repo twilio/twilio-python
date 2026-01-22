@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -132,6 +133,40 @@ class MemberInstance(InstanceResource):
             x_twilio_webhook_enabled=x_twilio_webhook_enabled,
         )
 
+    def delete_with_http_info(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "MemberInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Deletes the MemberInstance with HTTP info
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+        )
+
+    async def delete_with_http_info_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "MemberInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the MemberInstance with HTTP info
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+        )
+
     def fetch(self) -> "MemberInstance":
         """
         Fetch the MemberInstance
@@ -149,6 +184,24 @@ class MemberInstance(InstanceResource):
         :returns: The fetched MemberInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the MemberInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the MemberInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -220,6 +273,76 @@ class MemberInstance(InstanceResource):
             attributes=attributes,
         )
 
+    def update_with_http_info(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "MemberInstance.WebhookEnabledType", object
+        ] = values.unset,
+        role_sid: Union[str, object] = values.unset,
+        last_consumed_message_index: Union[int, object] = values.unset,
+        last_consumption_timestamp: Union[datetime, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the MemberInstance with HTTP info
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param role_sid:
+        :param last_consumed_message_index:
+        :param last_consumption_timestamp:
+        :param date_created:
+        :param date_updated:
+        :param attributes:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            role_sid=role_sid,
+            last_consumed_message_index=last_consumed_message_index,
+            last_consumption_timestamp=last_consumption_timestamp,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "MemberInstance.WebhookEnabledType", object
+        ] = values.unset,
+        role_sid: Union[str, object] = values.unset,
+        last_consumed_message_index: Union[int, object] = values.unset,
+        last_consumption_timestamp: Union[datetime, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the MemberInstance with HTTP info
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param role_sid:
+        :param last_consumed_message_index:
+        :param last_consumption_timestamp:
+        :param date_created:
+        :param date_updated:
+        :param attributes:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            role_sid=role_sid,
+            last_consumed_message_index=last_consumed_message_index,
+            last_consumption_timestamp=last_consumption_timestamp,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -255,6 +378,30 @@ class MemberContext(InstanceContext):
             )
         )
 
+    def _delete(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "MemberInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+        headers = values.of(
+            {
+                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
+            }
+        )
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(
         self,
         x_twilio_webhook_enabled: Union[
@@ -268,6 +415,39 @@ class MemberContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete(x_twilio_webhook_enabled=x_twilio_webhook_enabled)
+        return success
+
+    def delete_with_http_info(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "MemberInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Deletes the MemberInstance and return response metadata
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled
+        )
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "MemberInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
         headers = values.of(
             {
                 "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
@@ -276,7 +456,9 @@ class MemberContext(InstanceContext):
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(
         self,
@@ -291,16 +473,43 @@ class MemberContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-            }
+        success, _, _ = await self._delete_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled
         )
+        return success
+
+    async def delete_with_http_info_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "MemberInstance.WebhookEnabledType", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the MemberInstance and return response metadata
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled
+        )
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> MemberInstance:
@@ -310,19 +519,46 @@ class MemberContext(InstanceContext):
 
         :returns: The fetched MemberInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return MemberInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             channel_sid=self._solution["channel_sid"],
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the MemberInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = MemberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> MemberInstance:
@@ -332,21 +568,80 @@ class MemberContext(InstanceContext):
 
         :returns: The fetched MemberInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return MemberInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             channel_sid=self._solution["channel_sid"],
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the MemberInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = MemberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "MemberInstance.WebhookEnabledType", object
+        ] = values.unset,
+        role_sid: Union[str, object] = values.unset,
+        last_consumed_message_index: Union[int, object] = values.unset,
+        last_consumption_timestamp: Union[datetime, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "RoleSid": role_sid,
+                "LastConsumedMessageIndex": last_consumed_message_index,
+                "LastConsumptionTimestamp": serialize.iso8601_datetime(
+                    last_consumption_timestamp
+                ),
+                "DateCreated": serialize.iso8601_datetime(date_created),
+                "DateUpdated": serialize.iso8601_datetime(date_updated),
+                "Attributes": attributes,
+            }
+        )
+        headers = values.of({})
+
+        if not (
+            x_twilio_webhook_enabled is values.unset
+            or (
+                isinstance(x_twilio_webhook_enabled, str)
+                and not x_twilio_webhook_enabled
+            )
+        ):
+            headers["X-Twilio-Webhook-Enabled"] = x_twilio_webhook_enabled
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -374,6 +669,84 @@ class MemberContext(InstanceContext):
 
         :returns: The updated MemberInstance
         """
+        payload, _, _ = self._update(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            role_sid=role_sid,
+            last_consumed_message_index=last_consumed_message_index,
+            last_consumption_timestamp=last_consumption_timestamp,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+        )
+        return MemberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "MemberInstance.WebhookEnabledType", object
+        ] = values.unset,
+        role_sid: Union[str, object] = values.unset,
+        last_consumed_message_index: Union[int, object] = values.unset,
+        last_consumption_timestamp: Union[datetime, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the MemberInstance and return response metadata
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param role_sid:
+        :param last_consumed_message_index:
+        :param last_consumption_timestamp:
+        :param date_created:
+        :param date_updated:
+        :param attributes:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            role_sid=role_sid,
+            last_consumed_message_index=last_consumed_message_index,
+            last_consumption_timestamp=last_consumption_timestamp,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+        )
+        instance = MemberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "MemberInstance.WebhookEnabledType", object
+        ] = values.unset,
+        role_sid: Union[str, object] = values.unset,
+        last_consumed_message_index: Union[int, object] = values.unset,
+        last_consumption_timestamp: Union[datetime, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -402,16 +775,8 @@ class MemberContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return MemberInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            channel_sid=self._solution["channel_sid"],
-            sid=self._solution["sid"],
         )
 
     async def update_async(
@@ -439,38 +804,15 @@ class MemberContext(InstanceContext):
 
         :returns: The updated MemberInstance
         """
-
-        data = values.of(
-            {
-                "RoleSid": role_sid,
-                "LastConsumedMessageIndex": last_consumed_message_index,
-                "LastConsumptionTimestamp": serialize.iso8601_datetime(
-                    last_consumption_timestamp
-                ),
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateUpdated": serialize.iso8601_datetime(date_updated),
-                "Attributes": attributes,
-            }
+        payload, _, _ = await self._update_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            role_sid=role_sid,
+            last_consumed_message_index=last_consumed_message_index,
+            last_consumption_timestamp=last_consumption_timestamp,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
         )
-        headers = values.of({})
-
-        if not (
-            x_twilio_webhook_enabled is values.unset
-            or (
-                isinstance(x_twilio_webhook_enabled, str)
-                and not x_twilio_webhook_enabled
-            )
-        ):
-            headers["X-Twilio-Webhook-Enabled"] = x_twilio_webhook_enabled
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return MemberInstance(
             self._version,
             payload,
@@ -478,6 +820,49 @@ class MemberContext(InstanceContext):
             channel_sid=self._solution["channel_sid"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(
+        self,
+        x_twilio_webhook_enabled: Union[
+            "MemberInstance.WebhookEnabledType", object
+        ] = values.unset,
+        role_sid: Union[str, object] = values.unset,
+        last_consumed_message_index: Union[int, object] = values.unset,
+        last_consumption_timestamp: Union[datetime, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the MemberInstance and return response metadata
+
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param role_sid:
+        :param last_consumed_message_index:
+        :param last_consumption_timestamp:
+        :param date_created:
+        :param date_updated:
+        :param attributes:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            role_sid=role_sid,
+            last_consumed_message_index=last_consumed_message_index,
+            last_consumption_timestamp=last_consumption_timestamp,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+        )
+        instance = MemberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -535,6 +920,54 @@ class MemberList(ListResource):
             **self._solution
         )
 
+    def _create(
+        self,
+        identity: str,
+        x_twilio_webhook_enabled: Union[
+            "MemberInstance.WebhookEnabledType", object
+        ] = values.unset,
+        role_sid: Union[str, object] = values.unset,
+        last_consumed_message_index: Union[int, object] = values.unset,
+        last_consumption_timestamp: Union[datetime, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Identity": identity,
+                "RoleSid": role_sid,
+                "LastConsumedMessageIndex": last_consumed_message_index,
+                "LastConsumptionTimestamp": serialize.iso8601_datetime(
+                    last_consumption_timestamp
+                ),
+                "DateCreated": serialize.iso8601_datetime(date_created),
+                "DateUpdated": serialize.iso8601_datetime(date_updated),
+                "Attributes": attributes,
+            }
+        )
+        headers = values.of(
+            {
+                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         identity: str,
@@ -562,6 +995,87 @@ class MemberList(ListResource):
 
         :returns: The created MemberInstance
         """
+        payload, _, _ = self._create(
+            identity=identity,
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            role_sid=role_sid,
+            last_consumed_message_index=last_consumed_message_index,
+            last_consumption_timestamp=last_consumption_timestamp,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+        )
+        return MemberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+
+    def create_with_http_info(
+        self,
+        identity: str,
+        x_twilio_webhook_enabled: Union[
+            "MemberInstance.WebhookEnabledType", object
+        ] = values.unset,
+        role_sid: Union[str, object] = values.unset,
+        last_consumed_message_index: Union[int, object] = values.unset,
+        last_consumption_timestamp: Union[datetime, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the MemberInstance and return response metadata
+
+        :param identity:
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param role_sid:
+        :param last_consumed_message_index:
+        :param last_consumption_timestamp:
+        :param date_created:
+        :param date_updated:
+        :param attributes:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            identity=identity,
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            role_sid=role_sid,
+            last_consumed_message_index=last_consumed_message_index,
+            last_consumption_timestamp=last_consumption_timestamp,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+        )
+        instance = MemberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        identity: str,
+        x_twilio_webhook_enabled: Union[
+            "MemberInstance.WebhookEnabledType", object
+        ] = values.unset,
+        role_sid: Union[str, object] = values.unset,
+        last_consumed_message_index: Union[int, object] = values.unset,
+        last_consumption_timestamp: Union[datetime, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -587,15 +1101,8 @@ class MemberList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return MemberInstance(
-            self._version,
-            payload,
-            service_sid=self._solution["service_sid"],
-            channel_sid=self._solution["channel_sid"],
         )
 
     async def create_async(
@@ -625,41 +1132,67 @@ class MemberList(ListResource):
 
         :returns: The created MemberInstance
         """
-
-        data = values.of(
-            {
-                "Identity": identity,
-                "RoleSid": role_sid,
-                "LastConsumedMessageIndex": last_consumed_message_index,
-                "LastConsumptionTimestamp": serialize.iso8601_datetime(
-                    last_consumption_timestamp
-                ),
-                "DateCreated": serialize.iso8601_datetime(date_created),
-                "DateUpdated": serialize.iso8601_datetime(date_updated),
-                "Attributes": attributes,
-            }
+        payload, _, _ = await self._create_async(
+            identity=identity,
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            role_sid=role_sid,
+            last_consumed_message_index=last_consumed_message_index,
+            last_consumption_timestamp=last_consumption_timestamp,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
         )
-        headers = values.of(
-            {
-                "X-Twilio-Webhook-Enabled": x_twilio_webhook_enabled,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return MemberInstance(
             self._version,
             payload,
             service_sid=self._solution["service_sid"],
             channel_sid=self._solution["channel_sid"],
         )
+
+    async def create_with_http_info_async(
+        self,
+        identity: str,
+        x_twilio_webhook_enabled: Union[
+            "MemberInstance.WebhookEnabledType", object
+        ] = values.unset,
+        role_sid: Union[str, object] = values.unset,
+        last_consumed_message_index: Union[int, object] = values.unset,
+        last_consumption_timestamp: Union[datetime, object] = values.unset,
+        date_created: Union[datetime, object] = values.unset,
+        date_updated: Union[datetime, object] = values.unset,
+        attributes: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the MemberInstance and return response metadata
+
+        :param identity:
+        :param x_twilio_webhook_enabled: The X-Twilio-Webhook-Enabled HTTP request header
+        :param role_sid:
+        :param last_consumed_message_index:
+        :param last_consumption_timestamp:
+        :param date_created:
+        :param date_updated:
+        :param attributes:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            identity=identity,
+            x_twilio_webhook_enabled=x_twilio_webhook_enabled,
+            role_sid=role_sid,
+            last_consumed_message_index=last_consumed_message_index,
+            last_consumption_timestamp=last_consumption_timestamp,
+            date_created=date_created,
+            date_updated=date_updated,
+            attributes=attributes,
+        )
+        instance = MemberInstance(
+            self._version,
+            payload,
+            service_sid=self._solution["service_sid"],
+            channel_sid=self._solution["channel_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -714,6 +1247,62 @@ class MemberList(ListResource):
         page = await self.page_async(identity=identity, page_size=limits["page_size"])
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        identity: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams MemberInstance and returns headers from first page
+
+
+        :param List[str] identity:
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            identity=identity, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        identity: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams MemberInstance and returns headers from first page
+
+
+        :param List[str] identity:
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            identity=identity, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -773,6 +1362,62 @@ class MemberList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        identity: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists MemberInstance and returns headers from first page
+
+
+        :param List[str] identity:
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            identity=identity,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        identity: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists MemberInstance and returns headers from first page
+
+
+        :param List[str] identity:
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            identity=identity,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -845,6 +1490,82 @@ class MemberList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return MemberPage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        identity: Union[List[str], object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param identity:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with MemberPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Identity": serialize.map(identity, lambda e: e),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = MemberPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        identity: Union[List[str], object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param identity:
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with MemberPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Identity": serialize.map(identity, lambda e: e),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = MemberPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> MemberPage:
         """

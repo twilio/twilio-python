@@ -15,6 +15,7 @@ r"""
 from datetime import date, datetime
 from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -304,6 +305,24 @@ class PortingPortInInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the PortingPortInInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the PortingPortInInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "PortingPortInInstance":
         """
         Fetch the PortingPortInInstance
@@ -321,6 +340,24 @@ class PortingPortInInstance(InstanceResource):
         :returns: The fetched PortingPortInInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the PortingPortInInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the PortingPortInInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def __repr__(self) -> str:
         """
@@ -522,6 +559,20 @@ class PortingPortInContext(InstanceContext):
         }
         self._uri = "/Porting/PortIn/{port_in_request_sid}".format(**self._solution)
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the PortingPortInInstance
@@ -529,10 +580,32 @@ class PortingPortInContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the PortingPortInInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -541,11 +614,33 @@ class PortingPortInContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the PortingPortInInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> PortingPortInInstance:
@@ -555,17 +650,42 @@ class PortingPortInContext(InstanceContext):
 
         :returns: The fetched PortingPortInInstance
         """
+        payload, _, _ = self._fetch()
+        return PortingPortInInstance(
+            self._version,
+            payload,
+            port_in_request_sid=self._solution["port_in_request_sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the PortingPortInInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = PortingPortInInstance(
+            self._version,
+            payload,
+            port_in_request_sid=self._solution["port_in_request_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return PortingPortInInstance(
-            self._version,
-            payload,
-            port_in_request_sid=self._solution["port_in_request_sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> PortingPortInInstance:
@@ -575,20 +695,27 @@ class PortingPortInContext(InstanceContext):
 
         :returns: The fetched PortingPortInInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return PortingPortInInstance(
             self._version,
             payload,
             port_in_request_sid=self._solution["port_in_request_sid"],
         )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the PortingPortInInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = PortingPortInInstance(
+            self._version,
+            payload,
+            port_in_request_sid=self._solution["port_in_request_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -786,6 +913,27 @@ class PortingPortInList(ListResource):
 
         self._uri = "/Porting/PortIn"
 
+    def _create(
+        self, numbers_v1_porting_port_in_create: NumbersV1PortingPortInCreate
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = numbers_v1_porting_port_in_create.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self, numbers_v1_porting_port_in_create: NumbersV1PortingPortInCreate
     ) -> PortingPortInInstance:
@@ -796,6 +944,36 @@ class PortingPortInList(ListResource):
 
         :returns: The created PortingPortInInstance
         """
+        payload, _, _ = self._create(
+            numbers_v1_porting_port_in_create=numbers_v1_porting_port_in_create
+        )
+        return PortingPortInInstance(self._version, payload)
+
+    def create_with_http_info(
+        self, numbers_v1_porting_port_in_create: NumbersV1PortingPortInCreate
+    ) -> ApiResponse:
+        """
+        Create the PortingPortInInstance and return response metadata
+
+        :param numbers_v1_porting_port_in_create:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            numbers_v1_porting_port_in_create=numbers_v1_porting_port_in_create
+        )
+        instance = PortingPortInInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self, numbers_v1_porting_port_in_create: NumbersV1PortingPortInCreate
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = numbers_v1_porting_port_in_create.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -804,11 +982,9 @@ class PortingPortInList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return PortingPortInInstance(self._version, payload)
 
     async def create_async(
         self, numbers_v1_porting_port_in_create: NumbersV1PortingPortInCreate
@@ -820,19 +996,26 @@ class PortingPortInList(ListResource):
 
         :returns: The created PortingPortInInstance
         """
-        data = numbers_v1_porting_port_in_create.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
+        payload, _, _ = await self._create_async(
+            numbers_v1_porting_port_in_create=numbers_v1_porting_port_in_create
         )
-
         return PortingPortInInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self, numbers_v1_porting_port_in_create: NumbersV1PortingPortInCreate
+    ) -> ApiResponse:
+        """
+        Asynchronously create the PortingPortInInstance and return response metadata
+
+        :param numbers_v1_porting_port_in_create:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            numbers_v1_porting_port_in_create=numbers_v1_porting_port_in_create
+        )
+        instance = PortingPortInInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def get(self, port_in_request_sid: str) -> PortingPortInContext:
         """

@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -58,22 +59,18 @@ class FlowValidateList(ListResource):
 
         self._uri = "/Flows/Validate"
 
-    def update(
+    def _update(
         self,
         friendly_name: str,
         status: "FlowValidateInstance.Status",
         definition: object,
         commit_message: Union[str, object] = values.unset,
-    ) -> FlowValidateInstance:
+    ) -> tuple:
         """
-        Update the FlowValidateInstance
+        Internal helper for update operation
 
-        :param friendly_name: The string that you assigned to describe the Flow.
-        :param status:
-        :param definition: JSON representation of flow definition.
-        :param commit_message: Description of change made in the revision.
-
-        :returns: The created FlowValidateInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -90,11 +87,92 @@ class FlowValidateList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return self._version.update_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def update(
+        self,
+        friendly_name: str,
+        status: "FlowValidateInstance.Status",
+        definition: object,
+        commit_message: Union[str, object] = values.unset,
+    ) -> FlowValidateInstance:
+        """
+        Update the FlowValidateInstance
+
+        :param friendly_name: The string that you assigned to describe the Flow.
+        :param status:
+        :param definition: JSON representation of flow definition.
+        :param commit_message: Description of change made in the revision.
+
+        :returns: The updated FlowValidateInstance
+        """
+        payload, _, _ = self._update(
+            friendly_name=friendly_name,
+            status=status,
+            definition=definition,
+            commit_message=commit_message,
+        )
         return FlowValidateInstance(self._version, payload)
+
+    def update_with_http_info(
+        self,
+        friendly_name: str,
+        status: "FlowValidateInstance.Status",
+        definition: object,
+        commit_message: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the FlowValidateInstance and return response metadata
+
+        :param friendly_name: The string that you assigned to describe the Flow.
+        :param status:
+        :param definition: JSON representation of flow definition.
+        :param commit_message: Description of change made in the revision.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            friendly_name=friendly_name,
+            status=status,
+            definition=definition,
+            commit_message=commit_message,
+        )
+        instance = FlowValidateInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        friendly_name: str,
+        status: "FlowValidateInstance.Status",
+        definition: object,
+        commit_message: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "FriendlyName": friendly_name,
+                "Status": status,
+                "Definition": serialize.object(definition),
+                "CommitMessage": commit_message,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.update_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def update_async(
         self,
@@ -111,28 +189,41 @@ class FlowValidateList(ListResource):
         :param definition: JSON representation of flow definition.
         :param commit_message: Description of change made in the revision.
 
-        :returns: The created FlowValidateInstance
+        :returns: The updated FlowValidateInstance
         """
-
-        data = values.of(
-            {
-                "FriendlyName": friendly_name,
-                "Status": status,
-                "Definition": serialize.object(definition),
-                "CommitMessage": commit_message,
-            }
+        payload, _, _ = await self._update_async(
+            friendly_name=friendly_name,
+            status=status,
+            definition=definition,
+            commit_message=commit_message,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return FlowValidateInstance(self._version, payload)
+
+    async def update_with_http_info_async(
+        self,
+        friendly_name: str,
+        status: "FlowValidateInstance.Status",
+        definition: object,
+        commit_message: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously update the FlowValidateInstance and return response metadata
+
+        :param friendly_name: The string that you assigned to describe the Flow.
+        :param status:
+        :param definition: JSON representation of flow definition.
+        :param commit_message: Description of change made in the revision.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            friendly_name=friendly_name,
+            status=status,
+            definition=definition,
+            commit_message=commit_message,
+        )
+        instance = FlowValidateInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

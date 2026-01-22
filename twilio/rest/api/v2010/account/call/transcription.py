@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -117,6 +118,34 @@ class TranscriptionInstance(InstanceResource):
             status=status,
         )
 
+    def update_with_http_info(
+        self, status: "TranscriptionInstance.UpdateStatus"
+    ) -> ApiResponse:
+        """
+        Update the TranscriptionInstance with HTTP info
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            status=status,
+        )
+
+    async def update_with_http_info_async(
+        self, status: "TranscriptionInstance.UpdateStatus"
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the TranscriptionInstance with HTTP info
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            status=status,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -152,15 +181,12 @@ class TranscriptionContext(InstanceContext):
             )
         )
 
-    def update(
-        self, status: "TranscriptionInstance.UpdateStatus"
-    ) -> TranscriptionInstance:
+    def _update(self, status: "TranscriptionInstance.UpdateStatus") -> tuple:
         """
-        Update the TranscriptionInstance
+        Internal helper for update operation
 
-        :param status:
-
-        :returns: The updated TranscriptionInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -174,16 +200,72 @@ class TranscriptionContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return self._version.update_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def update(
+        self, status: "TranscriptionInstance.UpdateStatus"
+    ) -> TranscriptionInstance:
+        """
+        Update the TranscriptionInstance
+
+        :param status:
+
+        :returns: The updated TranscriptionInstance
+        """
+        payload, _, _ = self._update(status=status)
         return TranscriptionInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             call_sid=self._solution["call_sid"],
             sid=self._solution["sid"],
+        )
+
+    def update_with_http_info(
+        self, status: "TranscriptionInstance.UpdateStatus"
+    ) -> ApiResponse:
+        """
+        Update the TranscriptionInstance and return response metadata
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(status=status)
+        instance = TranscriptionInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self, status: "TranscriptionInstance.UpdateStatus"
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Status": status,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.update_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def update_async(
@@ -196,22 +278,7 @@ class TranscriptionContext(InstanceContext):
 
         :returns: The updated TranscriptionInstance
         """
-
-        data = values.of(
-            {
-                "Status": status,
-            }
-        )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(status=status)
         return TranscriptionInstance(
             self._version,
             payload,
@@ -219,6 +286,26 @@ class TranscriptionContext(InstanceContext):
             call_sid=self._solution["call_sid"],
             sid=self._solution["sid"],
         )
+
+    async def update_with_http_info_async(
+        self, status: "TranscriptionInstance.UpdateStatus"
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the TranscriptionInstance and return response metadata
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(status=status)
+        instance = TranscriptionInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -254,7 +341,7 @@ class TranscriptionList(ListResource):
             )
         )
 
-    def create(
+    def _create(
         self,
         name: Union[str, object] = values.unset,
         track: Union["TranscriptionInstance.Track", object] = values.unset,
@@ -270,26 +357,13 @@ class TranscriptionList(ListResource):
         hints: Union[str, object] = values.unset,
         enable_automatic_punctuation: Union[bool, object] = values.unset,
         intelligence_service: Union[str, object] = values.unset,
-    ) -> TranscriptionInstance:
+        enable_provider_data: Union[bool, object] = values.unset,
+    ) -> tuple:
         """
-        Create the TranscriptionInstance
+        Internal helper for create operation
 
-        :param name: The user-specified name of this Transcription, if one was given when the Transcription was created. This may be used to stop the Transcription.
-        :param track:
-        :param status_callback_url: Absolute URL of the status callback.
-        :param status_callback_method: The http method for the status_callback (one of GET, POST).
-        :param inbound_track_label: Friendly name given to the Inbound Track
-        :param outbound_track_label: Friendly name given to the Outbound Track
-        :param partial_results: Indicates if partial results are going to be sent to the customer
-        :param language_code: Language code used by the transcription engine, specified in [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) format
-        :param transcription_engine: Definition of the transcription engine to be used, among those supported by Twilio
-        :param profanity_filter: indicates if the server will attempt to filter out profanities, replacing all but the initial character in each filtered word with asterisks
-        :param speech_model: Recognition model used by the transcription engine, among those supported by the provider
-        :param hints: A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
-        :param enable_automatic_punctuation: The provider will add punctuation to recognition result
-        :param intelligence_service: The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators .
-
-        :returns: The created TranscriptionInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -310,6 +384,7 @@ class TranscriptionList(ListResource):
                     enable_automatic_punctuation
                 ),
                 "IntelligenceService": intelligence_service,
+                "EnableProviderData": serialize.boolean_to_string(enable_provider_data),
             }
         )
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -318,15 +393,191 @@ class TranscriptionList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        name: Union[str, object] = values.unset,
+        track: Union["TranscriptionInstance.Track", object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        inbound_track_label: Union[str, object] = values.unset,
+        outbound_track_label: Union[str, object] = values.unset,
+        partial_results: Union[bool, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        transcription_engine: Union[str, object] = values.unset,
+        profanity_filter: Union[bool, object] = values.unset,
+        speech_model: Union[str, object] = values.unset,
+        hints: Union[str, object] = values.unset,
+        enable_automatic_punctuation: Union[bool, object] = values.unset,
+        intelligence_service: Union[str, object] = values.unset,
+        enable_provider_data: Union[bool, object] = values.unset,
+    ) -> TranscriptionInstance:
+        """
+        Create the TranscriptionInstance
+
+        :param name: The user-specified name of this Transcription, if one was given when the Transcription was created. This may be used to stop the Transcription.
+        :param track:
+        :param status_callback_url: Absolute URL of the status callback.
+        :param status_callback_method: The http method for the status_callback (one of GET, POST).
+        :param inbound_track_label: Friendly name given to the Inbound Track
+        :param outbound_track_label: Friendly name given to the Outbound Track
+        :param partial_results: Indicates if partial results are going to be sent to the customer
+        :param language_code: Language code used by the transcription engine, specified in [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) format
+        :param transcription_engine: Definition of the transcription engine to be used, among those supported by Twilio
+        :param profanity_filter: indicates if the server will attempt to filter out profanities, replacing all but the initial character in each filtered word with asterisks
+        :param speech_model: Recognition model used by the transcription engine, among those supported by the provider
+        :param hints: A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
+        :param enable_automatic_punctuation: The provider will add punctuation to recognition result
+        :param intelligence_service: The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators
+        :param enable_provider_data: Whether the callback includes raw provider data.
+
+        :returns: The created TranscriptionInstance
+        """
+        payload, _, _ = self._create(
+            name=name,
+            track=track,
+            status_callback_url=status_callback_url,
+            status_callback_method=status_callback_method,
+            inbound_track_label=inbound_track_label,
+            outbound_track_label=outbound_track_label,
+            partial_results=partial_results,
+            language_code=language_code,
+            transcription_engine=transcription_engine,
+            profanity_filter=profanity_filter,
+            speech_model=speech_model,
+            hints=hints,
+            enable_automatic_punctuation=enable_automatic_punctuation,
+            intelligence_service=intelligence_service,
+            enable_provider_data=enable_provider_data,
+        )
         return TranscriptionInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             call_sid=self._solution["call_sid"],
+        )
+
+    def create_with_http_info(
+        self,
+        name: Union[str, object] = values.unset,
+        track: Union["TranscriptionInstance.Track", object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        inbound_track_label: Union[str, object] = values.unset,
+        outbound_track_label: Union[str, object] = values.unset,
+        partial_results: Union[bool, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        transcription_engine: Union[str, object] = values.unset,
+        profanity_filter: Union[bool, object] = values.unset,
+        speech_model: Union[str, object] = values.unset,
+        hints: Union[str, object] = values.unset,
+        enable_automatic_punctuation: Union[bool, object] = values.unset,
+        intelligence_service: Union[str, object] = values.unset,
+        enable_provider_data: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the TranscriptionInstance and return response metadata
+
+        :param name: The user-specified name of this Transcription, if one was given when the Transcription was created. This may be used to stop the Transcription.
+        :param track:
+        :param status_callback_url: Absolute URL of the status callback.
+        :param status_callback_method: The http method for the status_callback (one of GET, POST).
+        :param inbound_track_label: Friendly name given to the Inbound Track
+        :param outbound_track_label: Friendly name given to the Outbound Track
+        :param partial_results: Indicates if partial results are going to be sent to the customer
+        :param language_code: Language code used by the transcription engine, specified in [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) format
+        :param transcription_engine: Definition of the transcription engine to be used, among those supported by Twilio
+        :param profanity_filter: indicates if the server will attempt to filter out profanities, replacing all but the initial character in each filtered word with asterisks
+        :param speech_model: Recognition model used by the transcription engine, among those supported by the provider
+        :param hints: A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
+        :param enable_automatic_punctuation: The provider will add punctuation to recognition result
+        :param intelligence_service: The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators
+        :param enable_provider_data: Whether the callback includes raw provider data.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            name=name,
+            track=track,
+            status_callback_url=status_callback_url,
+            status_callback_method=status_callback_method,
+            inbound_track_label=inbound_track_label,
+            outbound_track_label=outbound_track_label,
+            partial_results=partial_results,
+            language_code=language_code,
+            transcription_engine=transcription_engine,
+            profanity_filter=profanity_filter,
+            speech_model=speech_model,
+            hints=hints,
+            enable_automatic_punctuation=enable_automatic_punctuation,
+            intelligence_service=intelligence_service,
+            enable_provider_data=enable_provider_data,
+        )
+        instance = TranscriptionInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        name: Union[str, object] = values.unset,
+        track: Union["TranscriptionInstance.Track", object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        inbound_track_label: Union[str, object] = values.unset,
+        outbound_track_label: Union[str, object] = values.unset,
+        partial_results: Union[bool, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        transcription_engine: Union[str, object] = values.unset,
+        profanity_filter: Union[bool, object] = values.unset,
+        speech_model: Union[str, object] = values.unset,
+        hints: Union[str, object] = values.unset,
+        enable_automatic_punctuation: Union[bool, object] = values.unset,
+        intelligence_service: Union[str, object] = values.unset,
+        enable_provider_data: Union[bool, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Name": name,
+                "Track": track,
+                "StatusCallbackUrl": status_callback_url,
+                "StatusCallbackMethod": status_callback_method,
+                "InboundTrackLabel": inbound_track_label,
+                "OutboundTrackLabel": outbound_track_label,
+                "PartialResults": serialize.boolean_to_string(partial_results),
+                "LanguageCode": language_code,
+                "TranscriptionEngine": transcription_engine,
+                "ProfanityFilter": serialize.boolean_to_string(profanity_filter),
+                "SpeechModel": speech_model,
+                "Hints": hints,
+                "EnableAutomaticPunctuation": serialize.boolean_to_string(
+                    enable_automatic_punctuation
+                ),
+                "IntelligenceService": intelligence_service,
+                "EnableProviderData": serialize.boolean_to_string(enable_provider_data),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def create_async(
@@ -345,6 +596,7 @@ class TranscriptionList(ListResource):
         hints: Union[str, object] = values.unset,
         enable_automatic_punctuation: Union[bool, object] = values.unset,
         intelligence_service: Union[str, object] = values.unset,
+        enable_provider_data: Union[bool, object] = values.unset,
     ) -> TranscriptionInstance:
         """
         Asynchronously create the TranscriptionInstance
@@ -362,47 +614,98 @@ class TranscriptionList(ListResource):
         :param speech_model: Recognition model used by the transcription engine, among those supported by the provider
         :param hints: A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
         :param enable_automatic_punctuation: The provider will add punctuation to recognition result
-        :param intelligence_service: The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators .
+        :param intelligence_service: The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators
+        :param enable_provider_data: Whether the callback includes raw provider data.
 
         :returns: The created TranscriptionInstance
         """
-
-        data = values.of(
-            {
-                "Name": name,
-                "Track": track,
-                "StatusCallbackUrl": status_callback_url,
-                "StatusCallbackMethod": status_callback_method,
-                "InboundTrackLabel": inbound_track_label,
-                "OutboundTrackLabel": outbound_track_label,
-                "PartialResults": serialize.boolean_to_string(partial_results),
-                "LanguageCode": language_code,
-                "TranscriptionEngine": transcription_engine,
-                "ProfanityFilter": serialize.boolean_to_string(profanity_filter),
-                "SpeechModel": speech_model,
-                "Hints": hints,
-                "EnableAutomaticPunctuation": serialize.boolean_to_string(
-                    enable_automatic_punctuation
-                ),
-                "IntelligenceService": intelligence_service,
-            }
+        payload, _, _ = await self._create_async(
+            name=name,
+            track=track,
+            status_callback_url=status_callback_url,
+            status_callback_method=status_callback_method,
+            inbound_track_label=inbound_track_label,
+            outbound_track_label=outbound_track_label,
+            partial_results=partial_results,
+            language_code=language_code,
+            transcription_engine=transcription_engine,
+            profanity_filter=profanity_filter,
+            speech_model=speech_model,
+            hints=hints,
+            enable_automatic_punctuation=enable_automatic_punctuation,
+            intelligence_service=intelligence_service,
+            enable_provider_data=enable_provider_data,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return TranscriptionInstance(
             self._version,
             payload,
             account_sid=self._solution["account_sid"],
             call_sid=self._solution["call_sid"],
         )
+
+    async def create_with_http_info_async(
+        self,
+        name: Union[str, object] = values.unset,
+        track: Union["TranscriptionInstance.Track", object] = values.unset,
+        status_callback_url: Union[str, object] = values.unset,
+        status_callback_method: Union[str, object] = values.unset,
+        inbound_track_label: Union[str, object] = values.unset,
+        outbound_track_label: Union[str, object] = values.unset,
+        partial_results: Union[bool, object] = values.unset,
+        language_code: Union[str, object] = values.unset,
+        transcription_engine: Union[str, object] = values.unset,
+        profanity_filter: Union[bool, object] = values.unset,
+        speech_model: Union[str, object] = values.unset,
+        hints: Union[str, object] = values.unset,
+        enable_automatic_punctuation: Union[bool, object] = values.unset,
+        intelligence_service: Union[str, object] = values.unset,
+        enable_provider_data: Union[bool, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the TranscriptionInstance and return response metadata
+
+        :param name: The user-specified name of this Transcription, if one was given when the Transcription was created. This may be used to stop the Transcription.
+        :param track:
+        :param status_callback_url: Absolute URL of the status callback.
+        :param status_callback_method: The http method for the status_callback (one of GET, POST).
+        :param inbound_track_label: Friendly name given to the Inbound Track
+        :param outbound_track_label: Friendly name given to the Outbound Track
+        :param partial_results: Indicates if partial results are going to be sent to the customer
+        :param language_code: Language code used by the transcription engine, specified in [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) format
+        :param transcription_engine: Definition of the transcription engine to be used, among those supported by Twilio
+        :param profanity_filter: indicates if the server will attempt to filter out profanities, replacing all but the initial character in each filtered word with asterisks
+        :param speech_model: Recognition model used by the transcription engine, among those supported by the provider
+        :param hints: A Phrase contains words and phrase \\\"hints\\\" so that the speech recognition engine is more likely to recognize them.
+        :param enable_automatic_punctuation: The provider will add punctuation to recognition result
+        :param intelligence_service: The SID or unique name of the [Intelligence Service](https://www.twilio.com/docs/conversational-intelligence/api/service-resource) for persisting transcripts and running post-call Language Operators
+        :param enable_provider_data: Whether the callback includes raw provider data.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            name=name,
+            track=track,
+            status_callback_url=status_callback_url,
+            status_callback_method=status_callback_method,
+            inbound_track_label=inbound_track_label,
+            outbound_track_label=outbound_track_label,
+            partial_results=partial_results,
+            language_code=language_code,
+            transcription_engine=transcription_engine,
+            profanity_filter=profanity_filter,
+            speech_model=speech_model,
+            hints=hints,
+            enable_automatic_punctuation=enable_automatic_punctuation,
+            intelligence_service=intelligence_service,
+            enable_provider_data=enable_provider_data,
+        )
+        instance = TranscriptionInstance(
+            self._version,
+            payload,
+            account_sid=self._solution["account_sid"],
+            call_sid=self._solution["call_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def get(self, sid: str) -> TranscriptionContext:
         """

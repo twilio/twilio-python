@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -82,6 +83,34 @@ class EncryptedOperatorResultsInstance(InstanceResource):
             redacted=redacted,
         )
 
+    def fetch_with_http_info(
+        self, redacted: Union[bool, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the EncryptedOperatorResultsInstance with HTTP info
+
+        :param redacted: Grant access to PII Redacted/Unredacted Operator Results. If redaction is enabled, the default is `true` to access redacted operator results.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            redacted=redacted,
+        )
+
+    async def fetch_with_http_info_async(
+        self, redacted: Union[bool, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the EncryptedOperatorResultsInstance with HTTP info
+
+        :param redacted: Grant access to PII Redacted/Unredacted Operator Results. If redaction is enabled, the default is `true` to access redacted operator results.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            redacted=redacted,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -113,15 +142,12 @@ class EncryptedOperatorResultsContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(
-        self, redacted: Union[bool, object] = values.unset
-    ) -> EncryptedOperatorResultsInstance:
+    def _fetch(self, redacted: Union[bool, object] = values.unset) -> tuple:
         """
-        Fetch the EncryptedOperatorResultsInstance
+        Internal helper for fetch operation
 
-        :param redacted: Grant access to PII Redacted/Unredacted Operator Results. If redaction is enabled, the default is `true` to access redacted operator results.
-
-        :returns: The fetched EncryptedOperatorResultsInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         params = values.of(
@@ -134,14 +160,65 @@ class EncryptedOperatorResultsContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
+        return self._version.fetch_with_response_info(
             method="GET", uri=self._uri, params=params, headers=headers
         )
 
+    def fetch(
+        self, redacted: Union[bool, object] = values.unset
+    ) -> EncryptedOperatorResultsInstance:
+        """
+        Fetch the EncryptedOperatorResultsInstance
+
+        :param redacted: Grant access to PII Redacted/Unredacted Operator Results. If redaction is enabled, the default is `true` to access redacted operator results.
+
+        :returns: The fetched EncryptedOperatorResultsInstance
+        """
+        payload, _, _ = self._fetch(redacted=redacted)
         return EncryptedOperatorResultsInstance(
             self._version,
             payload,
             transcript_sid=self._solution["transcript_sid"],
+        )
+
+    def fetch_with_http_info(
+        self, redacted: Union[bool, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the EncryptedOperatorResultsInstance and return response metadata
+
+        :param redacted: Grant access to PII Redacted/Unredacted Operator Results. If redaction is enabled, the default is `true` to access redacted operator results.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(redacted=redacted)
+        instance = EncryptedOperatorResultsInstance(
+            self._version,
+            payload,
+            transcript_sid=self._solution["transcript_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self, redacted: Union[bool, object] = values.unset) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        params = values.of(
+            {
+                "Redacted": serialize.boolean_to_string(redacted),
+            }
+        )
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
     async def fetch_async(
@@ -154,26 +231,30 @@ class EncryptedOperatorResultsContext(InstanceContext):
 
         :returns: The fetched EncryptedOperatorResultsInstance
         """
-
-        params = values.of(
-            {
-                "Redacted": serialize.boolean_to_string(redacted),
-            }
-        )
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async(redacted=redacted)
         return EncryptedOperatorResultsInstance(
             self._version,
             payload,
             transcript_sid=self._solution["transcript_sid"],
         )
+
+    async def fetch_with_http_info_async(
+        self, redacted: Union[bool, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the EncryptedOperatorResultsInstance and return response metadata
+
+        :param redacted: Grant access to PII Redacted/Unredacted Operator Results. If redaction is enabled, the default is `true` to access redacted operator results.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(redacted=redacted)
+        instance = EncryptedOperatorResultsInstance(
+            self._version,
+            payload,
+            transcript_sid=self._solution["transcript_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

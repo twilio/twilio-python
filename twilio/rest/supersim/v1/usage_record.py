@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -210,6 +211,106 @@ class UsageRecordList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        sim: Union[str, object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        network: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        group: Union["UsageRecordInstance.Group", object] = values.unset,
+        granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams UsageRecordInstance and returns headers from first page
+
+
+        :param str sim: SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
+        :param str fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
+        :param str network: SID of a Network resource. Only show UsageRecords representing usage on this network.
+        :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
+        :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
+        :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
+        :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
+        :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            sim=sim,
+            fleet=fleet,
+            network=network,
+            iso_country=iso_country,
+            group=group,
+            granularity=granularity,
+            start_time=start_time,
+            end_time=end_time,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        sim: Union[str, object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        network: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        group: Union["UsageRecordInstance.Group", object] = values.unset,
+        granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams UsageRecordInstance and returns headers from first page
+
+
+        :param str sim: SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
+        :param str fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
+        :param str network: SID of a Network resource. Only show UsageRecords representing usage on this network.
+        :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
+        :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
+        :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
+        :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
+        :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            sim=sim,
+            fleet=fleet,
+            network=network,
+            iso_country=iso_country,
+            group=group,
+            granularity=granularity,
+            start_time=start_time,
+            end_time=end_time,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         sim: Union[str, object] = values.unset,
@@ -310,6 +411,104 @@ class UsageRecordList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        sim: Union[str, object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        network: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        group: Union["UsageRecordInstance.Group", object] = values.unset,
+        granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists UsageRecordInstance and returns headers from first page
+
+
+        :param str sim: SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
+        :param str fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
+        :param str network: SID of a Network resource. Only show UsageRecords representing usage on this network.
+        :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
+        :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
+        :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
+        :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
+        :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            sim=sim,
+            fleet=fleet,
+            network=network,
+            iso_country=iso_country,
+            group=group,
+            granularity=granularity,
+            start_time=start_time,
+            end_time=end_time,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        sim: Union[str, object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        network: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        group: Union["UsageRecordInstance.Group", object] = values.unset,
+        granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists UsageRecordInstance and returns headers from first page
+
+
+        :param str sim: SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
+        :param str fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
+        :param str network: SID of a Network resource. Only show UsageRecords representing usage on this network.
+        :param str iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
+        :param &quot;UsageRecordInstance.Group&quot; group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
+        :param &quot;UsageRecordInstance.Granularity&quot; granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
+        :param datetime start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
+        :param datetime end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            sim=sim,
+            fleet=fleet,
+            network=network,
+            iso_country=iso_country,
+            group=group,
+            granularity=granularity,
+            start_time=start_time,
+            end_time=end_time,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -424,6 +623,124 @@ class UsageRecordList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return UsageRecordPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        sim: Union[str, object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        network: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        group: Union["UsageRecordInstance.Group", object] = values.unset,
+        granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param sim: SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
+        :param fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
+        :param network: SID of a Network resource. Only show UsageRecords representing usage on this network.
+        :param iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
+        :param group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
+        :param granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
+        :param start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
+        :param end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with UsageRecordPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Sim": sim,
+                "Fleet": fleet,
+                "Network": network,
+                "IsoCountry": iso_country,
+                "Group": group,
+                "Granularity": granularity,
+                "StartTime": serialize.iso8601_datetime(start_time),
+                "EndTime": serialize.iso8601_datetime(end_time),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = UsageRecordPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        sim: Union[str, object] = values.unset,
+        fleet: Union[str, object] = values.unset,
+        network: Union[str, object] = values.unset,
+        iso_country: Union[str, object] = values.unset,
+        group: Union["UsageRecordInstance.Group", object] = values.unset,
+        granularity: Union["UsageRecordInstance.Granularity", object] = values.unset,
+        start_time: Union[datetime, object] = values.unset,
+        end_time: Union[datetime, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param sim: SID or unique name of a Sim resource. Only show UsageRecords representing usage incurred by this Super SIM.
+        :param fleet: SID or unique name of a Fleet resource. Only show UsageRecords representing usage for Super SIMs belonging to this Fleet resource at the time the usage occurred.
+        :param network: SID of a Network resource. Only show UsageRecords representing usage on this network.
+        :param iso_country: Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this country.
+        :param group: Dimension over which to aggregate usage records. Can be: `sim`, `fleet`, `network`, `isoCountry`. Default is to not aggregate across any of these dimensions, UsageRecords will be aggregated into the time buckets described by the `Granularity` parameter.
+        :param granularity: Time-based grouping that UsageRecords should be aggregated by. Can be: `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that describes the usage for the entire period.
+        :param start_time: Only include usage that occurred at or after this time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month before the `end_time`.
+        :param end_time: Only include usage that occurred before this time (exclusive), specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current time.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with UsageRecordPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Sim": sim,
+                "Fleet": fleet,
+                "Network": network,
+                "IsoCountry": iso_country,
+                "Group": group,
+                "Granularity": granularity,
+                "StartTime": serialize.iso8601_datetime(start_time),
+                "EndTime": serialize.iso8601_datetime(end_time),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = UsageRecordPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> UsageRecordPage:
         """

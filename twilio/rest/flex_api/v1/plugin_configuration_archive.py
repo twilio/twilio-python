@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -95,6 +96,34 @@ class PluginConfigurationArchiveInstance(InstanceResource):
             flex_metadata=flex_metadata,
         )
 
+    def update_with_http_info(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the PluginConfigurationArchiveInstance with HTTP info
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            flex_metadata=flex_metadata,
+        )
+
+    async def update_with_http_info_async(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the PluginConfigurationArchiveInstance with HTTP info
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            flex_metadata=flex_metadata,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -126,15 +155,12 @@ class PluginConfigurationArchiveContext(InstanceContext):
             **self._solution
         )
 
-    def update(
-        self, flex_metadata: Union[str, object] = values.unset
-    ) -> PluginConfigurationArchiveInstance:
+    def _update(self, flex_metadata: Union[str, object] = values.unset) -> tuple:
         """
-        Update the PluginConfigurationArchiveInstance
+        Internal helper for update operation
 
-        :param flex_metadata: The Flex-Metadata HTTP request header
-
-        :returns: The updated PluginConfigurationArchiveInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of({})
@@ -148,12 +174,64 @@ class PluginConfigurationArchiveContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return self._version.update_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def update(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> PluginConfigurationArchiveInstance:
+        """
+        Update the PluginConfigurationArchiveInstance
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: The updated PluginConfigurationArchiveInstance
+        """
+        payload, _, _ = self._update(flex_metadata=flex_metadata)
         return PluginConfigurationArchiveInstance(
             self._version, payload, sid=self._solution["sid"]
+        )
+
+    def update_with_http_info(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the PluginConfigurationArchiveInstance and return response metadata
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(flex_metadata=flex_metadata)
+        instance = PluginConfigurationArchiveInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of({})
+        headers = values.of({})
+
+        if not (
+            flex_metadata is values.unset
+            or (isinstance(flex_metadata, str) and not flex_metadata)
+        ):
+            headers["Flex-Metadata"] = flex_metadata
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.update_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def update_async(
@@ -166,25 +244,28 @@ class PluginConfigurationArchiveContext(InstanceContext):
 
         :returns: The updated PluginConfigurationArchiveInstance
         """
-
-        data = values.of({})
-        headers = values.of({})
-
-        if not (
-            flex_metadata is values.unset
-            or (isinstance(flex_metadata, str) and not flex_metadata)
-        ):
-            headers["Flex-Metadata"] = flex_metadata
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(flex_metadata=flex_metadata)
         return PluginConfigurationArchiveInstance(
             self._version, payload, sid=self._solution["sid"]
         )
+
+    async def update_with_http_info_async(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the PluginConfigurationArchiveInstance and return response metadata
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            flex_metadata=flex_metadata
+        )
+        instance = PluginConfigurationArchiveInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

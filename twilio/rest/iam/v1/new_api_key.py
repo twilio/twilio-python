@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -72,6 +73,38 @@ class NewApiKeyList(ListResource):
 
         self._uri = "/Keys"
 
+    def _create(
+        self,
+        account_sid: str,
+        friendly_name: Union[str, object] = values.unset,
+        key_type: Union["NewApiKeyInstance.Keytype", object] = values.unset,
+        policy: Union[object, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "AccountSid": account_sid,
+                "FriendlyName": friendly_name,
+                "KeyType": key_type,
+                "Policy": serialize.object(policy),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         account_sid: str,
@@ -89,6 +122,53 @@ class NewApiKeyList(ListResource):
 
         :returns: The created NewApiKeyInstance
         """
+        payload, _, _ = self._create(
+            account_sid=account_sid,
+            friendly_name=friendly_name,
+            key_type=key_type,
+            policy=policy,
+        )
+        return NewApiKeyInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        account_sid: str,
+        friendly_name: Union[str, object] = values.unset,
+        key_type: Union["NewApiKeyInstance.Keytype", object] = values.unset,
+        policy: Union[object, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the NewApiKeyInstance and return response metadata
+
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param key_type:
+        :param policy: The \\\\`Policy\\\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys).
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            account_sid=account_sid,
+            friendly_name=friendly_name,
+            key_type=key_type,
+            policy=policy,
+        )
+        instance = NewApiKeyInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        account_sid: str,
+        friendly_name: Union[str, object] = values.unset,
+        key_type: Union["NewApiKeyInstance.Keytype", object] = values.unset,
+        policy: Union[object, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -104,11 +184,9 @@ class NewApiKeyList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return NewApiKeyInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -127,26 +205,39 @@ class NewApiKeyList(ListResource):
 
         :returns: The created NewApiKeyInstance
         """
-
-        data = values.of(
-            {
-                "AccountSid": account_sid,
-                "FriendlyName": friendly_name,
-                "KeyType": key_type,
-                "Policy": serialize.object(policy),
-            }
+        payload, _, _ = await self._create_async(
+            account_sid=account_sid,
+            friendly_name=friendly_name,
+            key_type=key_type,
+            policy=policy,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return NewApiKeyInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        account_sid: str,
+        friendly_name: Union[str, object] = values.unset,
+        key_type: Union["NewApiKeyInstance.Keytype", object] = values.unset,
+        policy: Union[object, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the NewApiKeyInstance and return response metadata
+
+        :param account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Payments resource.
+        :param friendly_name: A descriptive string that you create to describe the resource. It can be up to 64 characters long.
+        :param key_type:
+        :param policy: The \\\\`Policy\\\\` object is a collection that specifies the allowed Twilio permissions for the restricted key. For more information on the permissions available with restricted API keys, refer to the [Twilio documentation](https://www.twilio.com/docs/iam/api-keys/restricted-api-keys#permissions-available-with-restricted-api-keys).
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            account_sid=account_sid,
+            friendly_name=friendly_name,
+            key_type=key_type,
+            policy=policy,
+        )
+        instance = NewApiKeyInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

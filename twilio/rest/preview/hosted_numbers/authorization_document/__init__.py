@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -105,6 +106,24 @@ class AuthorizationDocumentInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the AuthorizationDocumentInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the AuthorizationDocumentInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(
         self,
         hosted_number_order_sids: Union[List[str], object] = values.unset,
@@ -171,6 +190,72 @@ class AuthorizationDocumentInstance(InstanceResource):
             contact_phone_number=contact_phone_number,
         )
 
+    def update_with_http_info(
+        self,
+        hosted_number_order_sids: Union[List[str], object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        contact_title: Union[str, object] = values.unset,
+        contact_phone_number: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the AuthorizationDocumentInstance with HTTP info
+
+        :param hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+        :param email: Email that this AuthorizationDocument will be sent to for signing.
+        :param cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
+        :param status:
+        :param contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
+        :param contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            hosted_number_order_sids=hosted_number_order_sids,
+            address_sid=address_sid,
+            email=email,
+            cc_emails=cc_emails,
+            status=status,
+            contact_title=contact_title,
+            contact_phone_number=contact_phone_number,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        hosted_number_order_sids: Union[List[str], object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        contact_title: Union[str, object] = values.unset,
+        contact_phone_number: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the AuthorizationDocumentInstance with HTTP info
+
+        :param hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+        :param email: Email that this AuthorizationDocument will be sent to for signing.
+        :param cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
+        :param status:
+        :param contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
+        :param contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            hosted_number_order_sids=hosted_number_order_sids,
+            address_sid=address_sid,
+            email=email,
+            cc_emails=cc_emails,
+            status=status,
+            contact_title=contact_title,
+            contact_phone_number=contact_phone_number,
+        )
+
     @property
     def dependent_hosted_number_orders(self) -> DependentHostedNumberOrderList:
         """
@@ -211,6 +296,22 @@ class AuthorizationDocumentContext(InstanceContext):
             DependentHostedNumberOrderList
         ] = None
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> AuthorizationDocumentInstance:
         """
         Fetch the AuthorizationDocumentInstance
@@ -218,17 +319,42 @@ class AuthorizationDocumentContext(InstanceContext):
 
         :returns: The fetched AuthorizationDocumentInstance
         """
+        payload, _, _ = self._fetch()
+        return AuthorizationDocumentInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the AuthorizationDocumentInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = AuthorizationDocumentInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return AuthorizationDocumentInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> AuthorizationDocumentInstance:
@@ -238,19 +364,66 @@ class AuthorizationDocumentContext(InstanceContext):
 
         :returns: The fetched AuthorizationDocumentInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return AuthorizationDocumentInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the AuthorizationDocumentInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = AuthorizationDocumentInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        hosted_number_order_sids: Union[List[str], object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        contact_title: Union[str, object] = values.unset,
+        contact_phone_number: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "HostedNumberOrderSids": serialize.map(
+                    hosted_number_order_sids, lambda e: e
+                ),
+                "AddressSid": address_sid,
+                "Email": email,
+                "CcEmails": serialize.map(cc_emails, lambda e: e),
+                "Status": status,
+                "ContactTitle": contact_title,
+                "ContactPhoneNumber": contact_phone_number,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -276,6 +449,72 @@ class AuthorizationDocumentContext(InstanceContext):
 
         :returns: The updated AuthorizationDocumentInstance
         """
+        payload, _, _ = self._update(
+            hosted_number_order_sids=hosted_number_order_sids,
+            address_sid=address_sid,
+            email=email,
+            cc_emails=cc_emails,
+            status=status,
+            contact_title=contact_title,
+            contact_phone_number=contact_phone_number,
+        )
+        return AuthorizationDocumentInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+
+    def update_with_http_info(
+        self,
+        hosted_number_order_sids: Union[List[str], object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        contact_title: Union[str, object] = values.unset,
+        contact_phone_number: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the AuthorizationDocumentInstance and return response metadata
+
+        :param hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+        :param email: Email that this AuthorizationDocument will be sent to for signing.
+        :param cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
+        :param status:
+        :param contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
+        :param contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            hosted_number_order_sids=hosted_number_order_sids,
+            address_sid=address_sid,
+            email=email,
+            cc_emails=cc_emails,
+            status=status,
+            contact_title=contact_title,
+            contact_phone_number=contact_phone_number,
+        )
+        instance = AuthorizationDocumentInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        hosted_number_order_sids: Union[List[str], object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        contact_title: Union[str, object] = values.unset,
+        contact_phone_number: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -296,12 +535,8 @@ class AuthorizationDocumentContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return AuthorizationDocumentInstance(
-            self._version, payload, sid=self._solution["sid"]
         )
 
     async def update_async(
@@ -327,33 +562,55 @@ class AuthorizationDocumentContext(InstanceContext):
 
         :returns: The updated AuthorizationDocumentInstance
         """
-
-        data = values.of(
-            {
-                "HostedNumberOrderSids": serialize.map(
-                    hosted_number_order_sids, lambda e: e
-                ),
-                "AddressSid": address_sid,
-                "Email": email,
-                "CcEmails": serialize.map(cc_emails, lambda e: e),
-                "Status": status,
-                "ContactTitle": contact_title,
-                "ContactPhoneNumber": contact_phone_number,
-            }
+        payload, _, _ = await self._update_async(
+            hosted_number_order_sids=hosted_number_order_sids,
+            address_sid=address_sid,
+            email=email,
+            cc_emails=cc_emails,
+            status=status,
+            contact_title=contact_title,
+            contact_phone_number=contact_phone_number,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return AuthorizationDocumentInstance(
             self._version, payload, sid=self._solution["sid"]
         )
+
+    async def update_with_http_info_async(
+        self,
+        hosted_number_order_sids: Union[List[str], object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+        email: Union[str, object] = values.unset,
+        cc_emails: Union[List[str], object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        contact_title: Union[str, object] = values.unset,
+        contact_phone_number: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the AuthorizationDocumentInstance and return response metadata
+
+        :param hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+        :param email: Email that this AuthorizationDocument will be sent to for signing.
+        :param cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed
+        :param status:
+        :param contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
+        :param contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            hosted_number_order_sids=hosted_number_order_sids,
+            address_sid=address_sid,
+            email=email,
+            cc_emails=cc_emails,
+            status=status,
+            contact_title=contact_title,
+            contact_phone_number=contact_phone_number,
+        )
+        instance = AuthorizationDocumentInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def dependent_hosted_number_orders(self) -> DependentHostedNumberOrderList:
@@ -411,6 +668,44 @@ class AuthorizationDocumentList(ListResource):
 
         self._uri = "/AuthorizationDocuments"
 
+    def _create(
+        self,
+        hosted_number_order_sids: List[str],
+        address_sid: str,
+        email: str,
+        contact_title: str,
+        contact_phone_number: str,
+        cc_emails: Union[List[str], object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "HostedNumberOrderSids": serialize.map(
+                    hosted_number_order_sids, lambda e: e
+                ),
+                "AddressSid": address_sid,
+                "Email": email,
+                "ContactTitle": contact_title,
+                "ContactPhoneNumber": contact_phone_number,
+                "CcEmails": serialize.map(cc_emails, lambda e: e),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         hosted_number_order_sids: List[str],
@@ -432,6 +727,63 @@ class AuthorizationDocumentList(ListResource):
 
         :returns: The created AuthorizationDocumentInstance
         """
+        payload, _, _ = self._create(
+            hosted_number_order_sids=hosted_number_order_sids,
+            address_sid=address_sid,
+            email=email,
+            contact_title=contact_title,
+            contact_phone_number=contact_phone_number,
+            cc_emails=cc_emails,
+        )
+        return AuthorizationDocumentInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        hosted_number_order_sids: List[str],
+        address_sid: str,
+        email: str,
+        contact_title: str,
+        contact_phone_number: str,
+        cc_emails: Union[List[str], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the AuthorizationDocumentInstance and return response metadata
+
+        :param hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+        :param email: Email that this AuthorizationDocument will be sent to for signing.
+        :param contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
+        :param contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+        :param cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            hosted_number_order_sids=hosted_number_order_sids,
+            address_sid=address_sid,
+            email=email,
+            contact_title=contact_title,
+            contact_phone_number=contact_phone_number,
+            cc_emails=cc_emails,
+        )
+        instance = AuthorizationDocumentInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        hosted_number_order_sids: List[str],
+        address_sid: str,
+        email: str,
+        contact_title: str,
+        contact_phone_number: str,
+        cc_emails: Union[List[str], object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -451,11 +803,9 @@ class AuthorizationDocumentList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return AuthorizationDocumentInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -478,30 +828,47 @@ class AuthorizationDocumentList(ListResource):
 
         :returns: The created AuthorizationDocumentInstance
         """
-
-        data = values.of(
-            {
-                "HostedNumberOrderSids": serialize.map(
-                    hosted_number_order_sids, lambda e: e
-                ),
-                "AddressSid": address_sid,
-                "Email": email,
-                "ContactTitle": contact_title,
-                "ContactPhoneNumber": contact_phone_number,
-                "CcEmails": serialize.map(cc_emails, lambda e: e),
-            }
+        payload, _, _ = await self._create_async(
+            hosted_number_order_sids=hosted_number_order_sids,
+            address_sid=address_sid,
+            email=email,
+            contact_title=contact_title,
+            contact_phone_number=contact_phone_number,
+            cc_emails=cc_emails,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return AuthorizationDocumentInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        hosted_number_order_sids: List[str],
+        address_sid: str,
+        email: str,
+        contact_title: str,
+        contact_phone_number: str,
+        cc_emails: Union[List[str], object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the AuthorizationDocumentInstance and return response metadata
+
+        :param hosted_number_order_sids: A list of HostedNumberOrder sids that this AuthorizationDocument will authorize for hosting phone number capabilities on Twilio's platform.
+        :param address_sid: A 34 character string that uniquely identifies the Address resource that is associated with this AuthorizationDocument.
+        :param email: Email that this AuthorizationDocument will be sent to for signing.
+        :param contact_title: The title of the person authorized to sign the Authorization Document for this phone number.
+        :param contact_phone_number: The contact phone number of the person authorized to sign the Authorization Document.
+        :param cc_emails: Email recipients who will be informed when an Authorization Document has been sent and signed.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            hosted_number_order_sids=hosted_number_order_sids,
+            address_sid=address_sid,
+            email=email,
+            contact_title=contact_title,
+            contact_phone_number=contact_phone_number,
+            cc_emails=cc_emails,
+        )
+        instance = AuthorizationDocumentInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -562,6 +929,66 @@ class AuthorizationDocumentList(ListResource):
         )
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        email: Union[str, object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams AuthorizationDocumentInstance and returns headers from first page
+
+
+        :param str email: Email that this AuthorizationDocument will be sent to for signing.
+        :param &quot;AuthorizationDocumentInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            email=email, status=status, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        email: Union[str, object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams AuthorizationDocumentInstance and returns headers from first page
+
+
+        :param str email: Email that this AuthorizationDocument will be sent to for signing.
+        :param &quot;AuthorizationDocumentInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            email=email, status=status, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -627,6 +1054,68 @@ class AuthorizationDocumentList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        email: Union[str, object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists AuthorizationDocumentInstance and returns headers from first page
+
+
+        :param str email: Email that this AuthorizationDocument will be sent to for signing.
+        :param &quot;AuthorizationDocumentInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            email=email,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        email: Union[str, object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists AuthorizationDocumentInstance and returns headers from first page
+
+
+        :param str email: Email that this AuthorizationDocument will be sent to for signing.
+        :param &quot;AuthorizationDocumentInstance.Status&quot; status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            email=email,
+            status=status,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -705,6 +1194,88 @@ class AuthorizationDocumentList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return AuthorizationDocumentPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        email: Union[str, object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param email: Email that this AuthorizationDocument will be sent to for signing.
+        :param status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with AuthorizationDocumentPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Email": email,
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = AuthorizationDocumentPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        email: Union[str, object] = values.unset,
+        status: Union["AuthorizationDocumentInstance.Status", object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param email: Email that this AuthorizationDocument will be sent to for signing.
+        :param status: Status of an instance resource. It can hold one of the values: 1. opened 2. signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled [Status Values](https://www.twilio.com/docs/phone-numbers/hosted-numbers/hosted-numbers-api/authorization-document-resource#status-values) for more information on each of these statuses.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with AuthorizationDocumentPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Email": email,
+                "Status": status,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = AuthorizationDocumentPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> AuthorizationDocumentPage:
         """

@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -115,6 +116,54 @@ class WorkerStatisticsInstance(InstanceResource):
             task_channel=task_channel,
         )
 
+    def fetch_with_http_info(
+        self,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Fetch the WorkerStatisticsInstance with HTTP info
+
+        :param minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param end_date: Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            minutes=minutes,
+            start_date=start_date,
+            end_date=end_date,
+            task_channel=task_channel,
+        )
+
+    async def fetch_with_http_info_async(
+        self,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the WorkerStatisticsInstance with HTTP info
+
+        :param minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param end_date: Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            minutes=minutes,
+            start_date=start_date,
+            end_date=end_date,
+            task_channel=task_channel,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -148,6 +197,37 @@ class WorkerStatisticsContext(InstanceContext):
             )
         )
 
+    def _fetch(
+        self,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        params = values.of(
+            {
+                "Minutes": minutes,
+                "StartDate": serialize.iso8601_datetime(start_date),
+                "EndDate": serialize.iso8601_datetime(end_date),
+                "TaskChannel": task_channel,
+            }
+        )
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, params=params, headers=headers
+        )
+
     def fetch(
         self,
         minutes: Union[int, object] = values.unset,
@@ -165,6 +245,63 @@ class WorkerStatisticsContext(InstanceContext):
 
         :returns: The fetched WorkerStatisticsInstance
         """
+        payload, _, _ = self._fetch(
+            minutes=minutes,
+            start_date=start_date,
+            end_date=end_date,
+            task_channel=task_channel,
+        )
+        return WorkerStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            worker_sid=self._solution["worker_sid"],
+        )
+
+    def fetch_with_http_info(
+        self,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Fetch the WorkerStatisticsInstance and return response metadata
+
+        :param minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param end_date: Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(
+            minutes=minutes,
+            start_date=start_date,
+            end_date=end_date,
+            task_channel=task_channel,
+        )
+        instance = WorkerStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            worker_sid=self._solution["worker_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         params = values.of(
             {
@@ -179,15 +316,8 @@ class WorkerStatisticsContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
+        return await self._version.fetch_with_response_info_async(
             method="GET", uri=self._uri, params=params, headers=headers
-        )
-
-        return WorkerStatisticsInstance(
-            self._version,
-            payload,
-            workspace_sid=self._solution["workspace_sid"],
-            worker_sid=self._solution["worker_sid"],
         )
 
     async def fetch_async(
@@ -207,30 +337,49 @@ class WorkerStatisticsContext(InstanceContext):
 
         :returns: The fetched WorkerStatisticsInstance
         """
-
-        params = values.of(
-            {
-                "Minutes": minutes,
-                "StartDate": serialize.iso8601_datetime(start_date),
-                "EndDate": serialize.iso8601_datetime(end_date),
-                "TaskChannel": task_channel,
-            }
+        payload, _, _ = await self._fetch_async(
+            minutes=minutes,
+            start_date=start_date,
+            end_date=end_date,
+            task_channel=task_channel,
         )
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params, headers=headers
-        )
-
         return WorkerStatisticsInstance(
             self._version,
             payload,
             workspace_sid=self._solution["workspace_sid"],
             worker_sid=self._solution["worker_sid"],
         )
+
+    async def fetch_with_http_info_async(
+        self,
+        minutes: Union[int, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        end_date: Union[datetime, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the WorkerStatisticsInstance and return response metadata
+
+        :param minutes: Only calculate statistics since this many minutes in the past. The default 15 minutes. This is helpful for displaying statistics for the last 15 minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends.
+        :param start_date: Only calculate statistics from this date and time and later, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
+        :param end_date: Only include usage that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param task_channel: Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or `default`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            minutes=minutes,
+            start_date=start_date,
+            end_date=end_date,
+            task_channel=task_channel,
+        )
+        instance = WorkerStatisticsInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            worker_sid=self._solution["worker_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

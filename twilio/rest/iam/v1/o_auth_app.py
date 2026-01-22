@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -196,6 +197,24 @@ class OAuthAppInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the OAuthAppInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the OAuthAppInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def update(
         self,
         iam_v1_account_vendor_oauth_app_update_request: IamV1AccountVendorOauthAppUpdateRequest,
@@ -223,6 +242,36 @@ class OAuthAppInstance(InstanceResource):
         :returns: The updated OAuthAppInstance
         """
         return await self._proxy.update_async(
+            iam_v1_account_vendor_oauth_app_update_request=iam_v1_account_vendor_oauth_app_update_request,
+        )
+
+    def update_with_http_info(
+        self,
+        iam_v1_account_vendor_oauth_app_update_request: IamV1AccountVendorOauthAppUpdateRequest,
+    ) -> ApiResponse:
+        """
+        Update the OAuthAppInstance with HTTP info
+
+        :param iam_v1_account_vendor_oauth_app_update_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            iam_v1_account_vendor_oauth_app_update_request=iam_v1_account_vendor_oauth_app_update_request,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        iam_v1_account_vendor_oauth_app_update_request: IamV1AccountVendorOauthAppUpdateRequest,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the OAuthAppInstance with HTTP info
+
+        :param iam_v1_account_vendor_oauth_app_update_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             iam_v1_account_vendor_oauth_app_update_request=iam_v1_account_vendor_oauth_app_update_request,
         )
 
@@ -349,6 +398,22 @@ class OAuthAppContext(InstanceContext):
         }
         self._uri = "/Account/OAuthApps/{sid}".format(**self._solution)
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the OAuthAppInstance
@@ -356,12 +421,34 @@ class OAuthAppContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the OAuthAppInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -370,13 +457,39 @@ class OAuthAppContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the OAuthAppInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        iam_v1_account_vendor_oauth_app_update_request: IamV1AccountVendorOauthAppUpdateRequest,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = iam_v1_account_vendor_oauth_app_update_request.to_dict()
 
         headers = values.of({})
 
+        headers["Content-Type"] = "application/json"
+
         headers["Accept"] = "application/json"
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        return self._version.update_with_response_info(
+            method="PUT", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -390,6 +503,38 @@ class OAuthAppContext(InstanceContext):
 
         :returns: The updated OAuthAppInstance
         """
+        payload, _, _ = self._update(
+            iam_v1_account_vendor_oauth_app_update_request=iam_v1_account_vendor_oauth_app_update_request
+        )
+        return OAuthAppInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(
+        self,
+        iam_v1_account_vendor_oauth_app_update_request: IamV1AccountVendorOauthAppUpdateRequest,
+    ) -> ApiResponse:
+        """
+        Update the OAuthAppInstance and return response metadata
+
+        :param iam_v1_account_vendor_oauth_app_update_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            iam_v1_account_vendor_oauth_app_update_request=iam_v1_account_vendor_oauth_app_update_request
+        )
+        instance = OAuthAppInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        iam_v1_account_vendor_oauth_app_update_request: IamV1AccountVendorOauthAppUpdateRequest,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = iam_v1_account_vendor_oauth_app_update_request.to_dict()
 
         headers = values.of({})
@@ -398,11 +543,9 @@ class OAuthAppContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="PUT", uri=self._uri, data=data, headers=headers
         )
-
-        return OAuthAppInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
         self,
@@ -415,19 +558,27 @@ class OAuthAppContext(InstanceContext):
 
         :returns: The updated OAuthAppInstance
         """
-        data = iam_v1_account_vendor_oauth_app_update_request.to_dict()
-
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="PUT", uri=self._uri, data=data, headers=headers
+        payload, _, _ = await self._update_async(
+            iam_v1_account_vendor_oauth_app_update_request=iam_v1_account_vendor_oauth_app_update_request
         )
-
         return OAuthAppInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(
+        self,
+        iam_v1_account_vendor_oauth_app_update_request: IamV1AccountVendorOauthAppUpdateRequest,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the OAuthAppInstance and return response metadata
+
+        :param iam_v1_account_vendor_oauth_app_update_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            iam_v1_account_vendor_oauth_app_update_request=iam_v1_account_vendor_oauth_app_update_request
+        )
+        instance = OAuthAppInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -548,6 +699,28 @@ class OAuthAppList(ListResource):
 
         self._uri = "/Account/OAuthApps"
 
+    def _create(
+        self,
+        iam_v1_account_vendor_oauth_app_create_request: IamV1AccountVendorOauthAppCreateRequest,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = iam_v1_account_vendor_oauth_app_create_request.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         iam_v1_account_vendor_oauth_app_create_request: IamV1AccountVendorOauthAppCreateRequest,
@@ -559,6 +732,38 @@ class OAuthAppList(ListResource):
 
         :returns: The created OAuthAppInstance
         """
+        payload, _, _ = self._create(
+            iam_v1_account_vendor_oauth_app_create_request=iam_v1_account_vendor_oauth_app_create_request
+        )
+        return OAuthAppInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        iam_v1_account_vendor_oauth_app_create_request: IamV1AccountVendorOauthAppCreateRequest,
+    ) -> ApiResponse:
+        """
+        Create the OAuthAppInstance and return response metadata
+
+        :param iam_v1_account_vendor_oauth_app_create_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            iam_v1_account_vendor_oauth_app_create_request=iam_v1_account_vendor_oauth_app_create_request
+        )
+        instance = OAuthAppInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        iam_v1_account_vendor_oauth_app_create_request: IamV1AccountVendorOauthAppCreateRequest,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
         data = iam_v1_account_vendor_oauth_app_create_request.to_dict()
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
@@ -567,11 +772,9 @@ class OAuthAppList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return OAuthAppInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -584,19 +787,27 @@ class OAuthAppList(ListResource):
 
         :returns: The created OAuthAppInstance
         """
-        data = iam_v1_account_vendor_oauth_app_create_request.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
+        payload, _, _ = await self._create_async(
+            iam_v1_account_vendor_oauth_app_create_request=iam_v1_account_vendor_oauth_app_create_request
         )
-
         return OAuthAppInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        iam_v1_account_vendor_oauth_app_create_request: IamV1AccountVendorOauthAppCreateRequest,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the OAuthAppInstance and return response metadata
+
+        :param iam_v1_account_vendor_oauth_app_create_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            iam_v1_account_vendor_oauth_app_create_request=iam_v1_account_vendor_oauth_app_create_request
+        )
+        instance = OAuthAppInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def get(self, sid: str) -> OAuthAppContext:
         """

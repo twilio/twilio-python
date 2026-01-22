@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -88,6 +89,24 @@ class InteractionInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the InteractionInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the InteractionInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(
         self, webhook_ttid: Union[str, object] = values.unset
     ) -> "InteractionInstance":
@@ -113,6 +132,34 @@ class InteractionInstance(InstanceResource):
         :returns: The updated InteractionInstance
         """
         return await self._proxy.update_async(
+            webhook_ttid=webhook_ttid,
+        )
+
+    def update_with_http_info(
+        self, webhook_ttid: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the InteractionInstance with HTTP info
+
+        :param webhook_ttid: The unique identifier for Interaction level webhook
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            webhook_ttid=webhook_ttid,
+        )
+
+    async def update_with_http_info_async(
+        self, webhook_ttid: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the InteractionInstance with HTTP info
+
+        :param webhook_ttid: The unique identifier for Interaction level webhook
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             webhook_ttid=webhook_ttid,
         )
 
@@ -152,6 +199,22 @@ class InteractionContext(InstanceContext):
 
         self._channels: Optional[InteractionChannelList] = None
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> InteractionInstance:
         """
         Fetch the InteractionInstance
@@ -159,17 +222,42 @@ class InteractionContext(InstanceContext):
 
         :returns: The fetched InteractionInstance
         """
+        payload, _, _ = self._fetch()
+        return InteractionInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the InteractionInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = InteractionInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return InteractionInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> InteractionInstance:
@@ -179,19 +267,49 @@ class InteractionContext(InstanceContext):
 
         :returns: The fetched InteractionInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return InteractionInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the InteractionInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = InteractionInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(self, webhook_ttid: Union[str, object] = values.unset) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "WebhookTtid": webhook_ttid,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -204,6 +322,34 @@ class InteractionContext(InstanceContext):
 
         :returns: The updated InteractionInstance
         """
+        payload, _, _ = self._update(webhook_ttid=webhook_ttid)
+        return InteractionInstance(self._version, payload, sid=self._solution["sid"])
+
+    def update_with_http_info(
+        self, webhook_ttid: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the InteractionInstance and return response metadata
+
+        :param webhook_ttid: The unique identifier for Interaction level webhook
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(webhook_ttid=webhook_ttid)
+        instance = InteractionInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self, webhook_ttid: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -216,11 +362,9 @@ class InteractionContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return InteractionInstance(self._version, payload, sid=self._solution["sid"])
 
     async def update_async(
         self, webhook_ttid: Union[str, object] = values.unset
@@ -232,23 +376,26 @@ class InteractionContext(InstanceContext):
 
         :returns: The updated InteractionInstance
         """
-
-        data = values.of(
-            {
-                "WebhookTtid": webhook_ttid,
-            }
-        )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(webhook_ttid=webhook_ttid)
         return InteractionInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def update_with_http_info_async(
+        self, webhook_ttid: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the InteractionInstance and return response metadata
+
+        :param webhook_ttid: The unique identifier for Interaction level webhook
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            webhook_ttid=webhook_ttid
+        )
+        instance = InteractionInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     @property
     def channels(self) -> InteractionChannelList:
@@ -285,6 +432,38 @@ class InteractionList(ListResource):
 
         self._uri = "/Interactions"
 
+    def _create(
+        self,
+        channel: object,
+        routing: Union[object, object] = values.unset,
+        interaction_context_sid: Union[str, object] = values.unset,
+        webhook_ttid: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Channel": serialize.object(channel),
+                "Routing": serialize.object(routing),
+                "InteractionContextSid": interaction_context_sid,
+                "WebhookTtid": webhook_ttid,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         channel: object,
@@ -302,6 +481,53 @@ class InteractionList(ListResource):
 
         :returns: The created InteractionInstance
         """
+        payload, _, _ = self._create(
+            channel=channel,
+            routing=routing,
+            interaction_context_sid=interaction_context_sid,
+            webhook_ttid=webhook_ttid,
+        )
+        return InteractionInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        channel: object,
+        routing: Union[object, object] = values.unset,
+        interaction_context_sid: Union[str, object] = values.unset,
+        webhook_ttid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the InteractionInstance and return response metadata
+
+        :param channel: The Interaction's channel.
+        :param routing: The Interaction's routing logic.
+        :param interaction_context_sid: The Interaction context sid is used for adding a context lookup sid
+        :param webhook_ttid: The unique identifier for Interaction level webhook
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            channel=channel,
+            routing=routing,
+            interaction_context_sid=interaction_context_sid,
+            webhook_ttid=webhook_ttid,
+        )
+        instance = InteractionInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        channel: object,
+        routing: Union[object, object] = values.unset,
+        interaction_context_sid: Union[str, object] = values.unset,
+        webhook_ttid: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -317,11 +543,9 @@ class InteractionList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return InteractionInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -340,26 +564,39 @@ class InteractionList(ListResource):
 
         :returns: The created InteractionInstance
         """
-
-        data = values.of(
-            {
-                "Channel": serialize.object(channel),
-                "Routing": serialize.object(routing),
-                "InteractionContextSid": interaction_context_sid,
-                "WebhookTtid": webhook_ttid,
-            }
+        payload, _, _ = await self._create_async(
+            channel=channel,
+            routing=routing,
+            interaction_context_sid=interaction_context_sid,
+            webhook_ttid=webhook_ttid,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return InteractionInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        channel: object,
+        routing: Union[object, object] = values.unset,
+        interaction_context_sid: Union[str, object] = values.unset,
+        webhook_ttid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the InteractionInstance and return response metadata
+
+        :param channel: The Interaction's channel.
+        :param routing: The Interaction's routing logic.
+        :param interaction_context_sid: The Interaction context sid is used for adding a context lookup sid
+        :param webhook_ttid: The unique identifier for Interaction level webhook
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            channel=channel,
+            routing=routing,
+            interaction_context_sid=interaction_context_sid,
+            webhook_ttid=webhook_ttid,
+        )
+        instance = InteractionInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def get(self, sid: str) -> InteractionContext:
         """

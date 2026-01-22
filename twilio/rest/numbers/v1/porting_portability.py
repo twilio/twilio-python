@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -120,6 +121,42 @@ class PortingPortabilityInstance(InstanceResource):
             address_sid=address_sid,
         )
 
+    def fetch_with_http_info(
+        self,
+        target_account_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Fetch the PortingPortabilityInstance with HTTP info
+
+        :param target_account_sid: Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
+        :param address_sid: Address Sid of customer to which the number will be ported.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            target_account_sid=target_account_sid,
+            address_sid=address_sid,
+        )
+
+    async def fetch_with_http_info_async(
+        self,
+        target_account_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the PortingPortabilityInstance with HTTP info
+
+        :param target_account_sid: Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
+        :param address_sid: Address Sid of customer to which the number will be ported.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            target_account_sid=target_account_sid,
+            address_sid=address_sid,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -149,18 +186,16 @@ class PortingPortabilityContext(InstanceContext):
             **self._solution
         )
 
-    def fetch(
+    def _fetch(
         self,
         target_account_sid: Union[str, object] = values.unset,
         address_sid: Union[str, object] = values.unset,
-    ) -> PortingPortabilityInstance:
+    ) -> tuple:
         """
-        Fetch the PortingPortabilityInstance
+        Internal helper for fetch operation
 
-        :param target_account_sid: Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
-        :param address_sid: Address Sid of customer to which the number will be ported.
-
-        :returns: The fetched PortingPortabilityInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         params = values.of(
@@ -174,14 +209,80 @@ class PortingPortabilityContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
+        return self._version.fetch_with_response_info(
             method="GET", uri=self._uri, params=params, headers=headers
         )
 
+    def fetch(
+        self,
+        target_account_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+    ) -> PortingPortabilityInstance:
+        """
+        Fetch the PortingPortabilityInstance
+
+        :param target_account_sid: Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
+        :param address_sid: Address Sid of customer to which the number will be ported.
+
+        :returns: The fetched PortingPortabilityInstance
+        """
+        payload, _, _ = self._fetch(
+            target_account_sid=target_account_sid, address_sid=address_sid
+        )
         return PortingPortabilityInstance(
             self._version,
             payload,
             phone_number=self._solution["phone_number"],
+        )
+
+    def fetch_with_http_info(
+        self,
+        target_account_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Fetch the PortingPortabilityInstance and return response metadata
+
+        :param target_account_sid: Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
+        :param address_sid: Address Sid of customer to which the number will be ported.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(
+            target_account_sid=target_account_sid, address_sid=address_sid
+        )
+        instance = PortingPortabilityInstance(
+            self._version,
+            payload,
+            phone_number=self._solution["phone_number"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self,
+        target_account_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        params = values.of(
+            {
+                "TargetAccountSid": target_account_sid,
+                "AddressSid": address_sid,
+            }
+        )
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, params=params, headers=headers
         )
 
     async def fetch_async(
@@ -197,27 +298,37 @@ class PortingPortabilityContext(InstanceContext):
 
         :returns: The fetched PortingPortabilityInstance
         """
-
-        params = values.of(
-            {
-                "TargetAccountSid": target_account_sid,
-                "AddressSid": address_sid,
-            }
+        payload, _, _ = await self._fetch_async(
+            target_account_sid=target_account_sid, address_sid=address_sid
         )
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params, headers=headers
-        )
-
         return PortingPortabilityInstance(
             self._version,
             payload,
             phone_number=self._solution["phone_number"],
         )
+
+    async def fetch_with_http_info_async(
+        self,
+        target_account_sid: Union[str, object] = values.unset,
+        address_sid: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the PortingPortabilityInstance and return response metadata
+
+        :param target_account_sid: Account Sid to which the number will be ported. This can be used to determine if a sub account already has the number in its inventory or a different sub account. If this is not provided, the authenticated account will be assumed to be the target account.
+        :param address_sid: Address Sid of customer to which the number will be ported.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            target_account_sid=target_account_sid, address_sid=address_sid
+        )
+        instance = PortingPortabilityInstance(
+            self._version,
+            payload,
+            phone_number=self._solution["phone_number"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

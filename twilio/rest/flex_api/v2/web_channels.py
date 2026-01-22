@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -55,7 +56,7 @@ class WebChannelsList(ListResource):
 
         self._uri = "/WebChats"
 
-    def create(
+    def _create(
         self,
         address_sid: str,
         ui_version: Union[str, object] = values.unset,
@@ -63,18 +64,12 @@ class WebChannelsList(ListResource):
         customer_friendly_name: Union[str, object] = values.unset,
         pre_engagement_data: Union[str, object] = values.unset,
         identity: Union[str, object] = values.unset,
-    ) -> WebChannelsInstance:
+    ) -> tuple:
         """
-        Create the WebChannelsInstance
+        Internal helper for create operation
 
-        :param address_sid: The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
-        :param ui_version: The Ui-Version HTTP request header
-        :param chat_friendly_name: The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
-        :param customer_friendly_name: The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
-        :param pre_engagement_data: The pre-engagement data.
-        :param identity: The Identity of the guest user. See the [Conversation User Resource](https://www.twilio.com/docs/conversations/api/user-resource) for an example.
-
-        :returns: The created WebChannelsInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -97,11 +92,112 @@ class WebChannelsList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self,
+        address_sid: str,
+        ui_version: Union[str, object] = values.unset,
+        chat_friendly_name: Union[str, object] = values.unset,
+        customer_friendly_name: Union[str, object] = values.unset,
+        pre_engagement_data: Union[str, object] = values.unset,
+        identity: Union[str, object] = values.unset,
+    ) -> WebChannelsInstance:
+        """
+        Create the WebChannelsInstance
+
+        :param address_sid: The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
+        :param ui_version: The Ui-Version HTTP request header
+        :param chat_friendly_name: The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
+        :param customer_friendly_name: The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
+        :param pre_engagement_data: The pre-engagement data.
+        :param identity: The Identity of the guest user. See the [Conversation User Resource](https://www.twilio.com/docs/conversations/api/user-resource) for an example.
+
+        :returns: The created WebChannelsInstance
+        """
+        payload, _, _ = self._create(
+            address_sid=address_sid,
+            ui_version=ui_version,
+            chat_friendly_name=chat_friendly_name,
+            customer_friendly_name=customer_friendly_name,
+            pre_engagement_data=pre_engagement_data,
+            identity=identity,
+        )
         return WebChannelsInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        address_sid: str,
+        ui_version: Union[str, object] = values.unset,
+        chat_friendly_name: Union[str, object] = values.unset,
+        customer_friendly_name: Union[str, object] = values.unset,
+        pre_engagement_data: Union[str, object] = values.unset,
+        identity: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the WebChannelsInstance and return response metadata
+
+        :param address_sid: The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
+        :param ui_version: The Ui-Version HTTP request header
+        :param chat_friendly_name: The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
+        :param customer_friendly_name: The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
+        :param pre_engagement_data: The pre-engagement data.
+        :param identity: The Identity of the guest user. See the [Conversation User Resource](https://www.twilio.com/docs/conversations/api/user-resource) for an example.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            address_sid=address_sid,
+            ui_version=ui_version,
+            chat_friendly_name=chat_friendly_name,
+            customer_friendly_name=customer_friendly_name,
+            pre_engagement_data=pre_engagement_data,
+            identity=identity,
+        )
+        instance = WebChannelsInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        address_sid: str,
+        ui_version: Union[str, object] = values.unset,
+        chat_friendly_name: Union[str, object] = values.unset,
+        customer_friendly_name: Union[str, object] = values.unset,
+        pre_engagement_data: Union[str, object] = values.unset,
+        identity: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "AddressSid": address_sid,
+                "ChatFriendlyName": chat_friendly_name,
+                "CustomerFriendlyName": customer_friendly_name,
+                "PreEngagementData": pre_engagement_data,
+                "Identity": identity,
+            }
+        )
+        headers = values.of(
+            {
+                "Ui-Version": ui_version,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(
         self,
@@ -124,32 +220,47 @@ class WebChannelsList(ListResource):
 
         :returns: The created WebChannelsInstance
         """
-
-        data = values.of(
-            {
-                "AddressSid": address_sid,
-                "ChatFriendlyName": chat_friendly_name,
-                "CustomerFriendlyName": customer_friendly_name,
-                "PreEngagementData": pre_engagement_data,
-                "Identity": identity,
-            }
+        payload, _, _ = await self._create_async(
+            address_sid=address_sid,
+            ui_version=ui_version,
+            chat_friendly_name=chat_friendly_name,
+            customer_friendly_name=customer_friendly_name,
+            pre_engagement_data=pre_engagement_data,
+            identity=identity,
         )
-        headers = values.of(
-            {
-                "Ui-Version": ui_version,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return WebChannelsInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        address_sid: str,
+        ui_version: Union[str, object] = values.unset,
+        chat_friendly_name: Union[str, object] = values.unset,
+        customer_friendly_name: Union[str, object] = values.unset,
+        pre_engagement_data: Union[str, object] = values.unset,
+        identity: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the WebChannelsInstance and return response metadata
+
+        :param address_sid: The SID of the Conversations Address. See [Address Configuration Resource](https://www.twilio.com/docs/conversations/api/address-configuration-resource) for configuration details. When a conversation is created on the Flex backend, the callback URL will be set to the corresponding Studio Flow SID or webhook URL in your address configuration.
+        :param ui_version: The Ui-Version HTTP request header
+        :param chat_friendly_name: The Conversation's friendly name. See the [Conversation resource](https://www.twilio.com/docs/conversations/api/conversation-resource) for an example.
+        :param customer_friendly_name: The Conversation participant's friendly name. See the [Conversation Participant Resource](https://www.twilio.com/docs/conversations/api/conversation-participant-resource) for an example.
+        :param pre_engagement_data: The pre-engagement data.
+        :param identity: The Identity of the guest user. See the [Conversation User Resource](https://www.twilio.com/docs/conversations/api/user-resource) for an example.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            address_sid=address_sid,
+            ui_version=ui_version,
+            chat_friendly_name=chat_friendly_name,
+            customer_friendly_name=customer_friendly_name,
+            pre_engagement_data=pre_engagement_data,
+            identity=identity,
+        )
+        instance = WebChannelsInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

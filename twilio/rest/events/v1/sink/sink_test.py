@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -62,6 +63,22 @@ class SinkTestList(ListResource):
         }
         self._uri = "/Sinks/{sid}/Test".format(**self._solution)
 
+    def _create(self) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, headers=headers
+        )
+
     def create(self) -> SinkTestInstance:
         """
         Create the SinkTestInstance
@@ -69,14 +86,35 @@ class SinkTestList(ListResource):
 
         :returns: The created SinkTestInstance
         """
+        payload, _, _ = self._create()
+        return SinkTestInstance(self._version, payload, sid=self._solution["sid"])
+
+    def create_with_http_info(self) -> ApiResponse:
+        """
+        Create the SinkTestInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create()
+        instance = SinkTestInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(self) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(method="POST", uri=self._uri, headers=headers)
-
-        return SinkTestInstance(self._version, payload, sid=self._solution["sid"])
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, headers=headers
+        )
 
     async def create_async(self) -> SinkTestInstance:
         """
@@ -85,16 +123,19 @@ class SinkTestList(ListResource):
 
         :returns: The created SinkTestInstance
         """
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._create_async()
         return SinkTestInstance(self._version, payload, sid=self._solution["sid"])
+
+    async def create_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronously create the SinkTestInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async()
+        instance = SinkTestInstance(self._version, payload, sid=self._solution["sid"])
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

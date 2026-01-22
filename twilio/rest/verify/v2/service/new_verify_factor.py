@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -198,15 +199,14 @@ class NewVerifyFactorList(ListResource):
             **self._solution
         )
 
-    def update(
+    def _update(
         self, verify_passkeys_factor_request: VerifyPasskeysFactorRequest
-    ) -> NewVerifyFactorInstance:
+    ) -> tuple:
         """
-        Update the NewVerifyFactorInstance
+        Internal helper for update operation
 
-        :param verify_passkeys_factor_request:
-
-        :returns: The created NewVerifyFactorInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
         data = verify_passkeys_factor_request.to_dict()
 
@@ -216,12 +216,64 @@ class NewVerifyFactorList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return self._version.update_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def update(
+        self, verify_passkeys_factor_request: VerifyPasskeysFactorRequest
+    ) -> NewVerifyFactorInstance:
+        """
+        Update the NewVerifyFactorInstance
+
+        :param verify_passkeys_factor_request:
+
+        :returns: The updated NewVerifyFactorInstance
+        """
+        payload, _, _ = self._update(
+            verify_passkeys_factor_request=verify_passkeys_factor_request
+        )
         return NewVerifyFactorInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
+        )
+
+    def update_with_http_info(
+        self, verify_passkeys_factor_request: VerifyPasskeysFactorRequest
+    ) -> ApiResponse:
+        """
+        Update the NewVerifyFactorInstance and return response metadata
+
+        :param verify_passkeys_factor_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            verify_passkeys_factor_request=verify_passkeys_factor_request
+        )
+        instance = NewVerifyFactorInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self, verify_passkeys_factor_request: VerifyPasskeysFactorRequest
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        data = verify_passkeys_factor_request.to_dict()
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/json"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.update_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def update_async(
@@ -232,23 +284,32 @@ class NewVerifyFactorList(ListResource):
 
         :param verify_passkeys_factor_request:
 
-        :returns: The created NewVerifyFactorInstance
+        :returns: The updated NewVerifyFactorInstance
         """
-        data = verify_passkeys_factor_request.to_dict()
-
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/json"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
+        payload, _, _ = await self._update_async(
+            verify_passkeys_factor_request=verify_passkeys_factor_request
         )
-
         return NewVerifyFactorInstance(
             self._version, payload, service_sid=self._solution["service_sid"]
         )
+
+    async def update_with_http_info_async(
+        self, verify_passkeys_factor_request: VerifyPasskeysFactorRequest
+    ) -> ApiResponse:
+        """
+        Asynchronously update the NewVerifyFactorInstance and return response metadata
+
+        :param verify_passkeys_factor_request:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            verify_passkeys_factor_request=verify_passkeys_factor_request
+        )
+        instance = NewVerifyFactorInstance(
+            self._version, payload, service_sid=self._solution["service_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

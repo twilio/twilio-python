@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -245,6 +246,24 @@ class TollfreeVerificationInstance(InstanceResource):
         """
         return await self._proxy.delete_async()
 
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the TollfreeVerificationInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return self._proxy.delete_with_http_info()
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the TollfreeVerificationInstance with HTTP info
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        return await self._proxy.delete_with_http_info_async()
+
     def fetch(self) -> "TollfreeVerificationInstance":
         """
         Fetch the TollfreeVerificationInstance
@@ -262,6 +281,24 @@ class TollfreeVerificationInstance(InstanceResource):
         :returns: The fetched TollfreeVerificationInstance
         """
         return await self._proxy.fetch_async()
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the TollfreeVerificationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the TollfreeVerificationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
 
     def update(
         self,
@@ -505,6 +542,248 @@ class TollfreeVerificationInstance(InstanceResource):
             vetting_id=vetting_id,
         )
 
+    def update_with_http_info(
+        self,
+        business_name: Union[str, object] = values.unset,
+        business_website: Union[str, object] = values.unset,
+        notification_email: Union[str, object] = values.unset,
+        use_case_categories: Union[List[str], object] = values.unset,
+        use_case_summary: Union[str, object] = values.unset,
+        production_message_sample: Union[str, object] = values.unset,
+        opt_in_image_urls: Union[List[str], object] = values.unset,
+        opt_in_type: Union[
+            "TollfreeVerificationInstance.OptInType", object
+        ] = values.unset,
+        message_volume: Union[str, object] = values.unset,
+        business_street_address: Union[str, object] = values.unset,
+        business_street_address2: Union[str, object] = values.unset,
+        business_city: Union[str, object] = values.unset,
+        business_state_province_region: Union[str, object] = values.unset,
+        business_postal_code: Union[str, object] = values.unset,
+        business_country: Union[str, object] = values.unset,
+        additional_information: Union[str, object] = values.unset,
+        business_contact_first_name: Union[str, object] = values.unset,
+        business_contact_last_name: Union[str, object] = values.unset,
+        business_contact_email: Union[str, object] = values.unset,
+        business_contact_phone: Union[str, object] = values.unset,
+        edit_reason: Union[str, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[str, object] = values.unset,
+        business_registration_phone_number: Union[str, object] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_provider: Union[
+            "TollfreeVerificationInstance.VettingProvider", object
+        ] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the TollfreeVerificationInstance with HTTP info
+
+        :param business_name: The name of the business or organization using the Tollfree number.
+        :param business_website: The website of the business or organization using the Tollfree number.
+        :param notification_email: The email address to receive the notification about the verification result. .
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
+        :param production_message_sample: An example of message content, i.e. a sample message.
+        :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param opt_in_type:
+        :param message_volume: Estimate monthly volume of messages from the Tollfree Number.
+        :param business_street_address: The address of the business or organization using the Tollfree number.
+        :param business_street_address2: The address of the business or organization using the Tollfree number.
+        :param business_city: The city of the business or organization using the Tollfree number.
+        :param business_state_province_region: The state/province/region of the business or organization using the Tollfree number.
+        :param business_postal_code: The postal code of the business or organization using the Tollfree number.
+        :param business_country: The country of the business or organization using the Tollfree number.
+        :param additional_information: Additional information to be provided for verification.
+        :param business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
+        :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
+        :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
+        :param business_registration_number: A legaly recognized business registration number
+        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_country: Country business is registered in
+        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_registration_phone_number: The E.164 formatted number associated with the business.
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+        :param vetting_provider:
+        :param vetting_id: The unique ID of the vetting
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            business_name=business_name,
+            business_website=business_website,
+            notification_email=notification_email,
+            use_case_categories=use_case_categories,
+            use_case_summary=use_case_summary,
+            production_message_sample=production_message_sample,
+            opt_in_image_urls=opt_in_image_urls,
+            opt_in_type=opt_in_type,
+            message_volume=message_volume,
+            business_street_address=business_street_address,
+            business_street_address2=business_street_address2,
+            business_city=business_city,
+            business_state_province_region=business_state_province_region,
+            business_postal_code=business_postal_code,
+            business_country=business_country,
+            additional_information=additional_information,
+            business_contact_first_name=business_contact_first_name,
+            business_contact_last_name=business_contact_last_name,
+            business_contact_email=business_contact_email,
+            business_contact_phone=business_contact_phone,
+            edit_reason=edit_reason,
+            business_registration_number=business_registration_number,
+            business_registration_authority=business_registration_authority,
+            business_registration_country=business_registration_country,
+            business_type=business_type,
+            business_registration_phone_number=business_registration_phone_number,
+            doing_business_as=doing_business_as,
+            opt_in_confirmation_message=opt_in_confirmation_message,
+            help_message_sample=help_message_sample,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
+            age_gated_content=age_gated_content,
+            opt_in_keywords=opt_in_keywords,
+            vetting_provider=vetting_provider,
+            vetting_id=vetting_id,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        business_name: Union[str, object] = values.unset,
+        business_website: Union[str, object] = values.unset,
+        notification_email: Union[str, object] = values.unset,
+        use_case_categories: Union[List[str], object] = values.unset,
+        use_case_summary: Union[str, object] = values.unset,
+        production_message_sample: Union[str, object] = values.unset,
+        opt_in_image_urls: Union[List[str], object] = values.unset,
+        opt_in_type: Union[
+            "TollfreeVerificationInstance.OptInType", object
+        ] = values.unset,
+        message_volume: Union[str, object] = values.unset,
+        business_street_address: Union[str, object] = values.unset,
+        business_street_address2: Union[str, object] = values.unset,
+        business_city: Union[str, object] = values.unset,
+        business_state_province_region: Union[str, object] = values.unset,
+        business_postal_code: Union[str, object] = values.unset,
+        business_country: Union[str, object] = values.unset,
+        additional_information: Union[str, object] = values.unset,
+        business_contact_first_name: Union[str, object] = values.unset,
+        business_contact_last_name: Union[str, object] = values.unset,
+        business_contact_email: Union[str, object] = values.unset,
+        business_contact_phone: Union[str, object] = values.unset,
+        edit_reason: Union[str, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[str, object] = values.unset,
+        business_registration_phone_number: Union[str, object] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_provider: Union[
+            "TollfreeVerificationInstance.VettingProvider", object
+        ] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the TollfreeVerificationInstance with HTTP info
+
+        :param business_name: The name of the business or organization using the Tollfree number.
+        :param business_website: The website of the business or organization using the Tollfree number.
+        :param notification_email: The email address to receive the notification about the verification result. .
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
+        :param production_message_sample: An example of message content, i.e. a sample message.
+        :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param opt_in_type:
+        :param message_volume: Estimate monthly volume of messages from the Tollfree Number.
+        :param business_street_address: The address of the business or organization using the Tollfree number.
+        :param business_street_address2: The address of the business or organization using the Tollfree number.
+        :param business_city: The city of the business or organization using the Tollfree number.
+        :param business_state_province_region: The state/province/region of the business or organization using the Tollfree number.
+        :param business_postal_code: The postal code of the business or organization using the Tollfree number.
+        :param business_country: The country of the business or organization using the Tollfree number.
+        :param additional_information: Additional information to be provided for verification.
+        :param business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
+        :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
+        :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
+        :param business_registration_number: A legaly recognized business registration number
+        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_country: Country business is registered in
+        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_registration_phone_number: The E.164 formatted number associated with the business.
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+        :param vetting_provider:
+        :param vetting_id: The unique ID of the vetting
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            business_name=business_name,
+            business_website=business_website,
+            notification_email=notification_email,
+            use_case_categories=use_case_categories,
+            use_case_summary=use_case_summary,
+            production_message_sample=production_message_sample,
+            opt_in_image_urls=opt_in_image_urls,
+            opt_in_type=opt_in_type,
+            message_volume=message_volume,
+            business_street_address=business_street_address,
+            business_street_address2=business_street_address2,
+            business_city=business_city,
+            business_state_province_region=business_state_province_region,
+            business_postal_code=business_postal_code,
+            business_country=business_country,
+            additional_information=additional_information,
+            business_contact_first_name=business_contact_first_name,
+            business_contact_last_name=business_contact_last_name,
+            business_contact_email=business_contact_email,
+            business_contact_phone=business_contact_phone,
+            edit_reason=edit_reason,
+            business_registration_number=business_registration_number,
+            business_registration_authority=business_registration_authority,
+            business_registration_country=business_registration_country,
+            business_type=business_type,
+            business_registration_phone_number=business_registration_phone_number,
+            doing_business_as=doing_business_as,
+            opt_in_confirmation_message=opt_in_confirmation_message,
+            help_message_sample=help_message_sample,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
+            age_gated_content=age_gated_content,
+            opt_in_keywords=opt_in_keywords,
+            vetting_provider=vetting_provider,
+            vetting_id=vetting_id,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -532,6 +811,20 @@ class TollfreeVerificationContext(InstanceContext):
         }
         self._uri = "/Tollfree/Verifications/{sid}".format(**self._solution)
 
+    def _delete(self) -> tuple:
+        """
+        Internal helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        return self._version.delete_with_response_info(
+            method="DELETE", uri=self._uri, headers=headers
+        )
+
     def delete(self) -> bool:
         """
         Deletes the TollfreeVerificationInstance
@@ -539,10 +832,32 @@ class TollfreeVerificationContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = self._delete()
+        return success
+
+    def delete_with_http_info(self) -> ApiResponse:
+        """
+        Deletes the TollfreeVerificationInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = self._delete()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    async def _delete_async(self) -> tuple:
+        """
+        Internal async helper for delete operation
+
+        Returns:
+            tuple: (success_boolean, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return self._version.delete(method="DELETE", uri=self._uri, headers=headers)
+        return await self._version.delete_with_response_info_async(
+            method="DELETE", uri=self._uri, headers=headers
+        )
 
     async def delete_async(self) -> bool:
         """
@@ -551,11 +866,33 @@ class TollfreeVerificationContext(InstanceContext):
 
         :returns: True if delete succeeds, False otherwise
         """
+        success, _, _ = await self._delete_async()
+        return success
+
+    async def delete_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine that deletes the TollfreeVerificationInstance and return response metadata
+
+
+        :returns: ApiResponse with success boolean, status code, and headers
+        """
+        success, status_code, headers = await self._delete_async()
+        return ApiResponse(data=success, status_code=status_code, headers=headers)
+
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
-        return await self._version.delete_async(
-            method="DELETE", uri=self._uri, headers=headers
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
         )
 
     def fetch(self) -> TollfreeVerificationInstance:
@@ -565,17 +902,42 @@ class TollfreeVerificationContext(InstanceContext):
 
         :returns: The fetched TollfreeVerificationInstance
         """
+        payload, _, _ = self._fetch()
+        return TollfreeVerificationInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the TollfreeVerificationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = TollfreeVerificationInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return TollfreeVerificationInstance(
-            self._version,
-            payload,
-            sid=self._solution["sid"],
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> TollfreeVerificationInstance:
@@ -585,19 +947,124 @@ class TollfreeVerificationContext(InstanceContext):
 
         :returns: The fetched TollfreeVerificationInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return TollfreeVerificationInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the TollfreeVerificationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = TollfreeVerificationInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        business_name: Union[str, object] = values.unset,
+        business_website: Union[str, object] = values.unset,
+        notification_email: Union[str, object] = values.unset,
+        use_case_categories: Union[List[str], object] = values.unset,
+        use_case_summary: Union[str, object] = values.unset,
+        production_message_sample: Union[str, object] = values.unset,
+        opt_in_image_urls: Union[List[str], object] = values.unset,
+        opt_in_type: Union[
+            "TollfreeVerificationInstance.OptInType", object
+        ] = values.unset,
+        message_volume: Union[str, object] = values.unset,
+        business_street_address: Union[str, object] = values.unset,
+        business_street_address2: Union[str, object] = values.unset,
+        business_city: Union[str, object] = values.unset,
+        business_state_province_region: Union[str, object] = values.unset,
+        business_postal_code: Union[str, object] = values.unset,
+        business_country: Union[str, object] = values.unset,
+        additional_information: Union[str, object] = values.unset,
+        business_contact_first_name: Union[str, object] = values.unset,
+        business_contact_last_name: Union[str, object] = values.unset,
+        business_contact_email: Union[str, object] = values.unset,
+        business_contact_phone: Union[str, object] = values.unset,
+        edit_reason: Union[str, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[str, object] = values.unset,
+        business_registration_phone_number: Union[str, object] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_provider: Union[
+            "TollfreeVerificationInstance.VettingProvider", object
+        ] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "BusinessName": business_name,
+                "BusinessWebsite": business_website,
+                "NotificationEmail": notification_email,
+                "UseCaseCategories": serialize.map(use_case_categories, lambda e: e),
+                "UseCaseSummary": use_case_summary,
+                "ProductionMessageSample": production_message_sample,
+                "OptInImageUrls": serialize.map(opt_in_image_urls, lambda e: e),
+                "OptInType": opt_in_type,
+                "MessageVolume": message_volume,
+                "BusinessStreetAddress": business_street_address,
+                "BusinessStreetAddress2": business_street_address2,
+                "BusinessCity": business_city,
+                "BusinessStateProvinceRegion": business_state_province_region,
+                "BusinessPostalCode": business_postal_code,
+                "BusinessCountry": business_country,
+                "AdditionalInformation": additional_information,
+                "BusinessContactFirstName": business_contact_first_name,
+                "BusinessContactLastName": business_contact_last_name,
+                "BusinessContactEmail": business_contact_email,
+                "BusinessContactPhone": business_contact_phone,
+                "EditReason": edit_reason,
+                "BusinessRegistrationNumber": business_registration_number,
+                "BusinessRegistrationAuthority": business_registration_authority,
+                "BusinessRegistrationCountry": business_registration_country,
+                "BusinessType": business_type,
+                "BusinessRegistrationPhoneNumber": business_registration_phone_number,
+                "DoingBusinessAs": doing_business_as,
+                "OptInConfirmationMessage": opt_in_confirmation_message,
+                "HelpMessageSample": help_message_sample,
+                "PrivacyPolicyUrl": privacy_policy_url,
+                "TermsAndConditionsUrl": terms_and_conditions_url,
+                "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
+                "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
+                "VettingProvider": vetting_provider,
+                "VettingId": vetting_id,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -683,6 +1150,220 @@ class TollfreeVerificationContext(InstanceContext):
 
         :returns: The updated TollfreeVerificationInstance
         """
+        payload, _, _ = self._update(
+            business_name=business_name,
+            business_website=business_website,
+            notification_email=notification_email,
+            use_case_categories=use_case_categories,
+            use_case_summary=use_case_summary,
+            production_message_sample=production_message_sample,
+            opt_in_image_urls=opt_in_image_urls,
+            opt_in_type=opt_in_type,
+            message_volume=message_volume,
+            business_street_address=business_street_address,
+            business_street_address2=business_street_address2,
+            business_city=business_city,
+            business_state_province_region=business_state_province_region,
+            business_postal_code=business_postal_code,
+            business_country=business_country,
+            additional_information=additional_information,
+            business_contact_first_name=business_contact_first_name,
+            business_contact_last_name=business_contact_last_name,
+            business_contact_email=business_contact_email,
+            business_contact_phone=business_contact_phone,
+            edit_reason=edit_reason,
+            business_registration_number=business_registration_number,
+            business_registration_authority=business_registration_authority,
+            business_registration_country=business_registration_country,
+            business_type=business_type,
+            business_registration_phone_number=business_registration_phone_number,
+            doing_business_as=doing_business_as,
+            opt_in_confirmation_message=opt_in_confirmation_message,
+            help_message_sample=help_message_sample,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
+            age_gated_content=age_gated_content,
+            opt_in_keywords=opt_in_keywords,
+            vetting_provider=vetting_provider,
+            vetting_id=vetting_id,
+        )
+        return TollfreeVerificationInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+
+    def update_with_http_info(
+        self,
+        business_name: Union[str, object] = values.unset,
+        business_website: Union[str, object] = values.unset,
+        notification_email: Union[str, object] = values.unset,
+        use_case_categories: Union[List[str], object] = values.unset,
+        use_case_summary: Union[str, object] = values.unset,
+        production_message_sample: Union[str, object] = values.unset,
+        opt_in_image_urls: Union[List[str], object] = values.unset,
+        opt_in_type: Union[
+            "TollfreeVerificationInstance.OptInType", object
+        ] = values.unset,
+        message_volume: Union[str, object] = values.unset,
+        business_street_address: Union[str, object] = values.unset,
+        business_street_address2: Union[str, object] = values.unset,
+        business_city: Union[str, object] = values.unset,
+        business_state_province_region: Union[str, object] = values.unset,
+        business_postal_code: Union[str, object] = values.unset,
+        business_country: Union[str, object] = values.unset,
+        additional_information: Union[str, object] = values.unset,
+        business_contact_first_name: Union[str, object] = values.unset,
+        business_contact_last_name: Union[str, object] = values.unset,
+        business_contact_email: Union[str, object] = values.unset,
+        business_contact_phone: Union[str, object] = values.unset,
+        edit_reason: Union[str, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[str, object] = values.unset,
+        business_registration_phone_number: Union[str, object] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_provider: Union[
+            "TollfreeVerificationInstance.VettingProvider", object
+        ] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the TollfreeVerificationInstance and return response metadata
+
+        :param business_name: The name of the business or organization using the Tollfree number.
+        :param business_website: The website of the business or organization using the Tollfree number.
+        :param notification_email: The email address to receive the notification about the verification result. .
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
+        :param production_message_sample: An example of message content, i.e. a sample message.
+        :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param opt_in_type:
+        :param message_volume: Estimate monthly volume of messages from the Tollfree Number.
+        :param business_street_address: The address of the business or organization using the Tollfree number.
+        :param business_street_address2: The address of the business or organization using the Tollfree number.
+        :param business_city: The city of the business or organization using the Tollfree number.
+        :param business_state_province_region: The state/province/region of the business or organization using the Tollfree number.
+        :param business_postal_code: The postal code of the business or organization using the Tollfree number.
+        :param business_country: The country of the business or organization using the Tollfree number.
+        :param additional_information: Additional information to be provided for verification.
+        :param business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
+        :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
+        :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
+        :param business_registration_number: A legaly recognized business registration number
+        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_country: Country business is registered in
+        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_registration_phone_number: The E.164 formatted number associated with the business.
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+        :param vetting_provider:
+        :param vetting_id: The unique ID of the vetting
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            business_name=business_name,
+            business_website=business_website,
+            notification_email=notification_email,
+            use_case_categories=use_case_categories,
+            use_case_summary=use_case_summary,
+            production_message_sample=production_message_sample,
+            opt_in_image_urls=opt_in_image_urls,
+            opt_in_type=opt_in_type,
+            message_volume=message_volume,
+            business_street_address=business_street_address,
+            business_street_address2=business_street_address2,
+            business_city=business_city,
+            business_state_province_region=business_state_province_region,
+            business_postal_code=business_postal_code,
+            business_country=business_country,
+            additional_information=additional_information,
+            business_contact_first_name=business_contact_first_name,
+            business_contact_last_name=business_contact_last_name,
+            business_contact_email=business_contact_email,
+            business_contact_phone=business_contact_phone,
+            edit_reason=edit_reason,
+            business_registration_number=business_registration_number,
+            business_registration_authority=business_registration_authority,
+            business_registration_country=business_registration_country,
+            business_type=business_type,
+            business_registration_phone_number=business_registration_phone_number,
+            doing_business_as=doing_business_as,
+            opt_in_confirmation_message=opt_in_confirmation_message,
+            help_message_sample=help_message_sample,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
+            age_gated_content=age_gated_content,
+            opt_in_keywords=opt_in_keywords,
+            vetting_provider=vetting_provider,
+            vetting_id=vetting_id,
+        )
+        instance = TollfreeVerificationInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        business_name: Union[str, object] = values.unset,
+        business_website: Union[str, object] = values.unset,
+        notification_email: Union[str, object] = values.unset,
+        use_case_categories: Union[List[str], object] = values.unset,
+        use_case_summary: Union[str, object] = values.unset,
+        production_message_sample: Union[str, object] = values.unset,
+        opt_in_image_urls: Union[List[str], object] = values.unset,
+        opt_in_type: Union[
+            "TollfreeVerificationInstance.OptInType", object
+        ] = values.unset,
+        message_volume: Union[str, object] = values.unset,
+        business_street_address: Union[str, object] = values.unset,
+        business_street_address2: Union[str, object] = values.unset,
+        business_city: Union[str, object] = values.unset,
+        business_state_province_region: Union[str, object] = values.unset,
+        business_postal_code: Union[str, object] = values.unset,
+        business_country: Union[str, object] = values.unset,
+        additional_information: Union[str, object] = values.unset,
+        business_contact_first_name: Union[str, object] = values.unset,
+        business_contact_last_name: Union[str, object] = values.unset,
+        business_contact_email: Union[str, object] = values.unset,
+        business_contact_phone: Union[str, object] = values.unset,
+        edit_reason: Union[str, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[str, object] = values.unset,
+        business_registration_phone_number: Union[str, object] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_provider: Union[
+            "TollfreeVerificationInstance.VettingProvider", object
+        ] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -729,12 +1410,8 @@ class TollfreeVerificationContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return TollfreeVerificationInstance(
-            self._version, payload, sid=self._solution["sid"]
         )
 
     async def update_async(
@@ -820,59 +1497,171 @@ class TollfreeVerificationContext(InstanceContext):
 
         :returns: The updated TollfreeVerificationInstance
         """
-
-        data = values.of(
-            {
-                "BusinessName": business_name,
-                "BusinessWebsite": business_website,
-                "NotificationEmail": notification_email,
-                "UseCaseCategories": serialize.map(use_case_categories, lambda e: e),
-                "UseCaseSummary": use_case_summary,
-                "ProductionMessageSample": production_message_sample,
-                "OptInImageUrls": serialize.map(opt_in_image_urls, lambda e: e),
-                "OptInType": opt_in_type,
-                "MessageVolume": message_volume,
-                "BusinessStreetAddress": business_street_address,
-                "BusinessStreetAddress2": business_street_address2,
-                "BusinessCity": business_city,
-                "BusinessStateProvinceRegion": business_state_province_region,
-                "BusinessPostalCode": business_postal_code,
-                "BusinessCountry": business_country,
-                "AdditionalInformation": additional_information,
-                "BusinessContactFirstName": business_contact_first_name,
-                "BusinessContactLastName": business_contact_last_name,
-                "BusinessContactEmail": business_contact_email,
-                "BusinessContactPhone": business_contact_phone,
-                "EditReason": edit_reason,
-                "BusinessRegistrationNumber": business_registration_number,
-                "BusinessRegistrationAuthority": business_registration_authority,
-                "BusinessRegistrationCountry": business_registration_country,
-                "BusinessType": business_type,
-                "BusinessRegistrationPhoneNumber": business_registration_phone_number,
-                "DoingBusinessAs": doing_business_as,
-                "OptInConfirmationMessage": opt_in_confirmation_message,
-                "HelpMessageSample": help_message_sample,
-                "PrivacyPolicyUrl": privacy_policy_url,
-                "TermsAndConditionsUrl": terms_and_conditions_url,
-                "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
-                "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
-                "VettingProvider": vetting_provider,
-                "VettingId": vetting_id,
-            }
+        payload, _, _ = await self._update_async(
+            business_name=business_name,
+            business_website=business_website,
+            notification_email=notification_email,
+            use_case_categories=use_case_categories,
+            use_case_summary=use_case_summary,
+            production_message_sample=production_message_sample,
+            opt_in_image_urls=opt_in_image_urls,
+            opt_in_type=opt_in_type,
+            message_volume=message_volume,
+            business_street_address=business_street_address,
+            business_street_address2=business_street_address2,
+            business_city=business_city,
+            business_state_province_region=business_state_province_region,
+            business_postal_code=business_postal_code,
+            business_country=business_country,
+            additional_information=additional_information,
+            business_contact_first_name=business_contact_first_name,
+            business_contact_last_name=business_contact_last_name,
+            business_contact_email=business_contact_email,
+            business_contact_phone=business_contact_phone,
+            edit_reason=edit_reason,
+            business_registration_number=business_registration_number,
+            business_registration_authority=business_registration_authority,
+            business_registration_country=business_registration_country,
+            business_type=business_type,
+            business_registration_phone_number=business_registration_phone_number,
+            doing_business_as=doing_business_as,
+            opt_in_confirmation_message=opt_in_confirmation_message,
+            help_message_sample=help_message_sample,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
+            age_gated_content=age_gated_content,
+            opt_in_keywords=opt_in_keywords,
+            vetting_provider=vetting_provider,
+            vetting_id=vetting_id,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return TollfreeVerificationInstance(
             self._version, payload, sid=self._solution["sid"]
         )
+
+    async def update_with_http_info_async(
+        self,
+        business_name: Union[str, object] = values.unset,
+        business_website: Union[str, object] = values.unset,
+        notification_email: Union[str, object] = values.unset,
+        use_case_categories: Union[List[str], object] = values.unset,
+        use_case_summary: Union[str, object] = values.unset,
+        production_message_sample: Union[str, object] = values.unset,
+        opt_in_image_urls: Union[List[str], object] = values.unset,
+        opt_in_type: Union[
+            "TollfreeVerificationInstance.OptInType", object
+        ] = values.unset,
+        message_volume: Union[str, object] = values.unset,
+        business_street_address: Union[str, object] = values.unset,
+        business_street_address2: Union[str, object] = values.unset,
+        business_city: Union[str, object] = values.unset,
+        business_state_province_region: Union[str, object] = values.unset,
+        business_postal_code: Union[str, object] = values.unset,
+        business_country: Union[str, object] = values.unset,
+        additional_information: Union[str, object] = values.unset,
+        business_contact_first_name: Union[str, object] = values.unset,
+        business_contact_last_name: Union[str, object] = values.unset,
+        business_contact_email: Union[str, object] = values.unset,
+        business_contact_phone: Union[str, object] = values.unset,
+        edit_reason: Union[str, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[str, object] = values.unset,
+        business_registration_phone_number: Union[str, object] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_provider: Union[
+            "TollfreeVerificationInstance.VettingProvider", object
+        ] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the TollfreeVerificationInstance and return response metadata
+
+        :param business_name: The name of the business or organization using the Tollfree number.
+        :param business_website: The website of the business or organization using the Tollfree number.
+        :param notification_email: The email address to receive the notification about the verification result. .
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
+        :param production_message_sample: An example of message content, i.e. a sample message.
+        :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param opt_in_type:
+        :param message_volume: Estimate monthly volume of messages from the Tollfree Number.
+        :param business_street_address: The address of the business or organization using the Tollfree number.
+        :param business_street_address2: The address of the business or organization using the Tollfree number.
+        :param business_city: The city of the business or organization using the Tollfree number.
+        :param business_state_province_region: The state/province/region of the business or organization using the Tollfree number.
+        :param business_postal_code: The postal code of the business or organization using the Tollfree number.
+        :param business_country: The country of the business or organization using the Tollfree number.
+        :param additional_information: Additional information to be provided for verification.
+        :param business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
+        :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
+        :param edit_reason: Describe why the verification is being edited. If the verification was rejected because of a technical issue, such as the website being down, and the issue has been resolved this parameter should be set to something similar to 'Website fixed'.
+        :param business_registration_number: A legaly recognized business registration number
+        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_country: Country business is registered in
+        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_registration_phone_number: The E.164 formatted number associated with the business.
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+        :param vetting_provider:
+        :param vetting_id: The unique ID of the vetting
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            business_name=business_name,
+            business_website=business_website,
+            notification_email=notification_email,
+            use_case_categories=use_case_categories,
+            use_case_summary=use_case_summary,
+            production_message_sample=production_message_sample,
+            opt_in_image_urls=opt_in_image_urls,
+            opt_in_type=opt_in_type,
+            message_volume=message_volume,
+            business_street_address=business_street_address,
+            business_street_address2=business_street_address2,
+            business_city=business_city,
+            business_state_province_region=business_state_province_region,
+            business_postal_code=business_postal_code,
+            business_country=business_country,
+            additional_information=additional_information,
+            business_contact_first_name=business_contact_first_name,
+            business_contact_last_name=business_contact_last_name,
+            business_contact_email=business_contact_email,
+            business_contact_phone=business_contact_phone,
+            edit_reason=edit_reason,
+            business_registration_number=business_registration_number,
+            business_registration_authority=business_registration_authority,
+            business_registration_country=business_registration_country,
+            business_type=business_type,
+            business_registration_phone_number=business_registration_phone_number,
+            doing_business_as=doing_business_as,
+            opt_in_confirmation_message=opt_in_confirmation_message,
+            help_message_sample=help_message_sample,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
+            age_gated_content=age_gated_content,
+            opt_in_keywords=opt_in_keywords,
+            vetting_provider=vetting_provider,
+            vetting_id=vetting_id,
+        )
+        instance = TollfreeVerificationInstance(
+            self._version, payload, sid=self._solution["sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -915,6 +1704,106 @@ class TollfreeVerificationList(ListResource):
         super().__init__(version)
 
         self._uri = "/Tollfree/Verifications"
+
+    def _create(
+        self,
+        business_name: str,
+        business_website: str,
+        notification_email: str,
+        use_case_categories: List[str],
+        use_case_summary: str,
+        production_message_sample: str,
+        opt_in_image_urls: List[str],
+        opt_in_type: "TollfreeVerificationInstance.OptInType",
+        message_volume: str,
+        tollfree_phone_number_sid: str,
+        customer_profile_sid: Union[str, object] = values.unset,
+        business_street_address: Union[str, object] = values.unset,
+        business_street_address2: Union[str, object] = values.unset,
+        business_city: Union[str, object] = values.unset,
+        business_state_province_region: Union[str, object] = values.unset,
+        business_postal_code: Union[str, object] = values.unset,
+        business_country: Union[str, object] = values.unset,
+        additional_information: Union[str, object] = values.unset,
+        business_contact_first_name: Union[str, object] = values.unset,
+        business_contact_last_name: Union[str, object] = values.unset,
+        business_contact_email: Union[str, object] = values.unset,
+        business_contact_phone: Union[str, object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[str, object] = values.unset,
+        business_registration_phone_number: Union[str, object] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_provider: Union[
+            "TollfreeVerificationInstance.VettingProvider", object
+        ] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "BusinessName": business_name,
+                "BusinessWebsite": business_website,
+                "NotificationEmail": notification_email,
+                "UseCaseCategories": serialize.map(use_case_categories, lambda e: e),
+                "UseCaseSummary": use_case_summary,
+                "ProductionMessageSample": production_message_sample,
+                "OptInImageUrls": serialize.map(opt_in_image_urls, lambda e: e),
+                "OptInType": opt_in_type,
+                "MessageVolume": message_volume,
+                "TollfreePhoneNumberSid": tollfree_phone_number_sid,
+                "CustomerProfileSid": customer_profile_sid,
+                "BusinessStreetAddress": business_street_address,
+                "BusinessStreetAddress2": business_street_address2,
+                "BusinessCity": business_city,
+                "BusinessStateProvinceRegion": business_state_province_region,
+                "BusinessPostalCode": business_postal_code,
+                "BusinessCountry": business_country,
+                "AdditionalInformation": additional_information,
+                "BusinessContactFirstName": business_contact_first_name,
+                "BusinessContactLastName": business_contact_last_name,
+                "BusinessContactEmail": business_contact_email,
+                "BusinessContactPhone": business_contact_phone,
+                "ExternalReferenceId": external_reference_id,
+                "BusinessRegistrationNumber": business_registration_number,
+                "BusinessRegistrationAuthority": business_registration_authority,
+                "BusinessRegistrationCountry": business_registration_country,
+                "BusinessType": business_type,
+                "BusinessRegistrationPhoneNumber": business_registration_phone_number,
+                "DoingBusinessAs": doing_business_as,
+                "OptInConfirmationMessage": opt_in_confirmation_message,
+                "HelpMessageSample": help_message_sample,
+                "PrivacyPolicyUrl": privacy_policy_url,
+                "TermsAndConditionsUrl": terms_and_conditions_url,
+                "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
+                "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
+                "VettingProvider": vetting_provider,
+                "VettingId": vetting_id,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     def create(
         self,
@@ -1001,6 +1890,222 @@ class TollfreeVerificationList(ListResource):
 
         :returns: The created TollfreeVerificationInstance
         """
+        payload, _, _ = self._create(
+            business_name=business_name,
+            business_website=business_website,
+            notification_email=notification_email,
+            use_case_categories=use_case_categories,
+            use_case_summary=use_case_summary,
+            production_message_sample=production_message_sample,
+            opt_in_image_urls=opt_in_image_urls,
+            opt_in_type=opt_in_type,
+            message_volume=message_volume,
+            tollfree_phone_number_sid=tollfree_phone_number_sid,
+            customer_profile_sid=customer_profile_sid,
+            business_street_address=business_street_address,
+            business_street_address2=business_street_address2,
+            business_city=business_city,
+            business_state_province_region=business_state_province_region,
+            business_postal_code=business_postal_code,
+            business_country=business_country,
+            additional_information=additional_information,
+            business_contact_first_name=business_contact_first_name,
+            business_contact_last_name=business_contact_last_name,
+            business_contact_email=business_contact_email,
+            business_contact_phone=business_contact_phone,
+            external_reference_id=external_reference_id,
+            business_registration_number=business_registration_number,
+            business_registration_authority=business_registration_authority,
+            business_registration_country=business_registration_country,
+            business_type=business_type,
+            business_registration_phone_number=business_registration_phone_number,
+            doing_business_as=doing_business_as,
+            opt_in_confirmation_message=opt_in_confirmation_message,
+            help_message_sample=help_message_sample,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
+            age_gated_content=age_gated_content,
+            opt_in_keywords=opt_in_keywords,
+            vetting_provider=vetting_provider,
+            vetting_id=vetting_id,
+        )
+        return TollfreeVerificationInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        business_name: str,
+        business_website: str,
+        notification_email: str,
+        use_case_categories: List[str],
+        use_case_summary: str,
+        production_message_sample: str,
+        opt_in_image_urls: List[str],
+        opt_in_type: "TollfreeVerificationInstance.OptInType",
+        message_volume: str,
+        tollfree_phone_number_sid: str,
+        customer_profile_sid: Union[str, object] = values.unset,
+        business_street_address: Union[str, object] = values.unset,
+        business_street_address2: Union[str, object] = values.unset,
+        business_city: Union[str, object] = values.unset,
+        business_state_province_region: Union[str, object] = values.unset,
+        business_postal_code: Union[str, object] = values.unset,
+        business_country: Union[str, object] = values.unset,
+        additional_information: Union[str, object] = values.unset,
+        business_contact_first_name: Union[str, object] = values.unset,
+        business_contact_last_name: Union[str, object] = values.unset,
+        business_contact_email: Union[str, object] = values.unset,
+        business_contact_phone: Union[str, object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[str, object] = values.unset,
+        business_registration_phone_number: Union[str, object] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_provider: Union[
+            "TollfreeVerificationInstance.VettingProvider", object
+        ] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the TollfreeVerificationInstance and return response metadata
+
+        :param business_name: The name of the business or organization using the Tollfree number.
+        :param business_website: The website of the business or organization using the Tollfree number.
+        :param notification_email: The email address to receive the notification about the verification result. .
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
+        :param production_message_sample: An example of message content, i.e. a sample message.
+        :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param opt_in_type:
+        :param message_volume: Estimate monthly volume of messages from the Tollfree Number.
+        :param tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
+        :param customer_profile_sid: Customer's Profile Bundle BundleSid.
+        :param business_street_address: The address of the business or organization using the Tollfree number.
+        :param business_street_address2: The address of the business or organization using the Tollfree number.
+        :param business_city: The city of the business or organization using the Tollfree number.
+        :param business_state_province_region: The state/province/region of the business or organization using the Tollfree number.
+        :param business_postal_code: The postal code of the business or organization using the Tollfree number.
+        :param business_country: The country of the business or organization using the Tollfree number.
+        :param additional_information: Additional information to be provided for verification.
+        :param business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
+        :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
+        :param external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
+        :param business_registration_number: A legally recognized business registration number
+        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_country: Country business is registered in
+        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_registration_phone_number: The E.164 formatted number associated with the business.
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+        :param vetting_provider:
+        :param vetting_id: The unique ID of the vetting
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            business_name=business_name,
+            business_website=business_website,
+            notification_email=notification_email,
+            use_case_categories=use_case_categories,
+            use_case_summary=use_case_summary,
+            production_message_sample=production_message_sample,
+            opt_in_image_urls=opt_in_image_urls,
+            opt_in_type=opt_in_type,
+            message_volume=message_volume,
+            tollfree_phone_number_sid=tollfree_phone_number_sid,
+            customer_profile_sid=customer_profile_sid,
+            business_street_address=business_street_address,
+            business_street_address2=business_street_address2,
+            business_city=business_city,
+            business_state_province_region=business_state_province_region,
+            business_postal_code=business_postal_code,
+            business_country=business_country,
+            additional_information=additional_information,
+            business_contact_first_name=business_contact_first_name,
+            business_contact_last_name=business_contact_last_name,
+            business_contact_email=business_contact_email,
+            business_contact_phone=business_contact_phone,
+            external_reference_id=external_reference_id,
+            business_registration_number=business_registration_number,
+            business_registration_authority=business_registration_authority,
+            business_registration_country=business_registration_country,
+            business_type=business_type,
+            business_registration_phone_number=business_registration_phone_number,
+            doing_business_as=doing_business_as,
+            opt_in_confirmation_message=opt_in_confirmation_message,
+            help_message_sample=help_message_sample,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
+            age_gated_content=age_gated_content,
+            opt_in_keywords=opt_in_keywords,
+            vetting_provider=vetting_provider,
+            vetting_id=vetting_id,
+        )
+        instance = TollfreeVerificationInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        business_name: str,
+        business_website: str,
+        notification_email: str,
+        use_case_categories: List[str],
+        use_case_summary: str,
+        production_message_sample: str,
+        opt_in_image_urls: List[str],
+        opt_in_type: "TollfreeVerificationInstance.OptInType",
+        message_volume: str,
+        tollfree_phone_number_sid: str,
+        customer_profile_sid: Union[str, object] = values.unset,
+        business_street_address: Union[str, object] = values.unset,
+        business_street_address2: Union[str, object] = values.unset,
+        business_city: Union[str, object] = values.unset,
+        business_state_province_region: Union[str, object] = values.unset,
+        business_postal_code: Union[str, object] = values.unset,
+        business_country: Union[str, object] = values.unset,
+        additional_information: Union[str, object] = values.unset,
+        business_contact_first_name: Union[str, object] = values.unset,
+        business_contact_last_name: Union[str, object] = values.unset,
+        business_contact_email: Union[str, object] = values.unset,
+        business_contact_phone: Union[str, object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[str, object] = values.unset,
+        business_registration_phone_number: Union[str, object] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_provider: Union[
+            "TollfreeVerificationInstance.VettingProvider", object
+        ] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -1049,11 +2154,9 @@ class TollfreeVerificationList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return TollfreeVerificationInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -1140,59 +2243,173 @@ class TollfreeVerificationList(ListResource):
 
         :returns: The created TollfreeVerificationInstance
         """
-
-        data = values.of(
-            {
-                "BusinessName": business_name,
-                "BusinessWebsite": business_website,
-                "NotificationEmail": notification_email,
-                "UseCaseCategories": serialize.map(use_case_categories, lambda e: e),
-                "UseCaseSummary": use_case_summary,
-                "ProductionMessageSample": production_message_sample,
-                "OptInImageUrls": serialize.map(opt_in_image_urls, lambda e: e),
-                "OptInType": opt_in_type,
-                "MessageVolume": message_volume,
-                "TollfreePhoneNumberSid": tollfree_phone_number_sid,
-                "CustomerProfileSid": customer_profile_sid,
-                "BusinessStreetAddress": business_street_address,
-                "BusinessStreetAddress2": business_street_address2,
-                "BusinessCity": business_city,
-                "BusinessStateProvinceRegion": business_state_province_region,
-                "BusinessPostalCode": business_postal_code,
-                "BusinessCountry": business_country,
-                "AdditionalInformation": additional_information,
-                "BusinessContactFirstName": business_contact_first_name,
-                "BusinessContactLastName": business_contact_last_name,
-                "BusinessContactEmail": business_contact_email,
-                "BusinessContactPhone": business_contact_phone,
-                "ExternalReferenceId": external_reference_id,
-                "BusinessRegistrationNumber": business_registration_number,
-                "BusinessRegistrationAuthority": business_registration_authority,
-                "BusinessRegistrationCountry": business_registration_country,
-                "BusinessType": business_type,
-                "BusinessRegistrationPhoneNumber": business_registration_phone_number,
-                "DoingBusinessAs": doing_business_as,
-                "OptInConfirmationMessage": opt_in_confirmation_message,
-                "HelpMessageSample": help_message_sample,
-                "PrivacyPolicyUrl": privacy_policy_url,
-                "TermsAndConditionsUrl": terms_and_conditions_url,
-                "AgeGatedContent": serialize.boolean_to_string(age_gated_content),
-                "OptInKeywords": serialize.map(opt_in_keywords, lambda e: e),
-                "VettingProvider": vetting_provider,
-                "VettingId": vetting_id,
-            }
+        payload, _, _ = await self._create_async(
+            business_name=business_name,
+            business_website=business_website,
+            notification_email=notification_email,
+            use_case_categories=use_case_categories,
+            use_case_summary=use_case_summary,
+            production_message_sample=production_message_sample,
+            opt_in_image_urls=opt_in_image_urls,
+            opt_in_type=opt_in_type,
+            message_volume=message_volume,
+            tollfree_phone_number_sid=tollfree_phone_number_sid,
+            customer_profile_sid=customer_profile_sid,
+            business_street_address=business_street_address,
+            business_street_address2=business_street_address2,
+            business_city=business_city,
+            business_state_province_region=business_state_province_region,
+            business_postal_code=business_postal_code,
+            business_country=business_country,
+            additional_information=additional_information,
+            business_contact_first_name=business_contact_first_name,
+            business_contact_last_name=business_contact_last_name,
+            business_contact_email=business_contact_email,
+            business_contact_phone=business_contact_phone,
+            external_reference_id=external_reference_id,
+            business_registration_number=business_registration_number,
+            business_registration_authority=business_registration_authority,
+            business_registration_country=business_registration_country,
+            business_type=business_type,
+            business_registration_phone_number=business_registration_phone_number,
+            doing_business_as=doing_business_as,
+            opt_in_confirmation_message=opt_in_confirmation_message,
+            help_message_sample=help_message_sample,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
+            age_gated_content=age_gated_content,
+            opt_in_keywords=opt_in_keywords,
+            vetting_provider=vetting_provider,
+            vetting_id=vetting_id,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return TollfreeVerificationInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        business_name: str,
+        business_website: str,
+        notification_email: str,
+        use_case_categories: List[str],
+        use_case_summary: str,
+        production_message_sample: str,
+        opt_in_image_urls: List[str],
+        opt_in_type: "TollfreeVerificationInstance.OptInType",
+        message_volume: str,
+        tollfree_phone_number_sid: str,
+        customer_profile_sid: Union[str, object] = values.unset,
+        business_street_address: Union[str, object] = values.unset,
+        business_street_address2: Union[str, object] = values.unset,
+        business_city: Union[str, object] = values.unset,
+        business_state_province_region: Union[str, object] = values.unset,
+        business_postal_code: Union[str, object] = values.unset,
+        business_country: Union[str, object] = values.unset,
+        additional_information: Union[str, object] = values.unset,
+        business_contact_first_name: Union[str, object] = values.unset,
+        business_contact_last_name: Union[str, object] = values.unset,
+        business_contact_email: Union[str, object] = values.unset,
+        business_contact_phone: Union[str, object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        business_registration_number: Union[str, object] = values.unset,
+        business_registration_authority: Union[str, object] = values.unset,
+        business_registration_country: Union[str, object] = values.unset,
+        business_type: Union[str, object] = values.unset,
+        business_registration_phone_number: Union[str, object] = values.unset,
+        doing_business_as: Union[str, object] = values.unset,
+        opt_in_confirmation_message: Union[str, object] = values.unset,
+        help_message_sample: Union[str, object] = values.unset,
+        privacy_policy_url: Union[str, object] = values.unset,
+        terms_and_conditions_url: Union[str, object] = values.unset,
+        age_gated_content: Union[bool, object] = values.unset,
+        opt_in_keywords: Union[List[str], object] = values.unset,
+        vetting_provider: Union[
+            "TollfreeVerificationInstance.VettingProvider", object
+        ] = values.unset,
+        vetting_id: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the TollfreeVerificationInstance and return response metadata
+
+        :param business_name: The name of the business or organization using the Tollfree number.
+        :param business_website: The website of the business or organization using the Tollfree number.
+        :param notification_email: The email address to receive the notification about the verification result. .
+        :param use_case_categories: The category of the use case for the Tollfree Number. List as many are applicable..
+        :param use_case_summary: Use this to further explain how messaging is used by the business or organization.
+        :param production_message_sample: An example of message content, i.e. a sample message.
+        :param opt_in_image_urls: Link to an image that shows the opt-in workflow. Multiple images allowed and must be a publicly hosted URL.
+        :param opt_in_type:
+        :param message_volume: Estimate monthly volume of messages from the Tollfree Number.
+        :param tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
+        :param customer_profile_sid: Customer's Profile Bundle BundleSid.
+        :param business_street_address: The address of the business or organization using the Tollfree number.
+        :param business_street_address2: The address of the business or organization using the Tollfree number.
+        :param business_city: The city of the business or organization using the Tollfree number.
+        :param business_state_province_region: The state/province/region of the business or organization using the Tollfree number.
+        :param business_postal_code: The postal code of the business or organization using the Tollfree number.
+        :param business_country: The country of the business or organization using the Tollfree number.
+        :param additional_information: Additional information to be provided for verification.
+        :param business_contact_first_name: The first name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_last_name: The last name of the contact for the business or organization using the Tollfree number.
+        :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
+        :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
+        :param external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
+        :param business_registration_number: A legally recognized business registration number
+        :param business_registration_authority: The organizational authority for business registrations
+        :param business_registration_country: Country business is registered in
+        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_registration_phone_number: The E.164 formatted number associated with the business.
+        :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
+        :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
+        :param help_message_sample: A sample help message provided to users.
+        :param privacy_policy_url: The URL to the privacy policy for the business or organization.
+        :param terms_and_conditions_url: The URL to the terms and conditions for the business or organization.
+        :param age_gated_content: Indicates if the content is age gated.
+        :param opt_in_keywords: List of keywords that users can text in to opt in to receive messages.
+        :param vetting_provider:
+        :param vetting_id: The unique ID of the vetting
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            business_name=business_name,
+            business_website=business_website,
+            notification_email=notification_email,
+            use_case_categories=use_case_categories,
+            use_case_summary=use_case_summary,
+            production_message_sample=production_message_sample,
+            opt_in_image_urls=opt_in_image_urls,
+            opt_in_type=opt_in_type,
+            message_volume=message_volume,
+            tollfree_phone_number_sid=tollfree_phone_number_sid,
+            customer_profile_sid=customer_profile_sid,
+            business_street_address=business_street_address,
+            business_street_address2=business_street_address2,
+            business_city=business_city,
+            business_state_province_region=business_state_province_region,
+            business_postal_code=business_postal_code,
+            business_country=business_country,
+            additional_information=additional_information,
+            business_contact_first_name=business_contact_first_name,
+            business_contact_last_name=business_contact_last_name,
+            business_contact_email=business_contact_email,
+            business_contact_phone=business_contact_phone,
+            external_reference_id=external_reference_id,
+            business_registration_number=business_registration_number,
+            business_registration_authority=business_registration_authority,
+            business_registration_country=business_registration_country,
+            business_type=business_type,
+            business_registration_phone_number=business_registration_phone_number,
+            doing_business_as=doing_business_as,
+            opt_in_confirmation_message=opt_in_confirmation_message,
+            help_message_sample=help_message_sample,
+            privacy_policy_url=privacy_policy_url,
+            terms_and_conditions_url=terms_and_conditions_url,
+            age_gated_content=age_gated_content,
+            opt_in_keywords=opt_in_keywords,
+            vetting_provider=vetting_provider,
+            vetting_id=vetting_id,
+        )
+        instance = TollfreeVerificationInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -1278,6 +2495,88 @@ class TollfreeVerificationList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        tollfree_phone_number_sid: Union[str, object] = values.unset,
+        status: Union["TollfreeVerificationInstance.Status", object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        include_sub_accounts: Union[bool, object] = values.unset,
+        trust_product_sid: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams TollfreeVerificationInstance and returns headers from first page
+
+
+        :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
+        :param &quot;TollfreeVerificationInstance.Status&quot; status: The compliance status of the Tollfree Verification record.
+        :param str external_reference_id: Customer supplied reference id for the Tollfree Verification record.
+        :param bool include_sub_accounts: Whether to include Tollfree Verifications from sub accounts in list response.
+        :param List[str] trust_product_sid: The trust product sids / tollfree bundle sids of tollfree verifications
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            tollfree_phone_number_sid=tollfree_phone_number_sid,
+            status=status,
+            external_reference_id=external_reference_id,
+            include_sub_accounts=include_sub_accounts,
+            trust_product_sid=trust_product_sid,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        tollfree_phone_number_sid: Union[str, object] = values.unset,
+        status: Union["TollfreeVerificationInstance.Status", object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        include_sub_accounts: Union[bool, object] = values.unset,
+        trust_product_sid: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams TollfreeVerificationInstance and returns headers from first page
+
+
+        :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
+        :param &quot;TollfreeVerificationInstance.Status&quot; status: The compliance status of the Tollfree Verification record.
+        :param str external_reference_id: Customer supplied reference id for the Tollfree Verification record.
+        :param bool include_sub_accounts: Whether to include Tollfree Verifications from sub accounts in list response.
+        :param List[str] trust_product_sid: The trust product sids / tollfree bundle sids of tollfree verifications
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            tollfree_phone_number_sid=tollfree_phone_number_sid,
+            status=status,
+            external_reference_id=external_reference_id,
+            include_sub_accounts=include_sub_accounts,
+            trust_product_sid=trust_product_sid,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         tollfree_phone_number_sid: Union[str, object] = values.unset,
@@ -1360,6 +2659,86 @@ class TollfreeVerificationList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        tollfree_phone_number_sid: Union[str, object] = values.unset,
+        status: Union["TollfreeVerificationInstance.Status", object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        include_sub_accounts: Union[bool, object] = values.unset,
+        trust_product_sid: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists TollfreeVerificationInstance and returns headers from first page
+
+
+        :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
+        :param &quot;TollfreeVerificationInstance.Status&quot; status: The compliance status of the Tollfree Verification record.
+        :param str external_reference_id: Customer supplied reference id for the Tollfree Verification record.
+        :param bool include_sub_accounts: Whether to include Tollfree Verifications from sub accounts in list response.
+        :param List[str] trust_product_sid: The trust product sids / tollfree bundle sids of tollfree verifications
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            tollfree_phone_number_sid=tollfree_phone_number_sid,
+            status=status,
+            external_reference_id=external_reference_id,
+            include_sub_accounts=include_sub_accounts,
+            trust_product_sid=trust_product_sid,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        tollfree_phone_number_sid: Union[str, object] = values.unset,
+        status: Union["TollfreeVerificationInstance.Status", object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        include_sub_accounts: Union[bool, object] = values.unset,
+        trust_product_sid: Union[List[str], object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists TollfreeVerificationInstance and returns headers from first page
+
+
+        :param str tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
+        :param &quot;TollfreeVerificationInstance.Status&quot; status: The compliance status of the Tollfree Verification record.
+        :param str external_reference_id: Customer supplied reference id for the Tollfree Verification record.
+        :param bool include_sub_accounts: Whether to include Tollfree Verifications from sub accounts in list response.
+        :param List[str] trust_product_sid: The trust product sids / tollfree bundle sids of tollfree verifications
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            tollfree_phone_number_sid=tollfree_phone_number_sid,
+            status=status,
+            external_reference_id=external_reference_id,
+            include_sub_accounts=include_sub_accounts,
+            trust_product_sid=trust_product_sid,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -1456,6 +2835,106 @@ class TollfreeVerificationList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return TollfreeVerificationPage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        tollfree_phone_number_sid: Union[str, object] = values.unset,
+        status: Union["TollfreeVerificationInstance.Status", object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        include_sub_accounts: Union[bool, object] = values.unset,
+        trust_product_sid: Union[List[str], object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
+        :param status: The compliance status of the Tollfree Verification record.
+        :param external_reference_id: Customer supplied reference id for the Tollfree Verification record.
+        :param include_sub_accounts: Whether to include Tollfree Verifications from sub accounts in list response.
+        :param trust_product_sid: The trust product sids / tollfree bundle sids of tollfree verifications
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with TollfreeVerificationPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "TollfreePhoneNumberSid": tollfree_phone_number_sid,
+                "Status": status,
+                "ExternalReferenceId": external_reference_id,
+                "IncludeSubAccounts": serialize.boolean_to_string(include_sub_accounts),
+                "TrustProductSid": serialize.map(trust_product_sid, lambda e: e),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = TollfreeVerificationPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        tollfree_phone_number_sid: Union[str, object] = values.unset,
+        status: Union["TollfreeVerificationInstance.Status", object] = values.unset,
+        external_reference_id: Union[str, object] = values.unset,
+        include_sub_accounts: Union[bool, object] = values.unset,
+        trust_product_sid: Union[List[str], object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param tollfree_phone_number_sid: The SID of the Phone Number associated with the Tollfree Verification.
+        :param status: The compliance status of the Tollfree Verification record.
+        :param external_reference_id: Customer supplied reference id for the Tollfree Verification record.
+        :param include_sub_accounts: Whether to include Tollfree Verifications from sub accounts in list response.
+        :param trust_product_sid: The trust product sids / tollfree bundle sids of tollfree verifications
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with TollfreeVerificationPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "TollfreePhoneNumberSid": tollfree_phone_number_sid,
+                "Status": status,
+                "ExternalReferenceId": external_reference_id,
+                "IncludeSubAccounts": serialize.boolean_to_string(include_sub_accounts),
+                "TrustProductSid": serialize.map(trust_product_sid, lambda e: e),
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = TollfreeVerificationPage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> TollfreeVerificationPage:
         """

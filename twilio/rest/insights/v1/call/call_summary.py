@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -176,6 +177,40 @@ class CallSummaryInstance(InstanceResource):
             processing_state=processing_state,
         )
 
+    def fetch_with_http_info(
+        self,
+        processing_state: Union[
+            "CallSummaryInstance.ProcessingState", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Fetch the CallSummaryInstance with HTTP info
+
+        :param processing_state: The Processing State of this Call Summary. One of `complete`, `partial` or `all`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            processing_state=processing_state,
+        )
+
+    async def fetch_with_http_info_async(
+        self,
+        processing_state: Union[
+            "CallSummaryInstance.ProcessingState", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the CallSummaryInstance with HTTP info
+
+        :param processing_state: The Processing State of this Call Summary. One of `complete`, `partial` or `all`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            processing_state=processing_state,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -203,6 +238,33 @@ class CallSummaryContext(InstanceContext):
         }
         self._uri = "/Voice/{call_sid}/Summary".format(**self._solution)
 
+    def _fetch(
+        self,
+        processing_state: Union[
+            "CallSummaryInstance.ProcessingState", object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        params = values.of(
+            {
+                "ProcessingState": processing_state,
+            }
+        )
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, params=params, headers=headers
+        )
+
     def fetch(
         self,
         processing_state: Union[
@@ -216,6 +278,46 @@ class CallSummaryContext(InstanceContext):
 
         :returns: The fetched CallSummaryInstance
         """
+        payload, _, _ = self._fetch(processing_state=processing_state)
+        return CallSummaryInstance(
+            self._version,
+            payload,
+            call_sid=self._solution["call_sid"],
+        )
+
+    def fetch_with_http_info(
+        self,
+        processing_state: Union[
+            "CallSummaryInstance.ProcessingState", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Fetch the CallSummaryInstance and return response metadata
+
+        :param processing_state: The Processing State of this Call Summary. One of `complete`, `partial` or `all`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(processing_state=processing_state)
+        instance = CallSummaryInstance(
+            self._version,
+            payload,
+            call_sid=self._solution["call_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self,
+        processing_state: Union[
+            "CallSummaryInstance.ProcessingState", object
+        ] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         params = values.of(
             {
@@ -227,14 +329,8 @@ class CallSummaryContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(
+        return await self._version.fetch_with_response_info_async(
             method="GET", uri=self._uri, params=params, headers=headers
-        )
-
-        return CallSummaryInstance(
-            self._version,
-            payload,
-            call_sid=self._solution["call_sid"],
         )
 
     async def fetch_async(
@@ -250,26 +346,35 @@ class CallSummaryContext(InstanceContext):
 
         :returns: The fetched CallSummaryInstance
         """
-
-        params = values.of(
-            {
-                "ProcessingState": processing_state,
-            }
-        )
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, params=params, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async(processing_state=processing_state)
         return CallSummaryInstance(
             self._version,
             payload,
             call_sid=self._solution["call_sid"],
         )
+
+    async def fetch_with_http_info_async(
+        self,
+        processing_state: Union[
+            "CallSummaryInstance.ProcessingState", object
+        ] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the CallSummaryInstance and return response metadata
+
+        :param processing_state: The Processing State of this Call Summary. One of `complete`, `partial` or `all`.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            processing_state=processing_state
+        )
+        instance = CallSummaryInstance(
+            self._version,
+            payload,
+            call_sid=self._solution["call_sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

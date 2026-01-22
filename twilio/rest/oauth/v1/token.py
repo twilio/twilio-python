@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -61,6 +62,46 @@ class TokenList(ListResource):
 
         self._uri = "/token"
 
+    def _create(
+        self,
+        grant_type: str,
+        client_id: str,
+        client_secret: Union[str, object] = values.unset,
+        code: Union[str, object] = values.unset,
+        redirect_uri: Union[str, object] = values.unset,
+        audience: Union[str, object] = values.unset,
+        refresh_token: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "GrantType": grant_type,
+                "ClientId": client_id,
+                "ClientSecret": client_secret,
+                "Code": code,
+                "RedirectUri": redirect_uri,
+                "Audience": audience,
+                "RefreshToken": refresh_token,
+                "Scope": scope,
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.create_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
+
     def create(
         self,
         grant_type: str,
@@ -86,6 +127,73 @@ class TokenList(ListResource):
 
         :returns: The created TokenInstance
         """
+        payload, _, _ = self._create(
+            grant_type=grant_type,
+            client_id=client_id,
+            client_secret=client_secret,
+            code=code,
+            redirect_uri=redirect_uri,
+            audience=audience,
+            refresh_token=refresh_token,
+            scope=scope,
+        )
+        return TokenInstance(self._version, payload)
+
+    def create_with_http_info(
+        self,
+        grant_type: str,
+        client_id: str,
+        client_secret: Union[str, object] = values.unset,
+        code: Union[str, object] = values.unset,
+        redirect_uri: Union[str, object] = values.unset,
+        audience: Union[str, object] = values.unset,
+        refresh_token: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Create the TokenInstance and return response metadata
+
+        :param grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
+        :param client_id: A 34 character string that uniquely identifies this OAuth App.
+        :param client_secret: The credential for confidential OAuth App.
+        :param code: JWT token related to the authorization code grant type.
+        :param redirect_uri: The redirect uri
+        :param audience: The targeted audience uri
+        :param refresh_token: JWT token related to refresh access token.
+        :param scope: The scope of token
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            grant_type=grant_type,
+            client_id=client_id,
+            client_secret=client_secret,
+            code=code,
+            redirect_uri=redirect_uri,
+            audience=audience,
+            refresh_token=refresh_token,
+            scope=scope,
+        )
+        instance = TokenInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self,
+        grant_type: str,
+        client_id: str,
+        client_secret: Union[str, object] = values.unset,
+        code: Union[str, object] = values.unset,
+        redirect_uri: Union[str, object] = values.unset,
+        audience: Union[str, object] = values.unset,
+        refresh_token: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -105,11 +213,9 @@ class TokenList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return await self._version.create_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return TokenInstance(self._version, payload)
 
     async def create_async(
         self,
@@ -136,30 +242,55 @@ class TokenList(ListResource):
 
         :returns: The created TokenInstance
         """
-
-        data = values.of(
-            {
-                "GrantType": grant_type,
-                "ClientId": client_id,
-                "ClientSecret": client_secret,
-                "Code": code,
-                "RedirectUri": redirect_uri,
-                "Audience": audience,
-                "RefreshToken": refresh_token,
-                "Scope": scope,
-            }
+        payload, _, _ = await self._create_async(
+            grant_type=grant_type,
+            client_id=client_id,
+            client_secret=client_secret,
+            code=code,
+            redirect_uri=redirect_uri,
+            audience=audience,
+            refresh_token=refresh_token,
+            scope=scope,
         )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return TokenInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self,
+        grant_type: str,
+        client_id: str,
+        client_secret: Union[str, object] = values.unset,
+        code: Union[str, object] = values.unset,
+        redirect_uri: Union[str, object] = values.unset,
+        audience: Union[str, object] = values.unset,
+        refresh_token: Union[str, object] = values.unset,
+        scope: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously create the TokenInstance and return response metadata
+
+        :param grant_type: Grant type is a credential representing resource owner's authorization which can be used by client to obtain access token.
+        :param client_id: A 34 character string that uniquely identifies this OAuth App.
+        :param client_secret: The credential for confidential OAuth App.
+        :param code: JWT token related to the authorization code grant type.
+        :param redirect_uri: The redirect uri
+        :param audience: The targeted audience uri
+        :param refresh_token: JWT token related to refresh access token.
+        :param scope: The scope of token
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            grant_type=grant_type,
+            client_id=client_id,
+            client_secret=client_secret,
+            code=code,
+            redirect_uri=redirect_uri,
+            audience=audience,
+            refresh_token=refresh_token,
+            scope=scope,
+        )
+        instance = TokenInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

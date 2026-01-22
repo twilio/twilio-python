@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -57,14 +58,12 @@ class InsightsSettingsCommentList(ListResource):
 
         self._uri = "/Insights/QualityManagement/Settings/CommentTags"
 
-    def fetch(
-        self, authorization: Union[str, object] = values.unset
-    ) -> InsightsSettingsCommentInstance:
+    def _fetch(self, authorization: Union[str, object] = values.unset) -> tuple:
         """
-        Asynchronously fetch the InsightsSettingsCommentInstance
+        Internal helper for fetch operation
 
-        :param authorization: The Authorization HTTP request header
-        :returns: The fetched InsightsSettingsCommentInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
         headers = values.of(
             {
@@ -75,9 +74,56 @@ class InsightsSettingsCommentList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
 
+    def fetch(
+        self, authorization: Union[str, object] = values.unset
+    ) -> InsightsSettingsCommentInstance:
+        """
+        Fetch the InsightsSettingsCommentInstance
+
+        :param authorization: The Authorization HTTP request header
+        :returns: The fetched InsightsSettingsCommentInstance
+        """
+        payload, _, _ = self._fetch(authorization=authorization)
         return InsightsSettingsCommentInstance(self._version, payload)
+
+    def fetch_with_http_info(
+        self, authorization: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the InsightsSettingsCommentInstance and return response metadata
+
+        :param authorization: The Authorization HTTP request header
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(authorization=authorization)
+        instance = InsightsSettingsCommentInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+        headers = values.of(
+            {
+                "Authorization": authorization,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
+        )
 
     async def fetch_async(
         self, authorization: Union[str, object] = values.unset
@@ -88,20 +134,23 @@ class InsightsSettingsCommentList(ListResource):
         :param authorization: The Authorization HTTP request header
         :returns: The fetched InsightsSettingsCommentInstance
         """
-        headers = values.of(
-            {
-                "Authorization": authorization,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async(authorization=authorization)
         return InsightsSettingsCommentInstance(self._version, payload)
+
+    async def fetch_with_http_info_async(
+        self, authorization: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronously fetch the InsightsSettingsCommentInstance and return response metadata
+
+        :param authorization: The Authorization HTTP request header
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            authorization=authorization
+        )
+        instance = InsightsSettingsCommentInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

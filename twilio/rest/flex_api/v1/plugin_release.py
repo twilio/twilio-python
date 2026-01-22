@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -92,6 +93,34 @@ class PluginReleaseInstance(InstanceResource):
             flex_metadata=flex_metadata,
         )
 
+    def fetch_with_http_info(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the PluginReleaseInstance with HTTP info
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info(
+            flex_metadata=flex_metadata,
+        )
+
+    async def fetch_with_http_info_async(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the PluginReleaseInstance with HTTP info
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async(
+            flex_metadata=flex_metadata,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -119,15 +148,12 @@ class PluginReleaseContext(InstanceContext):
         }
         self._uri = "/PluginService/Releases/{sid}".format(**self._solution)
 
-    def fetch(
-        self, flex_metadata: Union[str, object] = values.unset
-    ) -> PluginReleaseInstance:
+    def _fetch(self, flex_metadata: Union[str, object] = values.unset) -> tuple:
         """
-        Fetch the PluginReleaseInstance
+        Internal helper for fetch operation
 
-        :param flex_metadata: The Flex-Metadata HTTP request header
-
-        :returns: The fetched PluginReleaseInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         headers = values.of({})
@@ -140,12 +166,67 @@ class PluginReleaseContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
 
+    def fetch(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> PluginReleaseInstance:
+        """
+        Fetch the PluginReleaseInstance
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: The fetched PluginReleaseInstance
+        """
+        payload, _, _ = self._fetch(flex_metadata=flex_metadata)
         return PluginReleaseInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Fetch the PluginReleaseInstance and return response metadata
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch(flex_metadata=flex_metadata)
+        instance = PluginReleaseInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        if not (
+            flex_metadata is values.unset
+            or (isinstance(flex_metadata, str) and not flex_metadata)
+        ):
+            headers["Flex-Metadata"] = flex_metadata
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(
@@ -158,26 +239,32 @@ class PluginReleaseContext(InstanceContext):
 
         :returns: The fetched PluginReleaseInstance
         """
-
-        headers = values.of({})
-
-        if not (
-            flex_metadata is values.unset
-            or (isinstance(flex_metadata, str) and not flex_metadata)
-        ):
-            headers["Flex-Metadata"] = flex_metadata
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async(flex_metadata=flex_metadata)
         return PluginReleaseInstance(
             self._version,
             payload,
             sid=self._solution["sid"],
         )
+
+    async def fetch_with_http_info_async(
+        self, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the PluginReleaseInstance and return response metadata
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async(
+            flex_metadata=flex_metadata
+        )
+        instance = PluginReleaseInstance(
+            self._version,
+            payload,
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -221,16 +308,14 @@ class PluginReleaseList(ListResource):
 
         self._uri = "/PluginService/Releases"
 
-    def create(
+    def _create(
         self, configuration_id: str, flex_metadata: Union[str, object] = values.unset
-    ) -> PluginReleaseInstance:
+    ) -> tuple:
         """
-        Create the PluginReleaseInstance
+        Internal helper for create operation
 
-        :param configuration_id: The SID or the Version of the Flex Plugin Configuration to release.
-        :param flex_metadata: The Flex-Metadata HTTP request header
-
-        :returns: The created PluginReleaseInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -249,11 +334,72 @@ class PluginReleaseList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self, configuration_id: str, flex_metadata: Union[str, object] = values.unset
+    ) -> PluginReleaseInstance:
+        """
+        Create the PluginReleaseInstance
+
+        :param configuration_id: The SID or the Version of the Flex Plugin Configuration to release.
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: The created PluginReleaseInstance
+        """
+        payload, _, _ = self._create(
+            configuration_id=configuration_id, flex_metadata=flex_metadata
+        )
         return PluginReleaseInstance(self._version, payload)
+
+    def create_with_http_info(
+        self, configuration_id: str, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Create the PluginReleaseInstance and return response metadata
+
+        :param configuration_id: The SID or the Version of the Flex Plugin Configuration to release.
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(
+            configuration_id=configuration_id, flex_metadata=flex_metadata
+        )
+        instance = PluginReleaseInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self, configuration_id: str, flex_metadata: Union[str, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "ConfigurationId": configuration_id,
+            }
+        )
+        headers = values.of(
+            {
+                "Flex-Metadata": flex_metadata,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
+        )
 
     async def create_async(
         self, configuration_id: str, flex_metadata: Union[str, object] = values.unset
@@ -266,28 +412,27 @@ class PluginReleaseList(ListResource):
 
         :returns: The created PluginReleaseInstance
         """
-
-        data = values.of(
-            {
-                "ConfigurationId": configuration_id,
-            }
+        payload, _, _ = await self._create_async(
+            configuration_id=configuration_id, flex_metadata=flex_metadata
         )
-        headers = values.of(
-            {
-                "Flex-Metadata": flex_metadata,
-                "Content-Type": "application/x-www-form-urlencoded",
-            }
-        )
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return PluginReleaseInstance(self._version, payload)
+
+    async def create_with_http_info_async(
+        self, configuration_id: str, flex_metadata: Union[str, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronously create the PluginReleaseInstance and return response metadata
+
+        :param configuration_id: The SID or the Version of the Flex Plugin Configuration to release.
+        :param flex_metadata: The Flex-Metadata HTTP request header
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            configuration_id=configuration_id, flex_metadata=flex_metadata
+        )
+        instance = PluginReleaseInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -344,6 +489,62 @@ class PluginReleaseList(ListResource):
         )
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams PluginReleaseInstance and returns headers from first page
+
+
+        :param str flex_metadata: The Flex-Metadata HTTP request header
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            flex_metadata=flex_metadata, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams PluginReleaseInstance and returns headers from first page
+
+
+        :param str flex_metadata: The Flex-Metadata HTTP request header
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            flex_metadata=flex_metadata, page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -403,6 +604,62 @@ class PluginReleaseList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists PluginReleaseInstance and returns headers from first page
+
+
+        :param str flex_metadata: The Flex-Metadata HTTP request header
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            flex_metadata=flex_metadata,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists PluginReleaseInstance and returns headers from first page
+
+
+        :param str flex_metadata: The Flex-Metadata HTTP request header
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            flex_metadata=flex_metadata,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -485,6 +742,92 @@ class PluginReleaseList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return PluginReleasePage(self._version, response)
+
+    def page_with_http_info(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with PluginReleasePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Flex-Metadata": flex_metadata,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of(
+            {
+                "Flex-Metadata": flex_metadata,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = PluginReleasePage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        flex_metadata: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param flex_metadata: The Flex-Metadata HTTP request header
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with PluginReleasePage, status code, and headers
+        """
+        data = values.of(
+            {
+                "Flex-Metadata": flex_metadata,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of(
+            {
+                "Flex-Metadata": flex_metadata,
+                "Content-Type": "application/x-www-form-urlencoded",
+            }
+        )
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = PluginReleasePage(self._version, response)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> PluginReleasePage:
         """

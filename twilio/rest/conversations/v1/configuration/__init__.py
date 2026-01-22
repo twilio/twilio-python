@@ -14,6 +14,7 @@ r"""
 
 from typing import Any, Dict, Optional, Union
 from twilio.base import values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -84,6 +85,24 @@ class ConfigurationInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ConfigurationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ConfigurationInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(
         self,
         default_chat_service_sid: Union[str, object] = values.unset,
@@ -132,6 +151,54 @@ class ConfigurationInstance(InstanceResource):
             default_closed_timer=default_closed_timer,
         )
 
+    def update_with_http_info(
+        self,
+        default_chat_service_sid: Union[str, object] = values.unset,
+        default_messaging_service_sid: Union[str, object] = values.unset,
+        default_inactive_timer: Union[str, object] = values.unset,
+        default_closed_timer: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ConfigurationInstance with HTTP info
+
+        :param default_chat_service_sid: The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.
+        :param default_messaging_service_sid: The SID of the default [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to use when creating a conversation.
+        :param default_inactive_timer: Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param default_closed_timer: Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            default_chat_service_sid=default_chat_service_sid,
+            default_messaging_service_sid=default_messaging_service_sid,
+            default_inactive_timer=default_inactive_timer,
+            default_closed_timer=default_closed_timer,
+        )
+
+    async def update_with_http_info_async(
+        self,
+        default_chat_service_sid: Union[str, object] = values.unset,
+        default_messaging_service_sid: Union[str, object] = values.unset,
+        default_inactive_timer: Union[str, object] = values.unset,
+        default_closed_timer: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ConfigurationInstance with HTTP info
+
+        :param default_chat_service_sid: The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.
+        :param default_messaging_service_sid: The SID of the default [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to use when creating a conversation.
+        :param default_inactive_timer: Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param default_closed_timer: Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
+            default_chat_service_sid=default_chat_service_sid,
+            default_messaging_service_sid=default_messaging_service_sid,
+            default_inactive_timer=default_inactive_timer,
+            default_closed_timer=default_closed_timer,
+        )
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -154,6 +221,22 @@ class ConfigurationContext(InstanceContext):
 
         self._uri = "/Configuration"
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> ConfigurationInstance:
         """
         Fetch the ConfigurationInstance
@@ -161,16 +244,40 @@ class ConfigurationContext(InstanceContext):
 
         :returns: The fetched ConfigurationInstance
         """
+        payload, _, _ = self._fetch()
+        return ConfigurationInstance(
+            self._version,
+            payload,
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the ConfigurationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = ConfigurationInstance(
+            self._version,
+            payload,
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         headers = values.of({})
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
-        return ConfigurationInstance(
-            self._version,
-            payload,
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> ConfigurationInstance:
@@ -180,18 +287,56 @@ class ConfigurationContext(InstanceContext):
 
         :returns: The fetched ConfigurationInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return ConfigurationInstance(
             self._version,
             payload,
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the ConfigurationInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = ConfigurationInstance(
+            self._version,
+            payload,
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self,
+        default_chat_service_sid: Union[str, object] = values.unset,
+        default_messaging_service_sid: Union[str, object] = values.unset,
+        default_inactive_timer: Union[str, object] = values.unset,
+        default_closed_timer: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "DefaultChatServiceSid": default_chat_service_sid,
+                "DefaultMessagingServiceSid": default_messaging_service_sid,
+                "DefaultInactiveTimer": default_inactive_timer,
+                "DefaultClosedTimer": default_closed_timer,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -211,6 +356,53 @@ class ConfigurationContext(InstanceContext):
 
         :returns: The updated ConfigurationInstance
         """
+        payload, _, _ = self._update(
+            default_chat_service_sid=default_chat_service_sid,
+            default_messaging_service_sid=default_messaging_service_sid,
+            default_inactive_timer=default_inactive_timer,
+            default_closed_timer=default_closed_timer,
+        )
+        return ConfigurationInstance(self._version, payload)
+
+    def update_with_http_info(
+        self,
+        default_chat_service_sid: Union[str, object] = values.unset,
+        default_messaging_service_sid: Union[str, object] = values.unset,
+        default_inactive_timer: Union[str, object] = values.unset,
+        default_closed_timer: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Update the ConfigurationInstance and return response metadata
+
+        :param default_chat_service_sid: The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.
+        :param default_messaging_service_sid: The SID of the default [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to use when creating a conversation.
+        :param default_inactive_timer: Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param default_closed_timer: Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(
+            default_chat_service_sid=default_chat_service_sid,
+            default_messaging_service_sid=default_messaging_service_sid,
+            default_inactive_timer=default_inactive_timer,
+            default_closed_timer=default_closed_timer,
+        )
+        instance = ConfigurationInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self,
+        default_chat_service_sid: Union[str, object] = values.unset,
+        default_messaging_service_sid: Union[str, object] = values.unset,
+        default_inactive_timer: Union[str, object] = values.unset,
+        default_closed_timer: Union[str, object] = values.unset,
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -226,11 +418,9 @@ class ConfigurationContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
         )
-
-        return ConfigurationInstance(self._version, payload)
 
     async def update_async(
         self,
@@ -249,26 +439,39 @@ class ConfigurationContext(InstanceContext):
 
         :returns: The updated ConfigurationInstance
         """
-
-        data = values.of(
-            {
-                "DefaultChatServiceSid": default_chat_service_sid,
-                "DefaultMessagingServiceSid": default_messaging_service_sid,
-                "DefaultInactiveTimer": default_inactive_timer,
-                "DefaultClosedTimer": default_closed_timer,
-            }
+        payload, _, _ = await self._update_async(
+            default_chat_service_sid=default_chat_service_sid,
+            default_messaging_service_sid=default_messaging_service_sid,
+            default_inactive_timer=default_inactive_timer,
+            default_closed_timer=default_closed_timer,
         )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
         return ConfigurationInstance(self._version, payload)
+
+    async def update_with_http_info_async(
+        self,
+        default_chat_service_sid: Union[str, object] = values.unset,
+        default_messaging_service_sid: Union[str, object] = values.unset,
+        default_inactive_timer: Union[str, object] = values.unset,
+        default_closed_timer: Union[str, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the ConfigurationInstance and return response metadata
+
+        :param default_chat_service_sid: The SID of the default [Conversation Service](https://www.twilio.com/docs/conversations/api/service-resource) to use when creating a conversation.
+        :param default_messaging_service_sid: The SID of the default [Messaging Service](https://www.twilio.com/docs/messaging/api/service-resource) to use when creating a conversation.
+        :param default_inactive_timer: Default ISO8601 duration when conversation will be switched to `inactive` state. Minimum value for this timer is 1 minute.
+        :param default_closed_timer: Default ISO8601 duration when conversation will be switched to `closed` state. Minimum value for this timer is 10 minutes.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(
+            default_chat_service_sid=default_chat_service_sid,
+            default_messaging_service_sid=default_messaging_service_sid,
+            default_inactive_timer=default_inactive_timer,
+            default_closed_timer=default_closed_timer,
+        )
+        instance = ConfigurationInstance(self._version, payload)
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """

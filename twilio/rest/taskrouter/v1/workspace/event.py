@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -112,6 +113,24 @@ class EventInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the EventInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the EventInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def __repr__(self) -> str:
         """
         Provide a friendly representation
@@ -141,6 +160,22 @@ class EventContext(InstanceContext):
         }
         self._uri = "/Workspaces/{workspace_sid}/Events/{sid}".format(**self._solution)
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> EventInstance:
         """
         Fetch the EventInstance
@@ -148,18 +183,44 @@ class EventContext(InstanceContext):
 
         :returns: The fetched EventInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return EventInstance(
             self._version,
             payload,
             workspace_sid=self._solution["workspace_sid"],
             sid=self._solution["sid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the EventInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = EventInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> EventInstance:
@@ -169,21 +230,29 @@ class EventContext(InstanceContext):
 
         :returns: The fetched EventInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return EventInstance(
             self._version,
             payload,
             workspace_sid=self._solution["workspace_sid"],
             sid=self._solution["sid"],
         )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the EventInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = EventInstance(
+            self._version,
+            payload,
+            workspace_sid=self._solution["workspace_sid"],
+            sid=self._solution["sid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -354,6 +423,124 @@ class EventList(ListResource):
 
         return self._version.stream_async(page, limits["limit"])
 
+    def stream_with_http_info(
+        self,
+        end_date: Union[datetime, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        reservation_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_sid: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams EventInstance and returns headers from first page
+
+
+        :param datetime end_date: Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param str event_type: The type of Events to read. Returns only Events of the type specified.
+        :param int minutes: The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
+        :param str reservation_sid: The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
+        :param datetime start_date: Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
+        :param str task_queue_sid: The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
+        :param str task_sid: The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
+        :param str worker_sid: The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
+        :param str workflow_sid: The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
+        :param str task_channel: The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
+        :param str sid: The SID of the Event resource to read.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(
+            end_date=end_date,
+            event_type=event_type,
+            minutes=minutes,
+            reservation_sid=reservation_sid,
+            start_date=start_date,
+            task_queue_sid=task_queue_sid,
+            task_sid=task_sid,
+            worker_sid=worker_sid,
+            workflow_sid=workflow_sid,
+            task_channel=task_channel,
+            sid=sid,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        end_date: Union[datetime, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        reservation_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_sid: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams EventInstance and returns headers from first page
+
+
+        :param datetime end_date: Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param str event_type: The type of Events to read. Returns only Events of the type specified.
+        :param int minutes: The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
+        :param str reservation_sid: The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
+        :param datetime start_date: Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
+        :param str task_queue_sid: The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
+        :param str task_sid: The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
+        :param str worker_sid: The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
+        :param str workflow_sid: The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
+        :param str task_channel: The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
+        :param str sid: The SID of the Event resource to read.
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            end_date=end_date,
+            event_type=event_type,
+            minutes=minutes,
+            reservation_sid=reservation_sid,
+            start_date=start_date,
+            task_queue_sid=task_queue_sid,
+            task_sid=task_sid,
+            worker_sid=worker_sid,
+            workflow_sid=workflow_sid,
+            task_channel=task_channel,
+            sid=sid,
+            page_size=limits["page_size"],
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
     def list(
         self,
         end_date: Union[datetime, object] = values.unset,
@@ -472,6 +659,122 @@ class EventList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        end_date: Union[datetime, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        reservation_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_sid: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists EventInstance and returns headers from first page
+
+
+        :param datetime end_date: Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param str event_type: The type of Events to read. Returns only Events of the type specified.
+        :param int minutes: The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
+        :param str reservation_sid: The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
+        :param datetime start_date: Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
+        :param str task_queue_sid: The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
+        :param str task_sid: The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
+        :param str worker_sid: The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
+        :param str workflow_sid: The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
+        :param str task_channel: The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
+        :param str sid: The SID of the Event resource to read.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            end_date=end_date,
+            event_type=event_type,
+            minutes=minutes,
+            reservation_sid=reservation_sid,
+            start_date=start_date,
+            task_queue_sid=task_queue_sid,
+            task_sid=task_sid,
+            worker_sid=worker_sid,
+            workflow_sid=workflow_sid,
+            task_channel=task_channel,
+            sid=sid,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        end_date: Union[datetime, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        reservation_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_sid: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists EventInstance and returns headers from first page
+
+
+        :param datetime end_date: Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param str event_type: The type of Events to read. Returns only Events of the type specified.
+        :param int minutes: The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
+        :param str reservation_sid: The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
+        :param datetime start_date: Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
+        :param str task_queue_sid: The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
+        :param str task_sid: The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
+        :param str worker_sid: The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
+        :param str workflow_sid: The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
+        :param str task_channel: The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
+        :param str sid: The SID of the Event resource to read.
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            end_date=end_date,
+            event_type=event_type,
+            minutes=minutes,
+            reservation_sid=reservation_sid,
+            start_date=start_date,
+            task_queue_sid=task_queue_sid,
+            task_sid=task_sid,
+            worker_sid=worker_sid,
+            workflow_sid=workflow_sid,
+            task_channel=task_channel,
+            sid=sid,
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -604,6 +907,142 @@ class EventList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return EventPage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        end_date: Union[datetime, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        reservation_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_sid: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param end_date: Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param event_type: The type of Events to read. Returns only Events of the type specified.
+        :param minutes: The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
+        :param reservation_sid: The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
+        :param start_date: Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
+        :param task_queue_sid: The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
+        :param task_sid: The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
+        :param worker_sid: The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
+        :param workflow_sid: The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
+        :param task_channel: The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
+        :param sid: The SID of the Event resource to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with EventPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "EndDate": serialize.iso8601_datetime(end_date),
+                "EventType": event_type,
+                "Minutes": minutes,
+                "ReservationSid": reservation_sid,
+                "StartDate": serialize.iso8601_datetime(start_date),
+                "TaskQueueSid": task_queue_sid,
+                "TaskSid": task_sid,
+                "WorkerSid": worker_sid,
+                "WorkflowSid": workflow_sid,
+                "TaskChannel": task_channel,
+                "Sid": sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = EventPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        end_date: Union[datetime, object] = values.unset,
+        event_type: Union[str, object] = values.unset,
+        minutes: Union[int, object] = values.unset,
+        reservation_sid: Union[str, object] = values.unset,
+        start_date: Union[datetime, object] = values.unset,
+        task_queue_sid: Union[str, object] = values.unset,
+        task_sid: Union[str, object] = values.unset,
+        worker_sid: Union[str, object] = values.unset,
+        workflow_sid: Union[str, object] = values.unset,
+        task_channel: Union[str, object] = values.unset,
+        sid: Union[str, object] = values.unset,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param end_date: Only include Events that occurred on or before this date, specified in GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time.
+        :param event_type: The type of Events to read. Returns only Events of the type specified.
+        :param minutes: The period of events to read in minutes. Returns only Events that occurred since this many minutes in the past. The default is `15` minutes. Task Attributes for Events occuring more 43,200 minutes ago will be redacted.
+        :param reservation_sid: The SID of the Reservation with the Events to read. Returns only Events that pertain to the specified Reservation.
+        :param start_date: Only include Events from on or after this date and time, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for Events older than 30 days will be redacted.
+        :param task_queue_sid: The SID of the TaskQueue with the Events to read. Returns only the Events that pertain to the specified TaskQueue.
+        :param task_sid: The SID of the Task with the Events to read. Returns only the Events that pertain to the specified Task.
+        :param worker_sid: The SID of the Worker with the Events to read. Returns only the Events that pertain to the specified Worker.
+        :param workflow_sid: The SID of the Workflow with the Events to read. Returns only the Events that pertain to the specified Workflow.
+        :param task_channel: The TaskChannel with the Events to read. Returns only the Events that pertain to the specified TaskChannel.
+        :param sid: The SID of the Event resource to read.
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with EventPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "EndDate": serialize.iso8601_datetime(end_date),
+                "EventType": event_type,
+                "Minutes": minutes,
+                "ReservationSid": reservation_sid,
+                "StartDate": serialize.iso8601_datetime(start_date),
+                "TaskQueueSid": task_queue_sid,
+                "TaskSid": task_sid,
+                "WorkerSid": worker_sid,
+                "WorkflowSid": workflow_sid,
+                "TaskChannel": task_channel,
+                "Sid": sid,
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = EventPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> EventPage:
         """

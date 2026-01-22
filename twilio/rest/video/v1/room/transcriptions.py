@@ -15,6 +15,7 @@ r"""
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union, Iterator, AsyncIterator
 from twilio.base import deserialize, serialize, values
+from twilio.base.api_response import ApiResponse
 from twilio.base.instance_context import InstanceContext
 from twilio.base.instance_resource import InstanceResource
 from twilio.base.list_resource import ListResource
@@ -33,6 +34,7 @@ class TranscriptionsInstance(InstanceResource):
     :ivar ttid: The unique string that we created to identify the transcriptions resource.
     :ivar account_sid: The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that created the Room resource.
     :ivar room_sid: The SID of the transcriptions's room.
+    :ivar source_sid: The SID of the transcriptions's associated call.
     :ivar status: 
     :ivar date_created: The date and time in GMT when the resource was created specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
     :ivar date_updated: The date and time in GMT when the resource was last updated specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
@@ -55,6 +57,7 @@ class TranscriptionsInstance(InstanceResource):
         self.ttid: Optional[str] = payload.get("ttid")
         self.account_sid: Optional[str] = payload.get("account_sid")
         self.room_sid: Optional[str] = payload.get("room_sid")
+        self.source_sid: Optional[str] = payload.get("source_sid")
         self.status: Optional["TranscriptionsInstance.Status"] = payload.get("status")
         self.date_created: Optional[datetime] = deserialize.iso8601_datetime(
             payload.get("date_created")
@@ -112,6 +115,24 @@ class TranscriptionsInstance(InstanceResource):
         """
         return await self._proxy.fetch_async()
 
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the TranscriptionsInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.fetch_with_http_info()
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the TranscriptionsInstance with HTTP info
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.fetch_with_http_info_async()
+
     def update(
         self, status: Union["TranscriptionsInstance.Status", object] = values.unset
     ) -> "TranscriptionsInstance":
@@ -137,6 +158,34 @@ class TranscriptionsInstance(InstanceResource):
         :returns: The updated TranscriptionsInstance
         """
         return await self._proxy.update_async(
+            status=status,
+        )
+
+    def update_with_http_info(
+        self, status: Union["TranscriptionsInstance.Status", object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the TranscriptionsInstance with HTTP info
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return self._proxy.update_with_http_info(
+            status=status,
+        )
+
+    async def update_with_http_info_async(
+        self, status: Union["TranscriptionsInstance.Status", object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the TranscriptionsInstance with HTTP info
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        return await self._proxy.update_with_http_info_async(
             status=status,
         )
 
@@ -169,6 +218,22 @@ class TranscriptionsContext(InstanceContext):
         }
         self._uri = "/Rooms/{room_sid}/Transcriptions/{ttid}".format(**self._solution)
 
+    def _fetch(self) -> tuple:
+        """
+        Internal helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return self._version.fetch_with_response_info(
+            method="GET", uri=self._uri, headers=headers
+        )
+
     def fetch(self) -> TranscriptionsInstance:
         """
         Fetch the TranscriptionsInstance
@@ -176,18 +241,44 @@ class TranscriptionsContext(InstanceContext):
 
         :returns: The fetched TranscriptionsInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = self._version.fetch(method="GET", uri=self._uri, headers=headers)
-
+        payload, _, _ = self._fetch()
         return TranscriptionsInstance(
             self._version,
             payload,
             room_sid=self._solution["room_sid"],
             ttid=self._solution["ttid"],
+        )
+
+    def fetch_with_http_info(self) -> ApiResponse:
+        """
+        Fetch the TranscriptionsInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._fetch()
+        instance = TranscriptionsInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            ttid=self._solution["ttid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _fetch_async(self) -> tuple:
+        """
+        Internal async helper for fetch operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        headers = values.of({})
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.fetch_with_response_info_async(
+            method="GET", uri=self._uri, headers=headers
         )
 
     async def fetch_async(self) -> TranscriptionsInstance:
@@ -197,20 +288,53 @@ class TranscriptionsContext(InstanceContext):
 
         :returns: The fetched TranscriptionsInstance
         """
-
-        headers = values.of({})
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.fetch_async(
-            method="GET", uri=self._uri, headers=headers
-        )
-
+        payload, _, _ = await self._fetch_async()
         return TranscriptionsInstance(
             self._version,
             payload,
             room_sid=self._solution["room_sid"],
             ttid=self._solution["ttid"],
+        )
+
+    async def fetch_with_http_info_async(self) -> ApiResponse:
+        """
+        Asynchronous coroutine to fetch the TranscriptionsInstance and return response metadata
+
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._fetch_async()
+        instance = TranscriptionsInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            ttid=self._solution["ttid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    def _update(
+        self, status: Union["TranscriptionsInstance.Status", object] = values.unset
+    ) -> tuple:
+        """
+        Internal helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Status": status,
+            }
+        )
+        headers = values.of({})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return self._version.update_with_response_info(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     def update(
@@ -223,6 +347,42 @@ class TranscriptionsContext(InstanceContext):
 
         :returns: The updated TranscriptionsInstance
         """
+        payload, _, _ = self._update(status=status)
+        return TranscriptionsInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            ttid=self._solution["ttid"],
+        )
+
+    def update_with_http_info(
+        self, status: Union["TranscriptionsInstance.Status", object] = values.unset
+    ) -> ApiResponse:
+        """
+        Update the TranscriptionsInstance and return response metadata
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._update(status=status)
+        instance = TranscriptionsInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            ttid=self._solution["ttid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _update_async(
+        self, status: Union["TranscriptionsInstance.Status", object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for update operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
 
         data = values.of(
             {
@@ -235,15 +395,8 @@ class TranscriptionsContext(InstanceContext):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.update(
+        return await self._version.update_with_response_info_async(
             method="POST", uri=self._uri, data=data, headers=headers
-        )
-
-        return TranscriptionsInstance(
-            self._version,
-            payload,
-            room_sid=self._solution["room_sid"],
-            ttid=self._solution["ttid"],
         )
 
     async def update_async(
@@ -256,28 +409,32 @@ class TranscriptionsContext(InstanceContext):
 
         :returns: The updated TranscriptionsInstance
         """
-
-        data = values.of(
-            {
-                "Status": status,
-            }
-        )
-        headers = values.of({})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.update_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._update_async(status=status)
         return TranscriptionsInstance(
             self._version,
             payload,
             room_sid=self._solution["room_sid"],
             ttid=self._solution["ttid"],
         )
+
+    async def update_with_http_info_async(
+        self, status: Union["TranscriptionsInstance.Status", object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronous coroutine to update the TranscriptionsInstance and return response metadata
+
+        :param status:
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._update_async(status=status)
+        instance = TranscriptionsInstance(
+            self._version,
+            payload,
+            room_sid=self._solution["room_sid"],
+            ttid=self._solution["ttid"],
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def __repr__(self) -> str:
         """
@@ -328,15 +485,12 @@ class TranscriptionsList(ListResource):
         }
         self._uri = "/Rooms/{room_sid}/Transcriptions".format(**self._solution)
 
-    def create(
-        self, configuration: Union[object, object] = values.unset
-    ) -> TranscriptionsInstance:
+    def _create(self, configuration: Union[object, object] = values.unset) -> tuple:
         """
-        Create the TranscriptionsInstance
+        Internal helper for create operation
 
-        :param configuration: A collection of properties that describe transcription behaviour.
-
-        :returns: The created TranscriptionsInstance
+        Returns:
+            tuple: (payload, status_code, headers)
         """
 
         data = values.of(
@@ -350,12 +504,64 @@ class TranscriptionsList(ListResource):
 
         headers["Accept"] = "application/json"
 
-        payload = self._version.create(
+        return self._version.create_with_response_info(
             method="POST", uri=self._uri, data=data, headers=headers
         )
 
+    def create(
+        self, configuration: Union[object, object] = values.unset
+    ) -> TranscriptionsInstance:
+        """
+        Create the TranscriptionsInstance
+
+        :param configuration: A collection of properties that describe transcription behaviour.
+
+        :returns: The created TranscriptionsInstance
+        """
+        payload, _, _ = self._create(configuration=configuration)
         return TranscriptionsInstance(
             self._version, payload, room_sid=self._solution["room_sid"]
+        )
+
+    def create_with_http_info(
+        self, configuration: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Create the TranscriptionsInstance and return response metadata
+
+        :param configuration: A collection of properties that describe transcription behaviour.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = self._create(configuration=configuration)
+        instance = TranscriptionsInstance(
+            self._version, payload, room_sid=self._solution["room_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
+
+    async def _create_async(
+        self, configuration: Union[object, object] = values.unset
+    ) -> tuple:
+        """
+        Internal async helper for create operation
+
+        Returns:
+            tuple: (payload, status_code, headers)
+        """
+
+        data = values.of(
+            {
+                "Configuration": serialize.object(configuration),
+            }
+        )
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Content-Type"] = "application/x-www-form-urlencoded"
+
+        headers["Accept"] = "application/json"
+
+        return await self._version.create_with_response_info_async(
+            method="POST", uri=self._uri, data=data, headers=headers
         )
 
     async def create_async(
@@ -368,25 +574,28 @@ class TranscriptionsList(ListResource):
 
         :returns: The created TranscriptionsInstance
         """
-
-        data = values.of(
-            {
-                "Configuration": serialize.object(configuration),
-            }
-        )
-        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
-
-        headers["Content-Type"] = "application/x-www-form-urlencoded"
-
-        headers["Accept"] = "application/json"
-
-        payload = await self._version.create_async(
-            method="POST", uri=self._uri, data=data, headers=headers
-        )
-
+        payload, _, _ = await self._create_async(configuration=configuration)
         return TranscriptionsInstance(
             self._version, payload, room_sid=self._solution["room_sid"]
         )
+
+    async def create_with_http_info_async(
+        self, configuration: Union[object, object] = values.unset
+    ) -> ApiResponse:
+        """
+        Asynchronously create the TranscriptionsInstance and return response metadata
+
+        :param configuration: A collection of properties that describe transcription behaviour.
+
+        :returns: ApiResponse with instance, status code, and headers
+        """
+        payload, status_code, headers = await self._create_async(
+            configuration=configuration
+        )
+        instance = TranscriptionsInstance(
+            self._version, payload, room_sid=self._solution["room_sid"]
+        )
+        return ApiResponse(data=instance, status_code=status_code, headers=headers)
 
     def stream(
         self,
@@ -437,6 +646,56 @@ class TranscriptionsList(ListResource):
         page = await self.page_async(page_size=limits["page_size"])
 
         return self._version.stream_async(page, limits["limit"])
+
+    def stream_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Streams TranscriptionsInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = self.page_with_http_info(page_size=limits["page_size"])
+
+        generator = self._version.stream(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
+
+    async def stream_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> tuple:
+        """
+        Asynchronously streams TranscriptionsInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. stream()
+                      guarantees to never return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, stream() will attempt to read the
+                          limit with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: tuple of (generator, status_code, headers) where generator yields instances
+        """
+        limits = self._version.read_limits(limit, page_size)
+        page_response = await self.page_with_http_info_async(
+            page_size=limits["page_size"]
+        )
+
+        generator = self._version.stream_async(page_response.data, limits["limit"])
+        return (generator, page_response.status_code, page_response.headers)
 
     def list(
         self,
@@ -490,6 +749,56 @@ class TranscriptionsList(ListResource):
                 page_size=page_size,
             )
         ]
+
+    def list_with_http_info(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Lists TranscriptionsInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = self.stream_with_http_info(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = list(generator)
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
+
+    async def list_with_http_info_async(
+        self,
+        limit: Optional[int] = None,
+        page_size: Optional[int] = None,
+    ) -> ApiResponse:
+        """
+        Asynchronously lists TranscriptionsInstance and returns headers from first page
+
+
+        :param limit: Upper limit for the number of records to return. list() guarantees
+                      never to return more than limit.  Default is no limit
+        :param page_size: Number of records to fetch per request, when not set will use
+                          the default value of 50 records.  If no page_size is defined
+                          but a limit is defined, list() will attempt to read the limit
+                          with the most efficient page size, i.e. min(limit, 1000)
+
+        :returns: ApiResponse with list of instances, status code, and headers
+        """
+        generator, status_code, headers = await self.stream_with_http_info_async(
+            limit=limit,
+            page_size=page_size,
+        )
+        items = [record async for record in generator]
+        return ApiResponse(data=items, status_code=status_code, headers=headers)
 
     def page(
         self,
@@ -556,6 +865,76 @@ class TranscriptionsList(ListResource):
             method="GET", uri=self._uri, params=data, headers=headers
         )
         return TranscriptionsPage(self._version, response, self._solution)
+
+    def page_with_http_info(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with TranscriptionsPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = self._version.page_with_response_info(
+            method="GET", uri=self._uri, params=data, headers=headers
+        )
+        page = TranscriptionsPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
+
+    async def page_with_http_info_async(
+        self,
+        page_token: Union[str, object] = values.unset,
+        page_number: Union[int, object] = values.unset,
+        page_size: Union[int, object] = values.unset,
+    ) -> ApiResponse:
+        """
+        Asynchronously retrieve a single page with response metadata
+
+
+        :param page_token: PageToken provided by the API
+        :param page_number: Page Number, this value is simply for client state
+        :param page_size: Number of records to return, defaults to 50
+
+        :returns: ApiResponse with TranscriptionsPage, status code, and headers
+        """
+        data = values.of(
+            {
+                "PageToken": page_token,
+                "Page": page_number,
+                "PageSize": page_size,
+            }
+        )
+
+        headers = values.of({"Content-Type": "application/x-www-form-urlencoded"})
+
+        headers["Accept"] = "application/json"
+
+        response, status_code, response_headers = (
+            await self._version.page_with_response_info_async(
+                method="GET", uri=self._uri, params=data, headers=headers
+            )
+        )
+        page = TranscriptionsPage(self._version, response, self._solution)
+        return ApiResponse(data=page, status_code=status_code, headers=response_headers)
 
     def get_page(self, target_url: str) -> TranscriptionsPage:
         """
