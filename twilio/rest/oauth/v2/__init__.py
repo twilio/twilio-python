@@ -15,6 +15,7 @@ r"""
 from typing import Optional
 from twilio.base.version import Version
 from twilio.base.domain import Domain
+from twilio.rest.oauth.v2.authorize import AuthorizeList
 from twilio.rest.oauth.v2.token import TokenList
 
 
@@ -27,7 +28,14 @@ class V2(Version):
         :param domain: The Twilio.oauth domain
         """
         super().__init__(domain, "v2")
+        self._authorize: Optional[AuthorizeList] = None
         self._token: Optional[TokenList] = None
+
+    @property
+    def authorize(self) -> AuthorizeList:
+        if self._authorize is None:
+            self._authorize = AuthorizeList(self)
+        return self._authorize
 
     @property
     def token(self) -> TokenList:

@@ -1873,10 +1873,10 @@ class TollfreeVerificationList(ListResource):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
-        :param business_registration_number: A legally recognized business registration number
-        :param business_registration_authority: The organizational authority for business registrations
-        :param business_registration_country: Country business is registered in
-        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_registration_number: A legally recognized business registration number. Required for all business types except SOLE_PROPRIETOR.
+        :param business_registration_authority: The organizational authority for business registrations. Required for all business types except SOLE_PROPRIETOR.
+        :param business_registration_country: The country where the business is registered. Required for all business types except SOLE_PROPRIETOR.
+        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT. Required field.
         :param business_registration_phone_number: The E.164 formatted number associated with the business.
         :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
         :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
@@ -1999,10 +1999,10 @@ class TollfreeVerificationList(ListResource):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
-        :param business_registration_number: A legally recognized business registration number
-        :param business_registration_authority: The organizational authority for business registrations
-        :param business_registration_country: Country business is registered in
-        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_registration_number: A legally recognized business registration number. Required for all business types except SOLE_PROPRIETOR.
+        :param business_registration_authority: The organizational authority for business registrations. Required for all business types except SOLE_PROPRIETOR.
+        :param business_registration_country: The country where the business is registered. Required for all business types except SOLE_PROPRIETOR.
+        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT. Required field.
         :param business_registration_phone_number: The E.164 formatted number associated with the business.
         :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
         :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
@@ -2226,10 +2226,10 @@ class TollfreeVerificationList(ListResource):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
-        :param business_registration_number: A legally recognized business registration number
-        :param business_registration_authority: The organizational authority for business registrations
-        :param business_registration_country: Country business is registered in
-        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_registration_number: A legally recognized business registration number. Required for all business types except SOLE_PROPRIETOR.
+        :param business_registration_authority: The organizational authority for business registrations. Required for all business types except SOLE_PROPRIETOR.
+        :param business_registration_country: The country where the business is registered. Required for all business types except SOLE_PROPRIETOR.
+        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT. Required field.
         :param business_registration_phone_number: The E.164 formatted number associated with the business.
         :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
         :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.
@@ -2352,10 +2352,10 @@ class TollfreeVerificationList(ListResource):
         :param business_contact_email: The email address of the contact for the business or organization using the Tollfree number.
         :param business_contact_phone: The E.164 formatted phone number of the contact for the business or organization using the Tollfree number.
         :param external_reference_id: An optional external reference ID supplied by customer and echoed back on status retrieval.
-        :param business_registration_number: A legally recognized business registration number
-        :param business_registration_authority: The organizational authority for business registrations
-        :param business_registration_country: Country business is registered in
-        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT
+        :param business_registration_number: A legally recognized business registration number. Required for all business types except SOLE_PROPRIETOR.
+        :param business_registration_authority: The organizational authority for business registrations. Required for all business types except SOLE_PROPRIETOR.
+        :param business_registration_country: The country where the business is registered. Required for all business types except SOLE_PROPRIETOR.
+        :param business_type: The type of business, valid values are PRIVATE_PROFIT, PUBLIC_PROFIT, NON_PROFIT, SOLE_PROPRIETOR, GOVERNMENT. Required field.
         :param business_registration_phone_number: The E.164 formatted number associated with the business.
         :param doing_business_as: Trade name, sub entity, or downstream business name of business being submitted for verification
         :param opt_in_confirmation_message: The confirmation message sent to users when they opt in to receive messages.

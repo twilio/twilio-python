@@ -1,6 +1,5 @@
 import os
 import platform
-import warnings
 from typing import Dict, List, MutableMapping, Optional, Tuple
 from urllib.parse import urlparse, urlunparse
 
@@ -46,7 +45,7 @@ class ClientBase(object):
         """ :type : str """
         self.password = password or environment.get("TWILIO_AUTH_TOKEN")
         """ :type : str """
-        self.edge = ( edge or environment.get("TWILIO_EDGE"))
+        self.edge = edge or environment.get("TWILIO_EDGE")
         """ :type : str """
         self.region = region or environment.get("TWILIO_REGION")
         """ :type : str """

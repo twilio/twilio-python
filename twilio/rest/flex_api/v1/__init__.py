@@ -18,6 +18,7 @@ from twilio.base.domain import Domain
 from twilio.rest.flex_api.v1.assessments import AssessmentsList
 from twilio.rest.flex_api.v1.channel import ChannelList
 from twilio.rest.flex_api.v1.configuration import ConfigurationList
+from twilio.rest.flex_api.v1.create_flex_instance import CreateFlexInstanceList
 from twilio.rest.flex_api.v1.flex_flow import FlexFlowList
 from twilio.rest.flex_api.v1.insights_assessments_comment import (
     InsightsAssessmentsCommentList,
@@ -64,6 +65,7 @@ class V1(Version):
         self._assessments: Optional[AssessmentsList] = None
         self._channel: Optional[ChannelList] = None
         self._configuration: Optional[ConfigurationList] = None
+        self._create_flex_instance: Optional[CreateFlexInstanceList] = None
         self._flex_flow: Optional[FlexFlowList] = None
         self._insights_assessments_comment: Optional[InsightsAssessmentsCommentList] = (
             None
@@ -112,6 +114,12 @@ class V1(Version):
         if self._configuration is None:
             self._configuration = ConfigurationList(self)
         return self._configuration
+
+    @property
+    def create_flex_instance(self) -> CreateFlexInstanceList:
+        if self._create_flex_instance is None:
+            self._create_flex_instance = CreateFlexInstanceList(self)
+        return self._create_flex_instance
 
     @property
     def flex_flow(self) -> FlexFlowList:
