@@ -14,18 +14,6 @@ from twilio.credential.credential_provider import CredentialProvider
 class ClientBase(object):
     """A client for accessing the Twilio API."""
 
-    region_mappings = {
-        "au1": "sydney",
-        "br1": "sao-paulo",
-        "de1": "frankfurt",
-        "ie1": "dublin",
-        "jp1": "tokyo",
-        "jp2": "osaka",
-        "sg1": "singapore",
-        "us1": "ashburn",
-        "us2": "umatilla",
-    }
-
     def __init__(
         self,
         username: Optional[str] = None,
@@ -58,19 +46,7 @@ class ClientBase(object):
         """ :type : str """
         self.password = password or environment.get("TWILIO_AUTH_TOKEN")
         """ :type : str """
-        if (edge is not None and region is None) or (
-            region is not None and edge is None
-        ):
-            warnings.warn(
-                "For regional processing, DNS is of format product.<edge>.<region>.twilio.com; otherwise use product.twilio.com.",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-        self.edge = (
-            edge
-            or environment.get("TWILIO_EDGE")
-            or (self.region_mappings[region] if region is not None else "")
-        )
+        self.edge = ( edge or environment.get("TWILIO_EDGE"))
         """ :type : str """
         self.region = region or environment.get("TWILIO_REGION")
         """ :type : str """
